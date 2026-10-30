@@ -20,7 +20,7 @@
   </p>
 </div>
 
-> **当前构建：4.0.0-preview · Android versionCode 16。** 网页已部署至现有游客入口，Vercel 状态 Ready。源码与 APK 的发布证据见[本版交付记录](docs/GAMIFIED_UPGRADE_2026-10-30.md#部署与发布状态)。APK 为调试签名预览包，最低 Android 8.0，不是应用商店正式包。
+> **当前构建：4.0.0-preview · Android versionCode 16。** 网页已部署至现有游客入口，Vercel 状态 Ready。源码已推送、APK 已发布，CI 两项成功；发布证据见[本版交付记录](docs/GAMIFIED_UPGRADE_2026-10-30.md#部署与发布状态)。APK 为调试签名预览包，最低 Android 8.0，不是应用商店正式包。
 
 <p align="center">
   <img src="assets/stellar/expedition_voyage.png" alt="4.0 远航像素主视觉原画：二叉树通信站，非运行截图" width="100%" />
@@ -229,3 +229,5 @@ Windows Android：
 本项目在 [CurryHeng/KeLing_ICT](https://github.com/CurryHeng/KeLing_ICT) 基础上继续开发；当前由 [Hyhyhyyy](https://github.com/Hyhyhyyy) 维护，保留原始来源和演进证据。用户已取消周期性迭代任务，本版不会启用定时研发。
 
 代码采用 [MIT License](LICENSE)。Android 的 Noto Serif SC 字体另遵循 [SIL Open Font License 1.1](apps/android/app/src/main/assets/licenses/noto-serif-sc/OFL.txt)，[来源说明](apps/android/app/src/main/assets/licenses/noto-serif-sc/SOURCE.md)随包保留。视觉和开发使用 AI 辅助；生成来源随仓库保留，参赛或正式发布时仍须按适用规则披露和核查。
+
+提交材料：两份正式 DOCX 与视频设计保存在本地交付目录，范围和未完成项见[材料准备记录](docs/SUBMISSION_PREPARATION_2026-10-30.md)。

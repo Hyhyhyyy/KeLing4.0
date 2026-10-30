@@ -9,9 +9,9 @@
 | 本地源码与构建 | 已完成本节以下所列实现和检查 |
 | Web 现有入口 | [完整游客入口](https://keling-ict-preview.vercel.app/trial)；已切换到本版，Vercel CLI inspect 确认 Ready 与正式别名 |
 | 正式 Neon 数据库 | 已成功应用 `20261030010000_expedition`；迁移前已建立快照，见下文 |
-| GitHub 4.0 发布页 | [v4.0.0-preview](https://github.com/Hyhyhyyy/KeLing4.0/releases/tag/v4.0.0-preview) 为本次目标地址，发布状态待主任务确认 |
-| Android Release 附件 | 目标名称 `KeLing-ICT-4.0.0-cloud-debug.apk`；已构建，复制、上传与下载回读状态待主任务确认 |
-| 源码提交、标签、CI | 本记录不推测提交号或运行状态，由主任务在发布后补充 |
+| GitHub 4.0 发布页 | [v4.0.0-preview](https://github.com/Hyhyhyyy/KeLing4.0/releases/tag/v4.0.0-preview) 已公开发布为预览版，目标提交 `d36dfd1` |
+| Android Release 附件 | `KeLing-ICT-4.0.0-cloud-debug.apk` 与校验文件均已上传；GitHub asset 状态、长度和 SHA256 与本机一致，未另行完整下载175 MB文件 |
+| 源码提交、标签、CI | 应用提交 `d36dfd1bb0722dddf996f83ae93c076fd4d59e64`；标签 `v4.0.0-preview`；[CI 41012565393](https://github.com/Hyhyhyyy/KeLing4.0/actions/runs/41012565393) 的 Web/服务端及 Android 两任务均成功 |
 
 正式库迁移前快照为 `snap-odd-hall-ao34imc9`，名称 `before-keling-4.0.0-20261030`，保留至 **2026-11-06 06:00 UTC**。这记录已执行的备份点，不代表已经完成生产恢复演练。
 
@@ -126,11 +126,11 @@ Android 使用 JDK 17 / SDK 34；Windows 可运行 `./scripts/android-check.ps1 
 | 证书 SHA-256 | `e7b4d86c7a02fb6bb1d21215c393b347d2d67652e5e45dfbe3a3d6c66b7c67a3` |
 | API 地址 | `https://keling-ict-preview.vercel.app/api`，已检查 DEX 中的构建值 |
 
-同版本下载以 [GitHub Release](https://github.com/Hyhyhyyy/KeLing4.0/releases/tag/v4.0.0-preview) 为目标；当前是否已上传见本文件“部署与发布状态”。调试签名并非应用商店正式签名；跨签名安装、从真实旧数据升级及实际启动仍须设备验收。
+同版本 APK 与 SHA256 已发布在 [GitHub Release](https://github.com/Hyhyhyyy/KeLing4.0/releases/tag/v4.0.0-preview)，远端附件摘要和长度已回读核对。调试签名并非应用商店正式签名；跨签名安装、从真实旧数据升级及实际启动仍须设备验收。
 
 ## 尚需外部验收的边界
 
-1. **公网发布。** 正式库备份与增量迁移已完成，Vercel Ready 与正式别名已确认；线上 API 手工验收、GitHub Release 及附件回读状态需按上表核对。临时 PostgreSQL 分支结果不能替代上线核对。
+1. **公网发布。** 正式库备份与增量迁移已完成，Vercel Ready 与正式别名已确认；GitHub Release 与附件元数据核验也已完成。线上 API 与界面手工操作仍待补充。临时 PostgreSQL 分支结果不能替代上线核对。
 2. **新版真实界面。** Computer Use 曾因不能可靠确认 Windows 浏览器 URL 被停止，没有绕过限制。4.0 浏览器操作、320 / 390px、200% 字号、键盘导航、低动效实际画面和连续工作流仍待验收。3.2.4 截图只作历史基线。
 3. **Android 与双设备。** 没有手机 / 模拟器交互验收证据；安装升级、横竖屏、键盘遮挡、后台与进程销毁、旧资料回退、真实两端接管和恢复仍需实际设备。JVM 与事务测试不能替代录像或真机操作。
 4. **真实 AI 与华为联调。** 用户暂无有效 Key，已授权按“未实测”交付；真实厂商目录与权限、回答质量、引用支持、向量效果、费用和 AgentArts 运行未完成验收。当前部署为 Vercel / Neon，MaaS 为可选入口；Kotlin Android 不等于原生 HarmonyOS。
@@ -139,3 +139,5 @@ Android 使用 JDK 17 / SDK 34；Windows 可运行 `./scripts/android-check.ps1 
 7. **正式运营。** 本版是预览交付，未完成应用商店签名发布、长期运维 / 大规模并发、生产恢复演练及不同厂商设备覆盖测试。未测性能不作量化承诺，已有静态警告不隐去。
 
 产品用途说明见 [产品介绍](PRODUCT_INTRODUCTION.md)，本记录用于说明实现与验证证据。用户的原总设计存于 `docs/design/source`，原件保持不变；没有启用定时迭代。
+
+提交材料准备情况见 [材料与视频设计记录](SUBMISSION_PREPARATION_2026-10-30.md)。
