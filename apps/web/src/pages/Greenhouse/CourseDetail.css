@@ -19,19 +19,19 @@
 }
 
 /* 头部区域 */
-.course-header {
+.course-detail-container .course-header {
   padding: 60px 20px 30px;
   position: relative;
   color: white;
 }
 
-.header-nav {
+.course-detail-container .header-nav {
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
 }
 
-.back-btn {
+.course-detail-container .back-btn {
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -45,16 +45,16 @@
   transition: all 0.2s ease;
 }
 
-.back-btn:hover {
+.course-detail-container .back-btn:hover {
   background: rgba(255, 255, 255, 0.3);
 }
 
-.header-actions {
+.course-detail-container .header-actions {
   display: flex;
   gap: 8px;
 }
 
-.action-btn {
+.course-detail-container .action-btn {
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -68,32 +68,32 @@
   transition: all 0.2s ease;
 }
 
-.action-btn:hover {
+.course-detail-container .action-btn:hover {
   background: rgba(255, 255, 255, 0.3);
 }
 
-.action-btn.delete:hover {
+.course-detail-container .action-btn.delete:hover {
   background: rgba(255, 100, 100, 0.5);
 }
 
-.header-content {
+.course-detail-container .header-content {
   text-align: center;
   margin-bottom: 16px;
 }
 
-.course-icon {
+.course-detail-container .course-icon {
   font-size: 48px;
   margin-bottom: 12px;
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
 }
 
-.header-content h1 {
+.course-detail-container .header-content h1 {
   font-size: 24px;
   font-weight: 600;
   margin-bottom: 8px;
 }
 
-.course-code {
+.course-detail-container .course-code {
   display: inline-block;
   font-size: 13px;
   background: rgba(255, 255, 255, 0.2);
@@ -101,7 +101,7 @@
   border-radius: 12px;
 }
 
-.course-meta {
+.course-detail-container .course-meta {
   display: flex;
   justify-content: center;
   gap: 16px;
@@ -109,14 +109,14 @@
   opacity: 0.9;
 }
 
-.course-meta span {
+.course-detail-container .course-meta span {
   display: flex;
   align-items: center;
   gap: 4px;
 }
 
 /* 掌握度卡片 */
-.mastery-card {
+.course-detail-container .mastery-card {
   background: white;
   margin: -20px 16px 16px;
   border-radius: 16px;
@@ -126,7 +126,7 @@
   z-index: 10;
 }
 
-.mastery-header {
+.course-detail-container .mastery-header {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -134,29 +134,29 @@
   color: var(--color-earth-brown);
 }
 
-.mastery-header h3 {
+.course-detail-container .mastery-header h3 {
   font-size: 16px;
   font-weight: 600;
 }
 
-.mastery-visual {
+.course-detail-container .mastery-visual {
   display: flex;
   justify-content: center;
   margin-bottom: 16px;
 }
 
-.mastery-circle {
+.course-detail-container .mastery-circle {
   position: relative;
   width: 120px;
   height: 120px;
 }
 
-.mastery-circle svg {
+.course-detail-container .mastery-circle svg {
   width: 100%;
   height: 100%;
 }
 
-.mastery-value {
+.course-detail-container .mastery-value {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -165,14 +165,14 @@
   font-weight: 700;
 }
 
-.mastery-stats {
+.course-detail-container .mastery-stats {
   display: flex;
   justify-content: space-around;
   padding-top: 16px;
   border-top: 1px solid #eee;
 }
 
-.stat-item {
+.course-detail-container .stat-item {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -180,23 +180,23 @@
   color: var(--color-earth-brown-light);
 }
 
-.stat-value {
+.course-detail-container .stat-value {
   font-size: 20px;
   font-weight: 600;
   color: var(--color-earth-brown);
 }
 
-.stat-label {
+.course-detail-container .stat-label {
   font-size: 12px;
 }
 
 /* 快捷操作 */
-.quick-actions {
+.course-detail-container .quick-actions {
   padding: 0 16px;
   margin-bottom: 16px;
 }
 
-.action-card {
+.course-detail-container .action-card {
   display: flex;
   align-items: center;
   background: white;
@@ -208,12 +208,12 @@
   box-shadow: var(--shadow-sm);
 }
 
-.action-card:hover {
+.course-detail-container .action-card:hover {
   transform: translateX(4px);
   box-shadow: var(--shadow-md);
 }
 
-.action-icon {
+.course-detail-container .action-icon {
   width: 48px;
   height: 48px;
   border-radius: 12px;
@@ -224,49 +224,49 @@
   margin-right: 12px;
 }
 
-.action-content {
+.course-detail-container .action-content {
   flex: 1;
 }
 
-.action-content h4 {
+.course-detail-container .action-content h4 {
   font-size: 15px;
   color: var(--color-earth-brown);
   margin-bottom: 2px;
 }
 
-.action-content p {
+.course-detail-container .action-content p {
   font-size: 13px;
   color: var(--color-earth-brown-light);
 }
 
-.chevron {
+.course-detail-container .chevron {
   color: var(--color-earth-brown-light);
 }
 
 /* 知识点部分 */
-.knowledge-section {
+.course-detail-container .knowledge-section {
   padding: 0 16px;
 }
 
-.section-header {
+.course-detail-container .section-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 12px;
 }
 
-.section-header h3 {
+.course-detail-container .section-header h3 {
   font-size: 16px;
   color: var(--color-earth-brown);
   font-weight: 600;
 }
 
-.btn.small {
+.course-detail-container .btn.small {
   padding: 6px 12px;
   font-size: 12px;
 }
 
-.empty-nodes {
+.course-detail-container .empty-nodes {
   background: white;
   border-radius: 12px;
   padding: 40px;
@@ -276,22 +276,22 @@
   transition: all 0.2s ease;
 }
 
-.empty-nodes:hover {
+.course-detail-container .empty-nodes:hover {
   background: rgba(255, 255, 255, 0.8);
 }
 
-.empty-nodes p {
+.course-detail-container .empty-nodes p {
   margin-top: 8px;
   font-size: 14px;
 }
 
-.nodes-list {
+.course-detail-container .nodes-list {
   background: white;
   border-radius: 12px;
   overflow: hidden;
 }
 
-.node-item {
+.course-detail-container .node-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -300,25 +300,25 @@
   transition: all 0.2s ease;
 }
 
-.node-item:last-child {
+.course-detail-container .node-item:last-child {
   border-bottom: none;
 }
 
-.node-item:hover {
+.course-detail-container .node-item:hover {
   background: var(--color-dawn-white);
 }
 
-.node-info {
+.course-detail-container .node-info {
   flex: 1;
 }
 
-.node-info h4 {
+.course-detail-container .node-info h4 {
   font-size: 14px;
   color: var(--color-earth-brown);
   margin-bottom: 4px;
 }
 
-.node-desc {
+.course-detail-container .node-desc {
   font-size: 12px;
   color: var(--color-earth-brown-light);
   white-space: nowrap;
@@ -327,26 +327,26 @@
   max-width: 200px;
 }
 
-.node-mastery {
+.course-detail-container .node-mastery {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.mini-bar {
+.course-detail-container .mini-bar {
   height: 4px;
   width: 40px;
   border-radius: 2px;
 }
 
-.node-mastery span {
+.course-detail-container .node-mastery span {
   font-size: 12px;
   color: var(--color-earth-brown-light);
   min-width: 36px;
 }
 
 /* 编辑对话框 */
-.dialog-overlay {
+.course-detail-container .dialog-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -360,7 +360,7 @@
   padding: 20px;
 }
 
-.edit-dialog {
+.course-detail-container .edit-dialog {
   width: 100%;
   max-width: 400px;
   background: white;
@@ -368,7 +368,7 @@
   overflow: hidden;
 }
 
-.dialog-header {
+.course-detail-container .dialog-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -376,12 +376,12 @@
   border-bottom: 1px solid #eee;
 }
 
-.dialog-header h2 {
+.course-detail-container .dialog-header h2 {
   font-size: 16px;
   color: var(--color-earth-brown);
 }
 
-.close-btn {
+.course-detail-container .close-btn {
   background: none;
   border: none;
   font-size: 24px;
@@ -389,15 +389,15 @@
   cursor: pointer;
 }
 
-.dialog-content {
+.course-detail-container .dialog-content {
   padding: 20px;
 }
 
-.form-group {
+.course-detail-container .form-group {
   margin-bottom: 16px;
 }
 
-.form-group label {
+.course-detail-container .form-group label {
   display: block;
   font-size: 13px;
   color: var(--color-earth-brown);
@@ -405,10 +405,30 @@
   font-weight: 500;
 }
 
-.dialog-footer {
+.course-detail-container .dialog-footer {
   display: flex;
   justify-content: flex-end;
   gap: 12px;
   padding: 16px 20px;
   border-top: 1px solid #eee;
 }
+/* Independent of the overview card header and task icon-button styles. */
+.course-detail-container>.course-header{display:block;height:auto;padding:24px 20px 30px}
+.course-detail-container .header-nav{gap:12px;align-items:flex-start}
+.course-detail-container .header-actions{flex-wrap:wrap;justify-content:flex-end}
+#root .course-detail-container .action-btn,#root .course-detail-container .back-btn{width:44px;height:44px;min-width:44px;min-height:44px;flex:none}
+#root .course-detail-container .course-appearance-button{min-height:44px;min-width:44px;padding:9px 14px;border:1px solid #ffffff8a;border-radius:12px;background:#132c3bd9;color:white;white-space:normal;line-height:1.5;cursor:pointer}
+.course-detail-container .course-icon{display:flex;justify-content:center}
+.course-detail-container .course-appearance-name{font-size:.875rem;margin:0 0 8px;color:#fff}
+.course-detail-container .header-content h1{overflow-wrap:anywhere}
+.course-detail-container .course-meta{flex-wrap:wrap}
+.course-detail-container .course-meta span{min-width:0;overflow-wrap:anywhere}
+.course-detail-container .edit-dialog{max-width:620px;max-height:calc(100dvh - 32px);display:flex;flex-direction:column;min-width:0}
+.course-detail-container .dialog-content{min-height:0;overflow-y:auto;overscroll-behavior:contain}
+.course-detail-container .dialog-header,.course-detail-container .dialog-footer{flex-shrink:0;gap:12px}
+.course-detail-container .dialog-footer{flex-wrap:wrap}
+.course-detail-container .dialog-footer .btn{min-height:44px;white-space:normal}
+.course-detail-container .close-btn{min-width:44px;min-height:44px}
+.course-detail-container .course-form-error{margin:0;padding:8px 20px;color:#8c3030;overflow-wrap:anywhere}
+.course-detail-container button:focus-visible{outline:3px solid #b56e49;outline-offset:3px}
+@media(max-width:440px){.course-detail-container .dialog-overlay{padding:10px}.course-detail-container .dialog-content,.course-detail-container .dialog-header,.course-detail-container .dialog-footer{padding:14px}.course-detail-container>.course-header{padding:18px 14px 28px}}

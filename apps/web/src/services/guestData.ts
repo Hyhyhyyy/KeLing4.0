@@ -92,7 +92,7 @@ function newCourse(data: Input, userId: string): GuestCourse {
   return { id: id(), userId, name: text(data, 'name', '', 180, true).trim(), code: text(data, 'code', '', 100),
     teacher: text(data, 'teacher', '', 180), schedule: clone(schedule), location: text(data, 'location', '', 180),
     themeColor: text(data, 'themeColor', '#67a68b', 30), masteryLevel: 0, plantStage: 0,
-    planetStyleIndex: number(data, 'planetStyleIndex', 0, 0, 8, true), lastStudiedAt: null, totalStudyMinutes: 0,
+    planetStyleIndex: number(data, 'planetStyleIndex', 0, 0, 9, true), lastStudiedAt: null, totalStudyMinutes: 0,
     isArchived: false, semester: text(data, 'semester', '', 100), credit: number(data, 'credit', 0, 0, 100),
     studySessionCount: 0, createdAt: now, updatedAt: now };
 }

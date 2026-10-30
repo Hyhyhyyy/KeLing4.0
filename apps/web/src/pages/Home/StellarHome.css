@@ -10,3 +10,5 @@
 /* Independent source illustrations retain their complete composition. */
 .stellar-hero-window{display:flex;flex-direction:column;justify-content:center;min-height:0}.stellar-hero-window>.stellar-scene{position:static;inset:auto;width:100%;height:auto;object-fit:contain}.stellar-hero-window .station-plate{position:static;margin:12px;max-width:100%}.mission-content{grid-template-columns:minmax(150px,.8fr) minmax(0,1.2fr);align-items:center}.mission-content>.stellar-scene{height:auto;min-height:0;max-height:none;object-fit:contain}.empty-planet>.stellar-scene,.course-expedition>.stellar-scene,.stellar-module-grid .stellar-scene{height:auto;object-fit:contain}.empty-planet{align-items:center}.course-expedition{grid-template-columns:minmax(130px,.8fr) minmax(0,1.2fr)}
 @media(max-width:700px){.mission-content{grid-template-columns:112px minmax(0,1fr)}.stellar-hero-window{min-height:0}.stellar-module-grid .stellar-scene{height:auto}.course-expedition{grid-template-columns:120px minmax(0,1fr)}}
+
+.stellar-home .stellar-course>div{min-width:0}.stellar-home .stellar-course h3,.stellar-home .stellar-course p{overflow-wrap:anywhere}

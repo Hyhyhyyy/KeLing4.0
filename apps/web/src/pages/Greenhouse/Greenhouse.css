@@ -6,26 +6,26 @@
 }
 
 /* 页面标题 */
-.page-header {
+.greenhouse-page .page-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 32px;
 }
 
-.header-content h1 {
+.greenhouse-page .header-content h1 {
   font-size: 28px;
   font-weight: 700;
   margin-bottom: 4px;
 }
 
-.header-content p {
+.greenhouse-page .header-content p {
   font-size: 14px;
   color: var(--text-secondary);
 }
 
 /* 空状态 */
-.empty-state {
+.greenhouse-page .empty-state {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -37,44 +37,44 @@
   text-align: center;
 }
 
-.empty-icon {
+.greenhouse-page .empty-icon {
   font-size: 64px;
   margin-bottom: 16px;
 }
 
-.empty-state h3 {
+.greenhouse-page .empty-state h3 {
   font-size: 20px;
   margin-bottom: 8px;
 }
 
-.empty-state p {
+.greenhouse-page .empty-state p {
   color: var(--text-secondary);
   margin-bottom: 24px;
 }
 
 /* 课程网格 */
-.courses-grid {
+.greenhouse-page .courses-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
   gap: 24px;
 }
 
 /* 课程卡片 */
-.course-card {
+.greenhouse-page .course-card {
+  cursor: pointer;
   background: white;
   border-radius: 16px;
   border: 1px solid var(--border-color);
   overflow: hidden;
-  cursor: pointer;
   transition: all 0.2s;
 }
 
-.course-card:hover {
+.greenhouse-page .course-card:hover {
   box-shadow: var(--shadow-lg);
   transform: translateY(-4px);
 }
 
-.course-header {
+.greenhouse-page .course-header {
   height: 120px;
   display: flex;
   align-items: center;
@@ -82,12 +82,12 @@
   position: relative;
 }
 
-.course-emoji {
+.greenhouse-page .course-emoji {
   font-size: 48px;
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
 }
 
-.delete-btn {
+.greenhouse-page .delete-btn {
   position: absolute;
   top: 12px;
   right: 12px;
@@ -105,25 +105,25 @@
   transition: all 0.2s;
 }
 
-.course-card:hover .delete-btn {
+.greenhouse-page .course-card:hover .delete-btn {
   opacity: 1;
 }
 
-.delete-btn:hover {
+.greenhouse-page .delete-btn:hover {
   background: rgba(239, 68, 68, 0.8);
 }
 
-.course-body {
+.greenhouse-page .course-body {
   padding: 20px;
 }
 
-.course-body h3 {
+.greenhouse-page .course-body h3 {
   font-size: 18px;
   font-weight: 600;
   margin-bottom: 4px;
 }
 
-.course-code {
+.greenhouse-page .course-code {
   display: inline-block;
   font-size: 12px;
   color: var(--text-secondary);
@@ -133,7 +133,7 @@
   margin-bottom: 12px;
 }
 
-.course-meta {
+.greenhouse-page .course-meta {
   display: flex;
   gap: 16px;
   margin-bottom: 16px;
@@ -141,55 +141,55 @@
   color: var(--text-secondary);
 }
 
-.course-meta span {
+.greenhouse-page .course-meta span {
   display: flex;
   align-items: center;
   gap: 4px;
 }
 
-.mastery-section {
+.greenhouse-page .mastery-section {
   margin-bottom: 12px;
 }
 
-.mastery-label {
+.greenhouse-page .mastery-label {
   display: flex;
   justify-content: space-between;
   font-size: 12px;
   margin-bottom: 6px;
 }
 
-.mastery-value {
+.greenhouse-page .mastery-value {
   font-weight: 600;
   color: var(--text-primary);
 }
 
-.mastery-bar {
+.greenhouse-page .mastery-bar {
   height: 6px;
   background: var(--bg-secondary);
   border-radius: 3px;
   overflow: hidden;
 }
 
-.mastery-fill {
+.greenhouse-page .mastery-fill {
   height: 100%;
   border-radius: 3px;
   transition: width 0.3s;
 }
 
-.course-stats {
+.greenhouse-page .course-stats {
   display: flex;
   gap: 16px;
   font-size: 12px;
   color: var(--text-secondary);
 }
 
-.course-stats span {
+.greenhouse-page .course-stats span {
   display: flex;
   align-items: center;
   gap: 4px;
 }
 
-.course-footer {
+.greenhouse-page .course-footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -201,7 +201,7 @@
 }
 
 /* 对话框 */
-.dialog-overlay {
+.greenhouse-page .dialog-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -215,7 +215,7 @@
   padding: 20px;
 }
 
-.create-dialog {
+.greenhouse-page .create-dialog {
   width: 100%;
   max-width: 500px;
   background: white;
@@ -223,7 +223,7 @@
   overflow: hidden;
 }
 
-.dialog-header {
+.greenhouse-page .dialog-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -231,12 +231,12 @@
   border-bottom: 1px solid var(--border-color);
 }
 
-.dialog-header h2 {
+.greenhouse-page .dialog-header h2 {
   font-size: 18px;
   font-weight: 600;
 }
 
-.close-btn {
+.greenhouse-page .close-btn {
   background: none;
   border: none;
   color: var(--text-secondary);
@@ -244,66 +244,39 @@
   padding: 4px;
 }
 
-.close-btn:hover {
+.greenhouse-page .close-btn:hover {
   color: var(--text-primary);
 }
 
-.dialog-content {
+.greenhouse-page .dialog-content {
   padding: 24px;
 }
 
-.form-group {
+.greenhouse-page .form-group {
   margin-bottom: 20px;
 }
 
-.form-group label {
+.greenhouse-page .form-group label {
   display: block;
   font-size: 13px;
   font-weight: 500;
   margin-bottom: 8px;
 }
 
-.form-row {
+.greenhouse-page .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
 }
 
-/* 表情选择器 */
-.emoji-picker {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.emoji-option {
-  width: 44px;
-  height: 44px;
-  border: 2px solid var(--border-color);
-  border-radius: 10px;
-  background: var(--bg-secondary);
-  font-size: 22px;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.emoji-option:hover {
-  border-color: var(--color-primary);
-}
-
-.emoji-option.selected {
-  border-color: var(--color-primary);
-  background: rgba(99, 102, 241, 0.1);
-}
-
 /* 颜色选择器 */
-.color-picker {
+.greenhouse-page .color-picker {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
 }
 
-.color-option {
+.greenhouse-page .color-option {
   width: 36px;
   height: 36px;
   border: 3px solid transparent;
@@ -312,16 +285,16 @@
   transition: all 0.2s;
 }
 
-.color-option:hover {
+.greenhouse-page .color-option:hover {
   transform: scale(1.1);
 }
 
-.color-option.selected {
+.greenhouse-page .color-option.selected {
   border-color: var(--text-primary);
   box-shadow: 0 0 0 2px white;
 }
 
-.dialog-footer {
+.greenhouse-page .dialog-footer {
   display: flex;
   justify-content: flex-end;
   gap: 12px;
@@ -329,18 +302,38 @@
   border-top: 1px solid var(--border-color);
 }
 
-.dialog-footer .btn:disabled {
+.greenhouse-page .dialog-footer .btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
 
 /* 响应式 */
 @media (max-width: 768px) {
-  .courses-grid {
+  .greenhouse-page .courses-grid {
     grid-template-columns: 1fr;
   }
 
-  .form-row {
+  .greenhouse-page .form-row {
     grid-template-columns: 1fr;
   }
 }
+/* Shared planet art and a scrollable picker keep narrow / enlarged text layouts usable. */
+.greenhouse-page .course-header{height:156px;padding:16px;display:flex}
+.greenhouse-page .course-appearance-name{margin:0 0 10px;font-size:.8125rem;color:#52675f;overflow-wrap:anywhere}
+.greenhouse-page .course-meta,.greenhouse-page .course-stats{flex-wrap:wrap}
+.greenhouse-page .course-meta span,.greenhouse-page .course-stats span{min-width:0;overflow-wrap:anywhere}
+.greenhouse-page .course-body h3{overflow-wrap:anywhere}
+#root .greenhouse-page .delete-btn{width:44px;height:44px;min-width:44px;opacity:1;color:#fff;background:#542b35d9}
+#root .greenhouse-page .course-footer{border:0;width:100%;min-height:48px;gap:12px;text-align:left;line-height:1.6;white-space:normal;cursor:pointer;overflow-wrap:anywhere}
+.greenhouse-page .course-footer svg{flex:none}
+.greenhouse-page .create-dialog{max-width:620px;max-height:calc(100dvh - 32px);display:flex;flex-direction:column;min-width:0}
+.greenhouse-page .dialog-content{min-height:0;overflow-y:auto;overscroll-behavior:contain}
+.greenhouse-page .dialog-header,.greenhouse-page .dialog-footer{flex-shrink:0;gap:12px}
+.greenhouse-page .dialog-footer{flex-wrap:wrap}
+.greenhouse-page .dialog-footer .btn{min-height:44px;white-space:normal}
+.greenhouse-page .close-btn{min-width:44px;min-height:44px}
+.greenhouse-page .color-option{width:44px;height:44px}
+.greenhouse-page .form-group{min-width:0}
+.greenhouse-page .course-form-error{margin:0;padding:8px 24px;color:#8c3030;overflow-wrap:anywhere}
+.greenhouse-page button:focus-visible{outline:3px solid #b56e49;outline-offset:3px}
+@media(max-width:440px){.greenhouse-page .dialog-overlay{padding:10px}.greenhouse-page .dialog-content,.greenhouse-page .dialog-header,.greenhouse-page .dialog-footer{padding:14px}.greenhouse-page .page-header{flex-wrap:wrap;gap:16px}.greenhouse-page .empty-state{padding:28px 16px}}

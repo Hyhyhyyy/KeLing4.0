@@ -146,9 +146,9 @@ const StudyReport: React.FC = () => {
           <ul className="analysis-list">{current.suggestions.map(point => <li key={point}>{point}</li>)}</ul>
           <p className="report-source">以上为基于记录的通用提示，不是 AI 个性化诊断。</p>
         </section>
-        <section className="quick-actions-card"><h3>继续学习</h3><div className="action-buttons">
-          <button className="action-btn ai" onClick={() => navigate('/ai')}><Sparkles size={20}/><span>带着问题进入 AI 助手</span><ChevronRight size={16}/></button>
-          <button className="action-btn tasks" onClick={() => navigate('/tasks')}><CheckCircle size={20}/><span>查看与完成任务</span><ChevronRight size={16}/></button>
+        <section className="quick-actions-card"><h3>继续学习</h3><div className="report-action-buttons">
+          <button className="report-action-button" onClick={() => navigate('/ai')}><Sparkles size={20}/><span>带着问题进入 AI 助手</span><ChevronRight size={16}/></button>
+          <button className="report-action-button" onClick={() => navigate('/tasks')}><CheckCircle size={20}/><span>查看与完成任务</span><ChevronRight size={16}/></button>
         </div></section>
       </>}
   </div>;

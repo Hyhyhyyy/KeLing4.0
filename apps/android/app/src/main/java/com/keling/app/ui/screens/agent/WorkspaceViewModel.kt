@@ -39,5 +39,11 @@ class WorkspaceViewModel(private val token: String, private val api: WorkspaceAp
     }
     fun deleteNote(id: String) = action { api.deleteNote(token, id); load() }
     fun complete(id: String, minutes: Int) = action { agent.complete(token, id, minutes); load(); mutable.update { it.copy(notice = if (token.startsWith("guest-memory:")) "完成记录与奖励已保留在本次试用" else "完成记录与奖励已同步") } }
-    fun createCourse(name: String) = action { require(name.isNotBlank()); agent.createCourse(token, name.trim()); load() }
+    fun createCourse(name: String, planetStyleIndex: Int = 0, onSaved: () -> Unit = {}) = action {
+        require(name.isNotBlank()); agent.createCourse(token, name.trim(), planetStyleIndex); onSaved(); load()
+    }
+    fun updatePlanet(courseId: String, planetStyleIndex: Int, onSaved: () -> Unit) = action {
+        api.updatePlanet(token, courseId, planetStyleIndex); onSaved(); load()
+        mutable.update { it.copy(notice = if (token.startsWith("guest-memory:")) "星球形象已保留在本次试用" else "星球形象已保存，网页刷新后可见") }
+    }
 }

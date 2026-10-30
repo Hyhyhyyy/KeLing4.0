@@ -88,7 +88,10 @@ export const createCourse = async (req: AuthRequest, res: Response) => {
       return res.status(401).json({ error: '未认证' });
     }
 
-    const { name, code, teacher, schedule, location, themeColor, semester, credit, examDate } = req.body;
+    const { name, code, teacher, schedule, location, themeColor, semester, credit, examDate, planetStyleIndex } = req.body;
+    if (planetStyleIndex !== undefined && (!Number.isInteger(planetStyleIndex) || planetStyleIndex < 0 || planetStyleIndex > 9)) {
+      return res.status(400).json({ error: '星球外观编号必须为 0–9 的整数' });
+    }
 
     if (!name) {
       return res.status(400).json({ error: '课程名称为必填项' });
@@ -104,6 +107,7 @@ export const createCourse = async (req: AuthRequest, res: Response) => {
         schedule: JSON.stringify(schedule || []),
         location: location || '',
         themeColor: themeColor || '#E8A87C',
+        planetStyleIndex: planetStyleIndex ?? 0,
         semester: semester || null,
         credit: credit || 0,
         examDate: examDate ? new Date(examDate) : null
@@ -134,7 +138,10 @@ export const updateCourse = async (req: AuthRequest, res: Response) => {
     }
 
     const courseId = String(req.params.id);
-    const { name, code, teacher, schedule, location, themeColor, masteryLevel, isArchived } = req.body;
+    const { name, code, teacher, schedule, location, themeColor, masteryLevel, isArchived, planetStyleIndex } = req.body;
+    if (planetStyleIndex !== undefined && (!Number.isInteger(planetStyleIndex) || planetStyleIndex < 0 || planetStyleIndex > 9)) {
+      return res.status(400).json({ error: '星球外观编号必须为 0–9 的整数' });
+    }
 
     // 检查课程归属
     const existing = await prisma.course.findFirst({
@@ -152,6 +159,7 @@ export const updateCourse = async (req: AuthRequest, res: Response) => {
     if (schedule) updateData.schedule = JSON.stringify(schedule);
     if (location !== undefined) updateData.location = location;
     if (themeColor) updateData.themeColor = themeColor;
+    if (planetStyleIndex !== undefined) updateData.planetStyleIndex = planetStyleIndex;
     if (masteryLevel !== undefined) updateData.masteryLevel = masteryLevel;
     if (isArchived !== undefined) updateData.isArchived = isArchived;
 

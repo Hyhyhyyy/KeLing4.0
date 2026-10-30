@@ -99,6 +99,7 @@ export const courseAPI = {
     schedule?: any[];
     location?: string;
     themeColor?: string;
+    planetStyleIndex?: number;
   }) => api.post('/courses', data),
 
   update: (id: string, data: Partial<{
@@ -106,6 +107,9 @@ export const courseAPI = {
     code: string;
     teacher: string;
     schedule: any[];
+    location: string;
+    themeColor: string;
+    planetStyleIndex: number;
     masteryLevel: number;
     isArchived: boolean;
   }>) => api.put(`/courses/${id}`, data),

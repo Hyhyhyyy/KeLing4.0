@@ -64,11 +64,19 @@ class GuestWorkspace internal constructor(private val suppliedClient: HttpClient
         addSource(course.id, "递归与终止条件", "递归把问题缩小为同类子问题，需要终止条件，以及每一步接近终止条件的变化。例：0! = 1，n! = n × (n−1)!。")
     }
     fun courseList(): CourseResponse { ensureOpen(); return CourseResponse(courses = courses.toList()) }
-    fun cloudCourses() = CloudCourses(courses.map { CloudCourse(it.id, it.name, sources[it.id]?.size ?: 0) })
-    fun createCourse(name: String): CloudCourses {
-        ensureOpen(); require(name.trim().length in 1..100)
-        val course = CourseData(id(), name.trim()); courses.add(course)
-        return CloudCourses(course = CloudCourse(course.id, course.name))
+    fun cloudCourses() = CloudCourses(courses.map { CloudCourse(it.id, it.name, sources[it.id]?.size ?: 0, it.planetStyleIndex) })
+    fun createCourse(name: String, planetStyleIndex: Int = 0): CloudCourses {
+        ensureOpen(); require(name.trim().length in 1..100); com.keling.app.data.PlanetStyles.requireIndex(planetStyleIndex)
+        val course = CourseData(id(), name.trim(), planetStyleIndex = planetStyleIndex); courses.add(course)
+        return CloudCourses(course = CloudCourse(course.id, course.name, planetStyleIndex = planetStyleIndex))
+    }
+    fun updatePlanet(courseId: String, planetStyleIndex: Int): CourseResponse {
+        ensureOpen(); com.keling.app.data.PlanetStyles.requireIndex(planetStyleIndex)
+        val index = courses.indexOfFirst { it.id == courseId }
+        if (index < 0) throw ApiException(404, "课程不存在")
+        val updated = courses[index].copy(planetStyleIndex = planetStyleIndex)
+        courses[index] = updated
+        return CourseResponse(course = updated)
     }
     fun sourceList(courseId: String): CloudNodes { ensureOpen(); require(courses.any { it.id == courseId }); return CloudNodes(sources[courseId].orEmpty().map { CloudNode(it.id, it.title, it.text) }) }
     fun addSource(courseId: String, name: String, text: String) {

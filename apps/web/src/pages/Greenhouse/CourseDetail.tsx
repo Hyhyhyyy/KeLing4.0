@@ -1,5 +1,5 @@
 import { StellarSceneBanner } from '../../components/StellarScene';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
@@ -10,6 +10,9 @@ import { useAppStore } from '../../store/useAppStore';
 import { courseAPI, knowledgeAPI } from '../../services/api';
 import type { Course, KnowledgeNode } from '../../types';
 import AskAssistantButton from '../../components/AskAssistantButton';
+import { useCourseDialogFocus } from '../../components/useCourseDialogFocus';
+import { CoursePlanet, CoursePlanetPicker } from '../../components/CoursePlanet';
+import { coursePlanet, coursePlanetIndex } from '../../components/planetCatalog';
 import './CourseDetail.css';
 
 const CourseDetail: React.FC = () => {
@@ -21,11 +24,16 @@ const CourseDetail: React.FC = () => {
   const [nodes, setNodes] = useState<KnowledgeNode[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [showEditDialog, setShowEditDialog] = useState(false);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  useCourseDialogFocus(dialogRef, showEditDialog);
+  const [isSaving, setIsSaving] = useState(false);
+  const [editError, setEditError] = useState('');
   const [editData, setEditData] = useState({
     name: '',
     code: '',
     teacher: '',
-    location: ''
+    location: '',
+    planetStyleIndex: 0
   });
 
   useEffect(() => {
@@ -46,7 +54,8 @@ const CourseDetail: React.FC = () => {
         name: courseRes.data.course.name,
         code: courseRes.data.course.code || '',
         teacher: courseRes.data.course.teacher || '',
-        location: courseRes.data.course.location || ''
+        location: courseRes.data.course.location || '',
+        planetStyleIndex: coursePlanetIndex(courseRes.data.course.planetStyleIndex)
       });
     } catch (error) {
       console.error('加载课程详情失败:', error);
@@ -57,14 +66,31 @@ const CourseDetail: React.FC = () => {
   };
 
   const handleUpdateCourse = async () => {
-    if (!course || !editData.name.trim()) return;
+    if (!course || !editData.name.trim() || isSaving) return;
+    setIsSaving(true);
+    setEditError('');
     try {
-      await updateCourse(course.id, editData);
+      // Only submit changed values so changing the illustration cannot rewrite course data.
+      const changes: Partial<typeof editData> = {};
+      for (const key of ['name', 'code', 'teacher', 'location'] as const) {
+        if (editData[key] !== (course[key] || '')) changes[key] = editData[key];
+      }
+      if (editData.planetStyleIndex !== coursePlanetIndex(course.planetStyleIndex)) changes.planetStyleIndex = editData.planetStyleIndex;
+      if (Object.keys(changes).length > 0) await updateCourse(course.id, changes);
       setShowEditDialog(false);
-      loadCourseDetail();
-    } catch (error: any) {
-      alert(error.message);
+      await loadCourseDetail();
+    } catch (error: unknown) {
+      setEditError(error instanceof Error ? error.message : '保存失败，请重试。');
+    } finally {
+      setIsSaving(false);
     }
+  };
+
+  const openEditor = () => {
+    if (!course) return;
+    setEditData({ name: course.name, code: course.code || '', teacher: course.teacher || '', location: course.location || '', planetStyleIndex: coursePlanetIndex(course.planetStyleIndex) });
+    setEditError('');
+    setShowEditDialog(true);
   };
 
   const handleDeleteCourse = async () => {
@@ -124,14 +150,15 @@ const CourseDetail: React.FC = () => {
         animate={{ opacity: 1 }}
       >
         <div className="header-nav">
-          <button className="back-btn" onClick={() => navigate('/greenhouse')}>
+          <button className="back-btn" aria-label="返回知识星球" onClick={() => navigate('/greenhouse')}>
             <ArrowLeft size={20} />
           </button>
           <div className="header-actions">
-            <button className="action-btn" onClick={() => setShowEditDialog(true)}>
+            <button className="course-appearance-button" onClick={openEditor}><span>更换星球</span></button>
+            <button className="action-btn" aria-label="编辑课程" onClick={openEditor}>
               <Edit3 size={18} />
             </button>
-            <button className="action-btn delete" onClick={handleDeleteCourse}>
+            <button className="action-btn delete" aria-label="删除课程" onClick={handleDeleteCourse}>
               <Trash2 size={18} />
             </button>
           </div>
@@ -139,8 +166,9 @@ const CourseDetail: React.FC = () => {
 
         <div className="header-content">
           <div className="course-icon">
-            {['🌍', '🌙', '🌟', '💫', '🪐', '⭐'][course.planetStyleIndex % 6]}
+            <CoursePlanet index={course.planetStyleIndex} size={176} />
           </div>
+          <p className="course-appearance-name">{coursePlanet(course.planetStyleIndex).name}</p>
           <h1>{course.name}</h1>
           {course.code && <span className="course-code">{course.code}</span>}
         </div>
@@ -296,24 +324,30 @@ const CourseDetail: React.FC = () => {
 
       {/* 编辑对话框 */}
       {showEditDialog && (
-        <div className="dialog-overlay" onClick={() => setShowEditDialog(false)}>
+        <div className="dialog-overlay" onClick={() => { if (!isSaving) setShowEditDialog(false); }}>
           <motion.div
             className="edit-dialog"
+            ref={dialogRef} tabIndex={-1}
+            role="dialog" aria-modal="true" aria-labelledby="edit-course-title"
+            onKeyDown={event => { if (event.key === 'Escape' && !isSaving) setShowEditDialog(false); }}
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             onClick={(e) => e.stopPropagation()}
           >
             <div className="dialog-header">
-              <h2>编辑课程</h2>
-              <button className="close-btn" onClick={() => setShowEditDialog(false)}>×</button>
+              <h2 id="edit-course-title">课程与星球外观</h2>
+              <button className="close-btn" aria-label="关闭编辑课程" disabled={isSaving} onClick={() => { if (!isSaving) setShowEditDialog(false); }}>×</button>
             </div>
 
             <div className="dialog-content">
+              <CoursePlanetPicker value={editData.planetStyleIndex} disabled={isSaving}
+                onChange={planetStyleIndex => setEditData({ ...editData, planetStyleIndex })} />
               <div className="form-group">
-                <label>课程名称</label>
+                <label htmlFor="edit-course-name">课程名称</label>
                 <input
                   type="text"
-                  className="input"
+                  className="input" disabled={isSaving}
+                  id="edit-course-name"
                   value={editData.name}
                   onChange={(e) => setEditData({ ...editData, name: e.target.value })}
                 />
@@ -322,7 +356,7 @@ const CourseDetail: React.FC = () => {
                 <label>课程代码</label>
                 <input
                   type="text"
-                  className="input"
+                  className="input" disabled={isSaving}
                   value={editData.code}
                   onChange={(e) => setEditData({ ...editData, code: e.target.value })}
                 />
@@ -331,7 +365,7 @@ const CourseDetail: React.FC = () => {
                 <label>教师</label>
                 <input
                   type="text"
-                  className="input"
+                  className="input" disabled={isSaving}
                   value={editData.teacher}
                   onChange={(e) => setEditData({ ...editData, teacher: e.target.value })}
                 />
@@ -340,19 +374,20 @@ const CourseDetail: React.FC = () => {
                 <label>地点</label>
                 <input
                   type="text"
-                  className="input"
+                  className="input" disabled={isSaving}
                   value={editData.location}
                   onChange={(e) => setEditData({ ...editData, location: e.target.value })}
                 />
               </div>
             </div>
 
+            {editError && <p className="course-form-error" role="alert">{editError}</p>}
             <div className="dialog-footer">
-              <button className="btn btn-outline" onClick={() => setShowEditDialog(false)}>
+              <button className="btn btn-outline" disabled={isSaving} onClick={() => { if (!isSaving) setShowEditDialog(false); }}>
                 取消
               </button>
-              <button className="btn btn-primary" onClick={handleUpdateCourse}>
-                保存
+              <button className="btn btn-primary" onClick={handleUpdateCourse} disabled={isSaving || !editData.name.trim()}>
+                {isSaving ? '保存中…' : '保存'}
               </button>
             </div>
           </motion.div>

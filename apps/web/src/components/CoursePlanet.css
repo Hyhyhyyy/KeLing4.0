@@ -1,0 +1,12 @@
+.course-planet-art{display:block;flex-shrink:0;width:var(--planet-size,96px);max-width:100%;height:auto;aspect-ratio:1;object-fit:contain;image-rendering:pixelated}
+.course-planet-picker{min-width:0;margin:0 0 20px;padding:0;border:0}
+.course-planet-picker legend{padding:0;font-weight:700;color:#14263d}
+#root .course-planet-picker>p{margin:6px 0 12px;font-size:.875rem;line-height:1.7;color:#52675f}
+.course-planet-options{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,116px),1fr));gap:10px}
+#root .course-planet-option{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;min-width:0;min-height:44px;width:100%;height:auto;padding:10px 6px;border:2px solid #c6d6cc;border-radius:10px;background:#f7faf4;color:#244b43;cursor:pointer;font:inherit;line-height:1.5;white-space:normal;text-align:center}
+#root .course-planet-option span{max-width:100%;font-size:.875rem;overflow-wrap:anywhere}
+#root .course-planet-option small{font-size:.75rem;line-height:1.5;color:#52675f}
+#root .course-planet-option:hover{border-color:#508c77;background:#ecf4e9}
+#root .course-planet-option[aria-pressed=true]{border-color:#285950;background:#e1f1e5;box-shadow:0 0 0 1px #285950}
+#root .course-planet-option:focus-visible{outline:3px solid #b56e49;outline-offset:3px}
+#root .course-planet-option:disabled{opacity:.65;cursor:wait}

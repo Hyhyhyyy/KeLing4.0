@@ -1,14 +1,14 @@
 import { StellarSceneBanner } from '../../components/StellarScene';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, X, BookOpen, Clock, MapPin, User, ChevronRight } from 'lucide-react';
 import { useAppStore } from '../../store/useAppStore';
 import './Greenhouse.css';
-import { StellarSprite } from '../../components/StellarArt';
-import { subjectIndex } from '../../components/stellarCatalog';
+import { useCourseDialogFocus } from '../../components/useCourseDialogFocus';
+import { CoursePlanet, CoursePlanetPicker } from '../../components/CoursePlanet';
+import { coursePlanet } from '../../components/planetCatalog';
 
-const PLANET_EMOJIS = ['🌍', '🌙', '🌟', '💫', '🪐', '⭐', '🌕', '🔮'];
 const THEME_COLORS = [
   '#6366f1', '#8b5cf6', '#ec4899', '#f59e0b',
   '#10b981', '#3b82f6', '#ef4444', '#14b8a6'
@@ -19,6 +19,10 @@ const Greenhouse: React.FC = () => {
   const { courses, createCourse, deleteCourse, loadCourses } = useAppStore();
   useEffect(() => { void loadCourses(); const refresh = () => void loadCourses(); window.addEventListener('focus',refresh); return () => window.removeEventListener('focus',refresh); },[loadCourses]);
   const [showCreateDialog, setShowCreateDialog] = useState(false);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  useCourseDialogFocus(dialogRef, showCreateDialog);
+  const [isSaving, setIsSaving] = useState(false);
+  const [createError, setCreateError] = useState('');
   const [newCourse, setNewCourse] = useState({
     name: '',
     code: '',
@@ -29,8 +33,9 @@ const Greenhouse: React.FC = () => {
   });
 
   const handleCreateCourse = async () => {
-    if (!newCourse.name.trim()) return;
-
+    if (!newCourse.name.trim() || isSaving) return;
+    setIsSaving(true);
+    setCreateError('');
     try {
       await createCourse(newCourse);
       setShowCreateDialog(false);
@@ -42,8 +47,10 @@ const Greenhouse: React.FC = () => {
         themeColor: THEME_COLORS[0],
         planetStyleIndex: 0
       });
-    } catch (error: any) {
-      alert(error.message);
+    } catch (error: unknown) {
+      setCreateError(error instanceof Error ? error.message : '创建失败，请重试。');
+    } finally {
+      setIsSaving(false);
     }
   };
 
@@ -70,7 +77,7 @@ const Greenhouse: React.FC = () => {
           <h1>知识星球</h1>
           <p>管理和培育你的课程知识</p>
         </div>
-        <button className="btn btn-primary" onClick={() => setShowCreateDialog(true)}>
+        <button className="btn btn-primary" onClick={() => { setCreateError(''); setShowCreateDialog(true); }}>
           <Plus size={18} />
           添加课程
         </button>
@@ -88,7 +95,7 @@ const Greenhouse: React.FC = () => {
           <img src="/stellar/mascot_welcome.png" alt="星芽等待第一门课程" width="160" />
           <h3>还没有知识星球</h3>
           <p>创建你的第一门课程，开始知识探索之旅</p>
-          <button className="btn btn-primary" onClick={() => setShowCreateDialog(true)}>
+          <button className="btn btn-primary" onClick={() => { setCreateError(''); setShowCreateDialog(true); }}>
             创建课程
           </button>
         </motion.div>
@@ -107,10 +114,11 @@ const Greenhouse: React.FC = () => {
               >
                 <div className="course-header" style={{ background: course.themeColor }}>
                   <span className="course-emoji">
-                    <StellarSprite atlas="subjects" index={subjectIndex(course.name)} size={72} label={course.name} />
+                    <CoursePlanet index={course.planetStyleIndex} size={120} />
                   </span>
                   <button
                     className="delete-btn"
+                    aria-label={`删除课程：${course.name}`}
                     onClick={(e) => handleDeleteCourse(e, course.id)}
                   >
                     <X size={14} />
@@ -119,6 +127,7 @@ const Greenhouse: React.FC = () => {
 
                 <div className="course-body">
                   <h3>{course.name}</h3>
+                  <p className="course-appearance-name">{coursePlanet(course.planetStyleIndex).name}</p>
                   {course.code && <span className="course-code">{course.code}</span>}
 
                   <div className="course-meta">
@@ -149,10 +158,10 @@ const Greenhouse: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="course-footer">
-                  <span>查看详情</span>
-                  <ChevronRight size={16} />
-                </div>
+                <button type="button" className="course-footer" onClick={event => { event.stopPropagation(); navigate(`/greenhouse/${course.id}`); }} aria-label={`查看 ${course.name}，管理课程与星球外观`}>
+                  <span>查看详情 · 更换星球</span>
+                  <ChevronRight size={16} aria-hidden="true" />
+                </button>
               </motion.div>
             ))}
           </AnimatePresence>
@@ -167,28 +176,32 @@ const Greenhouse: React.FC = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setShowCreateDialog(false)}
+            onClick={() => { if (!isSaving) setShowCreateDialog(false); }}
           >
             <motion.div
               className="create-dialog"
+              ref={dialogRef} tabIndex={-1}
+              role="dialog" aria-modal="true" aria-labelledby="create-course-title"
+              onKeyDown={event => { if (event.key === 'Escape' && !isSaving) setShowCreateDialog(false); }}
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
             >
               <div className="dialog-header">
-                <h2>添加新课程</h2>
-                <button className="close-btn" onClick={() => setShowCreateDialog(false)}>
+                <h2 id="create-course-title">添加新课程</h2>
+                <button className="close-btn" aria-label="关闭创建课程" disabled={isSaving} onClick={() => { if (!isSaving) setShowCreateDialog(false); }}>
                   <X size={20} />
                 </button>
               </div>
 
               <div className="dialog-content">
                 <div className="form-group">
-                  <label>课程名称 *</label>
+                  <label htmlFor="new-course-name">课程名称 *</label>
                   <input
                     type="text"
-                    className="input"
+                    className="input" disabled={isSaving}
+                    id="new-course-name" data-modal-initial-focus
                     placeholder="如：高等数学"
                     value={newCourse.name}
                     onChange={(e) => setNewCourse({ ...newCourse, name: e.target.value })}
@@ -200,7 +213,7 @@ const Greenhouse: React.FC = () => {
                     <label>课程代码</label>
                     <input
                       type="text"
-                      className="input"
+                      className="input" disabled={isSaving}
                       placeholder="MATH101"
                       value={newCourse.code}
                       onChange={(e) => setNewCourse({ ...newCourse, code: e.target.value })}
@@ -210,7 +223,7 @@ const Greenhouse: React.FC = () => {
                     <label>教师</label>
                     <input
                       type="text"
-                      className="input"
+                      className="input" disabled={isSaving}
                       placeholder="授课教师"
                       value={newCourse.teacher}
                       onChange={(e) => setNewCourse({ ...newCourse, teacher: e.target.value })}
@@ -222,27 +235,15 @@ const Greenhouse: React.FC = () => {
                   <label>上课地点</label>
                   <input
                     type="text"
-                    className="input"
+                    className="input" disabled={isSaving}
                     placeholder="如：教学楼A101"
                     value={newCourse.location}
                     onChange={(e) => setNewCourse({ ...newCourse, location: e.target.value })}
                   />
                 </div>
 
-                <div className="form-group">
-                  <label>图标</label>
-                  <div className="emoji-picker">
-                    {PLANET_EMOJIS.map((emoji, index) => (
-                      <button
-                        key={emoji}
-                        className={`emoji-option ${newCourse.planetStyleIndex === index ? 'selected' : ''}`}
-                        onClick={() => setNewCourse({ ...newCourse, planetStyleIndex: index })}
-                      >
-                        {emoji}
-                      </button>
-                    ))}
-                  </div>
-                </div>
+                <CoursePlanetPicker value={newCourse.planetStyleIndex} disabled={isSaving}
+                  onChange={planetStyleIndex => setNewCourse({ ...newCourse, planetStyleIndex })} />
 
                 <div className="form-group">
                   <label>主题色</label>
@@ -250,6 +251,7 @@ const Greenhouse: React.FC = () => {
                     {THEME_COLORS.map((color) => (
                       <button
                         key={color}
+                        type="button" disabled={isSaving} aria-label={`课程主题色 ${color}`} aria-pressed={newCourse.themeColor === color}
                         className={`color-option ${newCourse.themeColor === color ? 'selected' : ''}`}
                         style={{ background: color }}
                         onClick={() => setNewCourse({ ...newCourse, themeColor: color })}
@@ -259,16 +261,17 @@ const Greenhouse: React.FC = () => {
                 </div>
               </div>
 
+              {createError && <p className="course-form-error" role="alert">{createError}</p>}
               <div className="dialog-footer">
-                <button className="btn btn-secondary" onClick={() => setShowCreateDialog(false)}>
+                <button className="btn btn-secondary" disabled={isSaving} onClick={() => { if (!isSaving) setShowCreateDialog(false); }}>
                   取消
                 </button>
                 <button
                   className="btn btn-primary"
                   onClick={handleCreateCourse}
-                  disabled={!newCourse.name.trim()}
+                  disabled={!newCourse.name.trim() || isSaving}
                 >
-                  创建课程
+                  {isSaving ? '创建中…' : '创建课程'}
                 </button>
               </div>
             </motion.div>

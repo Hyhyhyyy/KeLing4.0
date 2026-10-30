@@ -7,7 +7,7 @@
 
   <p>
     <a href="https://keling-ict-preview.vercel.app/trial"><img src="https://img.shields.io/badge/在线试用-无需注册-377A68?style=flat-square" alt="在线试用：无需注册" /></a>
-    <a href="https://github.com/Hyhyhyyy/KeLing4.0/releases/tag/v3.2.4-preview"><img src="https://img.shields.io/badge/当前构建-3.2.4--preview-D9AD54?style=flat-square" alt="当前构建：3.2.4-preview" /></a>
+    <a href="https://github.com/Hyhyhyyy/KeLing4.0/releases/tag/v3.2.5-preview"><img src="https://img.shields.io/badge/当前构建-3.2.5--preview-D9AD54?style=flat-square" alt="当前构建：3.2.5-preview" /></a>
     <a href="apps/android"><img src="https://img.shields.io/badge/Android-Kotlin-7F52FF?style=flat-square&logo=kotlin&logoColor=white" alt="Android：Kotlin" /></a>
     <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-163446?style=flat-square" alt="MIT License" /></a>
   </p>
@@ -15,13 +15,13 @@
   <p>
     <a href="https://keling-ict-preview.vercel.app/trial"><strong>立即游客试用 ↗</strong></a>
     &nbsp; · &nbsp;
-    <a href="https://github.com/Hyhyhyyy/KeLing4.0/releases/tag/v3.2.4-preview"><strong>下载 Android 预览包</strong></a>
+    <a href="https://github.com/Hyhyhyyy/KeLing4.0/releases/tag/v3.2.5-preview"><strong>下载 Android 预览包</strong></a>
     &nbsp; · &nbsp;
     <a href="docs/PRODUCT_INTRODUCTION.md"><strong>阅读产品介绍</strong></a>
   </p>
 </div>
 
-> **版本说明：** KeLing4.0 是本仓库与项目名称，当前可运行版本为 **3.2.4-preview**，Android versionCode **14**。预览 APK 使用调试签名，最低 Android 8.0；不是 4.0 编译版本或应用商店正式包。
+> **版本说明：** KeLing4.0 是本仓库与项目名称，当前可运行版本为 **3.2.5-preview**，Android versionCode **15**。预览 APK 使用调试签名，最低 Android 8.0；不是 4.0 编译版本或应用商店正式包。
 
 课灵围绕一次真实学习组织功能：整理资料，带着依据提问，保存自己的理解，再把计划落实为任务。AI 不替你确认完成，也不会在回答后自动修改学习数据。无需注册即可进入当前端的完整功能界面；需要长期保存和跨端接续时，再使用共享账号。
 
@@ -69,7 +69,30 @@
 
 两端功能按现有入口实现，并非每项完全相同。例如 Web 的图谱画布和文件导入／导出不能直接算作 Android 云工作区功能；Android 保留的本机田园空间与主工作区也未自动双向合并。详细范围见 [Web 清单](docs/WEB_FEATURE_INVENTORY_2026-10-30.md) 与 [Android 清单](docs/ANDROID_FEATURE_INVENTORY_2026-10-30.md)。
 
-视觉资源共 **44 张共享 PNG**，其中 **29 张为完整场景及入口原画**，其余包含标题、角色、头像、图标和功能图集；不是 44 张独立模块场景。两端共享星芽角色、星球标识与配色，按屏幕调整布局。原画由 AI 辅助生成，[提示词与来源](assets/stellar/prompts.json)随项目保留。
+视觉资源共 **54 张共享 PNG**，其中 **29 张为完整场景及入口原画**，其余包含标题、角色、头像、图标和功能图集；不是 44 张独立模块场景。两端共享星芽角色、星球标识与配色，按屏幕调整布局。原画由 AI 辅助生成，[提示词与来源](assets/stellar/prompts.json)随项目保留。
+
+### 十颗星球，选择自己的课程外观
+
+每颗都是独立绘制的像素原画。新建或编辑课程时选择，登录账号在网页和 Android 共享外观；游客仅在本次保留。换装不会改变学习进度或知识状态。
+
+<table>
+  <tr>
+    <td align="center"><img src="assets/stellar/planet_01.png" alt="翡翠书环" width="110"/><br/><sub>翡翠书环</sub></td>
+    <td align="center"><img src="assets/stellar/planet_02.png" alt="珊瑚火山" width="110"/><br/><sub>珊瑚火山</sub></td>
+    <td align="center"><img src="assets/stellar/planet_03.png" alt="极光冰晶" width="110"/><br/><sub>极光冰晶</sub></td>
+    <td align="center"><img src="assets/stellar/planet_04.png" alt="琥珀沙丘" width="110"/><br/><sub>琥珀沙丘</sub></td>
+    <td align="center"><img src="assets/stellar/planet_05.png" alt="云海雷霆" width="110"/><br/><sub>云海雷霆</sub></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="assets/stellar/planet_06.png" alt="深海潮汐" width="110"/><br/><sub>深海潮汐</sub></td>
+    <td align="center"><img src="assets/stellar/planet_07.png" alt="苔原花园" width="110"/><br/><sub>苔原花园</sub></td>
+    <td align="center"><img src="assets/stellar/planet_08.png" alt="紫晶洞窟" width="110"/><br/><sub>紫晶洞窟</sub></td>
+    <td align="center"><img src="assets/stellar/planet_09.png" alt="机械星核" width="110"/><br/><sub>机械星核</sub></td>
+    <td align="center"><img src="assets/stellar/planet_10.png" alt="银月陨坑" width="110"/><br/><sub>银月陨坑</sub></td>
+  </tr>
+</table>
+
+[原画与生成提示](assets/stellar/prompts-planets.json) · [3.2.5 按钮与星球验证记录](docs/PLANETS_WEB_2026-10-30.md)
 
 ## 不登录，也能完整使用
 
@@ -155,14 +178,14 @@ Windows Android：
 ./scripts/android-check.ps1 -Lint
 ```
 
-| 3.2.4 验证对象 | 结果 | 证据边界 |
+| 3.2.5 验证对象 | 结果 | 证据边界 |
 | --- | --- | --- |
-| 服务端 | 完整套件 **48 / 48**；发布发现检查 **2 / 2** | 后者含新增预发布选择用例，与完整套件有重叠；合成响应不代表真实厂商验证 |
+| 服务端 | 完整套件 **50 / 50** | 包含十款星球保存与原学习数据保护；合成响应不代表真实厂商验证 |
 | Web 游客 | **24 / 24** 测试通过 | 数据 10、整合 6、AI 8；覆盖隔离、版本、幂等、取消与迟到响应 |
-| Android | **52 / 52** JVM 测试通过 | 构建成功；没有真机交互验收 |
-| 静态检查 | Web **0 错误 / 36 警告**；Android **0 错误 / 97 警告** | 保留警告，不称零问题 |
-| 页面操作 | Web 完整游客工作流与 390px 窄屏已检查 | 没有用浏览器检查替代 Android 真机或跨设备演示 |
-| 发布资源 | APK v2 签名通过；44 张共享 PNG 逐项一致 | 调试签名预览包，不是商店正式签名 |
+| Android | **55 / 55** JVM 测试通过 | 构建成功；没有真机交互验收 |
+| 静态检查 | Web **0 错误 / 34 警告**；Android **0 错误 / 97 警告** | 保留警告，不称零问题 |
+| 页面操作 | 3.2.4 游客工作流与 390px 已检查；3.2.5 新界面视觉验收待完成 | 本轮电脑操作工具停止，未声称 320/390px 和 200% 字号已实测；Android 真机与跨设备演示同样未验收 |
+| 发布资源 | APK v2 签名通过；54 张共享 PNG 逐项一致 | 调试签名预览包，不是商店正式签名 |
 
 测试日期为 **2026-10-30**。构建、截图、部署与限制分别记录在[完整游客交付记录](docs/FULL_GUEST_2026-10-30.md)及[Android 验证记录](docs/ANDROID_FULL_GUEST_2026-10-30.md)。
 

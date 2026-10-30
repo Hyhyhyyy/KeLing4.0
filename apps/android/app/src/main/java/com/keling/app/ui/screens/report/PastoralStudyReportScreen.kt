@@ -150,13 +150,13 @@ private fun ReportHeader(onBack: () -> Unit) {
             shadowElevation = 0.dp
         ) {
             Box(
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp),
+                modifier = Modifier.size(48.dp),
                 contentAlignment = Alignment.Center
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.ic_arrow_left),
                     contentDescription = "返回",
-                    modifier = Modifier.size(60.dp)
+                    modifier = Modifier.size(24.dp)
                 )
             }
         }

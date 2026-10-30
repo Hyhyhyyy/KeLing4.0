@@ -782,7 +782,10 @@ class AppViewModel(application: Application, private val accountId: String, memo
      * 添加新课程
      */
     fun addCourse(course: Course) {
-        _courses.value = _courses.value + course
+        // The same wizard also edits a course: replace by stable ID instead of duplicating it.
+        _courses.value = if (_courses.value.any { it.id == course.id }) {
+            _courses.value.map { if (it.id == course.id) course else it }
+        } else _courses.value + course
         // 自动保存到本地
         viewModelScope.launch {
             dataRepository.courses.saveCourses(_courses.value + _archivedCourses.value)

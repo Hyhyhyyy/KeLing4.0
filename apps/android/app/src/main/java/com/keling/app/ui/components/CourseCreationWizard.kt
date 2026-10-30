@@ -701,15 +701,15 @@ private fun ThemeStep(
                         contentAlignment = Alignment.Center
                     ) {
                         AsyncImage(
-                            model = getPlanetAsset(actualIndex),
-                            contentDescription = "星球$actualIndex",
+                            model = "file:///android_asset/${getPlanetAsset(actualIndex)}",
+                            contentDescription = com.keling.app.data.PlanetStyles.name(actualIndex),
                             modifier = Modifier.size(56.dp),
                             contentScale = ContentScale.Fit
                         )
                     }
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
-                        text = "#${actualIndex + 1}",
+                        text = com.keling.app.data.PlanetStyles.name(actualIndex),
                         style = MaterialTheme.typography.labelSmall,
                         color = if (isSelected) MintGreen else EarthBrownLight
                     )
@@ -732,7 +732,7 @@ private fun ThemeStep(
                 ) {
                     if (planetStyleIndex >= 0) {
                         AsyncImage(
-                            model = getPlanetAsset(planetStyleIndex),
+                            model = "file:///android_asset/${getPlanetAsset(planetStyleIndex)}",
                             contentDescription = null,
                             modifier = Modifier.size(48.dp)
                         )

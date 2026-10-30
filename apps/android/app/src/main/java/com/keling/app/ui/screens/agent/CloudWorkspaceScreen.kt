@@ -39,6 +39,10 @@ fun CloudWorkspaceScreen(accountId: String, token: String, initialTab: String = 
     var edit by rememberSaveable { mutableStateOf(false) }; var title by rememberSaveable { mutableStateOf("") }; var text by rememberSaveable { mutableStateOf("") }
     var deleteNote by remember { mutableStateOf<NoteData?>(null) }
     var courseName by rememberSaveable { mutableStateOf("") }
+    var newPlanet by rememberSaveable { mutableStateOf(0) }
+    var planetPickerOpen by rememberSaveable { mutableStateOf(false) }
+    var planetCourseId by rememberSaveable { mutableStateOf<String?>(null) }
+    var planetDraft by rememberSaveable { mutableStateOf(0) }
     var focus by remember { mutableStateOf<TaskData?>(null) }
     var complete by remember { mutableStateOf<TaskData?>(null) }; var minutes by rememberSaveable { mutableStateOf("25") }
     var acknowledgedSave by rememberSaveable(accountId, token) { mutableStateOf(state.savedRevision) }
@@ -78,11 +82,25 @@ fun CloudWorkspaceScreen(accountId: String, token: String, initialTab: String = 
                 }
                 if (tab == "greenhouse") {
                     item { StellarSceneCard("scene_garden", if (guest != null) "本次知识星球" else "共享知识星球", "创建课程后，前往智能编排添加知识点与学习资料。") }
-                    item { Row(verticalAlignment = Alignment.CenterVertically) { OutlinedTextField(value = courseName, onValueChange = { courseName = it.take(100) }, label = { Text("新课程名称") }, modifier = Modifier.weight(1f)); TextButton(onClick = { vm.createCourse(courseName) }, enabled = !state.busy && courseName.isNotBlank()) { Text("添加") } } }
-                    items(state.courses, key = { it.id }) { course -> Card { Row(Modifier.fillMaxWidth().padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
-                        StellarSprite("subjects", subjectIndex(course.name), "学科", Modifier.size(60.dp)); Column(Modifier.weight(1f).padding(start = 12.dp)) { Text(course.name, style = MaterialTheme.typography.titleMedium); Text("已学 ${course.totalStudyMinutes} 分钟", style = MaterialTheme.typography.bodySmall)
-                            TextButton(onClick = { onAskAssistant(AssistantContextRef("course", course.id), "请根据这门课程当前可用的资料梳理核心概念，并用一个问题检查我的理解。") }, enabled = !state.busy) { Text("围绕课程问 AI") }
+                    item { Card { Column(Modifier.fillMaxWidth().padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                        OutlinedTextField(value = courseName, onValueChange = { courseName = it.take(100) }, label = { Text("新课程名称") }, modifier = Modifier.fillMaxWidth(), enabled = !state.busy, singleLine = true)
+                        OutlinedButton(onClick = { planetCourseId = null; planetDraft = newPlanet; planetPickerOpen = true }, enabled = !state.busy, modifier = Modifier.fillMaxWidth()) {
+                            CoursePlanetArt(newPlanet, Modifier.size(52.dp), description = null)
+                            Text("${com.keling.app.data.PlanetStyles.name(newPlanet)} · 选择星球", Modifier.padding(start = 8.dp))
                         }
+                        Button(onClick = { vm.createCourse(courseName, newPlanet) { courseName = "" } }, enabled = !state.busy && courseName.isNotBlank(), modifier = Modifier.fillMaxWidth()) { Text("创建知识星球") }
+                    } } }
+                    items(state.courses, key = { it.id }) { course -> Card { Column(Modifier.fillMaxWidth().padding(16.dp)) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            CoursePlanetArt(course.planetStyleIndex, Modifier.size(84.dp))
+                            Column(Modifier.weight(1f).padding(start = 12.dp)) {
+                                Text(course.name, style = MaterialTheme.typography.titleMedium)
+                                Text(com.keling.app.data.PlanetStyles.name(course.planetStyleIndex), style = MaterialTheme.typography.labelMedium)
+                                Text("已学 ${course.totalStudyMinutes} 分钟", style = MaterialTheme.typography.bodySmall)
+                            }
+                        }
+                        OutlinedButton(onClick = { planetCourseId = course.id; planetDraft = course.planetStyleIndex; planetPickerOpen = true }, enabled = !state.busy, modifier = Modifier.fillMaxWidth()) { Text("更换星球形象") }
+                        TextButton(onClick = { onAskAssistant(AssistantContextRef("course", course.id), "请根据这门课程当前可用的资料梳理核心概念，并用一个问题检查我的理解。") }, enabled = !state.busy, modifier = Modifier.fillMaxWidth()) { Text("围绕课程问 AI") }
                     } } }
                     item { Button(onClick = { onNavigate("cloud_agent") }, modifier = Modifier.fillMaxWidth()) { Text("管理课程资料与生成计划") } }
                 }
@@ -112,6 +130,17 @@ fun CloudWorkspaceScreen(accountId: String, token: String, initialTab: String = 
                 }
             }
         }
+        if (planetPickerOpen) PlanetPickerDialog(
+            title = if (planetCourseId == null) "选择新课程的星球" else "更换星球形象",
+            selectedIndex = planetDraft, onSelected = { planetDraft = it }, busy = state.busy,
+            error = if (planetCourseId != null) state.error else null,
+            description = if (guest != null) "形象与课程一起保留在本次试用，退出后清空。" else "形象保存在共享课程中，网页和手机使用同一选择。",
+            onConfirm = {
+                val id = planetCourseId
+                if (id == null) { newPlanet = planetDraft; planetPickerOpen = false }
+                else vm.updatePlanet(id, planetDraft) { planetPickerOpen = false }
+            }, onDismiss = { planetPickerOpen = false }
+        )
         if (edit) AlertDialog(onDismissRequest = { if (!state.busy) edit = false }, title = { Text(if (editId == null) if (guest != null) "新建本次笔记" else "新建共享笔记" else if (guest != null) "编辑本次笔记" else "编辑共享笔记") }, text = {
             Column { OutlinedTextField(value = title, onValueChange = { title = it.take(180) }, label = { Text("标题") }); OutlinedTextField(value = text, onValueChange = { text = it.take(50000) }, label = { Text("正文") }, modifier = Modifier.heightIn(min = 140.dp, max = 300.dp)); Text("先保存并关闭，再从笔记卡片问 AI。未保存草稿不会发送给模型。", style = MaterialTheme.typography.bodySmall); state.error?.let { Text(it, color = MaterialTheme.colorScheme.error) } }
         }, confirmButton = { TextButton(onClick = { vm.saveNote(editId, title, text, editVersion) }, enabled = !state.busy && title.isNotBlank() && text.isNotBlank()) { Text("保存") } }, dismissButton = { TextButton(onClick = { edit = false }, enabled = !state.busy) { Text("关闭") } })
@@ -137,9 +166,4 @@ fun CloudWorkspaceScreen(accountId: String, token: String, initialTab: String = 
         Text("专注期间保持屏幕唤醒；完成后由你确认同步。", style = MaterialTheme.typography.bodySmall)
         TextButton(onClick = { if (active) { remaining = (deadline - android.os.SystemClock.elapsedRealtime()).coerceAtLeast(0); active = false } else { deadline = android.os.SystemClock.elapsedRealtime() + remaining; active = true } }, enabled = remaining > 0) { Text(if (active) "暂停" else "继续") }
     } }, confirmButton = { TextButton(onClick = { onComplete(((total - remaining) / 60000).toInt()) }) { Text("结束并确认时长") } }, dismissButton = { TextButton(onClick = onDismiss) { Text("关闭计时") } })
-}
-private fun subjectIndex(name: String): Int = when {
-    name.contains("数学") || name.contains("高数") || name.contains("线性") -> 0; name.contains("物理") -> 1; name.contains("化学") -> 2; name.contains("生物") -> 3
-    name.contains("计算") || name.contains("程序") || name.contains("算法") || name.contains("数据结构") -> 4; name.contains("语") -> 5
-    name.contains("历史") -> 6; name.contains("地理") -> 7; else -> 8
 }
