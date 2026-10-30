@@ -16,5 +16,6 @@ for(const workspace of ['server','web']){
   const cwd=path.join(root,'apps',workspace);
   run(require.resolve('typescript/bin/tsc',{paths:[cwd]}),workspace==='web'?['-b']:[],cwd);
 }
-run(path.join(path.dirname(require.resolve('vite/package.json')),'bin/vite.js'),['build'],path.join(root,'apps/web'));
+const web=path.join(root,'apps/web');
+run(path.join(path.dirname(require.resolve('vite/package.json',{paths:[web]})),'bin/vite.js'),['build'],web);
 if(process.env.KELING_VERIFY_URL)run(path.join(root,'scripts/verify-deployment.cjs'),[]);
