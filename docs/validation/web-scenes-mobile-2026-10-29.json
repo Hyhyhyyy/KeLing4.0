@@ -1,0 +1,27 @@
+[
+  {
+    "route": "/notes",
+    "scrollWidth": 382,
+    "width": 390
+  },
+  {
+    "route": "/tasks",
+    "scrollWidth": 382,
+    "width": 390
+  },
+  {
+    "route": "/greenhouse",
+    "scrollWidth": 382,
+    "width": 390
+  },
+  {
+    "route": "/agent",
+    "scrollWidth": 382,
+    "width": 390
+  },
+  {
+    "route": "/explore",
+    "scrollWidth": 382,
+    "width": 390
+  }
+]

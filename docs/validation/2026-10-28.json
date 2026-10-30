@@ -1,0 +1,61 @@
+{
+  "date": "2026-10-28",
+  "baseline": "aa3693e738f58f082c421dc545048bf943d167f3",
+  "branch": "codex/kotlin-reliability-upgrade",
+  "nodeVersion": "v24.18.0",
+  "serverTests": {
+    "passed": 18,
+    "failed": 0,
+    "database": "isolated temporary SQLite",
+    "log": ".cache/server-tests.log"
+  },
+  "androidTests": {
+    "passed": 22,
+    "failed": 0,
+    "report": "apps/android/app/build/reports/tests/testDebugUnitTest/index.html"
+  },
+  "androidLint": {
+    "errors": 0,
+    "warnings": 93,
+    "report": "apps/android/app/build/reports/lint-results-debug.html"
+  },
+  "webServerCheck": {
+    "passed": true,
+    "eslintWarnings": 55,
+    "log": ".cache/web-server-check.log"
+  },
+  "npmAudit": {
+    "productionVulnerabilities": 0,
+    "allDependenciesRemainingLow": 4,
+    "log": ".cache/audit-production.log"
+  },
+  "browser": {
+    "actualViewportWidth": 615,
+    "checks": [
+      "local test-account login",
+      "course creation",
+      "source saved and retained across navigation",
+      "unconfigured planning disabled",
+      "small-screen navigation",
+      "session retry without new credentials"
+    ],
+    "screenshot": "docs/screenshots/workspace-preview.jpg",
+    "limitations": "Requested viewport overrides did not change actual IAB width; 390/1280 px and real devices remain unverified."
+  },
+  "apk": {
+    "path": "releases/KeLing-ICT-3.1.0-preview-debug.apk",
+    "bytes": 55399031,
+    "sha256": "2f33387e561cba3d7834578dc2a71c863dbd08b0d75c8e6a47b193c19f50db24",
+    "versionCode": 9,
+    "versionName": "3.1.0-preview",
+    "apiBaseUrl": "http://10.0.2.2:3001/api",
+    "signing": "Android debug key, not a production release"
+  },
+  "notVerified": [
+    "live Huawei AgentArts call",
+    "native HarmonyOS NEXT client",
+    "Android physical device/emulator UI execution",
+    "PostgreSQL concurrency and cloud deployment",
+    "GitHub Actions on remote branch"
+  ]
+}

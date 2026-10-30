@@ -1,0 +1,35 @@
+// A scene is an independent source illustration. Display sizes adapt to the
+// viewport; the catalog never treats a crop as a second scene.
+export const stellarScenes = {
+  station: { file: 'station_full', title: '首页 · 星际学习观测站', width: 2172, height: 724 },
+  lab: { file: 'scene_lab', title: 'AI 助手 · 星图实验舱', width: 1536, height: 1024 },
+  archive: { file: 'scene_archive', title: '共享笔记 · 轨道知识档案室', width: 1536, height: 1024 },
+  garden: { file: 'scene_garden', title: '课程 · 知识星球生态舱', width: 1536, height: 1024 },
+  focus: { file: 'scene_focus', title: '任务 · 月光专注工作室', width: 1536, height: 1024 },
+  planning: { file: 'scene_planning', title: '智能编排 · 航程规划桌', width: 1536, height: 1024 },
+  report: { file: 'scene_report', title: '学习报告 · 成长观测仪', width: 1536, height: 1024 },
+  profile: { file: 'scene_profile', title: '个人资料 · 星际身份舱', width: 1536, height: 1024 },
+  achievements: { file: 'scene_achievements', title: '成就 · 星辉陈列馆', width: 1536, height: 1024 },
+  settings: { file: 'scene_settings', title: '设置 · 空间控制台', width: 1536, height: 1024 },
+  graph: { file: 'scene_graph', title: '知识图谱 · 概念连线台', width: 1536, height: 1024 },
+  courseDetail: { file: 'scene_course_detail', title: '课程详情 · 学科勘察站', width: 2172, height: 724 },
+  atlas: { file: 'scene_atlas', title: '视觉图鉴 · 像素星图博物馆', width: 2172, height: 724 },
+  arrival: { file: 'scene_arrival', title: '课灵介绍 · 抵达学习星港', width: 2172, height: 724 },
+  login: { file: 'scene_login', title: '登录 · 返航接驳站', width: 2172, height: 724 },
+  register: { file: 'scene_register', title: '注册 · 新探索者启航站', width: 2172, height: 724 },
+  conversations: { file: 'scene_conversations', title: 'AI 会话侧栏 · 对话信号档案', width: 2172, height: 724 },
+  notebookShelf: { file: 'scene_notebook_shelf', title: '笔记侧栏 · 手记收藏架', width: 1536, height: 1024 },
+  homeMissions: { file: 'scene_home_missions', title: '首页任务区 · 今日航程仪', width: 1536, height: 1024 },
+  homeCourses: { file: 'scene_home_courses', title: '首页课程区 · 学科停泊港', width: 1536, height: 1024 },
+  portalPlanning: { file: 'portal_planning', title: '首页入口 · 计划启航门', width: 1536, height: 1024 },
+  portalNotes: { file: 'portal_notes', title: '首页入口 · 观测手记门', width: 1536, height: 1024 },
+  portalAtlas: { file: 'portal_atlas', title: '首页入口 · 像素图鉴门', width: 1536, height: 1024 },
+  introAi: { file: 'scene_intro_ai', title: '能力介绍 · 从问题到理解', width: 1536, height: 1024 },
+  introSync: { file: 'scene_intro_sync', title: '能力介绍 · 双端信号站', width: 1536, height: 1024 },
+  introPlan: { file: 'scene_intro_plan', title: '能力介绍 · 可追溯航路', width: 1536, height: 1024 },
+  companion: { file: 'scene_companion', title: '伙伴介绍 · 星芽的工作日', width: 1536, height: 1024 },
+  webWorkspace: { file: 'scene_web_workspace', title: '网页特色 · 宽屏研究台', width: 1536, height: 1024 },
+  mobileRover: { file: 'scene_mobile_rover', title: '移动端特色 · 随身探索车', width: 1536, height: 1024 },
+} as const;
+
+export type StellarSceneName = keyof typeof stellarScenes;

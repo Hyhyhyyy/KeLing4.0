@@ -1,0 +1,13 @@
+.git
+.cache
+.env*
+**/.env*
+**/node_modules
+**/*.db*
+apps/android
+releases
+docs
+/assets
+**/dist
+**/build
+**/*.log

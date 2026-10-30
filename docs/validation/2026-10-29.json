@@ -1,0 +1,70 @@
+{
+  "date": "2026-10-29",
+  "version": "3.2.0-preview",
+  "serverTests": {
+    "passed": 23,
+    "failed": 0,
+    "database": "isolated SQLite"
+  },
+  "androidTests": {
+    "passed": 25,
+    "failed": 0
+  },
+  "build": {
+    "web": true,
+    "server": true,
+    "androidDebug": true
+  },
+  "lint": {
+    "webErrors": 0,
+    "webWarnings": 48,
+    "androidErrors": 0,
+    "androidWarnings": 97,
+    "composeCustomChecksPartiallySkipped": true
+  },
+  "productionAuditVulnerabilities": 0,
+  "visuals": {
+    "pngFiles": 15,
+    "logicalElements": 39,
+    "sha256Parity": true
+  },
+  "browser": {
+    "build": "Vite production preview",
+    "widths": [
+      1440,
+      390
+    ],
+    "flows": [
+      "login",
+      "checkin",
+      "create shared note",
+      "save shared avatar",
+      "model protocol selection",
+      "context opt-in",
+      "independent embedding selection",
+      "visual library"
+    ],
+    "paidModelRequests": 0
+  },
+  "compose": {
+    "configValid": true,
+    "containerRuntimeVerified": false
+  },
+  "apk": {
+    "path": "releases/KeLing-ICT-3.2.0-preview-debug.apk",
+    "bytes": 73084538,
+    "sha256": "8e90613dc210b8f752a29b7891e195f2da3a58c3c94d1c4e052f0480237c02f4",
+    "versionCode": 10,
+    "debug": true,
+    "signatureV2Verified": true
+  },
+  "externalPending": [
+    "GitHub push permission",
+    "production host and DNS credentials",
+    "model and AgentArts credentials",
+    "Docker Linux engine",
+    "PostgreSQL runtime/concurrency",
+    "Android/Huawei physical-device verification",
+    "release signing rotation"
+  ]
+}

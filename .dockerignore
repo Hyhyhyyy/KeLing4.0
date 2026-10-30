@@ -1,0 +1,17 @@
+**/node_modules
+**/build
+**/dist
+**/dev-dist
+**/.gradle
+.git
+.cache
+.env*
+**/.env*
+**/*.db*
+**/*.jks*
+**/*.keystore
+apps/android
+assets
+releases
+**/*.log
+**/local.properties

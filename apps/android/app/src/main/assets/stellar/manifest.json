@@ -1,0 +1,313 @@
+{
+  "version": 1,
+  "assets": [
+    {
+      "name": "app_icon.png",
+      "bytes": 755011,
+      "sha256": "4f9b678a8823b982da67cddc3bdaa587df9838c44374cc756d86d3d9f5ae8409",
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "name": "avatars.png",
+      "bytes": 1595817,
+      "sha256": "31472d0de2ea1b3e7a3d013b18adc41b71a6f324afac30abfe51c7c7e5d1da4c",
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "name": "button_primary.png",
+      "bytes": 750355,
+      "sha256": "41ee6f21195f5b4ba8ca59ab39afc2bf24d237ca607eac9f37956822a43b9195",
+      "width": 1983,
+      "height": 793
+    },
+    {
+      "name": "checkin_frame.png",
+      "bytes": 931506,
+      "sha256": "1fc0c53dc3454dd525fda545858bb4728c51220f52c7a20e95debbffff857e97",
+      "width": 1774,
+      "height": 887
+    },
+    {
+      "name": "hero_web.png",
+      "bytes": 1671295,
+      "sha256": "ddf6d7fa904de4b5b3b668e62604d92ccf48036a48a1f438c0f69d18b5f86c20",
+      "width": 2172,
+      "height": 724
+    },
+    {
+      "name": "input_frame.png",
+      "bytes": 1079513,
+      "sha256": "caeab80b6acc25f2e38abbaa7f2cde49062abb29759ab538df01a2e9e42c94fc",
+      "width": 2172,
+      "height": 724
+    },
+    {
+      "name": "mascot_archive.png",
+      "bytes": 981908,
+      "sha256": "700231726773d967ebdc368b5d9d294e2cb605bae63e92f17fa6591b7ba2aff5",
+      "width": 1312,
+      "height": 1199
+    },
+    {
+      "name": "mascot_celebrate.png",
+      "bytes": 910183,
+      "sha256": "65deafcbe974116ce20c5d0a9b1a85cab1f2af4c3cf2e89c93e22ddf69715f8b",
+      "width": 1312,
+      "height": 1199
+    },
+    {
+      "name": "mascot_focus.png",
+      "bytes": 1029783,
+      "sha256": "30e355362375d8cb70603e34d6c94354643041fce0cbed2e272b37ab884f995d",
+      "width": 1312,
+      "height": 1199
+    },
+    {
+      "name": "mascot_mentor.png",
+      "bytes": 1062340,
+      "sha256": "6fa85b79f9d5cf7656384a78aadbd55c4f37c367231fd7ad10e6bf23fcd110f9",
+      "width": 1312,
+      "height": 1199
+    },
+    {
+      "name": "mascot_welcome.png",
+      "bytes": 903498,
+      "sha256": "476cb7b549d9f9daa8722f89faf56a7c607bbc52ef216137ed63061b728b1ae9",
+      "width": 1312,
+      "height": 1199
+    },
+    {
+      "name": "modules.png",
+      "bytes": 958670,
+      "sha256": "de147bdd7e997b8d2527cf18d6f64ae8708fab9b3a7513b5e64f3a1ac938b949",
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "name": "portal_atlas.png",
+      "bytes": 2827025,
+      "sha256": "70dff61c8cdb7b72d125b2b3f92494a12e457c8305204000935b9ce01089a46d",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "name": "portal_notes.png",
+      "bytes": 2732472,
+      "sha256": "e5a3ad0a2d3bd575eb635783262874eb1f98e7b3e9c7af9eba0ae3c0ff9f016f",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "name": "portal_planning.png",
+      "bytes": 2761817,
+      "sha256": "e4b20a23050daf42489d87d467c6edba638e6388e074ba56ffe18a69d50e9a43",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "name": "scene_achievements.png",
+      "bytes": 2837662,
+      "sha256": "dcd2093012e368d4e807d5ae718215188d31dbaaa9f288d3446384229459a076",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "name": "scene_archive.png",
+      "bytes": 2917967,
+      "sha256": "f3298eaaba1b0d10caf8542aa52565345e2f00e5431cc337480e6a652f2d91f6",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "name": "scene_arrival.png",
+      "bytes": 2744817,
+      "sha256": "36465ce667888edc8316d5d536be8ffbc6a8ac8a7d2ebf1f58524018ab5c462d",
+      "width": 2172,
+      "height": 724
+    },
+    {
+      "name": "scene_atlas.png",
+      "bytes": 2790445,
+      "sha256": "80776642fbcd0a3ceee588ea6a9a5e79726618e9d1ed7d13adf3e83c2d1f122d",
+      "width": 2172,
+      "height": 724
+    },
+    {
+      "name": "scene_companion.png",
+      "bytes": 2789739,
+      "sha256": "1cb693635f08df0d5d34aa5fca5c0ceb6521125e4a5366325b65c3933860d119",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "name": "scene_conversations.png",
+      "bytes": 2696131,
+      "sha256": "08e680af553bfeca45761ab388fb2666d13be8ca57a2905b190d378af98f092e",
+      "width": 2172,
+      "height": 724
+    },
+    {
+      "name": "scene_course_detail.png",
+      "bytes": 2899129,
+      "sha256": "4964fafb2cf19a3f4a7adcc1da67c5d43108b610bd9fdb7f73f6c130bae73eaf",
+      "width": 2172,
+      "height": 724
+    },
+    {
+      "name": "scene_focus.png",
+      "bytes": 2702199,
+      "sha256": "0b43b34d30ad4ea076240b90f2c67e0f785656c3a7c1a9922f636a21a62150d0",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "name": "scene_garden.png",
+      "bytes": 3317673,
+      "sha256": "de3bb63339ccc2724100691112c3cab076faee1f6ebbd83a4c4a01f2ee948670",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "name": "scene_graph.png",
+      "bytes": 2836721,
+      "sha256": "8f8166e7e7b9e20fbc966510106e224f8f84f00db40288c5a683b2bde85f26dc",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "name": "scene_home_courses.png",
+      "bytes": 2904219,
+      "sha256": "26e3f82cde95805593dbcd26b56bdcfe7855fb398149f9f5c238e667b1fb18ab",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "name": "scene_home_missions.png",
+      "bytes": 2847314,
+      "sha256": "9a3be3b3c873bd6c0977e027993ed838e55919b5ec202e9e58235d285c73c78c",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "name": "scene_intro_ai.png",
+      "bytes": 2877630,
+      "sha256": "4e50f1e4a7a53ed9575f9932e8a66e2a740e6b6e1d938a89dceebac25b98d101",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "name": "scene_intro_plan.png",
+      "bytes": 2600721,
+      "sha256": "1ea67c335df3f495191aa4ec7df62c3e2eaee6aa50e46e67e69791d13495d3bb",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "name": "scene_intro_sync.png",
+      "bytes": 2703397,
+      "sha256": "4c19da5496b12e79b7187a4a8c522679f3709a16d0d1c682c0cdd008c7f4bcc3",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "name": "scene_lab.png",
+      "bytes": 2585125,
+      "sha256": "3ea8ec75d574ec07ac009c6004bd907e901a7f40938fca5f547f8f41dbea25ea",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "name": "scene_login.png",
+      "bytes": 2398382,
+      "sha256": "3705231ee4f475982fd69d87eb82465fb0a4591f3b6d7af2da564fbbd10bb990",
+      "width": 2172,
+      "height": 724
+    },
+    {
+      "name": "scene_mobile_rover.png",
+      "bytes": 2651736,
+      "sha256": "56dec0bcaea537ecd9470fcbab999f530f302a22ddc48d73d1a9c4e6a9f00606",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "name": "scene_notebook_shelf.png",
+      "bytes": 2645532,
+      "sha256": "262b694a19fa194a5fbb9bba8694278a652c613f46837c32214da89f35752ad4",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "name": "scene_planning.png",
+      "bytes": 3015568,
+      "sha256": "ef10dd5ffbb238ff3add367d8bd8c0167e3bf85600641f9ec41289efd95447e7",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "name": "scene_profile.png",
+      "bytes": 2776562,
+      "sha256": "8ece902664d1ffe7d24f9b900a2e6b6d9543790f229bb97c3b7429e3e6915d2d",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "name": "scene_register.png",
+      "bytes": 2531039,
+      "sha256": "c0139a323ffad2b6b20f54ec70a0fff3eb3733d43018dc8b6e1f854f58d4acd0",
+      "width": 2172,
+      "height": 724
+    },
+    {
+      "name": "scene_report.png",
+      "bytes": 2803852,
+      "sha256": "ec2679c77c1259a9203ee5bf9529212537c637d085576ec26c1fffe6c2e66a33",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "name": "scene_settings.png",
+      "bytes": 2737209,
+      "sha256": "599424fe8e272e503fdf7a70162a329db70ae2101961fea9ddecce6f64a4d7d5",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "name": "scene_web_workspace.png",
+      "bytes": 2637183,
+      "sha256": "5b86ea12d53fae038a1a6dd07af7aa592a92917558f49428010ac138e6f55222",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "name": "station_full.png",
+      "bytes": 2554278,
+      "sha256": "0e6e29a448a15cd7de24eecfc5acbf92d6b54dd888624b43aec140384f21f5b7",
+      "width": 2172,
+      "height": 724
+    },
+    {
+      "name": "subjects.png",
+      "bytes": 1047804,
+      "sha256": "974420376bb2912599284c2587b8579cff1edb39be428d56633cd48137b37829",
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "name": "timer_frame.png",
+      "bytes": 1184996,
+      "sha256": "a225f700434022ee9a855c1221cf405720a38e485ac88d85f5ad24e6a3af5c1c",
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "name": "title_logo.png",
+      "bytes": 872877,
+      "sha256": "4a4948386448fd115081bcb59f994a90394b1d5ab8a197c30728bb3e7d0c3fa0",
+      "width": 1774,
+      "height": 887
+    }
+  ]
+}

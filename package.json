@@ -1,0 +1,41 @@
+{
+  "name": "keling-monorepo",
+  "version": "3.2.4-preview",
+  "private": true,
+  "description": "课灵 - 多端知识管理应用",
+  "workspaces": [
+    "apps/web",
+    "apps/server",
+    "packages/*"
+  ],
+  "scripts": {
+    "test": "node scripts/test-server.cjs",
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:web\"",
+    "dev:web": "cd apps/web && npm run dev",
+    "dev:server": "cd apps/server && npm run dev",
+    "dev:android": "echo '请在 Android Studio 中打开 apps/android 目录运行'",
+    "build": "npm run build:web && npm run build:server",
+    "build:web": "cd apps/web && npm run build",
+    "build:server": "cd apps/server && npm run build",
+    "build:vercel": "node scripts/build-vercel.cjs",
+    "cloud:migrate": "node scripts/migrate-cloud.cjs",
+    "lint": "npm run lint --workspace=keling-web",
+    "check": "npm run lint && npm run build",
+    "install:all": "npm install && cd apps/server && npm install && cd ../web && npm install",
+    "setup:local": "node scripts/setup-local.cjs"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=22.13"
+  },
+  "overrides": {
+    "@prisma/config": {
+      "deepmerge-ts": "8.0.2"
+    },
+    "@vercel/cli-config": {
+      "zod": "4.6.7"
+    }
+  }
+}

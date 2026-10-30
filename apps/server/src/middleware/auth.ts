@@ -1,0 +1,51 @@
+import { Response, NextFunction } from 'express';
+import jwt from 'jsonwebtoken';
+import { requireJwtSecret } from '../config/security';
+
+const JWT_VERIFY_OPTIONS = {
+  algorithms: ['HS256'] as jwt.Algorithm[],
+  issuer: 'keling-server',
+  audience: 'keling-clients'
+};
+
+export interface AuthRequest {
+  userId?: string;
+  headers: any;
+  body: any;
+  params: any;
+  query: any;
+  user?: any;
+}
+
+export const authMiddleware = (req: AuthRequest, res: Response, next: NextFunction) => {
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({ error: '未提供认证令牌' });
+  }
+
+  const token = authHeader.split(' ')[1];
+
+  try {
+    const decoded = jwt.verify(token, requireJwtSecret(), JWT_VERIFY_OPTIONS) as { userId: string };
+    req.userId = decoded.userId;
+    next();
+  } catch {
+    return res.status(401).json({ error: '令牌无效或已过期' });
+  }
+};
+
+export const optionalAuth = (req: AuthRequest, res: Response, next: NextFunction) => {
+  const authHeader = req.headers.authorization;
+
+  if (authHeader && authHeader.startsWith('Bearer ')) {
+    const token = authHeader.split(' ')[1];
+    try {
+      const decoded = jwt.verify(token, requireJwtSecret(), JWT_VERIFY_OPTIONS) as { userId: string };
+      req.userId = decoded.userId;
+    } catch {
+      // Token invalid, but continue without auth
+    }
+  }
+  next();
+};

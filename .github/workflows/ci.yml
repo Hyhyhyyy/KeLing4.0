@@ -1,0 +1,53 @@
+name: Quality gates
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: quality-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  web-and-server:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: node scripts/verify-stellar-assets.cjs
+      - run: node apps/server/node_modules/prisma/build/index.js generate --schema apps/server/prisma/schema.prisma
+      - name: Audit production dependencies
+        run: |
+          npm audit --omit=dev --audit-level=high
+      - run: npm run check
+      - run: npm test
+      - name: Verify ephemeral guest workspace and AI boundaries
+        run: node --test scripts/test-guest-data.cjs scripts/test-guest-ai.cjs scripts/guest-workspace.test.cjs
+
+  android-debug:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3 # v4
+        with:
+          distribution: temurin
+          java-version: "17"
+          cache: gradle
+      - run: chmod +x apps/android/gradlew
+      - name: Unit test and build unsigned debug APK
+        working-directory: apps/android
+        run: ./gradlew testDebugUnitTest assembleDebug lintDebug

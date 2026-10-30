@@ -1,0 +1,10 @@
+{
+  "python": "C:\\Users\\lenovo\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+  "renderer": "C:\\Users\\lenovo\\.codex\\plugins\\cache\\openai-primary-runtime\\documents\\26.1020.11618\\skills\\documents\\render_docx.py",
+  "soffice_on_path": null,
+  "docx_pages_rendered": 0,
+  "docx_created": false,
+  "status": "Renderer unavailable",
+  "reason": "LibreOffice soffice.exe was not found on PATH",
+  "fallback": "Deliver the verified content as Markdown and a same-source offline HTML; do not deliver an unrendered DOCX"
+}

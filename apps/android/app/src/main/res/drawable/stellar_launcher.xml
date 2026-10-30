@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Keep the wide orbit inside the adaptive icon's central safe area. -->
+<inset xmlns:android="http://schemas.android.com/apk/res/android" android:drawable="@drawable/stellar_app_icon" android:inset="18%" />

@@ -1,0 +1,244 @@
+/* Shared type hierarchy. #root keeps lazily loaded page CSS from changing it.
+   Colours belong to semantic roles; inverse surfaces are handled explicitly below. */
+:root {
+  --font-ui: "Inter", "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", "Noto Sans SC", system-ui, sans-serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  --type-heading: #14263d;
+  --type-body: #34483f;
+  --type-secondary: #52675f;
+  --type-muted: #607168;
+  --type-accent: #285950;
+  --type-success: #256349;
+  --type-warning: #815018;
+  --type-danger: #a7352b;
+  --type-inverse: #fffcf4;
+  --type-inverse-secondary: #d8e9df;
+  --text-primary: var(--type-heading);
+  --text-secondary: var(--type-secondary);
+  --text-muted: var(--type-muted);
+  --color-earth-brown: var(--type-heading);
+  --color-earth-brown-light: var(--type-secondary);
+}
+
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body, #root, #root .explore-page {
+  font-family: var(--font-ui);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.75;
+  color: var(--type-body);
+}
+#root :is(button, input, select, textarea) {
+  font-family: var(--font-ui);
+  letter-spacing: 0;
+}
+#root :is(input, textarea, select) {
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.65;
+  color: var(--type-heading);
+}
+#root :is(input, textarea)::placeholder { color: var(--type-muted); opacity: 1; }
+#root :is(button, .btn) { font-size: 14px; font-weight: 600; line-height: 1.5; }
+#root :is(h1, h2, h3, h4) {
+  font-family: var(--font-ui);
+  color: var(--type-heading);
+  font-weight: 700;
+  letter-spacing: 0;
+  text-wrap: pretty;
+  overflow-wrap: anywhere;
+}
+#root h1 { font-size: clamp(26px, 2.4vw, 32px); line-height: 1.4; }
+#root h2 { font-size: 21px; line-height: 1.5; }
+#root h3 { font-size: 18px; line-height: 1.5; }
+#root h4 { font-size: 16px; line-height: 1.55; font-weight: 600; }
+#root p { font-size: 15px; font-weight: 400; line-height: 1.8; overflow-wrap: anywhere; }
+#root :is(strong, b) { font-weight: 600; }
+#root small { font-size: 12px; line-height: 1.65; }
+#root :is(code, pre, kbd) { font-family: var(--font-mono); }
+#root pre { overflow-x: auto; }
+#root :is(label, summary) { font-size: 14px; font-weight: 600; line-height: 1.6; }
+#root :is(.nav-link, .menu-item span, .filter-tab, .category-tab) { font-size: 14px; font-weight: 600; }
+#root .nav-link { color: var(--type-secondary); }
+#root .nav-link.active { font-weight: 700; }
+#root .user-stats .energy { color: var(--type-warning); }
+#root .user-stats .crystals { color: var(--type-success); }
+#root :is(.nav-brand, .nav-link, .user-avatar) { flex-shrink: 0; }
+
+/* Page introductions and supporting prose. */
+#root :is(.page-header p, .stellar-heading p, .shared-notebook header p,
+  .agent-hero p, .auth-logo p, .header-info p, .header-content > p) {
+  color: var(--type-secondary);
+  font-size: 14px;
+  line-height: 1.75;
+}
+#root :is(.eyebrow, .agent-eyebrow, .explore-eyebrow, .shared-notebook header span) {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.6;
+  letter-spacing: .1em;
+  color: var(--type-accent);
+}
+#root :is(.stellar-muted, .stellar-empty, .agent-hint, .agent-empty,
+  .report-source, .report-method, .node-desc, .time-tag, .resource-label,
+  .stat-label, .course-code, .course-meta, .course-stats, .mastery-label,
+  .legend-label, .node-mastery, .auth-footer, .rewards-label) {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--type-secondary);
+}
+#root :is(.stellar-empty p, .daily-supply p, .empty-planet p, .stellar-module-grid p,
+  .course-expedition p, .scene-banner-copy p, .model-setup details p,
+  .session-observatory p, .notebook-shelf p, .stellar-settings p,
+  .explore-grid p, .explore-companion p, .explore-devices p, .action-content p,
+  .visual-library > p, .visual-library footer) {
+  color: var(--type-secondary);
+  font-size: 14px;
+  line-height: 1.8;
+}
+#root :is(.stellar-course p, .stellar-task-row small, .daily-supply small,
+  .session small, .conversation-toolbar small, .stellar-composer small,
+  .notebook-layout aside button small, .notebook-layout section > small,
+  .agent-history small, .agent-trace small, .avatar-picker small,
+  .visual-library figcaption, .explore-footer, .explore-hero figcaption) {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--type-muted);
+}
+#root :is(.stellar-course h3, .course-body h3, .task-info h4, .node-info h4,
+  .stellar-task-row strong, .session strong, .notebook-layout aside strong,
+  .agent-history, .node-name) {
+  color: var(--type-heading);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+#root :is(.session-list h2, .conversation h2, .notebook-shelf strong,
+  .session-observatory strong) { font-size: 16px; font-weight: 700; }
+#root :is(.stellar-section-title a, .stellar-link, .scene-banner-copy a,
+  .course-footer, .stellar-module-grid span, .course-expedition span,
+  .empty-planet strong, .session-observatory a, .auth-footer a,
+  .stellar-settings a, .agent-section-heading a, .agent-material summary) {
+  color: var(--type-accent);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.65;
+}
+#root :is(.quick-prompts button, .assistant-bubble button, .notebook-actions button,
+  .conversation-toolbar button, .btn.small) { font-size: 13px; }
+#root :is(.assistant-bubble details, .model-fields label, .context-toggle,
+  .agent-badge, .agent-steps li, .type-label, .form-group label) { font-size: 13px; line-height: 1.65; }
+#root :is(.user-bubble p, .assistant-bubble p, .agent-summary, .notebook-layout textarea) {
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.9;
+  color: var(--type-body);
+}
+#root .stellar-turn small { color: var(--type-accent); font-size: 12px; font-weight: 700; }
+#root .notebook-layout label > input { font-weight: 600; }
+#root .notebook-layout aside > :is(input, button) { flex-shrink: 0; }
+
+/* Make quantities easy to scan, while units and descriptions stay quiet. */
+#root :is(.stellar-metrics strong, .stat-num, .stat-value, .resource-value,
+  .data-value, .mastery-value, .duration-value, .zoom-percent,
+  .timer-display, .task-timer, .exp-text, .progress-text, .range-value, .user-stats) {
+  font-variant-numeric: tabular-nums lining-nums;
+  font-feature-settings: "tnum";
+}
+#root :is(.stellar-metrics strong, .stat-num, .resource-value) {
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -.02em;
+  color: var(--type-heading);
+}
+#root :is(.stat-value, .mastery-value) { font-weight: 700; color: var(--type-accent); }
+#root :is(.stellar-metrics span, .stat-unit, .exp-text) { font-size: 13px; line-height: 1.6; }
+#root .stellar-metrics span { color: var(--type-secondary); }
+#root :is(.timer-display, .task-timer) { font-family: var(--font-ui); font-weight: 700; letter-spacing: .02em; }
+#root .stat-card.pending .stat-num { color: var(--type-secondary); }
+#root .stat-card.progress .stat-num { color: var(--type-accent); }
+#root .stat-card.completed .stat-num { color: var(--type-success); }
+#root :is(.task-rewards, .rewards-values, .course-tag, .reward-item) { color: var(--type-warning); font-weight: 600; }
+#root :is(.reward-item.crystals, .resource-item.crystals) { color: var(--type-success); }
+#root .status-tag { font-size: 12px; font-weight: 700; }
+#root .tasks-container .task-info h4 { white-space: normal; overflow: visible; }
+#root .tasks-container .task-meta { flex-wrap: wrap; }
+#root .tasks-container .time-tag, #root .tasks-container .status-tag { white-space: nowrap; }
+#root .tasks-container .task-card.completed { opacity: 1; }
+#root .tasks-container :is(.filter-tab.active, .task-timer, .fab-add, .btn-timer-stop) { color: var(--type-heading); }
+#root .tasks-container :is(.action-btn.start, .action-btn.complete) { background: var(--type-accent); color: var(--type-inverse); }
+#root .top-nav .user-avatar { width: 40px; height: 40px; }
+#root .task-card.completed h4 { color: var(--type-secondary); }
+#root :is(.error-message, .agent-error, .logout-btn) { color: var(--type-danger); font-weight: 500; }
+#root :is(.stellar-alert, .notebook-alert, .report-error, .agent-notice) { color: var(--type-warning); font-size: 14px; line-height: 1.8; }
+#root :is(.stellar-notice, .notebook-notice, .stellar-status) { color: var(--type-success); font-size: 14px; font-weight: 500; }
+
+/* Dark surfaces: never inherit dark text from a light page's text role. */
+#root .stellar-hero h1 { font-size: clamp(28px, 2.6vw, 38px); color: var(--type-inverse); line-height: 1.4; }
+#root .stellar-hero p { font-size: 15px; color: var(--type-inverse-secondary); }
+#root .stellar-hero .eyebrow { color: #9be5cc; }
+#root .hero-destinations a { font-size: 12px; font-weight: 500; color: var(--type-inverse-secondary); }
+#root .station-plate { font-size: 12px; line-height: 1.65; color: var(--type-inverse); }
+#root .stellar-cta { font-size: 15px; font-weight: 700; line-height: 1.6; color: var(--type-heading); }
+#root .profile-container .user-card { background: #214a49; }
+#root .profile-container .user-card :is(h2, .level, .title, .exp-text) { color: var(--type-inverse); opacity: 1; }
+#root .profile-container .user-card .exp-text { color: var(--type-inverse-secondary); }
+#root .profile-container .calendar-day.other { color: var(--type-muted); }
+#root .profile-container .calendar-day.checked { background: var(--type-accent); color: var(--type-inverse); }
+#root .report-overview :is(h2, .stat-value) { color: var(--type-inverse); }
+#root .report-overview :is(.date-range, .stat-label, .stat-unit, .report-method) { color: var(--type-inverse-secondary); font-size: 13px; }
+#root .achievements-container :is(h1, h3) { color: var(--type-inverse); }
+#root .achievements-container :is(.page-header p, .achievement-desc, .stat-label,
+  .stat-total, .progress-text, .unlocked-time, .empty-state, .category-tab) {
+  color: var(--type-inverse-secondary);
+  font-size: 13px;
+}
+#root .achievements-container :is(.stat-num, .reward) { color: #f4ce72; }
+#root .achievements-container .reward.crystals { color: #9be5cc; }
+#root .achievement-card.locked { opacity: 1; border-style: dashed; }
+#root .achievements-container .category-tab.active { color: var(--type-heading); font-weight: 700; }
+#root .course-detail-container > .course-header { position: relative; isolation: isolate; }
+#root .course-detail-container > .course-header::before {
+  content: ""; position: absolute; inset: 0; border-radius: inherit;
+  background: rgba(20, 38, 61, .82); z-index: -1; pointer-events: none;
+}
+#root .course-detail-container > .course-header :is(h1, .course-code, .course-meta, .back-btn, .action-btn) { color: var(--type-inverse); }
+#root .course-detail-container > .course-header .course-meta { color: var(--type-inverse-secondary); }
+#root .auth-logo h1 { color: var(--type-heading); background: none; -webkit-text-fill-color: currentColor; }
+#root .auth-footer { font-size: 14px; }
+#root .auth-card { width: min(460px, calc(100% - 32px)); padding: 36px; }
+#root .auth-container { padding-block: 24px; }
+#root .explore-hero h1 { font-size: clamp(32px, 3.7vw, 52px); line-height: 1.35; letter-spacing: -.02em; }
+#root .explore-page h2 { font-size: 28px; }
+#root .explore-hero p { font-size: 16px; }
+#root .explore-page .explore-action { font-weight: 700; color: var(--type-inverse); }
+
+@media (max-width: 760px) {
+  #root h1 { font-size: 26px; }
+  #root h2 { font-size: 20px; }
+  #root h3 { font-size: 17px; }
+  #root :is(input, select, textarea) { font-size: 16px; }
+  #root .notebook-layout textarea { font-size: 16px; }
+  #root .stellar-hero h1 { font-size: 28px; }
+  #root .explore-hero h1 { font-size: 34px; }
+  #root .explore-page h2 { font-size: 25px; }
+  #root :is(.stellar-metrics strong, .stat-num, .resource-value) { font-size: 27px; }
+  #root .auth-card { padding: 28px 24px; }
+  #root .stellar-metrics > div { flex-wrap: wrap; gap: 6px 12px; }
+  #root .stellar-metrics span { flex-basis: 100%; }
+  #root .stellar-section-title { flex-wrap: wrap; }
+  #root .stellar-composer > div { flex-wrap: wrap; }
+  #root .agent-steps li { font-size: 13px; }
+  #root .resources-card { flex-wrap: wrap; gap: 16px; }
+  #root .tasks-container .task-card { flex-direction: column; align-items: stretch; gap: 14px; }
+  #root .tasks-container .task-right { flex-direction: row; justify-content: space-between; align-items: center; }
+  #root .tasks-container .task-type-badge { align-self: flex-start; }
+  #root .tasks-container .course-tag { flex-basis: 100%; overflow-wrap: anywhere; }
+  #root .resource-item { min-width: 75px; }
+  #root .resource-divider { display: none; }
+  #root .report-container .data-value { flex-shrink: 1; overflow-wrap: anywhere; }
+}

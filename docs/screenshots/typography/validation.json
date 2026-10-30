@@ -1,0 +1,1646 @@
+{
+  "environment": "Local Vite + isolated test API on 3003; synthetic account only",
+  "pages": [
+    {
+      "name": "login",
+      "width": 1440,
+      "url": "http://127.0.0.1:5173/login",
+      "documentWidth": 1440,
+      "overflow": [],
+      "headings": [],
+      "tiny": []
+    },
+    {
+      "name": "register",
+      "width": 1440,
+      "url": "http://127.0.0.1:5173/register",
+      "documentWidth": 1440,
+      "overflow": [],
+      "headings": [],
+      "tiny": []
+    },
+    {
+      "name": "explore",
+      "width": 1440,
+      "url": "http://127.0.0.1:5173/explore",
+      "documentWidth": 1440,
+      "overflow": [],
+      "headings": [
+        {
+          "text": "让每一次理解，点亮一颗星。",
+          "size": "52px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "一个空间，贯穿学习的每一步",
+          "size": "28px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "把问题，变成理解",
+          "size": "18px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "换个屏幕，接着学",
+          "size": "18px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "让计划有据可循",
+          "size": "18px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "你的星际学习伙伴，星芽",
+          "size": "28px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "同一片星空，适合不同的屏幕",
+          "size": "28px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "网页 · 展开思路",
+          "size": "18px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "home",
+      "width": 1440,
+      "url": "http://127.0.0.1:5173/",
+      "documentWidth": 1440,
+      "overflow": [],
+      "headings": [
+        {
+          "text": "你好，明澈同学今天也向星光出发。",
+          "size": "37.44px",
+          "weight": "700",
+          "color": "rgb(255, 252, 244)"
+        },
+        {
+          "text": "今日星际补给",
+          "size": "21px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "继续一项学习",
+          "size": "21px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "你的知识星球",
+          "size": "21px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "数据结构与算法 · 从理解到实践",
+          "size": "16px",
+          "weight": "600",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "探索学习甲板",
+          "size": "21px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "智能编排",
+          "size": "18px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "资料与笔记",
+          "size": "18px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "courses",
+      "width": 1440,
+      "url": "http://127.0.0.1:5173/greenhouse",
+      "documentWidth": 1440,
+      "overflow": [],
+      "headings": [
+        {
+          "text": "知识星球",
+          "size": "32px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "把好奇心，种成知识星球",
+          "size": "21px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "数据结构与算法 · 从理解到实践",
+          "size": "16px",
+          "weight": "600",
+          "color": "rgb(20, 38, 61)"
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "course",
+      "width": 1440,
+      "url": "http://127.0.0.1:5173/greenhouse/beca37a5-b3bc-4bbe-94f1-bf122bebb048",
+      "documentWidth": 1440,
+      "overflow": [],
+      "headings": [
+        {
+          "text": "数据结构与算法 · 从理解到实践",
+          "size": "32px",
+          "weight": "700",
+          "color": "rgb(255, 252, 244)"
+        },
+        {
+          "text": "掌握度",
+          "size": "18px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "知识节点",
+          "size": "18px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "tasks",
+      "width": 1440,
+      "url": "http://127.0.0.1:5173/tasks",
+      "documentWidth": 1440,
+      "overflow": [],
+      "headings": [
+        {
+          "text": "学习任务 · 轨道专注",
+          "size": "32px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "给专注，留一盏灯",
+          "size": "21px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "notes",
+      "width": 1440,
+      "url": "http://127.0.0.1:5173/notes",
+      "documentWidth": 1440,
+      "overflow": [],
+      "headings": [
+        {
+          "text": "共享学习笔记",
+          "size": "32px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "assistant",
+      "width": 1440,
+      "url": "http://127.0.0.1:5173/ai",
+      "documentWidth": 1440,
+      "overflow": [],
+      "headings": [
+        {
+          "text": "星际 AI 助手",
+          "size": "32px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "共享会话",
+          "size": "16px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "为这次探索选择模型",
+          "size": "16px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "今天想理解什么？",
+          "size": "18px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "agent",
+      "width": 1440,
+      "url": "http://127.0.0.1:5173/agent",
+      "documentWidth": 1440,
+      "overflow": [],
+      "headings": [
+        {
+          "text": "有依据地学，有节奏地进步",
+          "size": "32px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "本次学习目标",
+          "size": "21px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "运行历史",
+          "size": "21px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "计划与执行依据",
+          "size": "21px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "profile",
+      "width": 1440,
+      "url": "http://127.0.0.1:5173/profile",
+      "documentWidth": 1440,
+      "overflow": [],
+      "headings": [
+        {
+          "text": "明澈同学",
+          "size": "21px",
+          "weight": "700",
+          "color": "rgb(255, 252, 244)"
+        },
+        {
+          "text": "星际身份 · 两端共享",
+          "size": "21px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "学习统计",
+          "size": "18px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "2026年10月",
+          "size": "18px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "achievements",
+      "width": 1440,
+      "url": "http://127.0.0.1:5173/achievements",
+      "documentWidth": 1440,
+      "overflow": [],
+      "headings": [
+        {
+          "text": "成就殿堂",
+          "size": "32px",
+          "weight": "700",
+          "color": "rgb(255, 252, 244)"
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "report",
+      "width": 1440,
+      "url": "http://127.0.0.1:5173/study-report",
+      "documentWidth": 1440,
+      "overflow": [],
+      "headings": [
+        {
+          "text": "学习轨迹报告",
+          "size": "32px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "让每一次进步，有迹可循",
+          "size": "21px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "近 7 天任务记录",
+          "size": "21px",
+          "weight": "700",
+          "color": "rgb(255, 252, 244)"
+        },
+        {
+          "text": "记录摘要",
+          "size": "18px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "记录范围与统计口径",
+          "size": "18px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "当前课程记录",
+          "size": "18px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "值得核对的地方",
+          "size": "18px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "下一步可尝试",
+          "size": "18px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "settings",
+      "width": 1440,
+      "url": "http://127.0.0.1:5173/settings",
+      "documentWidth": 1440,
+      "overflow": [],
+      "headings": [
+        {
+          "text": "空间设置",
+          "size": "32px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "我的空间",
+          "size": "21px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "两端怎样配合",
+          "size": "21px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "AI 服务与资料",
+          "size": "21px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "课灵 3.2.0-preview",
+          "size": "21px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "graph",
+      "width": 1440,
+      "url": "http://127.0.0.1:5173/knowledge-graph/beca37a5-b3bc-4bbe-94f1-bf122bebb048",
+      "documentWidth": 1440,
+      "overflow": [],
+      "headings": [
+        {
+          "text": "数据结构与算法 · 从理解到实践",
+          "size": "32px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "数据结构与算法 · 从理解到实践 还没有知识点",
+          "size": "21px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "层级图例",
+          "size": "18px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "library",
+      "width": 1440,
+      "url": "http://127.0.0.1:5173/visual-library",
+      "documentWidth": 1440,
+      "overflow": [],
+      "headings": [
+        {
+          "text": "星际视觉图鉴",
+          "size": "32px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "星芽与观测站",
+          "size": "21px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "你的星际身份",
+          "size": "21px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "九大学科星球",
+          "size": "21px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "模块导航图标",
+          "size": "21px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "login",
+      "width": 390,
+      "url": "http://127.0.0.1:5173/login",
+      "documentWidth": 390,
+      "overflow": [],
+      "headings": [],
+      "tiny": []
+    },
+    {
+      "name": "register",
+      "width": 390,
+      "url": "http://127.0.0.1:5173/register",
+      "documentWidth": 390,
+      "overflow": [],
+      "headings": [],
+      "tiny": []
+    },
+    {
+      "name": "explore",
+      "width": 390,
+      "url": "http://127.0.0.1:5173/explore",
+      "documentWidth": 390,
+      "overflow": [],
+      "headings": [
+        {
+          "text": "让每一次理解，点亮一颗星。",
+          "size": "34px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "一个空间，贯穿学习的每一步",
+          "size": "25px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "把问题，变成理解",
+          "size": "17px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "换个屏幕，接着学",
+          "size": "17px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "让计划有据可循",
+          "size": "17px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "你的星际学习伙伴，星芽",
+          "size": "25px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "同一片星空，适合不同的屏幕",
+          "size": "25px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "网页 · 展开思路",
+          "size": "17px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "home",
+      "width": 390,
+      "url": "http://127.0.0.1:5173/",
+      "documentWidth": 390,
+      "overflow": [],
+      "headings": [
+        {
+          "text": "你好，明澈同学今天也向星光出发。",
+          "size": "28px",
+          "weight": "700",
+          "color": "rgb(255, 252, 244)"
+        },
+        {
+          "text": "今日星际补给",
+          "size": "20px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "继续一项学习",
+          "size": "20px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "你的知识星球",
+          "size": "20px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "数据结构与算法 · 从理解到实践",
+          "size": "16px",
+          "weight": "600",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "探索学习甲板",
+          "size": "20px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "智能编排",
+          "size": "17px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "资料与笔记",
+          "size": "17px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "courses",
+      "width": 390,
+      "url": "http://127.0.0.1:5173/greenhouse",
+      "documentWidth": 390,
+      "overflow": [],
+      "headings": [
+        {
+          "text": "知识星球",
+          "size": "26px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "把好奇心，种成知识星球",
+          "size": "20px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "数据结构与算法 · 从理解到实践",
+          "size": "16px",
+          "weight": "600",
+          "color": "rgb(20, 38, 61)"
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "course",
+      "width": 390,
+      "url": "http://127.0.0.1:5173/greenhouse/beca37a5-b3bc-4bbe-94f1-bf122bebb048",
+      "documentWidth": 390,
+      "overflow": [],
+      "headings": [
+        {
+          "text": "数据结构与算法 · 从理解到实践",
+          "size": "26px",
+          "weight": "700",
+          "color": "rgb(255, 252, 244)"
+        },
+        {
+          "text": "掌握度",
+          "size": "17px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "知识节点",
+          "size": "17px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "tasks",
+      "width": 390,
+      "url": "http://127.0.0.1:5173/tasks",
+      "documentWidth": 390,
+      "overflow": [],
+      "headings": [
+        {
+          "text": "学习任务 · 轨道专注",
+          "size": "26px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "给专注，留一盏灯",
+          "size": "20px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "notes",
+      "width": 390,
+      "url": "http://127.0.0.1:5173/notes",
+      "documentWidth": 390,
+      "overflow": [],
+      "headings": [
+        {
+          "text": "共享学习笔记",
+          "size": "26px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "assistant",
+      "width": 390,
+      "url": "http://127.0.0.1:5173/ai",
+      "documentWidth": 390,
+      "overflow": [],
+      "headings": [
+        {
+          "text": "星际 AI 助手",
+          "size": "26px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "共享会话",
+          "size": "16px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "为这次探索选择模型",
+          "size": "16px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "今天想理解什么？",
+          "size": "17px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "agent",
+      "width": 390,
+      "url": "http://127.0.0.1:5173/agent",
+      "documentWidth": 390,
+      "overflow": [],
+      "headings": [
+        {
+          "text": "有依据地学，有节奏地进步",
+          "size": "26px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "本次学习目标",
+          "size": "20px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "运行历史",
+          "size": "20px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "计划与执行依据",
+          "size": "20px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "profile",
+      "width": 390,
+      "url": "http://127.0.0.1:5173/profile",
+      "documentWidth": 390,
+      "overflow": [],
+      "headings": [
+        {
+          "text": "明澈同学",
+          "size": "20px",
+          "weight": "700",
+          "color": "rgb(255, 252, 244)"
+        },
+        {
+          "text": "星际身份 · 两端共享",
+          "size": "20px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "学习统计",
+          "size": "17px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "2026年10月",
+          "size": "17px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "achievements",
+      "width": 390,
+      "url": "http://127.0.0.1:5173/achievements",
+      "documentWidth": 390,
+      "overflow": [],
+      "headings": [
+        {
+          "text": "成就殿堂",
+          "size": "26px",
+          "weight": "700",
+          "color": "rgb(255, 252, 244)"
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "report",
+      "width": 390,
+      "url": "http://127.0.0.1:5173/study-report",
+      "documentWidth": 390,
+      "overflow": [],
+      "headings": [
+        {
+          "text": "学习轨迹报告",
+          "size": "26px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "让每一次进步，有迹可循",
+          "size": "20px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "近 7 天任务记录",
+          "size": "20px",
+          "weight": "700",
+          "color": "rgb(255, 252, 244)"
+        },
+        {
+          "text": "记录摘要",
+          "size": "17px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "记录范围与统计口径",
+          "size": "17px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "当前课程记录",
+          "size": "17px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "值得核对的地方",
+          "size": "17px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "下一步可尝试",
+          "size": "17px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "settings",
+      "width": 390,
+      "url": "http://127.0.0.1:5173/settings",
+      "documentWidth": 390,
+      "overflow": [],
+      "headings": [
+        {
+          "text": "空间设置",
+          "size": "26px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "我的空间",
+          "size": "20px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "两端怎样配合",
+          "size": "20px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "AI 服务与资料",
+          "size": "20px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "课灵 3.2.0-preview",
+          "size": "20px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "graph",
+      "width": 390,
+      "url": "http://127.0.0.1:5173/knowledge-graph/beca37a5-b3bc-4bbe-94f1-bf122bebb048",
+      "documentWidth": 390,
+      "overflow": [],
+      "headings": [
+        {
+          "text": "数据结构与算法 · 从理解到实践",
+          "size": "26px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "数据结构与算法 · 从理解到实践 还没有知识点",
+          "size": "20px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "层级图例",
+          "size": "17px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "library",
+      "width": 390,
+      "url": "http://127.0.0.1:5173/visual-library",
+      "documentWidth": 390,
+      "overflow": [],
+      "headings": [
+        {
+          "text": "星际视觉图鉴",
+          "size": "26px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "星芽与观测站",
+          "size": "20px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "你的星际身份",
+          "size": "20px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "九大学科星球",
+          "size": "20px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "模块导航图标",
+          "size": "20px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "login",
+      "width": 360,
+      "url": "http://127.0.0.1:5173/login",
+      "documentWidth": 360,
+      "overflow": [],
+      "headings": [],
+      "tiny": []
+    },
+    {
+      "name": "register",
+      "width": 360,
+      "url": "http://127.0.0.1:5173/register",
+      "documentWidth": 360,
+      "overflow": [],
+      "headings": [],
+      "tiny": []
+    },
+    {
+      "name": "explore",
+      "width": 360,
+      "url": "http://127.0.0.1:5173/explore",
+      "documentWidth": 360,
+      "overflow": [],
+      "headings": [
+        {
+          "text": "让每一次理解，点亮一颗星。",
+          "size": "34px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "一个空间，贯穿学习的每一步",
+          "size": "25px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "把问题，变成理解",
+          "size": "17px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "换个屏幕，接着学",
+          "size": "17px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "让计划有据可循",
+          "size": "17px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "你的星际学习伙伴，星芽",
+          "size": "25px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "同一片星空，适合不同的屏幕",
+          "size": "25px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "网页 · 展开思路",
+          "size": "17px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "home",
+      "width": 360,
+      "url": "http://127.0.0.1:5173/",
+      "documentWidth": 360,
+      "overflow": [],
+      "headings": [
+        {
+          "text": "你好，明澈同学今天也向星光出发。",
+          "size": "28px",
+          "weight": "700",
+          "color": "rgb(255, 252, 244)"
+        },
+        {
+          "text": "今日星际补给",
+          "size": "20px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "继续一项学习",
+          "size": "20px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "你的知识星球",
+          "size": "20px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "数据结构与算法 · 从理解到实践",
+          "size": "16px",
+          "weight": "600",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "探索学习甲板",
+          "size": "20px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "智能编排",
+          "size": "17px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "资料与笔记",
+          "size": "17px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "courses",
+      "width": 360,
+      "url": "http://127.0.0.1:5173/greenhouse",
+      "documentWidth": 360,
+      "overflow": [],
+      "headings": [
+        {
+          "text": "知识星球",
+          "size": "26px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "把好奇心，种成知识星球",
+          "size": "20px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "数据结构与算法 · 从理解到实践",
+          "size": "16px",
+          "weight": "600",
+          "color": "rgb(20, 38, 61)"
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "course",
+      "width": 360,
+      "url": "http://127.0.0.1:5173/greenhouse/beca37a5-b3bc-4bbe-94f1-bf122bebb048",
+      "documentWidth": 360,
+      "overflow": [],
+      "headings": [
+        {
+          "text": "数据结构与算法 · 从理解到实践",
+          "size": "26px",
+          "weight": "700",
+          "color": "rgb(255, 252, 244)"
+        },
+        {
+          "text": "掌握度",
+          "size": "17px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "知识节点",
+          "size": "17px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "tasks",
+      "width": 360,
+      "url": "http://127.0.0.1:5173/tasks",
+      "documentWidth": 360,
+      "overflow": [],
+      "headings": [
+        {
+          "text": "学习任务 · 轨道专注",
+          "size": "26px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "给专注，留一盏灯",
+          "size": "20px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "notes",
+      "width": 360,
+      "url": "http://127.0.0.1:5173/notes",
+      "documentWidth": 360,
+      "overflow": [],
+      "headings": [
+        {
+          "text": "共享学习笔记",
+          "size": "26px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "assistant",
+      "width": 360,
+      "url": "http://127.0.0.1:5173/ai",
+      "documentWidth": 360,
+      "overflow": [],
+      "headings": [
+        {
+          "text": "星际 AI 助手",
+          "size": "26px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "共享会话",
+          "size": "16px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "为这次探索选择模型",
+          "size": "16px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "今天想理解什么？",
+          "size": "17px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "agent",
+      "width": 360,
+      "url": "http://127.0.0.1:5173/agent",
+      "documentWidth": 360,
+      "overflow": [],
+      "headings": [
+        {
+          "text": "有依据地学，有节奏地进步",
+          "size": "26px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "本次学习目标",
+          "size": "20px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "运行历史",
+          "size": "20px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "计划与执行依据",
+          "size": "20px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "profile",
+      "width": 360,
+      "url": "http://127.0.0.1:5173/profile",
+      "documentWidth": 360,
+      "overflow": [],
+      "headings": [
+        {
+          "text": "明澈同学",
+          "size": "20px",
+          "weight": "700",
+          "color": "rgb(255, 252, 244)"
+        },
+        {
+          "text": "星际身份 · 两端共享",
+          "size": "20px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "学习统计",
+          "size": "17px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "2026年10月",
+          "size": "17px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "achievements",
+      "width": 360,
+      "url": "http://127.0.0.1:5173/achievements",
+      "documentWidth": 360,
+      "overflow": [],
+      "headings": [
+        {
+          "text": "成就殿堂",
+          "size": "26px",
+          "weight": "700",
+          "color": "rgb(255, 252, 244)"
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "report",
+      "width": 360,
+      "url": "http://127.0.0.1:5173/study-report",
+      "documentWidth": 360,
+      "overflow": [],
+      "headings": [
+        {
+          "text": "学习轨迹报告",
+          "size": "26px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "让每一次进步，有迹可循",
+          "size": "20px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "近 7 天任务记录",
+          "size": "20px",
+          "weight": "700",
+          "color": "rgb(255, 252, 244)"
+        },
+        {
+          "text": "记录摘要",
+          "size": "17px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "记录范围与统计口径",
+          "size": "17px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "当前课程记录",
+          "size": "17px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "值得核对的地方",
+          "size": "17px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "下一步可尝试",
+          "size": "17px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "settings",
+      "width": 360,
+      "url": "http://127.0.0.1:5173/settings",
+      "documentWidth": 360,
+      "overflow": [],
+      "headings": [
+        {
+          "text": "空间设置",
+          "size": "26px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "我的空间",
+          "size": "20px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "两端怎样配合",
+          "size": "20px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "AI 服务与资料",
+          "size": "20px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "课灵 3.2.0-preview",
+          "size": "20px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "graph",
+      "width": 360,
+      "url": "http://127.0.0.1:5173/knowledge-graph/beca37a5-b3bc-4bbe-94f1-bf122bebb048",
+      "documentWidth": 360,
+      "overflow": [],
+      "headings": [
+        {
+          "text": "数据结构与算法 · 从理解到实践",
+          "size": "26px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "数据结构与算法 · 从理解到实践 还没有知识点",
+          "size": "20px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "层级图例",
+          "size": "17px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        }
+      ],
+      "tiny": []
+    },
+    {
+      "name": "library",
+      "width": 360,
+      "url": "http://127.0.0.1:5173/visual-library",
+      "documentWidth": 360,
+      "overflow": [],
+      "headings": [
+        {
+          "text": "星际视觉图鉴",
+          "size": "26px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "星芽与观测站",
+          "size": "20px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "你的星际身份",
+          "size": "20px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "九大学科星球",
+          "size": "20px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        },
+        {
+          "text": "模块导航图标",
+          "size": "20px",
+          "weight": "700",
+          "color": "rgb(20, 38, 61)"
+        }
+      ],
+      "tiny": []
+    }
+  ],
+  "errors": [],
+  "largeText": [
+    {
+      "name": "home",
+      "scale": 1.3,
+      "documentWidth": 390,
+      "viewport": 390,
+      "overflow": []
+    },
+    {
+      "name": "home",
+      "scale": 2,
+      "documentWidth": 390,
+      "viewport": 390,
+      "overflow": []
+    },
+    {
+      "name": "tasks",
+      "scale": 1.3,
+      "documentWidth": 390,
+      "viewport": 390,
+      "overflow": []
+    },
+    {
+      "name": "tasks",
+      "scale": 2,
+      "documentWidth": 390,
+      "viewport": 390,
+      "overflow": [
+        {
+          "class": "filter-tab ",
+          "text": "已完成",
+          "right": 496
+        }
+      ]
+    },
+    {
+      "name": "assistant",
+      "scale": 1.3,
+      "documentWidth": 390,
+      "viewport": 390,
+      "overflow": []
+    },
+    {
+      "name": "assistant",
+      "scale": 2,
+      "documentWidth": 390,
+      "viewport": 390,
+      "overflow": []
+    },
+    {
+      "name": "notes",
+      "scale": 1.3,
+      "documentWidth": 390,
+      "viewport": 390,
+      "overflow": []
+    },
+    {
+      "name": "notes",
+      "scale": 2,
+      "documentWidth": 390,
+      "viewport": 390,
+      "overflow": []
+    },
+    {
+      "name": "register",
+      "scale": 1.3,
+      "documentWidth": 390,
+      "viewport": 390,
+      "overflow": []
+    },
+    {
+      "name": "register",
+      "scale": 2,
+      "documentWidth": 390,
+      "viewport": 390,
+      "overflow": []
+    }
+  ],
+  "renderedFonts": {
+    "fonts": [
+      {
+        "familyName": "Microsoft YaHei",
+        "postScriptName": "MicrosoftYaHei-Bold",
+        "isCustomFont": false,
+        "glyphCount": 13
+      }
+    ]
+  },
+  "bodyFonts": {
+    "fonts": [
+      {
+        "familyName": "Microsoft YaHei",
+        "postScriptName": "MicrosoftYaHei",
+        "isCustomFont": false,
+        "glyphCount": 43
+      }
+    ]
+  },
+  "bodyStyle": {
+    "family": "Inter, \"Segoe UI\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", \"Noto Sans CJK SC\", \"Noto Sans SC\", system-ui, sans-serif",
+    "size": "16px",
+    "weight": "400"
+  },
+  "uiFixture": "GET responses reused after first real fetch to avoid repeated route screenshots exhausting local /auth/me throttle; no model calls"
+}

@@ -1,0 +1,81 @@
+{
+  "generatedWith": "image_gen",
+  "date": "2026-10-29",
+  "items": [
+    {
+      "file": "mascot_welcome.png",
+      "prompt": "Use case: stylized-concept. Asset type: production pixel-art mascot for KeLing, a Chinese study companion with an interstellar technology theme. Create one charming small mint-and-ivory robot owl astronaut with a sprout-shaped antenna, navy glass face, two glowing cyan square eyes, tiny coral boot tips, a gold star badge and a floating open book. Full body centered, waving a welcoming wing, readable silhouette, generous transparent margins, no text, no watermark. Authentic 32-bit game pixel sprite illustration, crisp square pixel clusters, deliberate stepped outlines, restrained flat shading, no smooth gradients, no blur. A consistent palette: deep navy #14263D, teal #72D8C3, ivory #FFF6DF, coral #EF987D, gold #F4CE72. Transparent background. This is the primary mascot asset used in both the website and Kotlin Android application.",
+      "sourceGenerationFile": "exec-37f36643-563d-4fca-9fe5-5fa44ef37ebd.png"
+    },
+    {
+      "file": "title_logo.png",
+      "prompt": "Create a production transparent pixel-art title logo for the Chinese interstellar learning app KeLing. Text exactly: “课灵” with smaller “KELING” underneath. Wide horizontal lockup, large legible ivory square-pixel Chinese lettering outlined deep navy, mint teal circuit highlights, coral and gold sparking stars, a small ringed knowledge planet with an open-book silhouette to the left. Restrained premium retro game title, crisp stepped edges, no gradients, no blur, no tiny illegible decorative text. Palette navy #14263D, teal #72D8C3, ivory #FFF6DF, coral #EF987D, gold #F4CE72. Transparent background, complete mark within generous safe margins. It must be usable over both light cream and navy app headers.",
+      "sourceGenerationFile": "exec-811c9a15-1a94-4d36-8a0f-f43220524d7a.png"
+    },
+    {
+      "file": "mascot_mentor.png",
+      "prompt": "Use the reference solely as the character/style reference. Create a NEW transparent production pixel-art mascot pose for the same KeLing robot owl astronaut, preserving its mint-and-ivory suit, sprout antenna, navy glass face with cyan eyes, gold star badge, coral boots, proportions and crisp square pixel style. This variant is the AI tutor: owl facing slightly right, holding a tiny holographic star map with three linked knowledge nodes, a thoughtful friendly expression, one wing pointing at the map. Full body, centered, generous empty margin, no text, no background, no smooth gradients, no watermark. Maintain the same palette and character identity.",
+      "sourceGenerationFile": "exec-2ef4c626-97d8-42a7-97b9-017ea1b5747f.png"
+    },
+    {
+      "file": "mascot_focus.png",
+      "prompt": "Use the reference as character and pixel-art style reference. Draw a NEW transparent full-body pose of the identical KeLing mint-and-ivory robot owl astronaut with sprout antenna, navy glass face, cyan square eyes, gold star badge, coral boots. This is the focus-timer module mascot: owl sits calmly cross-legged beside a small teal and gold hourglass, reading a book, two small orbiting stars. Crisp stepped square pixels, friendly restful concentration, no text, no gradients, no blur, no watermark. Keep whole character and hourglass visible with generous transparent margins, centered balanced composition, same design and palette as reference.",
+      "sourceGenerationFile": "exec-fd292567-78b0-43be-8622-f4b197961e46.png"
+    },
+    {
+      "file": "mascot_celebrate.png",
+      "prompt": "Reference is character/style only. New transparent pixel-art illustration of the same mint ivory robot owl astronaut for KeLing's check-in and achievement modules. Same sprout antenna, navy visor cyan eyes, coral boots, gold star badge, same proportions and sharp square pixels. Celebrating a completed learning day: owl jumping gently, lifting a small gold star trophy in one wing, other wing raised, three neat square confetti sparkles, friendly happy eyes. Full body centered, generous empty margins, no text, no scene background, no watermark, no smooth gradients. Keep visual clarity when displayed small.",
+      "sourceGenerationFile": "exec-de4243f9-bb3b-48f3-bc87-4eaafb5adc9f.png"
+    },
+    {
+      "file": "subjects.png",
+      "prompt": "Use case: stylized-concept. Create ONE production 3 by 3 subject icon SPRITE ATLAS for KeLing interstellar pixel-art learning app, on actual transparent background. Exactly nine equal square cells, perfectly aligned regular grid, no gutters between cells, each icon centered at 1/6, 1/2, 5/6 of width and height with large empty safe margins within its own cell, nothing crossing cells. Row 1: mathematics = gold geometric compass with a small orbital ring; physics = mint atom with navy nucleus; chemistry = coral and teal potion flask. Row 2: biology = a mint DNA double helix with tiny leaf; computing = navy microchip with cyan circuits; language = ivory open book with coral bookmark. Row 3: history = gold hourglass and miniature ancient column; geography = teal ringed globe; arts = coral artist palette with gold star and brush. Cohesive chunky 32-bit pixel sprites, clean stepped outlines, limited navy #14263D, teal #72D8C3, ivory #FFF6DF, coral #EF987D, gold #F4CE72, no text, no numbers, no borders, no shadows outside each icon, no blur. Square canvas, every icon small and distinct, designed for code to display individual grid cells without modifying this atlas.",
+      "sourceGenerationFile": "exec-1acceb09-55bd-400c-bc9d-f8fd764dc43d.png"
+    },
+    {
+      "file": "avatars.png",
+      "prompt": "Create ONE square production 3 by 3 selectable avatar SPRITE ATLAS for KeLing interstellar pixel-art learning app. Exactly nine equal square cells in a perfectly aligned regular grid; no gutters; each portrait centered within its own cell and fully contained with at least 12% margin, no overlap. Real transparent background, no cell borders, no labels or text. Top row: mint robot owl astronaut with sprout antenna and cyan eyes; coral fox space explorer with ivory helmet; navy cat navigator with gold star visor. Middle row: ivory rabbit moon botanist with teal leaves; small friendly gold star spirit in a navy scarf; teal robot with square screen face and headphones. Bottom row: human astronaut with warm brown skin, short dark curls and mint suit; human astronaut with fair skin, short dark hair and coral suit; ivory sprout creature riding a tiny ringed planet. All are head-and-shoulders or compact whole-face portraits, friendly inclusive study companions, authentic chunky square-pixel outlines, consistent scale, crisp silhouettes. Palette navy #14263D teal #72D8C3 ivory #FFF6DF coral #EF987D gold #F4CE72. No gradients, no blur, no watermark. Atlas is displayed as nine cells by app code.",
+      "sourceGenerationFile": "exec-774fef0f-b213-4332-8de6-b8f0df3cc568.png"
+    },
+    {
+      "file": "hero_web.png",
+      "prompt": "Use reference character as a supporting style/identity reference. Create a wide 3:1 pixel-art hero illustration for KeLing web study dashboard. Deep navy starship observatory drifting above a mint ringed knowledge planet; a few gold square stars, coral moon, small floating book satellites, subtle teal circuit constellations. On the RIGHT quarter the same small mint-and-ivory robot owl with sprout antenna, gold star badge, navy face and cyan eyes stands at an observatory console waving. LEFT half is mostly calm dark navy negative space suitable for live HTML title overlay; keep low detail and high contrast there. Cozy optimistic interstellar science mood, authentic chunky square-pixel game environment, sharp stepped edges, no blur, no tiny noise, no gradients, no text or watermark. Palette navy #14263D teal #72D8C3 ivory #FFF6DF coral #EF987D gold #F4CE72. Full opaque background. Professional app banner composition, not a screenshot.",
+      "sourceGenerationFile": "exec-3690e0b7-7a85-42f2-9eba-8bf0238e1be2.png"
+    },
+    {
+      "file": "mascot_archive.png",
+      "prompt": "Reference character identity and pixel-art style. New transparent production mascot pose for KeLing's notes/archive and course-library modules. Same mint ivory robot owl astronaut, sprout antenna, navy visor cyan square eyes, gold star badge, coral boots. Owl gently carries a stack of three small books and a tiny rolled star chart, looking thoughtful and welcoming; a gold bookmark star floats above the books. Full body centered, crisp chunky square pixels, consistent proportions and palette, generous transparent margins, no text or watermark, no smooth gradients, no background.",
+      "sourceGenerationFile": "exec-3083a31d-8372-4d2e-aec5-8538d30a14cc.png"
+    },
+    {
+      "file": "modules.png",
+      "prompt": "Create ONE production pixel-art UI chrome sheet: a clean 3 by 3 atlas of nine functional interstellar app module icons on genuinely transparent background. Exactly nine equal square cells, perfect regular 3x3 grid, each icon centered with 18 percent empty margin inside its own cell, no element crossing cell boundaries. Row 1: home icon = small ringed planet with a tiny house; AI assistant = a teal brain inside a gold orbit; tasks = ivory checklist on a navy clipboard with mint tick marks. Row 2: notes = closed coral journal with star bookmark; courses = mint sprout growing from an open ivory book; profile = gold astronaut ID badge. Row 3: reports = three navy-teal-gold bar-chart pillars and arrow; settings = teal stepped gear with navy center; achievements = gold pixel trophy with star. Same KeLing retro space identity, palette navy #14263D, teal #72D8C3, ivory #FFF6DF, coral #EF987D, gold #F4CE72. Crisp square pixels, bold stepped outlines, no blur, no gradients, no text, no labels, no frames, no watermark. Each icon readable at 24-48 pixels.",
+      "sourceGenerationFile": "exec-987f00f5-1397-4acc-b38f-64e7697cc4e8.png"
+    },
+    {
+      "file": "checkin_frame.png",
+      "prompt": "Production game UI asset, a single wide horizontal empty check-in reward panel for KeLing interstellar pixel-art app, aspect ratio about 2:1. Transparent outer background, panel centered and completely visible with generous margins. Thin chunky stepped navy border, mint and ivory inner frame, small gold stars in the four corners, subtle coral corner brackets, one tiny sprout badge at top center. Entire interior is a clean flat warm ivory #FFF6DF blank area, at least 72 percent of panel area for live accessible text and a seven-day check-in row, NO baked text, NO fake controls, NO numbers, no mascot. Pixel-art sharp square edges, restrained and functional, no blur or gradients. Palette navy #14263D teal #72D8C3 ivory #FFF6DF coral #EF987D gold #F4CE72. This should be usable as an app card background with dynamic content overlaid.",
+      "sourceGenerationFile": "exec-47070c18-c0cb-49c9-ae25-5f1883ceed26.png"
+    },
+    {
+      "file": "timer_frame.png",
+      "prompt": "Create one production-ready pixel-art UI timer frame for KeLing, a space learning app. Square 1024x1024 transparent background. A beautifully restrained circular observatory clock bezel made of chunky crisp pixel steps, navy #14263D outlines, mint #72D8C3 panels, warm ivory #FFF6DF face, tiny gold #F4CE72 stars and coral #EF987D controls. Large EMPTY central ivory area for live timer digits (at least middle 55% of canvas), NO digits, NO words, NO hands, NO text. Tiny sprout antenna at top, symmetrical spacecraft details on sides, physically coherent HUD bezel. Straight-on, centered, fits entire canvas with 8% transparent margin. Flat pixel shading and hard edges, matching cozy interstellar robot owl brand. This is a functional decorative asset; keep central face visually quiet.",
+      "sourceGenerationFile": "exec-2d0fc085-00fa-41c5-873d-33fd5f7b5140.png"
+    },
+    {
+      "file": "input_frame.png",
+      "prompt": "Production pixel-art user-interface input panel for KeLing interstellar learning app. Very wide rectangle 3:1 aspect ratio. Transparent outside the frame. Navy #14263D pixel-stepped thin outline, mint #72D8C3 and warm ivory #FFF6DF interior. Extremely large quiet blank ivory center occupying 80 percent width and 65 percent height for real live typed text. Small spacecraft antenna and gold star ONLY in top right corner, subtle coral light at bottom left. Flat crisp pixel artwork, no blur. All ornament confined to outside edges and corners. No characters, no fake words, no digits, no placeholder lettering. Main body rectangular with stepped corners, elegant functional holographic notebook panel. Full object visible with small even margins.",
+      "sourceGenerationFile": "exec-d9379f5d-46f0-44ec-ad01-a25b60b3fb4e.png"
+    },
+    {
+      "file": "button_primary.png",
+      "prompt": "Create a single production-ready pixel-art PRIMARY BUTTON background asset for KeLing space learning UI. Wide 4:1 rectangle, transparent outside. Bold navy #14263D crisp stepped outline, pale mint #72D8C3 large EMPTY flat center, small ivory bevel top edge, deeper teal lower bevel creates tactile button depth, coral #EF987D tiny pixel accents at far corners, small gold star ONLY at left end. No lettering, no digits, no icons in central 70%, because real accessible live text will be overlaid. Geometry simple, clean, readable at 200x50 pixels, square pixel edges, no glow no blur no photographic texture. Full object centered with slim even margin, consistent cozy futuristic observatory visual identity.",
+      "sourceGenerationFile": "exec-461f06ce-d4dc-47be-917c-faf19593902e.png"
+    },
+    {
+      "file": "app_icon.png",
+      "prompt": "Design KeLing's final app icon. A square 1024x1024 opaque navy #14263D full-bleed background. Center a simple memorable ivory-and-mint robot owl astronaut face with glowing cyan rectangular eyes and a tiny two-leaf sprout antenna, resting on an open ivory book, a gold orbital ring around it, one coral thruster accent. Pixel art: large crisp square pixels and minimal hard-edged flat shading, clear at launcher icon sizes. Symbol wholly contained in central 60% safe area so Android circle/squircle masks never cut owl or sprout. Four tiny gold star pixels around, no text no letters no gradients no drop shadows outside. Visual tone optimistic intelligent practical space learning. Strong silhouette and perfect balanced center.",
+      "sourceGenerationFile": "exec-6322e99f-07c0-4705-a152-5bec56cf8b47.png"
+    }
+  ]
+}

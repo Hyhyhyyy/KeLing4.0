@@ -1,0 +1,20 @@
+{
+  "date": "2026-10-29",
+  "platform": "Android Kotlin",
+  "versionName": "3.2.1-preview",
+  "versionCode": 11,
+  "apiBaseUrl": "https://keling-ict-preview.vercel.app/api",
+  "artifact": "releases/KeLing-ICT-3.2.1-cloud-debug.apk",
+  "artifactBytes": 87402634,
+  "sha256": "fbc57593ec363e6f8b7e5ea56d96c38e64af57d9c1e90d615a5f3a5b2065cb9b",
+  "tests": { "suites": 6, "total": 25, "failures": 0, "errors": 0 },
+  "lint": { "errors": 0, "warnings": 96 },
+  "packagedCanonicalPngs": 20,
+  "packagedPngHashMismatches": 0,
+  "apkSignatureV2Verified": true,
+  "deviceOrEmulatorConnected": false,
+  "configuredAvdFound": false,
+  "deviceUiValidated": false,
+  "cloudSyncValidatedFromAndroid": false,
+  "githubPushed": false
+}

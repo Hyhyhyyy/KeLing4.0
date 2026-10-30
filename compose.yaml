@@ -1,0 +1,68 @@
+name: keling
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: keling
+      POSTGRES_USER: keling
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set a generated alphanumeric database password}
+    volumes:
+      - database:/var/lib/postgresql/data
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U keling -d keling"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    restart: unless-stopped
+  migrate:
+    build:
+      context: .
+      dockerfile: deploy/Dockerfile.server
+    image: keling-api:3.2.0-preview
+    environment:
+      DATABASE_URL: postgresql://keling:${POSTGRES_PASSWORD}@db:5432/keling?schema=public
+    command: [node, node_modules/prisma/build/index.js, migrate, deploy, --schema, prisma/schema.postgresql.prisma]
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: "no"
+  api:
+    image: keling-api:3.2.0-preview
+    init: true
+    env_file: .env.deploy
+    environment:
+      NODE_ENV: production
+      PORT: 3001
+      DATABASE_URL: postgresql://keling:${POSTGRES_PASSWORD}@db:5432/keling?schema=public
+      JWT_SECRET: ${JWT_SECRET:?Set a random JWT secret of at least 32 bytes}
+      CORS_ORIGINS: ${CORS_ORIGINS:?Set the exact web origin}
+      TRUST_PROXY_HOPS: 1
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    healthcheck:
+      test: [CMD, node, -e, "fetch('http://127.0.0.1:3001/api/ready').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"]
+      interval: 20s
+      timeout: 5s
+      retries: 3
+    restart: unless-stopped
+  web:
+    build:
+      context: .
+      dockerfile: deploy/Dockerfile.web
+    environment:
+      SITE_ADDRESS: ${SITE_ADDRESS:?Set a domain, or http://localhost for local verification}
+    ports:
+      - "${BIND_ADDRESS:-127.0.0.1}:${HTTP_PORT:-8080}:80"
+      - "${BIND_ADDRESS:-127.0.0.1}:${HTTPS_PORT:-8443}:443"
+    volumes:
+      - certificates:/data
+      - caddy_config:/config
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+volumes:
+  database:
+  certificates:
+  caddy_config:

@@ -1,0 +1,34 @@
+{
+  "release": "3.2.2-preview",
+  "date": "2026-10-30",
+  "deployment": {
+    "project": "keling-ict-preview",
+    "id": "dpl_8XFnhumbskBZJg6bSkfAZh9kc37m",
+    "status": "READY",
+    "fixedUrl": "https://keling-ict-preview.vercel.app",
+    "trialUrl": "https://keling-ict-preview.vercel.app/trial",
+    "generatedUrl": "https://keling-ict-preview-jzkyfsf8b-hyhyhyyys-projects.vercel.app",
+    "verification": "Vercel CLI remote build and inspect; public HTTP regression not repeated in this release"
+  },
+  "android": {
+    "path": "releases/KeLing-ICT-3.2.2-cloud-debug.apk",
+    "bytes": 153609915,
+    "sha256": "63e59af78d24f56384befe3e75136c01026118fe926e327043fd14edaf4f484b",
+    "signature": "debug; APK Signature Scheme v2 verified",
+    "package": "com.keling.app",
+    "versionCode": 12,
+    "minimumApi": 26,
+    "unitTests": 46,
+    "failures": 0,
+    "lintErrors": 0,
+    "lintWarnings": 96,
+    "physicalDeviceTested": false
+  },
+  "server": { "tests": 44, "failures": 0, "testDatabase": "isolated temporary SQLite", "buildPassed": true },
+  "web": { "buildPassed": true, "lintErrors": 0, "lintWarnings": 38, "browserEvidence": "docs/screenshots/final-2026-10-30" },
+  "art": { "canonicalPngs": 44, "fullScenes": 29, "newIndependentScenes": 24, "bothClientsAndApkHashesMatch": true },
+  "automations": { "deletedId": "automation", "deleteStatus": "deleted", "remainingAutomationTomlFiles": 0, "futureScheduledWork": false },
+  "liveModelTested": false,
+  "liveModelUntestedAcceptedByUser": true,
+  "gitPushed": false
+}

@@ -1,0 +1,174 @@
+/* 认证页面样式 */
+
+.auth-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* 星空背景 */
+.stars-bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.5); }
+}
+
+/* 认证卡片 */
+.auth-card {
+  background: white;
+  border-radius: 20px;
+  padding: 48px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+  position: relative;
+  z-index: 1;
+}
+
+/* Logo区域 */
+.auth-logo {
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.logo-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  border-radius: 20px;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.auth-logo h1 {
+  font-size: 28px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #6366f1, #f59e0b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 8px;
+}
+
+.auth-logo p {
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+/* 表单 */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.error-message {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.input-group {
+  position: relative;
+}
+
+.input-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+}
+
+.input-group input {
+  width: 100%;
+  padding: 14px 14px 14px 48px;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  background: var(--bg-secondary);
+  font-size: 15px;
+  transition: all 0.2s;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: #6366f1;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.auth-btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 8px;
+}
+
+.auth-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+}
+
+.auth-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* 底部链接 */
+.auth-footer {
+  text-align: center;
+  margin-top: 24px;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.auth-footer a {
+  color: #6366f1;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.auth-footer a:hover {
+  text-decoration: underline;
+}
+.auth-container{background:#14263d url(/stellar/hero_web.png) center/cover}.auth-card{background:#fffcf4;border:2px solid #72d8c3;border-radius:12px}.auth-stellar-logo{width:230px;max-width:100%;height:110px;object-fit:contain;image-rendering:pixelated}.auth-btn{background:#285950!important;color:#fff6df!important;border-radius:5px!important}.auth-footer a{color:#285950!important}.auth-form input:focus{border-color:#285950!important;box-shadow:0 0 0 3px #d7eee0!important}.auth-form .error-message{color:#843e2f}@media(prefers-reduced-motion:reduce){.star{animation:none}}
+
+/* Login and registration each have their own original arrival scene. */
+.auth-container{background:radial-gradient(ellipse at top left,#285950,#14263d 70%);padding:32px;gap:40px;overflow:auto}.auth-arrival{width:min(56%,700px);margin:0;flex-shrink:1;min-width:0;position:relative;z-index:1;color:#fff6df}.auth-arrival>.stellar-scene{width:100%;height:auto;object-fit:contain;border:2px solid #7bb9a9;border-radius:12px;box-shadow:7px 7px 0 #0c1d2a}.auth-arrival figcaption{padding:24px 4px 0}.auth-arrival h1{font-size:clamp(26px,3vw,36px);line-height:1.5;margin:0 0 12px}.auth-arrival p{color:#d5e9df;line-height:1.9;font-size:15px;max-width:36em}.auth-arrival a{display:inline-block;margin-top:16px;color:#a6edce;font-weight:600;text-underline-offset:4px}.auth-container a:focus-visible,.auth-container button:focus-visible{outline:3px solid #f4ce72;outline-offset:4px}.auth-card{flex-shrink:0;margin:0}.auth-arrival a:hover{color:#fff6df}
+@media(max-width:900px){.auth-container{gap:24px;padding:24px}.auth-card{padding:32px;max-width:390px}.auth-arrival h1{font-size:26px}}
+@media(max-width:700px){.auth-container{flex-direction:column;gap:20px;padding:20px}.auth-arrival{width:100%;max-width:420px}.auth-arrival figcaption{padding:14px 0 0}.auth-arrival h1{font-size:22px;margin:0 0 6px}.auth-arrival p{font-size:13px;margin:0}.auth-arrival a{margin-top:8px;font-size:13px}.auth-card{max-width:420px;padding:28px}.auth-logo{margin-bottom:22px}.auth-stellar-logo{height:78px}}
+.auth-trial-entry { display: grid; gap: 10px; margin-top: 20px; text-align: center; }
+.auth-trial-entry small { font-size: 13px; line-height: 1.6; color: #46615b; }

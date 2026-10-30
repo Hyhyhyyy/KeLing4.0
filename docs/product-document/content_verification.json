@@ -1,0 +1,12 @@
+{
+  "source_hash_matches_build": true,
+  "html_hash_matches_build": true,
+  "sections": 6,
+  "images": 1,
+  "tables": 2,
+  "external_asset_dependencies": [],
+  "missing_local_references": [],
+  "scripts": 0,
+  "word_pages_visually_inspected": 0,
+  "html_browser_visual_inspection": "Performed separately by main task if available; structural checks do not establish rendered page count"
+}
