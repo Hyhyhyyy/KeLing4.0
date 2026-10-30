@@ -1,6 +1,6 @@
 {
   "name": "keling-monorepo",
-  "version": "4.0.0-preview",
+  "version": "4.0.1-preview",
   "private": true,
   "description": "课灵 - 多端知识管理应用",
   "workspaces": [

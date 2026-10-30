@@ -8,8 +8,8 @@ import './pages/Expedition/Expedition.css';
 // 页面组件
 const Login = lazy(() => import('./pages/Auth/Login'));
 const Register = lazy(() => import('./pages/Auth/Register'));
-const LegacyHome = lazy(() => import('./pages/Home/StellarHome'));
-const Home = lazy(() => import('./pages/Expedition/ExpeditionPages').then(module => ({ default: module.ExpeditionHome })));
+const Home = lazy(() => import('./pages/Home/StellarHome'));
+const ExpeditionHome = lazy(() => import('./pages/Expedition/ExpeditionPages').then(module => ({ default: module.ExpeditionHome })));
 const ExpeditionChapter = lazy(() => import('./pages/Expedition/ExpeditionPages').then(module => ({ default: module.ExpeditionChapter })));
 const ExpeditionBase = lazy(() => import('./pages/Expedition/ExpeditionPages').then(module => ({ default: module.ExpeditionBase })));
 const ExpeditionMine = lazy(() => import('./pages/Expedition/ExpeditionPages').then(module => ({ default: module.ExpeditionMine })));
@@ -84,14 +84,16 @@ const TopNav: React.FC = () => {
   const { user, isGuest } = useAppStore();
 
   const navItems = [
-    { path: '/', icon: 0, label: '远航' },
+    { path: '/', icon: 0, label: '首页' },
+    { path: '/voyage', icon: 2, label: '远航' },
     { path: '/greenhouse', icon: 4, label: '星图' },
     { path: '/base', icon: 5, label: '基地' },
     { path: '/me', icon: 7, label: '我的' },
   ];
   const activeGroup = location.pathname === '/base' || location.pathname.startsWith('/visual-library') ? '/base'
     : ['/greenhouse', '/knowledge-graph', '/notes'].some(path => location.pathname.startsWith(path)) ? '/greenhouse'
-    : ['/me', '/profile', '/settings', '/study-report', '/achievements', '/voyage/evidence', '/voyage/sync'].some(path => location.pathname.startsWith(path)) ? '/me' : '/';
+    : ['/me', '/profile', '/settings', '/study-report', '/achievements', '/voyage/evidence', '/voyage/sync'].some(path => location.pathname.startsWith(path)) ? '/me'
+    : ['/voyage', '/tasks', '/agent'].some(path => location.pathname.startsWith(path)) ? '/voyage' : '/';
   const isActive = (path: string) => activeGroup === path;
 
   return (
@@ -191,7 +193,8 @@ function App() {
       <Router>
         <Suspense fallback={<div className="loading-screen" role="status">正在加载页面…</div>}>
         <Routes>
-          <Route path="/workspace" element={<ProtectedRoute><MainLayout><LegacyHome/></MainLayout></ProtectedRoute>}/>
+          <Route path="/workspace" element={<ProtectedRoute><MainLayout><Home/></MainLayout></ProtectedRoute>}/>
+          <Route path="/voyage" element={<ProtectedRoute><MainLayout><ExpeditionHome/></MainLayout></ProtectedRoute>}/>
           <Route path="/greenhouse/:id/chapter" element={<ProtectedRoute><MainLayout><ExpeditionChapter/></MainLayout></ProtectedRoute>}/>
           <Route path="/voyage/runs/:id" element={<ProtectedRoute><MainLayout><ExpeditionRun/></MainLayout></ProtectedRoute>}/>
           <Route path="/voyage/evidence" element={<ProtectedRoute><MainLayout><ExpeditionEvidence/></MainLayout></ProtectedRoute>}/>

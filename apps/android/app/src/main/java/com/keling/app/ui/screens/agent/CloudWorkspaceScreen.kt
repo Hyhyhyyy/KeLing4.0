@@ -38,7 +38,7 @@ fun CloudWorkspaceScreen(accountId: String, token: String, initialTab: String = 
     var editId by rememberSaveable { mutableStateOf<String?>(null) }; var editVersion by rememberSaveable { mutableStateOf<String?>(null) }
     var edit by rememberSaveable { mutableStateOf(false) }; var title by rememberSaveable { mutableStateOf("") }; var text by rememberSaveable { mutableStateOf("") }
     var legacyPreview by remember { mutableStateOf(false) }
-    if (legacyPreview && guest == null) com.keling.app.expedition.LegacyPreviewDialog(accountId, state.profile) { legacyPreview = false }
+
     var deleteNote by remember { mutableStateOf<NoteData?>(null) }
     var courseName by rememberSaveable { mutableStateOf("") }
     var newPlanet by rememberSaveable { mutableStateOf(0) }
@@ -47,6 +47,8 @@ fun CloudWorkspaceScreen(accountId: String, token: String, initialTab: String = 
     var planetDraft by rememberSaveable { mutableStateOf(0) }
     var focus by remember { mutableStateOf<TaskData?>(null) }
     var complete by remember { mutableStateOf<TaskData?>(null) }; var minutes by rememberSaveable { mutableStateOf("25") }
+    val pageScroll = androidx.compose.foundation.lazy.rememberLazyListState()
+    LaunchedEffect(focus?.id, complete?.id) { if (focus != null || complete != null) pageScroll.animateScrollToItem(0) }
     var acknowledgedSave by rememberSaveable(accountId, token) { mutableStateOf(state.savedRevision) }
     LaunchedEffect(state.savedRevision) { if (state.savedRevision > acknowledgedSave) edit = false; acknowledgedSave = state.savedRevision }
     fun editNote(note: NoteData?) { editId = note?.id; editVersion = note?.updatedAt; title = note?.title.orEmpty(); text = note?.content.orEmpty(); edit = true }
@@ -56,15 +58,33 @@ fun CloudWorkspaceScreen(accountId: String, token: String, initialTab: String = 
                 StellarArt("title_logo", "课灵", Modifier.width(124.dp).height(58.dp)); Spacer(Modifier.weight(1f))
                 TextButton(onClick = vm::refresh, enabled = !state.busy) { Text(if (state.busy) "同步中" else if (guest != null) "刷新本次数据" else "刷新共享数据") }
             }
-            if (initialTab == "home" || initialTab == "notes") ScrollableTabRow(selectedTabIndex = listOf("home", "greenhouse", "tasks", "notes", "profile").indexOf(tab).coerceAtLeast(0), edgePadding = 4.dp) {
+            if (initialTab == "notes") ScrollableTabRow(selectedTabIndex = listOf("home", "greenhouse", "tasks", "notes", "profile").indexOf(tab).coerceAtLeast(0), edgePadding = 4.dp) {
                 listOf("home" to "总览", "greenhouse" to "课程", "tasks" to "任务", "notes" to "笔记", "profile" to "我的").forEach { (id, label) -> Tab(selected = tab == id, onClick = { tab = id }, text = { Text(label) }) }
             }
-            LazyColumn(Modifier.weight(1f).padding(horizontal = 16.dp), verticalArrangement = Arrangement.spacedBy(12.dp), contentPadding = PaddingValues(vertical = 12.dp)) {
+            LazyColumn(Modifier.weight(1f).padding(horizontal = 16.dp), state = pageScroll, verticalArrangement = Arrangement.spacedBy(12.dp), contentPadding = PaddingValues(vertical = 12.dp)) {
                 state.error?.let { message -> item { Text(message, color = MaterialTheme.colorScheme.error) } }
                 state.notice?.let { message -> item { Text(message, color = MaterialTheme.colorScheme.primary) } }
+                focus?.let { task -> item {
+                    FocusPanel(task, onDismiss = { focus = null }, onComplete = { actual -> focus = null; complete = task; minutes = actual.toString() })
+                } }
+                complete?.let { task -> item {
+                    Card { Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                        Text("确认完成：${task.title}", style = MaterialTheme.typography.titleLarge)
+                        OutlinedTextField(value = minutes, onValueChange = { minutes = it.filter(Char::isDigit).take(4) }, label = { Text("实际学习分钟（0–1440）") }, modifier = Modifier.fillMaxWidth())
+                        Button(onClick = { minutes.toIntOrNull()?.takeIf { it in 0..1440 }?.let { vm.complete(task.id, it); complete = null } }, enabled = !state.busy && minutes.toIntOrNull()?.let { it in 0..1440 } == true) { Text(if (guest != null) "保存本次完成记录" else "同步完成记录") }
+                        TextButton(onClick = { complete = null }) { Text("取消本次确认") }
+                    } }
+                } }
                 if (tab == "home") {
+                    item { Card { Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                        Text("学习工具箱", style = MaterialTheme.typography.titleLarge)
+                        Text("各模块共用当前学习空间，随时从底栏返回总览。", style = MaterialTheme.typography.bodyMedium)
+                        listOf("greenhouse" to "课程与知识星球", "tasks" to "全部任务与专注", "notes" to "资料与笔记", "ai" to "AI 学习助手", "cloud_agent" to "智能学习编排", "report" to "学习统计报告", "achievements" to "学习成就").forEach { (route, label) ->
+                            OutlinedButton(onClick = { onNavigate(route) }, modifier = Modifier.fillMaxWidth()) { Text(label) }
+                        }
+                    } } }
                     item { StellarSceneCard("station_full", "你好，${state.profile?.name ?: "探索者"}", "把每一天的学习，连成自己的星图。手机随身学习，网页整理资料。") }
-                    item { Box { StellarArt("checkin_frame", null, Modifier.matchParentSize(), androidx.compose.ui.layout.ContentScale.FillBounds); Column(Modifier.fillMaxWidth().padding(horizontal = 30.dp, vertical = 38.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    item { Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer)) { Column(Modifier.fillMaxWidth().padding(20.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                         Text("今日到访记录", style = MaterialTheme.typography.titleMedium)
                         Text("${state.courses.size} 门课程 · ${state.tasks.count { it.status == "PENDING" || it.status == "IN_PROGRESS" }} 个待办 · ${state.notes.size} 篇笔记")
                         StellarActionButton(text = if (state.checkin?.hasCheckedInToday == true) "今日已签到" else if (guest != null) "记录今日到访" else "签到 · 与网页同步", onClick = vm::checkin, enabled = !state.busy && state.checkin != null && state.checkin?.hasCheckedInToday != true)
@@ -75,7 +95,7 @@ fun CloudWorkspaceScreen(accountId: String, token: String, initialTab: String = 
                             StellarArt("mascot_mentor", "星际导师", Modifier.size(76.dp))
                             Text("带着课程、任务或笔记提问，先核对资料，再开始讨论。", Modifier.weight(1f).padding(start = 12.dp))
                         }
-                        Button(onClick = { onNavigate("ai") }, modifier = Modifier.fillMaxWidth().padding(12.dp)) { Text("进入星际 AI 助手 →") }
+                        Button(onClick = { onNavigate("ai") }, modifier = Modifier.fillMaxWidth().padding(12.dp)) { Text("进入星际 AI 助手") }
                     } } }
                     item { OutlinedButton(onClick = { onNavigate("cloud_agent") }, modifier = Modifier.fillMaxWidth()) { Text(if (guest != null) "智能编排 · 本次学习计划" else "华为云 AgentArts · 智能编排") } }
                     item { Text("继续一项学习", style = MaterialTheme.typography.titleMedium) }
@@ -123,12 +143,13 @@ fun CloudWorkspaceScreen(accountId: String, token: String, initialTab: String = 
                     if (state.notes.isEmpty()) item { Text(if (guest != null) "新建笔记或保存 AI 回答，内容在本次试用各模块可用。" else "给每一次理解留一个坐标：网页笔记与保存的 AI 回答会显示在这里。") }
                 }
                 if (tab == "profile") {
-                    item { StellarSceneCard("scene_profile", "我的星际身份舱", "选择陪伴你的探索形象，查看账户中真实累积的学习记录。") }
+                    item { StellarSceneCard("scene_profile", "资料 · 星际身份舱", "选择陪伴你的探索形象，查看账户中真实累积的学习记录。") }
                     item { Row(verticalAlignment = Alignment.CenterVertically) { StellarSprite("avatars", state.profile?.avatarUrl?.substringAfterLast('-')?.toIntOrNull() ?: 0, "当前头像", Modifier.size(80.dp)); Column(Modifier.padding(start = 16.dp)) { Text(state.profile?.name.orEmpty(), style = MaterialTheme.typography.titleLarge); Text("Lv.${state.profile?.level ?: 1} · 累计 ${state.profile?.totalStudyMinutes ?: 0} 分钟"); Text("历史能量 ${state.profile?.energy ?: 0} · 结晶 ${state.profile?.crystals ?: 0}") } } }
                     item { Text(if (guest != null) "选择星际头像 · 本次有效" else "选择星际头像 · 两端同步", style = MaterialTheme.typography.titleMedium) }
                     items((0..2).toList()) { row -> Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) { (0..2).forEach { col -> val index = row * 3 + col; TextButton(onClick = { vm.avatar(index) }, enabled = !state.busy) { Column(horizontalAlignment = Alignment.CenterHorizontally) { StellarSprite("avatars", index, avatarNames[index], Modifier.size(70.dp)); Text(avatarNames[index], style = MaterialTheme.typography.labelSmall) } } } } }
                     item { OutlinedButton(onClick = { onNavigate("settings") }, modifier = Modifier.fillMaxWidth()) { Text(if (guest != null) "应用设置与退出试用" else "应用设置与退出登录") } }
-                    if (guest == null) item { OutlinedButton(onClick = { legacyPreview = true }, modifier = Modifier.fillMaxWidth()) { Text("先核对旧资料归属、数量与回退说明") } }
+                    if (legacyPreview && guest == null) item { com.keling.app.expedition.LegacyPreviewCard(accountId, state.profile) { legacyPreview = false } }
+                    if (guest == null) item { OutlinedButton(onClick = { legacyPreview = !legacyPreview }, modifier = Modifier.fillMaxWidth()) { Text("核对历史资料归属与数量") } }
                     item { TextButton(onClick = { onNavigate("offline_home") }) { Text(if (guest != null) "打开临时田园空间" else "打开原有本机田园数据") }; Text(if (guest != null) "临时田园空间提供原有课程、知识图谱、任务、笔记、课表、签到、成就与报告功能，独立保留本次内存，不读取已有账号资料。" else "旧版离线资料保留在本机，云端空间使用共享账号数据。", style = MaterialTheme.typography.bodySmall) }
                 }
             }
@@ -148,8 +169,6 @@ fun CloudWorkspaceScreen(accountId: String, token: String, initialTab: String = 
             Column { OutlinedTextField(value = title, onValueChange = { title = it.take(180) }, label = { Text("标题") }); OutlinedTextField(value = text, onValueChange = { text = it.take(50000) }, label = { Text("正文") }, modifier = Modifier.heightIn(min = 140.dp, max = 300.dp)); Text("先保存并关闭，再从笔记卡片问 AI。未保存草稿不会发送给模型。", style = MaterialTheme.typography.bodySmall); state.error?.let { Text(it, color = MaterialTheme.colorScheme.error) } }
         }, confirmButton = { TextButton(onClick = { vm.saveNote(editId, title, text, editVersion) }, enabled = !state.busy && title.isNotBlank() && text.isNotBlank()) { Text("保存") } }, dismissButton = { TextButton(onClick = { edit = false }, enabled = !state.busy) { Text("关闭") } })
         deleteNote?.let { note -> AlertDialog(onDismissRequest = { deleteNote = null }, title = { Text(if (guest != null) "删除本次笔记？" else "删除共享笔记？") }, text = { Text(if (guest != null) "从本次试用移除《${note.title}》。" else "两端都会移除《${note.title}》。") }, confirmButton = { TextButton(onClick = { deleteNote = null; vm.deleteNote(note.id) }) { Text("删除") } }, dismissButton = { TextButton(onClick = { deleteNote = null }) { Text("取消") } }) }
-        complete?.let { task -> AlertDialog(onDismissRequest = { complete = null }, title = { Text("确认完成：${task.title}") }, text = { OutlinedTextField(value = minutes, onValueChange = { minutes = it.filter(Char::isDigit).take(4) }, label = { Text("实际学习分钟（0–1440）") }) }, confirmButton = { TextButton(onClick = { minutes.toIntOrNull()?.takeIf { it in 0..1440 }?.let { vm.complete(task.id, it); complete = null } }, enabled = !state.busy && minutes.toIntOrNull()?.let { it in 0..1440 } == true) { Text(if (guest != null) "保存本次完成记录" else "同步完成记录") } }, dismissButton = { TextButton(onClick = { complete = null }) { Text("取消") } }) }
-        focus?.let { task -> FocusDialog(task, onDismiss = { focus = null }, onComplete = { actual -> focus = null; complete = task; minutes = actual.toString() }) }
     } }
 }
 @Composable private fun WorkspaceTaskCard(task: TaskData, busy: Boolean, focus: () -> Unit, complete: () -> Unit, askAssistant: () -> Unit) {
@@ -158,15 +177,18 @@ fun CloudWorkspaceScreen(accountId: String, token: String, initialTab: String = 
         TextButton(onClick = askAssistant, enabled = !busy) { Text("请 AI 帮我理解任务") }
     } }
 }
-@Composable private fun FocusDialog(task: TaskData, onDismiss: () -> Unit, onComplete: (Int) -> Unit) {
+@Composable private fun FocusPanel(task: TaskData, onDismiss: () -> Unit, onComplete: (Int) -> Unit) {
     val total = task.estimatedMinutes.coerceIn(1, 480) * 60000L
     var remaining by rememberSaveable(task.id) { mutableStateOf(total) }; var deadline by rememberSaveable(task.id) { mutableStateOf(android.os.SystemClock.elapsedRealtime() + total) }; var active by rememberSaveable(task.id) { mutableStateOf(true) }
     val view = LocalView.current
     DisposableEffect(view, active) { val previous = view.keepScreenOn; view.keepScreenOn = active; onDispose { view.keepScreenOn = previous } }
     LaunchedEffect(active, deadline) { while (active && remaining > 0) { remaining = (deadline - android.os.SystemClock.elapsedRealtime()).coerceAtLeast(0); delay(500) }; if (remaining == 0L) active = false }
-    AlertDialog(onDismissRequest = onDismiss, title = { Text(task.title) }, text = { Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
+    Card { Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth().padding(16.dp)) {
+        Text(task.title, style = MaterialTheme.typography.titleLarge)
         Box(Modifier.size(230.dp), contentAlignment = Alignment.Center) { StellarArt("timer_frame", null, Modifier.fillMaxSize()); Text("%02d:%02d".format(remaining / 60000, remaining / 1000 % 60), modifier = Modifier.padding(top = 18.dp), style = MaterialTheme.typography.displaySmall) }
         Text("专注期间保持屏幕唤醒；完成后由你确认同步。", style = MaterialTheme.typography.bodySmall)
         TextButton(onClick = { if (active) { remaining = (deadline - android.os.SystemClock.elapsedRealtime()).coerceAtLeast(0); active = false } else { deadline = android.os.SystemClock.elapsedRealtime() + remaining; active = true } }, enabled = remaining > 0) { Text(if (active) "暂停" else "继续") }
-    } }, confirmButton = { TextButton(onClick = { onComplete(((total - remaining) / 60000).toInt()) }) { Text("结束并确认时长") } }, dismissButton = { TextButton(onClick = onDismiss) { Text("关闭计时") } })
+        Button(onClick = { onComplete(((total - remaining) / 60000).toInt()) }) { Text("结束并确认时长") }
+        TextButton(onClick = onDismiss) { Text("关闭计时") }
+    } }
 }

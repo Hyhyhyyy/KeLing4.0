@@ -18,6 +18,10 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.semantics.semantics
@@ -85,10 +89,39 @@ private object StellarBitmaps {
         TextButton(onClick = onClick, enabled = enabled, modifier = Modifier.fillMaxWidth(), contentPadding = PaddingValues(horizontal = 24.dp, vertical = 12.dp)) { Text(text) }
     }
 }
+private val StellarTypography = Typography(
+    displayLarge = TextStyle(fontFamily = FontFamily.SansSerif, fontWeight = FontWeight.Bold, fontSize = 44.sp, lineHeight = 54.sp),
+    displayMedium = TextStyle(fontFamily = FontFamily.SansSerif, fontWeight = FontWeight.Bold, fontSize = 38.sp, lineHeight = 48.sp),
+    displaySmall = TextStyle(fontFamily = FontFamily.SansSerif, fontWeight = FontWeight.Bold, fontSize = 32.sp, lineHeight = 42.sp),
+    headlineLarge = TextStyle(fontFamily = FontFamily.SansSerif, fontWeight = FontWeight.Bold, fontSize = 32.sp, lineHeight = 42.sp),
+    headlineMedium = TextStyle(fontFamily = FontFamily.SansSerif, fontWeight = FontWeight.Bold, fontSize = 28.sp, lineHeight = 38.sp),
+    headlineSmall = TextStyle(fontFamily = FontFamily.SansSerif, fontWeight = FontWeight.Bold, fontSize = 24.sp, lineHeight = 34.sp),
+    titleLarge = TextStyle(fontFamily = FontFamily.SansSerif, fontWeight = FontWeight.Bold, fontSize = 20.sp, lineHeight = 30.sp),
+    titleMedium = TextStyle(fontFamily = FontFamily.SansSerif, fontWeight = FontWeight.SemiBold, fontSize = 18.sp, lineHeight = 28.sp),
+    titleSmall = TextStyle(fontFamily = FontFamily.SansSerif, fontWeight = FontWeight.SemiBold, fontSize = 16.sp, lineHeight = 24.sp),
+    bodyLarge = TextStyle(fontFamily = FontFamily.SansSerif, fontSize = 16.sp, lineHeight = 27.sp),
+    bodyMedium = TextStyle(fontFamily = FontFamily.SansSerif, fontSize = 15.sp, lineHeight = 25.sp),
+    bodySmall = TextStyle(fontFamily = FontFamily.SansSerif, fontSize = 13.sp, lineHeight = 22.sp),
+    labelLarge = TextStyle(fontFamily = FontFamily.SansSerif, fontWeight = FontWeight.SemiBold, fontSize = 15.sp, lineHeight = 23.sp),
+    labelMedium = TextStyle(fontFamily = FontFamily.SansSerif, fontWeight = FontWeight.SemiBold, fontSize = 13.sp, lineHeight = 21.sp),
+    labelSmall = TextStyle(fontFamily = FontFamily.SansSerif, fontWeight = FontWeight.Medium, fontSize = 12.sp, lineHeight = 19.sp)
+)
+
 @Composable fun StellarTheme(reducedMotion: Boolean = false, content: @Composable () -> Unit) {
-    CompositionLocalProvider(LocalStellarReducedMotion provides reducedMotion) { MaterialTheme(colorScheme = lightColorScheme(primary = Color(0xFF285950), onPrimary = Color(0xFFFFF6DF),
-        secondary = Color(0xFF976449), background = Color(0xFFF5F6EE), surface = Color(0xFFFFFCF4),
-        onSurface = Color(0xFF14263D), onBackground = Color(0xFF14263D)), content = content) }
+    CompositionLocalProvider(LocalStellarReducedMotion provides reducedMotion) { MaterialTheme(
+        colorScheme = lightColorScheme(
+            primary = Color(0xFF285950), onPrimary = Color(0xFFFFF6DF),
+            primaryContainer = Color(0xFFD9EDE1), onPrimaryContainer = Color(0xFF214E48),
+            secondary = Color(0xFF805333), onSecondary = Color(0xFFFFFCF4),
+            secondaryContainer = Color(0xFFF7E9C8), onSecondaryContainer = Color(0xFF543E23),
+            tertiary = Color(0xFF356778), onTertiary = Color(0xFFFFFCF4),
+            tertiaryContainer = Color(0xFFDDEEF0), onTertiaryContainer = Color(0xFF173E4C),
+            background = Color(0xFFF5F6EE), surface = Color(0xFFFFFCF4),
+            surfaceVariant = Color(0xFFE8EEE2), onSurfaceVariant = Color(0xFF52675F),
+            onSurface = Color(0xFF14263D), onBackground = Color(0xFF14263D),
+            outline = Color(0xFF789786), outlineVariant = Color(0xFFBED1C2)
+        ), typography = StellarTypography, content = content
+    ) }
 }
 @Composable fun StellarSelect(label: String, value: String, options: List<Pair<String, String>>, enabled: Boolean = true, onSelect: (String) -> Unit) {
     var expanded by remember { mutableStateOf(false) }

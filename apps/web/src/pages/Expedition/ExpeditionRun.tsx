@@ -64,7 +64,7 @@ export default function ExpeditionRun() {
     if (value.type === 'NEXT' && result.data) setDraft(null);
   });
   const hasQueued = Boolean(local?.outbox.some(operation => operation.runId === id));
-  if (!run || !exercise || !draft) return <div className="exp-page" data-motion={workspace.preferences.reducedMotion ? 'reduce' : undefined}><h1>读取远征与本机草稿</h1><ExpeditionNotice error={workspace.error} notice={workspace.notice}/><p>首次打开需要连接服务；已有本机快照将在这里恢复。</p><Link to="/">返回远航</Link></div>;
+  if (!run || !exercise || !draft) return <div className="exp-page" data-motion={workspace.preferences.reducedMotion ? 'reduce' : undefined}><h1>读取远征与本机草稿</h1><ExpeditionNotice error={workspace.error} notice={workspace.notice}/><p>首次打开需要连接服务；已有本机快照将在这里恢复。</p><Link to="/voyage">返回远航</Link></div>;
   const timing = run.timing || sessionTiming(run, saved?.serverTime || run.settledAt || run.startedAt);
   const minutesLabel = (ms: number) => `${Math.floor(ms / 60000)} 分 ${Math.floor(ms % 60000 / 1000)} 秒`;
   const paragraph = CHAPTER.materialParagraphs[exercise.sourceParagraph] || CHAPTER.materialParagraphs[0];

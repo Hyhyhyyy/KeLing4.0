@@ -23,7 +23,7 @@
 html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 body, #root, #root .explore-page {
   font-family: var(--font-ui);
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 400;
   line-height: 1.75;
   color: var(--type-body);
@@ -39,7 +39,7 @@ body, #root, #root .explore-page {
   color: var(--type-heading);
 }
 #root :is(input, textarea)::placeholder { color: var(--type-muted); opacity: 1; }
-#root :is(button, .btn) { font-size: 14px; font-weight: 600; line-height: 1.5; }
+#root :is(button, .btn) { font-size: 15px; font-weight: 600; line-height: 1.6; }
 #root :is(h1, h2, h3, h4) {
   font-family: var(--font-ui);
   color: var(--type-heading);
@@ -48,17 +48,17 @@ body, #root, #root .explore-page {
   text-wrap: pretty;
   overflow-wrap: anywhere;
 }
-#root h1 { font-size: clamp(26px, 2.4vw, 32px); line-height: 1.4; }
-#root h2 { font-size: 21px; line-height: 1.5; }
-#root h3 { font-size: 18px; line-height: 1.5; }
+#root h1 { font-size: clamp(28px, 2.8vw, 38px); line-height: 1.35; }
+#root h2 { font-size: 24px; line-height: 1.45; }
+#root h3 { font-size: 19px; line-height: 1.5; }
 #root h4 { font-size: 16px; line-height: 1.55; font-weight: 600; }
-#root p { font-size: 15px; font-weight: 400; line-height: 1.8; overflow-wrap: anywhere; }
-#root :is(strong, b) { font-weight: 600; }
-#root small { font-size: 12px; line-height: 1.65; }
+#root p { font-size: 16px; font-weight: 400; line-height: 1.85; overflow-wrap: anywhere; }
+#root :is(strong, b) { font-weight: 700; }
+#root small { font-size: 13px; line-height: 1.7; }
 #root :is(code, pre, kbd) { font-family: var(--font-mono); }
 #root pre { overflow-x: auto; }
 #root :is(label, summary) { font-size: 14px; font-weight: 600; line-height: 1.6; }
-#root :is(.nav-link, .menu-item span, .filter-tab, .category-tab) { font-size: 14px; font-weight: 600; }
+#root :is(.nav-link, .menu-item span, .filter-tab, .category-tab) { font-size: 15px; font-weight: 600; }
 #root .nav-link { color: var(--type-secondary); }
 #root .nav-link.active { font-weight: 700; }
 #root .user-stats .energy { color: var(--type-warning); }
@@ -178,10 +178,10 @@ body, #root, #root .explore-page {
 #root :is(.stellar-notice, .notebook-notice, .stellar-status) { color: var(--type-success); font-size: 14px; font-weight: 500; }
 
 /* Dark surfaces: never inherit dark text from a light page's text role. */
-#root .stellar-hero h1 { font-size: clamp(28px, 2.6vw, 38px); color: var(--type-inverse); line-height: 1.4; }
-#root .stellar-hero p { font-size: 15px; color: var(--type-inverse-secondary); }
+#root .stellar-hero h1 { font-size: clamp(30px, 2.8vw, 42px); color: var(--type-inverse); line-height: 1.4; text-shadow: 0 2px 0 #071d30, 0 5px 18px #071d3066; }
+#root .stellar-hero p { font-size: 16px; color: var(--type-inverse-secondary); }
 #root .stellar-hero .eyebrow { color: #9be5cc; }
-#root .hero-destinations a { font-size: 12px; font-weight: 500; color: var(--type-inverse-secondary); }
+#root .hero-destinations a { font-size: 14px; font-weight: 600; color: var(--type-inverse-secondary); }
 #root .station-plate { font-size: 12px; line-height: 1.65; color: var(--type-inverse); }
 #root .stellar-cta { font-size: 15px; font-weight: 700; line-height: 1.6; color: var(--type-heading); }
 #root .profile-container .user-card { background: #214a49; }
@@ -212,15 +212,64 @@ body, #root, #root .explore-page {
 #root .auth-footer { font-size: 14px; }
 #root .auth-card { width: min(460px, calc(100% - 32px)); padding: 36px; }
 #root .auth-container { padding-block: 24px; }
-#root .explore-hero h1 { font-size: clamp(32px, 3.7vw, 52px); line-height: 1.35; letter-spacing: -.02em; }
+#root .explore-hero h1 { font-size: clamp(36px, 4vw, 56px); line-height: 1.35; letter-spacing: -.02em; text-shadow: 2px 3px 0 #d4e5d7; }
 #root .explore-page h2 { font-size: 28px; }
 #root .explore-hero p { font-size: 16px; }
 #root .explore-page .explore-action { font-weight: 700; color: var(--type-inverse); }
 
+/* Emphasis follows content roles, including lazily loaded expedition pages.
+   Shadows belong only to display headings; reading and form text remain crisp. */
+#root :is(.page-header p, .stellar-heading p, .exp-heading > div > p:not(.exp-eyebrow),
+  .scene-banner-copy p, .daily-supply p, .stellar-module-grid p, .home-voyage-copy p) {
+  font-size: 15px;
+  line-height: 1.85;
+}
+#root :is(.scene-banner-copy h2, .stellar-section-title h2, .home-voyage-copy h2) { color: #214e48; }
+#root :is(.exp-eyebrow, .eyebrow, .explore-eyebrow) { font-size: 13px; font-weight: 700; color: #32685a; }
+#root .stellar-hero .eyebrow { color: #9be5cc; }
+#root :is(.stellar-course h3, .stellar-task-row strong) { font-size: 17px; font-weight: 700; }
+#root :is(.stellar-metrics strong, .stat-num, .resource-value) { font-size: 34px; color: #214e48; }
+#root .achievements-container .stat-num { color: #f4ce72; }
+#root :is(.exp-page button, .exp-primary, .exp-secondary, .exp-page legend) { font-size: 16px; font-weight: 700; }
+#root .exp-page label { font-size: 15px; }
+#root .exp-page :is(input, select, textarea) { font-size: 16px; }
+#root .exp-page :is(input[type=checkbox], input[type=radio]) { flex-shrink: 0; }
+#root :is(.exp-link-row > a, .exp-record-link, .exp-dashboard-links h2) { color: #245b50; font-weight: 700; }
+#root .exp-link-row > a { text-decoration-thickness: 1px; text-underline-offset: 4px; }
+#root .stellar-empty a { color: #245b50; font-weight: 700; text-underline-offset: 4px; }
+#root .exp-page :is(.exp-caption, small) { font-size: 14px; }
+#root .exp-world-panel :is(h2, h3, strong) { color: #fff6df; }
+#root .exp-world-panel h2 { font-size: clamp(23px, 2vw, 29px); text-shadow: 0 2px 0 #071d30; }
+#root .exp-world-panel :is(p, small) { color: #cde7d8; }
+#root .exp-route-strip a { font-weight: 700; }
+#root .exp-route-strip small { font-weight: 400; }
+#root .exp-building :is(h2, h3, strong, p) { color: #fff6df; }
+#root .exp-location-number { color: #32685a; font-size: 26px; font-weight: 700; }
+#root .exp-page .exp-primary { color: #fff9e8; }
+#root :is(.stellar-cta, .explore-action, .exp-primary, .daily-supply button) {
+  height: auto;
+  min-height: 46px;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+/* Five persistent destinations stay readable at tablet and phone widths. */
+@media (max-width: 1200px) {
+  #root .top-nav { height: auto; min-height: 72px; flex-wrap: wrap; gap: 8px; padding: 10px 18px 0; }
+  #root .top-nav .nav-links { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); order: 3; flex: 0 0 100%; padding-bottom: 8px; overflow: visible; }
+  #root .top-nav .nav-link { justify-content: center; min-width: 0; min-height: 48px; padding: 8px 4px; }
+}
+@media (max-width: 480px) {
+  #root .top-nav { padding-inline: 10px; }
+  #root .top-nav .nav-link { flex-direction: column; gap: 3px; font-size: 14px; }
+  #root .top-nav .nav-link > .stellar-sprite { display: block; }
+  #root .top-nav .nav-user { flex: 1; min-width: 0; gap: 4px; }
+  #root .top-nav .exp-nav-tools a { font-size: 13px; }
+}
+
 @media (max-width: 760px) {
-  #root h1 { font-size: 26px; }
-  #root h2 { font-size: 20px; }
-  #root h3 { font-size: 17px; }
+  #root h1 { font-size: 28px; }
+  #root h2 { font-size: 22px; }
+  #root h3 { font-size: 18px; }
   #root :is(input, select, textarea) { font-size: 16px; }
   #root .notebook-layout textarea { font-size: 16px; }
   #root .stellar-hero h1 { font-size: 28px; }

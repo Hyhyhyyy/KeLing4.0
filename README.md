@@ -4,7 +4,7 @@
   <p><strong>从一次动手推演，到有依据的学习成长。</strong></p>
   <p>React 网页 × Kotlin Android · 可控 AI 辅导 · 星际像素学习空间</p>
   <p>
-    <a href="https://github.com/Hyhyhyyy/KeLing4.0/releases/tag/v4.0.0-preview"><img src="https://img.shields.io/badge/构建-4.0.0--preview-D9AD54?style=flat-square" alt="4.0.0-preview" /></a>
+    <a href="https://github.com/Hyhyhyyy/KeLing4.0/releases/tag/v4.0.1-preview"><img src="https://img.shields.io/badge/构建-4.0.1--preview-D9AD54?style=flat-square" alt="4.0.1-preview" /></a>
     <a href="https://keling-ict-preview.vercel.app/trial"><img src="https://img.shields.io/badge/游客模式-无需注册-377A68?style=flat-square" alt="游客模式：无需注册" /></a>
     <a href="apps/android"><img src="https://img.shields.io/badge/Android-Kotlin-7F52FF?style=flat-square&logo=kotlin&logoColor=white" alt="Android：Kotlin" /></a>
     <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-163446?style=flat-square" alt="MIT License" /></a>
@@ -12,7 +12,7 @@
   <p>
     <a href="https://keling-ict-preview.vercel.app/trial"><strong>网页游客入口 ↗</strong></a>
     &nbsp; · &nbsp;
-    <a href="https://github.com/Hyhyhyyy/KeLing4.0/releases/tag/v4.0.0-preview"><strong>Android 4.0 发布页</strong></a>
+    <a href="https://github.com/Hyhyhyyy/KeLing4.0/releases/tag/v4.0.1-preview"><strong>Android 4.0 发布页</strong></a>
     &nbsp; · &nbsp;
     <a href="docs/PRODUCT_INTRODUCTION.md"><strong>产品介绍</strong></a>
     &nbsp; · &nbsp;
@@ -20,7 +20,7 @@
   </p>
 </div>
 
-> **当前构建：4.0.0-preview · Android versionCode 16。** 网页已部署至现有游客入口，Vercel 状态 Ready。源码已推送、APK 已发布，CI 两项成功；发布证据见[本版交付记录](docs/GAMIFIED_UPGRADE_2026-10-30.md#部署与发布状态)。APK 为调试签名预览包，最低 Android 8.0，不是应用商店正式包。
+> **当前构建：4.0.1-preview · Android versionCode 17。** 恢复星际首页、加强双端文字层级，并将资料、设置、总览提升为移动端底部导航。Web 构建、25 项远航测试及 Android 78 项测试通过；本次验证与发布状态见[视觉和导航更新记录](docs/UI_REFRESH_4.0.1_2026-10-30.md)。APK 为调试签名预览包，最低 Android 8.0；真机与真实模型未实测。
 
 <p align="center">
   <img src="assets/stellar/expedition_voyage.png" alt="4.0 远航像素主视觉原画：二叉树通信站，非运行截图" width="100%" />

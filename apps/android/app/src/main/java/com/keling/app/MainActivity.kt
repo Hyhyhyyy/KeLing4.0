@@ -15,6 +15,9 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.ui.semantics.Role
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -266,6 +269,7 @@ fun MainAppContent(authViewModel: AuthViewModel, viewModel: AppViewModel, onRetr
 
     // 版本更新对话框
     var showUpdateDialog by remember { mutableStateOf(false) }
+    var updateExpanded by remember { mutableStateOf(false) }
     var updateInfo by remember { mutableStateOf<com.keling.app.update.VersionInfo?>(null) }
     var forceUpdate by remember { mutableStateOf(false) }
 
@@ -275,7 +279,7 @@ fun MainAppContent(authViewModel: AuthViewModel, viewModel: AppViewModel, onRetr
     var isCheckingUpdate by remember { mutableStateOf(false) }
 
     // 主页面列表（显示底部导航栏）
-    val mainScreens = listOf("home", "star_map", "base", "profile")
+    val mainScreens = listOf("home", "star_map", "base", "profile", "account_profile", "settings", "dashboard")
     val isMainScreen = currentScreen in mainScreens
     val needsLocalData = currentScreen.startsWith("offline_") || currentScreen in listOf("local_ai", "greenhouse_course", "knowledge_graph", "task_detail", "achievements", "report")
 
@@ -283,7 +287,7 @@ fun MainAppContent(authViewModel: AuthViewModel, viewModel: AppViewModel, onRetr
     fun checkForUpdate() {
         isCheckingUpdate = true
         updateCheckError = null
-        kotlinx.coroutines.GlobalScope.launch(kotlinx.coroutines.Dispatchers.Main) {
+        scope.launch {
             try {
                 val packageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
                 val currentVersionCode = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
@@ -323,123 +327,6 @@ fun MainAppContent(authViewModel: AuthViewModel, viewModel: AppViewModel, onRetr
     LaunchedEffect(Unit) {
         kotlinx.coroutines.delay(500)
         checkForUpdate()
-    }
-
-    // 版本更新对话框
-    if (showUpdateDialog && updateInfo != null) {
-        com.keling.app.update.UpdateDialog(
-            versionInfo = updateInfo!!,
-            forceUpdate = forceUpdate,
-            onDismiss = { showUpdateDialog = false },
-            onConfirm = { showUpdateDialog = false }
-        )
-    }
-
-    // 已是最新版本提示
-    if (showNoUpdateToast) {
-        LaunchedEffect(showNoUpdateToast) {
-            kotlinx.coroutines.delay(2000)
-            showNoUpdateToast = false
-        }
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(bottom = 100.dp),
-            contentAlignment = Alignment.BottomCenter
-        ) {
-            Surface(
-                shape = androidx.compose.foundation.shape.RoundedCornerShape(8.dp),
-                color = MintGreen.copy(alpha = 0.9f),
-                modifier = Modifier.padding(16.dp)
-            ) {
-                Text(
-                    text = "✓ 当前已是最新版本",
-                    color = DawnWhite,
-                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
-                )
-            }
-        }
-    }
-
-    // 检查更新中提示
-    if (isCheckingUpdate) {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(bottom = 100.dp),
-            contentAlignment = Alignment.BottomCenter
-        ) {
-            Surface(
-                shape = androidx.compose.foundation.shape.RoundedCornerShape(8.dp),
-                color = WarmSunOrange.copy(alpha = 0.9f),
-                modifier = Modifier.padding(16.dp)
-            ) {
-                Row(
-                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    androidx.compose.material3.CircularProgressIndicator(
-                        modifier = Modifier.size(16.dp),
-                        color = DawnWhite,
-                        strokeWidth = 2.dp
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(
-                        text = "正在检查更新...",
-                        color = DawnWhite
-                    )
-                }
-            }
-        }
-    }
-
-    // 检查更新错误提示
-    updateCheckError?.let { error ->
-        LaunchedEffect(error) {
-            kotlinx.coroutines.delay(4000)
-            updateCheckError = null
-        }
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(bottom = 100.dp),
-            contentAlignment = Alignment.BottomCenter
-        ) {
-            Surface(
-                shape = androidx.compose.foundation.shape.RoundedCornerShape(8.dp),
-                color = RoseRed.copy(alpha = 0.9f),
-                modifier = Modifier.padding(16.dp)
-            ) {
-                Text(
-                    text = "检查更新失败: $error",
-                    color = DawnWhite,
-                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
-                )
-            }
-        }
-    }
-
-    // 登出确认对话框
-    if (showLogoutDialog) {
-        AlertDialog(
-            onDismissRequest = { showLogoutDialog = false },
-            title = { Text(if (guest != null) "退出本次试用？" else "确认退出登录？") },
-            text = { Text(if (guest != null) "本次内容与 Key 将清空，重新进入从初始空间开始。" else "本机学习数据会保留在当前账号下，下次登录可继续使用。") },
-            confirmButton = {
-                TextButton(onClick = {
-                    if (guest != null) onGuestExit() else authViewModel.logout()
-                    viewModel.clearAllData()
-                    showLogoutDialog = false
-                }) {
-                    Text("确认退出", color = WarmSunOrange)
-                }
-            },
-            dismissButton = {
-                TextButton(onClick = { showLogoutDialog = false }) {
-                    Text("取消")
-                }
-            }
-        )
     }
 
     // 退出确认对话框
@@ -506,24 +393,68 @@ fun MainAppContent(authViewModel: AuthViewModel, viewModel: AppViewModel, onRetr
         }
     }
 
+    androidx.activity.compose.BackHandler(enabled = forceUpdate && showUpdateDialog) { }
+
     // 使用Scaffold布局，包含固定底部导航栏
     Scaffold(
         containerColor = DawnWhite,
         topBar = {
-            if (guest != null) Surface(color = MaterialTheme.colorScheme.secondaryContainer) { Row(Modifier.fillMaxWidth().padding(horizontal = 12.dp), verticalAlignment = Alignment.CenterVertically) { Text("游客 · 完整功能 · 退出后不保存", Modifier.weight(1f), style = MaterialTheme.typography.labelMedium); TextButton(onClick = { showLogoutDialog = true }) { Text("退出试用") } } }
-            if (syncState.error != null && needsLocalData) {
-                Surface(color = MaterialTheme.colorScheme.errorContainer) {
-                    Row(Modifier.fillMaxWidth().padding(horizontal = 12.dp), verticalAlignment = Alignment.CenterVertically) {
-                        Text(syncState.error.orEmpty(), Modifier.weight(1f), style = MaterialTheme.typography.bodySmall)
-                        TextButton(onClick = onRetrySync) { Text("重试") }
-                        TextButton(onClick = { viewModel.clearAllData(); if (guest != null) onGuestExit() else authViewModel.logout() }) { Text(if (guest != null) "退出试用" else "退出登录") }
+            com.keling.app.ui.components.StellarTheme {
+                Column(Modifier.fillMaxWidth().heightIn(max = 300.dp).verticalScroll(rememberScrollState())) {
+                    if (guest != null || showLogoutDialog) Surface(color = MaterialTheme.colorScheme.secondaryContainer) {
+                        Column(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp)) {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Text(if (guest != null) "游客 · 完整功能 · 退出后不保存" else "账号会话", Modifier.weight(1f), style = MaterialTheme.typography.labelLarge)
+                                TextButton(onClick = { showLogoutDialog = !showLogoutDialog }) { Text(if (showLogoutDialog) "收起确认" else "退出试用") }
+                            }
+                            if (showLogoutDialog) {
+                                Text(if (guest != null) "确认退出？本次内容与 Key 将清空，重新进入从初始空间开始。" else "确认退出登录？本机学习数据保留在当前账号下，下次登录可继续使用。")
+                                Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                                    Button(onClick = { if (guest != null) onGuestExit() else authViewModel.logout(); viewModel.clearAllData(); showLogoutDialog = false }) { Text("确认退出") }
+                                    OutlinedButton(onClick = { showLogoutDialog = false }) { Text("继续使用") }
+                                }
+                            }
+                        }
+                    }
+                    if (isCheckingUpdate) LinearProgressIndicator(Modifier.fillMaxWidth())
+                    if (showNoUpdateToast) Row(Modifier.padding(horizontal = 16.dp), verticalAlignment = Alignment.CenterVertically) {
+                        Text("版本检查完成 · 当前无需更新", Modifier.weight(1f), style = MaterialTheme.typography.bodySmall)
+                        TextButton(onClick = { showNoUpdateToast = false }) { Text("收起") }
+                    }
+                    updateCheckError?.let { error -> Surface(color = MaterialTheme.colorScheme.errorContainer) {
+                        Column(Modifier.fillMaxWidth().padding(12.dp)) {
+                            Text("版本检查未成功：$error", style = MaterialTheme.typography.bodySmall)
+                            Row { TextButton(onClick = { checkForUpdate() }, enabled = !isCheckingUpdate) { Text("重试检查") }; TextButton(onClick = { updateCheckError = null }) { Text("收起") } }
+                        }
+                    } }
+                    if (showUpdateDialog && updateInfo != null) Surface(color = MaterialTheme.colorScheme.surfaceVariant) {
+                        Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                            Text("${if (forceUpdate) "需要更新" else "发现新版本"} · ${updateInfo!!.versionName}", style = MaterialTheme.typography.titleMedium)
+                            if (forceUpdate) Text("服务要求使用新版，请下载安装后继续。当前学习数据保留。", style = MaterialTheme.typography.bodySmall)
+                            TextButton(onClick = { updateExpanded = !updateExpanded }) { Text(if (updateExpanded) "收起更新说明" else "查看更新说明") }
+                            if (updateExpanded) Text(updateInfo!!.updateLog, style = MaterialTheme.typography.bodyMedium)
+                            Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                                Button(onClick = {
+                                    val url = updateInfo!!.updateUrl.takeIf { it.startsWith("https://") } ?: "https://github.com/Hyhyhyyy/KeLing4.0/releases"
+                                    try { context.startActivity(android.content.Intent(android.content.Intent.ACTION_VIEW, android.net.Uri.parse(url))) }
+                                    catch (_: Exception) { updateCheckError = "无法打开下载页面，请在浏览器访问项目发布页。" }
+                                }) { Text("打开新版下载") }
+                                if (!forceUpdate) OutlinedButton(onClick = { showUpdateDialog = false }) { Text("稍后更新") }
+                            }
+                        }
+                    }
+                    if (syncState.error != null && needsLocalData) Surface(color = MaterialTheme.colorScheme.errorContainer) {
+                        Column(Modifier.fillMaxWidth().padding(12.dp)) {
+                            Text(syncState.error.orEmpty(), style = MaterialTheme.typography.bodySmall)
+                            Row { TextButton(onClick = onRetrySync) { Text("重试同步") }; TextButton(onClick = { showLogoutDialog = true }) { Text(if (guest != null) "退出试用" else "退出登录") } }
+                        }
                     }
                 }
             }
         },
         bottomBar = {
             // 只在主页面显示底部导航栏
-            if (isMainScreen) {
+            if (isMainScreen && !(forceUpdate && showUpdateDialog)) {
                 KeLingBottomNavigation(
                     currentScreen = currentScreen,
                     onNavigate = { screen ->
@@ -542,7 +473,9 @@ fun MainAppContent(authViewModel: AuthViewModel, viewModel: AppViewModel, onRetr
                 .fillMaxSize()
                 .padding(paddingValues)
         ) {
-            if (needsLocalData && (!syncState.isReady || syncState.isSyncing)) {
+            if (forceUpdate && showUpdateDialog) {
+                Text("请使用上方下载入口安装新版后继续。当前数据不会因本提示被删除。", Modifier.padding(24.dp))
+            } else if (needsLocalData && (!syncState.isReady || syncState.isSyncing)) {
                 if (syncState.error == null) LoadingScreen()
                 else Text("数据暂不可用，请重试。原始本地数据已保留。", Modifier.padding(24.dp))
             } else when (currentScreen) {
@@ -657,10 +590,9 @@ fun MainAppContent(authViewModel: AuthViewModel, viewModel: AppViewModel, onRetr
                 "settings" -> PastoralSettingsScreen(
                     guest = guest,
                     onBack = { viewModel.navigateTo("home") },
-                    onNavigateToProfile = { viewModel.navigateTo("profile") },
+                    onNavigateToProfile = { viewModel.navigateTo("account_profile") },
                     onNavigateToAchievements = { viewModel.navigateTo("achievements") },
-                    onLogout = { showLogoutDialog = true },
-                    onCheckUpdate = { checkForUpdate() }
+                    onLogout = { if (guest != null) onGuestExit() else authViewModel.logout(); viewModel.clearAllData() }
                 )
                 "offline_notes" -> PastoralNotesScreen(
                     viewModel = viewModel,
@@ -701,27 +633,22 @@ private fun KeLingBottomNavigation(
         BottomNavItem("home", "远航", "🚀"),
         BottomNavItem("star_map", "星图", "🪐"),
         BottomNavItem("base", "基地", "🛰️"),
-        BottomNavItem("profile", "我的", "👤")
+        BottomNavItem("profile", "我的", "👤"),
+        BottomNavItem("account_profile", "资料", "🪪"),
+        BottomNavItem("settings", "设置", "⚙"),
+        BottomNavItem("dashboard", "总览", "🌌")
     )
 
-    Surface(
-        modifier = Modifier.fillMaxWidth(),
-        color = DawnWhite,
-        shadowElevation = 8.dp
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .navigationBarsPadding()
-                .padding(vertical = 8.dp),
-            horizontalArrangement = Arrangement.SpaceEvenly
-        ) {
-            items.forEach { item ->
-                BottomNavItemView(
-                    item = item,
-                    isSelected = currentScreen == item.screen,
-                    onClick = { onNavigate(item.screen) }
-                )
+    val scrollState = androidx.compose.foundation.lazy.rememberLazyListState()
+    LaunchedEffect(currentScreen) {
+        val index = items.indexOfFirst { it.screen == currentScreen }
+        if (index >= 0) scrollState.animateScrollToItem(index)
+    }
+    Surface(modifier = Modifier.fillMaxWidth(), color = Color(0xFFFFFCF4), shadowElevation = 6.dp) {
+        Column(Modifier.navigationBarsPadding()) {
+            Text("学习甲板 · 左右滑动切换", Modifier.padding(horizontal = 16.dp, vertical = 4.dp), color = Color(0xFF52675F), fontSize = 12.sp)
+            LazyRow(state = scrollState, modifier = Modifier.fillMaxWidth(), contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp), horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                items(items, key = { it.screen }) { item -> BottomNavItemView(item, currentScreen == item.screen) { onNavigate(item.screen) } }
             }
         }
     }
@@ -745,18 +672,18 @@ private fun BottomNavItemView(
     isSelected: Boolean,
     onClick: () -> Unit
 ) {
-    val backgroundColor = if (isSelected) WarmSunOrange.copy(alpha = 0.1f) else Color.Transparent
-    val textColor = if (isSelected) WarmSunOrange else EarthBrown.copy(alpha = 0.6f)
+    val backgroundColor = if (isSelected) Color(0xFFD9EDE1) else Color.Transparent
+    val textColor = if (isSelected) Color(0xFF214E48) else Color(0xFF52675F)
 
     Column(
         modifier = Modifier
             .clip(RoundedCornerShape(12.dp))
             .background(backgroundColor)
-            .clickable(onClick = onClick)
-            .padding(horizontal = 16.dp, vertical = 8.dp),
+            .selectable(selected = isSelected, role = Role.Tab, onClick = onClick)
+            .widthIn(min = 64.dp).padding(horizontal = 12.dp, vertical = 8.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        com.keling.app.ui.components.StellarSprite("modules", when(item.screen) { "home" -> 0; "greenhouse" -> 4; "ai" -> 1; "tasks" -> 2; else -> 5 }, item.label, Modifier.size(28.dp))
+        com.keling.app.ui.components.StellarSprite("modules", when(item.screen) { "home" -> 2; "star_map", "greenhouse" -> 4; "base" -> 3; "profile" -> 8; "account_profile" -> 5; "settings" -> 7; "dashboard" -> 0; "ai" -> 1; else -> 6 }, item.label, Modifier.size(28.dp))
         Spacer(modifier = Modifier.height(2.dp))
         Text(
             text = item.label,

@@ -23,7 +23,7 @@ import com.keling.app.network.TrialContext
 import com.keling.app.ui.components.*
 
 @Composable fun ModelAccessPanel(initialMessage: String = "", initialContext: List<TrialContext> = emptyList(),
-    onSaveToTrialNote: ((String, String) -> Unit)? = null, onCreateTrialTask: ((String, String) -> Unit)? = null, onClose: () -> Unit, sharedSession: ModelAccessSession? = null, sharedSessionNote: String? = null) {
+    onSaveToTrialNote: ((String, String) -> Unit)? = null, onCreateTrialTask: ((String, String) -> Unit)? = null, onClose: () -> Unit, sharedSession: ModelAccessSession? = null, sharedSessionNote: String? = null, embedded: Boolean = false) {
     val session = sharedSession ?: remember { ModelAccessSession(initialMessage, initialContext) }
     val state by session.state.collectAsStateWithLifecycle()
     val scope = rememberCoroutineScope()
@@ -35,7 +35,16 @@ import com.keling.app.ui.components.*
     DisposableEffect(session) { onDispose { if (sharedSession == null) session.close() else session.cancel() } }
     LaunchedEffect(session) { session.loadCatalog(scope) }
     fun close() { if (sharedSession == null) session.close() else session.cancel(); onClose() }
-    Dialog(onDismissRequest = ::close, properties = DialogProperties(usePlatformDefaultWidth = false, securePolicy = SecureFlagPolicy.SecureOn)) {
+    val context = androidx.compose.ui.platform.LocalContext.current
+    DisposableEffect(context, embedded) {
+        val activity = generateSequence(context) { (it as? android.content.ContextWrapper)?.baseContext }.filterIsInstance<android.app.Activity>().firstOrNull()
+        val window = activity?.window
+        val secure = android.view.WindowManager.LayoutParams.FLAG_SECURE
+        val wasSecure = window?.attributes?.flags?.and(secure) != 0
+        if (embedded) window?.addFlags(secure)
+        onDispose { if (embedded && !wasSecure) window?.clearFlags(secure) }
+    }
+    val panel: @Composable () -> Unit = {
         StellarTheme { Surface(Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) { Column(Modifier.fillMaxSize().imePadding()) {
             Row(Modifier.fillMaxWidth().padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
                 Text("自己的 API Key", style = MaterialTheme.typography.titleLarge, modifier = Modifier.weight(1f))
@@ -112,4 +121,5 @@ import com.keling.app.ui.components.*
             }
         } } }
     }
+    if (embedded) panel() else Dialog(onDismissRequest = ::close, properties = DialogProperties(usePlatformDefaultWidth = false, securePolicy = SecureFlagPolicy.SecureOn)) { panel() }
 }

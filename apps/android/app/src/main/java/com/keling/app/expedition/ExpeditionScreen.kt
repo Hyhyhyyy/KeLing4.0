@@ -187,9 +187,6 @@ fun ExpeditionScreen(vm: ExpeditionViewModel, tab: String, guest: Boolean, onNav
                 }
                 if (state.saved.preservedDrafts.isNotEmpty()) item { Card { Column(Modifier.padding(12.dp)) { Text("冲突保留的练习副本（${state.saved.preservedDrafts.size}）"); state.saved.preservedDrafts.takeLast(5).forEach { draft -> SelectionContainer { Text("${draft.savedAt}\n${draft.answer.explanation ?: draft.answer.order.orEmpty().joinToString(" → ")}") } } } } }
                 if (state.saved.preservedOperations.isNotEmpty()) item { Card { Column(Modifier.padding(12.dp)) { Text("已停止重试的操作副本"); state.saved.preservedOperations.takeLast(5).forEach { operation -> SelectionContainer { Text("${operation.kind} · ${operation.opId}\n${operation.memory?.text ?: operation.selfReport?.let { it.title + "\n" + it.notes } ?: operation.action?.answer?.explanation.orEmpty()}", style = MaterialTheme.typography.bodySmall) } } } } }
-                item { OutlinedButton(onClick = { onNavigate("account_profile") }, modifier = Modifier.fillMaxWidth()) { Text("账号资料、头像与旧田园入口") } }
-                item { OutlinedButton(onClick = { onNavigate("settings") }, modifier = Modifier.fillMaxWidth()) { Text("设置 · API Key、模型目录与版本") } }
-                item { OutlinedButton(onClick = { onNavigate("dashboard") }, modifier = Modifier.fillMaxWidth()) { Text("原工作区总览与到访记录") } }
             }
         }
     } } }
