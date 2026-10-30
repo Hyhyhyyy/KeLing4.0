@@ -30,6 +30,48 @@
       "height": 887
     },
     {
+      "name": "decoration_antenna.png",
+      "bytes": 978029,
+      "sha256": "111e1fe318a1d61fa776009b4d1e8e9028ed79c501e38f8cfe63eb5d27736264",
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "name": "decoration_archive.png",
+      "bytes": 1419876,
+      "sha256": "e17e256bd850ec670841d12602c1cbff88ec0250f8121be46059e25fbeff4145",
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "name": "decoration_observatory.png",
+      "bytes": 1072433,
+      "sha256": "a2abab09af2dc1982e85580d0149713929022c4e31ea1488d5c7e9c52b16631d",
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "name": "expedition_base.png",
+      "bytes": 2939545,
+      "sha256": "3ad427a3c878a3b912f92a069feb36a7b52b751c6990e4190c8fcaefc32b0ed5",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "name": "expedition_starmap.png",
+      "bytes": 3129115,
+      "sha256": "414aa78734699be87c51051c9ea148f6742fab677af1d176927218e4ff37fe87",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "name": "expedition_voyage.png",
+      "bytes": 2757065,
+      "sha256": "dc92cef2a5a1d000014a90be7dbcea3a30e4e076a4ad8a41ae181f04fcd5a30f",
+      "width": 1536,
+      "height": 1024
+    },
+    {
       "name": "hero_web.png",
       "bytes": 1671295,
       "sha256": "ddf6d7fa904de4b5b3b668e62604d92ccf48036a48a1f438c0f69d18b5f86c20",

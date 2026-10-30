@@ -1,0 +1,43 @@
+{
+  "generatedWith": "image_gen",
+  "date": "2026-10-30",
+  "use": "Independent expedition scenes and transparent buildable decorations; source PNGs copied byte-for-byte to both clients",
+  "items": [
+    {
+      "file": "expedition_voyage.png",
+      "alpha": false,
+      "prompt": "Production art for KeLing, a warm Chinese interstellar learning adventure. Distinctive 32-bit pixel art with crisp intentional square pixel clusters and stepped outlines, no blur or photorealism. Palette dark navy #14263D, mint #72D8C3, ivory #FFF6DF, coral #EF987D, gold #F4CE72. Carefully composed, richly detailed, charming and readable. No text, letters, numbers, watermark or interface widgets. Wide landscape 1536x1024 game scene, close-up of a small cream-and-mint starship on a launch platform, three luminous navigation routes branching toward different islands in space, orbital mechanics instruments, tiny seedling robot astronaut checking a route on the platform, foreground coral launch lights and mint exhaust, sky filled with stylized binary-tree constellations. Adventure briefing visual. Strong diagonal takeoff composition. Fully painted edge to edge, not a blank text backdrop.",
+      "sourceGenerationFile": "exec-7e3a015f-c507-49fb-8b0c-e8ab0ddef9c6.png"
+    },
+    {
+      "file": "expedition_starmap.png",
+      "alpha": false,
+      "prompt": "Production art for KeLing, a warm Chinese interstellar learning adventure. Distinctive 32-bit pixel art with crisp intentional square pixel clusters and stepped outlines, no blur or photorealism. Palette dark navy #14263D, mint #72D8C3, ivory #FFF6DF, coral #EF987D, gold #F4CE72. Carefully composed, richly detailed, charming and readable. No text, letters, numbers, watermark or interface widgets. Wide landscape 1536x1024 game scene, interior of a wondrous astronomical library, giant floating transparent celestial atlas made of three branching constellations, tall navy shelves of ivory books, mint holographic globes, brass telescope at lower left, a seedling robot librarian studying two luminous books at lower right. View from above a circular map table. Distinct quiet analytical visual, fully painted edge to edge, not a ship scene.",
+      "sourceGenerationFile": "exec-7a80b007-9f27-4b56-9598-7fa1f3853320.png"
+    },
+    {
+      "file": "expedition_base.png",
+      "alpha": false,
+      "prompt": "Production art for KeLing, a warm Chinese interstellar learning adventure. Distinctive 32-bit pixel art with crisp intentional square pixel clusters and stepped outlines, no blur or photorealism. Palette dark navy #14263D, mint #72D8C3, ivory #FFF6DF, coral #EF987D, gold #F4CE72. Carefully composed, richly detailed, charming and readable. No text, letters, numbers, watermark or interface widgets. Wide landscape 1536x1024 game scene, cozy miniature asteroid home base seen isometrically. Rounded ivory habitat on left, tiny mint greenhouse at far right, stepping-stone paths and solar panels, coral mushrooms, golden light windows under a deep starry sky. In the lower-middle foreground put ONE clearly empty round ivory build platform, about one quarter of the scene width, with a mint border and no object on it so a separately rendered game decoration can sit there. No ship or map table. Fully painted edge to edge.",
+      "sourceGenerationFile": "exec-f7507f65-5212-4ed7-8578-9242e859cb01.png"
+    },
+    {
+      "file": "decoration_antenna.png",
+      "alpha": true,
+      "prompt": "Production art for KeLing, a warm Chinese interstellar learning adventure. Distinctive 32-bit pixel art with crisp intentional square pixel clusters and stepped outlines, no blur or photorealism. Palette dark navy #14263D, mint #72D8C3, ivory #FFF6DF, coral #EF987D, gold #F4CE72. Carefully composed, richly detailed, charming and readable. No text, letters, numbers, watermark or interface widgets. Exactly one standalone isometric game building icon on transparent background, square 1024x1024, centered with 15 percent clear margins: elegant compact mint-and-ivory radio dish antenna on a hexagonal dark navy pedestal, two golden signal crystals, a small coral power cell. Distinct diagonal satellite dish silhouette, sturdy chunky pixel construction, soft upper-left lighting. No environment, no floor beyond small pedestal, no checkerboard.",
+      "sourceGenerationFile": "exec-e826cdce-5eeb-4c11-aa1f-4891c6a76a41.png"
+    },
+    {
+      "file": "decoration_archive.png",
+      "alpha": true,
+      "prompt": "Production art for KeLing, a warm Chinese interstellar learning adventure. Distinctive 32-bit pixel art with crisp intentional square pixel clusters and stepped outlines, no blur or photorealism. Palette dark navy #14263D, mint #72D8C3, ivory #FFF6DF, coral #EF987D, gold #F4CE72. Carefully composed, richly detailed, charming and readable. No text, letters, numbers, watermark or interface widgets. Exactly one standalone isometric game building icon on transparent background, square 1024x1024, centered with 15 percent clear margins: short ornate ivory-and-brass stellar archive cabinet, five open cubbies with colorful glowing books, one hovering mint book above the cabinet, tiny coral drawer knobs, dark navy hexagonal pedestal. Distinct rectangular cabinet silhouette, sturdy chunky pixel construction, soft upper-left lighting. No environment, no floor beyond small pedestal, no checkerboard.",
+      "sourceGenerationFile": "exec-c530e87e-054b-418c-80fa-99e6119a7ae1.png"
+    },
+    {
+      "file": "decoration_observatory.png",
+      "alpha": true,
+      "prompt": "Production art for KeLing, a warm Chinese interstellar learning adventure. Distinctive 32-bit pixel art with crisp intentional square pixel clusters and stepped outlines, no blur or photorealism. Palette dark navy #14263D, mint #72D8C3, ivory #FFF6DF, coral #EF987D, gold #F4CE72. Carefully composed, richly detailed, charming and readable. No text, letters, numbers, watermark or interface widgets. Exactly one standalone isometric game building icon on transparent background, square 1024x1024, centered with 15 percent clear margins: miniature round astronomical observatory, mint segmented dome rolled half open revealing a golden telescope angled upward, ivory cylinder walls with navy portholes, coral entry steps on a small dark navy hexagonal pedestal. Distinct round dome silhouette, sturdy chunky pixel construction, soft upper-left lighting. No environment, no floor beyond small pedestal, no checkerboard.",
+      "sourceGenerationFile": "exec-ace5bfbc-2ccc-4a47-b592-99e23956fd1c.png"
+    }
+  ]
+}

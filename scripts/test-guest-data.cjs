@@ -50,7 +50,7 @@ test('task completion records actual minutes once, balances once, and rejects re
   const responses = await Promise.all([request('POST', `/tasks/${task.id}/complete`, { actualMinutes: 7 }), request('POST', `/tasks/${task.id}/complete`, { actualMinutes: 9 })]);
   assert.equal(responses.filter(r => r.alreadyCompleted).length, 1);
   const { user } = await request('GET', '/auth/me');
-  assert.equal(user.totalStudyMinutes, 7); assert.equal(user.energy, 20);
+  assert.equal(user.totalStudyMinutes, 7); assert.equal(user.energy, 0); assert.equal(user.crystals, 0); assert.equal(user.exp, 0);
   assert.equal((await request('GET', `/courses/${course.id}`)).course.totalStudyMinutes, 7);
   assert.equal((await request('GET', '/tasks')).tasks[0].actualMinutes, 7);
   await assert.rejects(request('PUT', `/tasks/${task.id}`, { status: 'PENDING' }), failure(409));
@@ -121,7 +121,7 @@ test('check-in is idempotent and reports the shared Shanghai study day', async (
   const expected = new Date(Date.now() + 8 * 3600000).toISOString().slice(0, 10).replaceAll('-', '');
   assert.equal(status.lastCheckInDate, expected);
   assert.equal((await request('GET', '/checkin/records')).records.length, 1);
-  assert.equal((await request('GET', '/auth/me')).user.energy, 10);
+  assert.equal((await request('GET', '/auth/me')).user.energy, 0);
 });
 
 test('course filters, node cleanup, and task filtering reflect actual current workspace', async () => {

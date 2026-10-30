@@ -50,6 +50,19 @@ class GuestWorkspace internal constructor(private val suppliedClient: HttpClient
     private val sources = mutableMapOf<String, MutableList<AssistantSource>>()
     private var checkedDate = ""
     private var experience = 0
+    val learningMaterials = com.keling.app.expedition.GuestLearningStore(::ensureOpen)
+    val expeditionJournal = com.keling.app.expedition.ExpeditionJournal.memory()
+    private var expeditionGame: com.keling.app.expedition.GuestExpedition? = null
+    fun expedition(catalog: com.keling.app.expedition.CatalogResponse): com.keling.app.expedition.GuestExpedition {
+        ensureOpen()
+        return expeditionGame ?: com.keling.app.expedition.GuestExpedition(catalog, ::ensureOpen,
+            { id -> courses.any { it.id == id && !it.isArchived } },
+            com.keling.app.expedition.LegacySnapshot(profile.level, experience, profile.crystals, profile.energy, now()),
+            { account -> ensureOpen(); profile = profile.copy(level = account.level, crystals = account.crystals); experience = account.exp },
+            { record -> ensureOpen(); profile = profile.copy(totalStudyMinutes = profile.totalStudyMinutes + record.durationMinutes)
+                courses.replaceAll { if (it.id == record.courseId) it.copy(totalStudyMinutes = it.totalStudyMinutes + record.durationMinutes, studySessionCount = it.studySessionCount + 1) else it } }
+        ).also { expeditionGame = it }
+    }
     private val conversations = mutableMapOf<String, AssistantConversation>()
     private val settings = mutableMapOf<String, NewAssistantSession>()
     private val requests = mutableMapOf<String, AssistantReceipt>()
@@ -99,8 +112,24 @@ class GuestWorkspace internal constructor(private val suppliedClient: HttpClient
         ensureOpen(); if (checkinStatus().hasCheckedInToday) return
         val date = LocalDate.now(ZoneId.of("Asia/Shanghai"))
         val streak = if (checkedDate == date.minusDays(1).toString()) profile.streakDays + 1 else 1
-        val rewards = listOf(10 to 5, 15 to 8, 20 to 10, 25 to 12, 30 to 15, 40 to 20, 50 to 30)[(streak - 1) % 7]
-        checkedDate = date.toString(); profile = profile.copy(energy = profile.energy + rewards.first, crystals = profile.crystals + rewards.second, streakDays = streak)
+        checkedDate = date.toString(); profile = profile.copy(streakDays = streak)
+    }
+    private val scheduleConfirmations = mutableMapOf<String, com.keling.app.expedition.ScheduleConfirmation>()
+    fun scheduleFingerprint(): String {
+        ensureOpen()
+        val value = json.encodeToString(CourseResponse.serializer(), courseList()) + json.encodeToString(TaskResponse.serializer(), taskList())
+        return java.security.MessageDigest.getInstance("SHA-256").digest(value.toByteArray()).joinToString("") { "%02x".format(it) }
+    }
+    fun confirmSchedule(courseId: String, preview: com.keling.app.expedition.SchedulePreview, fingerprint: String): com.keling.app.expedition.ScheduleConfirmation {
+        ensureOpen(); val previewId = requireNotNull(preview.previewId)
+        scheduleConfirmations[previewId]?.let { return it.copy(replayed = true) }
+        if (fingerprint != scheduleFingerprint()) throw ApiException(409, "课程或任务已变化，请保留预览并重新计算", "PLAN_STALE")
+        if (preview.expiresAt == null || Instant.parse(preview.expiresAt) <= Instant.now() || preview.tasks.any { Instant.parse(it.scheduledAt) <= Instant.now() }) throw ApiException(409, "预览已过期或包含过去时段，请重新排程", "PLAN_EXPIRED")
+        require(courses.any { it.id == courseId && !it.isArchived }) { "课程不存在" }
+        val created = preview.tasks.map { item -> TaskData(id(), item.title, "已确认的约束排程；目标 ${item.objectiveKey.orEmpty()}", type = "DEEP_EXPLORATION", courseId = courseId,
+            estimatedMinutes = item.minutes, scheduledAt = item.scheduledAt, rewardsEnergy = 0, rewardsCrystals = 0, rewardsExp = 0, createdAt = now()) }
+        tasks.addAll(created)
+        return com.keling.app.expedition.ScheduleConfirmation(created.map { it.id }, created.size, false).also { scheduleConfirmations[previewId] = it }
     }
     fun taskList(): TaskResponse { ensureOpen(); return TaskResponse(tasks = tasks.toList()) }
     fun complete(id: String, minutes: Int): TaskResponse {
@@ -108,24 +137,39 @@ class GuestWorkspace internal constructor(private val suppliedClient: HttpClient
         val index = tasks.indexOfFirst { it.id == id }; if (index < 0) throw ApiException(404, "任务不存在")
         val old = tasks[index]; if (old.status == "COMPLETED") return TaskResponse(task = old, rewards = RewardsData())
         val task = old.copy(status = "COMPLETED", actualMinutes = minutes, completedAt = now()); tasks[index] = task
-        experience += old.rewardsExp; var level = profile.level
-        while (experience >= level * 100) { experience -= level * 100; level++ }
-        profile = profile.copy(level = level, totalStudyMinutes = profile.totalStudyMinutes + minutes, energy = profile.energy + old.rewardsEnergy, crystals = profile.crystals + old.rewardsCrystals)
+        profile = profile.copy(totalStudyMinutes = profile.totalStudyMinutes + minutes)
         courses.replaceAll { if (it.id == task.courseId) it.copy(totalStudyMinutes = it.totalStudyMinutes + minutes, studySessionCount = it.studySessionCount + 1) else it }
-        return TaskResponse(task = task, rewards = RewardsData(old.rewardsEnergy, old.rewardsCrystals, old.rewardsExp))
+        return TaskResponse(task = task, rewards = RewardsData())
     }
     fun preview(ref: AssistantContextRef): AssistantContextPreview {
         ensureOpen()
         val selected: List<AssistantSource>; val title: String
         when (ref.kind) {
-            "course" -> { title = courses.find { it.id == ref.id }?.name ?: throw ApiException(404, "课程不存在"); selected = sources[ref.id].orEmpty().take(8) }
+            "course" -> {
+                title = courses.find { it.id == ref.id && !it.isArchived }?.name ?: throw ApiException(404, "课程不存在")
+                val courseSources = mutableListOf(AssistantSource(ref.id, title, "当前仅选择《$title》的知识点、资料首片段和学习过程；过程不证明已掌握。", "course"))
+                courseSources += sources[ref.id].orEmpty().take(6).map { it.copy(text = it.text.take(1000), truncated = it.truncated || it.text.length > 1000) }
+                learningMaterials.list(ref.id).takeLast(3).forEach { material -> material.spans.firstOrNull()?.let { span ->
+                    val original = material.content.substring(span.startUtf16, span.endUtf16); val excerpt = original.take(1200)
+                    courseSources += AssistantSource(span.id, "${material.title} v${material.version}", "资料版本 ${material.id}\n内容摘要 SHA256 ${material.contentHash}\n第${span.paragraphIndex + 1}段，原文字元 ${span.startUtf16}–${span.startUtf16 + excerpt.length}\n\n$excerpt", "material", material.createdAt, truncated = original.length > 1200 || span.endUtf16 < material.content.length)
+                } }
+                expeditionGame?.contextSnapshot(ref.id)?.let { (progress, recent) ->
+                    progress?.let { p ->
+                        val summary = p.state.objectives.take(3).joinToString("\n") { "${it.objectiveKey}：${it.state}（学习过程状态）${it.review?.let { r -> "；回访 ${r.dueAt}" }.orEmpty()}" }
+                        val memories = p.state.companionMemories.filter { it.deletedAt == null }.takeLast(2).joinToString("\n") { "用户自述解释，非已审核事实：${it.text.take(600)}" }
+                        courseSources += AssistantSource(p.id, "本课程目标与伙伴档案", "$summary\n$memories\n不能据经验、结晶或单次练习预测成绩。", "evidence", "revision:${p.revision}")
+                    }
+                    recent.forEach { run -> courseSources += AssistantSource(run.id, "最近远征 · ${run.objectiveKey}", "状态 ${run.status} · 模式 ${run.mode} · 已用提示 ${run.hintsUsed}\n最近反馈：${run.feedback?.message ?: "尚未作答"}\n下一步自述：${run.nextStep?.take(600) ?: "尚未确认"}\n这是过程记录，不是 AI 可更改的评价。", "evidence", "revision:${run.revision}") }
+                }
+                selected = courseSources
+            }
             "note" -> { val note = findNote(ref.id); title = note.title; selected = listOf(AssistantSource(note.id, note.title, note.content, "note", note.updatedAt)) }
             "task" -> { val task = tasks.find { it.id == ref.id } ?: throw ApiException(404, "任务不存在"); title = task.title; selected = listOf(AssistantSource(task.id, task.title, "${task.description}\n${task.status} · ${task.estimatedMinutes} 分钟", "task", task.completedAt ?: task.createdAt)) }
             else -> throw ApiException(400, "未知资料类型")
         }
-        val bounded = selected.map { it.copy(text = it.text.take(6000), truncated = it.text.length > 6000) }
+        val bounded = selected.map { it.copy(text = it.text.take(6000), truncated = it.truncated || it.text.length > 6000) }
         val fingerprint = java.security.MessageDigest.getInstance("SHA-256").digest(json.encodeToString(AssistantSource.serializer().let { kotlinx.serialization.builtins.ListSerializer(it) }, selected).toByteArray()).joinToString("") { "%02x".format(it) }
-        return AssistantContextPreview(ref, title, fingerprint, bounded, if (selected.size > bounded.size || bounded.any { it.truncated }) listOf("较长资料仅附带截取内容") else emptyList())
+        return AssistantContextPreview(ref, title, fingerprint, bounded, if (selected.size > bounded.size || bounded.any { it.truncated }) listOf("仅附带预览所示片段；课程最多6知识点、3材料首段、3目标与最近3次远征，不代表完整材料") else emptyList())
     }
     suspend fun catalog(): ModelCatalog {
         ensureOpen(); val key = modelAccess.state.value
@@ -224,6 +268,7 @@ class GuestWorkspace internal constructor(private val suppliedClient: HttpClient
         runs[runId] = selected.copy(status = "CONFIRMED")
     }
     fun close() {
+        expeditionGame?.close(); expeditionJournal.close(); learningMaterials.close(); scheduleConfirmations.clear()
         closed = true; scope.cancel(); modelAccess.close(); courses.clear(); sources.clear(); tasks.clear(); notes.clear(); conversations.clear(); settings.clear(); requests.clear(); requestSignatures.clear(); running.clear(); noteForTurn.clear(); runs.clear(); runCourses.clear(); runFingerprints.clear(); profile = WorkspaceProfile(accountId, ""); checkedDate = ""; experience = 0
     }
 }

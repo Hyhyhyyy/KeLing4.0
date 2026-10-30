@@ -48,7 +48,7 @@ class AppViewModel(application: Application, private val accountId: String, memo
     private val _currentUser = mutableStateOf(
         User(
             id = accountId,
-            name = "星际园丁"
+            name = "星际园丁", energy = 0, crystals = 0
         )
     )
     val currentUser: State<User> = _currentUser
@@ -296,7 +296,7 @@ class AppViewModel(application: Application, private val accountId: String, memo
         _studyRecords.value = emptyList()
         _currentUser.value = User(
             id = accountId,
-            name = "星际园丁"
+            name = "星际园丁", energy = 0, crystals = 0
         )
     }
 
@@ -437,19 +437,9 @@ class AppViewModel(application: Application, private val accountId: String, memo
         _tasks.value = updatedTasks
         // 自动保存任务数据到本地
 
-        // 增加用户奖励 + 经验，并根据经验简单更新等级
+        // Manual completion records effort; only evidence-backed expeditions settle new economy.
         val user = _currentUser.value
-        val newExp = user.exp + task.rewards.exp
-        val (newLevel, normalizedExp) = computeLevel(user.level, newExp)
-
-        // 使用 updateUser 自动保存用户数据
-        _currentUser.value = user.copy(
-            level = newLevel,
-            exp = normalizedExp,
-            energy = user.energy + task.rewards.energy,
-            crystals = user.crystals + task.rewards.crystals,
-            totalStudyMinutes = user.totalStudyMinutes + actualMinutes
-        )
+        _currentUser.value = user.copy(totalStudyMinutes = user.totalStudyMinutes + actualMinutes)
         _studyRecords.value = _studyRecords.value + StudyRecord(
             id = UUID.randomUUID().toString(), userId = accountId, courseId = task.courseId,
             taskId = task.id, type = StudyType.TASK_COMPLETION, durationMinutes = actualMinutes
@@ -1015,11 +1005,7 @@ class AppViewModel(application: Application, private val accountId: String, memo
             val shouldUnlock = newProgress >= achievement.maxProgress && !achievement.isUnlocked
 
             if (shouldUnlock) {
-                // 解锁成就，发放奖励
-                updateUser { it.copy(
-                    energy = it.energy + achievement.rewardEnergy,
-                    crystals = it.crystals + achievement.rewardCrystals
-                ) }
+                // Preserve legacy honours without minting resources or knowledge evidence.
                 achievement.copy(
                     isUnlocked = true,
                     unlockedAt = System.currentTimeMillis(),
@@ -1117,8 +1103,6 @@ class AppViewModel(application: Application, private val accountId: String, memo
 
         // 更新用户数据
         updateUser { it.copy(
-            energy = it.energy + reward.energy,
-            crystals = it.crystals + reward.crystals,
             streakDays = consecutiveDays
         ) }
 
@@ -1375,16 +1359,8 @@ class AppViewModel(application: Application, private val accountId: String, memo
             }
         }
 
-        // 发放已完成挑战的奖励
-        _activeChallenges.value.filter { it.isCompleted && it.completedAt != null }.forEach { challenge ->
-            if (challenge.progress >= challenge.target) {
-                updateUser { it.copy(
-                    energy = it.energy + challenge.rewards.energy,
-                    crystals = it.crystals + challenge.rewards.crystals,
-                    exp = it.exp + challenge.rewards.exp
-                ) }
-            }
-        }
+        // Legacy challenge progress is retained; new economic settlement belongs to expedition evidence.
+
     }
 
     // ==================== 任务推荐 ====================
@@ -1505,9 +1481,9 @@ class AppViewModel(application: Application, private val accountId: String, memo
             priority = recommendation.priority,
             estimatedMinutes = recommendation.estimatedMinutes,
             rewards = Rewards(
-                energy = recommendation.estimatedMinutes,
-                crystals = recommendation.estimatedMinutes / 2,
-                exp = recommendation.estimatedMinutes * 2
+                energy = 0,
+                crystals = 0,
+                exp = 0
             )
         )
         _tasks.value = _tasks.value + task

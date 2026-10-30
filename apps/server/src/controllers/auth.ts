@@ -41,8 +41,8 @@ export const register = async (req: Request, res: Response) => {
         passwordHash,
         level: 1,
         exp: 0,
-        energy: 100,
-        crystals: 10,
+        energy: 0,
+        crystals: 0,
         streakDays: 0,
         totalStudyMinutes: 0
       }

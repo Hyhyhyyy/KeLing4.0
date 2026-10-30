@@ -12,5 +12,7 @@ try {
   db.exec('BEGIN IMMEDIATE');
   const exists = db.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name='AiSession'").get();
   if (!exists) db.exec(sql);
+  const expeditionExists = db.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name='ExpeditionAccount'").get();
+  if (!expeditionExists) db.exec(fs.readFileSync(path.join(server, 'prisma/upgrade-expedition.sql'), 'utf8'));
   db.exec('COMMIT'); console.log(exists ? '共享会话表已存在，保留所有数据。' : '已添加共享会话表；原课程、笔记、账户和历史记录均保留。');
 } catch (e) { db.exec('ROLLBACK'); throw e; } finally { db.close(); }

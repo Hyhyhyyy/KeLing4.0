@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import { selectedProvider, AIError } from './catalog';
 import { embed } from './transport';
-export type Source = { id: string; title: string; text: string; kind: 'knowledge' | 'note' | 'task' | 'course'; updatedAt?: string; truncated?: boolean };
+export type Source = { id: string; title: string; text: string; kind: 'knowledge' | 'note' | 'task' | 'course' | 'material' | 'evidence'; updatedAt?: string; truncated?: boolean };
 function sourceExcerpt(text: string) {
   const end = text.length > 1000 && /[\uD800-\uDBFF]/.test(text[999]) ? 999 : 1000;
   return { text: text.slice(0, end), truncated: text.length > end };

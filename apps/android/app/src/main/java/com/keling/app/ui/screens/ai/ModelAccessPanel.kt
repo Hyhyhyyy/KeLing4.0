@@ -23,7 +23,7 @@ import com.keling.app.network.TrialContext
 import com.keling.app.ui.components.*
 
 @Composable fun ModelAccessPanel(initialMessage: String = "", initialContext: List<TrialContext> = emptyList(),
-    onSaveToTrialNote: ((String, String) -> Unit)? = null, onCreateTrialTask: ((String, String) -> Unit)? = null, onClose: () -> Unit, sharedSession: ModelAccessSession? = null) {
+    onSaveToTrialNote: ((String, String) -> Unit)? = null, onCreateTrialTask: ((String, String) -> Unit)? = null, onClose: () -> Unit, sharedSession: ModelAccessSession? = null, sharedSessionNote: String? = null) {
     val session = sharedSession ?: remember { ModelAccessSession(initialMessage, initialContext) }
     val state by session.state.collectAsStateWithLifecycle()
     val scope = rememberCoroutineScope()
@@ -42,7 +42,7 @@ import com.keling.app.ui.components.*
                 TextButton(onClick = ::close) { Text(if (sharedSession == null) "关闭并清除" else "完成配置") }
             }
             LazyColumn(Modifier.weight(1f).padding(horizontal = 16.dp), verticalArrangement = Arrangement.spacedBy(12.dp), contentPadding = PaddingValues(bottom = 24.dp)) {
-                item { Text(if (sharedSession != null) "游客配置仅保留在本次内存，关闭面板后可在 AI 和编排继续使用；退出试用或页面重建后清空。模型商的数据保留策略由其决定。" else "临时配置 · 仅当前面板内存 · 不云同步\n关闭后清除 Key、模型列表和回答。课灵不保存这些内容，模型商的数据保留策略由其决定。", style = MaterialTheme.typography.bodySmall) }
+                item { Text(sharedSessionNote ?: if (sharedSession != null) "游客配置仅保留在本次内存，关闭面板后可在 AI 和编排继续使用；退出试用或页面重建后清空。模型商的数据保留策略由其决定。" else "临时配置 · 仅当前面板内存 · 不云同步\n关闭后清除 Key、模型列表和回答。课灵不保存这些内容，模型商的数据保留策略由其决定。", style = MaterialTheme.typography.bodySmall) }
                 item { OutlinedTextField(state.apiKey, session::editKey, Modifier.fillMaxWidth(), label = { Text("API Key") }, visualTransformation = if (visibleKey) VisualTransformation.None else PasswordVisualTransformation(), keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password, autoCorrect = false), trailingIcon = { TextButton(onClick = { visibleKey = !visibleKey }) { Text(if (visibleKey) "隐藏" else "显示") } }, singleLine = true, enabled = !state.busy) }
                 item {
                     val candidate = identifyKeyCandidate(state.apiKey)

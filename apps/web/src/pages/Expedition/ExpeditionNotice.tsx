@@ -1,0 +1,1 @@
+export function ExpeditionNotice({ error, notice }: { error: string; notice: string }) { return <>{error && <p className="exp-error" role="alert">{error}</p>}{notice && <p className="exp-notice" role="status">{notice}</p>}</>; }

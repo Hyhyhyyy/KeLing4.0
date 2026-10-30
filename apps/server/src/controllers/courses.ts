@@ -2,6 +2,8 @@ import { Request, Response } from 'express';
 import { prisma } from '../database';
 import { AuthRequest } from '../middleware/auth';
 import { randomUUID as uuidv4 } from 'node:crypto';
+import { mutateOwnedTask as mutateWorkspace } from '../services/taskMutations';
+import { TaskCompletionError } from '../services/taskCompletion';
 
 // 获取所有课程
 export const getCourses = async (req: AuthRequest, res: Response) => {
@@ -97,7 +99,7 @@ export const createCourse = async (req: AuthRequest, res: Response) => {
       return res.status(400).json({ error: '课程名称为必填项' });
     }
 
-    const course = await prisma.course.create({
+    const course = await mutateWorkspace(prisma, req.userId, tx => tx.course.create({
       data: {
         id: uuidv4(),
         userId: req.userId,
@@ -112,7 +114,7 @@ export const createCourse = async (req: AuthRequest, res: Response) => {
         credit: credit || 0,
         examDate: examDate ? new Date(examDate) : null
       }
-    });
+    }));
 
     // 更新成就：首次创建课程
     await updateAchievement(req.userId, 'first_course', 1);
@@ -125,6 +127,7 @@ export const createCourse = async (req: AuthRequest, res: Response) => {
       }
     });
   } catch (error) {
+    if(error instanceof TaskCompletionError)return res.status(error.status).json({error:error.message});
     console.error('Create course error:', error);
     res.status(500).json({ error: '创建课程失败' });
   }
@@ -143,13 +146,14 @@ export const updateCourse = async (req: AuthRequest, res: Response) => {
       return res.status(400).json({ error: '星球外观编号必须为 0–9 的整数' });
     }
 
-    // 检查课程归属
-    const existing = await prisma.course.findFirst({
+    const course = await mutateWorkspace(prisma, req.userId, async tx => {
+    // Recheck ownership while holding the planner's user-row lock.
+    const existing = await tx.course.findFirst({
       where: { id: courseId, userId: req.userId }
     });
 
     if (!existing) {
-      return res.status(404).json({ error: '课程不存在' });
+      throw new TaskCompletionError('课程不存在',404);
     }
 
     const updateData: any = {};
@@ -163,9 +167,10 @@ export const updateCourse = async (req: AuthRequest, res: Response) => {
     if (masteryLevel !== undefined) updateData.masteryLevel = masteryLevel;
     if (isArchived !== undefined) updateData.isArchived = isArchived;
 
-    const course = await prisma.course.update({
+    return tx.course.update({
       where: { id: courseId },
       data: updateData
+    });
     });
 
     // 检查掌握度成就
@@ -181,6 +186,7 @@ export const updateCourse = async (req: AuthRequest, res: Response) => {
       }
     });
   } catch (error) {
+    if(error instanceof TaskCompletionError)return res.status(error.status).json({error:error.message});
     console.error('Update course error:', error);
     res.status(500).json({ error: '更新课程失败' });
   }
@@ -195,21 +201,26 @@ export const deleteCourse = async (req: AuthRequest, res: Response) => {
 
     const courseId = String(req.params.id);
 
-    // 检查课程归属
-    const existing = await prisma.course.findFirst({
+    await mutateWorkspace(prisma, req.userId, async tx => {
+    const existing = await tx.course.findFirst({
       where: { id: courseId, userId: req.userId }
     });
 
     if (!existing) {
-      return res.status(404).json({ error: '课程不存在' });
+      throw new TaskCompletionError('课程不存在',404);
     }
 
-    await prisma.course.delete({
+    await tx.questRun.updateMany({where:{userId:req.userId,courseId,status:{in:['ACTIVE','PAUSED','AWAITING_FEEDBACK']}},data:{status:'CONTENT_STALE',revision:{increment:1},leaseEpoch:{increment:1},leaseTokenHash:'',leaseExpiresAt:null}});
+    await tx.materialVersion.updateMany({where:{userId:req.userId,courseId,deletedAt:null},data:{deletedAt:new Date()}});
+    await tx.task.updateMany({where:{userId:req.userId,courseId},data:{courseId:null}});
+    await tx.course.delete({
       where: { id: courseId }
+    });
     });
 
     res.json({ message: '删除成功' });
   } catch (error) {
+    if(error instanceof TaskCompletionError)return res.status(error.status).json({error:error.message});
     console.error('Delete course error:', error);
     res.status(500).json({ error: '删除课程失败' });
   }
@@ -224,13 +235,16 @@ export const updateMastery = async (req: AuthRequest, res: Response) => {
 
     const courseId = String(req.params.id);
     const { masteryLevel, studyMinutes } = req.body;
+    if (masteryLevel !== undefined && (typeof masteryLevel !== 'number' || !Number.isFinite(masteryLevel) || masteryLevel < 0 || masteryLevel > 1)) return res.status(400).json({error:'自评掌握度须在0至1之间'});
+    if (studyMinutes !== undefined && (!Number.isInteger(studyMinutes) || studyMinutes < 0 || studyMinutes > 1440)) return res.status(400).json({error:'学习时长须为0至1440的整数'});
 
-    const existing = await prisma.course.findFirst({
+    const course = await mutateWorkspace(prisma, req.userId, async tx => {
+    const existing = await tx.course.findFirst({
       where: { id: courseId, userId: req.userId }
     });
 
     if (!existing) {
-      return res.status(404).json({ error: '课程不存在' });
+      throw new TaskCompletionError('课程不存在',404);
     }
 
     const updateData: any = {};
@@ -243,14 +257,14 @@ export const updateMastery = async (req: AuthRequest, res: Response) => {
       updateData.studySessionCount = existing.studySessionCount + 1;
     }
 
-    const course = await prisma.course.update({
+    const updated = await tx.course.update({
       where: { id: courseId },
       data: updateData
     });
 
     // 更新用户总学习时长
     if (studyMinutes) {
-      await prisma.user.update({
+      await tx.user.update({
         where: { id: req.userId },
         data: {
           totalStudyMinutes: {
@@ -259,6 +273,8 @@ export const updateMastery = async (req: AuthRequest, res: Response) => {
         }
       });
     }
+    return updated;
+    });
 
     res.json({
       message: '更新成功',
@@ -269,6 +285,7 @@ export const updateMastery = async (req: AuthRequest, res: Response) => {
       }
     });
   } catch (error) {
+    if(error instanceof TaskCompletionError)return res.status(error.status).json({error:error.message});
     console.error('Update mastery error:', error);
     res.status(500).json({ error: '更新掌握度失败' });
   }

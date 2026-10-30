@@ -27,6 +27,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 // Shared atlases are decoded once across avatar/nav cells; keep a bounded 12 MiB cache.
+private val LocalStellarReducedMotion = compositionLocalOf { false }
+
 private object StellarBitmaps {
     private val cache = object : android.util.LruCache<String, android.graphics.Bitmap>(12 * 1024 * 1024) {
         override fun sizeOf(key: String, value: android.graphics.Bitmap) = value.allocationByteCount
@@ -63,7 +65,7 @@ private object StellarBitmaps {
         }
     }
     // Reserve the supplied size while decoding. A one-off fade respects the system animation scale.
-    val reveal by animateFloatAsState(if (bitmap == null) 0f else 1f, tween(220), label = "stellar-art-reveal")
+    val reveal by animateFloatAsState(if (bitmap == null) 0f else 1f, tween(if (LocalStellarReducedMotion.current) 0 else 220), label = "stellar-art-reveal")
     Box(modifier) { bitmap?.let { Image(it, contentDescription = description, modifier = Modifier.matchParentSize().graphicsLayer { alpha = reveal }, contentScale = contentScale, alignment = alignment, filterQuality = androidx.compose.ui.graphics.FilterQuality.None) } }
 }
 /** Phone scenes use a short crop; controls remain on an opaque surface below. */
@@ -83,10 +85,10 @@ private object StellarBitmaps {
         TextButton(onClick = onClick, enabled = enabled, modifier = Modifier.fillMaxWidth(), contentPadding = PaddingValues(horizontal = 24.dp, vertical = 12.dp)) { Text(text) }
     }
 }
-@Composable fun StellarTheme(content: @Composable () -> Unit) {
-    MaterialTheme(colorScheme = lightColorScheme(primary = Color(0xFF285950), onPrimary = Color(0xFFFFF6DF),
+@Composable fun StellarTheme(reducedMotion: Boolean = false, content: @Composable () -> Unit) {
+    CompositionLocalProvider(LocalStellarReducedMotion provides reducedMotion) { MaterialTheme(colorScheme = lightColorScheme(primary = Color(0xFF285950), onPrimary = Color(0xFFFFF6DF),
         secondary = Color(0xFF976449), background = Color(0xFFF5F6EE), surface = Color(0xFFFFFCF4),
-        onSurface = Color(0xFF14263D), onBackground = Color(0xFF14263D)), content = content)
+        onSurface = Color(0xFF14263D), onBackground = Color(0xFF14263D)), content = content) }
 }
 @Composable fun StellarSelect(label: String, value: String, options: List<Pair<String, String>>, enabled: Boolean = true, onSelect: (String) -> Unit) {
     var expanded by remember { mutableStateOf(false) }

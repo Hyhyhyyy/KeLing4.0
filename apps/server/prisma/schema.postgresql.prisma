@@ -11,8 +11,122 @@ datasource db {
 }
 
 // ==================== 用户相关 ====================
+model MaterialVersion {
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id String @id @default(uuid())
+  userId String
+  courseId String
+  materialId String
+  version Int
+  title String
+  format String
+  content String
+  contentHash String
+  parseStatus String @default("READY")
+  parserVersion String
+  sourceName String
+  supersedesId String?
+  createdAt DateTime @default(now())
+  deletedAt DateTime?
+  spans SourceSpan[]
+  @@unique([userId, materialId, version])
+  @@index([userId, courseId, createdAt])
+}
+model SourceSpan {
+  id String @id @default(uuid())
+  materialVersionId String
+  ordinal Int
+  startUtf16 Int
+  endUtf16 Int
+  page Int?
+  paragraphIndex Int?
+  heading String @default("")
+  textHash String
+  materialVersion MaterialVersion @relation(fields: [materialVersionId], references: [id], onDelete: Cascade)
+  @@unique([materialVersionId, ordinal])
+}
+model ExpeditionProgress {
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id String @id @default(uuid())
+  userId String
+  courseId String
+  chapterId String
+  revision Int @default(0)
+  contentVersion String
+  state String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@unique([userId, courseId, chapterId])
+}
+model QuestRun {
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id String @id @default(uuid())
+  userId String
+  courseId String
+  progressId String
+  taskId String?
+  revision Int @default(0)
+  status String
+  state String
+  writerDeviceId String @default("")
+  leaseEpoch Int @default(0)
+  leaseTokenHash String @default("")
+  leaseExpiresAt DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@index([userId, courseId, updatedAt])
+}
+model ExpeditionOperation {
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id String @id @default(uuid())
+  userId String
+  opId String
+  scope String
+  scopeId String
+  requestHash String
+  payload String
+  receipt String
+  createdAt DateTime @default(now())
+  @@unique([userId, opId])
+  @@index([userId, scope, scopeId, createdAt])
+}
+model RewardGrant {
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id String @id @default(uuid())
+  userId String
+  stableKey String
+  kind String
+  exp Int
+  crystals Int
+  ruleVersion String
+  reason String
+  sourceId String
+  createdAt DateTime @default(now())
+  @@unique([userId, stableKey])
+}
+model ExpeditionAccount {
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @id
+  revision Int @default(0)
+  legacySnapshot String
+  world String
+  quotaDay String @default("")
+  cycleCount Int @default(0)
+  selfReportCount Int @default(0)
+  crystalsGranted Int @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ==================== 用户相关 ====================
 
 model User {
+  materialVersions MaterialVersion[]
+  expeditionProgress ExpeditionProgress[]
+  questRuns QuestRun[]
+  expeditionOperations ExpeditionOperation[]
+  rewardGrants RewardGrant[]
+  expeditionAccount ExpeditionAccount?
   id                String   @id @default(uuid())
   name              String   @default("星际园丁")
   email             String   @unique

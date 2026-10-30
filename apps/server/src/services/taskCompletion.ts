@@ -9,6 +9,9 @@ export async function completeOwnedTask(db:PrismaClient,userId:string,id:string,
   if(minutes!==undefined && (!Number.isInteger(minutes)||minutes<0||minutes>1440))
     throw new TaskCompletionError('实际学习时长须为 0 至 1440 的整数',400);
   return db.$transaction(async tx=>{
+    // Match schedule confirmation / task CRUD lock order: user, then task.
+    const locked = await tx.$executeRaw`UPDATE "users" SET "id" = "id" WHERE "id" = ${userId}`;
+    if (!locked) throw new TaskCompletionError('账户不存在',404);
     // Write first: concurrent devices cannot both claim rewards (also avoids SQLite read/write lock upgrade).
     const claimed=await tx.task.updateMany({where:{id,userId,status:{in:['PENDING','IN_PROGRESS']}},data:{status:'COMPLETED',completedAt:new Date()}});
     const existing=await tx.task.findFirst({where:{id,userId}});
@@ -19,7 +22,9 @@ export async function completeOwnedTask(db:PrismaClient,userId:string,id:string,
     }
     const actualMinutes=minutes ?? existing.estimatedMinutes;
     const task=await tx.task.update({where:{id},data:{actualMinutes}});
-    const rewards={energy:task.rewardsEnergy,crystals:task.rewardsCrystals,exp:task.rewardsExp};
+    // Manual completion records time, not independently verified learning.
+    // Historical task reward fields remain for provenance but are never paid again.
+    const rewards={energy:0,crystals:0,exp:0};
     const user=await tx.user.update({where:{id:userId},data:{energy:{increment:rewards.energy},crystals:{increment:rewards.crystals},exp:{increment:rewards.exp},totalStudyMinutes:{increment:actualMinutes}}});
     let level=user.level,exp=user.exp;
     while(exp>=level*100){exp-=level*100;level++;}

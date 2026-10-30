@@ -3,11 +3,19 @@ import { BrowserRouter as Router, Routes, Route, Navigate, Link, useNavigate, us
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useAppStore } from './store/useAppStore';
 import { clearModelAccess } from './services/modelAccess';
+import './pages/Expedition/Expedition.css';
 
 // 页面组件
 const Login = lazy(() => import('./pages/Auth/Login'));
 const Register = lazy(() => import('./pages/Auth/Register'));
-const Home = lazy(() => import('./pages/Home/StellarHome'));
+const LegacyHome = lazy(() => import('./pages/Home/StellarHome'));
+const Home = lazy(() => import('./pages/Expedition/ExpeditionPages').then(module => ({ default: module.ExpeditionHome })));
+const ExpeditionChapter = lazy(() => import('./pages/Expedition/ExpeditionPages').then(module => ({ default: module.ExpeditionChapter })));
+const ExpeditionBase = lazy(() => import('./pages/Expedition/ExpeditionPages').then(module => ({ default: module.ExpeditionBase })));
+const ExpeditionMine = lazy(() => import('./pages/Expedition/ExpeditionPages').then(module => ({ default: module.ExpeditionMine })));
+const ExpeditionEvidence = lazy(() => import('./pages/Expedition/ExpeditionPages').then(module => ({ default: module.ExpeditionEvidence })));
+const ExpeditionSync = lazy(() => import('./pages/Expedition/ExpeditionPages').then(module => ({ default: module.ExpeditionSync })));
+const ExpeditionRun = lazy(() => import('./pages/Expedition/ExpeditionRun'));
 const AIAssistant = lazy(() => import('./pages/AI/StellarAssistant'));
 const Greenhouse = lazy(() => import('./pages/Greenhouse/Greenhouse'));
 const CourseDetail = lazy(() => import('./pages/Greenhouse/CourseDetail'));
@@ -23,7 +31,6 @@ const Agent = lazy(() => import('./pages/Agent/Agent'));
 const Explore = lazy(() => import('./pages/Explore/Explore'));
 
 // 图标资源
-import energyIcon from './assets/icons/energy.jpg';
 import crystalsIcon from './assets/icons/crystals.jpg';
 
 // 样式
@@ -77,19 +84,15 @@ const TopNav: React.FC = () => {
   const { user, isGuest } = useAppStore();
 
   const navItems = [
-    { path: '/', icon: 0, label: '首页' },
-    { path: '/agent', icon: 8, label: '智能编排' },
-    { path: '/greenhouse', icon: 4, label: '课程' },
-    { path: '/ai', icon: 1, label: 'AI助手' },
-    { path: '/tasks', icon: 2, label: '任务' },
-    { path: '/notes', icon: 3, label: '笔记' },
-    { path: '/study-report', icon: 6, label: '报告' },
+    { path: '/', icon: 0, label: '远航' },
+    { path: '/greenhouse', icon: 4, label: '星图' },
+    { path: '/base', icon: 5, label: '基地' },
+    { path: '/me', icon: 7, label: '我的' },
   ];
-
-  const isActive = (path: string) => {
-    if (path === '/') return location.pathname === '/';
-    return location.pathname.startsWith(path);
-  };
+  const activeGroup = location.pathname === '/base' || location.pathname.startsWith('/visual-library') ? '/base'
+    : ['/greenhouse', '/knowledge-graph', '/notes'].some(path => location.pathname.startsWith(path)) ? '/greenhouse'
+    : ['/me', '/profile', '/settings', '/study-report', '/achievements', '/voyage/evidence', '/voyage/sync'].some(path => location.pathname.startsWith(path)) ? '/me' : '/';
+  const isActive = (path: string) => activeGroup === path;
 
   return (
     <header className="top-nav">
@@ -113,11 +116,9 @@ const TopNav: React.FC = () => {
 
       <div className="nav-user">
         {isGuest ? <span className="nav-trial-link">游客模式</span> : <Link className="nav-trial-link" to="/trial">游客试用</Link>}
+        <div className="exp-nav-tools">{location.pathname.startsWith('/voyage/runs/') ? <a href="#exp-run-ai-help">本题问星芽</a> : <Link to="/ai">问星芽</Link>}<Link to="/settings">配置 AI</Link><Link to="/voyage/sync">同步</Link></div>
         <div className="user-stats">
-          <span className="stat energy">
-            <img src={energyIcon} alt="能量" className="stat-icon-img" />
-            {user?.energy || 0}
-          </span>
+          <span className="stat">Lv. {user?.level || 1}</span>
           <span className="stat crystals">
             <img src={crystalsIcon} alt="结晶" className="stat-icon-img" />
             {user?.crystals || 0}
@@ -138,13 +139,14 @@ const TopNav: React.FC = () => {
 
 // 主布局
 const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { isGuest, endGuest } = useAppStore();
+  const { isGuest, endGuest, offlineAccount } = useAppStore();
   const navigate = useNavigate();
   return (
     <div className="app-layout">
       <TopNav />
       <main className="main-content">
         {isGuest && <aside className="guest-workspace-banner" aria-label="游客模式说明"><div><strong>游客模式 · 完整学习空间</strong><p>所有模块均可使用。本次数据仅在内存中，刷新、关闭或退出即清空，不跨设备同步。真实 AI 需要有效模型配置。</p></div><button onClick={() => { endGuest(); navigate('/explore'); }}>退出并清空</button></aside>}
+        {offlineAccount && <aside className="exp-offline-banner" role="status">离线读取本机远征快照；云端结果与奖励尚未确认。<Link to="/voyage/sync">查看草稿与待同步</Link></aside>}
         {children}
       </main>
     </div>
@@ -189,6 +191,13 @@ function App() {
       <Router>
         <Suspense fallback={<div className="loading-screen" role="status">正在加载页面…</div>}>
         <Routes>
+          <Route path="/workspace" element={<ProtectedRoute><MainLayout><LegacyHome/></MainLayout></ProtectedRoute>}/>
+          <Route path="/greenhouse/:id/chapter" element={<ProtectedRoute><MainLayout><ExpeditionChapter/></MainLayout></ProtectedRoute>}/>
+          <Route path="/voyage/runs/:id" element={<ProtectedRoute><MainLayout><ExpeditionRun/></MainLayout></ProtectedRoute>}/>
+          <Route path="/voyage/evidence" element={<ProtectedRoute><MainLayout><ExpeditionEvidence/></MainLayout></ProtectedRoute>}/>
+          <Route path="/voyage/sync" element={<ProtectedRoute><MainLayout><ExpeditionSync/></MainLayout></ProtectedRoute>}/>
+          <Route path="/base" element={<ProtectedRoute><MainLayout><ExpeditionBase/></MainLayout></ProtectedRoute>}/>
+          <Route path="/me" element={<ProtectedRoute><MainLayout><ExpeditionMine/></MainLayout></ProtectedRoute>}/>
           <Route path="/trial" element={<GuestEntry/>}/>
           <Route path="/explore" element={<Explore/>}/>
           <Route path="/explore/art" element={<VisualLibrary publicView/>}/>

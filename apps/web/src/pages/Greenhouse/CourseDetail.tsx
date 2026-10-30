@@ -1,6 +1,6 @@
 import { StellarSceneBanner } from '../../components/StellarScene';
 import React, { useState, useEffect, useRef } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
   ArrowLeft, BookOpen, Clock, MapPin, User, Trash2,
@@ -184,6 +184,8 @@ const CourseDetail: React.FC = () => {
       </motion.div>
 
       <StellarSceneBanner scene="courseDetail" eyebrow="COURSE / FIELD STATION" title="沿着一门课程，探索更深一层" description="查看知识点与学习记录，带着课程资料提问，逐步完善自己的理解。" compact/>
+
+      <section className="exp-panel"><h2>二叉树区域 · 可玩的学习章节</h2><p>队列、栈与二叉搜索树三个目标，包含操作推演、教星芽、试炼和证据回看。其他课程资料与图谱继续保留。</p><Link className="btn btn-primary" to={`/greenhouse/${course.id}/chapter`}>进入二叉树示例章节</Link></section>
 
       {/* 掌握度卡片 */}
       <motion.div

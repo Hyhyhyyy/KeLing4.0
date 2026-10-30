@@ -11,6 +11,7 @@ import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import androidx.datastore.preferences.preferencesDataStoreFile
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.serialization.Serializable
@@ -31,6 +32,22 @@ import kotlinx.serialization.json.Json
 
 // DataStore 扩展
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "keling_data")
+
+data class LegacyDataPreview(val ownership: String, val courses: Int?, val notes: Int?, val tasks: Int?, val level: Int?, val crystals: Int?, val energy: Int?)
+
+/** Read-only metadata. Never initialize an empty legacy file, mutate ownership, or upload any record. */
+suspend fun inspectLegacyData(context: Context, accountId: String): LegacyDataPreview? {
+    require(accountId.isNotBlank() && !accountId.startsWith("guest-memory:"))
+    if (!context.applicationContext.preferencesDataStoreFile("keling_data").exists()) return null
+    return summarizeLegacyData(context.applicationContext.dataStore.data.first(), accountId)
+}
+
+internal fun summarizeLegacyData(prefs: Preferences, accountId: String): LegacyDataPreview {
+    fun count(key: String): Int? = prefs[stringPreferencesKey(key)]?.let { raw -> runCatching { (Json.parseToJsonElement(raw) as? kotlinx.serialization.json.JsonArray)?.size }.getOrNull() }
+    val owner = prefs[stringPreferencesKey("user_id")]
+    return LegacyDataPreview(when { owner.isNullOrBlank() -> "UNKNOWN"; owner == accountId -> "MATCH"; else -> "OTHER" },
+        count("courses_data"), count("notes_data"), count("tasks_data"), prefs[intPreferencesKey("user_level")], prefs[intPreferencesKey("user_crystals")], prefs[intPreferencesKey("user_energy")])
+}
 
 /**
  * 用户偏好设置仓库

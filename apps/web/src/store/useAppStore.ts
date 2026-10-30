@@ -4,6 +4,7 @@ import type { User, Course, Task, Note } from '../types';
 import { authAPI, courseAPI, taskAPI, noteAPI } from '../services/api';
 import { startGuestSession, endGuestSession, getGuestSessionId } from '../services/guestSession';
 import { clearModelAccess } from '../services/modelAccess';
+import { readExpeditionIdentity, rememberExpeditionIdentity } from '../services/expeditionStorage';
 
 const workspaceIdentity = () => getGuestSessionId() || `account:${localStorage.getItem('token') || ''}`;
 
@@ -15,6 +16,7 @@ interface AppState {
   isGuest: boolean;
   isLoading: boolean;
   authError: string | null;
+  offlineAccount: boolean;
 
   // 数据状态
   courses: Course[];
@@ -69,6 +71,7 @@ export const useAppStore = create<AppState>()(
       notes: [],
       currentScreen: 'home',
       authError: null,
+      offlineAccount: false,
 
       // 登录
       login: async (email, password) => {
@@ -77,12 +80,14 @@ export const useAppStore = create<AppState>()(
           endGuestSession();
           clearModelAccess();
           localStorage.setItem('token', data.token);
+          void rememberExpeditionIdentity(data.user, data.token).catch(() => {});
           set({
             authError: null,
             courses: [], tasks: [], notes: [],
             token: data.token,
             user: data.user,
             isAuthenticated: true,
+            offlineAccount: false,
             isGuest: false,
             isLoading: false,
           });
@@ -98,12 +103,14 @@ export const useAppStore = create<AppState>()(
           endGuestSession();
           clearModelAccess();
           localStorage.setItem('token', data.token);
+          void rememberExpeditionIdentity(data.user, data.token).catch(() => {});
           set({
             authError: null,
             courses: [], tasks: [], notes: [],
             token: data.token,
             user: data.user,
             isAuthenticated: true,
+            offlineAccount: false,
             isGuest: false,
             isLoading: false,
           });
@@ -123,6 +130,7 @@ export const useAppStore = create<AppState>()(
           user: null,
           token: null,
           isAuthenticated: false,
+          offlineAccount: false,
           isGuest: false,
           courses: [],
           tasks: [],
@@ -134,7 +142,7 @@ export const useAppStore = create<AppState>()(
         if (getGuestSessionId()) return;
         startGuestSession();
         clearModelAccess();
-        set({ isGuest: true, isAuthenticated: false, user: null, authError: null,
+        set({ isGuest: true, isAuthenticated: false, offlineAccount: false, user: null, authError: null,
           courses: [], tasks: [], notes: [], isLoading: true });
         await get().loadUser();
       },
@@ -142,7 +150,7 @@ export const useAppStore = create<AppState>()(
         endGuestSession();
         clearModelAccess();
         // The visitor never replaces or removes an existing account credential.
-        set({ isGuest: false, isAuthenticated: false, user: null, authError: null,
+        set({ isGuest: false, isAuthenticated: false, offlineAccount: false, user: null, authError: null,
           token: localStorage.getItem('token'), courses: [], tasks: [], notes: [], isLoading: false });
       },
 
@@ -166,13 +174,21 @@ export const useAppStore = create<AppState>()(
         try {
           const {data}=await authAPI.getMe();
           if(workspaceIdentity()!==session)return;
-          set({user:data.user,token,isAuthenticated:true,isLoading:false});
+          set({user:data.user,token,isAuthenticated:true,isLoading:false,offlineAccount:false});
+          void rememberExpeditionIdentity(data.user,token).catch(() => {});
           void get().loadCourses();void get().loadTasks();void get().loadNotes();
         } catch(error) {
           if(workspaceIdentity()!==session)return;
           const status=(error as {response?:{status?:number}}).response?.status;
           if(status===401)get().logout();
-          else set({isLoading:false,authError:'暂时无法连接服务，登录凭证已保留。请检查网络后重试。'});
+          else {
+            // A matching server-verified local identity permits cached work only.
+            // It cannot authorize server operations or revive a different account.
+            const cached = !status ? await readExpeditionIdentity(token).catch(() => null) : null;
+            if(workspaceIdentity()!==session)return;
+            if(cached)set({user:cached,token,isAuthenticated:true,isLoading:false,authError:null,offlineAccount:true});
+            else set({isLoading:false,authError:'暂时无法连接服务，登录凭证已保留。请检查网络后重试。'});
+          }
         }
       },
 

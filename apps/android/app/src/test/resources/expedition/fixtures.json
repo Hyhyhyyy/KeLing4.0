@@ -1,0 +1,327 @@
+{
+  "schemaVersion": 1,
+  "contentVersion": "1.0.0",
+  "now": "2026-10-30T02:00:00.000Z",
+  "judgmentCases": [
+    {
+      "id": "queue-layer-order",
+      "exerciseId": "bt-1-1",
+      "answer": {
+        "structure": "QUEUE",
+        "order": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G"
+        ]
+      },
+      "expected": {
+        "correct": true,
+        "kind": "RULE_CHECKED",
+        "independentEligible": false
+      }
+    },
+    {
+      "id": "wrong-container",
+      "exerciseId": "bt-1-1",
+      "answer": {
+        "structure": "STACK",
+        "order": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G"
+        ]
+      },
+      "expected": {
+        "correct": false,
+        "kind": "RULE_CHECKED",
+        "independentEligible": false
+      }
+    },
+    {
+      "id": "depth-preorder",
+      "exerciseId": "bt-2-1",
+      "answer": {
+        "structure": "STACK",
+        "order": [
+          "A",
+          "B",
+          "D",
+          "E",
+          "C",
+          "F",
+          "G"
+        ]
+      },
+      "expected": {
+        "correct": true,
+        "kind": "RULE_CHECKED",
+        "independentEligible": false
+      }
+    },
+    {
+      "id": "ancestor-bound-not-only-parent",
+      "exerciseId": "bt-3-1",
+      "answer": {
+        "validBst": false,
+        "order": [
+          "E"
+        ]
+      },
+      "expected": {
+        "correct": true,
+        "kind": "RULE_CHECKED",
+        "independentEligible": false
+      }
+    },
+    {
+      "id": "valid-sparse-bst",
+      "exerciseId": "bt-3-2",
+      "answer": {
+        "validBst": true,
+        "order": []
+      },
+      "expected": {
+        "correct": true,
+        "kind": "RULE_CHECKED",
+        "independentEligible": false
+      }
+    },
+    {
+      "id": "duplicate-node-is-input-error",
+      "exerciseId": "bt-1-1",
+      "answer": {
+        "structure": "QUEUE",
+        "order": [
+          "A",
+          "A"
+        ]
+      },
+      "expected": {
+        "errorCode": "INVALID_ANSWER"
+      }
+    },
+    {
+      "id": "unknown-node-is-input-error",
+      "exerciseId": "bt-1-1",
+      "answer": {
+        "structure": "QUEUE",
+        "order": [
+          "Z"
+        ]
+      },
+      "expected": {
+        "errorCode": "INVALID_ANSWER"
+      }
+    },
+    {
+      "id": "explanation-is-self-reported",
+      "exerciseId": "bt-1-5",
+      "answer": {
+        "explanation": "队列先进先出，所以早发现的同层节点会先处理，孩子排在队尾。",
+        "selfCheck": [
+          "说明先进先出"
+        ]
+      },
+      "expected": {
+        "correct": null,
+        "kind": "SELF_REPORTED",
+        "independentEligible": false
+      }
+    },
+    {
+      "id": "wrong-push-order",
+      "exerciseId": "bt-1-1",
+      "answer": {
+        "structure": "QUEUE",
+        "order": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G"
+        ],
+        "steps": [
+          {
+            "type": "PUSH",
+            "nodeId": "A"
+          },
+          {
+            "type": "POP",
+            "nodeId": "A"
+          },
+          {
+            "type": "PUSH",
+            "nodeId": "C"
+          }
+        ]
+      },
+      "expected": {
+        "correct": false,
+        "kind": "RULE_CHECKED",
+        "stepDeviation": 2,
+        "independentEligible": false
+      }
+    }
+  ],
+  "sequenceCases": [
+    {
+      "id": "training-cycle-and-gate",
+      "input": {
+        "id": "fixture-run",
+        "courseId": "fixture-course",
+        "questKind": "EXPLORE",
+        "objectiveKey": "bt.bfs.queue",
+        "mode": "TRAINING",
+        "now": "2026-10-30T02:00:00.000Z",
+        "sources": []
+      },
+      "actions": [
+        {
+          "type": "SUBMIT",
+          "answer": {
+            "structure": "QUEUE",
+            "order": [
+              "A",
+              "B",
+              "C",
+              "D",
+              "E",
+              "F",
+              "G"
+            ]
+          }
+        },
+        {
+          "type": "ACK_FEEDBACK",
+          "nextStep": "明天用新树回访"
+        }
+      ],
+      "expected": {
+        "status": "SETTLED",
+        "revision": 2,
+        "evidenceKind": "ATTEMPTED",
+        "strict": false,
+        "rewardKey": "cycle:bt.bfs.queue:initial",
+        "exp": 10,
+        "crystals": 2,
+        "reviewId": "bt.bfs.queue:review:1",
+        "dueAt": "2026-10-31T02:00:00.000Z"
+      }
+    },
+    {
+      "id": "minimum-delay",
+      "now": "2026-10-31T01:59:59.999Z",
+      "expected": {
+        "errorCode": "REVIEW_NOT_DUE"
+      }
+    },
+    {
+      "id": "duplicate-cycle-does-not-pay",
+      "existingKeys": [
+        "cycle:bt.bfs.queue:initial"
+      ],
+      "candidate": {
+        "stableKey": "cycle:bt.bfs.queue:initial",
+        "kind": "CYCLE",
+        "exp": 10,
+        "crystals": 2,
+        "reason": "test",
+        "sourceId": "test"
+      },
+      "expected": {
+        "exp": 0,
+        "crystals": 0,
+        "grants": 0
+      }
+    },
+    {
+      "id": "daily-cycle-cap",
+      "count": 6,
+      "expected": {
+        "exp": 50,
+        "crystals": 10,
+        "cycleCount": 5,
+        "grants": 6
+      }
+    },
+    {
+      "id": "daily-crystals-cap",
+      "initialCrystalsGranted": 29,
+      "candidate": {
+        "stableKey": "independent:fixture-only",
+        "kind": "INDEPENDENT",
+        "exp": 20,
+        "crystals": 4,
+        "reason": "test",
+        "sourceId": "test"
+      },
+      "expected": {
+        "exp": 20,
+        "crystals": 1,
+        "crystalsGranted": 30
+      }
+    }
+  ],
+  "selfReportCases": [
+    {
+      "id": "utf8-fingerprint",
+      "input": {
+        "opId": "fixture-self-report",
+        "courseId": "fixture-course",
+        "title": "线下学习 🌱",
+        "notes": "保留自己的解释\n下一步再练习",
+        "durationMinutes": 7
+      },
+      "now": "2026-10-30T02:00:00.000Z",
+      "canonical": "[\"2026-10-30\",\"fixture-course\",\"线下学习 🌱\",\"保留自己的解释\\n下一步再练习\",\"7\"]",
+      "stableKey": "self-report:21365ba342dec888534e676fd1d6f1e090064f44849b8241fa8c7c4ad7fdb5c2"
+    },
+    {
+      "id": "six-self-reports-cap",
+      "count": 6,
+      "expected": {
+        "exp": 10,
+        "crystals": 0,
+        "selfReportCount": 5,
+        "grants": 6
+      }
+    }
+  ],
+  "timingCases": [
+    {
+      "id": "pause-resume-cancel",
+      "startedAt": "2026-10-30T02:00:00.000Z",
+      "actions": [
+        {
+          "type": "PAUSE",
+          "at": "2026-10-30T02:00:10.000Z"
+        },
+        {
+          "type": "RESUME",
+          "at": "2026-10-30T02:01:10.000Z"
+        },
+        {
+          "type": "CANCEL",
+          "at": "2026-10-30T02:01:30.000Z"
+        }
+      ],
+      "observedAt": "2026-10-30T02:10:00.000Z",
+      "expected": {
+        "elapsedMs": 90000,
+        "pausedMs": 60000,
+        "runningMs": 30000,
+        "label": "SESSION_TIME_NOT_STUDY"
+      }
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+export const statusLabel: Record<string, string> = { ACTIVE: '进行中', PAUSED: '已暂停', AWAITING_FEEDBACK: '等待阅读反馈', SETTLED: '本轮已记录', CANCELLED: '已结束', CONTENT_STALE: '资料版本已变化', UNEXPLORED: '待探索', ATTEMPTED: '已尝试', INDEPENDENT: '有独立证据', DELAYED: '有延迟证据' };

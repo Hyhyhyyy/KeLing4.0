@@ -20,6 +20,9 @@ import noteRoutes from './routes/notes';
 import achievementRoutes from './routes/achievements';
 import checkinRoutes from './routes/checkin';
 import { agentRouter } from './agentarts/routes';
+import { learningRouter } from './learning/routes';
+import { plannerRouter } from './learning/plannerRoutes';
+import { expeditionRouter } from './expedition/routes';
 
 requireJwtSecret();
 
@@ -60,13 +63,16 @@ app.use('/api/notes', noteRoutes);
 app.use('/api/achievements', achievementRoutes);
 app.use('/api/checkin', checkinRoutes);
 app.use('/api/agent', agentRouter(prisma));
+app.use('/api/learning/v1', plannerRouter(prisma));
+app.use('/api/learning/v1', learningRouter(prisma));
+app.use('/api/expedition/v1', expeditionRouter(prisma));
 
 // 健康检查
 app.get('/api/health', (req, res) => {
   res.json({
     status: 'ok',
     timestamp: new Date().toISOString(),
-    version: '3.2.5-preview'
+    version: '4.0.0-preview'
   });
 });
 
@@ -176,7 +182,7 @@ app.get('/api/app/download', async (req, res) => {
 
 // 错误处理中间件
 app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
-  if (req.path.startsWith('/api/model-access') || req.path.startsWith('/api/trial')) {
+  if (req.path.startsWith('/api/model-access') || req.path.startsWith('/api/trial') || req.path.startsWith('/api/learning/v1')) {
     // Malformed JSON parser messages can contain body fragments, including a user's key.
     return res.status(err instanceof SyntaxError ? 400 : 500).json({ error: '请求格式不正确或服务暂时不可用', code: err instanceof SyntaxError ? 'VALIDATION' : 'INTERNAL' });
   }

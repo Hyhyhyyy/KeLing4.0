@@ -249,6 +249,10 @@ fun MainAppContent(authViewModel: AuthViewModel, viewModel: AppViewModel, onRetr
     val syncState by viewModel.syncState.collectAsStateWithLifecycle()
     val currentScreen by viewModel.currentScreen
     val context = androidx.compose.ui.platform.LocalContext.current
+    val expeditionVm = assistantAccount?.let { session -> remember(session.userId, session.token) {
+        com.keling.app.expedition.ExpeditionViewModel(context.applicationContext, session.token, session.userId)
+    } }
+    DisposableEffect(expeditionVm) { onDispose { expeditionVm?.shutdown() } }
     val scope = rememberCoroutineScope()
 
     // 登出确认对话框
@@ -271,7 +275,7 @@ fun MainAppContent(authViewModel: AuthViewModel, viewModel: AppViewModel, onRetr
     var isCheckingUpdate by remember { mutableStateOf(false) }
 
     // 主页面列表（显示底部导航栏）
-    val mainScreens = listOf("home", "greenhouse", "ai", "tasks", "profile")
+    val mainScreens = listOf("home", "star_map", "base", "profile")
     val isMainScreen = currentScreen in mainScreens
     val needsLocalData = currentScreen.startsWith("offline_") || currentScreen in listOf("local_ai", "greenhouse_course", "knowledge_graph", "task_detail", "achievements", "report")
 
@@ -542,10 +546,21 @@ fun MainAppContent(authViewModel: AuthViewModel, viewModel: AppViewModel, onRetr
                 if (syncState.error == null) LoadingScreen()
                 else Text("数据暂不可用，请重试。原始本地数据已保留。", Modifier.padding(24.dp))
             } else when (currentScreen) {
-                "home", "greenhouse", "tasks", "notes", "profile", "cloud_workspace" -> {
+                "home", "star_map", "base", "profile" -> {
+                    expeditionVm?.let { model -> com.keling.app.expedition.ExpeditionScreen(model, currentScreen, guest != null,
+                        onNavigate = { target -> if (target == "ai") { assistantLaunch = null; assistantOrigin = currentScreen }; viewModel.navigateTo(target) },
+                        onAsk = { courseId, prompt ->
+                            assistantLaunch = com.keling.app.ui.screens.ai.AssistantContextLaunch(com.keling.app.network.AssistantContextRef("course", courseId), prompt)
+                            assistantOrigin = "home"; viewModel.navigateTo("ai")
+                        }) }
+                }
+                "expedition_materials" -> assistantAccount?.let { session ->
+                    com.keling.app.expedition.LearningMaterialsScreen(session.token, expeditionVm?.state?.value?.saved?.selectedCourseId) { viewModel.navigateTo("star_map") }
+                }
+                "greenhouse", "tasks", "notes", "account_profile", "dashboard", "cloud_workspace" -> {
                     assistantAccount?.let { session ->
                         com.keling.app.ui.screens.agent.CloudWorkspaceScreen(session.userId, session.token,
-                            initialTab = if (currentScreen == "cloud_workspace") "notes" else currentScreen,
+                            initialTab = when (currentScreen) { "cloud_workspace" -> "notes"; "account_profile" -> "profile"; "dashboard" -> "home"; else -> currentScreen },
                             onNavigate = { if (it == "ai") { assistantLaunch = null; assistantOrigin = "home" }; viewModel.navigateTo(it) },
                             onAskAssistant = { ref, prompt ->
                                 assistantLaunch = com.keling.app.ui.screens.ai.AssistantContextLaunch(ref, prompt)
@@ -683,10 +698,9 @@ private fun KeLingBottomNavigation(
     onNavigate: (String) -> Unit
 ) {
     val items = listOf(
-        BottomNavItem("home", "首页", "🏠"),
-        BottomNavItem("greenhouse", "课程", "🌱"),
-        BottomNavItem("ai", "AI", "✨"),
-        BottomNavItem("tasks", "任务", "📋"),
+        BottomNavItem("home", "远航", "🚀"),
+        BottomNavItem("star_map", "星图", "🪐"),
+        BottomNavItem("base", "基地", "🛰️"),
         BottomNavItem("profile", "我的", "👤")
     )
 
@@ -1856,7 +1870,7 @@ fun TaskBrief(
                         color = EarthBrown
                     )
                     Text(
-                        text = "${task.estimatedMinutes}分钟 · ${task.rewards.energy}⚡",
+                        text = "${task.estimatedMinutes}分钟 · 状态与时长记录",
                         style = MaterialTheme.typography.bodySmall,
                         color = EarthBrown.copy(alpha = 0.6f)
                     )
@@ -2789,7 +2803,7 @@ fun TaskDetailScreen(
     val minutes = elapsedSeconds / 60
     val seconds = elapsedSeconds % 60
     val timeText = String.format("%02d:%02d", minutes, seconds)
-    val rewards = task.rewards
+    val rewards = com.keling.app.data.Rewards(energy = 0, crystals = 0, exp = 0)
 
     // 完成奖励弹窗
     if (showRewardDialog) {
@@ -3090,7 +3104,7 @@ private fun RewardDialog(
             )
             Spacer(modifier = Modifier.height(Spacing.sm))
             Text(
-                text = "本次任务用时约 ${minutes.coerceAtLeast(1)} 分钟",
+                text = "本次记录约 ${minutes.coerceAtLeast(1)} 分钟；手动完成不增加资源或知识证据。",
                 style = MaterialTheme.typography.bodyMedium,
                 color = EarthBrownLight
             )
@@ -3104,7 +3118,7 @@ private fun RewardDialog(
             }
             Spacer(modifier = Modifier.height(Spacing.md))
             KeLingButton(
-                text = "收下奖励",
+                text = "完成记录",
                 onClick = onDismiss,
                 color = StellarOrange
             )

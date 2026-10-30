@@ -14,6 +14,7 @@ const { resolveContext, contextRefInput, contextTurnInput } = require('../src/ai
 const { AssistantService } = require('../src/ai/service');
 const { assistantRouter } = require('../src/ai/routes');
 const { AIError } = require('../src/ai/catalog');
+const { getChapter, startRun, commandRun } = require('../src/expedition/service');
 
 after(() => db.$disconnect());
 
@@ -82,6 +83,22 @@ test('context references reject caller-supplied data and accept only the defined
   assert.equal(contextTurnInput.safeParse(ref).success, false);
   assert.equal(contextTurnInput.safeParse({ ...ref, fingerprint: 'not-a-version' }).success, false);
 });
+
+test('explicit course preview includes versioned material and learning evidence, changes with feedback and omits writer secrets', async () => fixtures(async ({ owner, stranger, course }) => {
+  await getChapter(db, owner, course.id);
+  const start = await startRun(db, owner, { opId: randomUUID(), courseId: course.id, questKind: 'TEACH', objectiveKey: 'bt.bfs.queue', mode: 'TRAINING', deviceId: 'context-device' });
+  const before = await resolveContext(db, owner, { kind: 'course', id: course.id });
+  assert.ok(before.sources.some(s => s.kind === 'material' && s.text.includes('SHA256') && s.text.includes('原文字符位置')));
+  assert.ok(before.sources.some(s => s.kind === 'evidence'));
+  assert.ok(!JSON.stringify(before).includes(start.writer.token));
+  const answer = await commandRun(db, owner, start.run.id, { opId: randomUUID(), expectedRevision: start.run.revision, writer: start.writer, action: { type: 'SUBMIT', answer: { explanation: '队列使用先进先出顺序，使上一层发现的节点优先处理。' } } });
+  await commandRun(db, owner, start.run.id, { opId: randomUUID(), expectedRevision: answer.revision, writer: start.writer, action: { type: 'ACK_FEEDBACK', nextStep: '明天核对层序遍历', saveCompanion: true } });
+  const after = await resolveContext(db, owner, { kind: 'course', id: course.id });
+  assert.notEqual(after.fingerprint, before.fingerprint);
+  assert.ok(after.sources.some(s => s.text.includes('用户确认的自述解释')));
+  assert.ok(after.sources.some(s => s.text.includes('明天核对层序遍历')));
+  await assert.rejects(() => resolveContext(db, stranger, { kind: 'course', id: course.id }), notFound);
+}));
 
 test('previews are model-independent, owned, and conceal missing or inaccessible resource identities', async () => fixtures(async ({ owner, stranger, course, note, task }) => {
   for (const [kind, row] of [['course', course], ['note', note], ['task', task]]) {

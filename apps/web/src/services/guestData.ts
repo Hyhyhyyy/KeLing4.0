@@ -65,10 +65,7 @@ function oneOf<T extends string>(data: Input, key: string, options: readonly T[]
 function requiredItem<T extends { id: string }>(items: T[], key: string, label: string): T {
   return items.find(item => item.id === key) ?? guestDataError(404, `${label}不存在`);
 }
-const rewards = [
-  { energy: 10, crystals: 5 }, { energy: 15, crystals: 8 }, { energy: 20, crystals: 10 },
-  { energy: 25, crystals: 12 }, { energy: 30, crystals: 15 }, { energy: 40, crystals: 20 }, { energy: 50, crystals: 30 },
-];
+const rewards = Array.from({ length: 7 }, () => ({ energy: 0, crystals: 0 }));
 const achievementDefinitions: Achievement[] = [
   ['first_task', '初学者', '完成第一个学习任务', '🌱', 'LEARNING', 50, 30, 1],
   ['task_master_10', '任务达人', '累计完成10个学习任务', '📋', 'LEARNING', 100, 30, 10],
@@ -247,14 +244,12 @@ export async function handleGuestData(method: string, path: string, data: Input 
       const nodeIds = strings(data, 'knowledgeNodeIds');
       for (const key of nodeIds) { const node = requiredItem(w.nodes, key, '知识点'); if (courseId && node.courseId !== courseId) return guestDataError(400, '知识点不属于所选课程'); }
       const minutes = number(data, 'estimatedMinutes', 25, 1, 1440, true);
-      const multiplier = { DAILY_CARE: 1, DEEP_EXPLORATION: 1.5, REVIEW_RITUAL: 1.2, BOUNTY: 2, RESCUE: 1.8, STUDY: 1.5 }[type];
       const scheduledAt = data.scheduledAt == null ? null : text(data, 'scheduledAt', '', 100);
       if (scheduledAt && !Number.isFinite(Date.parse(scheduledAt))) return guestDataError(400, '任务日期格式无效');
       const now = guestTimestamp();
       const task: GuestTask = { id: id(), userId: w.user.id, title: text(data, 'title', '', 180, true).trim(), description: text(data, 'description', '', 4000),
         type: type as Task['type'], courseId, knowledgeNodeIds: nodeIds, status: 'PENDING', priority: number(data, 'priority', 3, 1, 5, true),
-        estimatedMinutes: minutes, actualMinutes: null, rewards: { energy: Math.round(Math.round(minutes * .8) * multiplier),
-          crystals: Math.round(Math.round(minutes / 15) * multiplier), exp: Math.round(Math.round(minutes * 1.2) * multiplier) },
+        estimatedMinutes: minutes, actualMinutes: null, rewards: { energy: 0, crystals: 0, exp: 0 },
         scheduledAt, completedAt: null, createdAt: now, updatedAt: now };
       w.tasks.push(task); result = { message: '创建成功', task };
     }
@@ -275,11 +270,10 @@ export async function handleGuestData(method: string, path: string, data: Input 
       else {
         if (task.status === 'ABANDONED') return guestDataError(409, '当前任务状态无法完成');
         task.status = 'COMPLETED'; task.actualMinutes = minutes; task.completedAt = guestTimestamp(); task.updatedAt = guestTimestamp(task.updatedAt);
-        w.user.energy += task.rewards.energy; w.user.crystals += task.rewards.crystals; w.user.exp += task.rewards.exp; w.user.totalStudyMinutes += minutes;
-        while (w.user.exp >= w.user.level * 100) { w.user.exp -= w.user.level * 100; w.user.level++; }
+        w.user.totalStudyMinutes += minutes;
         const course = w.courses.find(c => c.id === task.courseId);
         if (course) { course.totalStudyMinutes += minutes; course.studySessionCount++; course.lastStudiedAt = task.completedAt; course.updatedAt = guestTimestamp(course.updatedAt); }
-        result = { task, rewards: task.rewards, alreadyCompleted: false, message: '任务完成！' };
+        result = { task, rewards: { energy: 0, crystals: 0, exp: 0 }, alreadyCompleted: false, message: '已记录学习；证据与建设奖励由远征结算。' };
       }
     }
   } else if (path === '/notes' && verb === 'GET') result = { notes: [...w.notes].sort((a, b) => b.updatedAt.localeCompare(a.updatedAt)) };
@@ -318,7 +312,7 @@ export async function handleGuestData(method: string, path: string, data: Input 
       w.user.streakDays = w.user.lastCheckInDate === studyDate(-1) ? w.user.streakDays + 1 : 1;
       const dayInCycle = (w.user.streakDays - 1) % 7 + 1;
       const reward = rewards[dayInCycle - 1]; w.user.energy += reward.energy; w.user.crystals += reward.crystals; w.user.lastCheckInDate = today;
-      w.checkins.push({ id: id(), date: today, rewardReceived: true, createdAt: guestTimestamp() });
+      w.checkins.push({ id: id(), date: today, rewardReceived: false, createdAt: guestTimestamp() });
       result = { message: '签到成功', alreadyCheckedIn: false, rewards: reward, streakDays: w.user.streakDays, dayInCycle, isSpecial: dayInCycle === 7 };
     }
   } else if (path === '/achievements' && verb === 'GET') result = { achievements: achievementDefinitions };

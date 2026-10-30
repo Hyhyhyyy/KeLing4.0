@@ -29,7 +29,7 @@ class FullGuestWorkspaceTest {
             assertEquals("真实输入", agent.sources(first.token, course.id).nodes.single().description)
             api.checkin(first.token); api.checkin(first.token)
             api.avatar(first.token, 3)
-            assertEquals(10, api.profile(first.token).user.energy)
+            assertEquals(0, api.profile(first.token).user.energy)
             assertEquals("stellar:avatar-3", api.profile(first.token).user.avatarUrl)
             assertEquals(0, api.profile(second.token).user.energy)
             api.deleteNote(first.token, note.id)
@@ -107,7 +107,7 @@ class FullGuestWorkspaceTest {
             val task = guest.taskList().tasks!!.single()
             guest.complete(task.id, 7); guest.complete(task.id, 10)
             assertEquals(7, guest.profile.totalStudyMinutes)
-            assertEquals(10, guest.profile.energy)
+            assertEquals(0, guest.profile.energy)
             val other = guest.createCourse("其他课程").course!!
             guest.addSource(other.id, "其他资料", "不包含先前任务")
             val changed = guest.start(AgentRequest(other.id, "另一课程", today, 60))

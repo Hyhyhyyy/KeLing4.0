@@ -13,7 +13,7 @@ test('HTTP enforces ownership and fixed rewards; account reads do not exhaust th
   const foreign=await db.course.create({data:{userId:other,name:'私有课程',code:'test',teacher:'test'}});
   assert.equal((await post('/tasks',{title:'越权任务',courseId:foreign.id})).status,404);
   const response=await post('/tasks',{title:'复习',description:'练习',type:'REVIEW_RITUAL',estimatedMinutes:30,rewards:{energy:999999,crystals:999999,exp:999999}});
-  assert.equal(response.status,201);const {task}=await response.json();assert.equal(task.rewards.energy,29);
+  assert.equal(response.status,201);const {task}=await response.json();assert.equal(task.rewards.energy,0);
   assert.equal((await post('/tasks/'+task.id,{status:'COMPLETED'},'PUT')).status,400);
   assert.equal((await post('/tasks/'+task.id+'/complete',{actualMinutes:15})).status,200);
   const again=await (await post('/tasks/'+task.id+'/complete',{actualMinutes:99})).json();assert.equal(again.alreadyCompleted,true);assert.equal(again.rewards.exp,0);

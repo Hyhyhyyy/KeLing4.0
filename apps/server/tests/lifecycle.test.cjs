@@ -53,7 +53,7 @@ test('two devices complete once, zero minutes stays zero and invalid/cross-user 
  const results=await Promise.all([completeOwnedTask(db,id,task.id,0),completeOwnedTask(db,id,task.id,0)]);
  assert.equal(results.filter(r=>!r.alreadyCompleted).length,1);
  const after=await db.user.findUniqueOrThrow({where:{id}});
- assert.equal(after.exp-before.exp,20);assert.equal(after.totalStudyMinutes-before.totalStudyMinutes,0);
+ assert.equal(after.exp-before.exp,0);assert.equal(after.crystals,before.crystals);assert.equal(after.energy,before.energy);assert.equal(after.totalStudyMinutes-before.totalStudyMinutes,0);
  assert.equal((await db.task.findUniqueOrThrow({where:{id:task.id}})).actualMinutes,0);
  assert.equal((await db.course.findUniqueOrThrow({where:{id:course.id}})).studySessionCount,1);
 }));

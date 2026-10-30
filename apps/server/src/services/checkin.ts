@@ -1,8 +1,6 @@
 import { PrismaClient } from '@prisma/client';
-export const CHECK_IN_REWARDS = [
-  { energy: 10, crystals: 5 }, { energy: 15, crystals: 8 }, { energy: 20, crystals: 10 },
-  { energy: 25, crystals: 12 }, { energy: 30, crystals: 15 }, { energy: 40, crystals: 20 }, { energy: 50, crystals: 30 },
-];
+// Arrival records are not learning evidence and no longer mint currency.
+export const CHECK_IN_REWARDS = Array.from({ length: 7 }, () => ({ energy: 0, crystals: 0 }));
 // One shared study day across web, mobile and servers in different timezones.
 export function studyDate(now = new Date(), offsetDays = 0) {
   return new Date(now.getTime() + 8 * 3600_000 + offsetDays * 86400_000).toISOString().slice(0, 10).replace(/-/g, '');
@@ -12,7 +10,7 @@ export async function checkInOnce(db: PrismaClient, userId: string, now = new Da
   try {
     return await db.$transaction(async tx => {
       // The unique user/day record acquires the claim before reading and incrementing rewards.
-      await tx.checkInRecord.create({ data: { userId, date, rewardReceived: true } });
+      await tx.checkInRecord.create({ data: { userId, date, rewardReceived: false } });
       const user = await tx.user.findUniqueOrThrow({ where: { id: userId } });
       const streakDays = user.lastCheckInDate === studyDate(now, -1) ? user.streakDays + 1 : 1;
       const dayInCycle = (streakDays - 1) % 7 + 1; const reward = CHECK_IN_REWARDS[dayInCycle - 1];

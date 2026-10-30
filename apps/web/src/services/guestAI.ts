@@ -48,7 +48,7 @@ function candidates():Source[]{
     ...recent(w.notes).slice(0,12).map(n=>({id:n.id,title:n.title,text:n.content.slice(0,1000),kind:'note',updatedAt:date(n),truncated:n.content.length>1000}))];
 }
 async function preview(raw:Record<string,unknown>):Promise<ContextPreview>{
-  const w=getGuestWorkspace(),ref={kind:raw.kind,id:raw.id} as ContextRef;let title='',sources:Source[]=[];const warnings:string[]=[];
+  const scope=getGuestSessionId(),w=getGuestWorkspace(),ref={kind:raw.kind,id:raw.id} as ContextRef;let title='',sources:Source[]=[];const warnings:string[]=[];
   if(ref.kind==='note'){
     const note=w.notes.find(n=>n.id===ref.id);if(!note)fail('笔记已删除，请重新选择资料','CONTEXT_NOT_FOUND',404);
     title=note.title;sources=[{id:note.id,kind:'note',title,text:note.content.slice(0,6000),truncated:note.content.length>6000,updatedAt:date(note)}];
@@ -58,11 +58,17 @@ async function preview(raw:Record<string,unknown>):Promise<ContextPreview>{
   }else if(ref.kind==='course'){
     const course=w.courses.find(c=>c.id===ref.id&&!c.isArchived);if(!course)fail('课程已删除或归档，请重新选择资料','CONTEXT_NOT_FOUND',404);
     title=course.name;const nodes=recent(w.nodes.filter(n=>n.courseId===course.id));
-    sources=[{id:course.id,kind:'course',title,text:`当前选择的课程：${title}。以下只包含这门课程的知识点。`,updatedAt:date(course),truncated:false},...nodes.slice(0,6).map(n=>({id:n.id,kind:'knowledge',title:n.name,text:n.description.slice(0,1000),truncated:n.description.length>1000,updatedAt:date(n)}))];
-    if(nodes.length>6)warnings.push('只附带最近更新的 6 个知识点。');if(!nodes.length)warnings.push('课程尚未添加知识点，本次只附带课程名称。');
+    sources=[{id:course.id,kind:'course',title,text:`当前选择的课程：${title}。以下只包含这门课程明确预览的知识点、当前资料片段和学习过程。`,updatedAt:date(course),truncated:false},...nodes.slice(0,6).map(n=>({id:n.id,kind:'knowledge',title:n.name,text:n.description.slice(0,1000),truncated:n.description.length>1000,updatedAt:date(n)}))];
+    if(nodes.length>6)warnings.push('只附带最近更新的 6 个知识点。');
+    const [{guestExpeditionContext},{guestMaterialContext}]=await Promise.all([import('./guestExpedition'),import('./learningMaterials')]);
+    if(scope!==getGuestSessionId())fail('本次游客空间已结束','CANCELLED',409);
+    const materialSources=guestMaterialContext(course.id);sources.push(...materialSources,...guestExpeditionContext(course.id));
+    if(materialSources.length)warnings.push('资料仅附带最多3个当前版本各自的首个片段；完整辅导请到资料工作坊选择范围。');
+    if(!nodes.length&&!materialSources.length)warnings.push('没有知识点或可引用资料；过程记录不能补足教材依据。');
   }else fail('资料类型不正确');
   if(sources.some(s=>s.truncated))warnings.push('部分资料较长，发送范围以这里展示的摘录为准。');
   const bytes=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(JSON.stringify({ref,title,sources,warnings})));
+  if(scope!==getGuestSessionId())fail('本次游客空间已结束','CANCELLED',409);
   return {ref,title,sources,warnings,fingerprint:Array.from(new Uint8Array(bytes)).map(x=>x.toString(16).padStart(2,'0')).join('')};
 }
 function sessionById(sid:string){const s=sessions.find(s=>s.id===sid);if(!s)fail('本次会话不存在','NOT_FOUND',404);return s;}

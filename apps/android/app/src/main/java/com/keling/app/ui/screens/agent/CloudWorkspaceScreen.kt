@@ -37,6 +37,8 @@ fun CloudWorkspaceScreen(accountId: String, token: String, initialTab: String = 
     var search by rememberSaveable { mutableStateOf("") }
     var editId by rememberSaveable { mutableStateOf<String?>(null) }; var editVersion by rememberSaveable { mutableStateOf<String?>(null) }
     var edit by rememberSaveable { mutableStateOf(false) }; var title by rememberSaveable { mutableStateOf("") }; var text by rememberSaveable { mutableStateOf("") }
+    var legacyPreview by remember { mutableStateOf(false) }
+    if (legacyPreview && guest == null) com.keling.app.expedition.LegacyPreviewDialog(accountId, state.profile) { legacyPreview = false }
     var deleteNote by remember { mutableStateOf<NoteData?>(null) }
     var courseName by rememberSaveable { mutableStateOf("") }
     var newPlanet by rememberSaveable { mutableStateOf(0) }
@@ -63,9 +65,9 @@ fun CloudWorkspaceScreen(accountId: String, token: String, initialTab: String = 
                 if (tab == "home") {
                     item { StellarSceneCard("station_full", "你好，${state.profile?.name ?: "探索者"}", "把每一天的学习，连成自己的星图。手机随身学习，网页整理资料。") }
                     item { Box { StellarArt("checkin_frame", null, Modifier.matchParentSize(), androidx.compose.ui.layout.ContentScale.FillBounds); Column(Modifier.fillMaxWidth().padding(horizontal = 30.dp, vertical = 38.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                        Text("今日星际补给", style = MaterialTheme.typography.titleMedium)
+                        Text("今日到访记录", style = MaterialTheme.typography.titleMedium)
                         Text("${state.courses.size} 门课程 · ${state.tasks.count { it.status == "PENDING" || it.status == "IN_PROGRESS" }} 个待办 · ${state.notes.size} 篇笔记")
-                        StellarActionButton(text = if (state.checkin?.hasCheckedInToday == true) "今日已签到" else if (guest != null) "签到领取补给" else "签到 · 与网页同步", onClick = vm::checkin, enabled = !state.busy && state.checkin != null && state.checkin?.hasCheckedInToday != true)
+                        StellarActionButton(text = if (state.checkin?.hasCheckedInToday == true) "今日已签到" else if (guest != null) "记录今日到访" else "签到 · 与网页同步", onClick = vm::checkin, enabled = !state.busy && state.checkin != null && state.checkin?.hasCheckedInToday != true)
                         Text("学习日统一采用北京时间", style = MaterialTheme.typography.labelSmall)
                     } } }
                     item { Card { Column {
@@ -105,7 +107,7 @@ fun CloudWorkspaceScreen(accountId: String, token: String, initialTab: String = 
                     item { Button(onClick = { onNavigate("cloud_agent") }, modifier = Modifier.fillMaxWidth()) { Text("管理课程资料与生成计划") } }
                 }
                 if (tab == "tasks") {
-                    item { StellarSceneCard("scene_focus", if (guest != null) "本次任务 · 随身专注" else "共享任务 · 随身专注", if (guest != null) "计时、学习时长与奖励只保留在本次试用中。" else "专注计时保留在当前设备；确认完成后，学习时长与奖励同步到账号。") }
+                    item { StellarSceneCard("scene_focus", if (guest != null) "本次任务 · 随身专注" else "共享任务 · 随身专注", if (guest != null) "计时与学习时长只保留在本次试用中；完成按钮不单独发资源。" else "专注计时保留在当前设备；确认完成后，学习时长同步到账号；完成按钮不单独发资源。") }
                     items(state.tasks, key = { it.id }) { task -> WorkspaceTaskCard(task, state.busy, { focus = task }, { complete = task; minutes = task.estimatedMinutes.toString() }, { onAskAssistant(AssistantContextRef("task", task.id), "请基于这项任务解释目标，拆解可执行步骤，并提醒我需要先掌握的知识。") }) }
                     if (state.tasks.isEmpty()) item { Text(if (guest != null) "还没有本次任务，可在智能编排确认计划，或到临时田园空间创建任务。" else "还没有云端任务，可在智能编排确认计划，或在网页创建任务。") }
                 }
@@ -122,10 +124,11 @@ fun CloudWorkspaceScreen(accountId: String, token: String, initialTab: String = 
                 }
                 if (tab == "profile") {
                     item { StellarSceneCard("scene_profile", "我的星际身份舱", "选择陪伴你的探索形象，查看账户中真实累积的学习记录。") }
-                    item { Row(verticalAlignment = Alignment.CenterVertically) { StellarSprite("avatars", state.profile?.avatarUrl?.substringAfterLast('-')?.toIntOrNull() ?: 0, "当前头像", Modifier.size(80.dp)); Column(Modifier.padding(start = 16.dp)) { Text(state.profile?.name.orEmpty(), style = MaterialTheme.typography.titleLarge); Text("Lv.${state.profile?.level ?: 1} · 累计 ${state.profile?.totalStudyMinutes ?: 0} 分钟"); Text("能量 ${state.profile?.energy ?: 0} · 结晶 ${state.profile?.crystals ?: 0}") } } }
+                    item { Row(verticalAlignment = Alignment.CenterVertically) { StellarSprite("avatars", state.profile?.avatarUrl?.substringAfterLast('-')?.toIntOrNull() ?: 0, "当前头像", Modifier.size(80.dp)); Column(Modifier.padding(start = 16.dp)) { Text(state.profile?.name.orEmpty(), style = MaterialTheme.typography.titleLarge); Text("Lv.${state.profile?.level ?: 1} · 累计 ${state.profile?.totalStudyMinutes ?: 0} 分钟"); Text("历史能量 ${state.profile?.energy ?: 0} · 结晶 ${state.profile?.crystals ?: 0}") } } }
                     item { Text(if (guest != null) "选择星际头像 · 本次有效" else "选择星际头像 · 两端同步", style = MaterialTheme.typography.titleMedium) }
                     items((0..2).toList()) { row -> Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) { (0..2).forEach { col -> val index = row * 3 + col; TextButton(onClick = { vm.avatar(index) }, enabled = !state.busy) { Column(horizontalAlignment = Alignment.CenterHorizontally) { StellarSprite("avatars", index, avatarNames[index], Modifier.size(70.dp)); Text(avatarNames[index], style = MaterialTheme.typography.labelSmall) } } } } }
                     item { OutlinedButton(onClick = { onNavigate("settings") }, modifier = Modifier.fillMaxWidth()) { Text(if (guest != null) "应用设置与退出试用" else "应用设置与退出登录") } }
+                    if (guest == null) item { OutlinedButton(onClick = { legacyPreview = true }, modifier = Modifier.fillMaxWidth()) { Text("先核对旧资料归属、数量与回退说明") } }
                     item { TextButton(onClick = { onNavigate("offline_home") }) { Text(if (guest != null) "打开临时田园空间" else "打开原有本机田园数据") }; Text(if (guest != null) "临时田园空间提供原有课程、知识图谱、任务、笔记、课表、签到、成就与报告功能，独立保留本次内存，不读取已有账号资料。" else "旧版离线资料保留在本机，云端空间使用共享账号数据。", style = MaterialTheme.typography.bodySmall) }
                 }
             }

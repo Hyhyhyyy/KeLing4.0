@@ -1,6 +1,6 @@
 {
   "name": "keling-monorepo",
-  "version": "3.2.5-preview",
+  "version": "4.0.0-preview",
   "private": true,
   "description": "课灵 - 多端知识管理应用",
   "workspaces": [
@@ -10,11 +10,12 @@
   ],
   "scripts": {
     "test": "node scripts/test-server.cjs",
-    "dev": "concurrently \"npm run dev:server\" \"npm run dev:web\"",
+    "dev": "npm run build:shared && concurrently \"npm run dev:server\" \"npm run dev:web\"",
+    "build:shared": "node scripts/build-shared.cjs",
     "dev:web": "cd apps/web && npm run dev",
     "dev:server": "cd apps/server && npm run dev",
     "dev:android": "echo '请在 Android Studio 中打开 apps/android 目录运行'",
-    "build": "npm run build:web && npm run build:server",
+    "build": "npm run build:shared && npm run build:web && npm run build:server",
     "build:web": "cd apps/web && npm run build",
     "build:server": "cd apps/server && npm run build",
     "build:vercel": "node scripts/build-vercel.cjs",

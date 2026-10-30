@@ -37,9 +37,9 @@ android {
         targetSdk = 34
 
         // 版本号，每次更新应用要+1
-        versionCode = 15
+        versionCode = 16
         // 版本名称，用户看到的版本
-        versionName = "3.2.5-preview"
+        versionName = "4.0.0-preview"
         buildConfigField("String", "API_BASE_URL", "\"${apiBaseUrl.replace("\\", "\\\\").replace("\"", "\\\"")}\"")
 
         // 测试运行器，用于自动化测试（暂时不用管）

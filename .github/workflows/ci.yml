@@ -34,6 +34,8 @@ jobs:
       - run: npm test
       - name: Verify ephemeral guest workspace and AI boundaries
         run: node --test scripts/test-guest-data.cjs scripts/test-guest-ai.cjs scripts/guest-workspace.test.cjs
+      - name: Verify expedition storage and guest rules
+        run: npm run test:expedition --workspace=keling-web
 
   android-debug:
     runs-on: ubuntu-latest

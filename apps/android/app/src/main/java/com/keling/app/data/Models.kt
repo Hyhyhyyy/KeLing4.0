@@ -447,15 +447,8 @@ data class CheckInReward(
     val specialReward: String? = null
 )
 
-val CHECK_IN_REWARDS = listOf(
-    CheckInReward(day = 1, energy = 10, crystals = 5),
-    CheckInReward(day = 2, energy = 15, crystals = 8),
-    CheckInReward(day = 3, energy = 20, crystals = 10),
-    CheckInReward(day = 4, energy = 25, crystals = 12),
-    CheckInReward(day = 5, energy = 30, crystals = 15),
-    CheckInReward(day = 6, energy = 40, crystals = 20),
-    CheckInReward(day = 7, energy = 50, crystals = 30, isSpecial = true, specialReward = "周奖励已解锁！")
-)
+// Attendance is a record, never a gate or an economic reward in the expedition rules.
+val CHECK_IN_REWARDS = (1..7).map { CheckInReward(day = it, energy = 0, crystals = 0) }
 
 // ==================== 预定义成就 ====================
 

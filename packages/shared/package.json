@@ -3,8 +3,13 @@
   "version": "1.0.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "typesVersions": { "*": { "expedition": ["dist/expedition/index.d.ts"] } },
+  "exports": {
+    ".": { "types": "./dist/index.d.ts", "require": "./dist/index.js", "import": "./dist-esm/index.js" },
+    "./expedition": { "types": "./dist/expedition/index.d.ts", "require": "./dist/expedition/index.js", "import": "./dist-esm/expedition/index.js" }
+  },
   "scripts": {
-    "build": "tsc",
+    "build": "node ../../scripts/build-shared.cjs",
     "dev": "tsc --watch"
   },
   "devDependencies": {

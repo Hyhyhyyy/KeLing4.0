@@ -85,7 +85,7 @@ def build():
                 style = ' class="learning-flow"'
             elif line.startswith("主视觉原画"):
                 style = ' class="caption"'
-            elif line.startswith("版本 3.2.2") or line == "Web 与 Kotlin Android 学习应用":
+            elif line.startswith("版本 ") or line == "Web 与 Kotlin Android 学习应用":
                 style = ' class="subtitle"'
             blocks.append("<p" + style + ">" + inline(line) + "</p>")
         i += 1
