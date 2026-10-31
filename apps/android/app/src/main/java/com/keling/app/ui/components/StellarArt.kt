@@ -40,7 +40,7 @@ private object StellarBitmaps {
     @Synchronized fun load(context: android.content.Context, name: String, sample: Int): ImageBitmap? {
         val key = "$name:$sample"
         val bitmap = cache.get(key) ?: runCatching {
-            context.assets.open("stellar/$name.png").use { BitmapFactory.decodeStream(it, null, BitmapFactory.Options().apply { inSampleSize = sample }) }
+            context.assets.open("stellar/$name.webp").use { BitmapFactory.decodeStream(it, null, BitmapFactory.Options().apply { inSampleSize = sample }) }
         }.getOrNull()?.also { cache.put(key, it) }
         return bitmap?.asImageBitmap()
     }

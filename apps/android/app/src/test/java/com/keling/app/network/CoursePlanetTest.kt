@@ -76,12 +76,12 @@ class CoursePlanetTest {
         assertEquals(10, PlanetStyles.entries.map { it.assetPath }.toSet().size)
         assertEquals("翡翠书环", PlanetStyles.name(0))
         assertEquals("银月陨坑", PlanetStyles.name(9))
-        assertEquals("stellar/planet_01.png", PlanetStyles.assetPath(0))
-        assertEquals("stellar/planet_10.png", PlanetStyles.assetPath(9))
+        assertEquals("stellar/planet_01.webp", PlanetStyles.assetPath(0))
+        assertEquals("stellar/planet_10.webp", PlanetStyles.assetPath(9))
         assertTrue(PlanetStyles.assetPath(10).endsWith("6032a41fb1565066336cd62a2a926045-3fb40176-487e-47f3-a4ea-41112b8816c9.png"))
         assertTrue(PlanetStyles.assetPath(25).endsWith("fe8cd156e1e20a602fffd498ead499e4-c3c369de-574c-4942-a792-223bd688e297.png"))
         assertEquals(PlanetStyles.assetPath(-1, "old-course"), PlanetStyles.assetPath(-1, "old-course"))
         assertTrue(PlanetStyles.entries.any { it.assetPath == PlanetStyles.assetPath(-1, "old-course") })
-        assertEquals("stellar/planet_01.png", PlanetStyles.assetPath(999))
+        assertEquals("stellar/planet_01.webp", PlanetStyles.assetPath(999))
     }
 }

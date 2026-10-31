@@ -2,7 +2,7 @@ package com.keling.app.data
 
 /** Index is the shared API identifier; never reorder these ten styles. */
 data class PlanetStyle(val index: Int, val name: String, val asset: String) {
-    val assetPath: String get() = "stellar/$asset.png"
+    val assetPath: String get() = "stellar/$asset.webp"
 }
 
 object PlanetStyles {

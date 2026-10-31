@@ -18,6 +18,13 @@ require(apiBaseUrl.startsWith("https://") || apiBaseUrl.startsWith("http://")) {
     "KELING_API_BASE_URL must be an absolute HTTP(S) URL"
 }
 
+// Keep original artwork in source control; package its reviewed WebP derivatives.
+val legacyAssetDirectory = layout.buildDirectory.dir("generated/legacy-assets")
+val prepareLegacyAssets by tasks.registering(Sync::class) {
+    from("src/main/assets") { exclude("stellar/*.png") }
+    into(legacyAssetDirectory)
+}
+
 android {
     // 应用的命名空间，必须是唯一的，通常用反向域名
     namespace = "com.keling.app"
@@ -37,9 +44,9 @@ android {
         targetSdk = 34
 
         // 版本号，每次更新应用要+1
-        versionCode = 19
+        versionCode = 20
         // 版本名称，用户看到的版本
-        versionName = "4.0.3-direct-cloud-preview"
+        versionName = "4.0.4-direct-cloud-preview"
         buildConfigField("String", "API_BASE_URL", "\"${apiBaseUrl.replace("\\", "\\\\").replace("\"", "\\\"")}\"")
 
         // 测试运行器，用于自动化测试（暂时不用管）
@@ -51,6 +58,8 @@ android {
         }
 
     }
+
+    sourceSets.getByName("main").assets.setSrcDirs(listOf("src/main/optimizedAssets", legacyAssetDirectory))
 
 
 
@@ -103,6 +112,8 @@ android {
         }
     }
 }
+
+tasks.named("preBuild").configure { dependsOn(prepareLegacyAssets) }
 
 /**
  * 依赖配置：这里列出App需要的所有第三方库

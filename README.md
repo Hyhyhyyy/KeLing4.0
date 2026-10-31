@@ -4,7 +4,7 @@
   <p><strong>从一次动手推演，到有依据的学习成长。</strong></p>
   <p>React 网页 × Kotlin Android · 可控 AI 辅导 · 星际像素学习空间</p>
   <p>
-    <a href="https://github.com/Hyhyhyyy/KeLing4.0/releases/tag/v4.0.1-preview"><img src="https://img.shields.io/badge/构建-4.0.1--preview-D9AD54?style=flat-square" alt="4.0.1-preview" /></a>
+    <a href="https://github.com/Hyhyhyyy/KeLing4.0/releases/tag/v4.0.4-direct-cloud-preview"><img src="https://img.shields.io/badge/构建-4.0.4--preview-D9AD54?style=flat-square" alt="4.0.4-preview" /></a>
     <a href="https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg/trial"><img src="https://img.shields.io/badge/游客模式-无需注册-377A68?style=flat-square" alt="游客模式：无需注册" /></a>
     <a href="apps/android"><img src="https://img.shields.io/badge/Android-Kotlin-7F52FF?style=flat-square&logo=kotlin&logoColor=white" alt="Android：Kotlin" /></a>
     <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-163446?style=flat-square" alt="MIT License" /></a>
@@ -12,7 +12,7 @@
   <p>
     <a href="https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg/trial"><strong>网页游客入口 ↗</strong></a>
     &nbsp; · &nbsp;
-    <a href="https://github.com/Hyhyhyyy/KeLing4.0/releases/tag/v4.0.1-preview"><strong>Android 4.0 发布页</strong></a>
+    <a href="https://github.com/Hyhyhyyy/KeLing4.0/releases/tag/v4.0.4-direct-cloud-preview"><strong>Android 4.0 发布页</strong></a>
     &nbsp; · &nbsp;
     <a href="docs/PRODUCT_INTRODUCTION.md"><strong>产品介绍</strong></a>
     &nbsp; · &nbsp;
@@ -20,7 +20,10 @@
   </p>
 </div>
 
-> **当前构建：4.0.3-direct-cloud-preview · Android versionCode 19。** 已增加可直连的妙搭服务，仍使用原账号数据库；修复注册/登录等待、取消与重试，以及网页子路径和刷新恢复。Android 89 项测试通过；当前实测网络与交付边界见[注册登录修复记录](docs/auth/DIRECT_ACCESS_2026-10-31.md)。APK 为调试签名预览包，最低 Android 8.0，实体手机尚待安装后验证。
+> **当前构建：4.0.4-direct-cloud-preview · Android versionCode 20。** 已增加可直连的妙搭服务，仍使用原账号数据库；修复注册/登录等待、取消与重试，以及网页子路径和刷新恢复。Android 89 项测试通过；当前实测网络与交付边界见[注册登录修复记录](docs/auth/DIRECT_ACCESS_2026-10-31.md)。APK 为调试签名预览包，最低 Android 8.0，实体手机尚待安装后验证。
+
+[直连下载 Android 4.0.4（约 93 MB）](https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg/download/android) · [注册 / 登录](https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg/login)
+
 
 <p align="center">
   <img src="assets/stellar/expedition_voyage.png" alt="4.0 远航像素主视觉原画：二叉树通信站，非运行截图" width="100%" />
