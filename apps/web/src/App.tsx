@@ -1,7 +1,6 @@
 import React, { lazy, Suspense, useEffect } from 'react';
 import { APP_BASE, appPath } from './services/appPath';
 import { BrowserRouter as Router, Routes, Route, Navigate, Link, useNavigate, useLocation } from 'react-router-dom';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useAppStore } from './store/useAppStore';
 import { clearModelAccess } from './services/modelAccess';
 import './pages/Expedition/Expedition.css';
@@ -40,8 +39,6 @@ import './styles/stellar.css';
 import './styles/typography.css';
 import { StellarSprite } from './components/StellarArt';
 import { avatarIndex } from './components/stellarCatalog';
-
-const queryClient = new QueryClient();
 
 class AppErrorBoundary extends React.Component<{ children: React.ReactNode }, { failed: boolean }> {
   state = { failed: false };
@@ -180,7 +177,7 @@ function App() {
   useEffect(() => {
     const unsubscribe = useAppStore.subscribe((state, previous) => {
       if (state.user?.id !== previous.user?.id || state.isGuest !== previous.isGuest) {
-        clearModelAccess(); queryClient.clear();
+        clearModelAccess();
       }
     });
     // Do not let the browser's back/forward cache revive a visitor workspace.
@@ -190,7 +187,6 @@ function App() {
   }, []);
   return (
     <AppErrorBoundary>
-    <QueryClientProvider client={queryClient}>
       <Router basename={APP_BASE || '/'}>
         <Suspense fallback={<div className="loading-screen" role="status">正在加载页面…</div>}>
         <Routes>
@@ -322,7 +318,6 @@ function App() {
         </Routes>
         </Suspense>
       </Router>
-    </QueryClientProvider>
     </AppErrorBoundary>
   );
 }

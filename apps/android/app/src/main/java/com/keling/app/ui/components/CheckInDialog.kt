@@ -338,7 +338,7 @@ private fun DayRewardItem(
         ) {
             if (isCompleted) {
                 Image(
-                    painter = painterResource(id = R.drawable.ic_check_complete),
+                    painter = painterResource(id = R.drawable.ic_check),
                     contentDescription = "已完成",
                     modifier = Modifier.size(20.dp),
                     contentScale = ContentScale.Fit

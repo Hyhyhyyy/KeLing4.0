@@ -46,28 +46,5 @@
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
 
-    <!-- PWA 注册脚本（由vite-plugin-pwa自动生成） -->
-    <script>
-      // 检测iOS设备并提示添加到主屏幕
-      (function() {
-        // 检测是否在独立模式下运行
-        const isStandalone = window.matchMedia('(display-mode: standalone)').matches
-          || window.navigator.standalone === true;
-
-        // 检测iOS设备
-        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-
-        // 如果是iOS且不是独立模式，显示提示
-        if (isIOS && !isStandalone) {
-          let shown = sessionStorage.getItem('pwa-prompt-shown');
-          if (!shown) {
-            // 延迟显示，等待用户浏览一会儿
-            setTimeout(function() {
-              sessionStorage.setItem('pwa-prompt-shown', 'true');
-            }, 3000);
-          }
-        }
-      })();
-    </script>
   </body>
 </html>

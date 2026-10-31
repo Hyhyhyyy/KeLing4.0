@@ -20,7 +20,7 @@ jobs:
           distribution: temurin
           cache: gradle
       - run: chmod +x apps/android/gradlew
-      - name: Test and build unsigned debug preview
+      - name: Test and build debug preview
         working-directory: apps/android
         run: ./gradlew testDebugUnitTest assembleDebug
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4

@@ -19,11 +19,18 @@ require(apiBaseUrl.startsWith("https://") || apiBaseUrl.startsWith("http://")) {
 }
 
 // Keep original artwork in source control; package its reviewed WebP derivatives.
-val legacyAssetDirectory = layout.buildDirectory.dir("generated/legacy-assets")
-val prepareLegacyAssets by tasks.registering(Sync::class) {
+val sharedExpeditionDirectory = rootProject.file("../../packages/shared/src/expedition")
+val packagedAssetDirectory = layout.buildDirectory.dir("generated/packaged-assets")
+val preparePackagedAssets by tasks.registering(Sync::class) {
     from("src/main/assets") { exclude("stellar/**") }
-    from(rootProject.file("../../assets/stellar/manifest.json")) { into("stellar") }
-    into(legacyAssetDirectory)
+    from(sharedExpeditionDirectory) { include("chapter.json"); into("expedition") }
+    into(packagedAssetDirectory)
+}
+
+val expeditionTestResourceDirectory = layout.buildDirectory.dir("generated/expedition-test-resources")
+val prepareExpeditionTestResources by tasks.registering(Sync::class) {
+    from(sharedExpeditionDirectory) { include("chapter.json", "fixtures.json"); into("expedition") }
+    into(expeditionTestResourceDirectory)
 }
 
 val launcherResourceDirectory = layout.buildDirectory.dir("generated/launcher-resources")
@@ -58,9 +65,6 @@ android {
         versionName = "4.0.4-direct-cloud-preview"
         buildConfigField("String", "API_BASE_URL", "\"${apiBaseUrl.replace("\\", "\\\\").replace("\"", "\\\"")}\"")
 
-        // 测试运行器，用于自动化测试（暂时不用管）
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
         // 启用矢量图支持，这样图标可以缩放不失真
         vectorDrawables {
             useSupportLibrary = true
@@ -69,9 +73,10 @@ android {
     }
 
     sourceSets.getByName("main").apply {
-        assets.setSrcDirs(listOf("src/main/optimizedAssets", legacyAssetDirectory))
+        assets.setSrcDirs(listOf("src/main/optimizedAssets", packagedAssetDirectory))
         res.srcDir(launcherResourceDirectory)
     }
+    sourceSets.getByName("test").resources.setSrcDirs(listOf(expeditionTestResourceDirectory))
 
 
 
@@ -124,7 +129,8 @@ android {
     }
 }
 
-tasks.named("preBuild").configure { dependsOn(prepareLegacyAssets, prepareLauncherResources) }
+tasks.named("preBuild").configure { dependsOn(preparePackagedAssets, prepareLauncherResources) }
+tasks.matching { it.name.endsWith("UnitTestJavaRes") }.configureEach { dependsOn(prepareExpeditionTestResources) }
 
 /**
  * 依赖配置：这里列出App需要的所有第三方库
@@ -135,7 +141,6 @@ dependencies {
     // Compose物料清单（BOM），统一管理所有Compose库的版本
     val composeBom = platform(libs.androidx.compose.bom)
     implementation(composeBom)
-    androidTestImplementation(composeBom)
 
     // Compose UI核心，包含所有基础组件（Text, Button, Column等）
     implementation("androidx.compose.ui:ui")
@@ -155,17 +160,9 @@ dependencies {
     // 生命周期感知，自动管理资源释放
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.7.0")
 
-    // ==================== 导航 ====================
-    // Compose导航，实现页面跳转
-    implementation("androidx.navigation:navigation-compose:2.7.7")
-
     // ==================== 数据存储 ====================
     // DataStore，用于保存用户偏好设置（比SharedPreferences更现代）
     implementation("androidx.datastore:datastore-preferences:1.1.1")
-
-    // ==================== 后台任务 ====================
-    // WorkManager，用于定时通知和后台任务
-    implementation("androidx.work:work-runtime-ktx:2.9.0")
 
     // ==================== 网络请求 ====================
     // Ktor客户端，用于调用AI API（比Retrofit更轻量，Kotlin原生）
@@ -191,9 +188,6 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     testImplementation("io.ktor:ktor-client-mock:2.3.7")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     // 调试工具，预览和检查布局
     debugImplementation("androidx.compose.ui:ui-tooling")
-    debugImplementation("androidx.compose.ui:ui-test-manifest")
 }

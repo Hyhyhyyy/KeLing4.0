@@ -14,12 +14,13 @@
 
 ```powershell
 $env:PYTHONIOENCODING = 'utf-8'
-& 'C:/Users/lenovo/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe' docs/product-document/verify_runtime.py
 & 'C:/Users/lenovo/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe' docs/product-document/build_introduction.py
 & 'C:/Users/lenovo/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe' docs/product-document/verify_introduction.py
 ```
 
 换一台机器时，应重新用依赖加载工具取得捆绑运行时路径，不假定系统 Python 或用户安装的软件等价。
+
+上述命令只记录当时环境。2026-10-31 清理了仅用于该个人运行时的一次性探测脚本；历史结果仍保留于 `renderer_evidence.json`，脚本原文可在 Git 提交 `fdf0c6f` 的本目录中追溯。当前 HTML 生成和结构检查使用标准 Python，命令见[现行说明](../../../product-document/README.md)。
 
 ## 本次 Word 渲染边界
 

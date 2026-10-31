@@ -14,9 +14,7 @@ object PlanetStyles {
     /** Keep legacy indices 10..25 readable without rewriting stored courses. */
     fun assetPath(index: Int, courseId: String = ""): String {
         if (index < 0) return entries[Math.floorMod(courseId.hashCode(), entries.size)].assetPath
-        return entries.getOrNull(index)?.assetPath ?: legacyAssets.getOrNull(index) ?: entries.first().assetPath
-    }
-    private val legacyAssets = List(26) { index ->
-        "legacy-planets/planet-${index.toString().padStart(2, '0')}.png"
+        return entries.getOrNull(index)?.assetPath
+            ?: if (index in 10..25) "legacy-planets/planet-${index.toString().padStart(2, '0')}.png" else entries.first().assetPath
     }
 }

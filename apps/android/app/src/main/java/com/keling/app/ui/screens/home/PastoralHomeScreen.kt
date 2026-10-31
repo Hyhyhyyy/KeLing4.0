@@ -1377,7 +1377,7 @@ private fun GlassmorphismGreetingHeader(
         Box {
             // 背景图片 - 自适应卡片大小
             Image(
-                painter = painterResource(id = R.drawable.bg_card_home),
+                painter = painterResource(id = R.drawable.bg_card_module),
                 contentDescription = null,
                 modifier = Modifier.matchParentSize(),
                 contentScale = ContentScale.FillBounds
@@ -1540,7 +1540,7 @@ private fun GlassmorphismSpiritCard(
         Box {
             // 背景图片 - 自适应卡片大小
             Image(
-                painter = painterResource(id = R.drawable.bg_card_home),
+                painter = painterResource(id = R.drawable.bg_card_module),
                 contentDescription = null,
                 modifier = Modifier.matchParentSize(),
                 contentScale = ContentScale.FillBounds
@@ -1721,7 +1721,7 @@ private fun GlassmorphismEmptyGardenCard(onClick: () -> Unit) {
         Box {
             // 背景图片 - 自适应卡片大小
             Image(
-                painter = painterResource(id = R.drawable.bg_card_home),
+                painter = painterResource(id = R.drawable.bg_card_module),
                 contentDescription = null,
                 modifier = Modifier.matchParentSize(),
                 contentScale = ContentScale.FillBounds
@@ -1967,7 +1967,7 @@ private fun GlassmorphismQuickAccessCard(
         Box {
             // 背景图片 - 自适应卡片大小
             Image(
-                painter = painterResource(id = R.drawable.bg_card_home),
+                painter = painterResource(id = R.drawable.bg_card_module),
                 contentDescription = null,
                 modifier = Modifier.matchParentSize(),
                 contentScale = ContentScale.FillBounds
@@ -2042,7 +2042,7 @@ private fun GlassmorphismEmptyTaskCard(onClick: () -> Unit) {
         Box {
             // 背景图片 - 自适应卡片大小
             Image(
-                painter = painterResource(id = R.drawable.bg_card_home),
+                painter = painterResource(id = R.drawable.bg_card_module),
                 contentDescription = null,
                 modifier = Modifier.matchParentSize(),
                 contentScale = ContentScale.FillBounds
@@ -2148,7 +2148,7 @@ private fun GlassmorphismTaskCard(
         Box {
             // 背景图片 - 自适应卡片大小
             Image(
-                painter = painterResource(id = R.drawable.bg_card_home),
+                painter = painterResource(id = R.drawable.bg_card_module),
                 contentDescription = null,
                 modifier = Modifier.matchParentSize(),
                 contentScale = ContentScale.FillBounds

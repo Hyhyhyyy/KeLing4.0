@@ -8,7 +8,6 @@
 
     <!-- 网络状态检测：可选，用于判断是否有网络连接 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <!-- ==================== 应用配置 ==================== -->
     <application
