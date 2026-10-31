@@ -67,7 +67,7 @@ const Register: React.FC = () => {
       >
         {/* Logo */}
         <div className="auth-logo">
-          <img className="auth-stellar-logo" src={appPath("/stellar/title_logo.png")} width="1774" height="887" alt="课灵 KeLing" />
+          <img className="auth-stellar-logo" src={appPath("/stellar/title_logo.webp")} width="1774" height="887" alt="课灵 KeLing" />
           <p>开启你的星际学习之旅</p>
         </div>
 

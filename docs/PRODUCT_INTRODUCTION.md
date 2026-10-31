@@ -6,7 +6,7 @@ Web 与 Kotlin Android 学习应用
 
 课灵把课程资料、动手练习、AI 辅导与日常任务连成一条可追溯的学习流程。学生先看资料、尝试操作，再依据反馈解释自己的思路；AI 提供建议，规则记录证据，用户决定保存与执行。
 
-![课灵远航主视觉原画](../assets/stellar/expedition_voyage.png)
+![课灵远航主视觉原画](../assets/stellar/expedition_voyage.webp)
 
 主视觉由 AI 辅助生成，是产品美术资源，不是运行截图。游戏化功能依据见[4.0 交付记录](history/2026-10/GAMIFIED_UPGRADE_2026-10-30.md)，当前注册登录和分发验证见[4.0.4 记录](auth/DIRECT_ACCESS_2026-10-31.md)。
 
@@ -75,6 +75,6 @@ Web 与 Kotlin Android 学习应用
 
 本地使用 Node.js 22.13 或以上版本，依次执行 npm ci、npm run setup:local、npm run dev。Android 使用 JDK 17 和 SDK 34。API、签名和校验命令见 README、[部署说明](DEPLOYMENT.md)及[迁移恢复说明](design/DATA_MIGRATION_AND_RECOVERY.md)。
 
-4.0.4 登录修复交付中，后端 77 项、Android 89 项测试通过；在关闭代理的 Chrome 和 Android 14 模拟器完成注册、登录、跨端互通、刷新及重启恢复，完整安装包下载摘要一致。60 张 Android WebP 派生图片通过尺寸、透明度和编码差异检查，原 PNG 保留。具体证据及测试范围见[交付记录](auth/DIRECT_ACCESS_2026-10-31.md)。
+4.0.4 登录修复交付中，后端 77 项、Android 89 项测试通过；在关闭代理的 Chrome 和 Android 14 模拟器完成注册、登录、跨端互通、刷新及重启恢复，完整安装包下载摘要一致。当次 60 张 Android WebP 派生图片通过尺寸、透明度和编码差异检查，原 PNG 与编码记录保留在 Git 历史。具体证据及测试范围见[交付记录](auth/DIRECT_ACCESS_2026-10-31.md)；后续素材目录调整未重新运行测试或构建，当前来源见[资源说明](../assets/stellar/README.md)。
 
 注册登录已检查 390 px 与 1440 px 网页视口；全功能无障碍、大字模式、Android 真机、真实模型及学生使用效果仍需独立验收。旧版截图只作为带版本标注的历史材料。未设置周期性迭代任务；正式提交仍需补齐报名签章、赛题核对与新版演示录制。

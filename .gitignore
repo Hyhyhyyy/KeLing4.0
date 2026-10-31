@@ -76,6 +76,7 @@ lint-result.txt
 # Derived artwork is rebuilt from assets/stellar.
 apps/web/public/stellar/
 apps/android/app/src/main/assets/stellar/
+apps/android/app/src/main/optimizedAssets/
 apps/android/app/src/main/res/drawable-nodpi/stellar_app_icon.png
 
 # Distribute installers through GitHub Releases, not the source tree.

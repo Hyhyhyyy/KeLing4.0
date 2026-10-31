@@ -6,6 +6,7 @@ bundled workspace Python. Every frame labels its evidence status explicitly.
 from pathlib import Path
 import argparse, csv, hashlib, html, json, re, shutil
 import fitz
+from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
 P = argparse.ArgumentParser()
@@ -20,7 +21,8 @@ font = fitz.Font(fontfile=str(FONT))
 assets = {}
 for name in ['expedition_voyage.png','expedition_starmap.png','expedition_base.png',
              'decoration_antenna.png','decoration_archive.png','decoration_observatory.png','planet_01.png']:
-    shutil.copy2(ROOT / 'assets/stellar' / name, MEDIA / '素材' / name)
+    with Image.open(ROOT / 'assets/stellar' / Path(name).with_suffix('.webp')) as artwork:
+        artwork.save(MEDIA / '素材' / name, format='PNG')
     assets[name] = MEDIA / '素材' / name
 shots=[]
 for src in sorted((ROOT/'docs/screenshots/guest-entry-2026-10-30').glob('*.png')):

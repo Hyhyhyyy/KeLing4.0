@@ -26,10 +26,10 @@
 
 ## 资源与验证
 
-- [仓库整理验证](validation/repository-cleanup-2026-10-31.json)：资源去重、文件迁移、当前构建与测试结果；云端检查以对应提交的 Quality gates 为准。
-- 原图与提示词：[assets/stellar](../assets/stellar)。网页副本由 `npm run assets:sync` 生成，`npm run assets:check` 检查清单和派生资源。
-- Android 使用已提交的 WebP 派生文件。维护时使用 Pillow 12.3.0 运行 `python scripts/prepare-android-art.py`；`--verify` 校验摘要、尺寸、透明度和编码差异。普通 Android 构建不依赖 Python。WebP 为最高有损质量编码，不宣称像素无损。
-- [Android 素材清单](auth/android-art-manifest.json)：逐张保留原图与派生文件摘要及编码验证数值。
+- [仓库整理验证](validation/repository-cleanup-2026-10-31.json)：删减前的资源、构建与测试历史结果，只适用于记录中的提交。
+- [共享素材与提示词](../assets/stellar/README.md)：59 张 WebP 和一张 PNG 启动图标同时供 Web、Android 使用；两端打包副本均生成，不再提交 Android 独立副本。
+- [统一素材清单](../assets/stellar/manifest.json)：集中保留当前素材与原 PNG 来源摘要、既有编码记录。WebP 使用有损编码，不宣称像素无损；普通 Android 构建不依赖 Python。
+- 原 PNG 及旧 Android 编码清单可从 [Git 提交 9583827](https://github.com/Hyhyhyyy/KeLing4.0/tree/9583827/assets/stellar)追溯；导出和 `prepare-stellar-art.py` 再制作方法见共享素材说明。当前文件体积限制不要求删除 Git 来源历史。
 - [4.0.4 注册登录与直连交付](auth/DIRECT_ACCESS_2026-10-31.md)及[验证数据](auth/validation-direct.json)：无代理 Chrome、Android 14 模拟器、跨端账号与完整安装包下载证据。
 - [历史验证数据](validation/)与[历史截图](screenshots/)：按日期和版本解释，不代表当前所有功能已经验收。
 

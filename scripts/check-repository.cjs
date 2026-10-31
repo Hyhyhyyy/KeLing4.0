@@ -13,7 +13,7 @@ const rawDesigns = new Set([
 
 for (const file of files) {
   if (/(^|\/)(node_modules|dist|dist-esm|dev-dist|build|\.cache|\.gradle)\//.test(file) ||
-      /^(apps\/web\/public\/stellar|apps\/android\/app\/src\/main\/assets\/stellar)\//.test(file) ||
+      /^(apps\/web\/public\/stellar|apps\/android\/app\/src\/main\/(?:assets\/stellar|optimizedAssets))\//.test(file) ||
       /\.(apk|aab|apks|db|jks|keystore|log|tsbuildinfo)$/.test(file)) {
     errors.push('Generated or private file is tracked: ' + file);
   }

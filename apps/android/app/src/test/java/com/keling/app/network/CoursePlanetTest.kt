@@ -84,9 +84,9 @@ class CoursePlanetTest {
         assertTrue(PlanetStyles.entries.any { it.assetPath == PlanetStyles.assetPath(-1, "old-course") })
         assertEquals("stellar/planet_01.webp", PlanetStyles.assetPath(999))
         for (index in 0..25) {
-            val root = if (index < 10) "src/main/optimizedAssets" else "src/main/assets"
+            val root = if (index < 10) "../../../assets" else "src/main/assets"
             val resolved = java.io.File(root, PlanetStyles.assetPath(index))
-            assertTrue("Missing packaged planet asset for index $index", resolved.isFile)
+            assertTrue("Missing planet source asset for index $index", resolved.isFile)
         }
     }
 }

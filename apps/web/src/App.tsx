@@ -97,7 +97,7 @@ const TopNav: React.FC = () => {
   return (
     <header className="top-nav">
       <button className="nav-brand" aria-label="返回首页" onClick={() => navigate('/')}>
-        <img src={appPath("/stellar/title_logo.png")} alt="课灵 KeLing" className="stellar-brand-logo" />
+        <img src={appPath("/stellar/title_logo.webp")} alt="课灵 KeLing" className="stellar-brand-logo" />
       </button>
 
       <nav className="nav-links" aria-label="主导航">

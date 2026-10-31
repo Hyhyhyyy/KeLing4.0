@@ -14,7 +14,7 @@ export default function Explore() {
   return <div className="explore-page">
     <a href="#explore-content" className="explore-skip">跳到主要内容</a>
     <header className="explore-nav">
-      <Link to="/explore" aria-label="课灵介绍"><img src={appPath("/stellar/title_logo.png")} alt="课灵 KeLing"/></Link>
+      <Link to="/explore" aria-label="课灵介绍"><img src={appPath("/stellar/title_logo.webp")} alt="课灵 KeLing"/></Link>
       <nav aria-label="项目介绍导航"><a className="explore-secondary-nav" href="#capabilities">学习空间</a><Link className="explore-secondary-nav" to="/explore/art">视觉图鉴</Link><Link className="explore-action" to="/trial">游客试用</Link>{!publicPreview && <Link to="/login">账号登录</Link>}</nav>
     </header>
     <main id="explore-content">

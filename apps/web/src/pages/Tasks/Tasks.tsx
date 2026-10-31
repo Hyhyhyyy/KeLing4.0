@@ -196,7 +196,7 @@ const Tasks: React.FC = () => {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
         >
-          <div className="stellar-timer-face"><img src={appPath("/stellar/timer_frame.png")} alt=""/><span className="timer-display">{formatTime(timerSeconds)}</span></div>
+          <div className="stellar-timer-face"><img src={appPath("/stellar/timer_frame.webp")} alt=""/><span className="timer-display">{formatTime(timerSeconds)}</span></div>
           <button
             className="btn-timer-stop"
             onClick={() => {

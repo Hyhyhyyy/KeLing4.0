@@ -40,7 +40,8 @@ private object StellarBitmaps {
     @Synchronized fun load(context: android.content.Context, name: String, sample: Int): ImageBitmap? {
         val key = "$name:$sample"
         val bitmap = cache.get(key) ?: runCatching {
-            context.assets.open("stellar/$name.webp").use { BitmapFactory.decodeStream(it, null, BitmapFactory.Options().apply { inSampleSize = sample }) }
+            val extension = if (name == "app_icon") "png" else "webp"
+            context.assets.open("stellar/$name.$extension").use { BitmapFactory.decodeStream(it, null, BitmapFactory.Options().apply { inSampleSize = sample }) }
         }.getOrNull()?.also { cache.put(key, it) }
         return bitmap?.asImageBitmap()
     }
@@ -60,7 +61,7 @@ private object StellarBitmaps {
     }
 }
 
-/** Canonical shared PNGs are packaged as assets. Decode a sampled bitmap for phone memory. */
+/** Decode the canonical shared artwork with sampling for phone memory. */
 @Composable fun StellarArt(name: String, description: String?, modifier: Modifier = Modifier, contentScale: ContentScale = ContentScale.Fit, alignment: Alignment = Alignment.Center) {
     val context = LocalContext.current
     val bitmap by produceState<ImageBitmap?>(null, name) {

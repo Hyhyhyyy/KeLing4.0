@@ -56,7 +56,9 @@ Android 默认入口已更换；旧内置地址与新入口明确识别为同一
 
 4.0.4 把 60 张游戏图片从 PNG 改为最高有损质量的 WebP，图片总量由 117,597,106 字节降至 35,640,704 字节，APK 从约 175 MB 降至约 93 MB。原 PNG 保留在 `apps/android/app/src/main/assets/stellar`；发布素材位于 `optimizedAssets/stellar`，Gradle 不再重复打包原 PNG。图片尺寸、透明度全部一致，像素颜色存在编码差异；在白色背景上比较 RGB 数值，最大均方根差为 7.6264/255。旧课程的 26 款 PNG 星球素材仍按原路径打包。
 
-`scripts/prepare-android-art.py` 使用 Pillow 12.3.0 生成素材；`--verify` 校验原图、生成文件的摘要及图像属性。普通 Android 构建直接使用已提交的 WebP，不依赖 Python。逐张记录见 `android-art-manifest.json`。已检查 APK 实际文件内容，并在 Android 14 模拟器重新安装、登录、重启和查看游戏画面。
+`scripts/prepare-android-art.py` 使用 Pillow 12.3.0 生成素材；`--verify` 校验原图、生成文件的摘要及图像属性。普通 Android 构建直接使用已提交的 WebP，不依赖 Python。逐张记录见[当时的 Android 编码清单](https://github.com/Hyhyhyyy/KeLing4.0/blob/9583827/docs/auth/android-art-manifest.json)。已检查 APK 实际文件内容，并在 Android 14 模拟器重新安装、登录、重启和查看游戏画面。
+
+上述尺寸、路径和验证结论描述 4.0.4 发布当时的状态。后续源码体积调整将运行素材统一到 `assets/stellar`，原 PNG 与旧编码清单保留在 Git 提交 `9583827`；现行目录及统一清单见[资源说明](../../assets/stellar/README.md)，本记录不作为调整后的构建验证。
 
 ## 如何复现及边界
 

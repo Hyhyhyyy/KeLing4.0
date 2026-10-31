@@ -8,7 +8,7 @@
 
 手机主工作区的“课程”页面新增星球选择：填写课程名称，选择图案，再创建知识星球；每张已有课程卡片显示实际选择，并提供“更换星球形象”。选择器使用可滚动的两列布局，提供名称、选中状态、取消和确认；保存失败保留选择并显示错误。
 
-十款按固定编号对应同一套跨端原画：0 翡翠书环、1 珊瑚火山、2 极光冰晶、3 琥珀沙丘、4 云海雷霆、5 深海潮汐、6 苔原花园、7 紫晶洞窟、8 机械星核、9 银月陨坑。对应 `assets/stellar/planet_01.png` 至 `planet_10.png`；生成提示词见 [prompts-planets.json](../../../assets/stellar/prompts-planets.json)，图片散列见 [manifest.json](../../../assets/stellar/manifest.json)。手机按原图比例显示，没有将同一图案缩放冒充不同星球。
+十款按固定编号对应同一套跨端原画：0 翡翠书环、1 珊瑚火山、2 极光冰晶、3 琥珀沙丘、4 云海雷霆、5 深海潮汐、6 苔原花园、7 紫晶洞窟、8 机械星核、9 银月陨坑。对应 `assets/stellar/planet_01.png` 至 `planet_10.png`；生成提示词见 [prompts-planets.json](../../../assets/stellar/prompts-planets.json)，原 PNG 图片散列见[历史 manifest.json](https://github.com/Hyhyhyyy/KeLing4.0/blob/9583827/assets/stellar/manifest.json)。手机按原图比例显示，没有将同一图案缩放冒充不同星球。
 
 登录模式通过共享课程字段 `planetStyleIndex` 保存。创建请求发送名称与编号；更换请求 `PUT /courses/:id` 仅发送 `{planetStyleIndex}`，避免用默认值覆盖已有资料、课程名称、掌握度或学习时长。网页与手机使用同一字段和编号顺序。
 

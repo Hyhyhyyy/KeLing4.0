@@ -16,6 +16,8 @@ Android 4.0.4 默认连接同一服务；原账号沿用原数据库。注册登
 
 需要 Node.js 22.13+；Android 另需 JDK 17 与 SDK 34。
 
+Web 和 Android 从同一 `assets/stellar` 目录生成打包素材，当前目录包含 WebP 和 PNG 启动图标。构建输入须保留该目录及清单；无需额外下载原 PNG 或恢复旧 Android 素材副本。原图追溯与导出见[资源说明](../assets/stellar/README.md)。
+
 ```sh
 npm ci
 npm run setup:local

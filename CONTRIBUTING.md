@@ -30,9 +30,9 @@ Windows 可在根目录运行 `./scripts/android-check.ps1 -Lint`。报告实际
 
 ## 资源与生成文件
 
-视觉原图、清单和生成来源集中在 `assets/stellar`。修改资源后运行 `npm run assets:sync`、`npm run assets:check`；Android WebP 生成与复核方式见[文档索引](docs/README.md#资源与验证)。生成的网页副本、构建目录和安装包不提交到源码树，发布产物放 GitHub Releases。
+运行素材、清单和生成来源集中在 `assets/stellar`：59 张 WebP 和一张 PNG 启动图标同时供 Web 与 Android 使用。两端副本由构建生成，不单独维护 Android 素材目录。修改资源后可运行 `npm run assets:sync`、`npm run assets:check`；来源与再制作方式见[资源说明](assets/stellar/README.md)。生成副本、构建目录和安装包不提交到源码树，发布产物放 GitHub Releases。
 
-不要提交 `.env`、数据库、私有用户资料、密钥、令牌、签名文件或本机路径配置。使用仓库提供的示例配置和合成测试数据。不要删除无法确认用途的原始竞赛资料、唯一原图或必要验证证据。
+不要提交 `.env`、数据库、私有用户资料、密钥、令牌、签名文件或本机路径配置。使用仓库提供的示例配置和合成测试数据。不要删除无法确认用途的原始竞赛资料或必要验证证据。原始 PNG 已保留在 Git 提交 `9583827`；需要重新编码时单独导出，不把整套原图重新提交到当前素材目录，也不改写来源历史。
 
 ## 数据与发布
 

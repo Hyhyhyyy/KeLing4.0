@@ -23,13 +23,13 @@ apps/
   server/             Express + Prisma，账号与学习 API
   android/            Kotlin + Jetpack Compose
 packages/shared/      共享数据契约、学习规则与测试样例
-assets/stellar/       视觉原图、清单和生成来源
+assets/stellar/       两端共用运行素材、清单和生成来源
 scripts/              开发、构建、校验与部署辅助脚本
 deploy/               部署配置
 docs/                 当前文档、设计依据与历史归档
 ```
 
-原图只在 `assets/stellar` 维护。网页静态资源由脚本生成；Android 使用已提交的 WebP 派生素材。不要手动修改生成副本。详见[资源维护说明](docs/README.md#资源与验证)。
+`assets/stellar` 统一维护两端共用的 59 张 WebP 和一张 PNG 启动图标，网页与 Android 打包副本由构建生成。原 PNG 可从 Git 提交 `9583827` 追溯，不再重复保留于当前源码树。详见[资源维护说明](assets/stellar/README.md)。
 
 ## 本地运行
 
