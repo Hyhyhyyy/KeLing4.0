@@ -1,3 +1,4 @@
+import { hostingCredentials, hostingHeaders } from './appPath';
 import type { AssistantSession, ContextPreview, ContextRef, ModelProvider, Source, Turn } from './assistant';
 import { getGuestWorkspace, handleGuestData } from './guestData';
 import { getGuestSessionId, subscribeGuestSession } from './guestSession';
@@ -19,7 +20,7 @@ function failure(error:unknown){return (error as {response?:{data?:{error?:strin
 const base=(import.meta.env.VITE_API_BASE_URL||'/api').replace(/\/+$/,'');
 async function request<T>(path:string,body?:unknown,signal?:AbortSignal):Promise<T>{
   const timeout=AbortSignal.timeout(90000);
-  const response=await fetch(`${base}/trial/workspace/${path}`,{method:body===undefined?'GET':'POST',credentials:'omit',cache:'no-store',redirect:'error',headers:{'Content-Type':'application/json'},signal:signal?AbortSignal.any([timeout,signal]):timeout,...(body===undefined?{}:{body:JSON.stringify(body)})});
+  const response=await fetch(`${base}/trial/workspace/${path}`,{method:body===undefined?'GET':'POST',credentials: hostingCredentials,cache:'no-store',redirect:'error',headers: { ...hostingHeaders(), 'Content-Type':'application/json'},signal:signal?AbortSignal.any([timeout,signal]):timeout,...(body===undefined?{}:{body:JSON.stringify(body)})});
   const data=await response.json();if(!response.ok)fail(typeof data.error==='string'?data.error:'模型请求未完成',data.code,response.status);return data;
 }
 function credentials(providerId:string){

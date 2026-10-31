@@ -5,12 +5,12 @@
   <p>React 网页 × Kotlin Android · 可控 AI 辅导 · 星际像素学习空间</p>
   <p>
     <a href="https://github.com/Hyhyhyyy/KeLing4.0/releases/tag/v4.0.1-preview"><img src="https://img.shields.io/badge/构建-4.0.1--preview-D9AD54?style=flat-square" alt="4.0.1-preview" /></a>
-    <a href="https://keling-ict-preview.vercel.app/trial"><img src="https://img.shields.io/badge/游客模式-无需注册-377A68?style=flat-square" alt="游客模式：无需注册" /></a>
+    <a href="https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg/trial"><img src="https://img.shields.io/badge/游客模式-无需注册-377A68?style=flat-square" alt="游客模式：无需注册" /></a>
     <a href="apps/android"><img src="https://img.shields.io/badge/Android-Kotlin-7F52FF?style=flat-square&logo=kotlin&logoColor=white" alt="Android：Kotlin" /></a>
     <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-163446?style=flat-square" alt="MIT License" /></a>
   </p>
   <p>
-    <a href="https://keling-ict-preview.vercel.app/trial"><strong>网页游客入口 ↗</strong></a>
+    <a href="https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg/trial"><strong>网页游客入口 ↗</strong></a>
     &nbsp; · &nbsp;
     <a href="https://github.com/Hyhyhyyy/KeLing4.0/releases/tag/v4.0.1-preview"><strong>Android 4.0 发布页</strong></a>
     &nbsp; · &nbsp;
@@ -20,7 +20,7 @@
   </p>
 </div>
 
-> **当前构建：4.0.1-preview · Android versionCode 17。** 恢复星际首页、加强双端文字层级，并将资料、设置、总览提升为移动端底部导航。Web 构建、25 项远航测试及 Android 78 项测试通过；本次验证与发布状态见[视觉和导航更新记录](docs/UI_REFRESH_4.0.1_2026-10-30.md)。APK 为调试签名预览包，最低 Android 8.0；真机与真实模型未实测。
+> **当前构建：4.0.3-direct-cloud-preview · Android versionCode 19。** 已增加可直连的妙搭服务，仍使用原账号数据库；修复注册/登录等待、取消与重试，以及网页子路径和刷新恢复。Android 89 项测试通过；当前实测网络与交付边界见[注册登录修复记录](docs/auth/DIRECT_ACCESS_2026-10-31.md)。APK 为调试签名预览包，最低 Android 8.0，实体手机尚待安装后验证。
 
 <p align="center">
   <img src="assets/stellar/expedition_voyage.png" alt="4.0 远航像素主视觉原画：二叉树通信站，非运行截图" width="100%" />
@@ -152,7 +152,7 @@ KeLing4.0/
 └── releases/        交付说明与离线产品介绍
 ```
 
-登录数据经共享 API 保存；Web 游客使用浏览器内存，Android 游客使用独立内存工作区与 `MemoryPreferences`。账号学习结算由服务端事务执行；游客复用规则的内存实现。当前预览环境为 **Vercel + Neon**，本地开发可用 SQLite。新版环境切换状态见[交付记录](docs/GAMIFIED_UPGRADE_2026-10-30.md#部署与发布状态)。
+登录数据经共享 API 保存；Web 游客使用浏览器内存，Android 游客使用独立内存工作区与 `MemoryPreferences`。账号学习结算由服务端事务执行；游客复用规则的内存实现。当前默认预览环境为 **妙搭托管 + 原 Neon 数据库**，原 Vercel 环境保留，本地开发可用 SQLite。本次连接修复见[直连记录](docs/auth/DIRECT_ACCESS_2026-10-31.md)。
 
 华为云 MaaS 是可选模型入口，AgentArts 保留账号编排适配路径。项目按 **2026—2027 届华为 ICT 大赛创新赛**方向准备；Vercel / Neon 不是华为云，Kotlin Android 不是原生 HarmonyOS。尚缺适用附件 3 赛题细则等核对，不能宣称完整赛事合规。见[竞赛边界](docs/competition/huawei-ict-2026-2027.md)与[已提供提交材料的要求提取](docs/design/SUBMISSION_REQUIREMENTS_2026-10-30.md)。
 
@@ -172,7 +172,7 @@ npm run dev
 
 已有本地库先按[迁移与回退说明](docs/design/DATA_MIGRATION_AND_RECOVERY.md)保留一致性备份，再运行 `node scripts/upgrade-local.cjs`；不要对旧库重跑初始化 SQL。生产 PostgreSQL 的 `npm run cloud:migrate` 只用于自己已配置的目标环境，不能把临时验证库当作正式数据。
 
-Android：在 Android Studio 打开 `apps/android`。默认 debug API 为模拟器地址 `http://10.0.2.2:3001/api`；真机网络地址、云端配置和签名见[部署说明](docs/DEPLOYMENT.md)与[发布说明](docs/RELEASE_GUIDE.md)。公开预览 APK 内置云 API，调试签名不代替正式签名流程。
+Android：在 Android Studio 打开 `apps/android`。默认 API 已指向上述妙搭服务。需要本地开发时，可使用 `-PKELING_API_BASE_URL=http://10.0.2.2:3001/api` 显式覆盖。公开预览 APK 内置 HTTPS 服务地址；签名与发布见[发布说明](docs/RELEASE_GUIDE.md)。
 
 ### 复现检查
 

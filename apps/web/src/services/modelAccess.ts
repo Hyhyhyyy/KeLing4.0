@@ -1,3 +1,4 @@
+import { hostingCredentials, hostingHeaders } from './appPath';
 import { create } from 'zustand';
 
 export interface ModelAccessProvider { id: string; name: string; documentation: string; endpointRequired: boolean; endpointHint: string; endpoints?: string[]; chat: boolean; embedding: boolean }
@@ -68,8 +69,8 @@ async function request<T>(path: string, body?: unknown, signal?: AbortSignal, ti
   const timer = setTimeout(() => { timedOut = true; abort.abort(); }, timeoutMs);
   try {
     const response = await fetch(`${base}/model-access/${path}`, {
-      method: body === undefined ? 'GET' : 'POST', credentials: 'omit', cache: 'no-store', redirect: 'error',
-      headers: { 'Content-Type': 'application/json' }, signal: abort.signal,
+      method: body === undefined ? 'GET' : 'POST', credentials: hostingCredentials, cache: 'no-store', redirect: 'error',
+      headers: { ...hostingHeaders(),  'Content-Type': 'application/json' }, signal: abort.signal,
       ...(body === undefined ? {} : { body: JSON.stringify(body) }),
     });
     const data = await response.json().catch(() => { throw new ModelAccessRequestError('INVALID_RESPONSE'); });

@@ -11,6 +11,7 @@ import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.engine.android.*
 import io.ktor.client.plugins.*
+import io.ktor.client.plugins.api.createClientPlugin
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
@@ -53,6 +54,16 @@ internal fun <T : io.ktor.client.engine.HttpClientEngineConfig> createApiHttpCli
     engine: io.ktor.client.engine.HttpClientEngineFactory<T>,
     configure: HttpClientConfig<T>.() -> Unit = {}
 ): HttpClient = HttpClient(engine) {
+            install(createClientPlugin("KeLingHostingCsrf") {
+                val csrf = java.util.UUID.randomUUID().toString()
+                onRequest { request, _ ->
+                    if (request.url.host == "ucn5aajxnx7f.feishu.link" &&
+                        request.url.encodedPath.startsWith("/app/app_17h4dw5jwdg/api/")) {
+                        request.headers[HttpHeaders.Cookie] = "suda-csrf-token=$csrf"
+                        request.headers["X-Suda-Csrf-Token"] = csrf
+                    }
+                }
+            })
             expectSuccess = true
             install(ContentNegotiation) {
                 json(Json {
@@ -71,7 +82,8 @@ internal fun <T : io.ktor.client.engine.HttpClientEngineConfig> createApiHttpCli
                     val response = (exception as? ResponseException)?.response
                         ?: return@handleResponseExceptionWithRequest
                     val message = when (response.status.value) {
-                        401 -> "登录已失效，请重新登录"
+                        401 -> if (response.call.request.url.encodedPath.endsWith("/auth/login"))
+                            "邮箱或密码错误，请检查后重试" else "登录已失效，请重新登录"
                         403 -> "没有权限执行此操作"
                         409 -> "数据冲突，请检查后重试"
                         429 -> "请求过于频繁，请稍后重试"

@@ -3,6 +3,8 @@ import { shouldRedirectToLogin } from './authRedirect';
 import { getGuestSessionId } from './guestSession';
 import { handleGuestData } from './guestData';
 import { handleGuestAI } from './guestAI';
+import { withAuthDeadline } from './authRequest';
+import { appPath } from './appPath';
 
 type WorkspaceRequest = InternalAxiosRequestConfig & { guestRequest?: boolean; accountToken?: string | null };
 
@@ -10,6 +12,8 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
+  xsrfCookieName: 'suda-csrf-token',
+  xsrfHeaderName: 'X-Suda-Csrf-Token',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -57,7 +61,7 @@ api.interceptors.response.use(
     const request = error.config as WorkspaceRequest | undefined;
     if (!request?.guestRequest && !getGuestSessionId() && request?.accountToken === localStorage.getItem('token') && shouldRedirectToLogin(error.response?.status, error.config?.url)) {
       localStorage.removeItem('token');
-      window.location.href = '/login';
+      window.location.href = appPath('/login');
     }
     return Promise.reject(error);
   }
@@ -66,13 +70,13 @@ api.interceptors.response.use(
 // ==================== 认证 API ====================
 
 export const authAPI = {
-  register: (data: { name?: string; email: string; password: string }) =>
-    api.post('/auth/register', data),
+  register: (data: { name?: string; email: string; password: string }, signal?: AbortSignal) =>
+    withAuthDeadline(abort => api.post('/auth/register', data, { signal: abort }), signal),
 
-  login: (data: { email: string; password: string }) =>
-    api.post('/auth/login', data),
+  login: (data: { email: string; password: string }, signal?: AbortSignal) =>
+    withAuthDeadline(abort => api.post('/auth/login', data, { signal: abort }), signal),
 
-  getMe: () => api.get('/auth/me'),
+  getMe: () => withAuthDeadline(signal => api.get('/auth/me', { signal })),
 };
 
 // ==================== 用户 API ====================

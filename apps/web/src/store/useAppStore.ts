@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { authErrorMessage, validAuthResponse } from '../services/authError';
 import { persist } from 'zustand/middleware';
 import type { User, Course, Task, Note } from '../types';
 import { authAPI, courseAPI, taskAPI, noteAPI } from '../services/api';
@@ -27,8 +28,8 @@ interface AppState {
   currentScreen: string;
 
   // Actions
-  login: (email: string, password: string) => Promise<void>;
-  register: (name: string, email: string, password: string) => Promise<void>;
+  login: (email: string, password: string, signal?: AbortSignal) => Promise<void>;
+  register: (name: string, email: string, password: string, signal?: AbortSignal) => Promise<void>;
   logout: () => void;
   startGuest: () => Promise<void>;
   endGuest: () => void;
@@ -74,9 +75,11 @@ export const useAppStore = create<AppState>()(
       offlineAccount: false,
 
       // 登录
-      login: async (email, password) => {
+      login: async (email, password, signal) => {
         try {
-          const { data } = await authAPI.login({ email, password });
+          const { data } = await authAPI.login({ email: email.trim().toLowerCase(), password }, signal);
+          if (signal?.aborted) throw Object.assign(new Error('cancelled'), { code: 'AUTH_CANCELLED' });
+          if (!validAuthResponse(data)) throw new Error('INVALID_AUTH_RESPONSE');
           endGuestSession();
           clearModelAccess();
           localStorage.setItem('token', data.token);
@@ -92,14 +95,16 @@ export const useAppStore = create<AppState>()(
             isLoading: false,
           });
         } catch (error: any) {
-          throw new Error(error.response?.data?.error || '登录失败');
+          throw new Error(authErrorMessage(error, '未能完成登录，请检查服务连接后重试'));
         }
       },
 
       // 注册
-      register: async (name, email, password) => {
+      register: async (name, email, password, signal) => {
         try {
-          const { data } = await authAPI.register({ name, email, password });
+          const { data } = await authAPI.register({ name: name.trim(), email: email.trim().toLowerCase(), password }, signal);
+          if (signal?.aborted) throw Object.assign(new Error('cancelled'), { code: 'AUTH_CANCELLED' });
+          if (!validAuthResponse(data)) throw new Error('INVALID_AUTH_RESPONSE');
           endGuestSession();
           clearModelAccess();
           localStorage.setItem('token', data.token);
@@ -115,7 +120,7 @@ export const useAppStore = create<AppState>()(
             isLoading: false,
           });
         } catch (error: any) {
-          throw new Error(error.response?.data?.error || '注册失败');
+          throw new Error(authErrorMessage(error, '未能确认注册结果，请尝试登录或稍后重试'));
         }
       },
 

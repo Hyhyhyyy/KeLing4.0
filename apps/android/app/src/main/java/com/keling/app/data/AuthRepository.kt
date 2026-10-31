@@ -10,6 +10,8 @@ import com.keling.app.network.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.serialization.Serializable
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
 
 /**
  * 认证状态管理
@@ -46,6 +48,7 @@ class AuthRepository(private val context: Context) {
 
     private object Keys {
         val TOKEN = stringPreferencesKey("auth_token")
+        val SERVER = stringPreferencesKey("auth_server")
         val USER_ID = stringPreferencesKey("user_id")
         val USER_EMAIL = stringPreferencesKey("user_email")
         val USER_NAME = stringPreferencesKey("user_name")
@@ -59,7 +62,8 @@ class AuthRepository(private val context: Context) {
     fun getAuthState(): Flow<AuthState> {
         return context.authDataStore.data.map { prefs ->
             val token = prefs[Keys.TOKEN]
-            if (token.isNullOrBlank() || prefs[Keys.USER_ID].isNullOrBlank()) {
+            if (token.isNullOrBlank() || prefs[Keys.USER_ID].isNullOrBlank() ||
+                !sameAccountService(prefs[Keys.SERVER] ?: ApiConfig.BASE_URL, ApiConfig.actualBaseUrl)) {
                 AuthState.Unauthenticated
             } else {
                 AuthState.Authenticated(
@@ -77,7 +81,7 @@ class AuthRepository(private val context: Context) {
      */
     fun getToken(): Flow<String?> {
         return context.authDataStore.data.map { prefs ->
-            prefs[Keys.TOKEN]
+            prefs[Keys.TOKEN].takeIf { sameAccountService(prefs[Keys.SERVER] ?: ApiConfig.BASE_URL, ApiConfig.actualBaseUrl) }
         }
     }
 
@@ -85,16 +89,15 @@ class AuthRepository(private val context: Context) {
      * 检查是否已登录
      */
     fun isLoggedIn(): Flow<Boolean> {
-        return context.authDataStore.data.map { prefs ->
-            !prefs[Keys.TOKEN].isNullOrEmpty()
-        }
+        return getToken().map { !it.isNullOrEmpty() }
     }
 
     /**
      * 用户注册
      */
     suspend fun register(name: String, email: String, password: String): Result<AuthResponse> {
-        val result = api.register(name, email, password)
+        authInputError(email, password, name)?.let { return Result.failure(IllegalArgumentException(it)) }
+        val result = api.register(name.trim(), email.trim().lowercase(java.util.Locale.ROOT), password)
         val payload = result.getOrNull()
         if (result.isSuccess && (payload?.token.isNullOrBlank() || payload?.user?.id.isNullOrBlank() || payload?.error != null)) {
             return Result.failure(IllegalStateException(payload?.error ?: "登录响应不完整，请重试"))
@@ -119,7 +122,8 @@ class AuthRepository(private val context: Context) {
      * 用户登录
      */
     suspend fun login(email: String, password: String): Result<AuthResponse> {
-        val result = api.login(email, password)
+        authInputError(email, password)?.let { return Result.failure(IllegalArgumentException(it)) }
+        val result = api.login(email.trim().lowercase(java.util.Locale.ROOT), password)
         val payload = result.getOrNull()
         if (result.isSuccess && (payload?.token.isNullOrBlank() || payload?.user?.id.isNullOrBlank() || payload?.error != null)) {
             return Result.failure(IllegalStateException(payload?.error ?: "登录响应不完整，请重试"))
@@ -156,8 +160,10 @@ class AuthRepository(private val context: Context) {
      * 保存认证数据
      */
     private suspend fun saveAuthData(token: String, userId: String, email: String, name: String) {
+        currentCoroutineContext().ensureActive()
         context.authDataStore.edit { prefs ->
             prefs[Keys.TOKEN] = token
+            prefs[Keys.SERVER] = ApiConfig.actualBaseUrl
             prefs[Keys.USER_ID] = userId
             prefs[Keys.USER_EMAIL] = email
             prefs[Keys.USER_NAME] = name

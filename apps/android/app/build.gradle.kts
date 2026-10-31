@@ -13,7 +13,7 @@ plugins {
 }
 
 val apiBaseUrl = providers.gradleProperty("KELING_API_BASE_URL")
-    .orElse("http://10.0.2.2:3001/api").get().trimEnd('/')
+    .orElse("https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg/api").get().trimEnd('/')
 require(apiBaseUrl.startsWith("https://") || apiBaseUrl.startsWith("http://")) {
     "KELING_API_BASE_URL must be an absolute HTTP(S) URL"
 }
@@ -37,9 +37,9 @@ android {
         targetSdk = 34
 
         // 版本号，每次更新应用要+1
-        versionCode = 17
+        versionCode = 19
         // 版本名称，用户看到的版本
-        versionName = "4.0.1-preview"
+        versionName = "4.0.3-direct-cloud-preview"
         buildConfigField("String", "API_BASE_URL", "\"${apiBaseUrl.replace("\\", "\\\\").replace("\"", "\\\"")}\"")
 
         // 测试运行器，用于自动化测试（暂时不用管）

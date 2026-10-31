@@ -41,7 +41,7 @@ class AgentApiTest {
     @Test fun `background start decodes running response and sends only user authorization`() = runBlocking {
         val client = createApiHttpClient(MockEngine) {
             engine { addHandler { request ->
-                assertEquals("/api/agent/runs/start", request.url.encodedPath)
+                assertTrue(request.url.encodedPath.endsWith("/api/agent/runs/start"))
                 assertEquals("Bearer user-session", request.headers[HttpHeaders.Authorization])
                 assertNull(request.headers["x-agentarts-tool-key"])
                 respond("""{"id":"r","goal":"复习二叉树","status":"RUNNING","createdAt":"2026-10-28T00:00:00Z","events":[],"sources":[],"result":null}""", HttpStatusCode.Accepted, headersOf(HttpHeaders.ContentType, "application/json"))

@@ -1,9 +1,11 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
+const publicBase = process.env.VITE_PUBLIC_BASE || '/';
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: publicBase,
   plugins: [
     react(),
     VitePWA({
@@ -17,8 +19,8 @@ export default defineConfig({
         background_color: '#FFF6DF',
         display: 'standalone',
         orientation: 'any',
-        scope: '/',
-        start_url: '/',
+        scope: publicBase,
+        start_url: publicBase,
         icons: [{ src: 'stellar/app_icon.png?v=planet-20261030', sizes: '1254x1254', type: 'image/png', purpose: 'any' }],
         categories: ['education', 'productivity'],
         shortcuts: [
@@ -26,25 +28,25 @@ export default defineConfig({
             name: 'AI助手',
             short_name: 'AI',
             description: '与AI学习助手对话',
-            url: '/ai',
+            url: publicBase + 'ai',
             icons: [{ src: 'stellar/app_icon.png?v=planet-20261030', sizes: '1254x1254' }]
           },
           {
             name: '星球温室',
             short_name: '温室',
             description: '培育你的知识星球',
-            url: '/greenhouse',
+            url: publicBase + 'greenhouse',
             icons: [{ src: 'stellar/app_icon.png?v=planet-20261030', sizes: '1254x1254' }]
           }
         ]
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,svg}'],
-        navigateFallbackDenylist: [/^\/api\//],
+        navigateFallbackDenylist: [/\/api\//],
         cleanupOutdatedCaches: true,
         runtimeCaching: [
           {
-            urlPattern: ({ url }) => url.pathname.startsWith('/api/'),
+            urlPattern: ({ url }) => url.pathname.startsWith(publicBase + 'api/'),
             handler: 'NetworkOnly',
             options: {
               cacheName: 'api-cache',
@@ -58,7 +60,7 @@ export default defineConfig({
             }
           },
           {
-            urlPattern: ({ url, sameOrigin }) => sameOrigin && url.pathname.startsWith('/stellar/'),
+            urlPattern: ({ url, sameOrigin }) => sameOrigin && url.pathname.startsWith(publicBase + 'stellar/'),
             handler: 'CacheFirst',
             options: { cacheName: 'stellar-art-v1', expiration: { maxEntries: 24, maxAgeSeconds: 2592000 }, cacheableResponse: { statuses: [200] } }
           }

@@ -1,0 +1,54 @@
+{
+  "date": "2026-10-31",
+  "overallStatus": "blocked-on-direct-network-entry",
+  "source": "KeLing_ICT",
+  "api": "https://keling-ict-preview.vercel.app/api",
+  "deployment": "dpl_EkyFNbgYmucv3kEqLsp9xJn1znpt",
+  "web": {
+    "lintErrors": 0,
+    "sessionReload": true,
+    "wrongPassword": 401,
+    "logout": true,
+    "registered": true,
+    "duplicateRegistration": 409,
+    "androidCreatedAccountLogin": true,
+    "login": true,
+    "networkFailureUI": "simulated request abort passed",
+    "network": "Windows system proxy",
+    "lintWarnings": 34,
+    "authTests": 3
+  },
+  "android": {
+    "directNetwork": "FAILED: DNS mismatch/connection timeout; correct address TLS reset also observed",
+    "apk": "releases/KeLing-ICT-4.0.2-auth-cloud-debug.apk",
+    "upgradeInstall": "4.0.1 -> 4.0.2 success",
+    "failures": 0,
+    "device": "Android 14 emulator",
+    "lintErrors": 0,
+    "logout": true,
+    "processRestartSession": true,
+    "databaseReadiness": true,
+    "tests": 83,
+    "functionalNetwork": "temporary desktop proxy",
+    "lintWarnings": 97,
+    "versionCode": 18,
+    "version": "4.0.2-auth-preview",
+    "registration": true,
+    "wrongPasswordMessage": true,
+    "sha256": "b727875b14bf6033f468f946d6adfe4b1ec121bd8919f84200ce3b68299982f3",
+    "physicalDevice": false,
+    "bytes": 175531034,
+    "login": true,
+    "signature": "debug v2 verified"
+  },
+  "unresolved": [
+    "A reachable service domain or hosting endpoint is required",
+    "User physical phone and Wi-Fi/mobile-data verification pending"
+  ],
+  "cleanup": {
+    "temporaryEmulatorProxyRemoved": true,
+    "ownTestAccountsRemoved": 4,
+    "otherAccountsTouched": false,
+    "isolatedBrowserClosed": true
+  }
+}

@@ -1,3 +1,4 @@
+import { appPath } from '../../services/appPath';
 import { StellarScene } from '../../components/StellarScene';
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -57,7 +58,7 @@ export default function Agent(){
  const addSource=(e:React.FormEvent)=>{e.preventDefault();void perform(async()=>{await api.post(`/knowledge/${courseId}/nodes`,{name:sourceTitle.trim(),description:sourceText.trim()});setSourceTitle('');setSourceText('');setNotice('资料已保存到课程知识图谱，可用于规划。');});};
  const selected=courses.find(c=>c.id===courseId);
  return <div className="agent-page">
-  <header className="agent-hero"><img className="agent-stellar-mascot" src="/stellar/mascot_mentor.png" alt="星芽知识领航员" /><div><p className="agent-eyebrow">课灵 / 智学工作台</p><h1>有依据地学，有节奏地进步</h1><p>从你的课程资料出发，把目标拆成每天可完成的行动。</p></div><span className={`agent-badge ${configured?'ready':''}`}>{configured===null?'连接服务中':configured?`${provider} 已配置`:'规划服务未配置'}</span></header>
+  <header className="agent-hero"><img className="agent-stellar-mascot" src={appPath("/stellar/mascot_mentor.png")} alt="星芽知识领航员" /><div><p className="agent-eyebrow">课灵 / 智学工作台</p><h1>有依据地学，有节奏地进步</h1><p>从你的课程资料出发，把目标拆成每天可完成的行动。</p></div><span className={`agent-badge ${configured?'ready':''}`}>{configured===null?'连接服务中':configured?`${provider} 已配置`:'规划服务未配置'}</span></header>
   <ol className="agent-steps" aria-label="学习流程"><li><b>01</b> 准备课程资料</li><li><b>02</b> 生成可追溯计划</li><li><b>03</b> 确认并执行任务</li><li><b>04</b> 根据记录复盘</li></ol>
   {configured===false&&<p role="status" className="agent-notice">{guest?'先配置本次游客使用的 API Key 和聊天模型，即可基于本次课程资料生成计划。':'暂时无法生成 AI 计划。你仍可整理资料和查看历史；管理员需配置华为 AgentArts 或 DeepSeek 服务。'}</p>}
   {guest&&<details className="agent-panel"><summary>输入 API Key · 配置规划模型</summary><ModelAccessPanel variant="configuration" title="本次游客规划模型"/><p>点击开始规划后发送这门课程检索到的资料与任务记录，可能消耗服务商额度；计划经日期、时长和来源校验后，仍需你确认才能加入任务。</p></details>}

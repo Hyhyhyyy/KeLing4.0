@@ -1,3 +1,4 @@
+import { appPath } from '../../services/appPath';
 import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { assistant, assistantError, assistantErrorCode } from '../../services/assistant';
@@ -150,7 +151,7 @@ function AssistantWorkspace({ accountId, launch, entryRequested, onContextPrevie
     const a = document.createElement('a'); a.href = url; a.download = '课灵学习对话.md'; a.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
   return <div className="stellar-assistant">
-    <header className="stellar-heading"><img src="/stellar/mascot_mentor.png" alt="课灵星际导师" /><div><span className="eyebrow">KELING / LEARNING LAB</span><h1>星际 AI 助手</h1><p>从一个问题出发，把知识连成星图。</p></div><Link className="stellar-link" to="/agent">智能编排 →</Link></header>
+    <header className="stellar-heading"><img src={appPath("/stellar/mascot_mentor.png")} alt="课灵星际导师" /><div><span className="eyebrow">KELING / LEARNING LAB</span><h1>星际 AI 助手</h1><p>从一个问题出发，把知识连成星图。</p></div><Link className="stellar-link" to="/agent">智能编排 →</Link></header>
     {error && <div className="stellar-alert" role="alert">{error} <button onClick={() => { setError(''); setRefresh(x => x + 1); }}>重新连接</button></div>}
     {notice && <p className="stellar-notice" role="status">{notice}</p>}
     <div className="assistant-layout"><aside className="stellar-panel session-list">

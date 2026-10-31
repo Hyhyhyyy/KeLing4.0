@@ -1,3 +1,5 @@
+import { hostingCredentials, hostingHeaders } from '../../services/appPath';
+import { appPath } from '../../services/appPath';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { FormEvent } from 'react';
 import { Link } from 'react-router-dom';
@@ -101,7 +103,7 @@ export default function Trial() {
   useEffect(() => {
     const controller = new AbortController();
     setConfig({ state: 'loading', available: false, model: null, reason: '正在检查真实 AI 服务是否可用…' });
-    void fetch('/api/trial/config', { credentials: 'omit', cache: 'no-store', redirect: 'error', signal: controller.signal, headers: { Accept: 'application/json' } })
+    void fetch(appPath('/api/trial/config'), { credentials: hostingCredentials, cache: 'no-store', redirect: 'error', signal: controller.signal, headers: { ...hostingHeaders(),  Accept: 'application/json' } })
       .then(async response => {
         if (!response.ok) throw new Error('暂时无法检查 AI 服务。离线功能与固定示例仍可使用。');
         const data: unknown = await response.json();
@@ -198,8 +200,8 @@ export default function Trial() {
     const id = ++request.current.id, controller = new AbortController(); request.current.controller = controller;
     setBusy(true); setAiError(''); setAnswer(null);
     try {
-      const response = await fetch('/api/trial/ai', { method: 'POST', credentials: 'omit', cache: 'no-store', redirect: 'error', signal: controller.signal,
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      const response = await fetch(appPath('/api/trial/ai'), { method: 'POST', credentials: hostingCredentials, cache: 'no-store', redirect: 'error', signal: controller.signal,
+        headers: { ...hostingHeaders(),  'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({ message: question.trim(), ...(context.length ? { context: context.map(({ title, text }) => ({ title, text })) } : {}) }),
       });
       const data = await response.json() as { answer?: unknown; model?: unknown; error?: unknown; usage?: Answer['usage'] };
@@ -213,7 +215,7 @@ export default function Trial() {
 
   return <div className="trial-page">
     <a className="trial-skip" href="#trial-main">跳到试用内容</a>
-    <header className="trial-topbar"><Link to="/explore" aria-label="退出试用，返回课灵介绍"><img src="/stellar/title_logo.png" alt="课灵 KeLing" /></Link><span className="trial-badge">免登录 · 内存试用</span><Link className="trial-exit" to="/explore">退出试用 <span aria-hidden="true">↗</span></Link></header>
+    <header className="trial-topbar"><Link to="/explore" aria-label="退出试用，返回课灵介绍"><img src={appPath("/stellar/title_logo.png")} alt="课灵 KeLing" /></Link><span className="trial-badge">免登录 · 内存试用</span><Link className="trial-exit" to="/explore">退出试用 <span aria-hidden="true">↗</span></Link></header>
     <div className="trial-container">
       <aside className="trial-boundary" aria-label="试用数据说明"><ShieldCheck size={23} aria-hidden="true"/><div><strong>放心探索，这是一间临时学习舱。</strong><p>任务、笔记和回答只保留在本页内存；刷新、退出或关闭页面后清除。无需账号，不写入学习数据库，不跨设备同步。真实 AI 发送需要你单独确认。</p></div><button type="button" className="trial-text-button" onClick={() => setConfirmClear(value => value ? null : 'clear')}>清空本次内容</button></aside>
       {confirmClear && <div className="trial-clear" role="alert"><p>{confirmClear === 'examples' ? '重新载入示例将清除本次编辑、计时、回答和模型密钥，是否继续？' : '清空本次示例、编辑、计时、回答和模型密钥？清空后无法恢复你的编辑。'}</p><div><button type="button" className="trial-danger" ref={confirmationRef} onClick={() => reset(confirmClear === 'examples')}>确认{confirmClear === 'examples' ? '重新载入' : '清空'}</button><button type="button" onClick={() => setConfirmClear(null)}>保留内容</button></div></div>}

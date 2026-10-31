@@ -1,3 +1,4 @@
+import { appPath } from '../../services/appPath';
 import { StellarSceneBanner } from '../../components/StellarScene';
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -92,7 +93,7 @@ const Greenhouse: React.FC = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
         >
-          <img src="/stellar/mascot_welcome.png" alt="星芽等待第一门课程" width="160" />
+          <img src={appPath("/stellar/mascot_welcome.png")} alt="星芽等待第一门课程" width="160" />
           <h3>还没有知识星球</h3>
           <p>创建你的第一门课程，开始知识探索之旅</p>
           <button className="btn btn-primary" onClick={() => { setCreateError(''); setShowCreateDialog(true); }}>

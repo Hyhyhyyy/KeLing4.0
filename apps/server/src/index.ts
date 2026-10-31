@@ -5,7 +5,7 @@ import { latestReleaseInfo, Release } from './services/release';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import { allowedCorsOrigins, requireJwtSecret } from './config/security';
-import { clientRateLimitKey } from './config/rate-limit';
+import { clientRateLimitKey, accountRateLimitKey, authAttemptRateLimitKey } from './config/rate-limit';
 
 // 导入路由
 import authRoutes from './routes/auth';
@@ -47,8 +47,8 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(express.json({ limit: '1mb' }));
-app.use(rateLimit({ windowMs: 15 * 60 * 1000, limit: 300, keyGenerator: req => clientRateLimitKey(req), standardHeaders: true, legacyHeaders: false }));
-app.use(['/api/auth/login','/api/auth/register'], rateLimit({ windowMs: 15 * 60 * 1000, limit: 20, keyGenerator: req => clientRateLimitKey(req), standardHeaders: true, legacyHeaders: false, message:{error:'登录尝试过于频繁，请稍后重试'} }));
+app.use(rateLimit({ windowMs: 15 * 60 * 1000, limit: 300, keyGenerator: req => ['/api/auth/login', '/api/auth/register'].includes(req.path) ? clientRateLimitKey(req) : accountRateLimitKey(req), standardHeaders: true, legacyHeaders: false }));
+app.use(['/api/auth/login','/api/auth/register'], rateLimit({ windowMs: 15 * 60 * 1000, limit: 20, keyGenerator: req => authAttemptRateLimitKey(req), standardHeaders: true, legacyHeaders: false, message:{error:'登录尝试过于频繁，请稍后重试'} }));
 
 // API 路由
 app.use('/api/auth', authRoutes);
@@ -72,7 +72,7 @@ app.get('/api/health', (req, res) => {
   res.json({
     status: 'ok',
     timestamp: new Date().toISOString(),
-    version: '4.0.1-preview'
+    version: '4.0.3-direct-cloud-preview'
   });
 });
 

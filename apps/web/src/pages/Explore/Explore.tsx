@@ -1,3 +1,4 @@
+import { appPath, ANDROID_DOWNLOAD_URL } from '../../services/appPath';
 import { Link } from 'react-router-dom';
 import { StellarScene, type StellarSceneName } from '../../components/StellarScene';
 import './Explore.css';
@@ -13,7 +14,7 @@ export default function Explore() {
   return <div className="explore-page">
     <a href="#explore-content" className="explore-skip">跳到主要内容</a>
     <header className="explore-nav">
-      <Link to="/explore" aria-label="课灵介绍"><img src="/stellar/title_logo.png" alt="课灵 KeLing"/></Link>
+      <Link to="/explore" aria-label="课灵介绍"><img src={appPath("/stellar/title_logo.png")} alt="课灵 KeLing"/></Link>
       <nav aria-label="项目介绍导航"><a className="explore-secondary-nav" href="#capabilities">学习空间</a><Link className="explore-secondary-nav" to="/explore/art">视觉图鉴</Link><Link className="explore-action" to="/trial">游客试用</Link>{!publicPreview && <Link to="/login">账号登录</Link>}</nav>
     </header>
     <main id="explore-content">
@@ -28,6 +29,6 @@ export default function Explore() {
       <section className="explore-companion"><StellarScene scene="companion"/><div><span className="explore-eyebrow">MEET XINGYA</span><h2>你的星际学习伙伴，星芽</h2><p>薄荷绿的机身、温暖的像素表情。欢迎、讲解、专注、归档与庆祝，每一种形象都对应一个学习时刻。</p><Link to="/explore/art">认识星芽与九位头像伙伴 →</Link></div></section>
       <section className="explore-devices"><div><span className="explore-eyebrow">ONE ACCOUNT · TWO RHYTHMS</span><h2>同一片星空，适合不同的屏幕</h2></div><article><StellarScene scene="webWorkspace" decorative/><h3>网页 · 展开思路</h3><p>宽幅学习空间、并排查看资料、整理长篇笔记、比较模型和计划。</p></article><article><StellarScene scene="mobileRover" decorative/><h3>Kotlin 手机端 · 随身专注</h3><p>紧凑的学习入口、触控操作、可暂停的专注计时与快速打卡。</p></article></section>
     </main>
-    <footer className="explore-footer"><span>课灵 4.0 · 让知识在你的星球上生长</span><Link to="/explore/art">查看视觉资源与创作说明 →</Link></footer>
+    <footer className="explore-footer"><span>课灵 4.0 · 让知识在你的星球上生长</span><a href={ANDROID_DOWNLOAD_URL}>下载 Android 预览包（约 175 MB）→</a><Link to="/explore/art">查看视觉资源与创作说明 →</Link></footer>
   </div>;
 }

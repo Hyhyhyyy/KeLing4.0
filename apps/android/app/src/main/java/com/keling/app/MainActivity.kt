@@ -134,6 +134,7 @@ class MainActivity : ComponentActivity() {
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        com.keling.app.network.ConnectionSettings.initialize(applicationContext)
         setContent {
             // 应用主题包装器，包含颜色、字体等主题配置
             KeLingTheme {
@@ -163,7 +164,7 @@ class MainActivity : ComponentActivity() {
                                     onRegisterSuccess = {
                                         authViewModel.checkAuthState()
                                     },
-                                    onNavigateToLogin = { showRegister = false },
+                                    onNavigateToLogin = { authViewModel.cancelAuth(); showRegister = false },
                                     onStartTrial = { showTrial = true }
                                 )
                             } else {
@@ -172,7 +173,7 @@ class MainActivity : ComponentActivity() {
                                         // 登录成功后更新状态
                                         authViewModel.checkAuthState()
                                     },
-                                    onNavigateToRegister = { showRegister = true },
+                                    onNavigateToRegister = { authViewModel.cancelAuth(); showRegister = true },
                                     onStartTrial = { showTrial = true }
                                 )
                             }

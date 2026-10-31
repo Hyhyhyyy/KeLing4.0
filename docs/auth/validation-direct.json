@@ -1,0 +1,15 @@
+{
+  "date": "2026-10-31",
+  "status": "authentication-verified-download-pending",
+  "webUrl": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg",
+  "apiUrl": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg/api",
+  "hostingApp": "app_17h4dw5jwdg",
+  "authDeployment": "7702784839582190606",
+  "network": { "chrome": "--no-proxy-server", "androidHttpProxy": ":0", "physicalPhoneTested": false },
+  "web": { "registration": 201, "wrongPassword": 401, "retry": 200, "duplicateRegistration": 409, "logout": true, "reload": true, "androidCreatedAccountLogin": 200, "cancel": true, "blockedRequestDurationMs": 24989, "retryAfterTimeout": 200, "testedViewportWidths": [390, 1440], "horizontalOverflow": false, "scriptErrors": 0 },
+  "android": { "apiLevel": 34, "legacyServiceAccountLogin": true, "registration": true, "webCreatedAccountLogin": true, "wrongPasswordRecovery": true, "logout": true, "sessionAfterProcessRestart": true, "unitTestsPassed": 89, "lintErrors": 0, "lintWarnings": 97 },
+  "checks": { "serverTestsPassed": 77, "serverDatabase": "isolated temporary SQLite", "webLintErrors": 0, "webLintWarnings": 34, "webBuild": true, "gatewayPathTests": 4 },
+  "apk": { "file": "releases/KeLing-ICT-4.0.3-direct-cloud-debug.apk", "versionCode": 19, "versionName": "4.0.3-direct-cloud-preview", "bytes": 174633378, "sha256": "054c3b595436abd36be35af4549dac43eeac5e5597cff282a53c8a4c11183128", "signatureVerified": true, "sameCertificateAs401": true },
+  "download": { "verified": false },
+  "testAccountsCleanup": "pending"
+}

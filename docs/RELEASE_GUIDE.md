@@ -1,101 +1,16 @@
-# 课灵 APK 发布指南
+# 课灵预览包发布
 
-> 当前 ICT 分支发布到 CurryHeng/KeLing_ICT。以下旧自动发布脚本尚未针对该仓库验证，请勿直接运行其中的自动推送步骤。先按 [多端升级文档](MULTIPLATFORM_UPGRADE.md) 设置 HTTPS API、验证并签名，再人工创建 Release。
->
-> Release 必须包含实际 APK，并在正文中添加 `<!-- keling-version-code: 9 -->`，数字与该 APK 的 Gradle `versionCode` 一致。`versionName` 不能用于推算整数版本号。服务端缺少这些信息或连接 GitHub 失败时会明确返回不可用，不再虚构默认更新。
+当前公开仓库为 `Hyhyhyyy/KeLing4.0`。不得运行仍指向旧仓库的历史自动发布脚本；不推送 `CurryHeng/KeLing_ICT`。
 
-## 快速发布流程
+4.0.3 使用新的妙搭 HTTPS 入口，保留原 Neon 数据库。网页与连接证据见 [直连修复记录](auth/DIRECT_ACCESS_2026-10-31.md)。
 
-### 方式一：手动发布（推荐）
+发布顺序：
 
-1. **运行发布脚本**
-   ```bash
-   cd scripts
-   ./release.bat   # Windows
-   # 或
-   ./release.sh    # Linux/Mac
-   ```
+1. 运行 `npm test`、网页 lint/build、`scripts/android-check.ps1 -Lint`，并完成无代理网页与 Android 账号流程。
+2. 检查 APK 的 versionCode、versionName、SHA-256 和签名。4.0.3 的 versionCode 为 19；本机 4.0.1 与 4.0.3 调试包证书一致。
+3. 仅将相关源代码提交并推送至 `Hyhyhyyy/KeLing4.0`。保留其他未提交改动，不提交 `.env`、密钥或测试账号凭据。
+4. 使用 `gh release create` 发布 prerelease，附真实 APK 和 `.sha256` 文件，并以 `--notes-file` 读取发布说明。
+5. 正文必须包含实际整数标记 `<!-- keling-version-code: 19 -->`。服务器以有效 APK 和该标记识别更新，不能从版本字符串推算。
+6. 公布直连下载入口前，下载完整文件并比对 SHA-256；下载路由只能提供固定、已审核的公开安装包。
 
-2. **脚本会自动完成**
-   - 构建release APK
-   - 复制APK到 `releases/` 目录
-   - 提交代码并推送到GitHub
-   - 创建Git标签并推送
-
-3. **创建GitHub Release**
-   - 访问 https://github.com/Hyhyhyyy/KeLingAssistant/releases/new
-   - 选择刚创建的标签
-   - 填写标题和更新日志
-   - 上传APK文件
-   - 点击发布
-
-### 方式二：GitHub Actions自动构建
-
-当你推送一个版本标签时，GitHub Actions会自动构建APK并创建Release：
-
-```bash
-# 构建APK后，创建并推送标签
-cd apps/android
-./gradlew assembleRelease
-cd ../..
-git tag -a v3.0.8 -m "Release 3.0.8"
-git push origin v3.0.8
-```
-
-GitHub Actions会自动：
-- 构建APK
-- 创建Release
-- 上传APK文件
-
-## 版本号规则
-
-- `versionCode`: 数字，每次发布+1（build.gradle.kts中）
-- `versionName`: 字符串，如 "3.0.8"（build.gradle.kts中）
-- Git标签: `v{versionName}`，如 `v3.0.8`
-
-## 下载链接
-
-发布成功后，下载链接格式：
-```
-https://github.com/Hyhyhyyy/KeLingAssistant/releases/download/v3.0.8/KeLing-v3.0.8.apk
-```
-
-最新版本页面：
-```
-https://github.com/Hyhyhyyy/KeLingAssistant/releases/latest
-```
-
-## 自动同步机制
-
-服务器端会自动从GitHub API获取最新版本信息：
-- 每5分钟刷新一次缓存
-- 自动获取版本号、下载链接、更新日志
-- 无需手动更新服务器配置
-
-## 更新日志模板
-
-```
-【课灵 X.X.X 更新内容】
-✨ 新功能描述
-🔧 修复问题描述
-💡 优化改进描述
-
-### 版本信息
-- 版本号: X.X.X
-- 版本代码: XXX
-- 最低Android版本: Android 8.0 (API 26)
-```
-
-## 检查清单
-
-发布前确认：
-- [ ] 版本号已更新 (build.gradle.kts)
-- [ ] 签名配置正确 (keling-release.jks)
-- [ ] 测试关键功能正常
-- [ ] 更新日志已编写
-
-发布后确认：
-- [ ] GitHub Release已创建
-- [ ] APK已上传
-- [ ] 下载链接可访问
-- [ ] 应用内检查更新显示新版本
+该包仍是 Android 调试签名预览，不是原生 HarmonyOS NEXT 应用，也不是正式商店发行。不要为解决安装问题直接要求卸载用户的旧包，旧版本可能保有未上传的本机资料。

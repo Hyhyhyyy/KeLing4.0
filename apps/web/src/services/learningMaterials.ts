@@ -1,3 +1,4 @@
+import { hostingCredentials, hostingHeaders } from './appPath';
 import api, { knowledgeAPI } from './api';
 import { getGuestSessionId, subscribeGuestSession } from './guestSession';
 import { getGuestWorkspace } from './guestData';
@@ -16,7 +17,7 @@ subscribeGuestSession(() => { materials = []; confirmations.clear(); saves.clear
 const base = (import.meta.env.VITE_API_BASE_URL || '/api').replace(/\/+$/, '');
 export function checkLearningScope(scope: ExpeditionScope) { const active = currentExpeditionScope(); if (!active || scope.kind !== active.kind || scope.id !== active.id) throw new Error('学习空间已切换，旧请求已停止。'); }
 export async function publicLearningRequest<T>(path: string, body: unknown): Promise<T> {
-  const response = await fetch(base + '/learning/v1' + path, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body), credentials: 'omit', redirect: 'error', cache: 'no-store', signal: AbortSignal.timeout(30000) });
+  const response = await fetch(base + '/learning/v1' + path, { method: 'POST', headers: { ...hostingHeaders(),  'Content-Type': 'application/json' }, body: JSON.stringify(body), credentials: hostingCredentials, redirect: 'error', cache: 'no-store', signal: AbortSignal.timeout(30000) });
   const data = await response.json(); if (!response.ok) throw Object.assign(new Error(data.error || '资料处理失败'), { response: { status: response.status, data } }); return data;
 }
 export async function parseLearningMaterial(scope: ExpeditionScope, input: MaterialInput) { checkLearningScope(scope); const data = await publicLearningRequest<ParsedMaterial>('/materials/parse', input); checkLearningScope(scope); return data; }

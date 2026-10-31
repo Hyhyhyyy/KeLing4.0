@@ -1,12 +1,13 @@
+import { appPath } from '../services/appPath';
 import type { CSSProperties } from 'react';
 import { coursePlanet, coursePlanetIndex, coursePlanets } from './planetCatalog';
 import './CoursePlanet.css';
 
 export function CoursePlanet({ index, size = 96, decorative = false }: { index: unknown; size?: number; decorative?: boolean }) {
   const planet = coursePlanet(index);
-  return <img key={planet.file} className="course-planet-art" src={`/stellar/${planet.file}`} alt={decorative ? '' : planet.name}
+  return <img key={planet.file} className="course-planet-art" src={appPath(`/stellar/${planet.file}`)} alt={decorative ? '' : planet.name}
     width={size} height={size} style={{ '--planet-size': `${size}px` } as CSSProperties} decoding="async"
-    onError={event => { event.currentTarget.onerror = null; if (!event.currentTarget.src.endsWith('/stellar/app_icon.png')) { event.currentTarget.src = '/stellar/app_icon.png'; event.currentTarget.alt = decorative ? '' : '星球图片暂不可用'; } }} />;
+    onError={event => { event.currentTarget.onerror = null; if (!event.currentTarget.src.endsWith(appPath('/stellar/app_icon.png'))) { event.currentTarget.src = appPath('/stellar/app_icon.png'); event.currentTarget.alt = decorative ? '' : '星球图片暂不可用'; } }} />;
 }
 
 export function CoursePlanetPicker({ value, onChange, disabled = false }: { value: unknown; onChange: (index: number) => void; disabled?: boolean }) {

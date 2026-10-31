@@ -1,4 +1,5 @@
 import React, { lazy, Suspense, useEffect } from 'react';
+import { APP_BASE, appPath } from './services/appPath';
 import { BrowserRouter as Router, Routes, Route, Navigate, Link, useNavigate, useLocation } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useAppStore } from './store/useAppStore';
@@ -99,7 +100,7 @@ const TopNav: React.FC = () => {
   return (
     <header className="top-nav">
       <button className="nav-brand" aria-label="返回首页" onClick={() => navigate('/')}>
-        <img src="/stellar/title_logo.png" alt="课灵 KeLing" className="stellar-brand-logo" />
+        <img src={appPath("/stellar/title_logo.png")} alt="课灵 KeLing" className="stellar-brand-logo" />
       </button>
 
       <nav className="nav-links" aria-label="主导航">
@@ -190,7 +191,7 @@ function App() {
   return (
     <AppErrorBoundary>
     <QueryClientProvider client={queryClient}>
-      <Router>
+      <Router basename={APP_BASE || '/'}>
         <Suspense fallback={<div className="loading-screen" role="status">正在加载页面…</div>}>
         <Routes>
           <Route path="/workspace" element={<ProtectedRoute><MainLayout><Home/></MainLayout></ProtectedRoute>}/>

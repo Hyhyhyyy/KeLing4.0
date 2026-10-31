@@ -82,61 +82,23 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
     /**
      * 用户登录
      */
+    private val authAttempts = AuthAttemptRunner<AuthResponse>(viewModelScope)
+
     fun login(email: String, password: String) {
-        if (_loginState.value == UiState.Loading) return
-        viewModelScope.launch {
-            _loginState.value = UiState.Loading
-
-            val result = try { authRepository.login(email, password) }
-            catch (e: CancellationException) { throw e }
-            catch (e: Exception) { Result.failure(e) }
-
-            result.fold(
-                onSuccess = { response ->
-                    if (response.error != null) {
-                        _loginState.value = UiState.Error(response.error)
-                    } else {
-                        _loginState.value = UiState.Success(response)
-                    }
-                },
-                onFailure = { error ->
-                    _loginState.value = UiState.Error(error.message ?: "登录失败，请重试")
-                }
-            )
-        }
+        authAttempts.submit(_loginState) { authRepository.login(email, password) }
     }
 
-    /**
-     * 用户注册
-     */
     fun register(name: String, email: String, password: String) {
-        if (_registerState.value == UiState.Loading) return
-        viewModelScope.launch {
-            _registerState.value = UiState.Loading
-
-            val result = try { authRepository.register(name, email, password) }
-            catch (e: CancellationException) { throw e }
-            catch (e: Exception) { Result.failure(e) }
-
-            result.fold(
-                onSuccess = { response ->
-                    if (response.error != null) {
-                        _registerState.value = UiState.Error(response.error)
-                    } else {
-                        _registerState.value = UiState.Success(response)
-                    }
-                },
-                onFailure = { error ->
-                    _registerState.value = UiState.Error(error.message ?: "注册失败，请重试")
-                }
-            )
-        }
+        authAttempts.submit(_registerState) { authRepository.register(name, email, password) }
     }
+
+    fun cancelAuth() { authAttempts.cancel() }
 
     /**
      * 用户登出
      */
     fun logout() {
+        authAttempts.cancel()
         viewModelScope.launch {
             authRepository.logout()
             _loginState.value = UiState.Idle

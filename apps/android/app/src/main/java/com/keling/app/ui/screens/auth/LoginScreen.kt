@@ -169,33 +169,9 @@ fun LoginScreen(
 
                     Spacer(modifier = Modifier.height(32.dp))
 
-                    // 错误提示
-                    AnimatedVisibility(
-                        visible = loginState is UiState.Error,
-                        enter = fadeIn() + slideInVertically(),
-                        exit = fadeOut() + slideOutVertically()
-                    ) {
-                        val errorMessage = (loginState as? UiState.Error)?.message ?: ""
-                        Card(
-                            modifier = Modifier.fillMaxWidth(),
-                            shape = RoundedCornerShape(12.dp),
-                            colors = CardDefaults.cardColors(
-                                containerColor = RoseRedLight
-                            )
-                        ) {
-                            Text(
-                                text = errorMessage,
-                                color = RoseRedDark,
-                                fontSize = 14.sp,
-                                modifier = Modifier.padding(12.dp),
-                                textAlign = TextAlign.Center
-                            )
-                        }
-                        Spacer(modifier = Modifier.height(16.dp))
-                    }
-
                     // 邮箱输入
                     OutlinedTextField(
+                        enabled = loginState !is UiState.Loading,
                         value = email,
                         onValueChange = { email = it },
                         label = { Text("邮箱") },
@@ -220,6 +196,7 @@ fun LoginScreen(
 
                     // 密码输入
                     OutlinedTextField(
+                        enabled = loginState !is UiState.Loading,
                         value = password,
                         onValueChange = { password = it },
                         label = { Text("密码") },
@@ -293,6 +270,8 @@ fun LoginScreen(
 
                     Spacer(modifier = Modifier.height(16.dp))
 
+                    AuthFeedback(loginState, viewModel::cancelAuth)
+
                     // 忘记密码（暂时不用）
                     // TextButton(onClick = { }) {
                     //     Text("忘记密码？", color = WarmSunOrange, fontSize = 14.sp)
@@ -301,6 +280,8 @@ fun LoginScreen(
             }
 
             Spacer(modifier = Modifier.height(24.dp))
+
+            AccountConnectionPanel(enabled = loginState !is UiState.Loading) { viewModel.resetLoginState() }
 
             // 注册入口
             Row(

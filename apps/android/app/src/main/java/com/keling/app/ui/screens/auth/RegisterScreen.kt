@@ -77,8 +77,8 @@ fun RegisterScreen(
         if (name.isBlank()) {
             nameError = "请输入用户名"
             isValid = false
-        } else if (name.length < 2) {
-            nameError = "用户名至少2个字符"
+        } else if (name.trim().length > 80) {
+            nameError = "用户名不能超过80个字符"
             isValid = false
         } else {
             nameError = null
@@ -88,7 +88,7 @@ fun RegisterScreen(
         if (email.isBlank()) {
             emailError = "请输入邮箱"
             isValid = false
-        } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+        } else if (email.trim().length > 254 || !android.util.Patterns.EMAIL_ADDRESS.matcher(email.trim()).matches()) {
             emailError = "邮箱格式不正确"
             isValid = false
         } else {
@@ -212,33 +212,9 @@ fun RegisterScreen(
                     modifier = Modifier.padding(24.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    // 错误提示
-                    AnimatedVisibility(
-                        visible = registerState is UiState.Error,
-                        enter = fadeIn() + slideInVertically(),
-                        exit = fadeOut() + slideOutVertically()
-                    ) {
-                        val errorMessage = (registerState as? UiState.Error)?.message ?: ""
-                        Card(
-                            modifier = Modifier.fillMaxWidth(),
-                            shape = RoundedCornerShape(12.dp),
-                            colors = CardDefaults.cardColors(
-                                containerColor = RoseRedLight
-                            )
-                        ) {
-                            Text(
-                                text = errorMessage,
-                                color = RoseRedDark,
-                                fontSize = 14.sp,
-                                modifier = Modifier.padding(12.dp),
-                                textAlign = TextAlign.Center
-                            )
-                        }
-                        Spacer(modifier = Modifier.height(12.dp))
-                    }
-
                     // 用户名输入
                     OutlinedTextField(
+                        enabled = registerState !is UiState.Loading,
                         value = name,
                         onValueChange = {
                             name = it
@@ -269,6 +245,7 @@ fun RegisterScreen(
 
                     // 邮箱输入
                     OutlinedTextField(
+                        enabled = registerState !is UiState.Loading,
                         value = email,
                         onValueChange = {
                             email = it
@@ -299,6 +276,7 @@ fun RegisterScreen(
 
                     // 密码输入
                     OutlinedTextField(
+                        enabled = registerState !is UiState.Loading,
                         value = password,
                         onValueChange = {
                             password = it
@@ -342,6 +320,7 @@ fun RegisterScreen(
 
                     // 确认密码输入
                     OutlinedTextField(
+                        enabled = registerState !is UiState.Loading,
                         value = confirmPassword,
                         onValueChange = {
                             confirmPassword = it
@@ -419,10 +398,13 @@ fun RegisterScreen(
                             )
                         }
                     }
+                    AuthFeedback(registerState, viewModel::cancelAuth)
                 }
             }
 
             Spacer(modifier = Modifier.height(20.dp))
+
+            AccountConnectionPanel(enabled = registerState !is UiState.Loading) { viewModel.resetRegisterState() }
 
             // 登录入口
             Row(
