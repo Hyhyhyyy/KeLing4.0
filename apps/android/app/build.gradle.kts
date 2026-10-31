@@ -166,10 +166,10 @@ dependencies {
 
     // ==================== 网络请求 ====================
     // Ktor客户端，用于调用AI API（比Retrofit更轻量，Kotlin原生）
-    implementation("io.ktor:ktor-client-android:2.3.7")
+    implementation("io.ktor:ktor-client-android:3.6.0")
     // JSON序列化支持，自动将JSON转为Kotlin对象
-    implementation("io.ktor:ktor-client-content-negotiation:2.3.7")
-    implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.7")
+    implementation("io.ktor:ktor-client-content-negotiation:3.6.0")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:3.6.0")
 
     // Kotlin序列化插件，用于数据类
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
@@ -186,7 +186,7 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core.ktx)
     testImplementation("junit:junit:4.13.2")
-    testImplementation("io.ktor:ktor-client-mock:2.3.7")
+    testImplementation("io.ktor:ktor-client-mock:3.6.0")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
     // 调试工具，预览和检查布局
     debugImplementation("androidx.compose.ui:ui-tooling")
