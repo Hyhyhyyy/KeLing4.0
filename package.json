@@ -10,20 +10,23 @@
   ],
   "scripts": {
     "test": "node scripts/test-server.cjs",
-    "dev": "npm run build:shared && concurrently \"npm run dev:server\" \"npm run dev:web\"",
+    "dev": "npm run build:shared && concurrently \"npm run dev --workspace=keling-server\" \"npm run dev --workspace=keling-web\"",
     "build:shared": "node scripts/build-shared.cjs",
-    "dev:web": "cd apps/web && npm run dev",
-    "dev:server": "cd apps/server && npm run dev",
+    "dev:web": "npm run build:shared && npm run dev --workspace=keling-web",
+    "dev:server": "npm run build:shared && npm run dev --workspace=keling-server",
     "dev:android": "echo '请在 Android Studio 中打开 apps/android 目录运行'",
-    "build": "npm run build:shared && npm run build:web && npm run build:server",
-    "build:web": "cd apps/web && npm run build",
-    "build:server": "cd apps/server && npm run build",
+    "build": "npm run build:web && npm run build:server",
+    "build:web": "npm run build:shared && npm run build --workspace=keling-web",
+    "build:server": "npm run build:shared && npm run build --workspace=keling-server",
     "build:vercel": "node scripts/build-vercel.cjs",
     "cloud:migrate": "node scripts/migrate-cloud.cjs",
     "lint": "npm run lint --workspace=keling-web",
-    "check": "npm run lint && npm run build",
-    "install:all": "npm install && cd apps/server && npm install && cd ../web && npm install",
-    "setup:local": "node scripts/setup-local.cjs"
+    "check": "npm run repo:check && npm run assets:check && npm run lint && npm run build",
+    "setup:local": "node scripts/setup-local.cjs",
+    "assets:sync": "node scripts/sync-stellar-assets.cjs",
+    "assets:check": "node scripts/verify-stellar-assets.cjs",
+    "test:web": "node --test scripts/test-guest-data.cjs scripts/test-guest-ai.cjs scripts/guest-workspace.test.cjs && npm run test:expedition --workspace=keling-web",
+    "repo:check": "node scripts/check-repository.cjs"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"

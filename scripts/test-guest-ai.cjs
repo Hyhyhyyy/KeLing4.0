@@ -1,7 +1,7 @@
 // In-memory client contract checks with synthetic transport; no external model requests.
 const assert=require('node:assert/strict');const fs=require('node:fs');const os=require('node:os');const path=require('node:path');const {test,after}=require('node:test');
 const root=path.resolve(__dirname,'..'),temporary=fs.mkdtempSync(path.join(os.tmpdir(),'keling-guest-ai-')),bundle=path.join(temporary,'guest-ai.cjs');
-require('esbuild').buildSync({stdin:{contents:"export * from './apps/web/src/services/guestAI';export * from './apps/web/src/services/guestData';export * from './apps/web/src/services/guestSession';export {useModelAccess} from './apps/web/src/services/modelAccess';",resolveDir:root},bundle:true,platform:'node',format:'cjs',target:'node22',define:{'import.meta.env.VITE_API_BASE_URL':'"/api"'},outfile:bundle});
+require('esbuild').buildSync({stdin:{contents:"export * from './apps/web/src/services/guestAI';export * from './apps/web/src/services/guestData';export * from './apps/web/src/services/guestSession';export {useModelAccess} from './apps/web/src/services/modelAccess';",resolveDir:root},bundle:true,platform:'node',format:'cjs',target:'node22',define:require('./lib/vite-test-env.cjs'),outfile:bundle});
 const {handleGuestAI:request,handleGuestData:crud,getGuestWorkspace,startGuestSession,endGuestSession,useModelAccess}=require(bundle);
 const originalFetch=global.fetch;after(()=>{global.fetch=originalFetch;fs.rmSync(temporary,{recursive:true,force:true});});
 const tick=()=>new Promise(resolve=>setImmediate(resolve));

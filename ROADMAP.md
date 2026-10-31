@@ -1,23 +1,23 @@
-# Roadmap
+# 后续方向
 
-## Preview hardening
+这些条目用于讨论后续版本，不是已交付能力，也不是自动执行或周期性研发计划。当前实现与证据见[文档索引](docs/README.md)。
 
-- Rotate the exposed Android signing identity before any trusted release.
-- Keep Web/server builds and Android debug tests green on every pull request.
-- Reduce the documented legacy Web lint warning baseline to zero before 1.0.
-- Add server integration tests for authentication, ownership boundaries, and migrations.
-- Publish an API contract and remove hard-coded service addresses from all clients.
+## 正式发布准备
 
-## Closed pilot
+- 建立受保护的正式 Android 签名与升级链，按[安全说明](SECURITY.md)处理历史签名风险。
+- 持续处理有实际影响的静态检查警告，保持构建、测试、契约和资源检查可复现。
+- 在独立环境完成备份恢复与迁移回滚演练，核对生产服务的配额、监控及恢复流程。
 
-- Test account creation, offline failure, synchronization conflicts, export, and deletion
-  with 5–10 users.
-- Add automatic database backup/restore verification and a migration rollback rehearsal.
-- Define accessibility, crash-free session, and data-loss metrics.
+## 真实使用验证
 
-## 1.0 criteria
+- 在实体 Android 设备验证注册登录、弱网恢复、键盘、大字模式、生命周期和跨端数据接续。
+- 使用有效模型配置验证资料问答、引用、超时、用量和 AgentArts 实际运行；记录失败与适用范围。
+- 在取得适当同意后开展小范围学习者试用，收集任务完成、错误恢复和学习理解方面的证据。
 
-- Reproducible signed Android and Web/server releases with checksums and release notes.
-- No signing keys, environment files, databases, or built APKs in reachable new commits.
-- Documented account deletion/export and a tested recovery path.
-- Two release cycles completed without data loss or an unresolved critical vulnerability.
+## 游戏化学习扩展
+
+- 对现有原创练习进行独立内容审核，补充题目版本、审查记录与学习效果评估。
+- 探索更多学科的操作练习、间隔复习和可修正的学习反馈；不把装饰奖励当作掌握度证明。
+- 单独评估 HMS、原生 HarmonyOS 与其他设备形态，不将 Kotlin APK 等同于原生鸿蒙应用。
+
+涉及比赛时，以本届、所选赛区与赛题的正式规则为准。原始设计和历史设想保留在 [docs/history](docs/history/README.md)，不代表已确认的排期或效果承诺。

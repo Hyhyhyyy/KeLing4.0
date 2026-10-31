@@ -8,7 +8,7 @@ from pathlib import Path
 from PIL import Image, ImageChops, ImageStat, __version__ as pillow_version
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT / 'apps/android/app/src/main/assets/stellar'
+SOURCE = ROOT / 'assets/stellar'
 TARGET = ROOT / 'apps/android/app/src/main/optimizedAssets/stellar'
 MANIFEST = ROOT / 'docs/auth/android-art-manifest.json'
 

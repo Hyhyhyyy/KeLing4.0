@@ -8,7 +8,9 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "test:expedition": "node --test tests/expeditionStorage.test.cjs tests/guestExpedition.test.cjs tests/expeditionRepository.test.cjs tests/learningWorkspace.test.cjs",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prebuild": "node ../../scripts/sync-stellar-assets.cjs",
+    "predev": "node ../../scripts/sync-stellar-assets.cjs"
   },
   "dependencies": {
     "@keling/shared": "^1.0.0",

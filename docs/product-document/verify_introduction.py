@@ -9,6 +9,7 @@ import re
 ROOT = Path(__file__).resolve().parents[2]
 OUTPUT = ROOT / "releases" / "课灵产品介绍.html"
 SOURCE = ROOT / "docs" / "PRODUCT_INTRODUCTION.md"
+EVIDENCE = ROOT / ".cache" / "product-document"
 
 
 class Inventory(HTMLParser):
@@ -41,16 +42,17 @@ class Inventory(HTMLParser):
 content = OUTPUT.read_text(encoding="utf-8")
 inventory = Inventory()
 inventory.feed(content)
-metadata = json.loads((Path(__file__).parent / "build_evidence.json").read_text(encoding="utf-8"))
+metadata = json.loads((EVIDENCE / "build_evidence.json").read_text(encoding="utf-8"))
 source_matches = hashlib.sha256(SOURCE.read_bytes()).hexdigest() == metadata["source_sha256"]
 html_matches = hashlib.sha256(OUTPUT.read_bytes()).hexdigest() == metadata["html_sha256"]
 local_refs = [ref for ref in inventory.links + inventory.assets if ref and not urlparse(ref).scheme and not ref.startswith("#")]
 missing = [str((OUTPUT.parent / unquote(ref)).resolve()) for ref in local_refs if not (OUTPUT.parent / unquote(ref)).exists()]
 external_assets = [ref for ref in inventory.assets if urlparse(ref).scheme]
 evidence = {"source_hash_matches_build": source_matches, "html_hash_matches_build": html_matches, "sections": inventory.sections, "images": inventory.images, "tables": inventory.tables, "external_asset_dependencies": external_assets, "missing_local_references": missing, "scripts": inventory.scripts, "word_pages_visually_inspected": 0, "html_browser_visual_inspection": "Performed separately by main task if available; structural checks do not establish rendered page count"}
-(Path(__file__).parent / "content_verification.json").write_text(json.dumps(evidence, ensure_ascii=False, indent=2), encoding="utf-8", newline="\n")
+(EVIDENCE / "content_verification.json").write_text(json.dumps(evidence, ensure_ascii=False, indent=2), encoding="utf-8", newline="\n")
 print(json.dumps(evidence, ensure_ascii=False, indent=2))
 assert source_matches and html_matches
 assert inventory.sections == 6 and inventory.images == 1 and inventory.tables == 2
+assert not missing, "Generated document contains missing local references"
 assert not external_assets and not inventory.scripts
 assert not re.search(r"@import|url\([\"']?https?://", content)

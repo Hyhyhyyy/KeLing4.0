@@ -2,19 +2,19 @@
 
 Web 与 Kotlin Android 学习应用
 
-版本 4.0.0-preview　更新日期 2026 年 10 月 30 日
+版本 4.0.4-direct-cloud-preview　更新日期 2026 年 10 月 31 日
 
 课灵把课程资料、动手练习、AI 辅导与日常任务连成一条可追溯的学习流程。学生先看资料、尝试操作，再依据反馈解释自己的思路；AI 提供建议，规则记录证据，用户决定保存与执行。
 
 ![课灵远航主视觉原画](../assets/stellar/expedition_voyage.png)
 
-主视觉由 AI 辅助生成，是产品美术资源，不是运行截图。实现与验证见[本版交付记录](GAMIFIED_UPGRADE_2026-10-30.md)。
+主视觉由 AI 辅助生成，是产品美术资源，不是运行截图。游戏化功能依据见[4.0 交付记录](history/2026-10/GAMIFIED_UPGRADE_2026-10-30.md)，当前注册登录和分发验证见[4.0.4 记录](auth/DIRECT_ACCESS_2026-10-31.md)。
 
 ## 01 产品定位与使用价值
 
 课灵面向需要管理课程、理解知识并落实计划的学生，解决资料与待办分散、问答缺少依据、练习缺少过程反馈和多端难以接续的问题。
 
-四个主入口分别为远航、星图、基地、我的，组织练习、课程目标、学习装饰与个人记录。原课程、笔记、任务、报告和模型配置继续可达。本版以二叉树为首章，包含三个目标和十八道原创变式。任意导入材料可用于检索、知识点候选和 AI 辅导，尚不能自动生成已审核的可玩关卡。
+学习按远航、星图、基地、我的组织练习、课程目标、学习装饰与个人记录；手机导航另外提供资料和设置入口。原课程、笔记、任务、报告和模型配置继续可达。本版以二叉树为首章，包含三个目标和十八道原创变式。任意导入材料可用于检索、知识点候选和 AI 辅导，尚不能自动生成已审核的可玩关卡。
 
 ## 02 完成一次学习闭环
 
@@ -63,7 +63,7 @@ Web 与 Kotlin Android 学习应用
 
 ## 05 技术与适用边界
 
-网页采用 React、TypeScript、Vite；移动端保持 Kotlin 与 Jetpack Compose；服务端采用 Express、Prisma。云端预览运行于 Vercel 和 Neon PostgreSQL，本地可使用 SQLite。共享规则与 Kotlin 镜像使用同组样例；账号奖励由服务端事务决定。
+网页采用 React、TypeScript、Vite；移动端保持 Kotlin 与 Jetpack Compose；服务端采用 Express、Prisma。当前云端预览运行于妙搭并连接原 Neon PostgreSQL 数据库，本地可使用 SQLite。共享规则与 Kotlin 镜像使用同组样例；账号奖励由服务端事务决定。
 
 项目按 2026—2027 届华为 ICT 创新赛方向准备。华为云 MaaS 是可选入口，AgentArts 保留适配路径；当前部署不是华为云，Kotlin Android 不是原生 HarmonyOS。尚缺附件 3 赛题细则，不能宣称完整赛事合规。
 
@@ -71,10 +71,10 @@ Web 与 Kotlin Android 学习应用
 
 ## 06 开始使用与复现
 
-网页：[完整游客试用](https://keling-ict-preview.vercel.app/trial)。源码：[Hyhyhyyy/KeLing4.0](https://github.com/Hyhyhyyy/KeLing4.0)。Android 为 4.0.0-preview、versionCode 16，预览 APK 使用调试签名，最低 Android 8.0，不作为商店正式包。
+网页：[完整游客试用](https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg/trial)。源码：[Hyhyhyyy/KeLing4.0](https://github.com/Hyhyhyyy/KeLing4.0)。[Android 4.0.4 下载](https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg/download/android)为 versionCode 20，约 93 MB，使用调试签名，最低 Android 8.0，不作为商店正式包。
 
-本地使用 Node.js 22.13 或以上版本，依次执行 npm ci --ignore-scripts、npm run setup:local、npm run dev。Android 使用 JDK 17 和 SDK 34。API、签名和校验命令见 README、[部署说明](DEPLOYMENT.md)及[迁移恢复说明](design/DATA_MIGRATION_AND_RECOVERY.md)。
+本地使用 Node.js 22.13 或以上版本，依次执行 npm ci、npm run setup:local、npm run dev。Android 使用 JDK 17 和 SDK 34。API、签名和校验命令见 README、[部署说明](DEPLOYMENT.md)及[迁移恢复说明](design/DATA_MIGRATION_AND_RECOVERY.md)。
 
-后端 68 项、新网页 25 项、旧游客 24 项、Android 78 项测试通过；干净安装、构建、60 张资源校验，以及临时 PostgreSQL 分支七组事务验证通过。Android lint 无错误，有 97 条既有警告。发布及 APK 摘要以本版交付记录为准。
+4.0.4 登录修复交付中，后端 77 项、Android 89 项测试通过；在关闭代理的 Chrome 和 Android 14 模拟器完成注册、登录、跨端互通、刷新及重启恢复，完整安装包下载摘要一致。60 张 Android WebP 派生图片通过尺寸、透明度和编码差异检查，原 PNG 保留。具体证据及测试范围见[交付记录](auth/DIRECT_ACCESS_2026-10-31.md)。
 
-新版浏览器视觉、小屏与大字模式、Android 真机、真实模型及学生使用效果仍需独立验收。旧版截图只作为带版本标注的历史材料。未设置周期性迭代任务；正式提交仍需补齐报名签章、赛题核对与新版演示录制。
+注册登录已检查 390 px 与 1440 px 网页视口；全功能无障碍、大字模式、Android 真机、真实模型及学生使用效果仍需独立验收。旧版截图只作为带版本标注的历史材料。未设置周期性迭代任务；正式提交仍需补齐报名签章、赛题核对与新版演示录制。

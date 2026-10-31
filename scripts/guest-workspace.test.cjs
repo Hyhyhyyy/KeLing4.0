@@ -24,12 +24,12 @@ esbuild.buildSync({
     export { useModelAccess, changeModelCredentials } from './apps/web/src/services/modelAccess';`,
     resolveDir: root, sourcefile: 'guest-test-entry.ts', loader: 'ts' },
   bundle: true, platform: 'node', format: 'cjs', outfile: compiled,
-  define: { 'import.meta.env': '{}' }, logLevel: 'silent',
+  define: require('./lib/vite-test-env.cjs'), logLevel: 'silent',
 });
 const { api, useAppStore, getGuestSessionId, useModelAccess, changeModelCredentials } = require(compiled);
 const calls = [];
 const response = (config, data) => ({ config, data, status: 200, statusText: 'OK', headers: {} });
-const account = { id: 'account-only', name: 'Account owner', energy: 7, crystals: 3 };
+const account = { id: 'account-only', name: 'Account owner', email: 'synthetic@example.test', energy: 7, crystals: 3 };
 api.defaults.adapter = async config => {
   calls.push({ path: config.url, authorization: config.headers.get('Authorization') });
   if (config.url === '/auth/login') return response(config, { token: 'new-account-token', user: account });

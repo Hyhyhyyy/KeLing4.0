@@ -1,0 +1,248 @@
+{
+  "date": "2026-10-31",
+  "baseCommit": "903be93a0c2b39e72d33cdadab466af9565f455d",
+  "scope": "Source tree standardization; no production deployment, data migration, release replacement, or Git history rewrite.",
+  "artwork": {
+    "canonicalPngs": 60,
+    "androidWebpDerivatives": 60,
+    "removedDuplicatePngCopies": 121,
+    "legacyAssets": {
+      "originalCommit": "903be93",
+      "verifiedAgainstGitBlobs": true,
+      "allFileHashesUnchanged": true,
+      "count": 26,
+      "bytes": 5253261,
+      "files": [
+        {
+          "index": 0,
+          "file": "apps/android/app/src/main/assets/legacy-planets/planet-00.png",
+          "bytes": 61975,
+          "sha256": "562ccd83feb8bfa4a28c3dcb26a17056029e10777059db9f3c80256a3ac2ef91"
+        },
+        {
+          "index": 1,
+          "file": "apps/android/app/src/main/assets/legacy-planets/planet-01.png",
+          "bytes": 90626,
+          "sha256": "ba766cc9a8b4520cad4006e0bea6affc059910b45c12dd8b7db3772e4ce92cfb"
+        },
+        {
+          "index": 2,
+          "file": "apps/android/app/src/main/assets/legacy-planets/planet-02.png",
+          "bytes": 79294,
+          "sha256": "5e017909864e1dcdb65a1dc07aecf5a6adbe64e6979044d5e8e111335847c7d9"
+        },
+        {
+          "index": 3,
+          "file": "apps/android/app/src/main/assets/legacy-planets/planet-03.png",
+          "bytes": 46228,
+          "sha256": "46deb7cf91d7221ea2512880b870484940ad871ea39e335107039282ee162623"
+        },
+        {
+          "index": 4,
+          "file": "apps/android/app/src/main/assets/legacy-planets/planet-04.png",
+          "bytes": 46228,
+          "sha256": "46deb7cf91d7221ea2512880b870484940ad871ea39e335107039282ee162623"
+        },
+        {
+          "index": 5,
+          "file": "apps/android/app/src/main/assets/legacy-planets/planet-05.png",
+          "bytes": 117998,
+          "sha256": "b1bfd0e98f32877226143b85c38abb007913671fb3337b9cdde7fa02e970fd5c"
+        },
+        {
+          "index": 6,
+          "file": "apps/android/app/src/main/assets/legacy-planets/planet-06.png",
+          "bytes": 66069,
+          "sha256": "05ca64c2c8b7b763907ccc58297540f44a86a329f9d2b361f31caa727d6b170e"
+        },
+        {
+          "index": 7,
+          "file": "apps/android/app/src/main/assets/legacy-planets/planet-07.png",
+          "bytes": 49716,
+          "sha256": "1f0c5b7f8128ea621b6346b1ec5f1d74959df7386541b09f55012e52345d8b16"
+        },
+        {
+          "index": 8,
+          "file": "apps/android/app/src/main/assets/legacy-planets/planet-08.png",
+          "bytes": 682774,
+          "sha256": "e9aba69b779e4ac0518441b4a8325d3755d52d8133917dac1d4264ccc43bd561"
+        },
+        {
+          "index": 9,
+          "file": "apps/android/app/src/main/assets/legacy-planets/planet-09.png",
+          "bytes": 98005,
+          "sha256": "522591a5efb3cf311dea5d0b4bb0b17c35e12b30571f8c448fbdde57cfdb46c5"
+        },
+        {
+          "index": 10,
+          "file": "apps/android/app/src/main/assets/legacy-planets/planet-10.png",
+          "bytes": 50279,
+          "sha256": "e5079462a1d0197a14fee6d4ffd0d514728e23cbc67417b3c7e116a330f364fd"
+        },
+        {
+          "index": 11,
+          "file": "apps/android/app/src/main/assets/legacy-planets/planet-11.png",
+          "bytes": 84779,
+          "sha256": "eae9c435dc90d3abd9a27a2d612f37d84ce9404b72c6087b1283ca75b2b2121a"
+        },
+        {
+          "index": 12,
+          "file": "apps/android/app/src/main/assets/legacy-planets/planet-12.png",
+          "bytes": 68118,
+          "sha256": "65a4b02144ff5c7e71716e64f85942cbb53cb0257807c920851b7791e06e0be7"
+        },
+        {
+          "index": 13,
+          "file": "apps/android/app/src/main/assets/legacy-planets/planet-13.png",
+          "bytes": 79892,
+          "sha256": "4e117cd0684e9de9556cacdb6bffe22049ff8d18625048061748298b02078381"
+        },
+        {
+          "index": 14,
+          "file": "apps/android/app/src/main/assets/legacy-planets/planet-14.png",
+          "bytes": 981260,
+          "sha256": "01c30c8df63756e7f6dc23abe59699c15283ac91a0f305b2231401c31f6cc8a3"
+        },
+        {
+          "index": 15,
+          "file": "apps/android/app/src/main/assets/legacy-planets/planet-15.png",
+          "bytes": 967625,
+          "sha256": "27f6e6f475b19da0d51f2a3e96f84182f44a30e47e092b1c41933f648bfc7b3d"
+        },
+        {
+          "index": 16,
+          "file": "apps/android/app/src/main/assets/legacy-planets/planet-16.png",
+          "bytes": 87330,
+          "sha256": "ecaf36f9b4ca88a4fa3efb08337b65ac2e04dc52ad8b6c62d597bd0e70ef8785"
+        },
+        {
+          "index": 17,
+          "file": "apps/android/app/src/main/assets/legacy-planets/planet-17.png",
+          "bytes": 911284,
+          "sha256": "11753d8e1d9e983dfcabd58eb0bbc8b7eb89e0b6b68c11386994e296b16a7d37"
+        },
+        {
+          "index": 18,
+          "file": "apps/android/app/src/main/assets/legacy-planets/planet-18.png",
+          "bytes": 110231,
+          "sha256": "c8a76adef1f03485e384d42d8f4c24cdef0fb2ff54b9f378e8e106cfa51333c5"
+        },
+        {
+          "index": 19,
+          "file": "apps/android/app/src/main/assets/legacy-planets/planet-19.png",
+          "bytes": 102089,
+          "sha256": "7b42dcd1781d1db485649375a8dfcab262b6487203b1e061c9ec8ab03684a98b"
+        },
+        {
+          "index": 20,
+          "file": "apps/android/app/src/main/assets/legacy-planets/planet-20.png",
+          "bytes": 64977,
+          "sha256": "de95d1347da629c9e6036745399be76a896bbc1cf5e552d6391331dbadf09ac6"
+        },
+        {
+          "index": 21,
+          "file": "apps/android/app/src/main/assets/legacy-planets/planet-21.png",
+          "bytes": 73105,
+          "sha256": "47de8dfeba5804287ef70501f1aea6d2d32714e6f69e75aae65f90abfab197f6"
+        },
+        {
+          "index": 22,
+          "file": "apps/android/app/src/main/assets/legacy-planets/planet-22.png",
+          "bytes": 101185,
+          "sha256": "05b3195b0a4a09d1908aef2293e12ad26c3078d8ecd66b4d7122639337d7b6d0"
+        },
+        {
+          "index": 23,
+          "file": "apps/android/app/src/main/assets/legacy-planets/planet-23.png",
+          "bytes": 97036,
+          "sha256": "32523955c5355534b490cf0300f463c8bc04779bc1e372f37d0451b01d16c39f"
+        },
+        {
+          "index": 24,
+          "file": "apps/android/app/src/main/assets/legacy-planets/planet-24.png",
+          "bytes": 78538,
+          "sha256": "bf9f5dde3e40d8c48b86dbc0b20bdf7b31240b590addb4712a53addfa22215a0"
+        },
+        {
+          "index": 25,
+          "file": "apps/android/app/src/main/assets/legacy-planets/planet-25.png",
+          "bytes": 56620,
+          "sha256": "dbdd95a0eb4dd99e950514172be89aa43393d8d3c06cfcd9f4995a2ee630801c"
+        }
+      ]
+    }
+  },
+  "checks": {
+    "npmCi": {
+      "passed": true,
+      "mode": "--ignore-scripts"
+    },
+    "npmCheck": {
+      "passed": true,
+      "includes": [
+        "repository index and document links",
+        "canonical and derivative artwork digests",
+        "Web lint",
+        "shared package build",
+        "Web build",
+        "server build"
+      ],
+      "webLintErrors": 0,
+      "webLintWarnings": 34
+    },
+    "serverTests": {
+      "passed": 77,
+      "failed": 0
+    },
+    "webGuestTests": {
+      "passed": 24,
+      "failed": 0
+    },
+    "webExpeditionTests": {
+      "passed": 25,
+      "failed": 0
+    },
+    "android": {
+      "testsPassed": 89,
+      "testsFailed": 0,
+      "debugBuild": true,
+      "lintErrors": 0,
+      "lintWarnings": 97,
+      "apkInventory": {
+        "legacyPng": 26,
+        "stellarWebp": 60,
+        "duplicateStellarPng": 0
+      },
+      "legacyPngBytesMatchSource": true
+    },
+    "miaodaOverlay": {
+      "pathTestsPassed": 4,
+      "executionEnvironment": "Existing official template checkout; this overlay is not a standalone npm project.",
+      "provenanceHashesVerified": 8
+    },
+    "productDocument": {
+      "structureCheckPassed": true,
+      "sections": 6,
+      "images": 1,
+      "tables": 2,
+      "missingLocalReferences": 0,
+      "externalResources": 0
+    },
+    "dockerComposeConfiguration": {
+      "passed": true,
+      "command": "docker compose --env-file .env.deploy config --quiet",
+      "environment": "Generated local-only ignored deployment configuration; no containers started."
+    }
+  },
+  "limitations": [
+    "Existing Web and Android lint warnings remain.",
+    "Docker image execution and Render deployment were not tested; the Docker daemon was not running.",
+    "No new real-device or model-quality acceptance is claimed by this source cleanup.",
+    "This JSON records local validation. Read the Quality gates run for the published commit for fresh Linux checkout results."
+  ],
+  "preserved": [
+    "Original design proposals and source hashes",
+    "Competition materials and dated evidence",
+    "Existing production gateway, database, version tag and APK release"
+  ]
+}

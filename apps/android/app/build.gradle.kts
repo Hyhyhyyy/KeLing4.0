@@ -21,15 +21,25 @@ require(apiBaseUrl.startsWith("https://") || apiBaseUrl.startsWith("http://")) {
 // Keep original artwork in source control; package its reviewed WebP derivatives.
 val legacyAssetDirectory = layout.buildDirectory.dir("generated/legacy-assets")
 val prepareLegacyAssets by tasks.registering(Sync::class) {
-    from("src/main/assets") { exclude("stellar/*.png") }
+    from("src/main/assets") { exclude("stellar/**") }
+    from(rootProject.file("../../assets/stellar/manifest.json")) { into("stellar") }
     into(legacyAssetDirectory)
+}
+
+val launcherResourceDirectory = layout.buildDirectory.dir("generated/launcher-resources")
+val prepareLauncherResources by tasks.registering(Sync::class) {
+    from(rootProject.file("../../assets/stellar/app_icon.png")) {
+        into("drawable-nodpi")
+        rename { "stellar_app_icon.png" }
+    }
+    into(launcherResourceDirectory)
 }
 
 android {
     // 应用的命名空间，必须是唯一的，通常用反向域名
     namespace = "com.keling.app"
 
-    // 编译SDK版本，34是最新的Android 14
+    // Compile against Android API 34.
     compileSdk = 34
 
     defaultConfig {
@@ -37,7 +47,6 @@ android {
         applicationId = "com.keling.app"
 
         // 最低支持的Android版本，API 26 = Android 8.0
-        // 这样大约90%的设备都能运行
         minSdk = 26
 
         // 目标SDK版本，表示为这个版本优化
@@ -59,7 +68,10 @@ android {
 
     }
 
-    sourceSets.getByName("main").assets.setSrcDirs(listOf("src/main/optimizedAssets", legacyAssetDirectory))
+    sourceSets.getByName("main").apply {
+        assets.setSrcDirs(listOf("src/main/optimizedAssets", legacyAssetDirectory))
+        res.srcDir(launcherResourceDirectory)
+    }
 
 
 
@@ -72,7 +84,6 @@ android {
         release {
             // Trusted signing stays disabled until a new key is generated and
             // supplied through protected CI secrets. Never embed credentials here.
-            // 是否启用代码压缩，release版本一定要true
             isMinifyEnabled = false
             // 代码混淆规则文件（暂时不用）
             proguardFiles(
@@ -113,7 +124,7 @@ android {
     }
 }
 
-tasks.named("preBuild").configure { dependsOn(prepareLegacyAssets) }
+tasks.named("preBuild").configure { dependsOn(prepareLegacyAssets, prepareLauncherResources) }
 
 /**
  * 依赖配置：这里列出App需要的所有第三方库
@@ -174,7 +185,7 @@ dependencies {
     // Kotlin协程，用于异步编程（网络请求不卡界面）
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 
-    // ==================== 测试（暂时不用） ====================
+    // ==================== Tests ====================
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core.ktx)
     testImplementation("junit:junit:4.13.2")

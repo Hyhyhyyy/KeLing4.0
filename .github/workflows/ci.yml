@@ -25,17 +25,14 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci --ignore-scripts
-      - run: node scripts/verify-stellar-assets.cjs
       - run: npm run prisma:generate --workspace=keling-server -- --schema=prisma/schema.prisma
       - name: Audit production dependencies
         run: |
           npm audit --omit=dev --audit-level=high
       - run: npm run check
       - run: npm test
-      - name: Verify ephemeral guest workspace and AI boundaries
-        run: node --test scripts/test-guest-data.cjs scripts/test-guest-ai.cjs scripts/guest-workspace.test.cjs
-      - name: Verify expedition storage and guest rules
-        run: npm run test:expedition --workspace=keling-web
+      - name: Verify web guest, AI, and expedition boundaries
+        run: npm run test:web
 
   android-debug:
     runs-on: ubuntu-latest
@@ -50,6 +47,6 @@ jobs:
           java-version: "17"
           cache: gradle
       - run: chmod +x apps/android/gradlew
-      - name: Unit test and build unsigned debug APK
+      - name: Unit test, lint, and build debug APK
         working-directory: apps/android
         run: ./gradlew testDebugUnitTest assembleDebug lintDebug

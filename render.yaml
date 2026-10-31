@@ -5,9 +5,9 @@ services:
     env: node
     region: singapore
     plan: free
-    rootDir: apps/server
-    buildCommand: npm ci && npx prisma generate --schema=prisma/schema.postgresql.prisma && npx prisma migrate deploy --schema=prisma/schema.postgresql.prisma && npm run build
-    startCommand: npm start
+    buildCommand: npm ci --ignore-scripts && npm run prisma:generate --workspace=keling-server -- --schema=prisma/schema.postgresql.prisma && npm run build:server
+    # Apply reviewed migrations separately before rollout; free services have no pre-deploy hook.
+    startCommand: npm start --workspace=keling-server
     envVars:
       - key: NODE_ENV
         value: production

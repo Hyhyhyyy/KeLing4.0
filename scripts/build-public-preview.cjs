@@ -5,6 +5,7 @@ const output=path.join(root,'.cache','public-preview');
 const env={...process.env,VITE_PUBLIC_PREVIEW:'true',VITE_API_BASE_URL:'/api'};
 function run(file,args){const r=spawnSync(process.execPath,[file,...args],{cwd:web,env,stdio:'inherit'});if(r.error)throw r.error;if(r.status!==0)process.exit(r.status||1);}
 run(path.join(root,'scripts/build-shared.cjs'),[]);
+run(path.join(root,'scripts/sync-stellar-assets.cjs'),[]);
 run(require.resolve('typescript/bin/tsc',{paths:[web]}),['-b']);
 run(path.join(path.dirname(require.resolve('vite/package.json',{paths:[web]})),'bin/vite.js'),['build','--outDir',output]);
 fs.writeFileSync(path.join(output,'vercel.json'),JSON.stringify({rewrites:[{source:'/(.*)',destination:'/index.html'}],headers:[{source:'/sw.js',headers:[{key:'Cache-Control',value:'no-cache'}]}]},null,2)+'\n');

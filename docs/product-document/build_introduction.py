@@ -1,6 +1,6 @@
 """Build the offline product introduction from its single Markdown source.
 
-Run with the Python returned by load_workspace_dependencies. No network,
+Run with Python 3.10 or newer. No network,
 third-party installs or browser automation are used. This is not a DOCX renderer.
 """
 from pathlib import Path
@@ -12,6 +12,7 @@ import re
 ROOT = Path(__file__).resolve().parents[2]
 SOURCE = ROOT / "docs" / "PRODUCT_INTRODUCTION.md"
 OUTPUT = ROOT / "releases" / "课灵产品介绍.html"
+EVIDENCE = ROOT / ".cache" / "product-document"
 
 
 def link_target(target):
@@ -97,7 +98,8 @@ def build():
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT.write_text(document, encoding="utf-8", newline="\n")
     report = {"source": str(SOURCE), "html": str(OUTPUT), "source_sha256": hashlib.sha256(SOURCE.read_bytes()).hexdigest(), "html_sha256": hashlib.sha256(OUTPUT.read_bytes()).hexdigest(), "sections": document.count('class="doc-page"'), "images": document.count("<img "), "tables": document.count("<table>"), "external_asset_dependencies": 0, "docx_generated": False, "docx_pages_rendered": 0}
-    (Path(__file__).parent / "build_evidence.json").write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8", newline="\n")
+    EVIDENCE.mkdir(parents=True, exist_ok=True)
+    (EVIDENCE / "build_evidence.json").write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8", newline="\n")
     print(json.dumps(report, ensure_ascii=False, indent=2))
 
 

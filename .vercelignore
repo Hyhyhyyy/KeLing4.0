@@ -7,7 +7,6 @@
 apps/android
 releases
 docs
-/assets
 **/dist
 **/build
 **/*.log

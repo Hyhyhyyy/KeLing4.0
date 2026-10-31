@@ -72,3 +72,18 @@ lint-result.txt
 .env.*
 !.env.example
 !.env.*.example
+
+# Derived artwork is rebuilt from assets/stellar.
+apps/web/public/stellar/
+apps/android/app/src/main/assets/stellar/
+apps/android/app/src/main/res/drawable-nodpi/stellar_app_icon.png
+
+# Distribute installers through GitHub Releases, not the source tree.
+*.apk
+*.aab
+*.apks
+
+# Generated product documents; sources live in docs/product-document/.
+releases/*.html
+releases/*.pdf
+releases/*.docx

@@ -78,10 +78,15 @@ class CoursePlanetTest {
         assertEquals("银月陨坑", PlanetStyles.name(9))
         assertEquals("stellar/planet_01.webp", PlanetStyles.assetPath(0))
         assertEquals("stellar/planet_10.webp", PlanetStyles.assetPath(9))
-        assertTrue(PlanetStyles.assetPath(10).endsWith("6032a41fb1565066336cd62a2a926045-3fb40176-487e-47f3-a4ea-41112b8816c9.png"))
-        assertTrue(PlanetStyles.assetPath(25).endsWith("fe8cd156e1e20a602fffd498ead499e4-c3c369de-574c-4942-a792-223bd688e297.png"))
+        assertEquals("legacy-planets/planet-10.png", PlanetStyles.assetPath(10))
+        assertEquals("legacy-planets/planet-25.png", PlanetStyles.assetPath(25))
         assertEquals(PlanetStyles.assetPath(-1, "old-course"), PlanetStyles.assetPath(-1, "old-course"))
         assertTrue(PlanetStyles.entries.any { it.assetPath == PlanetStyles.assetPath(-1, "old-course") })
         assertEquals("stellar/planet_01.webp", PlanetStyles.assetPath(999))
+        for (index in 0..25) {
+            val root = if (index < 10) "src/main/optimizedAssets" else "src/main/assets"
+            val resolved = java.io.File(root, PlanetStyles.assetPath(index))
+            assertTrue("Missing packaged planet asset for index $index", resolved.isFile)
+        }
     }
 }

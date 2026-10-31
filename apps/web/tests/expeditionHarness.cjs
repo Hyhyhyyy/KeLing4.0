@@ -10,7 +10,7 @@ export * from './src/services/learningMaterials'; export * from './src/services/
 export * from './src/pages/Expedition/treeOperations';
 export * from '@keling/shared/expedition';
 export { useAppStore } from './src/store/useAppStore'; export {default as transport} from './src/services/api';
-`, resolveDir: path.resolve(__dirname, '..') }, bundle: true, platform: 'node', format: 'cjs', write: false, define: { 'import.meta.env': '{}' } }).outputFiles[0].text;
+`, resolveDir: path.resolve(__dirname, '..') }, bundle: true, platform: 'node', format: 'cjs', write: false, define: require('../../../scripts/lib/vite-test-env.cjs') }).outputFiles[0].text;
 module.exports = function harness() {
   const exports = {}, stored = new Map();
   const localStorage = { getItem: key => stored.get(key) || null, setItem: (key, value) => stored.set(key, value), removeItem: key => stored.delete(key) };

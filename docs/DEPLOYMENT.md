@@ -1,24 +1,53 @@
-# 同一后端部署 Web 与 Kotlin
+# 部署与运行
 
-用户当前选择免费托管方案，最新 Vercel + Neon 适配及实际连接状态见 [免费部署说明](VERCEL_DEPLOYMENT.md)。本文保留本机与容器部署方式。
+## 当前公开预览
 
-本地已验证 Node/SQLite 运行与生产前端预览。Docker Compose 文件通过解析，当前电脑的 Docker Linux 引擎无法连接，容器构建、PostgreSQL 迁移实跑与公网 TLS 尚未验证。没有服务器或 DNS 凭据时，不能把以下配置称为已上线。
+网页与共享 API 运行于妙搭，继续使用原 Neon PostgreSQL 数据库：
 
-## 本机复现
+- 网页：<https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg>
+- API：上述地址加 `/api`。
+- Android 安装包：上述地址加 `/download/android`，每次请求生成新的文件存储下载地址。
 
-需要 Node.js 22.13+（推荐 24 LTS）、JDK 17、Android SDK 34。
+Android 4.0.4 默认连接同一服务；原账号沿用原数据库。注册登录及完整安装包下载的实测记录见[直连交付](auth/DIRECT_ACCESS_2026-10-31.md)。本次没有购买域名或服务器，不将当前网络验证扩大为所有地区长期可用的保证。
+
+本仓库提供 Web、Express API、共享规则、Android、[妙搭适配源与接入说明](../deploy/miaoda/README.md)。`scripts/prepare-miaoda.cjs` 将构建结果及源码摘要写入指定的官方模板项目，不复制环境文件或运行迁移。按适配说明对接模板、配置自己的环境变量并验证后再发布；生成副本命令本身不完成云端部署。
+
+## 本地开发与前端预览
+
+需要 Node.js 22.13+；Android 另需 JDK 17 与 SDK 34。
 
 ```sh
-npm ci --ignore-scripts
+npm ci
 npm run setup:local
 npm run dev
 ```
 
-开发页面 `http://localhost:5173`，后端 `http://localhost:3001/api`。生产前端预览：先 `npm run build`，保留后端进程，再执行 `npm run preview --workspace=keling-web -- --host 127.0.0.1 --port 4173`，打开 `http://127.0.0.1:4173`。已有 `.env` 的 `CORS_ORIGINS` 需包含 `http://localhost:4173`；开发配置会同时允许对应回环 IP。
+网页在 `http://localhost:5173`，API 在 `http://localhost:3001/api`。初始化使用 SQLite，保留已有环境配置和数据库；已有数据升级前按[迁移与恢复说明](design/DATA_MIGRATION_AND_RECOVERY.md)备份。
 
-本地初始化保留现有 `.env`、课程、任务与旧聊天表；仅增补 `AiSession`、`AiTurn`。正式升级前先备份数据库。不要使用 `prisma migrate reset` 或把 SQLite 初始化 SQL 直接用于 PostgreSQL。
+检查生产前端构建时，先运行 `npm run build`，保留后端进程，再运行：
 
-## 容器部署（可放在华为云 ECS 的 Linux 主机）
+```sh
+npm run preview --workspace=keling-web -- --host 127.0.0.1 --port 4173
+```
+
+打开 `http://127.0.0.1:4173`，并将该来源加入本地服务端 `CORS_ORIGINS`。模型配置模板见 `apps/server/.env.ai.example`；不要在客户端 `VITE_*` 变量中保存密钥。
+
+## Android 的服务地址
+
+默认预览包连接上面的 HTTPS 服务。开发时可以显式覆盖：
+
+```sh
+cd apps/android
+./gradlew testDebugUnitTest assembleDebug lintDebug -PKELING_API_BASE_URL=http://10.0.2.2:3001/api
+```
+
+`10.0.2.2` 用于 Android 模拟器访问宿主电脑。USB 设备可先运行 `adb reverse tcp:3001 tcp:3001`，再使用 `http://127.0.0.1:3001/api` 构建开发包。HTTP 地址只用于相应开发环境；公开服务使用 HTTPS。
+
+客户端还提供“连接检测与服务地址”入口。切换到不同账号服务时，不应复用其他服务的登录令牌。正式签名与版本升级见[发布指南](RELEASE_GUIDE.md)和[安全说明](../SECURITY.md)。Kotlin APK 不等于原生 HarmonyOS NEXT 应用。
+
+## 自托管容器方案
+
+仓库保留 Caddy、Node API、PostgreSQL 的 Compose 配置。此方案需要自行准备 Docker Linux 环境；它与当前妙搭预览部署分开。
 
 ```sh
 node scripts/init-deploy.cjs
@@ -27,11 +56,9 @@ docker compose --env-file .env.deploy up -d --build
 docker compose --env-file .env.deploy ps
 ```
 
-初始化仅创建被 Git 忽略的 `.env.deploy`，生成不打印的独立数据库密码与 JWT 密钥，默认绑定回环地址 `http://localhost:8080`。它不会覆盖现有文件，不启用任何付费模型服务。Docker 安装与 Linux 引擎需由运行环境提供。
+初始化生成被 Git 忽略的 `.env.deploy`，不会覆盖已有文件。默认绑定回环地址 `http://localhost:8080`。Caddy 提供网页并转发 `/api/*`；数据库和 API 不单独映射到宿主公网。迁移服务执行 PostgreSQL 增量迁移后再启动 API。
 
-调用链：Caddy 提供构建后的网页并代理 `/api/*` → Node API → PostgreSQL。数据库端口和 API 端口不映射到宿主公网，只有 Caddy 入口开放。`migrate` 服务先运行 PostgreSQL 的增量迁移，成功后启动 API；API 就绪检查还会查询数据库。Caddy 的路由依据[官方 SPA 与反向代理示例](https://caddyserver.com/docs/caddyfile/patterns)，启动顺序依据 [Compose 官方说明](https://docs.docker.com/compose/how-tos/startup-order/)。
-
-使用真实域名时，在 `.env.deploy` 设置：
+启用公网 HTTPS 时，在自己的环境配置中设置：
 
 ```dotenv
 SITE_ADDRESS=study.your-domain.example
@@ -41,36 +68,32 @@ HTTP_PORT=80
 HTTPS_PORT=443
 ```
 
-域名解析应指向目标服务器，安全组允许 80/443，Caddy 才能申请证书。这里的域名是占位符，不能直接作为生产地址。`TRUST_PROXY_HOPS=1` 仅适用于本配置的私有 API 加一层 Caddy，改用其他网关时重新核对信任范围。生产禁止把后端 3001 端口另行暴露。
+示例域名不能直接使用。域名解析、80/443 端口与证书需在实际部署环境核验；`TRUST_PROXY_HOPS=1` 只适用于本配置的一层 Caddy，改变代理层数时重新核对。路由与启动顺序可参照 [Caddy 官方示例](https://caddyserver.com/docs/caddyfile/patterns)和 [Compose 官方说明](https://docs.docker.com/compose/how-tos/startup-order/)。
 
-模型配置只放 `.env.deploy`；参考 `apps/server/.env.ai.example`。AgentArts 回调必须能访问公网 HTTPS `/api/agent/tools/search`，并按既有文档设置工具密钥和运行作用域。密钥不要写入 Dockerfile、APK、`VITE_*`、截图或提交记录。
+历史验证只确认过 Compose 配置解析，未完成该容器方案的公网、证书和恢复验收。当前妙搭登录验证不能代替自托管环境的验证。
 
-## Android 指向相同账号服务
+## Render 备选配置
+
+根目录 `render.yaml` 保留 `plan: free` 模板。构建步骤只安装依赖、生成 Prisma 客户端并编译服务端，不执行数据库迁移。
+
+迁移是独立的发布步骤。部署操作者核对目标 `DATABASE_URL` 并完成备份后，在合适的发布环境单独执行：
 
 ```sh
-cd apps/android
-./gradlew testDebugUnitTest assembleDebug lintDebug -PKELING_API_BASE_URL=https://study.your-domain.example/api
+npm run prisma:migrate:prod --workspace=keling-server
 ```
 
-同一用户在 Web 与手机登录后，课程、任务、笔记、头像、签到和 AI 会话使用同一数据库。默认 debug APK 的地址是 Android 模拟器专用 `http://10.0.2.2:3001/api`。USB 真机本地验证可先执行 `adb reverse tcp:3001 tcp:3001`，再用 `-PKELING_API_BASE_URL=http://127.0.0.1:3001/api` 构建 debug；也可指定电脑局域网地址。该参数随构建固定，换服务器需要重新构建。
+迁移成功后再启动对应应用版本。[Render 官方文档](https://render.com/docs/deploys#pre-deploy-command)说明 `preDeployCommand` 仅适用于付费 Web 服务、私有服务和后台 worker，因此当前免费模板不配置该钩子，不能依赖每次构建自动迁移。
 
-3.2.0-preview 安装包是 debug 签名预览，不是应用市场发布包。历史签名身份存在已记录风险，正式签名需按 `SECURITY.md` / `RELEASE_GUIDE.md` 轮换和配置；未自动发布 GitHub Release。当前没有 ArkTS 客户端，不能称为原生鸿蒙 NEXT 应用。
+本次整理仅审查配置和构建输入，没有实际部署 Render。本机 Docker 守护进程未运行，也没有为核验而启动或修改它；静态配置审查不等于容器、云服务或数据库迁移实跑通过。
 
-## 备份、升级和回滚
+## 数据升级和恢复
 
-部署前执行数据库逻辑备份（以下在 Linux 主机执行，避免旧版 Windows PowerShell 的二进制重定向改变文件）：
+上线前保存数据库备份、应用版本与环境配置，并在独立数据库验证恢复。PostgreSQL 示例在 Linux 主机执行：
 
 ```sh
 docker compose --env-file .env.deploy exec -T db pg_dump -U keling -d keling > keling-before-upgrade.sql
 ```
 
-同时保存 `.env.deploy` 和原镜像版本，备份文件应限制读取权限。确认备份可在独立数据库恢复后再升级。新增会话表是增量迁移；旧应用回滚可能看不到新会话，不能删除新表冒充回滚。不要执行 `docker compose down -v`，它会删除持久数据卷。镜像目前使用主版本标签，正式发布时应锁定经验证的镜像 digest。
+不要将 SQLite 初始化 SQL 用于 PostgreSQL，也不要用 `prisma migrate reset` 或删除持久卷解决升级失败。回退应用版本不等于回退数据结构；按[迁移与恢复契约](design/DATA_MIGRATION_AND_RECOVERY.md)处理兼容性。
 
-## 上线验收尚待实跑
-
-1. 生产 PostgreSQL 全迁移与两个客户端同时提交的冲突/重复奖励测试。
-2. 真实 HTTPS 域名、证书、重启恢复和备份恢复；退出账号后不能读取其他账号资料。
-3. 每个实际启用的聊天/向量服务：权限、额度、超时、取消、截断与引用用量。没有调用成功记录的模型不能标记已联调。
-4. 华为真机与 Android 常用分辨率、字体放大、软键盘和生命周期；正式签名升级链。
-
-当前 GitHub 连接对 `CurryHeng/KeLing_ICT` 的权限为 `pull=true, push=false`。需要写权限或用户指定的可写仓库才能推送分支与创建 PR。本地 Git 提交、bundle 与补丁可先交付；这不等于远程提交。
+原 Vercel 配置仍作为可选适配保留；其旧部署方式和当时的验证边界见[历史部署记录](history/2026-10/VERCEL_DEPLOYMENT.md)。新用户使用当前妙搭入口。

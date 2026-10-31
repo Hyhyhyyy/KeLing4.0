@@ -8,6 +8,7 @@ function run(file,args,cwd=root){
 }
 // Migration is an explicit opt-in for a controlled deployment, never a normal
 run(path.join(root,'scripts/build-shared.cjs'),[]);
+run(path.join(root,'scripts/sync-stellar-assets.cjs'),[]);
 // build side effect. It uses Prisma's migration ledger and the direct URL.
 if(process.env.KELING_APPLY_MIGRATIONS==='1')run(path.join(root,'scripts/migrate-cloud.cjs'),[]);
 // Explicit generation defeats stale dependency caches. Local SQLite data is
