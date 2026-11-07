@@ -23,7 +23,7 @@
   "dependencies": {
     "@keling/shared": "^1.0.0",
     "@prisma/adapter-pg": "6.19.3",
-    "@prisma/client": "6.19.3",
+    "@prisma/client": "7.10.1",
     "@vercel/functions": "3.10.4",
     "bcryptjs": "^3.0.3",
     "cors": "^2.8.6",
