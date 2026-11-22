@@ -1,0 +1,86 @@
+{
+  "serverTestsPassed": 79,
+  "browserUiVerification": "tool timed out; not completed",
+  "before": [
+    {
+      "http": 500,
+      "path": "/auth/login",
+      "body": "{\"error\":\"Internal Server Error\"}",
+      "origin": "https://ucn5aajxnx7f.feishuapp.com"
+    },
+    {
+      "http": 500,
+      "path": "/model-access/discover",
+      "body": "{\"error\":\"请求格式不正确或服务暂时不可用\",\"code\":\"INTERNAL\"}",
+      "origin": "https://ucn5aajxnx7f.feishuapp.com"
+    },
+    {
+      "http": 400,
+      "path": "/auth/login",
+      "body": "{\"error\":\"邮箱和密码为必填项\"}",
+      "origin": "https://ucn5aajxnx7f.feishu.link"
+    },
+    {
+      "http": 400,
+      "path": "/model-access/discover",
+      "body": "{\"error\":\"输入格式或长度不正确，请检查密钥、模型名和资料范围\",\"code\":\"VALIDATION\"}",
+      "origin": "https://ucn5aajxnx7f.feishu.link"
+    }
+  ],
+  "release": {
+    "finishedAt": "2026-11-22T22:32:25.0000000+08:00",
+    "status": "finished",
+    "commit": "dc9c6724256858defe0539627df903fcc712c582",
+    "id": "7711002961031433506",
+    "url": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg"
+  },
+  "after": {
+    "wrongPasswordHttp": 401,
+    "providerCount": 17,
+    "untrustedOriginHttp": 500,
+    "origin": "https://ucn5aajxnx7f.feishuapp.com",
+    "authenticatedMeHttp": 200,
+    "registrationVerifiedInPreviousCheck": 201,
+    "huaweiDefaultDiscovery": {
+      "http": 502,
+      "data": {
+        "error": "模型服务认证失败，请管理员检查密钥和权限",
+        "code": "PROVIDER_AUTH"
+      }
+    },
+    "loginHttp": 200,
+    "guestCatalogHttp": 200,
+    "realUserKeyTested": false
+  },
+  "rootCause": "CORS allowlist missed published feishuapp.com origin; obsolete Hong Kong-only Huawei discovery restriction",
+  "date": "2026-11-22",
+  "webLint": {
+    "errors": 0,
+    "warnings": 34
+  },
+  "originChecks": {
+    "base": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/",
+    "origin": "https://ucn5aajxnx7f.feishuapp.com",
+    "rootStatus": 200,
+    "passed": true,
+    "results": [
+      {
+        "path": "auth/login",
+        "status": 400,
+        "validationReached": true
+      },
+      {
+        "path": "auth/register",
+        "status": 400,
+        "validationReached": true
+      },
+      {
+        "path": "model-access/discover",
+        "status": 400,
+        "validationReached": true
+      }
+    ]
+  },
+  "newRegionalGuidanceServed": true,
+  "webBuild": true
+}
