@@ -1,25 +1,112 @@
 {
   "date": "2026-11-22",
   "timezone": "Asia/Shanghai",
-  "status": "local_ready_cloud_blocked",
+  "status": "deployed_runtime_blocked",
   "appId": "app_17h4dw5jwdg",
   "baseCommit": "da1200b",
-  "serverTests": {"passed":78,"failed":0,"database":"temporary SQLite","runtime":"mock","firstAttempt":{"passed":77,"failed":1,"reason":"new fixture missing required description; corrected"}},
+  "serverTests": {
+    "passed": 78,
+    "failed": 0,
+    "database": "temporary SQLite",
+    "runtime": "mock",
+    "firstAttempt": {
+      "passed": 77,
+      "failed": 1,
+      "reason": "new fixture missing required description; corrected"
+    }
+  },
   "mainBuild": true,
-  "webLint": {"errors":0,"warnings":34},
+  "webLint": {
+    "errors": 0,
+    "warnings": 34
+  },
   "templateLint": true,
   "templateServerBuild": true,
   "templateClientBuild": true,
   "gatewayTestsPassed": 4,
   "vendorBackendMatchesDist": true,
   "prismaRuntimeFilesPresent": true,
-  "cloudBuildVerified": false,
-  "deployed": false,
+  "cloudBuildVerified": true,
+  "deployed": true,
   "onlineAcceptancePassed": false,
   "recordingCreated": false,
   "runtimeProbes": [
-    {"runId":"145a20cb-241b-4fff-b72d-c63e9e9dfaa1","http":403,"seconds":1.51},
-    {"runId":"ad4b22c0-808d-4ddb-ae29-bc3a3f4d7ee7","http":403,"seconds":0.92}
+    {
+      "runId": "145a20cb-241b-4fff-b72d-c63e9e9dfaa1",
+      "http": 403,
+      "seconds": 1.51
+    },
+    {
+      "runId": "ad4b22c0-808d-4ddb-ae29-bc3a3f4d7ee7",
+      "http": 403,
+      "seconds": 0.92
+    }
   ],
-  "blockers": ["Feishu CLI token_missing", "Huawei runtime template Error; NA.10000 get app credential failed"]
+  "blockers": [
+    "Huawei runtime template Error; NA.10000 GetAppCredential timeout",
+    "Browser interaction verification timed out"
+  ],
+  "release": {
+    "id": "7710965298241850643",
+    "commit": "15dc6a8221ba54caf9301a3a561faf94406fa15c",
+    "finishedAt": "2026-11-22T20:06:31+08:00",
+    "url": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg",
+    "status": "finished"
+  },
+  "onlineApi": {
+    "seconds": 6.7,
+    "kind": "online HTTP API verification, not browser acceptance",
+    "providerStatus": {
+      "http": 200,
+      "data": {
+        "configured": true,
+        "provider": "AgentArts"
+      }
+    },
+    "run": {
+      "http": 200,
+      "data": {
+        "id": "a2649a6f-0d55-4573-849c-0e27cf063c84",
+        "courseId": "fddb604b-639e-453d-acd3-ba2d44d67500",
+        "goal": "依据蓝鲸标记笔记制定二叉树复习计划",
+        "mode": "plan",
+        "startDate": "2026-11-22",
+        "examDate": "2026-11-25",
+        "dailyMinutes": 30,
+        "status": "FAILED",
+        "result": null,
+        "sources": [
+          {
+            "id": "note:2cfb6e64-2510-4de1-a563-42e0c6c8c02a",
+            "title": "联调二叉树20261122 蓝鲸标记笔记"
+          }
+        ],
+        "events": [
+          {
+            "name": "课程资料检索",
+            "type": "knowledge",
+            "status": "sources_retrieved",
+            "at": "2026-11-22T12:08:24.865Z",
+            "sourceIds": [
+              "note:2cfb6e64-2510-4de1-a563-42e0c6c8c02a"
+            ]
+          }
+        ],
+        "error": "AgentArts HTTP 403",
+        "createdAt": "2026-11-22T12:08:24.047Z",
+        "updatedAt": "2026-11-22T12:08:28.76Z"
+      }
+    },
+    "tasksBefore": 0,
+    "noteId": "2cfb6e64-2510-4de1-a563-42e0c6c8c02a",
+    "tasksAfter": 0,
+    "emptyCourseResult": {
+      "http": 400,
+      "data": {
+        "error": "请先为课程添加知识点或关联笔记，计划必须有真实资料依据"
+      }
+    },
+    "courseId": "fddb604b-639e-453d-acd3-ba2d44d67500",
+    "tasksAfterEmpty": 0
+  }
 }
