@@ -45,7 +45,21 @@ test('Claude and Gemini discovery follow bounded pagination and native capabilit
   assert.ok(url.includes('pageToken=next%2Fx'));return Response.json({models:[{name:'models/embed',supportedGenerationMethods:['embedContent']}]});
  },{});
  assert.deepEqual(gemini.models,[{id:'text',capabilities:['chat']},{id:'embed',capabilities:['embedding']}]);
- await assert.rejects(()=>discoverAccess({providerId:'huawei',apiKey:key},undefined,async()=>{throw Error('must not request');},{}),e=>e.code==='DISCOVERY_UNSUPPORTED');
+});
+
+test('Huawei v2 discovers models in the selected region; v1 does not send a discovery request',async()=>{
+ const urls=[];
+ const mock=async(url,opts)=>{
+  urls.push(url);assert.equal(opts.method,'GET');assert.equal(opts.headers.Authorization,'Bearer '+key);
+  return Response.json({data:[{id:'test-huawei-chat-model',object:'model'}]});
+ };
+ // Omitting baseUrl exercises the UI default: Guiyang, not Hong Kong.
+ const domestic=await discoverAccess({providerId:'huawei',apiKey:key},undefined,mock,{});
+ const hongKong=await discoverAccess({providerId:'huawei',apiKey:key,baseUrl:'https://api-ap-southeast-1.modelarts-maas.com/v2'},undefined,mock,{});
+ assert.deepEqual(urls,['https://api.modelarts-maas.com/v2/models','https://api-ap-southeast-1.modelarts-maas.com/v2/models']);
+ assert.equal(domestic.models[0].id,'test-huawei-chat-model');assert.equal(hongKong.models[0].id,'test-huawei-chat-model');
+ await assert.rejects(()=>discoverAccess({providerId:'huawei',apiKey:key,baseUrl:'https://api.modelarts-maas.com/v1'},undefined,mock,{}),e=>e.code==='DISCOVERY_UNSUPPORTED');
+ assert.equal(urls.length,2,'unsupported v1 must not send the key anywhere');
 });
 test('temporary completion contains only explicit user material and never consumes a server key or saves a session',async()=>{
  let captured;

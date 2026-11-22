@@ -100,6 +100,10 @@ node scripts/prepare-miaoda.cjs "$MIAODA_PROJECT/vendor"
 
 ## 发布与验证
 
+`CORS_ORIGINS` 必须包含实际发布入口的完整 origin（协议和域名，不含 `/app/...`），不能只保留历史域名。当前应用的 `feishu.link` 和 `feishuapp.com` 是不同来源；如果两者均提供入口，应分别精确配置。不要使用通配符，也不要自动信任请求头。更新环境变量后重新发布以使启动时读取的配置生效。
+
+发布后先运行 `node scripts/test-hosted-origin.cjs --base <本次平台返回的完整应用地址>`。该检查携带浏览器发送的 Origin 和平台 CSRF Cookie，对登录、注册、模型发现发送空请求并验证到达参数校验，不创建账号、不发送模型密钥。随后用演示账号验证注册、登录及错误密码后的重试。省略 Origin 的 HTTP 成功不能代替浏览器链路验证。
+
 在完整模板工程中先运行 `npm run lint`、`node --test server/modules/gateway/gateway.spec.cjs`，核对平台构建的 `dist/vendor/`、`dist/node_modules/.prisma/client/` 与 `dist/node_modules/@prisma/client/`。这些路径测试不替代账号流程测试。
 
 审核本轮变更并提交到目标妙搭工程的 `sprint/default` 后，使用官方发布流程：

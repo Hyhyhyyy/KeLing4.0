@@ -81,7 +81,9 @@ function modelRecord(raw: any, provider: Provider): AccessModel | null {
 }
 export async function discoverAccess(raw: unknown, signal?: AbortSignal, transport: typeof fetch = fetch, env: NodeJS.ProcessEnv = process.env) {
   const p = credentialProvider(raw, env);
-  if (p.id === 'huawei' && !p.baseUrl.includes('api-ap-southeast-1.')) throw new AIError('DISCOVERY_UNSUPPORTED', '华为模型列表接口目前仅支持香港区域，请核对地域或手动填写已开通的模型 ID', 400);
+  // Huawei documents separate v2 model catalogs for Guiyang and Hong Kong.
+  // credentialProvider has already limited baseUrl to the official allowlist.
+  if (p.id === 'huawei' && !p.baseUrl.endsWith('/v2')) throw new AIError('DISCOVERY_UNSUPPORTED', '华为模型目录需要对应区域的 v2 接口；v1 请手动填写已开通的模型 ID', 400);
   const found = new Map<string, AccessModel>();
   let path = p.protocol === 'gemini' ? '/models?pageSize=1000' : p.protocol === 'anthropic' ? '/models?limit=1000' : '/models';
   let readProvider = p;
