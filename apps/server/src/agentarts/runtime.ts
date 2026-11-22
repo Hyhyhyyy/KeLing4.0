@@ -24,9 +24,9 @@ export async function readRuntimeStream(body: ReadableStream<Uint8Array>, onEven
     return result;
   } finally { await reader.cancel().catch(()=>{}); reader.releaseLock(); }
 }
-export function runtimeConfigured(): boolean { return Boolean(process.env.AGENTARTS_RUNTIME_URL && process.env.AGENTARTS_API_KEY && process.env.AGENTARTS_TOOL_SECRET); }
+export function runtimeConfigured(): boolean { return Boolean(process.env.AGENTARTS_RUNTIME_URL && process.env.AGENTARTS_API_KEY && (process.env.AGENTARTS_CONTEXT_MODE === "inline" || process.env.AGENTARTS_TOOL_SECRET)); }
 export async function invokeRuntime(input: unknown, sessionId:string, onEvent:(e:RunEvent)=>void, transport:typeof fetch=fetch):Promise<string>{
-  if(!runtimeConfigured())throw new Error('尚未配置 AgentArts Runtime、API Key 和工具密钥');
+  if(!runtimeConfigured())throw new Error('尚未配置 AgentArts Runtime、API Key，或回调模式所需的工具密钥');
   const url=new URL(process.env.AGENTARTS_RUNTIME_URL!);if(url.protocol!=='https:')throw new Error('AgentArts Runtime 必须使用 HTTPS');
   const kind=process.env.AGENTARTS_RUNTIME_KIND||'workflow';
   if(!['workflow','agent'].includes(kind))throw new Error('AgentArts Runtime 类型必须为 workflow 或 agent');

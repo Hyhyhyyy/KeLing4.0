@@ -3,6 +3,7 @@ const server=path.resolve(__dirname,'../apps/server');const dir=fs.mkdtempSync(p
 const database='file:'+path.join(dir,'test.db').replaceAll('\\','/');
 const env={...process.env,NODE_ENV:'test',DATABASE_URL:database,JWT_SECRET:'isolated-test-secret-not-used-in-any-deployment',DEEPSEEK_API_KEY:'',AGENTARTS_RUNTIME_URL:'',AGENTARTS_API_KEY:'',AGENTARTS_TOOL_SECRET:'',PLANNING_PROVIDER:'auto',TS_NODE_PROJECT:path.join(server,'tsconfig.json')};
 // Tests must never inherit billable model access from the developer's shell.
+env.AGENTARTS_CONTEXT_MODE='callback';
 for(const key of Object.keys(env))if(key.startsWith('AI_'))delete env[key];
 function run(args){const r=spawnSync(process.execPath,args,{cwd:server,env,stdio:'inherit'});if(r.error)throw r.error;return r.status??1;}
 const cli=require.resolve('prisma/build/index.js',{paths:[server]});

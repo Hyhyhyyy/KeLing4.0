@@ -18,7 +18,7 @@ export async function invokeDeepSeek(input:unknown, context:unknown, onEvent:(ev
 }
 export function planningProvider(): 'DeepSeek'|'AgentArts'|null {
   const provider=process.env.PLANNING_PROVIDER?.trim().toLowerCase();
-  const agentarts=process.env.AGENTARTS_RUNTIME_URL&&process.env.AGENTARTS_API_KEY&&process.env.AGENTARTS_TOOL_SECRET?'AgentArts':null;
+  const agentarts=process.env.AGENTARTS_RUNTIME_URL&&process.env.AGENTARTS_API_KEY&&(process.env.AGENTARTS_CONTEXT_MODE === "inline" || process.env.AGENTARTS_TOOL_SECRET)?'AgentArts':null;
   const deepseek=process.env.DEEPSEEK_API_KEY?'DeepSeek':null;
   if(provider==='agentarts')return agentarts;
   if(provider==='deepseek')return deepseek;

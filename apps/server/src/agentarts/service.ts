@@ -70,7 +70,12 @@ export class AgentService {
         ? await this.invoke({...input,startDate,courseName,runId:run.id,toolToken:token},run.id,onEvent)
         : planningProvider()==='DeepSeek'
           ? await invokeDeepSeek({...input,startDate,courseName},await this.tool(run.id,token,input.goal),onEvent)
-          : await invokeRuntime({...input,startDate,courseName,runId:run.id,toolToken:token},run.id,onEvent);
+          : await invokeRuntime({
+              ...input, startDate, courseName, runId: run.id,
+              ...(process.env.AGENTARTS_CONTEXT_MODE === "inline"
+                ? { query: input.goal, context: JSON.stringify(await this.tool(run.id, token, input.goal)) }
+                : { toolToken: token }),
+            }, run.id, onEvent);
       await pending;
       if(eventFailure)throw eventFailure;
       const clean=raw.trim().replace(/^```(?:json)?\s*/,'').replace(/\s*```$/,'');

@@ -1,0 +1,25 @@
+{
+  "date": "2026-11-22",
+  "timezone": "Asia/Shanghai",
+  "status": "local_ready_cloud_blocked",
+  "appId": "app_17h4dw5jwdg",
+  "baseCommit": "da1200b",
+  "serverTests": {"passed":78,"failed":0,"database":"temporary SQLite","runtime":"mock","firstAttempt":{"passed":77,"failed":1,"reason":"new fixture missing required description; corrected"}},
+  "mainBuild": true,
+  "webLint": {"errors":0,"warnings":34},
+  "templateLint": true,
+  "templateServerBuild": true,
+  "templateClientBuild": true,
+  "gatewayTestsPassed": 4,
+  "vendorBackendMatchesDist": true,
+  "prismaRuntimeFilesPresent": true,
+  "cloudBuildVerified": false,
+  "deployed": false,
+  "onlineAcceptancePassed": false,
+  "recordingCreated": false,
+  "runtimeProbes": [
+    {"runId":"145a20cb-241b-4fff-b72d-c63e9e9dfaa1","http":403,"seconds":1.51},
+    {"runId":"ad4b22c0-808d-4ddb-ae29-bc3a3f4d7ee7","http":403,"seconds":0.92}
+  ],
+  "blockers": ["Feishu CLI token_missing", "Huawei runtime template Error; NA.10000 get app credential failed"]
+}
