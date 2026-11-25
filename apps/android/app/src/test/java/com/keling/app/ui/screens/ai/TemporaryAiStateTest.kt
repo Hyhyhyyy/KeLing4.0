@@ -51,7 +51,9 @@ class TemporaryAiStateTest {
             session.removeContext(1)
             assertEquals(2, session.state.value.context.size)
             session.showExample()
-            assertTrue(session.state.value.answer.contains("不是实际 AI"))
+            assertTrue(session.state.value.answer.startsWith("内置示例"))
+            assertTrue(session.state.value.example)
+            assertNull(session.state.value.answerModel)
             assertEquals(4000, session.state.value.prompt.length)
         } finally { session.close(); client.close() }
     }

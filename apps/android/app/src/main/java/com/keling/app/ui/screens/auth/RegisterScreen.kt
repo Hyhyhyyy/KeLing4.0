@@ -189,17 +189,10 @@ fun RegisterScreen(
                 color = EarthBrown
             )
 
-            Text(
-                text = "开启你的知识培育之旅",
-                fontSize = 14.sp,
-                color = EarthBrown.copy(alpha = 0.7f),
-                modifier = Modifier.padding(top = 4.dp)
-            )
-
             Spacer(modifier = Modifier.height(32.dp))
 
-            Button(onClick = onStartTrial, modifier = Modifier.fillMaxWidth()) { Text("游客试用全部功能 · 无需注册 →") }
-            Text("本次数据仅保留在内存；退出或重新打开后清空。", style = MaterialTheme.typography.bodySmall, modifier = Modifier.padding(vertical = 8.dp))
+            Button(onClick = onStartTrial, modifier = Modifier.fillMaxWidth()) { Text("游客试用") }
+            Text("游客记录退出即清空", style = MaterialTheme.typography.bodySmall, modifier = Modifier.padding(vertical = 8.dp))
 
             // 注册卡片
             Card(

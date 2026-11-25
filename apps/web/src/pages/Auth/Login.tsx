@@ -39,7 +39,7 @@ const Login: React.FC = () => {
 
   return (
     <div className="auth-container">
-      <figure className="auth-arrival"><StellarScene scene="login" eager/><figcaption><h1>欢迎回到学习轨道</h1><p>把上一次的思考接着完成，让今天的探索有一个熟悉的起点。</p><Link to="/explore">了解课灵 →</Link></figcaption></figure>
+      <figure className="auth-arrival"><StellarScene scene="login" eager/><figcaption><h1>欢迎回到学习轨道</h1><Link to="/explore">了解课灵 →</Link></figcaption></figure>
 
       <motion.div
         className="auth-card"
@@ -50,7 +50,7 @@ const Login: React.FC = () => {
         {/* Logo */}
         <div className="auth-logo">
           <img className="auth-stellar-logo" src={appPath("/stellar/title_logo.webp")} width="1774" height="887" alt="课灵 KeLing" />
-          <p>欢迎回来，星际探索者</p>
+
         </div>
 
         <GuestTrialEntry />
@@ -87,7 +87,7 @@ const Login: React.FC = () => {
             {loading ? '登录中...' : '登录'}
           </button>
           {loading && <div role="status">
-            <p>正在连接账号服务，最多等待25秒。</p>
+
             <button type="button" className="auth-btn" onClick={() => pending.current?.abort()}>取消等待</button>
           </div>}
         </form>

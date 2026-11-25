@@ -341,7 +341,7 @@ const KnowledgeGraph: React.FC = () => {
         </div>
       </motion.div>
 
-      <StellarSceneBanner scene="graph" eyebrow="KNOWLEDGE / CONNECTION MAP" title="把零散概念，连成可以理解的关系" description="添加或编辑知识点，缩放画布查看连接。图中的结构来自你保存的课程资料。" compact/>
+      <StellarSceneBanner scene="graph" title="概念关系" compact/>
 
       {/* 主画布区域 */}
       {nodes.length === 0 ? (
@@ -354,8 +354,8 @@ const KnowledgeGraph: React.FC = () => {
           <h2>{course ? `${course.name} 还没有知识点` : '请先选择一个课程'}</h2>
           <p>
             {course
-              ? '点击添加知识点，整理概念与关系；也可以带着资料向 AI 提问。'
-              : '返回温室选择一个星球'}
+              ? '添加知识点'
+              : '请先选择课程'}
           </p>
           {course && (
             <button className="btn btn-primary" onClick={() => navigate('/ai')}>

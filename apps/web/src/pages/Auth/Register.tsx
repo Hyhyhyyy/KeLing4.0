@@ -57,7 +57,7 @@ const Register: React.FC = () => {
 
   return (
     <div className="auth-container">
-      <figure className="auth-arrival"><StellarScene scene="register" eager/><figcaption><h1>为好奇心建立坐标</h1><p>创建共享账号，在网页整理思路，在手机延续每一次学习。</p><Link to="/explore">了解课灵 →</Link></figcaption></figure>
+      <figure className="auth-arrival"><StellarScene scene="register" eager/><figcaption><h1>创建账号</h1><Link to="/explore">了解课灵 →</Link></figcaption></figure>
 
       <motion.div
         className="auth-card"
@@ -68,7 +68,7 @@ const Register: React.FC = () => {
         {/* Logo */}
         <div className="auth-logo">
           <img className="auth-stellar-logo" src={appPath("/stellar/title_logo.webp")} width="1774" height="887" alt="课灵 KeLing" />
-          <p>开启你的星际学习之旅</p>
+
         </div>
 
         {/* 表单 */}
@@ -126,10 +126,10 @@ const Register: React.FC = () => {
           </div>
 
           <button type="submit" className="auth-btn" disabled={loading}>
-            {loading ? '注册中...' : '开始星际之旅'}
+            {loading ? '注册中...' : '注册'}
           </button>
           {loading && <div role="status">
-            <p>正在连接账号服务，最多等待25秒。</p>
+
             <button type="button" className="auth-btn" onClick={() => pending.current?.abort()}>取消等待</button>
           </div>}
         </form>

@@ -34,9 +34,9 @@ import java.time.ZoneId
     var busy by remember { mutableStateOf(false) }; var error by remember { mutableStateOf<String?>(null) }; var preview by remember { mutableStateOf<SchedulePreview?>(null) }
     var confirmation by remember { mutableStateOf<ScheduleConfirmation?>(null) }
     fun action(block: suspend () -> Unit) { if (busy) return; busy = true; error = null; scope.launch { try { block() } catch (e: CancellationException) { throw e } catch (e: Exception) { error = e.message ?: "排程失败，预览已保留" } finally { busy = false } } }
-    AlertDialog(onDismissRequest = { if (!busy) onDismiss() }, title = { Text("安排首章 · 3项25分钟目标") }, text = {
+    AlertDialog(onDismissRequest = { if (!busy) onDismiss() }, title = { Text("学习安排 · 3 × 25分钟") }, text = {
         LazyColumn(Modifier.heightIn(max = 500.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            item { Text("按课表、已有任务、休息和日期预算计算。只在确认后新增任务，程序规则排程不是 AI 生成。", style = MaterialTheme.typography.bodySmall) }
+            item { Text("规则排程", style = MaterialTheme.typography.bodySmall) }
             item { OutlinedTextField(start, { start = it; preview = null }, label = { Text("开始日期 YYYY-MM-DD") }, modifier = Modifier.fillMaxWidth()) }
             item { OutlinedTextField(end, { end = it; preview = null }, label = { Text("截止 / 考试日期") }, modifier = Modifier.fillMaxWidth()) }
             item { OutlinedTextField(minutes, { minutes = it.filter(Char::isDigit).take(3); preview = null }, label = { Text("每天最多学习分钟（10–240）") }, modifier = Modifier.fillMaxWidth()) }
@@ -50,17 +50,16 @@ import java.time.ZoneId
                     if (restFrom.isBlank() && restUntil.isBlank()) emptyList() else listOf(ScheduleRest(restFrom, restUntil)),
                     exclude.split(',', '，', ' ').filter(String::isNotBlank), chapter.objectives.map { ScheduleUnit(it.title, 25, it.key) })
                 preview = api.schedule(courseId, request); confirmation = null
-            } }, enabled = !busy && minutes.toIntOrNull()?.let { it in 10..240 } == true, modifier = Modifier.fillMaxWidth()) { Text("提交当前课表与任务，预览安排") } }
+            } }, enabled = !busy && minutes.toIntOrNull()?.let { it in 10..240 } == true, modifier = Modifier.fillMaxWidth()) { Text("预览安排") } }
             error?.let { item { Text(it, color = MaterialTheme.colorScheme.error) } }
             preview?.let { plan ->
                 item { Text("新增 ${plan.diff.added} 项；保留现有 ${plan.diff.retainedExisting} 项；修改 ${plan.diff.changed}，删除 ${plan.diff.deleted}。", style = MaterialTheme.typography.titleSmall) }
                 plan.tasks.forEach { task -> item { Text("${task.date} ${task.startTime} · ${task.minutes}分钟\n${task.title}") } }
                 plan.unallocated.forEach { task -> item { Text("未排入：${task.title} — ${task.reason}", color = MaterialTheme.colorScheme.error) } }
                 plan.warnings.forEach { warning -> item { Text(warning) } }
-                item { Text(plan.note, style = MaterialTheme.typography.bodySmall) }
-                if (confirmation == null) item { Button(onClick = { action { confirmation = api.confirmSchedule(courseId, plan) } }, enabled = !busy && plan.tasks.isNotEmpty(), modifier = Modifier.fillMaxWidth()) { Text("确认这些新增任务") } }
+                if (confirmation == null) item { Button(onClick = { action { confirmation = api.confirmSchedule(courseId, plan) } }, enabled = !busy && plan.tasks.isNotEmpty(), modifier = Modifier.fillMaxWidth()) { Text("添加任务") } }
             }
-            confirmation?.let { item { Text("已添加 ${it.added} 项任务${if (it.replayed) "（重试未重复添加）" else ""}，可在远航的全部任务中继续。", color = MaterialTheme.colorScheme.primary) } }
+            confirmation?.let { item { Text("已添加 ${it.added} 项任务", color = MaterialTheme.colorScheme.primary) } }
         }
     }, confirmButton = { TextButton(onClick = onDismiss, enabled = !busy) { Text("关闭") } })
 }

@@ -138,7 +138,7 @@ fun PastoralTasksScreen(
 
             // ===== 任务列表 =====
             if (filteredTasks.isEmpty() && query.isNotBlank()) {
-                item { Text("没有找到匹配的任务，试试其他关键词。", Modifier.padding(16.dp)) }
+                item { Text("无匹配任务", Modifier.padding(16.dp)) }
             } else if (filteredTasks.isEmpty()) {
                 item {
                     EnhancedEmptyState(
@@ -945,9 +945,9 @@ fun EnhancedEmptyState(
     )
 
     val (icon, title, description) = when (filterType) {
-        1 -> Triple("📋", "没有待执行任务", "所有任务都已完成\n前往精灵助手获取新任务")
-        2 -> Triple("🏆", "暂无完成记录", "完成任务后会在这里显示\n继续加油哦！")
-        else -> Triple("🎯", "培育计划板空空的", "和星球精灵聊聊\n让它帮你规划学习任务")
+        1 -> Triple("📋", "没有待执行任务", "暂无待办")
+        2 -> Triple("🏆", "暂无完成记录", "暂无已完成任务")
+        else -> Triple("🎯", "培育计划板空空的", "暂无任务")
     }
 
     Surface(

@@ -275,7 +275,7 @@ private fun AINoteCard(onAskAI: () -> Unit) {
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
-                    text = "和精灵聊聊，自动生成知识笔记",
+                    text = "AI 笔记",
                     style = MaterialTheme.typography.bodySmall,
                     color = EarthBrownLight
                 )
@@ -499,7 +499,7 @@ private fun EmptyNotesState(onCreateNote: () -> Unit) {
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
-                text = "创建你的第一篇学习笔记\n或让AI帮你生成",
+                text = "暂无笔记",
                 style = MaterialTheme.typography.bodySmall,
                 color = EarthBrownLight,
                 textAlign = TextAlign.Center

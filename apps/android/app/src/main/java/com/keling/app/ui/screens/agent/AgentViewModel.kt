@@ -59,7 +59,7 @@ class AgentViewModel(private val token: String, private val api: AgentApi = Agen
     fun createCourse(name: String) = action {
         require(name.trim().isNotEmpty()) { "请输入课程名称" }
         val course = requireNotNull(api.createCourse(token, name.trim()).course)
-        mutable.update { it.copy(courseId = course.id, sources = emptyList(), notice = "课程已创建，请添加学习资料") }
+        mutable.update { it.copy(courseId = course.id, sources = emptyList(), notice = "课程已创建") }
         load()
     }
     fun addSource(name: String, text: String) = action {
@@ -67,7 +67,7 @@ class AgentViewModel(private val token: String, private val api: AgentApi = Agen
         require(id.isNotBlank() && name.trim().isNotBlank() && text.trim().isNotBlank()) { "请选择课程并填写资料名称和内容" }
         api.addSource(token, id, name.trim(), text.trim())
         val sources = api.sources(token, id).nodes
-        mutable.update { it.copy(sources = sources, notice = "资料已保存，可开始规划") }
+        mutable.update { it.copy(sources = sources, notice = "资料已保存") }
         load()
     }
     fun start(request: AgentRequest) = action {
@@ -89,19 +89,19 @@ class AgentViewModel(private val token: String, private val api: AgentApi = Agen
             mutable.update { if (it.selected?.id == id) it.copy(selected = run) else it }
             if (run.status != "RUNNING") load()
         } catch (e: CancellationException) { throw e }
-        catch (e: Exception) { mutable.update { it.copy(polling = false, error = "${e.message ?: "网络中断"}。运行已保留，点击刷新继续查看。") } }
+        catch (e: Exception) { mutable.update { it.copy(polling = false, error = "${e.message ?: "网络中断"}，请刷新重试。") } }
     }
     fun confirm() = action {
         val run = mutable.value.selected ?: return@action
         api.confirm(token, run.id)
         val updated = api.get(token, run.id)
-        mutable.update { it.copy(selected = updated, notice = if (token.startsWith("guest-memory:")) "计划已加入本次任务，可在任务页执行" else "计划已加入云端任务，可在下方或网页完成") }
+        mutable.update { it.copy(selected = updated, notice = if (token.startsWith("guest-memory:")) "任务已添加" else "任务已添加") }
         load()
     }
     fun complete(id: String, minutes: Int) = action {
         require(minutes in 0..1440) { "实际时长须在 0 至 1440 分钟之间" }
         api.complete(token, id, minutes)
         load()
-        mutable.update { it.copy(notice = "完成记录已保存，复盘时会参考这次学习") }
+        mutable.update { it.copy(notice = "完成记录已保存") }
     }
 }

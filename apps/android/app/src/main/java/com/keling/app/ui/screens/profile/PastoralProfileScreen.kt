@@ -196,11 +196,6 @@ private fun ProfileHeader(
                 color = EarthBrown,
                 fontWeight = FontWeight.Bold
             )
-            Text(
-                text = "记录你的成长",
-                style = MaterialTheme.typography.labelSmall,
-                color = MintGreen
-            )
         }
 
         // 设置按钮
@@ -692,7 +687,7 @@ private fun AchievementPreview(
                         contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = "还没有解锁成就，快去学习吧~",
+                        text = "暂无成就",
                         style = MaterialTheme.typography.bodySmall,
                         color = EarthBrownLight
                     )

@@ -39,14 +39,14 @@ fun PlanetPickerDialog(
     onDismiss: () -> Unit,
     busy: Boolean = false,
     error: String? = null,
-    description: String = "为这门课程选择一个学习星球。"
+    description: String = ""
 ) {
     AlertDialog(
         onDismissRequest = { if (!busy) onDismiss() },
         title = { Text(title) },
         text = {
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text(description, style = MaterialTheme.typography.bodySmall)
+                if (description.isNotBlank()) Text(description, style = MaterialTheme.typography.bodySmall)
                 LazyVerticalGrid(
                     columns = GridCells.Fixed(2),
                     modifier = Modifier.fillMaxWidth().heightIn(max = 420.dp),
@@ -76,7 +76,7 @@ fun PlanetPickerDialog(
                 error?.let { Text(it, color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.bodySmall) }
             }
         },
-        confirmButton = { TextButton(onClick = onConfirm, enabled = !busy && selectedIndex in PlanetStyles.entries.indices) { Text(if (busy) "保存中…" else "确定选择") } },
+        confirmButton = { TextButton(onClick = onConfirm, enabled = !busy && selectedIndex in PlanetStyles.entries.indices) { Text(if (busy) "保存中…" else "确定") } },
         dismissButton = { TextButton(onClick = onDismiss, enabled = !busy) { Text("取消") } }
     )
 }

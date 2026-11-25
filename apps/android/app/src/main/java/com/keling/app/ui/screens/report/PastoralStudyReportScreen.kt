@@ -115,7 +115,7 @@ fun PastoralStudyReportScreen(
 
                 item {
                     AnalysisSection(
-                        title = "AI建议 💡",
+                        title = "学习建议",
                         items = report.suggestions,
                         color = SkyBlue
                     )
@@ -168,11 +168,6 @@ private fun ReportHeader(onBack: () -> Unit) {
                 style = MaterialTheme.typography.titleLarge,
                 color = EarthBrown,
                 fontWeight = FontWeight.Bold
-            )
-            Text(
-                text = "本周学习分析",
-                style = MaterialTheme.typography.labelSmall,
-                color = MintGreen
             )
         }
 
@@ -425,7 +420,7 @@ private fun AIInsightCard(insight: String) {
 
             Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    text = "AI洞察",
+                    text = "学习概况 · 规则分析",
                     style = MaterialTheme.typography.titleMedium,
                     color = LavenderPurple,
                     fontWeight = FontWeight.Bold

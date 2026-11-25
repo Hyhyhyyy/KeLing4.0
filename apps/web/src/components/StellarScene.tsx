@@ -13,7 +13,7 @@ export function StellarScene({ scene, className = '', eager = false, decorative 
     alt={decorative ? '' : art.title} loading={eager ? 'eager' : 'lazy'} fetchPriority={eager ? 'high' : undefined} decoding="async" />;
 }
 export function StellarSceneBanner({ scene, eyebrow, title, description, children, compact = false }: {
-  scene: StellarSceneName; eyebrow: string; title: string; description: string; children?: ReactNode; compact?: boolean;
+  scene: StellarSceneName; eyebrow?: string; title: string; description?: string; children?: ReactNode; compact?: boolean;
 }) {
-  return <section className={`stellar-scene-banner${compact ? ' scene-banner-compact' : ''}`}><div className="scene-banner-copy"><span className="eyebrow">{eyebrow}</span><h2>{title}</h2><p>{description}</p>{children}</div><StellarScene scene={scene} decorative /></section>;
+  return <section className={`stellar-scene-banner${compact ? ' scene-banner-compact' : ''}`}><div className="scene-banner-copy">{eyebrow && <span className="eyebrow">{eyebrow}</span>}<h2>{title}</h2>{description && <p>{description}</p>}{children}</div><StellarScene scene={scene} decorative /></section>;
 }

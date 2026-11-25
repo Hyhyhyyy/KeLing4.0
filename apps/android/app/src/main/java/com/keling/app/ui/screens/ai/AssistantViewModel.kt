@@ -114,7 +114,7 @@ class AssistantViewModel(private val token: String, private val api: AssistantAp
             catch (e: Exception) {
                 if (epoch == generation && previewRevision == revision) mutable.update {
                     it.copy(preview = null, previewLoading = false, previewError = if (e is ApiException && e.statusCode == 404)
-                        "资料已删除或不可访问。可返回检查，或移除资料后继续编辑问题。" else e.message ?: "资料加载失败，请重试")
+                        "资料不可访问，请移除或重新选择。" else e.message ?: "资料加载失败，请重试")
                 }
             }
         }
@@ -125,7 +125,7 @@ class AssistantViewModel(private val token: String, private val api: AssistantAp
         previewRevision++
         pendingId = ""
         mutable.update { it.copy(contextRef = null, preview = null, previewLoading = false, previewError = null,
-            notice = "已移除本次附带资料；问题保留。已有会话历史仍可能参与回答。") }
+            notice = "已移除资料") }
     }
     fun leaveScreen() {
         epoch++
@@ -136,17 +136,17 @@ class AssistantViewModel(private val token: String, private val api: AssistantAp
         val hadContext = mutable.value.contextRef != null
         mutable.update { it.copy(busy = false, contextRef = null, preview = null, previewLoading = false,
             previewError = null, draft = if (hadContext) "" else it.draft,
-            notice = if (hadContext) "上次临时资料选择已清除。请从课程、任务或已保存笔记重新选择。" else it.notice) }
+            notice = if (hadContext) "请重新选择资料" else it.notice) }
     }
     fun send(text: String, settings: NewAssistantSession) = action { generation ->
         val message = text.trim()
         require(message.length in 1..6000) { "问题需为 1 至 6000 字符" }
         val before = mutable.value
-        check(before.contextReady) { "请先加载并核对资料预览，或移除附带资料" }
+        check(before.contextReady) { "请刷新或移除资料" }
         val context = before.preview?.takeIf { before.contextRef != null }?.input()
         val providerId = before.conversation?.session?.providerId ?: settings.providerId
         val modelId = before.conversation?.session?.modelId ?: settings.modelId
-        check(before.providers.any { it.id == providerId && it.configured && modelId in it.chatModels }) { "当前模型未配置或已停用，暂不能发送；问题和资料预览仍可编辑。" }
+        check(before.providers.any { it.id == providerId && it.configured && modelId in it.chatModels }) { "请先配置可用模型" }
         var conversation = before.conversation
         if (conversation == null) {
             conversation = api.create(token, settings.copy(title = message.take(80), includeContext = if (context != null) false else settings.includeContext))
@@ -163,8 +163,8 @@ class AssistantViewModel(private val token: String, private val api: AssistantAp
         catch (e: ApiException) {
             if (context != null && e.statusCode in listOf(404, 409)) {
                 update(generation) { it.copy(preview = null, previewError = if (e.statusCode == 409)
-                    "资料已发生变化。问题已保留，请刷新预览、核对内容后再次点击发送。"
-                    else "资料已删除或不可访问。问题已保留，请移除或重新选择资料。") }
+                    "资料已变化，请刷新预览后发送。"
+                    else "资料不可访问，请移除或重新选择。") }
                 pendingId = ""
             }
             throw e
@@ -187,7 +187,7 @@ class AssistantViewModel(private val token: String, private val api: AssistantAp
             }
         } catch (e: CancellationException) { throw e }
         catch (e: Exception) {
-            if (generation == epoch) mutable.update { it.copy(polling = false, error = "连接中断，点击刷新恢复。已提交的请求仍保存在服务端。") }
+            if (generation == epoch) mutable.update { it.copy(polling = false, error = "连接中断，请刷新重试。") }
         }
     }
     fun cancel() = action { generation ->
@@ -203,6 +203,6 @@ class AssistantViewModel(private val token: String, private val api: AssistantAp
     }
     fun saveNote(id: String) = action { generation ->
         api.saveNote(token, id)
-        update(generation) { it.copy(notice = if (token.startsWith("guest-memory:")) "已保存到本次试用笔记，退出后清空" else "已保存到共享笔记，网页与手机均可查看") }
+        update(generation) { it.copy(notice = if (token.startsWith("guest-memory:")) "笔记已保存" else "笔记已保存") }
     }
 }

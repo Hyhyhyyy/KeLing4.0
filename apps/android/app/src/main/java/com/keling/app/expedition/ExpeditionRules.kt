@@ -9,9 +9,9 @@ data class RuleResult(val run: RunView, val progress: ProgressState, val evidenc
 /** Kotlin translation of shared/expedition/core.ts, checked against its JSON fixtures. No network or storage. */
 object ExpeditionRules {
     val decorations = listOf(
-        Decoration("antenna", "信号天线", 6, "陈列本章广播推演记录，不改变知识评价。"),
-        Decoration("archive", "星光档案柜", 9, "展示自己的学习档案，所有笔记始终免费可读。"),
-        Decoration("observatory", "小型观测台", 12, "装扮基地并回看课程航线，不加成知识证据。")
+        Decoration("antenna", "信号天线", 6, "广播推演记录"),
+        Decoration("archive", "星光档案柜", 9, "学习档案展示"),
+        Decoration("observatory", "小型观测台", 12, "课程航线展示")
     )
     fun check(ok: Boolean, code: String, message: String, status: Int = 409) {
         if (!ok) throw ExpeditionException(status, ExpeditionErrorBody(message, code))
@@ -49,7 +49,7 @@ object ExpeditionRules {
             check(answer.explanation != null && answer.explanation.trim().length >= 12 && answer.explanation.length <= 4000,
                 "INVALID_ANSWER", "请用至少12字、最多4000字解释自己的理解", 400)
             check(answer.selfCheck == null || answer.selfCheck.size <= 12 && answer.selfCheck.all { it.length <= 200 }, "INVALID_ANSWER", "自评条目无效", 400)
-            return Feedback("SELF_REPORTED", message = "已保留你的解释。请对照评分条目修正；自评不等于人工审核或独立知识验证。", rubric = exercise.rubric)
+            return Feedback("SELF_REPORTED", message = "解释已保存，请对照条目自查。", rubric = exercise.rubric)
         }
         check(answer.order != null && answer.order.size <= 64 && answer.order.all { it.length <= 80 }, "INVALID_ANSWER", "请提交节点编号列表", 400)
         check(answer.order!!.distinct().size == answer.order.size && answer.order.all { id -> exercise.tree.nodes.any { it.id == id } }, "INVALID_ANSWER", "节点编号重复或不存在，请检查输入方式", 400)
@@ -71,8 +71,8 @@ object ExpeditionRules {
         val choiceCorrect = if (bst) answer.validBst == expected.validBst else answer.structure == expected.structure
         val correct = choiceCorrect && deviation == null && stepDeviation == null
         return Feedback("RULE_CHECKED", correct, if (!choiceCorrect) 0 else deviation, wanted,
-            if (correct) "本次输入符合题目规则。请回看推演并说明下一步；程序判定不代表内容已经人工审核。"
-            else if (!choiceCorrect) "先检查容器或全局边界判断。阅读规则后可以修正，本题后续属于训练。"
+            if (correct) "作答符合规则，请记录下一步。"
+            else if (!choiceCorrect) "请检查容器顺序或全局边界后重试。"
             else if (stepDeviation != null) "第${stepDeviation!! + 1}次容器操作偏离规则；先检查压入孩子的顺序。"
             else "从第${(deviation ?: 0) + 1}个位置起与规则推演不一致；可对照顺序继续练习。", exercise.rubric, stepDeviation = stepDeviation)
     }
@@ -89,7 +89,7 @@ object ExpeditionRules {
             val preferred = candidates.filter { it.role == role }
             fun unseen(e: Exercise) = "${e.id}@${e.version}" !in previous.seenExerciseIds
             val chosen = preferred.firstOrNull(::unseen) ?: candidates.firstOrNull(::unseen) ?: if (input.mode == "TRAINING") preferred.firstOrNull() ?: candidates.firstOrNull() else null
-            check(chosen != null, "NO_FRESH_VARIANT", "当前没有未展示的新变式；可切换训练，不能复用旧题声明独立验证")
+            check(chosen != null, "NO_FRESH_VARIANT", "暂无新变式，请选择常规练习")
             chosen!!.id
         }
         val versions = ids.map { idValue -> chapter.exercises.first { it.id == idValue }.let { "${it.id}@${it.version}" } }

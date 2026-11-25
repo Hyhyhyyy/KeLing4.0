@@ -77,10 +77,10 @@ const Achievements: React.FC = () => {
       >
           <img src={appPath("/stellar/mascot_celebrate.webp")} width="96" height="96" alt="星芽为成长庆祝" />
         <h1>成就殿堂</h1>
-        <p>记录你的荣耀时刻</p>
+
       </motion.div>
 
-      <StellarSceneBanner scene="achievements" eyebrow="PROGRESS / STAR GALLERY" title="每一次坚持，都有自己的光" description="查看已解锁的成就与当前进度，继续积累真实的学习记录。" compact/>
+      <StellarSceneBanner scene="achievements" title="成就进度" compact/>
 
       {/* 统计卡片 */}
       <motion.div

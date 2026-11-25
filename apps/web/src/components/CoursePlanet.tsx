@@ -14,7 +14,7 @@ export function CoursePlanetPicker({ value, onChange, disabled = false }: { valu
   const selected = coursePlanetIndex(value);
   return <fieldset className="course-planet-picker" disabled={disabled}>
     <legend>星球外观 · {coursePlanets[selected].name}</legend>
-    <p>选择一颗喜欢的星球，只更换外观，不改变学科、资料或学习数值。</p>
+
     <div className="course-planet-options">
       {coursePlanets.map((planet, index) => <button key={planet.file} type="button" className="course-planet-option"
         aria-pressed={selected === index} aria-label={`${planet.name}：${planet.description}`} onClick={() => onChange(index)}>

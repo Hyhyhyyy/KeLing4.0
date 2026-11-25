@@ -121,7 +121,7 @@ class ExpeditionViewModel(context: Context, private val token: String, private v
         val run = requireNotNull(mutable.value.run); val opId = id()
         val draft = mutable.value.draft
         if (action.type == "SUBMIT" && draft != null && draft.baseRevision != run.revision) {
-            ExpeditionRules.check(false, "DRAFT_REVISION_CHANGED", "原草稿来自较早版本，请先保留副本并采用当前进度")
+            ExpeditionRules.check(false, "DRAFT_REVISION_CHANGED", "草稿版本已过期，请保存副本并载入最新进度。")
         }
         persist { it.copy(pending = it.pending + PendingOperation(opId, "COMMAND", run.id, run.revision, writers[run.id]?.epoch ?: run.leaseEpoch, action)) }
         flush()
@@ -169,9 +169,9 @@ class ExpeditionViewModel(context: Context, private val token: String, private v
     fun takeOver() = act {
         val run = requireNotNull(mutable.value.run)
         obtainWriter(run.id, true)
-        mutable.update { it.copy(notice = "已接管；旧草稿和待同步操作仍保留，请核对后继续") }
+        mutable.update { it.copy(notice = "已接管，原草稿已保留") }
     }
-    fun acquire() = act { val run = requireNotNull(mutable.value.run); obtainWriter(run.id); mutable.update { it.copy(notice = "已取得本设备操作资格") } }
+    fun acquire() = act { val run = requireNotNull(mutable.value.run); obtainWriter(run.id); mutable.update { it.copy(notice = "已在本设备接续") } }
     fun keepAlive() {
         val run = mutable.value.run ?: return
         if (mutable.value.busy || mutable.value.saved.pending.isNotEmpty() || run.status in listOf("SETTLED", "CANCELLED")) return
@@ -191,11 +191,11 @@ class ExpeditionViewModel(context: Context, private val token: String, private v
             pending = it.pending.filterNot { op -> op.runId == run.id }, drafts = it.drafts - run.id,
             runs = it.runs + (run.id to remote), account = remote.account) }
         writers.remove(run.id); ensureDraft(remote.run)
-        mutable.update { it.copy(conflict = null, notice = "原草稿已保存为练习副本；已采用远端进度") }
+        mutable.update { it.copy(conflict = null, notice = "已保存副本并载入云端进度") }
     }
     fun preservePendingAndRefresh() = act {
         persist { it.copy(preservedDrafts = (it.preservedDrafts + it.drafts.values).takeLast(50), preservedOperations = (it.preservedOperations + it.pending).takeLast(50), pending = emptyList()) }
-        mutable.update { it.copy(conflict = null, notice = "草稿副本已保留；未确认的开始或购买请求请先刷新核对") }
+        mutable.update { it.copy(conflict = null, notice = "副本已保留，请刷新核对待同步操作") }
         journal.state.selectedCourseId?.let { loadChapter(it) }
         val rewards = api.rewards(); persist { it.copy(account = rewards.account, grants = rewards.grants) }
     }
@@ -233,14 +233,14 @@ class ExpeditionViewModel(context: Context, private val token: String, private v
                     val progress = if (result.replayed) api.chapter(result.progress.courseId).progress else result.progress
                     persist { it.copy(chapters = it.chapters.mapValues { (_, value) -> if (value.progress.id == progress.id) value.copy(progress = progress) else value },
                         pending = it.pending.filterNot { saved -> saved.opId == op.opId }) }
-                    mutable.update { it.copy(notice = "伙伴档案已更新，知识证据未改变") }
+                    mutable.update { it.copy(notice = "档案已更新") }
                 }
                 "SELF_REPORT" -> {
                     val result = api.selfReport(requireNotNull(op.selfReport)); checkOpen()
                     val latest = if (result.replayed) api.rewards() else null
                     persist { it.copy(account = latest?.account ?: result.account, selfReports = (it.selfReports + result.record).distinctBy { record -> record.id },
                         grants = latest?.grants ?: (it.grants + result.rewardGrants).distinctBy { grant -> grant.id }, pending = it.pending.filterNot { saved -> saved.opId == op.opId }) }
-                    mutable.update { it.copy(notice = if (result.alreadyRecorded || result.replayed) "这份线下自述已记录，未重复累计时长" else "线下自述已记录：${result.rewardGrants.sumOf { g -> g.exp }} XP，无结晶，不改变知识证据") }
+                    mutable.update { it.copy(notice = if (result.alreadyRecorded || result.replayed) "此记录已保存" else "记录已保存 · ${result.rewardGrants.sumOf { g -> g.exp }} XP") }
                 }
                 "BASE" -> {
                     val result = api.base(requireNotNull(op.base)); val latest = if (result.replayed) api.rewards().account else result.account

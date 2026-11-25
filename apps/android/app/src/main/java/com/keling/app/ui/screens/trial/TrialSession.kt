@@ -57,7 +57,7 @@ class TrialSession(private val api: TrialApi = TrialApi()) {
     fun showExample() {
         cancel()
         change { it.copy(answeredQuestion = "固定示例题：前序、中序、后序遍历有什么区别？", example = true, answerModel = null, error = null,
-            answer = "这是内置固定演示，不是实际 AI 生成，也不根据你的问题生成。\n\n用根节点 A、左孩子 B、右孩子 C 的二叉树演示：\n前序先根：A → B → C；中序根在中间：B → A → C；后序最后根：B → C → A。\n\n练习：为 B 添加一个左孩子 D，自己写出三种顺序，再核对定义。", usage = TrialUsage()) }
+            answer = "内置示例\n\n用根节点 A、左孩子 B、右孩子 C 的二叉树演示：\n前序先根：A → B → C；中序根在中间：B → A → C；后序最后根：B → C → A。\n\n练习：为 B 添加一个左孩子 D，自己写出三种顺序，再核对定义。", usage = TrialUsage()) }
     }
     fun loadConfig(scope: CoroutineScope) {
         if (closed || mutable.value.configuring) return
@@ -109,9 +109,9 @@ class TrialSession(private val api: TrialApi = TrialApi()) {
                     TrialConcept("复杂度", "遍历包含 n 个节点的二叉树时，每个节点被访问一次，时间复杂度为 O(n)。递归额外空间与树高有关；树退化成链时可能达到 O(n)。"))),
                 TrialCourse("sample-network", "网络基础 · 内置示例", listOf(
                     TrialConcept("IP 与路由", "IP 地址用于网络寻址，路由器根据目的地址及路由表选择转发方向。具体设备配置应查阅设备和课程的正式资料。"),
-                    TrialConcept("学习验证", "先画出两台主机与一台路由器的拓扑，再解释每个端口的网络归属；不要把示意图当成已完成的华为设备实测。")))),
-            tasks = listOf(TrialTask("sample-task", "画一棵二叉树并写遍历顺序", "创建 A 为根、B 和 C 为孩子的树，分别写出三种遍历，再用定义核对。此为可修改的内置示例。", 15)),
-            notes = listOf(TrialNote("sample-note", "我的第一份试用笔记", "内置示例：前序、中序、后序的差异在于访问根节点的时机。你可以修改或删除这篇笔记；它只保留在本次试用的内存里。"))
+                    TrialConcept("学习验证", "先画出两台主机与一台路由器的拓扑，再解释每个端口的网络归属；核对端口配置。")))),
+            tasks = listOf(TrialTask("sample-task", "画一棵二叉树并写遍历顺序", "创建 A 为根、B 和 C 为孩子的树，分别写出三种遍历，再用定义核对。", 15)),
+            notes = listOf(TrialNote("sample-note", "我的第一份试用笔记", "内置示例：前序、中序、后序的差异在于访问根节点的时机。"))
         )
     }
 }

@@ -8,13 +8,13 @@ import kotlinx.coroutines.flow.update
 
 data class KeyCandidate(val providerId: String?, val explanation: String)
 fun identifyKeyCandidate(key: String): KeyCandidate = when {
-    key.startsWith("sk-ant-") -> KeyCandidate("anthropic", "前缀类似 Anthropic；只是本地候选，需要你选择并验证。")
-    key.startsWith("sk-proj-") || key.startsWith("sk-svcacct-") -> KeyCandidate("openai", "前缀类似 OpenAI；只是本地候选，需要你选择并验证。")
-    key.startsWith("AIza") -> KeyCandidate("gemini", "前缀类似 Google Gemini；只是本地候选，需要你选择并验证。")
-    key.startsWith("sk-") -> KeyCandidate(null, "多家厂商都使用 sk- 前缀，无法仅凭格式确认。请自行选择厂商。")
-    key.count { it == '.' } == 2 -> KeyCandidate(null, "此格式可能是 JWT 类令牌，多家服务均会使用。请按密钥来源选择厂商。")
-    key.isBlank() -> KeyCandidate(null, "输入 Key 后只在本机判断可能的厂商，不会自动验证。")
-    else -> KeyCandidate(null, "无法可靠判断厂商。请按密钥来源手动选择。")
+    key.startsWith("sk-ant-") -> KeyCandidate("anthropic", "可能为 Anthropic，待验证")
+    key.startsWith("sk-proj-") || key.startsWith("sk-svcacct-") -> KeyCandidate("openai", "可能为 OpenAI，待验证")
+    key.startsWith("AIza") -> KeyCandidate("gemini", "可能为 Google Gemini，待验证")
+    key.startsWith("sk-") -> KeyCandidate(null, "请选择密钥所属厂商")
+    key.count { it == '.' } == 2 -> KeyCandidate(null, "请选择密钥所属厂商")
+    key.isBlank() -> KeyCandidate(null, "输入 Key 并选择厂商")
+    else -> KeyCandidate(null, "请选择密钥所属厂商")
 }
 
 data class ModelAccessState(
@@ -60,13 +60,13 @@ class ModelAccessSession(initialMessage: String = "", initialContext: List<Trial
         }
     }
     private fun safeError(e: Exception): String = when ((e as? ApiException)?.code) {
-        "DISCOVERY_UNSUPPORTED" -> "此服务地址暂不提供可读取的模型目录。请核对官方地域，或在下方手填已开通的模型 ID，再明确发送验证。"
-        "BASE_URL_NOT_ALLOWED" -> "地址不属于所选厂商允许的官方地址，请从列表选择并核对账户地域。"
+        "DISCOVERY_UNSUPPORTED" -> "无法读取模型目录，请核对服务地域或手填模型 ID。"
+        "BASE_URL_NOT_ALLOWED" -> "服务地址不匹配，请核对厂商及地域。"
         else -> when ((e as? ApiException)?.statusCode) {
         401, 403 -> "密钥或权限未通过验证，请核对所选厂商与账户授权。"
         400, 404, 422 -> "请求未被接受，请核对厂商、官方地址、模型名称及输入限制。"
         429 -> "请求受限或额度不足，请稍后重试并检查模型商账户。"
-        else -> "连接或模型请求失败。Key 不会在错误中显示，请核对配置后重试。"
+        else -> "请求失败，请检查网络与模型配置。"
         }
     }
     fun discover(scope: CoroutineScope) {

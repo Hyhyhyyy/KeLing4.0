@@ -629,7 +629,7 @@ private fun EmptyGardenPlanetState(
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
-                text = "种下你的第一颗知识星球\n开启你的星际培育之旅",
+                text = "暂无课程",
                 style = MaterialTheme.typography.bodySmall,
                 color = EarthBrownLight,
                 textAlign = TextAlign.Center

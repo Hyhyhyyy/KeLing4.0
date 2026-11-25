@@ -46,9 +46,9 @@ class AppErrorBoundary extends React.Component<{ children: React.ReactNode }, { 
   render() {
     if (this.state.failed) return <div className="loading-screen" role="alert">
       <h1>页面暂时未能打开</h1>
-      <p>页面资源可能已更新，或当前连接中断。请刷新以加载最新版本。</p>
-      <p>{useAppStore.getState().isGuest ? '刷新会清空本次游客数据，重新开启一个临时空间。' : '已经保存的账号数据不会因此删除。'}</p>
-      <button className="btn btn-primary" onClick={() => window.location.reload()}>刷新并重新打开</button>
+
+      {useAppStore.getState().isGuest && <p>刷新将清空游客数据。</p>}
+      <button className="btn btn-primary" onClick={() => window.location.reload()}>刷新重试</button>
     </div>;
     return this.props.children;
   }
@@ -69,8 +69,8 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
     void connect().finally(()=>{if(active)setChecked(true);});
     return ()=>{active=false;window.removeEventListener('focus',refresh);};
   },[loadUser,startGuest,isGuest]);
-  if(authError)return <div className="loading-screen" role="alert"><p>{authError}</p><button className="btn btn-primary" onClick={()=>void loadUser()}>重试连接</button><button className="btn" onClick={logout}>退出登录</button><Link className="btn btn-secondary" to="/trial">游客试用 · 无需登录 →</Link></div>;
-  if(!checked||(isLoading&&!isAuthenticated))return <div className="loading-screen" role="status"><div className="loading-spinner"/><p>正在连接账户…</p><Link className="btn btn-secondary" to="/trial">游客试用 · 无需登录 →</Link></div>;
+  if(authError)return <div className="loading-screen" role="alert"><p>{authError}</p><button className="btn btn-primary" onClick={()=>void loadUser()}>重试连接</button><button className="btn" onClick={logout}>退出登录</button><Link className="btn btn-secondary" to="/trial">游客试用 →</Link></div>;
+  if(!checked||(isLoading&&!isAuthenticated))return <div className="loading-screen" role="status"><div className="loading-spinner"/><p>正在连接账户…</p><Link className="btn btn-secondary" to="/trial">游客试用 →</Link></div>;
   if(!isAuthenticated&&!isGuest)return <Navigate to="/login" replace/>;
   return <>{children}</>;
 };
@@ -145,8 +145,8 @@ const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     <div className="app-layout">
       <TopNav />
       <main className="main-content">
-        {isGuest && <aside className="guest-workspace-banner" aria-label="游客模式说明"><div><strong>游客模式 · 完整学习空间</strong><p>所有模块均可使用。本次数据仅在内存中，刷新、关闭或退出即清空，不跨设备同步。真实 AI 需要有效模型配置。</p></div><button onClick={() => { endGuest(); navigate('/explore'); }}>退出并清空</button></aside>}
-        {offlineAccount && <aside className="exp-offline-banner" role="status">离线读取本机远征快照；云端结果与奖励尚未确认。<Link to="/voyage/sync">查看草稿与待同步</Link></aside>}
+        {isGuest && <aside className="guest-workspace-banner" aria-label="游客模式"><strong>游客模式 · 刷新或退出后清空</strong><button onClick={() => { endGuest(); navigate('/explore'); }}>退出并清空</button></aside>}
+        {offlineAccount && <aside className="exp-offline-banner" role="status">离线 · 待同步<Link to="/voyage/sync">查看草稿</Link></aside>}
         {children}
       </main>
     </div>
@@ -170,7 +170,7 @@ function GuestEntry() {
       .catch(() => { if (alive) setError('试用空间未能打开，请刷新后重试。'); });
     return () => { alive = false; };
   }, [startGuest, navigate]);
-  return <div className="loading-screen" role="status">{error || '正在打开完整游客工作台…'}</div>;
+  return <div className="loading-screen" role="status">{error || '正在进入…'}</div>;
 }
 
 function App() {

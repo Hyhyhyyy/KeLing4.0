@@ -183,9 +183,9 @@ const CourseDetail: React.FC = () => {
         </div>
       </motion.div>
 
-      <StellarSceneBanner scene="courseDetail" eyebrow="COURSE / FIELD STATION" title="沿着一门课程，探索更深一层" description="查看知识点与学习记录，带着课程资料提问，逐步完善自己的理解。" compact/>
+      <StellarSceneBanner scene="courseDetail" title="课程资料" compact/>
 
-      <section className="exp-panel"><h2>二叉树区域 · 可玩的学习章节</h2><p>队列、栈与二叉搜索树三个目标，包含操作推演、教星芽、试炼和证据回看。其他课程资料与图谱继续保留。</p><Link className="btn btn-primary" to={`/greenhouse/${course.id}/chapter`}>进入二叉树示例章节</Link></section>
+      <section className="exp-panel"><h2>二叉树练习</h2><Link className="btn btn-primary" to={`/greenhouse/${course.id}/chapter`}>进入二叉树示例章节</Link></section>
 
       {/* 掌握度卡片 */}
       <motion.div
@@ -254,7 +254,7 @@ const CourseDetail: React.FC = () => {
           </div>
           <div className="action-content">
             <h4>知识图谱</h4>
-            <p>思维导图式学习</p>
+
           </div>
           <ChevronRight size={20} className="chevron" />
         </div>
@@ -265,7 +265,7 @@ const CourseDetail: React.FC = () => {
           </span>
           <span className="action-content">
             <strong>AI 辅导</strong>
-            <small>先核对课程资料，再开始提问</small>
+
           </span>
           <ChevronRight size={20} className="chevron" aria-hidden="true" />
         </AskAssistantButton>
@@ -276,7 +276,7 @@ const CourseDetail: React.FC = () => {
           </div>
           <div className="action-content">
             <h4>创建任务</h4>
-            <p>安排学习计划</p>
+
           </div>
           <ChevronRight size={20} className="chevron" />
         </div>
@@ -299,7 +299,7 @@ const CourseDetail: React.FC = () => {
         {nodes.length === 0 ? (
           <div className="empty-nodes" onClick={handleCreateKnowledgeNode}>
             <BookOpen size={32} />
-            <p>点击添加第一个知识点</p>
+            <p>暂无知识点</p>
           </div>
         ) : (
           <div className="nodes-list">

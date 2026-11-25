@@ -405,11 +405,11 @@ fun MainAppContent(authViewModel: AuthViewModel, viewModel: AppViewModel, onRetr
                     if (guest != null || showLogoutDialog) Surface(color = MaterialTheme.colorScheme.secondaryContainer) {
                         Column(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp)) {
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                Text(if (guest != null) "游客 · 完整功能 · 退出后不保存" else "账号会话", Modifier.weight(1f), style = MaterialTheme.typography.labelLarge)
-                                TextButton(onClick = { showLogoutDialog = !showLogoutDialog }) { Text(if (showLogoutDialog) "收起确认" else "退出试用") }
+                                Text(if (guest != null) "游客 · 退出即清空" else "账号会话", Modifier.weight(1f), style = MaterialTheme.typography.labelLarge)
+                                TextButton(onClick = { showLogoutDialog = !showLogoutDialog }) { Text(if (showLogoutDialog) "取消" else "退出试用") }
                             }
                             if (showLogoutDialog) {
-                                Text(if (guest != null) "确认退出？本次内容与 Key 将清空，重新进入从初始空间开始。" else "确认退出登录？本机学习数据保留在当前账号下，下次登录可继续使用。")
+                                Text(if (guest != null) "退出将清空游客记录与 Key。" else "退出当前账号？")
                                 Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                                     Button(onClick = { if (guest != null) onGuestExit() else authViewModel.logout(); viewModel.clearAllData(); showLogoutDialog = false }) { Text("确认退出") }
                                     OutlinedButton(onClick = { showLogoutDialog = false }) { Text("继续使用") }
@@ -419,7 +419,7 @@ fun MainAppContent(authViewModel: AuthViewModel, viewModel: AppViewModel, onRetr
                     }
                     if (isCheckingUpdate) LinearProgressIndicator(Modifier.fillMaxWidth())
                     if (showNoUpdateToast) Row(Modifier.padding(horizontal = 16.dp), verticalAlignment = Alignment.CenterVertically) {
-                        Text("版本检查完成 · 当前无需更新", Modifier.weight(1f), style = MaterialTheme.typography.bodySmall)
+                        Text("当前无需更新", Modifier.weight(1f), style = MaterialTheme.typography.bodySmall)
                         TextButton(onClick = { showNoUpdateToast = false }) { Text("收起") }
                     }
                     updateCheckError?.let { error -> Surface(color = MaterialTheme.colorScheme.errorContainer) {
@@ -431,7 +431,7 @@ fun MainAppContent(authViewModel: AuthViewModel, viewModel: AppViewModel, onRetr
                     if (showUpdateDialog && updateInfo != null) Surface(color = MaterialTheme.colorScheme.surfaceVariant) {
                         Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                             Text("${if (forceUpdate) "需要更新" else "发现新版本"} · ${updateInfo!!.versionName}", style = MaterialTheme.typography.titleMedium)
-                            if (forceUpdate) Text("服务要求使用新版，请下载安装后继续。当前学习数据保留。", style = MaterialTheme.typography.bodySmall)
+                            if (forceUpdate) Text("请更新后继续使用", style = MaterialTheme.typography.bodySmall)
                             TextButton(onClick = { updateExpanded = !updateExpanded }) { Text(if (updateExpanded) "收起更新说明" else "查看更新说明") }
                             if (updateExpanded) Text(updateInfo!!.updateLog, style = MaterialTheme.typography.bodyMedium)
                             Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -475,10 +475,10 @@ fun MainAppContent(authViewModel: AuthViewModel, viewModel: AppViewModel, onRetr
                 .padding(paddingValues)
         ) {
             if (forceUpdate && showUpdateDialog) {
-                Text("请使用上方下载入口安装新版后继续。当前数据不会因本提示被删除。", Modifier.padding(24.dp))
+                Text("请下载安装新版", Modifier.padding(24.dp))
             } else if (needsLocalData && (!syncState.isReady || syncState.isSyncing)) {
                 if (syncState.error == null) LoadingScreen()
-                else Text("数据暂不可用，请重试。原始本地数据已保留。", Modifier.padding(24.dp))
+                else Text("数据读取失败，请重试。", Modifier.padding(24.dp))
             } else when (currentScreen) {
                 "home", "star_map", "base", "profile" -> {
                     expeditionVm?.let { model -> com.keling.app.expedition.ExpeditionScreen(model, currentScreen, guest != null,
@@ -1054,7 +1054,7 @@ private fun EmptyPlanetCard(onClick: () -> Unit) {
                 color = EarthBrown
             )
             Text(
-                text = "点击创建你的第一个星球",
+                text = "暂无课程",
                 style = MaterialTheme.typography.bodySmall,
                 color = EarthBrownLight
             )
@@ -1154,7 +1154,7 @@ private fun EmptyTaskCard(onClick: () -> Unit) {
                 color = EarthBrown
             )
             Text(
-                text = "和恒星引擎聊聊，让它帮你制定学习计划",
+                text = "生成学习计划",
                 style = MaterialTheme.typography.bodySmall,
                 color = EarthBrownLight
             )
@@ -1951,7 +1951,7 @@ fun GreenhouseScreen(
                     accentColor = MossGreen
                 ) {
                     Text(
-                        text = "在这里照看你的知识星球，培育它们茁壮成长 🌱",
+                        text = "课程",
                         style = MaterialTheme.typography.bodySmall,
                         color = EarthBrownLight
                     )
@@ -1964,7 +1964,7 @@ fun GreenhouseScreen(
                     EmptyState(
                         icon = "🌌",
                         title = "还没有知识星球",
-                        description = "点击右上角「新建」创建你的第一个星球\n或者和恒星引擎聊聊，让它帮你生成",
+                        description = "暂无课程",
                         action = {
                             KeLingButton(
                                 text = "和AI聊聊",
@@ -2276,7 +2276,7 @@ fun GreenhouseCourseScreen(
             title = { Text("生成知识图谱？", color = EarthBrown, fontWeight = FontWeight.Bold) },
             text = {
                 Text(
-                    text = "恒星引擎可以根据本课程的知识结构，生成一份知识图谱草案。\n你可以先去和 AI 讨论生成内容，再决定是否长期展示在温室里。",
+                    text = "暂无知识图谱",
                     color = EarthBrownLight
                 )
             }
@@ -2443,7 +2443,7 @@ fun GreenhouseCourseScreen(
                             } else {
                                 Spacer(modifier = Modifier.height(Spacing.xs))
                                 Text(
-                                    text = "还没有知识点，和恒星引擎聊聊，让它帮你添加知识点吧！",
+                                    text = "暂无知识点",
                                     style = MaterialTheme.typography.bodySmall,
                                     color = EarthBrownLight
                                 )
@@ -2607,7 +2607,7 @@ fun TasksScreen(
                         title = if (selectedFilter == 1) "没有待完成的任务"
                                else if (selectedFilter == 2) "还没有完成的任务"
                                else "暂无任务",
-                        description = if (selectedFilter == 0) "和恒星引擎聊聊，让它帮你制定学习计划"
+                        description = if (selectedFilter == 0) "生成学习计划"
                                      else "切换其他筛选条件看看",
                         modifier = Modifier.padding(top = Spacing.xl)
                     )
@@ -3032,7 +3032,7 @@ private fun RewardDialog(
             )
             Spacer(modifier = Modifier.height(Spacing.sm))
             Text(
-                text = "本次记录约 ${minutes.coerceAtLeast(1)} 分钟；手动完成不增加资源或知识证据。",
+                text = "学习时长约 ${minutes.coerceAtLeast(1)} 分钟",
                 style = MaterialTheme.typography.bodyMedium,
                 color = EarthBrownLight
             )
@@ -3077,7 +3077,7 @@ private fun FinishConfirmDialog(
         },
         text = {
             Text(
-                text = "本次任务已学习约 ${minutes.coerceAtLeast(1)} 分钟，结束后将根据奖励结算能量与结晶。",
+                text = "学习时长约 ${minutes.coerceAtLeast(1)} 分钟",
                 style = MaterialTheme.typography.bodyMedium,
                 color = EarthBrownLight
             )
@@ -3102,88 +3102,10 @@ private fun FinishConfirmDialog(
  * 目前为静态设计，后续可以接入笔记与成就系统。
  */
 @Composable
-fun TempleScreen(
-    onBack: () -> Unit
-) {
-    Box(modifier = Modifier.fillMaxSize()) {
-        NebulaBackground(
-            modifier = Modifier.fillMaxSize(),
-            primaryColor = DuskGold,
-            intensity = 0.03f
-        )
-
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(Spacing.md),
-            verticalArrangement = Arrangement.spacedBy(Spacing.md)
-        ) {
-            item {
-                KeLingTopBar(title = "智慧圣殿", onBack = onBack)
-            }
-
-            item {
-                KeLingCard(variant = CardVariant.Outlined, accentColor = DuskGold) {
-                    Text(
-                        text = "这里沉淀你的高光时刻与深度理解，未来会承载笔记、知识卡片与成就。",
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = EarthBrownLight
-                    )
-                }
-            }
-
-            item {
-                KeLingCard(
-                    variant = CardVariant.Glowing,
-                    accentColor = DuskGold
-                ) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text("💡", fontSize = 32.sp)
-                        Spacer(modifier = Modifier.width(Spacing.md))
-                        Column {
-                            Text(
-                                text = "今日洞见",
-                                style = MaterialTheme.typography.titleMedium,
-                                fontWeight = FontWeight.Bold,
-                                color = EarthBrown
-                            )
-                            Spacer(modifier = Modifier.height(Spacing.xs))
-                            Text(
-                                text = "当你能用自己的话向别人解释一个概念时，这颗知识种子才真正发芽。",
-                                style = MaterialTheme.typography.bodyMedium,
-                                color = EarthBrownLight
-                            )
-                        }
-                    }
-                }
-            }
-
-            item {
-                KeLingCard(
-                    variant = CardVariant.Filled,
-                    accentColor = StellarOrange
-                ) {
-                    Column {
-                        Text(
-                            text = "即将开放的功能",
-                            style = MaterialTheme.typography.titleMedium,
-                            fontWeight = FontWeight.Bold,
-                            color = StellarOrange
-                        )
-                        Spacer(modifier = Modifier.height(Spacing.sm))
-                        Text(
-                            text = "• AI 生成的知识卡片\n• 你的成就与称号墙\n• 高频错题与复盘笔记入口",
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = EarthBrownLight
-                        )
-                    }
-                }
-            }
-
-            item {
-                Spacer(modifier = Modifier.height(Spacing.xl))
-            }
-        }
+fun TempleScreen(onBack: () -> Unit) {
+    Column(Modifier.fillMaxSize().padding(Spacing.md), verticalArrangement = Arrangement.spacedBy(Spacing.md)) {
+        KeLingTopBar(title = "智慧圣殿", onBack = onBack)
+        Text("尚未开放", style = MaterialTheme.typography.bodyMedium, color = EarthBrownLight)
     }
 }
 
@@ -3191,66 +3113,10 @@ fun TempleScreen(
  * 协作星云：预留给未来的组队学习与互助功能。
  */
 @Composable
-fun NebulaScreen(
-    onBack: () -> Unit
-) {
-    Box(modifier = Modifier.fillMaxSize()) {
-        NebulaBackground(
-            modifier = Modifier.fillMaxSize(),
-            primaryColor = DeepSeaBlue,
-            intensity = 0.03f
-        )
-
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(Spacing.md),
-            verticalArrangement = Arrangement.spacedBy(Spacing.md)
-        ) {
-            item {
-                KeLingTopBar(title = "协作星云", onBack = onBack)
-            }
-
-            item {
-                KeLingCard(variant = CardVariant.Outlined, accentColor = DeepSeaBlue) {
-                    Text(
-                        text = "未来，你可以在这里与同学一起组队学习、互相发布与认领「星际救援」任务。",
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = EarthBrownLight
-                    )
-                }
-            }
-
-            item {
-                KeLingCard(
-                    variant = CardVariant.Glowing,
-                    accentColor = DuskGold
-                ) {
-                    Column {
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            Text("🚀", fontSize = 28.sp)
-                            Spacer(modifier = Modifier.width(Spacing.sm))
-                            Text(
-                                text = "联机学习 · 规划中",
-                                style = MaterialTheme.typography.titleMedium,
-                                fontWeight = FontWeight.Bold,
-                                color = DuskGold
-                            )
-                        }
-                        Spacer(modifier = Modifier.height(Spacing.sm))
-                        Text(
-                            text = "• 查看好友的星球生长情况\n• 互相发送鼓励与助力任务\n• 共同完成赏金与救援任务",
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = EarthBrownLight
-                        )
-                    }
-                }
-            }
-
-            item {
-                Spacer(modifier = Modifier.height(Spacing.xl))
-            }
-        }
+fun NebulaScreen(onBack: () -> Unit) {
+    Column(Modifier.fillMaxSize().padding(Spacing.md), verticalArrangement = Arrangement.spacedBy(Spacing.md)) {
+        KeLingTopBar(title = "协作星云", onBack = onBack)
+        Text("尚未开放", style = MaterialTheme.typography.bodyMedium, color = EarthBrownLight)
     }
 }
 
@@ -3348,7 +3214,7 @@ fun ScheduleEditScreen(
                         )
                         Spacer(modifier = Modifier.width(Spacing.sm))
                         Text(
-                            text = "管理各课程的上课时间，首页将根据当前时间展示课程进度",
+                            text = "课程时间",
                             style = MaterialTheme.typography.bodySmall,
                             color = EarthBrownLight
                         )
@@ -3412,7 +3278,7 @@ fun ScheduleEditScreen(
                                 color = EarthBrownLight
                             )
                             Text(
-                                text = "点击上方按钮添加第一节课",
+                                text = "暂无课表",
                                 style = MaterialTheme.typography.bodySmall,
                                 color = EarthBrownLight.copy(alpha = 0.6f)
                             )
@@ -3869,7 +3735,7 @@ fun AIScreen(
     // 消息列表，初始包含一条AI欢迎语
     var messages by remember { mutableStateOf(listOf(
         ChatMessageUi(
-            content = "你好！我是恒星引擎 🌟\n\n我是你的学习伙伴，可以帮你：\n• 制定学习计划\n• 分析薄弱点\n• 提醒复习\n\n试试输入「今天怎么学」",
+            content = "今天想学什么？",
             isUser = false,  // AI发送的消息
             type = ResponseType.GENERAL
         )
@@ -4090,7 +3956,7 @@ fun AIScreen(
                     )
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
-                        text = "你可以先看看本次回复中的任务描述，确认后再真正将其加入任务列表。",
+                        text = "添加此任务？",
                         style = MaterialTheme.typography.bodySmall,
                         color = EarthBrown.copy(alpha = 0.8f)
                     )
@@ -4104,7 +3970,7 @@ fun AIScreen(
                                 // 取消本次任务创建建议
                                 pendingCreateCommand = null
                                 messages = messages + ChatMessageUi(
-                                    content = "已取消本次任务创建建议，如果需要我可以重新为你设计任务。",
+                                    content = "已取消添加",
                                     isUser = false,
                                     type = ResponseType.GENERAL
                                 )
@@ -4485,7 +4351,7 @@ private fun sendMessage(
             withContext(Dispatchers.Main) {
                 onLoadingChange(false)
                 val errorMessage = ChatMessageUi(
-                    content = "连接失败，请检查网络 🌑\n试试本地功能：「今天怎么学」「我哪里薄弱」",
+                    content = "连接失败，请检查网络。",
                     isUser = false,
                     type = ResponseType.ERROR  // 错误类型
                 )

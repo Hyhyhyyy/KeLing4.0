@@ -50,7 +50,7 @@ class GuestLearningStore(private val ensureGuest: () -> Unit) {
             val text = doc.content.substring(span.startUtf16, span.endUtf16)
             MapCandidate((span.heading.ifBlank { text.lineSequence().first().take(80) }).take(80), text.take(600), MaterialSource(doc.id, span.id, doc.contentHash, span.startUtf16, span.endUtf16, span.page, span.paragraphIndex, doc.title, text, span.heading))
         } }.take(12)
-        return MapDraft("EXTRACTED_HEADINGS", candidates, "这是原文提取的候选知识点，请检查后确认；不会生成已审核关卡。")
+        return MapDraft("EXTRACTED_HEADINGS", candidates, "原文提取 · 待确认")
     }
     fun confirm(courseId: String, opId: String, candidates: List<MapCandidate>, add: (String, String) -> Unit) {
         ensure(); val signature = courseId + "\n" + expeditionJson.encodeToString(candidates)
@@ -109,7 +109,7 @@ class LearningApi(private val token: String, private val client: HttpClient = Ke
                 put("sources", JsonArray(selected.map { candidate -> buildJsonObject { put("id", candidate.source.spanId); put("title", candidate.source.title); put("text", candidate.source.text.take(6000)); put("kind", "material") } })) }.toString())
         }
         guest.ensureOpen()
-        if (!response.status.isSuccess()) throw ExpeditionException(response.status.value, ExpeditionErrorBody("模型请求失败，请检查Key与模型，原资料仍保留", "AI_REQUEST_FAILED"))
+        if (!response.status.isSuccess()) throw ExpeditionException(response.status.value, ExpeditionErrorBody("模型请求失败，请检查 Key 与模型配置。", "AI_REQUEST_FAILED"))
         // Recheck current versions after the response, before displaying a now-stale citation.
         guest.learningMaterials.draft(courseId, ids)
         return expeditionJson.decodeFromString(response.bodyAsText())

@@ -5,8 +5,8 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 
 const val AUTH_WAIT_MILLIS = 25_000L
-const val AUTH_WAIT_LIMIT_MESSAGE = "等待已超过25秒，已停止等待。请检查连接后重试；如果刚才正在注册，服务可能已收到请求，可先尝试登录。"
-const val AUTH_CANCEL_MESSAGE = "已停止等待。如果刚才正在注册，服务可能已收到请求，可先尝试登录。"
+const val AUTH_WAIT_LIMIT_MESSAGE = "连接超时（25秒）。注册可能已完成，请先尝试登录。"
+const val AUTH_CANCEL_MESSAGE = "已取消等待；服务可能已收到请求。注册请先尝试登录。"
 
 /** The UI deadline runs independently of DNS/socket cancellation. Old results cannot replace a retry. */
 internal class AuthAttemptRunner<T>(private val scope: CoroutineScope, private val timeoutMillis: Long = AUTH_WAIT_MILLIS) {

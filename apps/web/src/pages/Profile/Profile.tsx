@@ -29,7 +29,7 @@ const Profile: React.FC = () => {
   const saveProfile = async (data: { avatarUrl?: string; name?: string }) => {
     if (profileBusy) return;
     setProfileBusy(true);
-    try { await userAPI.updateProfile(data); await loadUser(); setProfileNotice(isGuest ? '个人资料已应用到本次试用，刷新或退出后清空。' : '个人资料已保存，手机端刷新即可同步。'); }
+    try { await userAPI.updateProfile(data); await loadUser(); setProfileNotice(isGuest ? '已暂存' : '已保存'); }
     catch (e) { setProfileNotice(assistantError(e)); } finally { setProfileBusy(false); }
   };
   const [checkInRecords, setCheckInRecords] = useState<any[]>([]);
@@ -119,7 +119,7 @@ const Profile: React.FC = () => {
 
   return (
     <div className="profile-container">
-      <StellarSceneBanner scene="profile" eyebrow="IDENTITY / STAR PASSPORT" title="为每一段成长，留下你的名字" description="管理个人资料与星际头像，回看连续学习和签到记录。" compact/>
+      <StellarSceneBanner scene="profile" title="个人资料" compact/>
 
       {/* 用户信息卡片 */}
       <motion.div
@@ -145,7 +145,7 @@ const Profile: React.FC = () => {
         </div>
       </motion.div>
 
-      <section className="stellar-profile-editor"><h2>星际身份 · {isGuest ? '本次试用' : '两端共享'}</h2>
+      <section className="stellar-profile-editor"><h2>个人资料</h2>
         <label>昵称<input value={name} maxLength={60} onChange={e => setName(e.target.value)} /></label>
         <button className="btn btn-primary" disabled={profileBusy || !name.trim()} onClick={() => void saveProfile({ name: name.trim() })}>保存昵称</button>
         <div className="avatar-picker">{avatarNames.map((label, index) => <button key={label} disabled={profileBusy} aria-pressed={avatarIndex(user?.avatarUrl) === index} onClick={() => void saveProfile({ avatarUrl: `stellar:avatar-${index}` })}><StellarSprite atlas="avatars" index={index} size={62} label={label} /><small>{label}</small></button>)}</div>

@@ -1180,7 +1180,7 @@ private fun EnhancedEmptyTaskCard(onClick: () -> Unit) {
             Spacer(modifier = Modifier.height(6.dp))
 
             Text(
-                text = "和星球精灵聊聊，让它帮你制定计划",
+                text = "制定学习计划",
                 style = MaterialTheme.typography.bodySmall,
                 color = EarthBrown.copy(alpha = 0.5f),
                 textAlign = TextAlign.Center
@@ -2078,7 +2078,7 @@ private fun GlassmorphismEmptyTaskCard(onClick: () -> Unit) {
                 Spacer(modifier = Modifier.height(6.dp))
 
                 Text(
-                    text = "和星球精灵聊聊，让它帮你制定计划",
+                    text = "制定学习计划",
                     style = MaterialTheme.typography.bodySmall,
                     color = EarthBrown.copy(alpha = 0.5f),
                     textAlign = TextAlign.Center

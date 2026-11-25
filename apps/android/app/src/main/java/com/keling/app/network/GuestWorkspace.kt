@@ -169,7 +169,7 @@ class GuestWorkspace internal constructor(private val suppliedClient: HttpClient
         }
         val bounded = selected.map { it.copy(text = it.text.take(6000), truncated = it.truncated || it.text.length > 6000) }
         val fingerprint = java.security.MessageDigest.getInstance("SHA-256").digest(json.encodeToString(AssistantSource.serializer().let { kotlinx.serialization.builtins.ListSerializer(it) }, selected).toByteArray()).joinToString("") { "%02x".format(it) }
-        return AssistantContextPreview(ref, title, fingerprint, bounded, if (selected.size > bounded.size || bounded.any { it.truncated }) listOf("仅附带预览所示片段；课程最多6知识点、3材料首段、3目标与最近3次远征，不代表完整材料") else emptyList())
+        return AssistantContextPreview(ref, title, fingerprint, bounded, if (selected.size > bounded.size || bounded.any { it.truncated }) listOf("已截取资料片段") else emptyList())
     }
     suspend fun catalog(): ModelCatalog {
         ensureOpen(); val key = modelAccess.state.value

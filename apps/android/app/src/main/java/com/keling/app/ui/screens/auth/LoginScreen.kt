@@ -129,17 +129,10 @@ fun LoginScreen(
                 color = EarthBrown
             )
 
-            Text(
-                text = "知识星球培育日记",
-                fontSize = 14.sp,
-                color = EarthBrown.copy(alpha = 0.7f),
-                modifier = Modifier.padding(top = 4.dp)
-            )
-
             Spacer(modifier = Modifier.height(24.dp))
 
-            Button(onClick = onStartTrial, modifier = Modifier.fillMaxWidth()) { Text("游客试用全部功能 · 无需登录 →") }
-            Text("本次数据仅保留在内存；退出或重新打开后清空。", style = MaterialTheme.typography.bodySmall, modifier = Modifier.padding(vertical = 8.dp))
+            Button(onClick = onStartTrial, modifier = Modifier.fillMaxWidth()) { Text("游客试用") }
+            Text("游客记录退出即清空", style = MaterialTheme.typography.bodySmall, modifier = Modifier.padding(vertical = 8.dp))
 
             // 登录卡片
             Card(
@@ -158,15 +151,6 @@ fun LoginScreen(
                         fontWeight = FontWeight.Bold,
                         color = EarthBrown
                     )
-
-                    Spacer(modifier = Modifier.height(8.dp))
-
-                    Text(
-                        text = "登录以继续你的学习之旅",
-                        fontSize = 14.sp,
-                        color = EarthBrown.copy(alpha = 0.6f)
-                    )
-
                     Spacer(modifier = Modifier.height(32.dp))
 
                     // 邮箱输入
@@ -300,18 +284,6 @@ fun LoginScreen(
                         fontWeight = FontWeight.Bold
                     )
                 }
-            }
-
-            // 游客模式
-            TextButton(
-                onClick = onStartTrial,
-                modifier = Modifier.padding(top = 8.dp)
-            ) {
-                Text(
-                    text = "游客试用全部功能 · 退出清空 →",
-                    color = EarthBrown.copy(alpha = 0.5f),
-                    fontSize = 13.sp
-                )
             }
 
             Spacer(modifier = Modifier.height(40.dp))

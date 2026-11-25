@@ -51,7 +51,7 @@ export function evaluate(exercise: Exercise, answer: Answer): Feedback {
   if (exercise.template === 'TEACH_COMPANION') {
     assert(typeof answer.explanation === 'string' && answer.explanation.trim().length >= 12 && answer.explanation.length <= 4000, 'INVALID_ANSWER', '请用至少12字、最多4000字解释自己的理解', 400);
     assert(!answer.selfCheck || Array.isArray(answer.selfCheck) && answer.selfCheck.length <= 12 && answer.selfCheck.every(x => typeof x === 'string' && x.length <= 200), 'INVALID_ANSWER', '自评条目无效', 400);
-    return { kind: 'SELF_REPORTED', correct: null, firstDeviation: null, message: '已保留你的解释。请对照评分条目修正；自评不等于人工审核或独立知识验证。', rubric: exercise.rubric, independentEligible: false };
+    return { kind: 'SELF_REPORTED', correct: null, firstDeviation: null, message: '解释已保存，请对照评分条目自评。', rubric: exercise.rubric, independentEligible: false };
   }
   assert(Array.isArray(answer.order) && answer.order.length <= 64 && answer.order.every(x => typeof x === 'string' && x.length <= 80), 'INVALID_ANSWER', '请提交节点编号列表', 400);
   assert(new Set(answer.order).size === answer.order.length && answer.order.every(id => exercise.tree.nodes.some(n => n.id === id)), 'INVALID_ANSWER', '节点编号重复或不存在，请检查输入方式', 400);
@@ -72,7 +72,7 @@ export function evaluate(exercise: Exercise, answer: Answer): Feedback {
   }
   const correct = choiceCorrect && deviation === undefined && stepDeviation === null;
   return { kind: 'RULE_CHECKED', correct, firstDeviation: !choiceCorrect ? 0 : deviation ?? null, stepDeviation, expectedOrder: wanted,
-    message: correct ? '本次输入符合题目规则。请回看推演并说明下一步；程序判定不代表内容已经人工审核。' : !choiceCorrect ? '先检查容器或全局边界判断。阅读规则后可以修正，本题后续属于训练。' : stepDeviation !== null ? `第${stepDeviation + 1}次容器操作偏离规则；先检查压入孩子的顺序。` : `从第${(deviation ?? 0) + 1}个位置起与规则推演不一致；可对照顺序继续练习。`, rubric: exercise.rubric, independentEligible: false };
+    message: correct ? '符合题目规则' : !choiceCorrect ? '请检查容器或全局边界判断。' : stepDeviation !== null ? `第${stepDeviation + 1}次容器操作偏离规则；先检查压入孩子的顺序。` : `从第${(deviation ?? 0) + 1}个位置起与规则推演不一致；可对照顺序继续练习。`, rubric: exercise.rubric, independentEligible: false };
 }
 export function createRun(input: { id: string; courseId: string; questKind: QuestKind; objectiveKey?: ObjectiveKey; mode: RunMode; now: string; sources: SourceRef[] }, previous: ProgressState, chapter: Chapter = CHAPTER): { run: RunState; progress: ProgressState } {
   const progress = clone(previous); const objective = input.objectiveKey ?? chapter.objectives[0].key;
@@ -178,7 +178,7 @@ export function selfReportCanonical(input: SelfReportInput, now: string): string
   return JSON.stringify([studyDay(now), input.courseId ?? '', input.title.trim(), (input.notes ?? '').trim(), String(input.durationMinutes)]);
 }
 export function applySelfReport(account: AccountView, stableKey: string, recordId: string, existingKeys: string[], now: string) {
-  return settleRewards(account, [{ stableKey, kind: 'SELF_REPORT', exp: 2, crystals: 0, reason: '线下学习自述；不代表独立知识验证', sourceId: recordId }], existingKeys, now);
+  return settleRewards(account, [{ stableKey, kind: 'SELF_REPORT', exp: 2, crystals: 0, reason: '线下学习自述', sourceId: recordId }], existingKeys, now);
 }
 /** Wall-clock session accounting only. Never evidence of attendance or study duration. */
 export function sessionTiming(run: RunState, now: string): SessionTiming {

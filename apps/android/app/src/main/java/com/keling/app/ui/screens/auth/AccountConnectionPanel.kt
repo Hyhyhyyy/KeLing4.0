@@ -21,10 +21,10 @@ fun AccountConnectionPanel(enabled: Boolean, onSaved: () -> Unit) {
     val scope = rememberCoroutineScope()
     Column(Modifier.fillMaxWidth().padding(vertical = 12.dp)) {
         TextButton(onClick = { expanded = !expanded }, enabled = enabled && !checking) {
-            Text("连接检测与服务地址")
+            Text("服务连接")
         }
         if (expanded) {
-            Text("仅连接你信任的课灵服务。检测不会发送邮箱或密码。", style = MaterialTheme.typography.bodySmall)
+            Text("请使用可信的服务地址", style = MaterialTheme.typography.bodySmall)
             OutlinedTextField(value = address, onValueChange = { address = it; verified = null; message = null },
                 label = { Text("HTTPS 服务地址") }, enabled = enabled && !checking,
                 modifier = Modifier.fillMaxWidth(), singleLine = true)
@@ -38,7 +38,7 @@ fun AccountConnectionPanel(enabled: Boolean, onSaved: () -> Unit) {
                         val target = normalizeEndpoint(address)
                         checkAccountService(KelingHttpClient.client, target)
                         verified = target
-                        message = "服务与账号数据库均可连接。保存后可尝试注册或登录。"
+                        message = "连接正常"
                     } catch (e: CancellationException) { throw e }
                     catch (e: Exception) { message = connectionError(e) }
                     finally { checking = false }
@@ -50,7 +50,7 @@ fun AccountConnectionPanel(enabled: Boolean, onSaved: () -> Unit) {
                 OutlinedButton(onClick = {
                     try { ConnectionSettings.save(context, verified!!); onSaved(); message = "地址已保存，请注册或登录。" }
                     catch (e: Exception) { message = connectionError(e) }
-                }, enabled = enabled && !checking, modifier = Modifier.fillMaxWidth()) { Text("保存已检测地址") }
+                }, enabled = enabled && !checking, modifier = Modifier.fillMaxWidth()) { Text("保存地址") }
             }
             message?.let { Text(it, modifier = Modifier.padding(top = 8.dp), style = MaterialTheme.typography.bodyMedium) }
         }

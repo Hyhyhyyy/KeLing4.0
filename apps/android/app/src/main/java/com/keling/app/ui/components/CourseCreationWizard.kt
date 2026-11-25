@@ -429,7 +429,7 @@ private fun ScheduleStep(
             .height(400.dp)
     ) {
         Text(
-            text = "点击课表格子添加/删除上课时间",
+            text = "选择上课时间",
             style = MaterialTheme.typography.bodySmall,
             color = EarthBrownLight
         )
@@ -845,7 +845,7 @@ private fun AdvancedStep(
             }
         } else {
             Text(
-                text = "点击设置考试日期（用于考前提醒）",
+                text = "设置考试日期",
                 style = MaterialTheme.typography.bodySmall,
                 color = EarthBrownLight,
                 modifier = Modifier.clickable {
@@ -859,25 +859,7 @@ private fun AdvancedStep(
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        // 提示
-        Surface(
-            modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(12.dp),
-            color = WarmSunOrange.copy(alpha = 0.1f)
-        ) {
-            Row(
-                modifier = Modifier.padding(12.dp),
-                verticalAlignment = Alignment.Top
-            ) {
-                Text("💡", fontSize = 20.sp)
-                Spacer(modifier = Modifier.width(8.dp))
-                Text(
-                    text = "提示：学分和考试日期可以帮助系统更好地规划学习任务",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = EarthBrownLight
-                )
-            }
-        }
+
     }
 }
 

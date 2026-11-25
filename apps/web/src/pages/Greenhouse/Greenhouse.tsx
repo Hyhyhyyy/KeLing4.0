@@ -76,7 +76,7 @@ const Greenhouse: React.FC = () => {
       >
         <div className="header-content">
           <h1>知识星球</h1>
-          <p>管理和培育你的课程知识</p>
+
         </div>
         <button className="btn btn-primary" onClick={() => { setCreateError(''); setShowCreateDialog(true); }}>
           <Plus size={18} />
@@ -84,7 +84,7 @@ const Greenhouse: React.FC = () => {
         </button>
       </motion.div>
 
-      <StellarSceneBanner scene="garden" eyebrow="KNOWLEDGE / BIOSPHERE" title="把好奇心，种成知识星球" description="从课程出发，收集知识点，连接相关概念。每一次整理，都让你的学习地图更清晰。"/>
+      <StellarSceneBanner scene="garden" title="课程星图"/>
 
       {/* 课程网格 */}
       {courses.length === 0 ? (
@@ -95,7 +95,7 @@ const Greenhouse: React.FC = () => {
         >
           <img src={appPath("/stellar/mascot_welcome.webp")} alt="星芽等待第一门课程" width="160" />
           <h3>还没有知识星球</h3>
-          <p>创建你的第一门课程，开始知识探索之旅</p>
+
           <button className="btn btn-primary" onClick={() => { setCreateError(''); setShowCreateDialog(true); }}>
             创建课程
           </button>

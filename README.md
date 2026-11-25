@@ -1,12 +1,12 @@
 # 课灵 · KeLing
 
-省决赛程序候选版：**4.0.5-defense-rc1**（Android versionCode 21）。当前候选与已提交材料、已公开安装包分别核对；运行证据、人工事项和本地排练入口见[11 月 25 日版本核对](docs/competition/defense-readiness-2026-11-25.md)。双击 `demo.bat` 或运行 `npm run demo` 可启动独立本机演示库；真实华为工作流尚待账号持有人恢复并验证。此候选尚待用户确认，不代表答辩材料已定稿。
+省决赛程序候选版：**4.0.5-defense-rc2**（Android versionCode 22）。当前候选与已提交材料、已公开安装包分别核对；本轮界面精简见[RC2 记录](docs/competition/copy-cleanup-2026-11-25.md)，原提交核对、人工事项和本地排练入口见[版本核对](docs/competition/defense-readiness-2026-11-25.md)。双击 `demo.bat` 或运行 `npm run demo` 可启动独立本机演示库；真实华为工作流尚待账号持有人恢复并验证。此候选尚待用户确认，不代表答辩材料已定稿。
 
 以游戏化学习为核心的 Web 与 Android 应用。课程资料、动手练习、AI 辅导、任务与笔记使用共享账号服务；学习过程围绕「远航、星图、基地、我的」组织，手机另提供资料与设置入口。
 
 [打开网页](https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg) · [游客试用](https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg/trial) · [下载 Android](https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg/download/android) · [GitHub Releases](https://github.com/Hyhyhyyy/KeLing4.0/releases)
 
-当前公开版本为 **4.0.4-direct-cloud-preview**，Android versionCode **20**，最低 Android 8.0。预览包使用调试签名。当前网页与 API 运行于妙搭，连接原 Neon PostgreSQL 数据库。
+当前公开 Android 下载仍为 **4.0.4-direct-cloud-preview**，Android versionCode **20**，最低 Android 8.0。预览包使用调试签名。当前网页与 API 运行于妙搭，连接原 Neon PostgreSQL 数据库。
 
 ## 功能
 

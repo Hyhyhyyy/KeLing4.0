@@ -27,7 +27,7 @@ const TASK_STATUS_CONFIG: Record<TaskStatus, { label: string; color: string }> =
 };
 
 const Tasks: React.FC = () => {
-  const { tasks, courses, createTask, updateTask, completeTask, deleteTask, loadTasks, loadCourses, isGuest } = useAppStore();
+  const { tasks, courses, createTask, updateTask, completeTask, deleteTask, loadTasks, loadCourses } = useAppStore();
 
   useEffect(() => { void loadTasks(); void loadCourses(); const refresh = () => { void loadTasks(); }; window.addEventListener('focus',refresh); return () => window.removeEventListener('focus',refresh); }, [loadTasks,loadCourses]);
 
@@ -163,10 +163,10 @@ const Tasks: React.FC = () => {
         animate={{ opacity: 1, y: 0 }}
       >
         <h1>学习任务 · 轨道专注</h1>
-        <p>{isGuest ? '本页计时在切换浏览器标签时继续；离开任务页面会结束，确认完成后计入本次试用的学习报告。' : '本页计时在切换浏览器标签时继续；离开页面会结束，确认完成后同步学习时长。'}</p>
+        <p>离开页面将停止计时</p>
       </motion.div>
 
-      <StellarSceneBanner scene="focus" eyebrow="FOCUS / LUNAR CABIN" title="给专注，留一盏灯" description="选择一项任务，开始计时。让今天的小步前进，成为下一次出发的坐标。"/>
+      <StellarSceneBanner scene="focus" title="专注任务"/>
 
       {/* 统计卡片 */}
       <motion.div
@@ -209,7 +209,7 @@ const Tasks: React.FC = () => {
         </motion.div>
       )}
 
-      {activeTimer && <p id="task-context-help" className="notebook-context-help" role="status">计时期间暂不打开 AI 对话，请先完成任务或停止计时，避免丢失当前计时。</p>}
+      {activeTimer && <p id="task-context-help" className="notebook-context-help" role="status">问 AI 前请先停止计时</p>}
 
       {/* 筛选标签 */}
       <div className="filter-tabs">

@@ -14,23 +14,22 @@ import kotlinx.coroutines.CancellationException
 @Composable fun LegacyPreviewCard(accountId: String, cloud: WorkspaceProfile?, onClose: () -> Unit) {
     val context = LocalContext.current
     var loading by remember { mutableStateOf(true) }; var snapshot by remember { mutableStateOf<LegacyDataPreview?>(null) }; var error by remember { mutableStateOf<String?>(null) }
-    LaunchedEffect(accountId) { try { snapshot = inspectLegacyData(context, accountId) } catch (e: CancellationException) { throw e } catch (_: Exception) { error = "未能读取旧资料；原文件保持不变。" } finally { loading = false } }
+    LaunchedEffect(accountId) { try { snapshot = inspectLegacyData(context, accountId) } catch (e: CancellationException) { throw e } catch (_: Exception) { error = "旧资料读取失败" } finally { loading = false } }
     Card { Column(Modifier.fillMaxWidth().padding(16.dp)) {
-        Text("历史资料 · 归属与回退核对", style = MaterialTheme.typography.titleLarge)
+        Text("历史资料", style = MaterialTheme.typography.titleLarge)
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             when {
-                loading -> Text("正在只读检查本机旧存档…")
+                loading -> Text("正在读取…")
                 error != null -> Text(error!!)
-                snapshot == null -> Text("没有读取到旧版 keling_data 存档；这不表示已经迁移了0条记录。")
+                snapshot == null -> Text("未找到旧存档")
                 else -> snapshot?.let { old ->
-                    Text(when (old.ownership) { "MATCH" -> "旧存档记录的账号与当前账号匹配。"; "OTHER" -> "旧存档属于另一个已记录账号，不会并入当前账号。"; else -> "旧存档未标明账号，无法确认归属，不会自动并入。" })
-                    Text("可读取数量：课程 ${old.courses?.toString() ?: "未读到或不可解析"} · 笔记 ${old.notes?.toString() ?: "未读到或不可解析"} · 任务 ${old.tasks?.toString() ?: "未读到或不可解析"}")
-                    Text("旧本机快照：等级 ${old.level ?: "未读到"}，结晶 ${old.crystals ?: "未读到"}，能量 ${old.energy ?: "未读到"}")
+                    Text(when (old.ownership) { "MATCH" -> "当前账号存档"; "OTHER" -> "其他账号存档 · 只读"; else -> "归属不明 · 只读" })
+                    Text("课程 ${old.courses?.toString() ?: "未知"} · 笔记 ${old.notes?.toString() ?: "未知"} · 任务 ${old.tasks?.toString() ?: "未知"}")
+                    Text("本机存档：等级 ${old.level ?: "未读到"}，结晶 ${old.crystals ?: "未读到"}，能量 ${old.energy ?: "未读到"}")
                 }
             }
             cloud?.let { Text("当前云账号：Lv.${it.level}，结晶 ${it.crystals}，历史能量 ${it.energy}") }
-            Text("两份资源不相加。本核对不修改、不上传旧资料。已有迁移只在来源账号匹配且目标本机存档为空时复制；原文件不删除，可作回退依据。未知归属只提供只读概览。", style = MaterialTheme.typography.bodySmall)
         }
-        TextButton(onClick = onClose) { Text("收起核对") }
+        TextButton(onClick = onClose) { Text("收起") }
     } }
 }

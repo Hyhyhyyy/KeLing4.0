@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 fun AuthFeedback(state: UiState<*>, onCancel: () -> Unit) {
     Column(Modifier.fillMaxWidth().padding(top = 12.dp).semantics { liveRegion = LiveRegionMode.Polite }) {
         if (state is UiState.Loading) {
-            Text("正在连接账号服务，最多等待25秒。你可以取消后重新尝试。", style = MaterialTheme.typography.bodyMedium)
+            Text("正在连接…（最多25秒）", style = MaterialTheme.typography.bodyMedium)
             OutlinedButton(onClick = onCancel, modifier = Modifier.fillMaxWidth()) { Text("取消等待") }
         } else if (state is UiState.Error) {
             Text(state.message, color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.bodyMedium)

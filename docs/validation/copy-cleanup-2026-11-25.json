@@ -1,0 +1,106 @@
+{
+  "date": "2026-11-25",
+  "version": "4.0.5-defense-rc2",
+  "baseCommit": "f03c665de16f5a006505e4046252d454bd26b9f4",
+  "changes": "Remove redundant application UI text across Web and Android; keep source learning content and necessary action/status labels.",
+  "tests": {
+    "webPassed": 49,
+    "serverPassed": 81,
+    "androidPassed": 91,
+    "gatewayPassed": 4
+  },
+  "web": {
+    "build": "passed",
+    "lintErrors": 0,
+    "lintWarnings": 34,
+    "sharedAssets": 60
+  },
+  "android": {
+    "versionCode": 22,
+    "bytes": 81260255,
+    "sha256": "ecdcc980ba1fb2ae9504c39225e4ef4b76ec28eeb953d162e084622d181dcad8",
+    "build": "passed",
+    "signatureVerified": true,
+    "signature": "Android Debug",
+    "lintErrors": 0,
+    "lintWarnings": 42,
+    "finalBinaryInstalled": false,
+    "lastChange": "Label changed to 保存下一步; assembleDebug and signature verified again, prior test/lint results apply to same logic."
+  },
+  "demo": {
+    "smoke": "passed",
+    "apiRequests": 11,
+    "isolatedSqlite": true,
+    "modelInvoked": false
+  },
+  "uiReview": {
+    "sourceReview": "completed",
+    "newBrowserOrDeviceControl": false
+  },
+  "remaining": [
+    "Gitee write authentication and candidate synchronization",
+    "Huawei Runtime recovery and current real workflow evidence",
+    "Exact RC2 APK physical-device and cross-device checks",
+    "18 questions independent human review",
+    "User confirmation before defense manuscript and PPT"
+  ],
+  "deployment": {
+    "release": {
+      "release_id": "7712063556612082946",
+      "status": "finished",
+      "commit_id": "4fb72eede9da83439fb2cbf7acfa7ab1f4c588d8",
+      "online_url": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg",
+      "error_logs": []
+    },
+    "templateWorktreeClean": true,
+    "localValidation": {
+      "hostedTypecheckAndVite": "passed",
+      "templateLint": "passed",
+      "templateProductionServerAndClientBuild": "passed",
+      "gatewayTests": {
+        "passed": 4,
+        "failed": 0
+      },
+      "precommitHook": "passed"
+    },
+    "onlineValidation": {
+      "health": {
+        "status": "ok",
+        "timestamp": "2026-11-25T11:09:45.876Z",
+        "version": "4.0.5-defense-rc2"
+      },
+      "ready": {
+        "status": "ready"
+      },
+      "generatedFilesHashMatched": 70,
+      "reachableChunks": 45,
+      "sampledImageHashesMatched": 3,
+      "newPhrasesPresent": 5,
+      "oldPhrasesAbsent": 9
+    },
+    "backendBundleSha256": "e396ca91dc66af9ee482eb2605b3cd8784bf7e8943f14f8be4ecf929f33c9fc0",
+    "indexSha256": "3fcf6cab9493a8a938910357c88cace1e14989dc5090fc136fc49411fbd589ba",
+    "sourceManifestSha256": "b33ceb6012b28e8c98951e4b51d275a22570406acbca923bdf901f45aeae19eb",
+    "preservedPaths": [
+      "server",
+      "client",
+      "scripts",
+      "package.json",
+      "package-lock.json",
+      ".env",
+      ".env.local",
+      "vendor/schema.prisma",
+      "vendor/pdfWorker.js",
+      "vendor/web/stellar"
+    ],
+    "noNewImageResources": true
+  },
+  "repository": {
+    "branch": "codex/defense-ready-20261125",
+    "baseCommit": "f03c665de16f5a006505e4046252d454bd26b9f4",
+    "trackedFiles": 709,
+    "repositoryCheck": "passed",
+    "changedAndroidFiles": 37,
+    "changedWebFiles": 29
+  }
+}

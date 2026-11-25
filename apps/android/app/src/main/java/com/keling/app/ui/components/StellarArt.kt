@@ -80,7 +80,7 @@ private object StellarBitmaps {
             if (name == "station_full") Alignment.CenterEnd else BiasAlignment(0f, 0.4f))
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
             Text(title, modifier = Modifier.semantics { heading() }, style = MaterialTheme.typography.titleMedium)
-            Text(description, style = MaterialTheme.typography.bodySmall)
+            if (description.isNotBlank()) Text(description, style = MaterialTheme.typography.bodySmall)
         }
     } }
 }

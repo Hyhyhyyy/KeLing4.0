@@ -280,7 +280,7 @@ fun MindMapKnowledgeGraphScreen(
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
                         text = if (effectiveCourseId == null) "返回温室选择一个星球"
-                               else "和 AI 聊聊，让它帮你创建知识图谱吧！",
+                               else "暂无知识图谱",
                         style = MaterialTheme.typography.bodySmall,
                         color = EarthBrownLight,
                         textAlign = TextAlign.Center

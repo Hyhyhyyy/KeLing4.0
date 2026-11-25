@@ -93,7 +93,7 @@ fun PastoralAIScreen(
     // ===== 状态管理 =====
     var messages by remember { mutableStateOf(listOf(
         ChatMessageUi(
-            content = "你好呀~ 我是你的星球精灵助手 ✿\n\n我可以帮你：\n• 制定培育计划\n• 分析学习薄弱点\n• 提醒复习时机\n\n试试问我「今天怎么学」吧~",
+            content = "今天想学什么？",
             isUser = false,
             type = ResponseType.GENERAL
         )
@@ -169,7 +169,7 @@ fun PastoralAIScreen(
             PastoralAIHeader(onBack = onBack, isLoading = isLoading)
 
             OutlinedButton(onClick = onOpenCloudAgent, modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp)) {
-                Text("智学工作台 · 云端规划与多端任务")
+                Text("智能编排")
             }
 
             HorizontalDivider(color = EarthBrown.copy(alpha = 0.08f))
@@ -215,7 +215,7 @@ fun PastoralAIScreen(
                     onCancel = {
                         pendingCreateCommand = null
                         messages = messages + ChatMessageUi(
-                            content = "已取消本次任务创建~ 需要的话我可以重新帮你设计哦 ✿",
+                            content = "已取消添加",
                             isUser = false,
                             type = ResponseType.GENERAL
                         )
@@ -501,17 +501,12 @@ private fun PastoralConfirmCard(
             )
             Column(modifier = Modifier.padding(16.dp)) {
             Text(
-                text = "✿ 精灵为你设计了一个学习任务",
+                text = "待添加任务",
                 style = MaterialTheme.typography.bodyMedium,
                 color = EarthBrown,
                 fontWeight = FontWeight.Bold
             )
             Spacer(modifier = Modifier.height(6.dp))
-            Text(
-                text = "你可以查看任务详情，确认后再添加到计划板~",
-                style = MaterialTheme.typography.bodySmall,
-                color = EarthBrown.copy(alpha = 0.7f)
-            )
             Spacer(modifier = Modifier.height(12.dp))
             Row(
                 horizontalArrangement = Arrangement.End,
@@ -576,7 +571,7 @@ private fun PastoralKnowledgeCard(
 
             if (limited.isEmpty()) {
                 Text(
-                    text = "还没有知识节点，和精灵聊聊添加一些吧~",
+                    text = "暂无知识点",
                     style = MaterialTheme.typography.bodySmall,
                     color = EarthBrown.copy(alpha = 0.6f)
                 )
@@ -770,7 +765,7 @@ private fun sendPastoralMessage(
             withContext(Dispatchers.Main) {
                 onLoadingChange(false)
                 onUpdateMessages(currentMessages + userMessage + ChatMessageUi(
-                    content = "抱歉，精灵遇到了一些问题...请稍后再试 ✿",
+                    content = "请求失败，请重试。",
                     isUser = false,
                     type = ResponseType.ERROR
                 ))
