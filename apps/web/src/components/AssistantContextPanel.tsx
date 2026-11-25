@@ -1,3 +1,4 @@
+import { SectionTitle } from './ModuleTitle';
 import type { ContextPreview, ContextRef, Source } from '../services/assistant';
 import './AssistantContextPanel.css';
 
@@ -23,7 +24,7 @@ export default function AssistantContextPanel({ source, preview, loading, error,
   onRemove: () => void;
 }) {
   return <section className="assistant-context-panel" aria-labelledby="assistant-context-heading" aria-busy={loading}>
-    <div className="assistant-context-header"><h3 id="assistant-context-heading">{kinds[source.kind]}资料</h3>
+    <div className="assistant-context-header"><SectionTitle kind="notes" as="h3" id="assistant-context-heading">{kinds[source.kind]}资料</SectionTitle>
       <div><button type="button" disabled={disabled || loading} onClick={onRefresh}>{error ? '重新获取' : '刷新资料'}</button>
         <button type="button" disabled={disabled} onClick={onRemove}>移除资料</button></div></div>
     <p className="assistant-context-status" role={error ? 'alert' : 'status'}>{loading ? '正在读取资料…' : error || (preview ? `${preview.title} · ${preview.sources.length} 段` : '未取得资料，请重新获取。')}</p>

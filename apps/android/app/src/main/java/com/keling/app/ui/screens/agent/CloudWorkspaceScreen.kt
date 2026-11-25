@@ -62,6 +62,7 @@ fun CloudWorkspaceScreen(accountId: String, token: String, initialTab: String = 
                 listOf("home" to "总览", "greenhouse" to "课程", "tasks" to "任务", "notes" to "笔记", "profile" to "我的").forEach { (id, label) -> Tab(selected = tab == id, onClick = { tab = id }, text = { Text(label) }) }
             }
             LazyColumn(Modifier.weight(1f).padding(horizontal = 16.dp), state = pageScroll, verticalArrangement = Arrangement.spacedBy(12.dp), contentPadding = PaddingValues(vertical = 12.dp)) {
+                item { StellarHeading(when (tab) { "greenhouse" -> "课程"; "tasks" -> "任务与专注"; "notes" -> "笔记"; "profile" -> "个人资料"; else -> "学习工作台" }, mascot = when (tab) { "greenhouse" -> 3; "tasks" -> 5; "notes" -> 4; "profile" -> 7; else -> 0 }) }
                 state.error?.let { message -> item { Text(message, color = MaterialTheme.colorScheme.error) } }
                 state.notice?.let { message -> item { Text(message, color = MaterialTheme.colorScheme.primary) } }
                 focus?.let { task -> item {
@@ -77,14 +78,14 @@ fun CloudWorkspaceScreen(accountId: String, token: String, initialTab: String = 
                 } }
                 if (tab == "home") {
                     item { Card { Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                        Text("学习工具箱", style = MaterialTheme.typography.titleLarge)
+                        StellarSectionTitle("学习工具箱", motif = 3)
                         listOf("greenhouse" to "课程", "tasks" to "任务与专注", "notes" to "笔记", "ai" to "AI 助手", "cloud_agent" to "智能编排", "report" to "学习报告", "achievements" to "学习成就").forEach { (route, label) ->
                             OutlinedButton(onClick = { onNavigate(route) }, modifier = Modifier.fillMaxWidth()) { Text(label) }
                         }
                     } } }
                     item { StellarSceneCard("station_full", "你好，${state.profile?.name ?: "探索者"}", "") }
                     item { Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer)) { Column(Modifier.fillMaxWidth().padding(20.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                        Text("今日学习", style = MaterialTheme.typography.titleMedium)
+                        StellarSectionTitle("今日学习", motif = 0)
                         Text("${state.courses.size} 门课程 · ${state.tasks.count { it.status == "PENDING" || it.status == "IN_PROGRESS" }} 个待办 · ${state.notes.size} 篇笔记")
                         StellarActionButton(text = if (state.checkin?.hasCheckedInToday == true) "今日已签到" else if (guest != null) "记录今日到访" else "签到", onClick = vm::checkin, enabled = !state.busy && state.checkin != null && state.checkin?.hasCheckedInToday != true)
                     } } }
@@ -96,7 +97,7 @@ fun CloudWorkspaceScreen(accountId: String, token: String, initialTab: String = 
                         Button(onClick = { onNavigate("ai") }, modifier = Modifier.fillMaxWidth().padding(12.dp)) { Text("问星芽") }
                     } } }
                     item { OutlinedButton(onClick = { onNavigate("cloud_agent") }, modifier = Modifier.fillMaxWidth()) { Text("智能编排") } }
-                    item { Text("继续一项学习", style = MaterialTheme.typography.titleMedium) }
+                    item { StellarSectionTitle("继续一项学习", motif = 3) }
                     if (state.tasks.none { it.status == "PENDING" || it.status == "IN_PROGRESS" }) item { Card { Column(Modifier.fillMaxWidth().padding(16.dp)) { Text("暂无待办", style = MaterialTheme.typography.titleMedium) } } }
                     items(state.tasks.filter { it.status == "PENDING" || it.status == "IN_PROGRESS" }.take(3), key = { it.id }) { task -> WorkspaceTaskCard(task, state.busy, { focus = task }, { complete = task; minutes = task.estimatedMinutes.toString() }, { onAskAssistant(AssistantContextRef("task", task.id), "请基于这项任务解释目标，拆解可执行步骤，并提醒我需要先掌握的知识。") }) }
                 }
@@ -131,7 +132,7 @@ fun CloudWorkspaceScreen(accountId: String, token: String, initialTab: String = 
                 }
                 if (tab == "notes") {
                     item { StellarSceneCard("scene_archive", "笔记", "") }
-                    item { Row(verticalAlignment = Alignment.CenterVertically) { Text("笔记", style = MaterialTheme.typography.headlineSmall, modifier = Modifier.weight(1f)); Button(onClick = { editNote(null) }) { Text("新建") } } }
+                    item { Row(verticalAlignment = Alignment.CenterVertically) { StellarSectionTitle("全部笔记", motif = 2, modifier = Modifier.weight(1f)); Button(onClick = { editNote(null) }) { Text("新建") } } }
                     item { OutlinedTextField(value = search, onValueChange = { search = it }, label = { Text("搜索标题或正文") }, modifier = Modifier.fillMaxWidth()) }
                     items(state.notes.filter { it.title.contains(search, true) || it.content.contains(search, true) }, key = { it.id }) { note -> Card { Column(Modifier.fillMaxWidth().padding(16.dp)) {
                         Text(note.title, style = MaterialTheme.typography.titleMedium); SelectionContainer { Text(note.content.take(600), Modifier.padding(vertical = 8.dp)) }
@@ -143,7 +144,7 @@ fun CloudWorkspaceScreen(accountId: String, token: String, initialTab: String = 
                 if (tab == "profile") {
                     item { StellarSceneCard("scene_profile", "个人资料", "") }
                     item { Row(verticalAlignment = Alignment.CenterVertically) { StellarSprite("avatars", state.profile?.avatarUrl?.substringAfterLast('-')?.toIntOrNull() ?: 0, "当前头像", Modifier.size(80.dp)); Column(Modifier.padding(start = 16.dp)) { Text(state.profile?.name.orEmpty(), style = MaterialTheme.typography.titleLarge); Text("Lv.${state.profile?.level ?: 1} · 累计 ${state.profile?.totalStudyMinutes ?: 0} 分钟"); Text("历史能量 ${state.profile?.energy ?: 0} · 结晶 ${state.profile?.crystals ?: 0}") } } }
-                    item { Text("选择头像", style = MaterialTheme.typography.titleMedium) }
+                    item { StellarSectionTitle("选择头像", motif = 1) }
                     items((0..2).toList()) { row -> Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) { (0..2).forEach { col -> val index = row * 3 + col; TextButton(onClick = { vm.avatar(index) }, enabled = !state.busy) { Column(horizontalAlignment = Alignment.CenterHorizontally) { StellarSprite("avatars", index, avatarNames[index], Modifier.size(70.dp)); Text(avatarNames[index], style = MaterialTheme.typography.labelSmall) } } } } }
                     item { OutlinedButton(onClick = { onNavigate("settings") }, modifier = Modifier.fillMaxWidth()) { Text("设置") } }
                     if (legacyPreview && guest == null) item { com.keling.app.expedition.LegacyPreviewCard(accountId, state.profile) { legacyPreview = false } }

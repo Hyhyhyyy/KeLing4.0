@@ -1,3 +1,4 @@
+import { ModuleTitle, SectionTitle } from '../../components/ModuleTitle';
 import { stellarPath } from '../../services/stellarPath';
 import { appPath } from '../../services/appPath';
 import { Link } from 'react-router-dom';
@@ -22,13 +23,13 @@ const subjects = ['数学', '物理', '化学', '生物', '计算机', '语言',
 const modules = ['首页', 'AI 助手', '任务', '笔记', '课程', '个人资料', '学习报告', '设置', '成就'];
 const sceneNames = Object.keys(stellarScenes) as StellarSceneName[];
 export default function VisualLibrary({ publicView = false }: { publicView?: boolean }) {
-  return <div className="visual-library"><header className="stellar-heading"><img src={appPath("/stellar/mascot_welcome.webp")} alt="星芽"/><div><h1>星际视觉图鉴</h1></div><Link to={publicView ? '/explore' : '/profile'} className="stellar-link">{publicView ? '返回课灵介绍 →' : '选择我的头像 →'}</Link></header>
+  return <div className="visual-library"><header className="stellar-heading"><div><ModuleTitle kind="home">星际视觉图鉴</ModuleTitle></div><Link to={publicView ? '/explore' : '/profile'} className="stellar-link">{publicView ? '返回课灵介绍 →' : '选择我的头像 →'}</Link></header>
     <StellarSceneBanner scene="atlas" title="星际图鉴" compact/>
 
-    <section><h2>模块场景</h2><div className="art-gallery scene-art-gallery">{sceneNames.map(scene => <figure key={scene} className="scene-gallery-item"><a href={appPath(`/stellar/${stellarScenes[scene].file}.webp`)} target="_blank" rel="noreferrer" aria-label={`查看大图：${stellarScenes[scene].title}（新标签页）`}><StellarScene scene={scene}/></a><figcaption>{stellarScenes[scene].title}</figcaption></figure>)}</div></section>
-    <section><h2>星芽与观测站</h2><div className="art-gallery">{art.map(([file, name]) => <figure key={file} className={file.startsWith('scene_') || file === 'station_full' ? 'scene-gallery-item' : undefined}><a href={stellarPath(file)} target="_blank" rel="noreferrer"><img loading="lazy" src={stellarPath(file)} alt={name}/></a><figcaption>{name}</figcaption></figure>)}</div></section>
-    <section><h2>十颗知识星球</h2><div className="art-gallery">{coursePlanets.map(planet => <figure key={planet.file}><a href={appPath(`/stellar/${planet.file}`)} target="_blank" rel="noreferrer"><img loading="lazy" src={appPath(`/stellar/${planet.file}`)} alt={planet.description}/></a><figcaption>{planet.name}</figcaption></figure>)}</div></section>
-    <section><h2>远航与基地 · 新的探索空间</h2><div className="art-gallery">{expeditionArt.map(([file, name]) => <figure key={file}><a href={stellarPath(file)} target="_blank" rel="noreferrer"><img loading="lazy" src={stellarPath(file)} alt={name}/></a><figcaption>{name}</figcaption></figure>)}</div></section>
+    <section><SectionTitle kind="home">模块场景</SectionTitle><div className="art-gallery scene-art-gallery">{sceneNames.map(scene => <figure key={scene} className="scene-gallery-item"><a href={appPath(`/stellar/${stellarScenes[scene].file}.webp`)} target="_blank" rel="noreferrer" aria-label={`查看大图：${stellarScenes[scene].title}（新标签页）`}><StellarScene scene={scene}/></a><figcaption>{stellarScenes[scene].title}</figcaption></figure>)}</div></section>
+    <section><SectionTitle kind="home">星芽与观测站</SectionTitle><div className="art-gallery">{art.map(([file, name]) => <figure key={file} className={file.startsWith('scene_') || file === 'station_full' ? 'scene-gallery-item' : undefined}><a href={stellarPath(file)} target="_blank" rel="noreferrer"><img loading="lazy" src={stellarPath(file)} alt={name}/></a><figcaption>{name}</figcaption></figure>)}</div></section>
+    <section><SectionTitle kind="home">十颗知识星球</SectionTitle><div className="art-gallery">{coursePlanets.map(planet => <figure key={planet.file}><a href={appPath(`/stellar/${planet.file}`)} target="_blank" rel="noreferrer"><img loading="lazy" src={appPath(`/stellar/${planet.file}`)} alt={planet.description}/></a><figcaption>{planet.name}</figcaption></figure>)}</div></section>
+    <section><SectionTitle kind="home">远航与基地 · 新的探索空间</SectionTitle><div className="art-gallery">{expeditionArt.map(([file, name]) => <figure key={file}><a href={stellarPath(file)} target="_blank" rel="noreferrer"><img loading="lazy" src={stellarPath(file)} alt={name}/></a><figcaption>{name}</figcaption></figure>)}</div></section>
     {([['avatars', '你的星际身份', avatarNames], ['subjects', '九大学科星球', subjects], ['modules', '模块导航图标', modules]] as const).map(([atlas, title, names]) => <section key={atlas}><h2>{title}</h2><div className="sprite-gallery">{names.map((name, index) => <figure key={name}><StellarSprite atlas={atlas} index={index} size={96} label={name}/><figcaption>{name}</figcaption></figure>)}</div></section>)}
     <footer><p>图像由 AI 辅助创作</p><Link to={publicView ? '/explore' : '/'}>{publicView ? '返回课灵介绍 →' : '返回学习空间 →'}</Link></footer>
   </div>;

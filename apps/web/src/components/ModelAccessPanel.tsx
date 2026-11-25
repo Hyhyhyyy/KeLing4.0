@@ -1,3 +1,4 @@
+import { SectionTitle } from './ModuleTitle';
 import { useEffect, useId, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import { acceptDiscovery, changeModelAccessScope, changeModelCredentials, chooseAccessModel, clearModelAccess, formatModelAccessAnswer, modelAccess, modelAccessError, suggestKeyProvider, useModelAccess } from '../services/modelAccess';
@@ -133,7 +134,7 @@ function ModelAccessWorkspace({ variant = 'full', title = 'API Key 与模型', i
   }
 
   return <section className="model-access-panel" aria-labelledby={`${id}-heading`}>
-    <header className="model-access-heading"><div><h2 id={`${id}-heading`}>{title}</h2></div><span className="model-access-memory">仅本机内存</span></header>
+    <header className="model-access-heading"><div><SectionTitle kind="ai" id={`${id}-heading`}>{title}</SectionTitle></div><span className="model-access-memory">仅本机内存</span></header>
     <p className="model-access-intro">{guest ? '密钥仅存本次内存，刷新或退出清除。' : '密钥仅存本次内存，离开面板或刷新、退出、切换账号时清除。'}</p>
     {catalogLoading && <p role="status">正在读取服务商…</p>}
     {catalogError && <div role="alert" className="model-access-error">{catalogError}<button type="button" onClick={() => { setCatalogLoading(true); setCatalogError(''); setCatalogRevision(value => value + 1); }}>重试</button></div>}

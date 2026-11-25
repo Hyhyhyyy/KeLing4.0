@@ -11,6 +11,10 @@ package com.keling.app.ui.screens.achievements
  * - 进度追踪
  */
 
+import com.keling.app.ui.components.StellarMetricMark
+import com.keling.app.ui.components.StellarHeading
+import com.keling.app.ui.components.StellarSectionTitle
+import com.keling.app.ui.components.StellarTitleMark
 import androidx.compose.animation.*
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.Image
@@ -155,15 +159,15 @@ private fun AchievementsHeader(
                 Image(
                     painter = painterResource(id = R.drawable.ic_arrow_left),
                     contentDescription = "返回",
-                    modifier = Modifier.size(60.dp)
+                    modifier = Modifier.size(24.dp)
                 )
             }
         }
 
         // 标题
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(
-                text = "成就殿堂",
+        Column(Modifier.weight(1f), horizontalAlignment = Alignment.CenterHorizontally) {
+            StellarHeading(
+                text = "成就殿堂", mascot = 7, compact = true,
                 style = MaterialTheme.typography.titleLarge,
                 color = EarthBrown,
                 fontWeight = FontWeight.Bold
@@ -263,7 +267,7 @@ private fun AchievementProgressCard(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            Text(
+            StellarSectionTitle(
                 text = "成就收集进度",
                 style = MaterialTheme.typography.titleMedium,
                 color = EarthBrown,
@@ -323,7 +327,7 @@ private fun AchievementStatBadge(
     label: String
 ) {
     Row(verticalAlignment = Alignment.CenterVertically) {
-        Text(text = icon, fontSize = 16.sp)
+        StellarMetricMark(icon)
         Spacer(modifier = Modifier.width(6.dp))
         Text(
             text = value,
@@ -393,7 +397,7 @@ private fun CategoryChip(
             modifier = Modifier.padding(horizontal = 14.dp, vertical = 10.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = icon, fontSize = 16.sp)
+            StellarMetricMark(icon)
             Spacer(modifier = Modifier.width(6.dp))
             Text(
                 text = label,
@@ -567,7 +571,7 @@ private fun RewardTag(
             modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = icon, fontSize = 12.sp)
+            StellarMetricMark(icon)
             Spacer(modifier = Modifier.width(3.dp))
             Text(
                 text = value,

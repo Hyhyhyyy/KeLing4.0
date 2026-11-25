@@ -72,7 +72,7 @@ app.get('/api/health', (req, res) => {
   res.json({
     status: 'ok',
     timestamp: new Date().toISOString(),
-    version: '4.0.5-defense-rc2'
+    version: '4.0.5-defense-rc3'
   });
 });
 

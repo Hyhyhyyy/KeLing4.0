@@ -1,3 +1,4 @@
+import { ModuleTitle, SectionTitle } from '../../components/ModuleTitle';
 import { appPath } from '../../services/appPath';
 import { StellarSceneBanner } from '../../components/StellarScene';
 import React, { useState, useEffect, useRef } from 'react';
@@ -162,7 +163,7 @@ const Tasks: React.FC = () => {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        <h1>学习任务 · 轨道专注</h1>
+        <ModuleTitle kind="tasks">学习任务 · 轨道专注</ModuleTitle>
         <p>离开页面将停止计时</p>
       </motion.div>
 
@@ -361,7 +362,7 @@ const Tasks: React.FC = () => {
               onClick={(e) => e.stopPropagation()}
             >
               <div className="dialog-header">
-                <h2>创建培育任务</h2>
+                <SectionTitle kind="tasks">创建培育任务</SectionTitle>
                 <button className="close-btn" onClick={() => setShowCreateDialog(false)}>
                   <X size={20} />
                 </button>

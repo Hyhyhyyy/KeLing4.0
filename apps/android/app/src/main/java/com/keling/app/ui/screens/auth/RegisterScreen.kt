@@ -5,6 +5,9 @@
 
 package com.keling.app.ui.screens.auth
 
+import com.keling.app.ui.components.StellarHeading
+import com.keling.app.ui.components.StellarSectionTitle
+import com.keling.app.ui.components.StellarTitleMark
 import androidx.compose.animation.*
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
@@ -182,8 +185,8 @@ fun RegisterScreen(
             Spacer(modifier = Modifier.height(16.dp))
 
             // 标题
-            Text(
-                text = "创建账号",
+            StellarHeading(
+                text = "创建账号", mascot = 0,
                 fontSize = 28.sp,
                 fontWeight = FontWeight.Bold,
                 color = EarthBrown

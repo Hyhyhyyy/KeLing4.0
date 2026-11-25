@@ -14,6 +14,9 @@ package com.keling.app.ui.screens.knowledge
  * - 位置保存
  */
 
+import com.keling.app.ui.components.StellarHeading
+import com.keling.app.ui.components.StellarSectionTitle
+import com.keling.app.ui.components.StellarTitleMark
 import androidx.compose.animation.*
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
@@ -203,7 +206,7 @@ fun MindMapKnowledgeGraphScreen(
                             Image(
                                 painter = painterResource(id = R.drawable.ic_arrow_left),
                                 contentDescription = "返回",
-                                modifier = Modifier.size(60.dp)
+                                modifier = Modifier.size(24.dp)
                             )
                         }
                     }
@@ -212,8 +215,8 @@ fun MindMapKnowledgeGraphScreen(
 
                     // 标题
                     Column(modifier = Modifier.weight(1f)) {
-                        Text(
-                            text = course?.name ?: "知识图谱",
+                        StellarHeading(
+                            text = course?.name ?: "知识图谱", mascot = 3, compact = true,
                             style = MaterialTheme.typography.titleMedium,
                             color = EarthBrown,
                             fontWeight = FontWeight.Bold
@@ -481,7 +484,7 @@ fun MindMapKnowledgeGraphScreen(
                     modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(text = "✨", fontSize = 16.sp, color = Color.White)
+                    StellarTitleMark(color = Color.White)
                     Spacer(modifier = Modifier.width(6.dp))
                     Text(
                         text = "添加知识点",

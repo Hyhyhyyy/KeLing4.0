@@ -37,7 +37,7 @@ fun ExpeditionScreen(vm: ExpeditionViewModel, tab: String, guest: Boolean, onNav
         if (state.busy || state.loading) LinearProgressIndicator(Modifier.fillMaxWidth())
         LazyColumn(Modifier.weight(1f).padding(horizontal = 16.dp), verticalArrangement = Arrangement.spacedBy(12.dp), contentPadding = PaddingValues(vertical = 12.dp)) {
             item { Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                Text(when (tab) { "star_map" -> "星图"; "base" -> "基地"; "profile" -> "我的"; else -> "远航" }, style = MaterialTheme.typography.titleLarge, modifier = Modifier.weight(1f))
+                StellarHeading(when (tab) { "star_map" -> "星图"; "base" -> "基地"; "profile" -> "我的"; else -> "远航" }, mascot = when (tab) { "star_map" -> 3; "base" -> 8; "profile" -> 7; else -> 2 }, modifier = Modifier.weight(1f))
             } }
             state.notice?.let { item { Text(it, color = MaterialTheme.colorScheme.primary) } }
             state.error?.let { item { Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer)) { Column(Modifier.padding(12.dp)) {
@@ -75,7 +75,7 @@ fun ExpeditionScreen(vm: ExpeditionViewModel, tab: String, guest: Boolean, onNav
                     } } }
                     state.saved.selectedCourseId?.let { selected ->
                         val runs = state.saved.chapters[selected]?.runs.orEmpty().filter { it.status !in listOf("SETTLED", "CANCELLED") }
-                        if (runs.isNotEmpty()) item { Text("继续上一次探索", style = MaterialTheme.typography.titleMedium) }
+                        if (runs.isNotEmpty()) item { StellarSectionTitle("继续上一次探索", motif = 3) }
                         items(runs, key = { it.id }) { run -> OutlinedButton(onClick = { vm.openRun(run.id) }, modifier = Modifier.fillMaxWidth()) { Text("${objectiveTitle(state, run.objectiveKey)} · ${statusLabel(run.status)}") } }
                     }
                     item { OutlinedButton(onClick = { showSchedule = true }, enabled = course != null && state.chapter != null, modifier = Modifier.fillMaxWidth()) { Text("安排学习时间") } }
@@ -94,7 +94,7 @@ fun ExpeditionScreen(vm: ExpeditionViewModel, tab: String, guest: Boolean, onNav
             }
             if (tab == "star_map") {
                 item { StellarArt("expedition_starmap", "知识星图", Modifier.fillMaxWidth().aspectRatio(1.5f)) }
-                item { Text("${state.chapter?.title ?: "二叉树区域"} · 学习目标", style = MaterialTheme.typography.titleMedium) }
+                item { StellarSectionTitle("${state.chapter?.title ?: "二叉树区域"} · 学习目标", motif = 1) }
                 items(state.chapter?.objectives.orEmpty(), key = { it.key }) { objective ->
                     val progress = state.progress?.state?.objectives?.firstOrNull { it.objectiveKey == objective.key }
                     Card { Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
@@ -133,7 +133,7 @@ fun ExpeditionScreen(vm: ExpeditionViewModel, tab: String, guest: Boolean, onNav
                     val owned = decoration.id in account?.world?.ownedDecorationIds.orEmpty()
                     Button(onClick = { vm.buyOrEquip(decoration.id) }, enabled = !state.busy && state.saved.pending.isEmpty() && (owned || (account?.crystals ?: 0) >= decoration.price), modifier = Modifier.fillMaxWidth()) { Text(if (owned) "已拥有 · 装备" else "${decoration.price} 结晶 · 购买") }
                 } } }
-                item { Text("星芽学习档案", style = MaterialTheme.typography.titleMedium) }
+                item { StellarSectionTitle("星芽学习档案", motif = 2) }
                 val memories = state.progress?.state?.companionMemories.orEmpty().filter { it.deletedAt == null }
                 if (memories.isEmpty()) item { Text("暂无档案") }
                 items(memories, key = { it.id }) { memory -> Card { Column(Modifier.fillMaxWidth().padding(12.dp)) {
@@ -143,12 +143,12 @@ fun ExpeditionScreen(vm: ExpeditionViewModel, tab: String, guest: Boolean, onNav
             }
             if (tab == "profile") {
                 item { Card { Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Text("学习偏好", style = MaterialTheme.typography.titleMedium)
+                    StellarSectionTitle("学习偏好", motif = 1)
                     Row(verticalAlignment = Alignment.CenterVertically) { Switch(state.saved.preferences.narrative == "STANDARD", { checked -> vm.preferences { it.copy(narrative = if (checked) "STANDARD" else "LIGHT") } }); Text("远征叙事", Modifier.weight(1f)) }
                     Row(verticalAlignment = Alignment.CenterVertically) { Switch(state.saved.preferences.reducedMotion, { checked -> vm.preferences { it.copy(reducedMotion = checked) } }); Text("减少动效", Modifier.weight(1f)) }
                 } } }
                 item { Card { Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Text("线下学习记录", style = MaterialTheme.typography.titleMedium)
+                    StellarSectionTitle("线下学习记录", motif = 2)
                     Row(verticalAlignment = Alignment.CenterVertically) { Checkbox(associateCourse && course != null, { associateCourse = it }, enabled = course != null); Text(if (associateCourse && course != null) "关联：${course.name}" else "不关联课程", Modifier.weight(1f)) }
                     OutlinedTextField(selfTitle, { selfTitle = it.take(180) }, label = { Text("学习内容（2–180字）") }, modifier = Modifier.fillMaxWidth(), enabled = !state.busy)
                     OutlinedTextField(selfMinutes, { selfMinutes = it.filter(Char::isDigit).take(4) }, label = { Text("学习分钟（1–1440）") }, modifier = Modifier.fillMaxWidth(), enabled = !state.busy)
@@ -158,7 +158,7 @@ fun ExpeditionScreen(vm: ExpeditionViewModel, tab: String, guest: Boolean, onNav
                     if (state.saved.selfReportsCursor != null) TextButton(onClick = vm::moreSelfReports, enabled = !state.busy) { Text("更早记录") }
                 } } }
                 item { Card { Column(Modifier.fillMaxWidth().padding(16.dp)) {
-                    Text("成长记录", style = MaterialTheme.typography.titleMedium)
+                    StellarSectionTitle("成长记录", motif = 0)
                     Text("Lv.${state.saved.account?.level ?: 1} · ${state.saved.account?.exp ?: 0} XP · ${state.saved.account?.crystals ?: 0} 结晶")
                     state.saved.account?.legacy?.let { Text("历史记录：Lv.${it.level}，${it.exp} XP，${it.crystals} 结晶，能量 ${it.energy}（只读）", style = MaterialTheme.typography.bodySmall) }
                     Text(if (guest) "游客记录退出即清空" else "草稿存于本机 · 提交后同步", style = MaterialTheme.typography.bodySmall)
@@ -171,7 +171,7 @@ fun ExpeditionScreen(vm: ExpeditionViewModel, tab: String, guest: Boolean, onNav
                     evidence.sources.forEach { source -> Text("第${(source.paragraphIndex ?: 0) + 1}段 · 字元${source.startUtf16}–${source.endUtf16}", style = MaterialTheme.typography.bodySmall) }
                     TextButton(onClick = { vm.openRun(evidence.runId); onNavigate("home") }) { Text("查看作答") }
                 } } }
-                item { Text("学习记录", style = MaterialTheme.typography.titleMedium) }
+                item { StellarSectionTitle("学习记录", motif = 2) }
                 items(state.saved.runs.values.filter { it.run.courseId == state.saved.selectedCourseId }.sortedByDescending { it.run.startedAt }, key = { it.run.id }) { record ->
                     OutlinedButton(onClick = { vm.openRun(record.run.id); onNavigate("home") }, modifier = Modifier.fillMaxWidth()) { Text("${objectiveTitle(state, record.run.objectiveKey)} · ${record.run.attempts.size} 次作答 · ${statusLabel(record.run.status)}") }
                 }
@@ -200,7 +200,7 @@ fun ExpeditionScreen(vm: ExpeditionViewModel, tab: String, guest: Boolean, onNav
     var direct by remember(run.id, exercise.id) { mutableStateOf(false) }; var saveMemory by remember(run.id, exercise.id) { mutableStateOf(false) }
     val ready = !state.busy && state.saved.pending.isEmpty() && run.status in listOf("ACTIVE", "AWAITING_FEEDBACK") && run.nextStep == null
     Card { Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-        Text(exercise.title, style = MaterialTheme.typography.headlineSmall)
+        StellarSectionTitle(exercise.title, motif = 3, style = MaterialTheme.typography.headlineSmall)
         Text("${statusLabel(run.status)} · 题 ${run.exerciseIndex + 1}/${run.exerciseIds.size}", style = MaterialTheme.typography.labelMedium)
         SessionClock(run)
         Text(exercise.prompt)
@@ -245,7 +245,7 @@ fun ExpeditionScreen(vm: ExpeditionViewModel, tab: String, guest: Boolean, onNav
             exercise.hints.take(run.hintsUsed).forEach { Text("提示：$it") }
         }
         run.feedback?.let { feedback -> Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer)) { Column(Modifier.fillMaxWidth().padding(12.dp)) {
-            Text(if (feedback.kind == "SELF_REPORTED") "自评反馈" else if (feedback.correct == true) "规则判定 · 正确" else "规则判定 · 待修正", style = MaterialTheme.typography.titleMedium)
+            StellarSectionTitle(if (feedback.kind == "SELF_REPORTED") "自评反馈" else if (feedback.correct == true) "规则判定 · 正确" else "规则判定 · 待修正")
             Text(feedback.message); feedback.expectedOrder?.let { Text("规则推演：${it.joinToString(" → ").ifBlank { "无越界节点" }}") }
             feedback.rubric.forEach { Text("· $it") }
         } } }

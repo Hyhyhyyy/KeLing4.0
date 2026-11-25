@@ -5,6 +5,9 @@
 
 package com.keling.app.ui.screens.auth
 
+import com.keling.app.ui.components.StellarHeading
+import com.keling.app.ui.components.StellarSectionTitle
+import com.keling.app.ui.components.StellarTitleMark
 import androidx.compose.animation.*
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
@@ -122,8 +125,8 @@ fun LoginScreen(
             Spacer(modifier = Modifier.height(20.dp))
 
             // 标题
-            Text(
-                text = "课灵",
+            StellarHeading(
+                text = "课灵", mascot = 0,
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Bold,
                 color = EarthBrown

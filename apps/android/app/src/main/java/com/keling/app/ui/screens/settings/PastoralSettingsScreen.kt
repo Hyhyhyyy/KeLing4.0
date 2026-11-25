@@ -1,5 +1,8 @@
 package com.keling.app.ui.screens.settings
 
+import com.keling.app.ui.components.StellarHeading
+import com.keling.app.ui.components.StellarSectionTitle
+import com.keling.app.ui.components.StellarTitleMark
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.*
@@ -35,9 +38,9 @@ fun PastoralSettingsScreen(
                 androidx.activity.compose.BackHandler { showKeyPanel = false }
                 ModelAccessPanel(onClose = { showKeyPanel = false }, sharedSession = guest?.modelAccess, embedded = true)
             } else LazyColumn(Modifier.fillMaxSize().padding(horizontal = 16.dp), verticalArrangement = Arrangement.spacedBy(16.dp), contentPadding = PaddingValues(vertical = 20.dp)) {
-                item { Text("设置", style = MaterialTheme.typography.headlineSmall) }
+                item { StellarHeading("设置", mascot = 8) }
                 item { SettingsCard("启用 AI") {
-                    Text("输入自己的 API Key", style = MaterialTheme.typography.titleLarge)
+                    StellarSectionTitle("输入自己的 API Key", motif = 3)
                     Text(if (guest != null) "Key 退出试用即清除" else "Key 关闭配置页即清除")
                     Button(onClick = { showKeyPanel = true }, modifier = Modifier.fillMaxWidth()) { Text("配置模型") }
                 } }
@@ -86,7 +89,7 @@ fun PastoralSettingsScreen(
 @Composable private fun SettingsCard(title: String, content: @Composable ColumnScope.() -> Unit) {
     Card(modifier = Modifier.fillMaxWidth(), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)) {
         Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-            Text(title, style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.primary)
+            StellarSectionTitle(title, color = MaterialTheme.colorScheme.primary)
             content()
         }
     }

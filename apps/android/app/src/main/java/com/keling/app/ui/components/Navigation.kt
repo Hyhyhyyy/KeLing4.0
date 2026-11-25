@@ -41,7 +41,7 @@ fun KeLingTopBar(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .height(56.dp),
+            .heightIn(min = 56.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         // 返回按钮
@@ -65,12 +65,16 @@ fun KeLingTopBar(
             modifier = Modifier.weight(1f),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                text = title,
+            StellarHeading(
+                text = title, compact = true,
+                mascot = when {
+                    title.contains("任务") -> 5
+                    title.contains("温室") || title.contains("课程") -> 3
+                    title.contains("圣殿") -> 7
+                    else -> 2
+                },
                 style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold,
-                color = EarthBrown,
-                textAlign = TextAlign.Center
+                fontWeight = FontWeight.Bold, color = EarthBrown
             )
             if (subtitle != null) {
                 Text(

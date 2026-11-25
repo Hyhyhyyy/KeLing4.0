@@ -13,6 +13,9 @@ package com.keling.app.ui.screens.home
  * - 流畅的动画交互
  */
 
+import com.keling.app.ui.components.StellarHeading
+import com.keling.app.ui.components.StellarSectionTitle
+import com.keling.app.ui.components.StellarTitleMark
 import androidx.compose.animation.*
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas
@@ -405,8 +408,8 @@ private fun EnhancedGreetingHeader(
 
                 // 问候信息
                 Column(modifier = Modifier.weight(1f)) {
-                    Text(
-                        text = "$greeting，${user.name}",
+                    StellarHeading(
+                        text = "$greeting，${user.name}", mascot = 0, compact = true,
                         style = MaterialTheme.typography.titleLarge,
                         color = EarthBrown,
                         fontWeight = FontWeight.Bold,
@@ -1410,8 +1413,8 @@ private fun GlassmorphismGreetingHeader(
                 Spacer(modifier = Modifier.width(18.dp))
 
                 Column(modifier = Modifier.weight(1f)) {
-                    Text(
-                        text = "$greeting，${user.name}",
+                    StellarHeading(
+                        text = "$greeting，${user.name}", mascot = 0, compact = true,
                         style = MaterialTheme.typography.titleLarge,
                         color = EarthBrown,
                         fontWeight = FontWeight.Bold,

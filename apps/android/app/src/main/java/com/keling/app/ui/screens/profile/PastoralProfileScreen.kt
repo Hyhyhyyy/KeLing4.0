@@ -12,6 +12,10 @@ package com.keling.app.ui.screens.profile
  * - 签到入口
  */
 
+import com.keling.app.ui.components.StellarMetricMark
+import com.keling.app.ui.components.StellarHeading
+import com.keling.app.ui.components.StellarSectionTitle
+import com.keling.app.ui.components.StellarTitleMark
 import androidx.compose.animation.*
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.Image
@@ -183,15 +187,15 @@ private fun ProfileHeader(
                 Image(
                     painter = painterResource(id = R.drawable.ic_arrow_left),
                     contentDescription = "返回",
-                    modifier = Modifier.size(60.dp)
+                    modifier = Modifier.size(24.dp)
                 )
             }
         }
 
         // 标题
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(
-                text = "个人中心",
+        Column(Modifier.weight(1f), horizontalAlignment = Alignment.CenterHorizontally) {
+            StellarHeading(
+                text = "个人中心", mascot = 7, compact = true,
                 style = MaterialTheme.typography.titleLarge,
                 color = EarthBrown,
                 fontWeight = FontWeight.Bold
@@ -388,7 +392,7 @@ private fun ResourceDisplay(
                 contentAlignment = Alignment.Center
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text(text = icon, fontSize = 24.sp)
+                    StellarMetricMark(icon)
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
                         text = value.toString(),
@@ -436,7 +440,7 @@ private fun StatisticsSection(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(
+                    StellarSectionTitle(
                         text = "学习统计",
                         style = MaterialTheme.typography.titleMedium,
                         color = EarthBrown,
@@ -509,7 +513,7 @@ private fun StatCard(
             modifier = Modifier.padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = icon, fontSize = 24.sp)
+            StellarMetricMark(icon)
             Spacer(modifier = Modifier.height(8.dp))
             Text(
                 text = value,
@@ -539,7 +543,7 @@ private fun QuickActionsSection(
     unlockedAchievements: Int
 ) {
     Column {
-        Text(
+        StellarSectionTitle(
             text = "快捷功能",
             style = MaterialTheme.typography.titleMedium,
             color = EarthBrown,
@@ -616,7 +620,7 @@ private fun QuickActionCard(
                         modifier = Modifier.padding(12.dp),
                         contentAlignment = Alignment.Center
                     ) {
-                        Text(text = icon, fontSize = 24.sp)
+                        StellarMetricMark(icon)
                     }
                 }
                 Spacer(modifier = Modifier.height(10.dp))
@@ -665,7 +669,7 @@ private fun AchievementPreview(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(
+                    StellarSectionTitle(
                         text = "已解锁成就",
                         style = MaterialTheme.typography.titleMedium,
                         color = EarthBrown,

@@ -1,3 +1,4 @@
+import { ModuleTitle, SectionTitle } from '../../components/ModuleTitle';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BookOpen, CheckCircle, Flame, Sparkles, Target, TrendingUp, Lightbulb, ChevronRight, RefreshCw } from 'lucide-react';
@@ -99,7 +100,7 @@ const StudyReport: React.FC = () => {
   return <div className="report-container">
     <header className="page-header">
       <button className="back-btn" onClick={() => navigate(-1)}>‹ 返回</button>
-      <div className="header-title"><h1>学习轨迹报告</h1></div>
+      <div className="header-title"><ModuleTitle kind="report">学习轨迹报告</ModuleTitle></div>
       <button className="report-refresh" onClick={refresh} disabled={isLoading}><RefreshCw size={16}/>{isLoading ? '读取中' : '刷新记录'}</button>
     </header>
     <StellarSceneBanner scene="report" title="学习记录"/>
@@ -107,7 +108,7 @@ const StudyReport: React.FC = () => {
       : !current ? <p role="status" className="report-loading">正在读取学习记录…</p>
       : <>
         <section className="report-overview" aria-labelledby="report-range-title">
-          <h2 id="report-range-title">近 7 天任务记录</h2>
+          <SectionTitle kind="report" id="report-range-title">近 7 天任务记录</SectionTitle>
           <p className="date-range">{dateFormatter.format(current.startDate)} — {dateFormatter.format(current.endDate)} · 北京时间</p>
           <div className="overview-stats">
             <div className="stat-box"><BookOpen size={20}/><span className="stat-value">{current.recordedTaskMinutes}</span><span className="stat-unit">分钟</span><span className="stat-label">已填写的任务时长</span></div>

@@ -1,5 +1,8 @@
 package com.keling.app.ui.components
 
+import com.keling.app.ui.components.StellarHeading
+import com.keling.app.ui.components.StellarSectionTitle
+import com.keling.app.ui.components.StellarTitleMark
 import android.graphics.BitmapFactory
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -47,12 +50,12 @@ private object StellarBitmaps {
     }
 }
 
-@Composable fun StellarSprite(atlas: String, index: Int, description: String, modifier: Modifier = Modifier) {
+@Composable fun StellarSprite(atlas: String, index: Int, description: String?, modifier: Modifier = Modifier) {
     val context = LocalContext.current
     val bitmap by produceState<ImageBitmap?>(null, atlas) {
         value = withContext(Dispatchers.IO) { StellarBitmaps.load(context.applicationContext, atlas, 2) }
     }
-    Canvas(modifier.semantics { contentDescription = description }) {
+    Canvas(if (description == null) modifier else modifier.semantics { contentDescription = description }) {
         bitmap?.let { image ->
             val tile = IntSize(image.width / 3, image.height / 3); val cell = index.coerceIn(0, 8)
             drawImage(image, srcOffset = IntOffset((cell % 3) * tile.width, (cell / 3) * tile.height), srcSize = tile,
@@ -79,7 +82,7 @@ private object StellarBitmaps {
         StellarArt(name, null, Modifier.fillMaxWidth().height(144.dp), ContentScale.Crop,
             if (name == "station_full") Alignment.CenterEnd else BiasAlignment(0f, 0.4f))
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-            Text(title, modifier = Modifier.semantics { heading() }, style = MaterialTheme.typography.titleMedium)
+            StellarSectionTitle(title, motif = 1)
             if (description.isNotBlank()) Text(description, style = MaterialTheme.typography.bodySmall)
         }
     } }

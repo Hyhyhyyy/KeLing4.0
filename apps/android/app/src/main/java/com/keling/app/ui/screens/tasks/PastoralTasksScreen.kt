@@ -13,6 +13,10 @@ package com.keling.app.ui.screens.tasks
  * - 流畅的交互体验
  */
 
+import com.keling.app.ui.components.StellarMetricMark
+import com.keling.app.ui.components.StellarHeading
+import com.keling.app.ui.components.StellarSectionTitle
+import com.keling.app.ui.components.StellarTitleMark
 import androidx.compose.animation.*
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas
@@ -343,34 +347,14 @@ fun EnhancedTasksHeader(onBack: () -> Unit) {
                 Image(
                     painter = painterResource(id = R.drawable.ic_arrow_left),
                     contentDescription = "返回",
-                    modifier = Modifier.size(60.dp)
+                    modifier = Modifier.size(24.dp)
                 )
             }
         }
 
-        // 标题
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_icon),
-                    contentDescription = "任务",
-                    modifier = Modifier.size(20.dp)
-                )
-                Spacer(modifier = Modifier.width(6.dp))
-                Text(
-                    text = "培育计划板",
-                    style = MaterialTheme.typography.titleLarge,
-                    color = EarthBrown,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 20.sp
-                )
-            }
-            Text(
-                text = "今日任务清单",
-                style = MaterialTheme.typography.labelSmall,
-                color = WarmSunOrange.copy(alpha = 0.8f)
-            )
-        }
+        StellarHeading("任务与专注", mascot = 5, compact = true,
+            modifier = Modifier.weight(1f), style = MaterialTheme.typography.titleLarge,
+            color = EarthBrown, fontWeight = FontWeight.Bold)
 
         // 占位
         Spacer(modifier = Modifier.width(52.dp))
@@ -589,7 +573,7 @@ fun EnhancedStatItem(
                 },
             contentAlignment = Alignment.Center
         ) {
-            Text(text = icon, fontSize = 20.sp)
+            StellarMetricMark(icon)
         }
         Spacer(modifier = Modifier.height(6.dp))
         Text(
@@ -665,7 +649,7 @@ fun EnhancedFilterTabs(
                     horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(text = icon, fontSize = 14.sp)
+                    StellarMetricMark(icon)
                     Spacer(modifier = Modifier.width(6.dp))
                     Text(
                         text = text,
@@ -902,7 +886,7 @@ fun EnhancedRewardChip(
             modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = icon, fontSize = 14.sp)
+            StellarMetricMark(icon)
             Spacer(modifier = Modifier.width(4.dp))
             Text(
                 text = "+$value",
@@ -1002,7 +986,7 @@ fun EnhancedEmptyState(
                         modifier = Modifier.fillMaxSize(),
                         contentAlignment = Alignment.Center
                     ) {
-                        Text(text = icon, fontSize = 38.sp)
+                        StellarMetricMark(icon)
                     }
                 }
             }

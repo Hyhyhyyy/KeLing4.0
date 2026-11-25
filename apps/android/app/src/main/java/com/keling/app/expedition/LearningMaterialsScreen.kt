@@ -1,5 +1,8 @@
 package com.keling.app.expedition
 
+import com.keling.app.ui.components.StellarHeading
+import com.keling.app.ui.components.StellarSectionTitle
+import com.keling.app.ui.components.StellarTitleMark
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.*
@@ -61,14 +64,14 @@ import kotlinx.serialization.json.*
         notice = "已读取 $sourceName"
     } }
     StellarTheme { Surface(Modifier.fillMaxSize()) { Column {
-        Row(Modifier.fillMaxWidth().padding(12.dp), verticalAlignment = Alignment.CenterVertically) { TextButton(onClick = onBack) { Text("返回星图") }; Text("课程资料", style = MaterialTheme.typography.titleLarge) }
+        Row(Modifier.fillMaxWidth().padding(12.dp), verticalAlignment = Alignment.CenterVertically) { TextButton(onClick = onBack) { Text("返回星图") }; StellarHeading("课程资料", mascot = 4, compact = true) }
         if (busy) LinearProgressIndicator(Modifier.fillMaxWidth())
         LazyColumn(Modifier.fillMaxSize().padding(horizontal = 16.dp), verticalArrangement = Arrangement.spacedBy(12.dp), contentPadding = PaddingValues(bottom = 24.dp)) {
             if (courseId == null) item { Text("请先选择课程") }
             error?.let { item { Text(it, color = MaterialTheme.colorScheme.error) } }; notice?.let { item { Text(it, color = MaterialTheme.colorScheme.primary) } }
             if (guest != null) item { Text("游客资料退出即清空", style = MaterialTheme.typography.bodySmall) }
             item { Card { Column(Modifier.fillMaxWidth().padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text(if (editing == null) "导入课程材料" else "更新《${editing!!.title}》v${editing!!.version}", style = MaterialTheme.typography.titleMedium)
+                StellarSectionTitle(if (editing == null) "导入课程材料" else "更新《${editing!!.title}》v${editing!!.version}", motif = 2)
                 OutlinedTextField(title, { title = it.take(120); preview = null }, label = { Text("资料标题") }, modifier = Modifier.fillMaxWidth(), enabled = !busy)
                 Row { FilterChip(format == "TEXT", { format = "TEXT"; pdf = null; preview = null }, label = { Text("文字") }, enabled = !busy); Spacer(Modifier.width(8.dp)); FilterChip(format == "MARKDOWN", { format = "MARKDOWN"; pdf = null; preview = null }, label = { Text("Markdown") }, enabled = !busy) }
                 if (format != "PDF") OutlinedTextField(text, { text = it.take(100000); preview = null }, label = { Text("粘贴原文（最多10万字）") }, minLines = 5, maxLines = 10, modifier = Modifier.fillMaxWidth(), enabled = !busy)
@@ -82,7 +85,7 @@ import kotlinx.serialization.json.*
                 parsed.warnings.forEach { Text(it) }; SelectionContainer { Text(parsed.content.take(2500)) }
                 Button(onClick = { action { api.save(requireNotNull(courseId), requireNotNull(pendingInput), parsed, editing, opId); preview = null; editing = null; title = ""; text = ""; pdf = null; format = "TEXT"; notice = if (guest != null) "已导入" else "已保存"; reload() } }, enabled = !busy, modifier = Modifier.fillMaxWidth()) { Text(if (guest != null) "确认导入" else "保存新版本") }
             } } } }
-            item { Text("我的资料", style = MaterialTheme.typography.titleMedium) }
+            item { StellarSectionTitle("我的资料", motif = 2) }
             items(documents, key = { it.id }) { doc -> Card { Column(Modifier.fillMaxWidth().padding(12.dp)) {
                 Row(verticalAlignment = Alignment.CenterVertically) { Checkbox(doc.id in selected, { checked -> selected = if (checked) selected + doc.id else selected - doc.id; candidates = null; aiAnswer = null }); Text("${doc.title} · v${doc.version}", Modifier.weight(1f)) }
                 Text("${doc.format} · ${doc.sourceName}", style = MaterialTheme.typography.bodySmall)
@@ -98,7 +101,7 @@ import kotlinx.serialization.json.*
                 Button(onClick = { action { api.confirm(requireNotNull(courseId), opId, draft.candidates.filterIndexed { index, _ -> index in candidateSelection }); candidates = null; notice = "知识点已添加" } }, enabled = !busy && candidateSelection.isNotEmpty(), modifier = Modifier.fillMaxWidth()) { Text("确认添加") }
             } } } }
             item { Card { Column(Modifier.fillMaxWidth().padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text("资料问答", style = MaterialTheme.typography.titleMedium)
+                StellarSectionTitle("资料问答", motif = 0)
                 Text("将所选资料发给模型，可能产生费用。", style = MaterialTheme.typography.bodySmall)
                 OutlinedButton(onClick = { modelPanel = true }, modifier = Modifier.fillMaxWidth()) { Text(if (accessState.apiKey.isBlank()) "配置模型" else "${accessState.provider?.name ?: accessState.providerId} · ${accessState.model.ifBlank { "选择模型" }}") }
                 OutlinedTextField(question, { question = it.take(4000) }, label = { Text("你的问题") }, modifier = Modifier.fillMaxWidth(), minLines = 2, enabled = !busy)

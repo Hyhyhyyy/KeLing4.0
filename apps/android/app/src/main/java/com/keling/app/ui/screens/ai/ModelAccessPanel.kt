@@ -47,7 +47,7 @@ import com.keling.app.ui.components.*
     val panel: @Composable () -> Unit = {
         StellarTheme { Surface(Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) { Column(Modifier.fillMaxSize().imePadding()) {
             Row(Modifier.fillMaxWidth().padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
-                Text("模型配置", style = MaterialTheme.typography.titleLarge, modifier = Modifier.weight(1f))
+                StellarHeading("模型配置", mascot = 8, compact = true, modifier = Modifier.weight(1f))
                 TextButton(onClick = ::close) { Text(if (sharedSession == null) "关闭并清除" else "完成配置") }
             }
             LazyColumn(Modifier.weight(1f).padding(horizontal = 16.dp), verticalArrangement = Arrangement.spacedBy(12.dp), contentPadding = PaddingValues(bottom = 24.dp)) {
@@ -86,7 +86,7 @@ import com.keling.app.ui.components.*
                     OutlinedTextField(state.model, session::editModel, Modifier.fillMaxWidth(), label = { Text("模型 ID") }, enabled = !state.busy, singleLine = true)
                 }
                 item { Card { Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Text("附带资料 · ${state.context.size}/3", style = MaterialTheme.typography.titleMedium)
+                    StellarSectionTitle("附带资料 · ${state.context.size}/3", motif = 2)
                     Text("每条最多 2000 字", style = MaterialTheme.typography.bodySmall)
                     if (state.context.isEmpty()) Text("未附带资料。")
                     state.context.forEachIndexed { index, source ->
@@ -104,7 +104,7 @@ import com.keling.app.ui.components.*
                     else Button(onClick = { session.send(scope) }, enabled = state.canSend, modifier = Modifier.fillMaxWidth()) { Text("发送") }
                 }
                 state.answer?.let { answer -> item { Card { Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Text("模型回复 · ${answer.model}", style = MaterialTheme.typography.titleMedium)
+                    StellarSectionTitle("模型回复 · ${answer.model}", motif = 0)
                     Text(state.answeredQuestion, style = MaterialTheme.typography.bodySmall)
                     SelectionContainer { Text(answer.answer) }
                     Text("输入 ${answer.usage.inputTokens ?: "未报告"} / 输出 ${answer.usage.outputTokens ?: "未报告"} tokens", style = MaterialTheme.typography.labelSmall)

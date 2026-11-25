@@ -1,3 +1,4 @@
+import { SectionTitle } from '../../components/ModuleTitle';
 import { StellarSceneBanner } from '../../components/StellarScene';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -119,7 +120,7 @@ const Profile: React.FC = () => {
 
   return (
     <div className="profile-container">
-      <StellarSceneBanner scene="profile" title="个人资料" compact/>
+      <StellarSceneBanner mascot scene="profile" title="个人资料" compact/>
 
       {/* 用户信息卡片 */}
       <motion.div
@@ -145,7 +146,7 @@ const Profile: React.FC = () => {
         </div>
       </motion.div>
 
-      <section className="stellar-profile-editor"><h2>个人资料</h2>
+      <section className="stellar-profile-editor"><SectionTitle kind="profile">个人资料</SectionTitle>
         <label>昵称<input value={name} maxLength={60} onChange={e => setName(e.target.value)} /></label>
         <button className="btn btn-primary" disabled={profileBusy || !name.trim()} onClick={() => void saveProfile({ name: name.trim() })}>保存昵称</button>
         <div className="avatar-picker">{avatarNames.map((label, index) => <button key={label} disabled={profileBusy} aria-pressed={avatarIndex(user?.avatarUrl) === index} onClick={() => void saveProfile({ avatarUrl: `stellar:avatar-${index}` })}><StellarSprite atlas="avatars" index={index} size={62} label={label} /><small>{label}</small></button>)}</div>

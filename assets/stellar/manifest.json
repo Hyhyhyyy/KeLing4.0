@@ -610,6 +610,18 @@
       "width": 1774,
       "height": 887,
       "rgbRms": 1.8436
+    },
+    {
+      "name": "title_mascots.webp",
+      "source": "sources/title_mascots.png",
+      "sourceSha256": "dd50f090acc820a57ad99f9b58667edd8caa88d659376b8713918eb290720863",
+      "sourceOrigin": "Built-in image_gen, 2026-11-25; see title-mascots-provenance.json",
+      "sha256": "cb7465ec80df7de393563fe1dc7933fd2867acda31cd8152eb609493b327fd78",
+      "bytes": 1137664,
+      "width": 1254,
+      "height": 1254,
+      "encoding": "WebP lossless, exact alpha",
+      "rgbRms": 0
     }
   ]
 }

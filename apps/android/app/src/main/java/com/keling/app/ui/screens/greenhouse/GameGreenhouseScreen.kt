@@ -1,5 +1,9 @@
 package com.keling.app.ui.screens.greenhouse
 
+import com.keling.app.ui.components.StellarMetricMark
+import com.keling.app.ui.components.StellarHeading
+import com.keling.app.ui.components.StellarSectionTitle
+import com.keling.app.ui.components.StellarTitleMark
 import androidx.compose.animation.*
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.Image
@@ -194,15 +198,15 @@ private fun PastoralGreenhouseHeader(
                 Image(
                     painter = painterResource(id = R.drawable.ic_arrow_left),
                     contentDescription = "返回",
-                    modifier = Modifier.size(60.dp)
+                    modifier = Modifier.size(24.dp)
                 )
             }
         }
 
         // 标题
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(
-                text = "星球培育温室",
+        Column(Modifier.weight(1f), horizontalAlignment = Alignment.CenterHorizontally) {
+            StellarHeading(
+                text = "星球培育温室", mascot = 3, compact = true,
                 style = MaterialTheme.typography.titleLarge,
                 color = EarthBrown,
                 fontWeight = FontWeight.Bold
@@ -309,7 +313,7 @@ private fun StatItem(
     color: Color
 ) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(text = icon, fontSize = 24.sp)
+        StellarMetricMark(icon)
         Spacer(modifier = Modifier.height(4.dp))
         Text(
             text = value,

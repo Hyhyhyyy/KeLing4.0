@@ -69,8 +69,7 @@ fun StellarAssistantScreen(accountId: String, token: String, onBack: () -> Unit,
             }
             LazyColumn(Modifier.weight(1f).padding(horizontal = 16.dp), verticalArrangement = Arrangement.spacedBy(12.dp), contentPadding = PaddingValues(bottom = 12.dp)) {
                 item { Row(verticalAlignment = Alignment.CenterVertically) {
-                    StellarArt("mascot_mentor", "星际导师", Modifier.size(80.dp))
-                    Column(Modifier.weight(1f)) { Text("星际 AI 助手", style = MaterialTheme.typography.headlineSmall) }
+                    StellarHeading("星际 AI 助手", mascot = 1, modifier = Modifier.weight(1f))
                 } }
                 state.error?.let { message -> item { Text(message, color = MaterialTheme.colorScheme.error) } }
                 state.notice?.let { message -> item { Text(message, color = MaterialTheme.colorScheme.primary) } }
@@ -101,7 +100,7 @@ fun StellarAssistantScreen(accountId: String, token: String, onBack: () -> Unit,
                     Row { TextButton(onClick = vm::newConversation, enabled = !state.busy) { Text("新对话") }; TextButton(onClick = { confirmDelete = true }, enabled = !state.busy) { Text("删除会话") } }
                 } } }
                 if (state.conversation?.turns.isNullOrEmpty()) item {
-                    StellarSceneCard("scene_lab", "今天想理解什么？", "从一个问题出发，把知识连成星图。")
+                    StellarSceneCard("scene_lab", "今天想理解什么？", "")
                     if (state.contextRef == null) OutlinedButton(onClick = { vm.editPrompt("用例子解释二叉树的三种遍历") }, modifier = Modifier.fillMaxWidth()) { Text("用例子解释二叉树遍历") }
                 }
                 items(state.conversation?.turns.orEmpty(), key = { it.id }) { turn ->
@@ -147,7 +146,7 @@ fun StellarAssistantScreen(accountId: String, token: String, onBack: () -> Unit,
     var showSources by remember(state.preview?.fingerprint) { mutableStateOf(false) }
     Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer)) {
         Column(Modifier.fillMaxWidth().padding(16.dp).semantics { liveRegion = LiveRegionMode.Polite }, verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Text(state.preview?.title ?: "所选学习资料", style = MaterialTheme.typography.titleMedium)
+            StellarSectionTitle(state.preview?.title ?: "所选学习资料", motif = 2)
             Text("发送时附带以下资料", style = MaterialTheme.typography.bodySmall)
             if (state.previewLoading) { LinearProgressIndicator(Modifier.fillMaxWidth()); Text("正在读取资料预览…") }
             state.previewError?.let { Text(it, color = MaterialTheme.colorScheme.error) }

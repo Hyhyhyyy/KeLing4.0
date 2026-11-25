@@ -1,0 +1,73 @@
+{
+  "checkedAt": "2026-11-25T11:54:40.985613+00:00",
+  "version": "4.0.5-defense-rc3",
+  "appId": "app_17h4dw5jwdg",
+  "releaseId": "7712075046847892749",
+  "status": "finished",
+  "errorLogs": [],
+  "onlineUrl": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg",
+  "templateCommit": "df3accce3e62650ef5619f18dd9a4030a7f4812c",
+  "templateBranch": "sprint/default",
+  "templateWorktreeClean": true,
+  "sourceBaseCommit": "130c6f5ab50de9afb04dbc281259e99653a3ef50",
+  "sourceRecordedAsWorkingTreeHashes": true,
+  "sourceFileHashesReverifiedAfterPublish": 144,
+  "sourceManifestSha256": "168baf32006620ef74785a52c7129c3bd31dd36034337a93a76010b8467184cd",
+  "checks": {
+    "templateLint": "passed",
+    "isolatedWebTypecheckAndBuild": "passed",
+    "templateProductionBuild": "passed",
+    "gatewayTests": {
+      "passed": 4,
+      "total": 4
+    },
+    "artworkRouteHttpTestsWithInjectedStorageStub": {
+      "passed": 5,
+      "total": 5
+    },
+    "generatedOnlineFilesVerifiedByFullSha256": 72,
+    "reachableOnlineJavascriptChunks": 46,
+    "sampledExistingImagesVerifiedByFullSha256": 3,
+    "existingResourcesPreservedByteForByte": 65,
+    "newImageFilesCommittedToTemplate": 0
+  },
+  "health": {
+    "status": "ok",
+    "timestamp": "2026-11-25T11:52:29.177Z",
+    "version": "4.0.5-defense-rc3"
+  },
+  "ready": {
+    "status": "ready"
+  },
+  "entryScript": "/app/app_17h4dw5jwdg/assets/index-DaNBwvYH.js",
+  "entryScriptSha256": "be25703a954c03996380b9375d4d64e144f6a813a0e424db5c3eba0261c33622",
+  "backendBundleSha256": "4084b0a97c7657dafc8656f2fc589d7c465d537f1cfecf8454b42b8e214ed04c",
+  "artwork": {
+    "sourcePath": "assets/stellar/title_mascots.webp",
+    "sha256": "cb7465ec80df7de393563fe1dc7933fd2867acda31cd8152eb609493b327fd78",
+    "storage": {
+      "route": "/stellar/title_mascots.webp",
+      "storageBucket": "bucket_aadk4xawzf4xg",
+      "storagePath": "/1882830203673659.webp",
+      "sha256": "cb7465ec80df7de393563fe1dc7933fd2867acda31cd8152eb609493b327fd78",
+      "bytes": 1137664
+    },
+    "sourceProvenanceSha256": "f768326cdea0339e5354b85046c7c56aeeb9effe92bdcc21e7b6d2f4a9b28638",
+    "fixedController": "server/modules/gateway/artwork.controller.ts",
+    "controllerSha256": "780982fe17b41287f4a5a4baf9437540221ec8224a55f9fc0f25ddf1448a9ff8",
+    "path": "stellar/title_mascots.webp",
+    "status": 200,
+    "bytes": 1137664,
+    "contentType": "image/webp",
+    "signedStorageRedirect": true
+  },
+  "evidenceFiles": [
+    "release-status.json",
+    "online-verification.json",
+    "compatibility.json",
+    "vendor/source-manifest.json",
+    "hosted-build.log",
+    "template-build.log",
+    "template-lint.log"
+  ]
+}

@@ -1,0 +1,191 @@
+{
+  "date": "2026-11-25",
+  "generator": "Built-in image_gen",
+  "originalOutput": "sources/title_mascots.png",
+  "runtimeAsset": "title_mascots.webp",
+  "sourceSha256": "dd50f090acc820a57ad99f9b58667edd8caa88d659376b8713918eb290720863",
+  "runtimeSha256": "cb7465ec80df7de393563fe1dc7933fd2867acda31cd8152eb609493b327fd78",
+  "sourceDimensions": [
+    1254,
+    1254
+  ],
+  "grid": {
+    "rows": 3,
+    "columns": 3,
+    "cells": [
+      "welcome",
+      "mentor",
+      "navigator",
+      "courses",
+      "notes",
+      "focus",
+      "report",
+      "achievement",
+      "engineer"
+    ]
+  },
+  "encoding": "Lossless WebP encoding only; pixels and alpha unchanged from generated PNG.",
+  "references": [
+    {
+      "file": "mascot_welcome.webp",
+      "sha256": "d804e1782e5eb1b89758047bce24b24d497a73e379df7a29547f446eac10335c"
+    },
+    {
+      "file": "mascot_mentor.webp",
+      "sha256": "6b0bcad818e27d55cf1dc52681e06f42c0a27ac156d7836102f01f45258df96e"
+    }
+  ],
+  "tileChecks": [
+    {
+      "index": 0,
+      "alphaBounds": [
+        0,
+        8,
+        418,
+        418
+      ],
+      "cellSize": 418
+    },
+    {
+      "index": 1,
+      "alphaBounds": [
+        0,
+        9,
+        418,
+        418
+      ],
+      "cellSize": 418
+    },
+    {
+      "index": 2,
+      "alphaBounds": [
+        0,
+        14,
+        390,
+        418
+      ],
+      "cellSize": 418
+    },
+    {
+      "index": 3,
+      "alphaBounds": [
+        0,
+        0,
+        418,
+        418
+      ],
+      "cellSize": 418
+    },
+    {
+      "index": 4,
+      "alphaBounds": [
+        0,
+        0,
+        418,
+        418
+      ],
+      "cellSize": 418
+    },
+    {
+      "index": 5,
+      "alphaBounds": [
+        1,
+        0,
+        408,
+        418
+      ],
+      "cellSize": 418
+    },
+    {
+      "index": 6,
+      "alphaBounds": [
+        0,
+        0,
+        418,
+        400
+      ],
+      "cellSize": 418
+    },
+    {
+      "index": 7,
+      "alphaBounds": [
+        1,
+        0,
+        418,
+        402
+      ],
+      "cellSize": 418
+    },
+    {
+      "index": 8,
+      "alphaBounds": [
+        0,
+        0,
+        402,
+        418
+      ],
+      "cellSize": 418
+    }
+  ],
+  "prompt": "Create ONE production UI sprite atlas for KeLing educational app, based on the identity of Xingya in the supplied reference images. The references are character identity/style references, not an existing sprite sheet to preserve. Output a square 1536×1536 transparent PNG sprite sheet, exactly 3 columns by 3 rows of equal square cells, nine isolated full-body mini mascot illustrations. NO text, labels, numbers, borders, grid lines, background cards, scenery or emoji. Each character must fit safely in the center of its own equal cell with at least 15% transparent padding on every side, identical character scale and baseline, no neighboring cell overlap. Match the same adorable cream-and-mint robotic owl: navy round face screen, two glowing mint eyes, tiny golden diamond beak, cream catlike owl ear tips, mint two-leaf sprout antenna, small gold star chest badge, tiny coral feet. Clean deliberate pixel-art contour, simple chunky shapes and reduced detail legible at 48–64px. Preserve character identity and proportions across all nine cells. Navy #14263D outlines, cream #FFF6DF, mint/teal accents, restrained gold and coral. Flat crisp sprite shading, no blurry glow or excessive sparkle. Row1: cell0 friendly welcome waving one wing; cell1 learning mentor holding an open tiny book with a simple empty speech bubble; cell2 explorer holding a gold compass. Row2: cell3 gardener holding a tiny ringed planet with a sprout; cell4 archivist holding a closed notebook and pencil; cell5 focused character holding a large simple analog timer (no digits). Row3: cell6 analyst holding a board with three simple rising bars and a small magnifier; cell7 proud character holding a gold star medal; cell8 engineer holding a mint wrench. This is a single sprite atlas asset, not a contact sheet for printing. True alpha transparency throughout empty regions. Render all nine full characters with calm readable silhouettes and no exterior shadow.",
+  "requestedDimensions": [
+    1536,
+    1536
+  ],
+  "opaqueTileBounds": [
+    [
+      68,
+      30,
+      381,
+      371
+    ],
+    [
+      65,
+      30,
+      362,
+      371
+    ],
+    [
+      31,
+      30,
+      355,
+      369
+    ],
+    [
+      73,
+      29,
+      378,
+      375
+    ],
+    [
+      58,
+      29,
+      341,
+      376
+    ],
+    [
+      52,
+      29,
+      344,
+      380
+    ],
+    [
+      74,
+      29,
+      358,
+      377
+    ],
+    [
+      48,
+      29,
+      347,
+      377
+    ],
+    [
+      36,
+      29,
+      354,
+      377
+    ]
+  ]
+}

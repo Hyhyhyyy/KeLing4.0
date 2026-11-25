@@ -1,6 +1,6 @@
 # 项目文档
 
-当前省决赛程序候选：**4.0.5-defense-rc2**，Android versionCode **22**；此前公开下载包为 **4.0.4-direct-cloud-preview / 20**。先读[本轮界面精简](competition/copy-cleanup-2026-11-25.md)和[原版本核对及人工事项](competition/defense-readiness-2026-11-25.md)，再按需要查阅历史记录；历史测试不能替代当前验证。
+当前省决赛程序候选：**4.0.5-defense-rc3**，Android versionCode **23**；此前公开下载包为 **4.0.4-direct-cloud-preview / 20**。先读[标题美术与布局验证](competition/title-art-2026-11-25.md)、[此前界面精简](competition/copy-cleanup-2026-11-25.md)和[原版本核对及人工事项](competition/defense-readiness-2026-11-25.md)，再按需要查阅历史记录；历史测试不能替代当前验证。
 
 11 月 25 日已重新运行 Web、服务端测试和构建，并独立验证本机演示库。最终 Android、部署与分支记录见本轮交付；去冗余时没有运行测试的历史范围不再代表当前验收状态。
 
@@ -27,7 +27,7 @@
 ## 资源与验证
 
 - [仓库整理验证](validation/repository-cleanup-2026-10-31.json)：删减前的资源、构建与测试历史结果，只适用于记录中的提交。
-- [共享素材与提示词](../assets/stellar/README.md)：59 张 WebP 和一张 PNG 启动图标同时供 Web、Android 使用；两端打包副本均生成，不再提交 Android 独立副本。
+- [共享素材与提示词](../assets/stellar/README.md)：60 张 WebP 和一张 PNG 启动图标同时供 Web、Android 使用；两端打包副本均生成，不再提交 Android 独立副本。
 - [统一素材清单](../assets/stellar/manifest.json)：集中保留当前素材与原 PNG 来源摘要、既有编码记录。WebP 使用有损编码，不宣称像素无损；普通 Android 构建不依赖 Python。
 - 原 PNG 及旧 Android 编码清单可从 [Git 提交 9583827](https://github.com/Hyhyhyyy/KeLing4.0/tree/9583827/assets/stellar)追溯；导出和 `prepare-stellar-art.py` 再制作方法见共享素材说明。当前文件体积限制不要求删除 Git 来源历史。
 - [4.0.4 注册登录与直连交付](auth/DIRECT_ACCESS_2026-10-31.md)及[验证数据](auth/validation-direct.json)：无代理 Chrome、Android 14 模拟器、跨端账号与完整安装包下载证据。

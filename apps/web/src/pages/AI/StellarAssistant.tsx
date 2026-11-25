@@ -1,4 +1,4 @@
-import { appPath } from '../../services/appPath';
+import { ModuleTitle, SectionTitle } from '../../components/ModuleTitle';
 import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { assistant, assistantError, assistantErrorCode } from '../../services/assistant';
@@ -151,7 +151,7 @@ function AssistantWorkspace({ accountId, launch, entryRequested, onContextPrevie
     const a = document.createElement('a'); a.href = url; a.download = '课灵学习对话.md'; a.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
   return <div className="stellar-assistant">
-    <header className="stellar-heading"><img src={appPath("/stellar/mascot_mentor.webp")} alt="课灵星际导师" /><div><h1>星际 AI 助手</h1></div><Link className="stellar-link" to="/agent">智能编排 →</Link></header>
+    <header className="stellar-heading"><div><ModuleTitle kind="ai">星际 AI 助手</ModuleTitle></div><Link className="stellar-link" to="/agent">智能编排 →</Link></header>
     {error && <div className="stellar-alert" role="alert">{error} <button onClick={() => { setError(''); setRefresh(x => x + 1); }}>重新连接</button></div>}
     {notice && <p className="stellar-notice" role="status">{notice}</p>}
     <div className="assistant-layout"><aside className="stellar-panel session-list">
@@ -160,7 +160,7 @@ function AssistantWorkspace({ accountId, launch, entryRequested, onContextPrevie
       {sessions.filter(s => s.title.includes(search)).map(s => <button disabled={busy} className={s.id === selectedId ? 'session active' : 'session'} key={s.id} onClick={() => openSession(s)}><strong>{s.title}</strong><small>{s.modelId}</small></button>)}
       <div className="session-observatory"><StellarScene scene="conversations" decorative/><Link to="/notes">笔记 →</Link><Link to="/greenhouse">知识星球 →</Link></div>
     </aside><section className="stellar-panel conversation">
-      {!selected ? <div className="model-setup"><h2>选择模型</h2><div className="model-fields">
+      {!selected ? <div className="model-setup"><SectionTitle kind="ai">选择模型</SectionTitle><div className="model-fields">
         <label>模型服务<select disabled={busy} value={form.providerId} onChange={e => { const p = providers.find(x => x.id === e.target.value); setForm({ ...form, providerId: e.target.value, modelId: p?.chatModels[0] || '' }); }}>{providers.map(p => <option key={p.id} value={p.id}>{p.name}{p.configured ? ' · 已配置' : ' · 未配置'}</option>)}</select></label>
         <label>聊天模型<select disabled={busy} value={form.modelId} onChange={e => setForm({ ...form, modelId: e.target.value })}><option value="">选择已启用的模型</option>{provider?.chatModels.map(m => <option key={m}>{m}</option>)}</select></label>
         <label>学习方式<select disabled={busy} value={form.scenario} onChange={e => setForm({ ...form, scenario: e.target.value })}>{scenarios.map(([id, label]) => <option key={id} value={id}>{label}</option>)}</select></label>

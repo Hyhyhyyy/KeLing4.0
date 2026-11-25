@@ -11,6 +11,10 @@ package com.keling.app.ui.screens.report
  * - 学习建议
  */
 
+import com.keling.app.ui.components.StellarMetricMark
+import com.keling.app.ui.components.StellarHeading
+import com.keling.app.ui.components.StellarSectionTitle
+import com.keling.app.ui.components.StellarTitleMark
 import androidx.compose.animation.*
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.Image
@@ -99,7 +103,7 @@ fun PastoralStudyReportScreen(
             if (report != null) {
                 item {
                     AnalysisSection(
-                        title = "优势领域 ✨",
+                        title = "优势领域",
                         items = report.strongPoints,
                         color = MintGreen
                     )
@@ -107,7 +111,7 @@ fun PastoralStudyReportScreen(
 
                 item {
                     AnalysisSection(
-                        title = "待提升领域 📈",
+                        title = "待提升领域",
                         items = report.weakPoints,
                         color = WarmSunOrange
                     )
@@ -162,9 +166,9 @@ private fun ReportHeader(onBack: () -> Unit) {
         }
 
         // 标题
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(
-                text = "学习报告",
+        Column(Modifier.weight(1f), horizontalAlignment = Alignment.CenterHorizontally) {
+            StellarHeading(
+                text = "学习报告", mascot = 6, compact = true,
                 style = MaterialTheme.typography.titleLarge,
                 color = EarthBrown,
                 fontWeight = FontWeight.Bold
@@ -257,7 +261,7 @@ private fun ReportOverviewCard(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            Text(
+            StellarSectionTitle(
                 text = "本周学习报告",
                 style = MaterialTheme.typography.titleLarge,
                 color = EarthBrown,
@@ -328,7 +332,7 @@ private fun DataItem(
                 modifier = Modifier.padding(16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(text = icon, fontSize = 28.sp)
+                StellarMetricMark(icon)
                 Spacer(modifier = Modifier.height(8.dp))
                 Row(verticalAlignment = Alignment.Bottom) {
                     Text(
@@ -419,7 +423,7 @@ private fun AIInsightCard(insight: String) {
             Spacer(modifier = Modifier.width(16.dp))
 
             Column(modifier = Modifier.weight(1f)) {
-                Text(
+                StellarSectionTitle(
                     text = "学习概况 · 规则分析",
                     style = MaterialTheme.typography.titleMedium,
                     color = LavenderPurple,
@@ -457,7 +461,7 @@ private fun StudyDataSection(report: StudyReport?) {
                 contentScale = ContentScale.FillBounds
             )
             Column(modifier = Modifier.padding(20.dp)) {
-                Text(
+                StellarSectionTitle(
                     text = "学习数据详情",
                     style = MaterialTheme.typography.titleMedium,
                     color = EarthBrown,
@@ -538,7 +542,7 @@ private fun AnalysisSection(
                 contentScale = ContentScale.FillBounds
             )
             Column(modifier = Modifier.padding(20.dp)) {
-                Text(
+                StellarSectionTitle(
                     text = title,
                     style = MaterialTheme.typography.titleMedium,
                     color = color,

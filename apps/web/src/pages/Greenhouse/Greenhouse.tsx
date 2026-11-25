@@ -1,3 +1,4 @@
+import { ModuleTitle, SectionTitle } from '../../components/ModuleTitle';
 import { appPath } from '../../services/appPath';
 import { StellarSceneBanner } from '../../components/StellarScene';
 import React, { useState, useEffect, useRef } from 'react';
@@ -75,7 +76,7 @@ const Greenhouse: React.FC = () => {
         animate={{ opacity: 1, y: 0 }}
       >
         <div className="header-content">
-          <h1>知识星球</h1>
+          <ModuleTitle kind="courses">知识星球</ModuleTitle>
 
         </div>
         <button className="btn btn-primary" onClick={() => { setCreateError(''); setShowCreateDialog(true); }}>
@@ -190,7 +191,7 @@ const Greenhouse: React.FC = () => {
               onClick={(e) => e.stopPropagation()}
             >
               <div className="dialog-header">
-                <h2 id="create-course-title">添加新课程</h2>
+                <SectionTitle kind="courses" id="create-course-title">添加新课程</SectionTitle>
                 <button className="close-btn" aria-label="关闭创建课程" disabled={isSaving} onClick={() => { if (!isSaving) setShowCreateDialog(false); }}>
                   <X size={20} />
                 </button>

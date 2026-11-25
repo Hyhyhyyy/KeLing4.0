@@ -1,3 +1,4 @@
+import { ModuleTitle } from '../../components/ModuleTitle';
 import { appPath } from '../../services/appPath';
 import { StellarScene } from '../../components/StellarScene';
 import GuestTrialEntry from '../../components/GuestTrialEntry';
@@ -57,7 +58,7 @@ const Register: React.FC = () => {
 
   return (
     <div className="auth-container">
-      <figure className="auth-arrival"><StellarScene scene="register" eager/><figcaption><h1>创建账号</h1><Link to="/explore">了解课灵 →</Link></figcaption></figure>
+      <figure className="auth-arrival"><StellarScene scene="register" eager/><figcaption><ModuleTitle kind="home">创建账号</ModuleTitle><Link to="/explore">了解课灵 →</Link></figcaption></figure>
 
       <motion.div
         className="auth-card"

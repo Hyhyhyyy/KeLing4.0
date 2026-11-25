@@ -11,6 +11,9 @@ package com.keling.app.ui.screens.notes
  * - AI生成笔记
  */
 
+import com.keling.app.ui.components.StellarHeading
+import com.keling.app.ui.components.StellarSectionTitle
+import com.keling.app.ui.components.StellarTitleMark
 import androidx.compose.animation.*
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.Image
@@ -167,15 +170,15 @@ private fun NotesHeader(
                 Image(
                     painter = painterResource(id = R.drawable.ic_arrow_left),
                     contentDescription = "返回",
-                    modifier = Modifier.size(60.dp)
+                    modifier = Modifier.size(24.dp)
                 )
             }
         }
 
         // 标题
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(
-                text = "知识笔记",
+        Column(Modifier.weight(1f), horizontalAlignment = Alignment.CenterHorizontally) {
+            StellarHeading(
+                text = "知识笔记", mascot = 4, compact = true,
                 style = MaterialTheme.typography.titleLarge,
                 color = EarthBrown,
                 fontWeight = FontWeight.Bold

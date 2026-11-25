@@ -1,4 +1,4 @@
-import { appPath } from '../../services/appPath';
+import { ModuleTitle } from '../../components/ModuleTitle';
 import { StellarSceneBanner } from '../../components/StellarScene';
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
@@ -75,8 +75,7 @@ const Achievements: React.FC = () => {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
       >
-          <img src={appPath("/stellar/mascot_celebrate.webp")} width="96" height="96" alt="星芽为成长庆祝" />
-        <h1>成就殿堂</h1>
+        <ModuleTitle kind="profile">成就殿堂</ModuleTitle>
 
       </motion.div>
 

@@ -1,3 +1,4 @@
+import { ModuleTitle } from '../../components/ModuleTitle';
 import { StellarSceneBanner } from '../../components/StellarScene';
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -327,7 +328,7 @@ const KnowledgeGraph: React.FC = () => {
           返回
         </button>
         <div className="header-info">
-          <h1>{course?.name || '知识图谱'}</h1>
+          <ModuleTitle kind="courses">{course?.name || '知识图谱'}</ModuleTitle>
           <p>共 {nodes.length} 个知识点</p>
         </div>
         <div className="zoom-controls">

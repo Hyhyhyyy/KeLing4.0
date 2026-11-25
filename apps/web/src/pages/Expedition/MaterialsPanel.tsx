@@ -1,3 +1,4 @@
+import { SectionTitle } from '../../components/ModuleTitle';
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import api, { noteAPI } from '../../services/api';
@@ -33,7 +34,7 @@ export default function MaterialsPanel({ courseId }: { courseId: string }) {
     const saved = await saveLearningMaterial(scope, courseId, input, parsed, saveRequest.current.opId, previous);
     setViewing(saved); setSelected([saved.id]); setPrevious(undefined); setNotice('资料已保存。'); await refresh();
   });
-  return <section className="exp-panel exp-materials"><h2>课程资料</h2><ExpeditionNotice error={workspace.error} notice={workspace.notice}/>
+  return <section className="exp-panel exp-materials"><SectionTitle kind="notes">课程资料</SectionTitle><ExpeditionNotice error={workspace.error} notice={workspace.notice}/>
     <details><summary>{previous ? `更新资料：${previous.title}` : '导入资料'}</summary><label>资料标题<input value={input.title} maxLength={120} onChange={event => setInput({ ...input, title: event.target.value })}/></label><label>TXT、Markdown 或文字 PDF<input type="file" accept=".txt,.md,.markdown,.pdf" disabled={busy} onChange={event => loadFile(event.target.files?.[0])}/></label>{input.format !== 'PDF' && <><label>文本格式<select value={input.format} onChange={event => setInput({ ...input, format: event.target.value as 'TEXT' | 'MARKDOWN' })}><option value="TEXT">普通文本</option><option value="MARKDOWN">Markdown</option></select></label><label>原文<textarea rows={7} maxLength={100000} value={input.text || ''} onChange={event => setInput({ ...input, text: event.target.value })}/></label></>}<p>上限：512 KiB · PDF 50 页 · 10 万字符</p><button disabled={busy || !scope || !input.title.trim() || (!input.text?.trim() && !input.pdfBase64)} onClick={() => void perform(async () => { if (!scope) return; const result = await parseLearningMaterial(scope, input); setParsed(result); setParsedSignature(JSON.stringify(input)); })}>上传到课灵并预览</button>
       {parsed && <section><h3>解析预览 · {parsed.spans.length} 个片段</h3>{parsed.warnings.map(warning => <p className="exp-notice" key={warning}>{warning}</p>)}<pre className="exp-material-text">{parsed.content}</pre><button className="exp-primary" disabled={busy || parsedSignature !== JSON.stringify(input)} onClick={saveMaterial}>保存{previous ? '新版本' : '资料'}</button>{parsedSignature !== JSON.stringify(input) && <p>原文已修改，请重新预览。</p>}</section>}
     </details>

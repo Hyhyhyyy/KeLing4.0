@@ -3178,13 +3178,11 @@ fun ScheduleEditScreen(
             TextButton(onClick = onBack) {
                 Text("←", style = MaterialTheme.typography.headlineMedium, color = EarthBrown)
             }
-            Text(
-                text = "课程表",
-                style = MaterialTheme.typography.headlineMedium,
-                fontWeight = FontWeight.Bold,
-                color = EarthBrown,
-                modifier = Modifier.weight(1f),
-                textAlign = TextAlign.Center
+            StellarHeading(
+                text = "课程表", mascot = 5, compact = true,
+                style = MaterialTheme.typography.headlineSmall,
+                fontWeight = FontWeight.Bold, color = EarthBrown,
+                modifier = Modifier.weight(1f)
             )
             Spacer(modifier = Modifier.width(48.dp))
         }

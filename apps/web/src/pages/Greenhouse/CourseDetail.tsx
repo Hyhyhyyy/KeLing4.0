@@ -1,3 +1,4 @@
+import { ModuleTitle, SectionTitle } from '../../components/ModuleTitle';
 import { StellarSceneBanner } from '../../components/StellarScene';
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
@@ -169,7 +170,7 @@ const CourseDetail: React.FC = () => {
             <CoursePlanet index={course.planetStyleIndex} size={176} />
           </div>
           <p className="course-appearance-name">{coursePlanet(course.planetStyleIndex).name}</p>
-          <h1>{course.name}</h1>
+          <ModuleTitle kind="courses">{course.name}</ModuleTitle>
           {course.code && <span className="course-code">{course.code}</span>}
         </div>
 
@@ -185,7 +186,7 @@ const CourseDetail: React.FC = () => {
 
       <StellarSceneBanner scene="courseDetail" title="课程资料" compact/>
 
-      <section className="exp-panel"><h2>二叉树练习</h2><Link className="btn btn-primary" to={`/greenhouse/${course.id}/chapter`}>进入二叉树示例章节</Link></section>
+      <section className="exp-panel"><SectionTitle kind="courses">二叉树练习</SectionTitle><Link className="btn btn-primary" to={`/greenhouse/${course.id}/chapter`}>进入二叉树示例章节</Link></section>
 
       {/* 掌握度卡片 */}
       <motion.div
@@ -337,7 +338,7 @@ const CourseDetail: React.FC = () => {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="dialog-header">
-              <h2 id="edit-course-title">课程与星球外观</h2>
+              <SectionTitle kind="courses" id="edit-course-title">课程与星球外观</SectionTitle>
               <button className="close-btn" aria-label="关闭编辑课程" disabled={isSaving} onClick={() => { if (!isSaving) setShowEditDialog(false); }}>×</button>
             </div>
 

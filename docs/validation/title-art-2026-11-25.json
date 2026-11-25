@@ -1,0 +1,103 @@
+{
+  "date": "2026-11-25",
+  "version": "4.0.5-defense-rc3",
+  "baseCommit": "130c6f5ab50de9afb04dbc281259e99653a3ef50",
+  "art": {
+    "tool": "built-in image_gen",
+    "atlas": "assets/stellar/title_mascots.webp",
+    "source": "assets/stellar/sources/title_mascots.png",
+    "provenance": "assets/stellar/title-mascots-provenance.json",
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "grid": [
+      3,
+      3
+    ],
+    "sprites": 9,
+    "bytes": 1137664,
+    "sha256": "cb7465ec80df7de393563fe1dc7933fd2867acda31cd8152eb609493b327fd78",
+    "alpha": true,
+    "encoding": "lossless WebP; exact original RGBA pixels"
+  },
+  "web": {
+    "changedFiles": 24,
+    "build": "passed",
+    "lintErrors": 0,
+    "lintWarnings": 34,
+    "testsPassed": 49,
+    "sharedAssets": 61
+  },
+  "android": {
+    "versionName": "4.0.5-defense-rc3",
+    "versionCode": 23,
+    "apk": "C:\\Users\\lenovo\\Documents\\ChatGPT\\KeLing_ICT\\apps\\android\\app\\build\\outputs\\apk\\debug\\app-debug.apk",
+    "bytes": 82059754,
+    "sha256": "770db9e4c06f1c62c7d1099c005ba4116e62f9c3d70e6cc65445db1afca86d51",
+    "guiTested": false,
+    "build": "passed",
+    "testLog": ".cache/title-decoration-20261125/android-verified.log",
+    "finalPackageLog": ".cache/title-decoration-20261125/android-package-final.log",
+    "finalChange": "Legacy detail top bar and schedule title decorated; final assemble passed after full checks.",
+    "unitTests": {
+      "tests": 91,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "lint": {
+      "Warning": 42
+    },
+    "assets": {
+      "matched": 62,
+      "titleMascotIncluded": true,
+      "titleMascotSha256": "cb7465ec80df7de393563fe1dc7933fd2867acda31cd8152eb609493b327fd78"
+    },
+    "androidChangedFiles": 23
+  },
+  "browser": {
+    "tool": "cua_repl",
+    "origin": "http://localhost:4173",
+    "desktopObserved": [
+      "home",
+      "voyage",
+      "AI mentor"
+    ],
+    "mobileViewport": {
+      "width": 390,
+      "height": 844
+    },
+    "mobileObserved": [
+      "voyage",
+      "settings",
+      "AI layout"
+    ],
+    "documentWidth": 382,
+    "horizontalOverflowObserved": false,
+    "phoneHardwareTested": false,
+    "browserViewportRestored": true,
+    "temporaryTabClosed": true,
+    "localDemoStopped": true
+  },
+  "remaining": [
+    "Physical-device check of RC3 APK",
+    "Huawei Runtime recovery and real current workflow evidence",
+    "Gitee write credentials",
+    "18 questions independent human review",
+    "User confirmation before defense manuscript and PPT"
+  ],
+  "deployment": {
+    "releaseId": "7712075046847892749",
+    "status": "finished",
+    "templateCommit": "df3accce3e62650ef5619f18dd9a4030a7f4812c",
+    "onlineUrl": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg",
+    "record": "miaoda-title-art-rc3-deployment.json",
+    "onlineHashes": "miaoda-title-art-rc3-online.json"
+  },
+  "repositoryChecks": {
+    "passed": true,
+    "trackedFiles": 720,
+    "sharedImagesVerified": 61
+  }
+}

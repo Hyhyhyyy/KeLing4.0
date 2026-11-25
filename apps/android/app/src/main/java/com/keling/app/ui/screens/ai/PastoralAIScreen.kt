@@ -1,5 +1,8 @@
 package com.keling.app.ui.screens.ai
 
+import com.keling.app.ui.components.StellarHeading
+import com.keling.app.ui.components.StellarSectionTitle
+import com.keling.app.ui.components.StellarTitleMark
 import kotlinx.coroutines.CancellationException
 
 /**
@@ -358,7 +361,7 @@ private fun PastoralAIHeader(
                 Image(
                     painter = painterResource(id = R.drawable.ic_arrow_left),
                     contentDescription = "返回",
-                    modifier = Modifier.size(60.dp)
+                    modifier = Modifier.size(24.dp)
                 )
             }
         }
@@ -388,8 +391,8 @@ private fun PastoralAIHeader(
 
         // 标题和状态
         Column {
-            Text(
-                text = "星球精灵",
+            StellarHeading(
+                text = "星球精灵", mascot = 1,
                 style = MaterialTheme.typography.titleMedium,
                 color = EarthBrown,
                 fontWeight = FontWeight.Bold

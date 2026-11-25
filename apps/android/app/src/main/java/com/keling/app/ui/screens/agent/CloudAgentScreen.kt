@@ -1,5 +1,8 @@
 package com.keling.app.ui.screens.agent
 
+import com.keling.app.ui.components.StellarHeading
+import com.keling.app.ui.components.StellarSectionTitle
+import com.keling.app.ui.components.StellarTitleMark
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -70,7 +73,8 @@ fun CloudAgentScreen(accountId: String, token: String, onBack: () -> Unit) {
         if (state.busy) LinearProgressIndicator(Modifier.fillMaxWidth())
         LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(20.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
             item {
-                StellarSceneCard("scene_planning", "智学工作台", "资料 → 规划 → 确认 → 执行 → 复盘")
+                StellarHeading("智学工作台", mascot = 2)
+                StellarSceneCard("scene_planning", "学习规划", "")
                 Text(state.status?.let { if (it.configured) "${it.provider} 已配置" else "规划服务未配置" } ?: "正在连接服务…", style = MaterialTheme.typography.labelLarge)
             }
             if (guest != null) item { OutlinedButton(onClick = { showKeyPanel = true }, modifier = Modifier.fillMaxWidth()) { Text("配置模型") } }
@@ -134,11 +138,11 @@ fun CloudAgentScreen(accountId: String, token: String, onBack: () -> Unit) {
                 }
                 if (run.status == "SUCCEEDED") item { Button(onClick = model::confirm, enabled = !state.busy) { Text("添加任务") } }
                 item {
-                    Text("执行进度", style = MaterialTheme.typography.titleMedium)
+                    StellarSectionTitle("执行进度", motif = 3)
                     run.events.forEach { event -> Text("• ${event.name} · ${event.status}", style = MaterialTheme.typography.bodySmall) }
                 }
             }
-            item { HorizontalDivider(); Text("学习任务", style = MaterialTheme.typography.titleLarge) }
+            item { HorizontalDivider(); StellarSectionTitle("学习任务", motif = 2) }
             val visibleTasks = state.tasks.filter { state.courseId.isBlank() || it.courseId == state.courseId }
             if (visibleTasks.isEmpty()) item { Text("暂无任务") }
             items(visibleTasks, key = { "task-${it.id}" }) { task ->
@@ -152,7 +156,7 @@ fun CloudAgentScreen(accountId: String, token: String, onBack: () -> Unit) {
                     }
                 }
             }
-            item { HorizontalDivider(); Text("运行历史", style = MaterialTheme.typography.titleLarge) }
+            item { HorizontalDivider(); StellarSectionTitle("运行历史", motif = 1) }
             items(state.history, key = { "run-${it.id}" }) { run ->
                 OutlinedButton(onClick = { model.open(run.id) }, enabled = !state.busy, modifier = Modifier.fillMaxWidth()) { Text("${run.goal}\n${if (guest != null && run.status == "CONFIRMED") "已添加任务" else statusLabel(run.status)} · ${run.createdAt.take(10)}") }
             }
