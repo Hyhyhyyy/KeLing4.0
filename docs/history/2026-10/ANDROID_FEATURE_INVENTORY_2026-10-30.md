@@ -134,7 +134,7 @@
 
 Android 试用的初始数据为两门示例课程、一项示例任务、一篇示例笔记，不应照搬 Web 初始任务数量。资料、真实回答与固定示例均由用户明确选择保存或建任务。
 
-源码依据：[`TrialScreen.kt`](../../../apps/android/app/src/main/java/com/keling/app/ui/screens/trial/TrialScreen.kt)、[`TrialSession.kt`](../../../apps/android/app/src/main/java/com/keling/app/ui/screens/trial/TrialSession.kt)、[`TrialApi.kt`](../../../apps/android/app/src/main/java/com/keling/app/network/TrialApi.kt)。
+源码依据：[`TrialScreen.kt`（历史提交 89a3ea7）](https://github.com/Hyhyhyyy/KeLing4.0/blob/89a3ea7/apps/android/app/src/main/java/com/keling/app/ui/screens/trial/TrialScreen.kt)、[`TrialSession.kt`](../../../apps/android/app/src/main/java/com/keling/app/ui/screens/trial/TrialSession.kt)、[`TrialApi.kt`](../../../apps/android/app/src/main/java/com/keling/app/network/TrialApi.kt)。旧 TrialScreen 已在后续清理中移除，当前游客入口为 FullGuestScreen。
 
 ## 7. 保留的本机旧版：可达与不可达分别说明
 

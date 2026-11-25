@@ -1,6 +1,6 @@
 {
   "name": "keling-monorepo",
-  "version": "4.0.4-direct-cloud-preview",
+  "version": "4.0.5-defense-rc1",
   "private": true,
   "description": "课灵 - 多端知识管理应用",
   "workspaces": [
@@ -9,6 +9,8 @@
     "packages/*"
   ],
   "scripts": {
+    "demo": "node scripts/start-demo.cjs",
+    "test:demo": "node scripts/start-demo.cjs --smoke",
     "test": "node scripts/test-server.cjs",
     "dev": "npm run build:shared && concurrently \"npm run dev --workspace=keling-server\" \"npm run dev --workspace=keling-web\"",
     "build:shared": "node scripts/build-shared.cjs",

@@ -9,10 +9,12 @@ export async function readRuntimeStream(body: ReadableStream<Uint8Array>, onEven
     if(['node_started','node_finished','plugin_start','plugin_end','workflow_started','workflow_finished','start','end','node_wait'].includes(e.event)) {
       onEvent({name:String(d.node_name||e.plugin?.name||e.event).slice(0,120),type:String(d.node_type||e.type||'runtime').slice(0,60),status:e.event,at:new Date().toISOString()});
     }
-    if(e.event==='node_wait') throw new Error('云端工作流等待输入，请完善目标后重新运行');
+    // A terminal SSE marker only closes this response; a waiting workflow has not completed.
+    if(e.event==='node_wait'||(e.event==='workflow_finished' && d.status?.desc==='waiting')) throw new Error('云端工作流等待输入，请完善目标后重新运行');
     if(e.event==='summary_response' && typeof e.content==='string') result=e.content;
     if(e.event==='workflow_finished' && d.outputs) {
-      const value=d.outputs.plan ?? d.outputs.responseContent ?? d.outputs.user_fields?.plan;
+      // Custom structured output takes precedence over the optional human-readable response.
+      const value=d.outputs.plan ?? d.outputs.user_fields?.plan ?? d.outputs.responseContent;
       if(value) result=typeof value==='string'?value:JSON.stringify(value);
     }
     if(e.event==='end') ended=true;

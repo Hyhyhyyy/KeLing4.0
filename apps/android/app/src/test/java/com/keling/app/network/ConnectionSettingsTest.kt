@@ -2,12 +2,44 @@ package com.keling.app.network
 
 import io.ktor.client.engine.mock.*
 import io.ktor.client.request.get
+import io.ktor.client.request.post
 import io.ktor.http.*
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
 import org.junit.Test
 
 class ConnectionSettingsTest {
+    private val currentHostedApi = "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/api"
+
+    @Test fun currentHostedDomainUsesTheExistingAccountService() {
+        assertTrue(sameAccountService(DIRECT_CLOUD_API, currentHostedApi))
+        assertTrue(sameAccountService(currentHostedApi, LEGACY_CLOUD_API))
+        assertFalse(sameAccountService(currentHostedApi, currentHostedApi.replace("app_17h4dw5jwdg", "app_other")))
+        assertFalse(sameAccountService(currentHostedApi, currentHostedApi.replace("https://", "http://")))
+    }
+
+    @Test fun currentHostedPostsReceiveCsrfOnlyForThisExactSecureApplication() = runBlocking<Unit> {
+        val expected = "$currentHostedApi/auth/login"
+        val client = createApiHttpClient(MockEngine) { engine { addHandler {
+            val csrf = it.headers["X-Suda-Csrf-Token"]
+            if (it.url.toString() == expected) {
+                assertFalse(csrf.isNullOrBlank())
+                assertEquals("suda-csrf-token=$csrf", it.headers[HttpHeaders.Cookie])
+            } else {
+                assertNull(csrf)
+                assertNull(it.headers[HttpHeaders.Cookie])
+            }
+            respond("{}", HttpStatusCode.OK, headersOf(HttpHeaders.ContentType, "application/json"))
+        } } }
+        try {
+            client.post(expected)
+            client.get(expected.replace("https://", "http://"))
+            client.get(expected.replace(".com/", ".com:8443/"))
+            client.get(expected.replace("app_17h4dw5jwdg", "app_other"))
+            client.get(expected.replace("feishuapp.com", "feishuapp.com.attacker.example"))
+        } finally { client.close() }
+    }
+
     @Test fun hostedPrefixAndKnownAccountAliasAreExplicit() {
         assertEquals(DIRECT_CLOUD_API, normalizeEndpoint(DIRECT_CLOUD_API.removeSuffix("/api")))
         assertTrue(sameAccountService(LEGACY_CLOUD_API, DIRECT_CLOUD_API))

@@ -12,8 +12,10 @@ import java.util.Locale
 
 const val LEGACY_CLOUD_API = "https://keling-ict-preview.vercel.app/api"
 const val DIRECT_CLOUD_API = "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg/api"
+const val CURRENT_HOSTED_CLOUD_API = "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/api"
+private val accountServiceAliases = setOf(LEGACY_CLOUD_API, DIRECT_CLOUD_API, CURRENT_HOSTED_CLOUD_API)
 fun sameAccountService(first: String, second: String): Boolean = first == second ||
-    (first in setOf(LEGACY_CLOUD_API, DIRECT_CLOUD_API) && second in setOf(LEGACY_CLOUD_API, DIRECT_CLOUD_API))
+    (first in accountServiceAliases && second in accountServiceAliases)
 
 object ConnectionSettings {
     fun initialize(context: Context) {

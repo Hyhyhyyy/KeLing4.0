@@ -1,11 +1,31 @@
 package com.keling.app.data
 
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import org.junit.Assert.*
 import org.junit.Test
 
 class MemoryPreferencesTest {
+    @Test fun newlyCreatedLearningRecordsKeepTheirTimestampsAcrossReads() = runBlocking {
+        val memory = MemoryPreferences()
+        val repo = DataRepository(memory)
+        try {
+            repeat(20) { i ->
+                val task = Task("t$i", "任务", "", TaskType.DAILY_CARE)
+                repo.tasks.saveTasks(listOf(task))
+                val note = Note("n$i", "笔记", "内容", NoteSource.USER_CREATED)
+                repo.notes.saveNotes(listOf(note))
+                val course = Course("c$i", "课程", "", "")
+                repo.courses.saveCourses(listOf(course))
+                delay(5)
+                assertEquals(listOf(task), repo.tasks.getTasks().first())
+                assertEquals(listOf(note), repo.notes.getNotes().first())
+                assertEquals(listOf(course), repo.courses.getCourses().first())
+            }
+        } finally { memory.close() }
+    }
+
     @Test fun legacyRepositoriesOperateWithoutFilesAndNewSessionStartsEmpty() = runBlocking {
         val memory = MemoryPreferences(); val fresh = MemoryPreferences()
         val old = DataRepository(memory); val next = DataRepository(fresh)

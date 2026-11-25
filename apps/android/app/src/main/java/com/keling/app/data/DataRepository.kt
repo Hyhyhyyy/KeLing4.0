@@ -323,7 +323,7 @@ class UserPreferencesRepository(private val store: DataStore<Preferences>) {
  */
 class CourseDataRepository(private val store: DataStore<Preferences>) {
 
-    private val json = Json { ignoreUnknownKeys = true }
+    private val json = Json { ignoreUnknownKeys = true; encodeDefaults = true }
 
     // Keys
     private val COURSES_KEY = stringPreferencesKey("courses_data")
@@ -390,7 +390,7 @@ class CourseDataRepository(private val store: DataStore<Preferences>) {
  */
 class TaskDataRepository(private val store: DataStore<Preferences>) {
 
-    private val json = Json { ignoreUnknownKeys = true }
+    private val json = Json { ignoreUnknownKeys = true; encodeDefaults = true }
 
     private val TASKS_KEY = stringPreferencesKey("tasks_data")
 
@@ -466,7 +466,7 @@ class TaskDataRepository(private val store: DataStore<Preferences>) {
  */
 class NoteDataRepository(private val store: DataStore<Preferences>) {
 
-    private val json = Json { ignoreUnknownKeys = true }
+    private val json = Json { ignoreUnknownKeys = true; encodeDefaults = true }
 
     private val NOTES_KEY = stringPreferencesKey("notes_data")
 
@@ -541,7 +541,7 @@ class NoteDataRepository(private val store: DataStore<Preferences>) {
  */
 class KnowledgeGraphRepository(private val store: DataStore<Preferences>) {
 
-    private val json = Json { ignoreUnknownKeys = true }
+    private val json = Json { ignoreUnknownKeys = true; encodeDefaults = true }
 
     private val NODES_KEY = stringPreferencesKey("knowledge_nodes_data")
 
@@ -600,7 +600,7 @@ class KnowledgeGraphRepository(private val store: DataStore<Preferences>) {
  */
 class ChatHistoryRepository(private val store: DataStore<Preferences>) {
 
-    private val json = Json { ignoreUnknownKeys = true }
+    private val json = Json { ignoreUnknownKeys = true; encodeDefaults = true }
 
     private val HISTORY_KEY = stringPreferencesKey("chat_history")
     private val MAX_HISTORY = 100  // 最多保存100条
@@ -667,7 +667,7 @@ data class ChatHistoryEntry(
  */
 class CheckInRecordRepository(private val store: DataStore<Preferences>) {
 
-    private val json = Json { ignoreUnknownKeys = true }
+    private val json = Json { ignoreUnknownKeys = true; encodeDefaults = true }
 
     private val RECORDS_KEY = stringPreferencesKey("check_in_records")
 
@@ -694,7 +694,7 @@ class CheckInRecordRepository(private val store: DataStore<Preferences>) {
  */
 class StudyRecordRepository(private val store: DataStore<Preferences>) {
 
-    private val json = Json { ignoreUnknownKeys = true }
+    private val json = Json { ignoreUnknownKeys = true; encodeDefaults = true }
 
     private val RECORDS_KEY = stringPreferencesKey("study_records")
 
@@ -721,7 +721,7 @@ class StudyRecordRepository(private val store: DataStore<Preferences>) {
  */
 class AchievementRepository(private val store: DataStore<Preferences>) {
 
-    private val json = Json { ignoreUnknownKeys = true }
+    private val json = Json { ignoreUnknownKeys = true; encodeDefaults = true }
 
     private val ACHIEVEMENTS_KEY = stringPreferencesKey("achievements_unlocked")
 
@@ -751,7 +751,7 @@ class AchievementRepository(private val store: DataStore<Preferences>) {
  */
 class StudySessionRepository(private val store: DataStore<Preferences>) {
 
-    private val json = Json { ignoreUnknownKeys = true }
+    private val json = Json { ignoreUnknownKeys = true; encodeDefaults = true }
 
     private val SESSIONS_KEY = stringPreferencesKey("study_sessions")
 
@@ -778,7 +778,7 @@ class StudySessionRepository(private val store: DataStore<Preferences>) {
  */
 class PomodoroSettingsRepository(private val store: DataStore<Preferences>) {
 
-    private val json = Json { ignoreUnknownKeys = true }
+    private val json = Json { ignoreUnknownKeys = true; encodeDefaults = true }
 
     private val SETTINGS_KEY = stringPreferencesKey("pomodoro_settings")
 
@@ -805,7 +805,7 @@ class PomodoroSettingsRepository(private val store: DataStore<Preferences>) {
  */
 class NoteAttachmentRepository(private val store: DataStore<Preferences>) {
 
-    private val json = Json { ignoreUnknownKeys = true }
+    private val json = Json { ignoreUnknownKeys = true; encodeDefaults = true }
 
     private val ATTACHMENTS_KEY = stringPreferencesKey("note_attachments")
 

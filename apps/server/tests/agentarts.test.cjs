@@ -29,6 +29,22 @@ test('does not accept a failed or truncated runtime as success', async () => {
   }
 });
 
+test('workflow output prefers the structured plan field over display text', async () => {
+  const output = plan();
+  const s = 'data: ' + JSON.stringify({ event: 'workflow_finished', data: {
+    status: { code: 1, desc: 'succeeded' },
+    outputs: { responseContent: '计划已生成，请查看结构化结果', user_fields: { plan: output } }
+  } }) + '\n\ndata: {"event":"end"}\n\n';
+  assert.deepEqual(JSON.parse(await readRuntimeStream(new Response(s).body, () => {})), output);
+});
+
+test('workflow waiting status never accepts a partial plan as completed', async () => {
+  const s = 'data: ' + JSON.stringify({ event: 'workflow_finished', data: {
+    status: { code: 1, desc: 'waiting' }, outputs: { plan: plan() }
+  } }) + '\n\ndata: {"event":"end"}\n\n';
+  await assert.rejects(() => readRuntimeStream(new Response(s).body, () => {}), /等待输入/);
+});
+
 test('Huawei workflow and agent requests follow their distinct official input contracts', async () => {
  const names=['AGENTARTS_RUNTIME_URL','AGENTARTS_API_KEY','AGENTARTS_TOOL_SECRET','AGENTARTS_RUNTIME_KIND','AGENTARTS_INVOKE_MODE'];
  const saved=Object.fromEntries(names.map(k=>[k,process.env[k]]));

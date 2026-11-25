@@ -57,8 +57,10 @@ internal fun <T : io.ktor.client.engine.HttpClientEngineConfig> createApiHttpCli
             install(createClientPlugin("KeLingHostingCsrf") {
                 val csrf = java.util.UUID.randomUUID().toString()
                 onRequest { request, _ ->
-                    if (request.url.host == "ucn5aajxnx7f.feishu.link" &&
-                        request.url.encodedPath.startsWith("/app/app_17h4dw5jwdg/api/")) {
+                    val target = request.url.build()
+                    if (target.protocol == URLProtocol.HTTPS && target.port == 443 &&
+                        target.host in setOf("ucn5aajxnx7f.feishu.link", "ucn5aajxnx7f.feishuapp.com") &&
+                        target.encodedPath.startsWith("/app/app_17h4dw5jwdg/api/")) {
                         request.headers[HttpHeaders.Cookie] = "suda-csrf-token=$csrf"
                         request.headers["X-Suda-Csrf-Token"] = csrf
                     }

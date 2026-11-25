@@ -1,0 +1,57 @@
+{
+  "date": "2026-11-25",
+  "version": "4.0.5-defense-rc1",
+  "baseCommit": "dde6e1bcb34bbb45743f1cdd7c7a3a27ef06c4c9",
+  "sourceArchiveOriginalSha256": "0efd014b8cc96f74d504b43ee02520385a6f043c0580345888e65dd8522fc4a2",
+  "tests": {
+    "androidPassed": 91,
+    "gatewayPassed": 4,
+    "serverPassed": 81,
+    "webPassed": 49
+  },
+  "web": {
+    "lintWarnings": 34,
+    "sharedAssets": 60,
+    "build": "passed",
+    "lintErrors": 0
+  },
+  "android": {
+    "runtimeSmoke": "All candidate Kotlin changes and NoActionBar theme; the final APK changes navigation bar color to dark and removes API27-only windowLightNavigationBar for minSdk26. Final binary not installed after user stopped GUI control.",
+    "lintErrors": 0,
+    "sha256": "334782cc863c19ee5f513d895e2e6ff754b27831850de00d57d5db4d7fa85a88",
+    "bytes": 80509159,
+    "versionCode": 21,
+    "lintWarnings": 42,
+    "signature": "Android Debug",
+    "finalBinaryInstalled": false
+  },
+  "deployment": {
+    "commit": "36a0561096ee91c3036c2ac25f3b49e15fb44e94",
+    "apkDownloadChanged": false,
+    "backendSha256": "7b45c61d24a122f92a0aea0d122442c90d0bb2e93a041e5d634410deb38abd28",
+    "healthVersion": "4.0.5-defense-rc1",
+    "releaseId": "7712051717068393654",
+    "readyHttp": 200,
+    "status": "finished",
+    "webChanged": false,
+    "url": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg"
+  },
+  "demo": {
+    "apiRequests": 11,
+    "isolatedSqlite": true,
+    "smoke": "passed",
+    "modelInvoked": false
+  },
+  "browser": {
+    "stoppedByUser": true,
+    "nativeChrome": "Home, guest workspace, voyage and teach page observed",
+    "fullJourneyCompleted": false
+  },
+  "remaining": [
+    "Gitee write authentication and candidate synchronization",
+    "Huawei Runtime recovery and real plan-confirm-complete-review evidence",
+    "Exact final APK physical-device and cross-device checks",
+    "18 questions independent human review",
+    "User version confirmation before defense writing and PPT"
+  ]
+}

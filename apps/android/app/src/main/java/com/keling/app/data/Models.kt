@@ -561,6 +561,8 @@ val PREDEFINED_ACHIEVEMENTS = listOf(
 
 val json = Json {
     ignoreUnknownKeys = true
+    // Clock-based defaults must survive storage instead of being recreated on read.
+    encodeDefaults = true
     prettyPrint = true
 }
 
