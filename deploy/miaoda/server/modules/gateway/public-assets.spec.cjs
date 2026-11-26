@@ -29,6 +29,7 @@ function loadController(filename, exported) {
 }
 const ArtworkController = loadController('artwork.controller.ts', 'ArtworkController');
 const FontController = loadController('font.controller.ts', 'FontController');
+const DownloadController = loadController('download.controller.ts', 'DownloadController');
 
 async function fixture(run, overrides = {}) {
   const calls = [];
@@ -44,7 +45,7 @@ async function fixture(run, overrides = {}) {
     },
   }; } };
   class TestModule {}
-  NestModule({ controllers: [ArtworkController, FontController], providers: [{ provide: FileService, useValue: fake }] })(TestModule);
+  NestModule({ controllers: [ArtworkController, FontController, DownloadController], providers: [{ provide: FileService, useValue: fake }] })(TestModule);
   const app = await NestFactory.create(TestModule, { logger: false });
   await app.listen(0, '127.0.0.1');
   try { await run(await app.getUrl(), calls); } finally { await app.close(); }
@@ -73,6 +74,17 @@ test('unlisted artwork and fonts never request storage', async () => {
       assert.equal((await fetch(origin + relative)).status, 404);
     }
     assert.equal(calls.length, 0);
+  });
+});
+
+test('Android download signs only the frozen RC6 package and does not cache its redirect', async () => {
+  await fixture(async (origin, calls) => {
+    const response = await fetch(origin + '/download/android?path=/private-file', { redirect: 'manual' });
+    assert.equal(response.status, 302);
+    assert.equal(response.headers.get('cache-control'), 'no-store');
+    assert.equal(response.headers.get('x-content-sha256'), '4284472d6fa5bba6a5aa6cf0ae6d5b52470e309dd8a6ee317d0f28785e6c748d');
+    assert.equal(response.headers.get('location'), 'https://example.invalid/public-art.webp');
+    assert.deepEqual(calls, [{ method: 'sign', bucket: 'bucket_aadk4xawzf4xg', asset: '/1882912753614059.apk', seconds: 3600 }]);
   });
 });
 

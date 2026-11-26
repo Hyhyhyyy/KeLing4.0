@@ -1,0 +1,512 @@
+{
+  "checkedAt": "2026-11-26T09:12:07.798963+00:00",
+  "scope": "Direct HTTP without browser cache or an installed Service Worker; no application data or settings changed",
+  "latestReleaseId": "7712372505571396865",
+  "release": {
+    "release_id": "7712372505571396865",
+    "status": "finished",
+    "commit_id": "3ee6cf1f1d5b58d215473e401b8f2fe1295ea06e",
+    "created_at": "1795676673000",
+    "updated_at": "1795676796000",
+    "error_logs": [],
+    "online_url": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg"
+  },
+  "requests": [
+    {
+      "url": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg",
+      "status": 200,
+      "finalOrigin": "https://ucn5aajxnx7f.feishuapp.com",
+      "finalPath": "/app/app_17h4dw5jwdg",
+      "bytes": 2336,
+      "sha256": "567c52834d4cffe33ca332ed64ae1d2c36a263cf1b248a580987d409fb93d920",
+      "headers": {
+        "cache-control": "no-store",
+        "etag": "W/\"920-1a21710b631\"",
+        "last-modified": "Thu, 26 Nov 2026 08:55:00 GMT",
+        "date": "Thu, 26 Nov 2026 09:11:00 GMT",
+        "vary": "Accept-Encoding",
+        "content-type": "text/html; charset=UTF-8",
+        "server": "TLB"
+      },
+      "moduleScripts": [
+        "/app/app_17h4dw5jwdg/assets/index-C4kYi5Ux.js"
+      ]
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/",
+      "status": 200,
+      "finalOrigin": "https://ucn5aajxnx7f.feishuapp.com",
+      "finalPath": "/app/app_17h4dw5jwdg/",
+      "bytes": 2336,
+      "sha256": "567c52834d4cffe33ca332ed64ae1d2c36a263cf1b248a580987d409fb93d920",
+      "headers": {
+        "cache-control": "no-store",
+        "etag": "W/\"920-1a21710b631\"",
+        "last-modified": "Thu, 26 Nov 2026 08:55:00 GMT",
+        "date": "Thu, 26 Nov 2026 09:11:00 GMT",
+        "vary": "Accept-Encoding",
+        "content-type": "text/html; charset=UTF-8",
+        "server": "TLB"
+      },
+      "moduleScripts": [
+        "/app/app_17h4dw5jwdg/assets/index-C4kYi5Ux.js"
+      ]
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/index.html",
+      "status": 200,
+      "finalOrigin": "https://ucn5aajxnx7f.feishuapp.com",
+      "finalPath": "/app/app_17h4dw5jwdg/index.html",
+      "bytes": 2336,
+      "sha256": "567c52834d4cffe33ca332ed64ae1d2c36a263cf1b248a580987d409fb93d920",
+      "headers": {
+        "cache-control": "public, max-age=3600",
+        "etag": "W/\"920-1a21710b631\"",
+        "last-modified": "Thu, 26 Nov 2026 08:55:00 GMT",
+        "date": "Thu, 26 Nov 2026 09:11:00 GMT",
+        "vary": "Accept-Encoding",
+        "content-type": "text/html; charset=UTF-8",
+        "server": "TLB"
+      },
+      "moduleScripts": [
+        "/app/app_17h4dw5jwdg/assets/index-C4kYi5Ux.js"
+      ]
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/explore",
+      "status": 200,
+      "finalOrigin": "https://ucn5aajxnx7f.feishuapp.com",
+      "finalPath": "/app/app_17h4dw5jwdg/explore",
+      "bytes": 2336,
+      "sha256": "567c52834d4cffe33ca332ed64ae1d2c36a263cf1b248a580987d409fb93d920",
+      "headers": {
+        "cache-control": "no-store",
+        "etag": "W/\"920-1a21710b631\"",
+        "last-modified": "Thu, 26 Nov 2026 08:55:00 GMT",
+        "date": "Thu, 26 Nov 2026 09:11:00 GMT",
+        "vary": "Accept-Encoding",
+        "content-type": "text/html; charset=UTF-8",
+        "server": "TLB"
+      },
+      "moduleScripts": [
+        "/app/app_17h4dw5jwdg/assets/index-C4kYi5Ux.js"
+      ]
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/guide",
+      "status": 200,
+      "finalOrigin": "https://ucn5aajxnx7f.feishuapp.com",
+      "finalPath": "/app/app_17h4dw5jwdg/guide",
+      "bytes": 2336,
+      "sha256": "567c52834d4cffe33ca332ed64ae1d2c36a263cf1b248a580987d409fb93d920",
+      "headers": {
+        "cache-control": "no-store",
+        "etag": "W/\"920-1a21710b631\"",
+        "last-modified": "Thu, 26 Nov 2026 08:55:00 GMT",
+        "date": "Thu, 26 Nov 2026 09:11:01 GMT",
+        "vary": "Accept-Encoding",
+        "content-type": "text/html; charset=UTF-8",
+        "server": "TLB"
+      },
+      "moduleScripts": [
+        "/app/app_17h4dw5jwdg/assets/index-C4kYi5Ux.js"
+      ]
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/api/health",
+      "status": 200,
+      "finalOrigin": "https://ucn5aajxnx7f.feishuapp.com",
+      "finalPath": "/app/app_17h4dw5jwdg/api/health",
+      "bytes": 84,
+      "sha256": "60f9cafc07569e12f85cf68b51ca0e994081bf50df83a7a887437dbb69a75bbf",
+      "headers": {
+        "cache-control": "no-store",
+        "etag": "W/\"54-wW0CDrXtgmZgjbf0B6NdbsiVwgs\"",
+        "date": "Thu, 26 Nov 2026 09:11:01 GMT",
+        "vary": "Origin, Accept-Encoding",
+        "content-type": "application/json; charset=utf-8",
+        "server": "TLB"
+      },
+      "health": {
+        "status": "ok",
+        "timestamp": "2026-11-26T09:11:01.445Z",
+        "version": "4.0.5-defense-rc5"
+      }
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/sw.js",
+      "status": 200,
+      "finalOrigin": "https://ucn5aajxnx7f.feishuapp.com",
+      "finalPath": "/app/app_17h4dw5jwdg/sw.js",
+      "bytes": 5411,
+      "sha256": "c744a3356d0d675b549708d819c21112ca7071cfcf166b045c503af8393e0a30",
+      "headers": {
+        "cache-control": "public, max-age=3600",
+        "etag": "W/\"1523-1a21710bb8b\"",
+        "last-modified": "Thu, 26 Nov 2026 08:55:02 GMT",
+        "date": "Thu, 26 Nov 2026 09:11:01 GMT",
+        "vary": "Accept-Encoding",
+        "content-type": "application/javascript; charset=UTF-8",
+        "server": "TLB"
+      },
+      "indexScripts": [
+        "index-CIcslLxL.js",
+        "index-C4kYi5Ux.js"
+      ],
+      "guideChunks": [
+        "Guide-DSuxSE9Z.css",
+        "Guide-BVaPIBYG.js"
+      ],
+      "skipWaiting": true,
+      "clientsClaim": true,
+      "navigationUsesPrecachedIndex": true
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/registerSW.js",
+      "status": 200,
+      "finalOrigin": "https://ucn5aajxnx7f.feishuapp.com",
+      "finalPath": "/app/app_17h4dw5jwdg/registerSW.js",
+      "bytes": 174,
+      "sha256": "7a5772745c83722bec582a89facd6f389adb8878d4abd76d4f2b6608a77c7a14",
+      "headers": {
+        "cache-control": "public, max-age=3600",
+        "etag": "W/\"ae-1a21710b631\"",
+        "last-modified": "Thu, 26 Nov 2026 08:55:00 GMT",
+        "date": "Thu, 26 Nov 2026 09:11:02 GMT",
+        "vary": "Accept-Encoding",
+        "content-type": "application/javascript; charset=UTF-8",
+        "server": "TLB"
+      },
+      "registrationCode": "if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/app/app_17h4dw5jwdg/sw.js', { scope: '/app/app_17h4dw5jwdg/' })})}"
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/manifest.webmanifest",
+      "status": 200,
+      "finalOrigin": "https://ucn5aajxnx7f.feishuapp.com",
+      "finalPath": "/app/app_17h4dw5jwdg/manifest.webmanifest",
+      "bytes": 889,
+      "sha256": "6258c2f25a84390c47ddce324a37a6b84e1727e544ec6264b15551e02e1d1839",
+      "headers": {
+        "cache-control": "public, max-age=3600",
+        "etag": "W/\"379-1a21710b631\"",
+        "last-modified": "Thu, 26 Nov 2026 08:55:00 GMT",
+        "date": "Thu, 26 Nov 2026 09:11:02 GMT",
+        "content-type": "application/manifest+json",
+        "server": "TLB"
+      }
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/fonts/STZHONGS.woff2",
+      "status": 200,
+      "finalOrigin": "https://ucn5aajxnx7f.feishuapp.com",
+      "finalPath": "/app/app_17h4dw5jwdg/fonts/STZHONGS.woff2",
+      "bytes": 6054636,
+      "sha256": "0451629e411c5b66319cd1558adb59eb9e0660fe07c5537ec7356254823a61c5",
+      "headers": {
+        "cache-control": "public, max-age=86400",
+        "etag": "\"0451629e411c5b66319cd1558adb59eb9e0660fe07c5537ec7356254823a61c5\"",
+        "date": "Thu, 26 Nov 2026 09:11:02 GMT",
+        "content-type": "font/woff2",
+        "server": "TLB"
+      }
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/stellar/navigation_arrow.webp",
+      "status": 200,
+      "finalOrigin": "https://dataloom-ohwheooh.feishucdn.com",
+      "finalPath": "/5422866754/bucket_aadk4xawzf4xg/1882832922057850.webp",
+      "bytes": 330320,
+      "sha256": "b722445a6f11afa60081ef6c92cb3a907acd288df5832e839212c65d398b6107",
+      "headers": {
+        "etag": "\"1b047b5d89e6e6239e9d9dc286bbd39c\"",
+        "last-modified": "Wed, 25 Nov 2026 12:24:06 GMT",
+        "age": "28814",
+        "date": "Thu, 26 Nov 2026 09:11:03 GMT",
+        "content-type": "image/webp",
+        "content-length": "330320",
+        "server": "Byte-nginx"
+      }
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg",
+      "status": 200,
+      "finalOrigin": "https://ucn5aajxnx7f.feishu.link",
+      "finalPath": "/app/app_17h4dw5jwdg",
+      "bytes": 2336,
+      "sha256": "567c52834d4cffe33ca332ed64ae1d2c36a263cf1b248a580987d409fb93d920",
+      "headers": {
+        "cache-control": "no-store",
+        "etag": "W/\"920-1a21710b631\"",
+        "last-modified": "Thu, 26 Nov 2026 08:55:00 GMT",
+        "date": "Thu, 26 Nov 2026 09:11:03 GMT",
+        "vary": "Accept-Encoding",
+        "content-type": "text/html; charset=UTF-8",
+        "server": "TLB"
+      },
+      "moduleScripts": [
+        "/app/app_17h4dw5jwdg/assets/index-C4kYi5Ux.js"
+      ]
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg/",
+      "status": 200,
+      "finalOrigin": "https://ucn5aajxnx7f.feishu.link",
+      "finalPath": "/app/app_17h4dw5jwdg/",
+      "bytes": 2336,
+      "sha256": "567c52834d4cffe33ca332ed64ae1d2c36a263cf1b248a580987d409fb93d920",
+      "headers": {
+        "cache-control": "no-store",
+        "etag": "W/\"920-1a21710b631\"",
+        "last-modified": "Thu, 26 Nov 2026 08:55:00 GMT",
+        "date": "Thu, 26 Nov 2026 09:11:03 GMT",
+        "vary": "Accept-Encoding",
+        "content-type": "text/html; charset=UTF-8",
+        "server": "TLB"
+      },
+      "moduleScripts": [
+        "/app/app_17h4dw5jwdg/assets/index-C4kYi5Ux.js"
+      ]
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg/index.html",
+      "status": 200,
+      "finalOrigin": "https://ucn5aajxnx7f.feishu.link",
+      "finalPath": "/app/app_17h4dw5jwdg/index.html",
+      "bytes": 2336,
+      "sha256": "567c52834d4cffe33ca332ed64ae1d2c36a263cf1b248a580987d409fb93d920",
+      "headers": {
+        "cache-control": "public, max-age=3600",
+        "etag": "W/\"920-1a21710b631\"",
+        "last-modified": "Thu, 26 Nov 2026 08:55:00 GMT",
+        "date": "Thu, 26 Nov 2026 09:11:03 GMT",
+        "vary": "Accept-Encoding",
+        "content-type": "text/html; charset=UTF-8",
+        "server": "TLB"
+      },
+      "moduleScripts": [
+        "/app/app_17h4dw5jwdg/assets/index-C4kYi5Ux.js"
+      ]
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg/explore",
+      "status": 200,
+      "finalOrigin": "https://ucn5aajxnx7f.feishu.link",
+      "finalPath": "/app/app_17h4dw5jwdg/explore",
+      "bytes": 2336,
+      "sha256": "567c52834d4cffe33ca332ed64ae1d2c36a263cf1b248a580987d409fb93d920",
+      "headers": {
+        "cache-control": "no-store",
+        "etag": "W/\"920-1a21710b631\"",
+        "last-modified": "Thu, 26 Nov 2026 08:55:00 GMT",
+        "date": "Thu, 26 Nov 2026 09:11:03 GMT",
+        "vary": "Accept-Encoding",
+        "content-type": "text/html; charset=UTF-8",
+        "server": "TLB"
+      },
+      "moduleScripts": [
+        "/app/app_17h4dw5jwdg/assets/index-C4kYi5Ux.js"
+      ]
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg/guide",
+      "status": 200,
+      "finalOrigin": "https://ucn5aajxnx7f.feishu.link",
+      "finalPath": "/app/app_17h4dw5jwdg/guide",
+      "bytes": 2336,
+      "sha256": "567c52834d4cffe33ca332ed64ae1d2c36a263cf1b248a580987d409fb93d920",
+      "headers": {
+        "cache-control": "no-store",
+        "etag": "W/\"920-1a21710b631\"",
+        "last-modified": "Thu, 26 Nov 2026 08:55:00 GMT",
+        "date": "Thu, 26 Nov 2026 09:11:04 GMT",
+        "vary": "Accept-Encoding",
+        "content-type": "text/html; charset=UTF-8",
+        "server": "TLB"
+      },
+      "moduleScripts": [
+        "/app/app_17h4dw5jwdg/assets/index-C4kYi5Ux.js"
+      ]
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg/api/health",
+      "status": 200,
+      "finalOrigin": "https://ucn5aajxnx7f.feishu.link",
+      "finalPath": "/app/app_17h4dw5jwdg/api/health",
+      "bytes": 84,
+      "sha256": "372053f78ffd77e3900527b268b97996aa46966324fbe713337fc9cc8313df63",
+      "headers": {
+        "cache-control": "no-store",
+        "etag": "W/\"54-I3k70NO+9c6nzBcHxu0dWhwe8vU\"",
+        "date": "Thu, 26 Nov 2026 09:11:03 GMT",
+        "vary": "Origin, Accept-Encoding",
+        "content-type": "application/json; charset=utf-8",
+        "server": "TLB"
+      },
+      "health": {
+        "status": "ok",
+        "timestamp": "2026-11-26T09:11:03.861Z",
+        "version": "4.0.5-defense-rc5"
+      }
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg/sw.js",
+      "status": 200,
+      "finalOrigin": "https://ucn5aajxnx7f.feishu.link",
+      "finalPath": "/app/app_17h4dw5jwdg/sw.js",
+      "bytes": 5411,
+      "sha256": "c744a3356d0d675b549708d819c21112ca7071cfcf166b045c503af8393e0a30",
+      "headers": {
+        "cache-control": "public, max-age=3600",
+        "etag": "W/\"1523-1a21710bb8b\"",
+        "last-modified": "Thu, 26 Nov 2026 08:55:02 GMT",
+        "date": "Thu, 26 Nov 2026 09:11:04 GMT",
+        "vary": "Accept-Encoding",
+        "content-type": "application/javascript; charset=UTF-8",
+        "server": "TLB"
+      },
+      "indexScripts": [
+        "index-CIcslLxL.js",
+        "index-C4kYi5Ux.js"
+      ],
+      "guideChunks": [
+        "Guide-DSuxSE9Z.css",
+        "Guide-BVaPIBYG.js"
+      ],
+      "skipWaiting": true,
+      "clientsClaim": true,
+      "navigationUsesPrecachedIndex": true
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg/registerSW.js",
+      "status": 200,
+      "finalOrigin": "https://ucn5aajxnx7f.feishu.link",
+      "finalPath": "/app/app_17h4dw5jwdg/registerSW.js",
+      "bytes": 174,
+      "sha256": "7a5772745c83722bec582a89facd6f389adb8878d4abd76d4f2b6608a77c7a14",
+      "headers": {
+        "cache-control": "public, max-age=3600",
+        "etag": "W/\"ae-1a21710b631\"",
+        "last-modified": "Thu, 26 Nov 2026 08:55:00 GMT",
+        "date": "Thu, 26 Nov 2026 09:11:04 GMT",
+        "vary": "Accept-Encoding",
+        "content-type": "application/javascript; charset=UTF-8",
+        "server": "TLB"
+      },
+      "registrationCode": "if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/app/app_17h4dw5jwdg/sw.js', { scope: '/app/app_17h4dw5jwdg/' })})}"
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg/manifest.webmanifest",
+      "status": 200,
+      "finalOrigin": "https://ucn5aajxnx7f.feishu.link",
+      "finalPath": "/app/app_17h4dw5jwdg/manifest.webmanifest",
+      "bytes": 889,
+      "sha256": "6258c2f25a84390c47ddce324a37a6b84e1727e544ec6264b15551e02e1d1839",
+      "headers": {
+        "cache-control": "public, max-age=3600",
+        "etag": "W/\"379-1a21710b631\"",
+        "last-modified": "Thu, 26 Nov 2026 08:55:00 GMT",
+        "date": "Thu, 26 Nov 2026 09:11:04 GMT",
+        "content-type": "application/manifest+json",
+        "server": "TLB"
+      }
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg/fonts/STZHONGS.woff2",
+      "status": 200,
+      "finalOrigin": "https://ucn5aajxnx7f.feishu.link",
+      "finalPath": "/app/app_17h4dw5jwdg/fonts/STZHONGS.woff2",
+      "bytes": 6054636,
+      "sha256": "0451629e411c5b66319cd1558adb59eb9e0660fe07c5537ec7356254823a61c5",
+      "headers": {
+        "cache-control": "public, max-age=86400",
+        "etag": "\"0451629e411c5b66319cd1558adb59eb9e0660fe07c5537ec7356254823a61c5\"",
+        "date": "Thu, 26 Nov 2026 09:11:04 GMT",
+        "content-type": "font/woff2",
+        "server": "TLB"
+      }
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg/stellar/navigation_arrow.webp",
+      "status": 200,
+      "finalOrigin": "https://dataloom-ohwheooh.feishucdn.com",
+      "finalPath": "/5422866754/bucket_aadk4xawzf4xg/1882832922057850.webp",
+      "bytes": 330320,
+      "sha256": "b722445a6f11afa60081ef6c92cb3a907acd288df5832e839212c65d398b6107",
+      "headers": {
+        "etag": "\"1b047b5d89e6e6239e9d9dc286bbd39c\"",
+        "last-modified": "Wed, 25 Nov 2026 12:24:06 GMT",
+        "age": "28816",
+        "date": "Thu, 26 Nov 2026 09:11:05 GMT",
+        "content-type": "image/webp",
+        "content-length": "330320",
+        "server": "Byte-nginx"
+      }
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishuapp.com/sw.js",
+      "status": 404,
+      "finalOrigin": "https://ucn5aajxnx7f.feishuapp.com",
+      "finalPath": "/sw.js",
+      "bytes": 9,
+      "sha256": "0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5",
+      "headers": {
+        "date": "Thu, 26 Nov 2026 09:11:05 GMT",
+        "content-type": "text/plain; charset=utf-8",
+        "content-length": "9",
+        "server": "TLB"
+      }
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishuapp.com/registerSW.js",
+      "status": 404,
+      "finalOrigin": "https://ucn5aajxnx7f.feishuapp.com",
+      "finalPath": "/registerSW.js",
+      "bytes": 9,
+      "sha256": "0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5",
+      "headers": {
+        "date": "Thu, 26 Nov 2026 09:11:05 GMT",
+        "content-type": "text/plain; charset=utf-8",
+        "content-length": "9",
+        "server": "TLB"
+      }
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishu.link/sw.js",
+      "status": 404,
+      "finalOrigin": "https://ucn5aajxnx7f.feishu.link",
+      "finalPath": "/sw.js",
+      "bytes": 9,
+      "sha256": "0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5",
+      "headers": {
+        "date": "Thu, 26 Nov 2026 09:11:05 GMT",
+        "content-type": "text/plain; charset=utf-8",
+        "content-length": "9",
+        "server": "TLB"
+      }
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishu.link/registerSW.js",
+      "status": 404,
+      "finalOrigin": "https://ucn5aajxnx7f.feishu.link",
+      "finalPath": "/registerSW.js",
+      "bytes": 9,
+      "sha256": "0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5",
+      "headers": {
+        "date": "Thu, 26 Nov 2026 09:11:05 GMT",
+        "content-type": "text/plain; charset=utf-8",
+        "content-length": "9",
+        "server": "TLB"
+      }
+    }
+  ],
+  "observed": [
+    "Both application hostnames serve RC5 entry, health, correctly scoped service-worker registration, font and arrow resources.",
+    "Stable index.html/sw.js/registerSW.js/manifest.webmanifest were returned with public,max-age=3600; SPA navigation uses no-store.",
+    "The registration script has no update notification or controller-change refresh handler, and the worker serves navigations from its precached index.",
+    "Origin-root /sw.js and /registerSW.js return 404; the deployed application correctly uses the app-prefixed script and scope."
+  ],
+  "limits": [
+    "The user browser entry, installed worker, CacheStorage and currently running JavaScript were not observed.",
+    "These are confirmed update-delivery defects, not proof that a one-hour HTTP header caused this specific report; worker updates may bypass HTTP cache depending on updateViaCache."
+  ]
+}

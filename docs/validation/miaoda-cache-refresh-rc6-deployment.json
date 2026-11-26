@@ -1,0 +1,665 @@
+{
+  "checkedAt": "2026-11-26T09:57:55.305204+00:00",
+  "localDate": "2026-11-26",
+  "version": "4.0.5-defense-rc6",
+  "appId": "app_17h4dw5jwdg",
+  "releaseId": "7712415886057737509",
+  "status": "finished",
+  "errorLogs": [],
+  "onlineUrl": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg",
+  "templateCommit": "dd8a4bc17371a659ee97f49d0ffe7b5d4517f93b",
+  "templateBranch": "sprint/default",
+  "templateWorktreeClean": true,
+  "sourceBaseCommit": "8aafa659ed44a1d0e0fdebf5b3a1b32fc405b2ca",
+  "sourceRecordedAsWorkingTreeHashes": true,
+  "sourceFileHashesReverifiedAfterPublish": 151,
+  "workingTreeSourceFileHashes": {
+    "apps/server/src/agentarts/contract.ts": "bfcc04b709b21a1bb17d029cc31c0e7a3d05e87374dc9af9daa3bf67b451676b",
+    "apps/server/src/agentarts/deepseek.ts": "03ce8753c9e2a69fac097290a7d0d2530c1d92c83abb88eb950753fe99e787a5",
+    "apps/server/src/agentarts/routes.ts": "3a8750ebf4b356e94c32bcdd4ab431c1bbd0f0f6da08e5628426d2e546bada62",
+    "apps/server/src/agentarts/runtime.ts": "5b3eb07579bd0566d5fc6aaa237ba08feb238192b619b4994b1cec3f822d9f8d",
+    "apps/server/src/agentarts/service.ts": "e16bcf2033392fa2e4e8df5353f72faa07328a61f105d8fe1f1ce84b4f6868ec",
+    "apps/server/src/ai/catalog.ts": "37326fda8f88e5ca229b44c7964446f1be15085e52bc86852b7d2c43829190fb",
+    "apps/server/src/ai/context.ts": "bf8a56545374e6a0af1dd702f62af44f898c2e101a7fe31a41d91443595a4554",
+    "apps/server/src/ai/guest.ts": "fc11aac8c17c517f384af95cadd1aa98611f03ad3573209dc11fb648c1c107cd",
+    "apps/server/src/ai/modelAccess.ts": "fedb0a06230cbd6bc26f1af5e4ed5dbf7bb1c4d0e5bce1cea04dbe3882ca6a9b",
+    "apps/server/src/ai/retrieval.ts": "5cc42f30f55f052c094587d4e801291c50d84ce726fadbf67f6928467283cec8",
+    "apps/server/src/ai/routes.ts": "ec5416745626c4cb7d95c91a6f937c1304c22e733dbe0ebec7d7dc5d2c07b5c3",
+    "apps/server/src/ai/service.ts": "c3045dc61343ea0f26bc2b796840144cee253eb2c0703a4ea66977e675cfc598",
+    "apps/server/src/ai/transport.ts": "4d7d3c792afa74895c0c6a5017e066f2febe5a6c4dcfd6de69494d4e96493576",
+    "apps/server/src/ai/trial.ts": "4c9f93f0e6e6fda7f9fd9758b76895d17abebfb699b33e6e675e4a24a5a8c489",
+    "apps/server/src/config/database.ts": "c02edd48524ce184616f040fe60c1ff82e1353bf58060fcbe1a2a5929b919571",
+    "apps/server/src/config/rate-limit.ts": "510781ff29db6b2fff0dbb46382b096cf5ff78791a28545de393f9ed01dda973",
+    "apps/server/src/config/security.ts": "4b738f3d239f1f562b3e5c29cd6f38652e9b804884f51385919e685adbbd843c",
+    "apps/server/src/controllers/achievements.ts": "596d5637ee95ae53e88531b77863a67a5190d27b2f1ae840c7a1d3c80614de7f",
+    "apps/server/src/controllers/auth.ts": "9704ef65fd49de668b2e9064c24b22a1e1f970fcb4c4b277f34cdb442cc32acf",
+    "apps/server/src/controllers/checkin.ts": "c9d478a02b8953a59fc147a17c2602b1460941f3e39d342d1f869c24d6b02b85",
+    "apps/server/src/controllers/courses.ts": "54e5ac998d910544bacfcdb7d47650c9d4ba9be5b01768d0671612ab0a510190",
+    "apps/server/src/controllers/knowledge.ts": "50212109d056ebd38142259837a3e3d25a8595273d0f4ec52949de5fe5a28def",
+    "apps/server/src/controllers/notes.ts": "a47eced882bba972b15b770c852aa0961317b67e39c2fa19ebe0f7e59cbf7929",
+    "apps/server/src/controllers/tasks.ts": "a1dde38db3a749f4353cecd7a404e947a4d4e31b4a74712b55fe739eb09221c5",
+    "apps/server/src/controllers/user.ts": "a95f3b3e5342d7a93a17e934f70bb6aa847b2fcf716630e96c12a32acc764807",
+    "apps/server/src/database.ts": "0dd77b8f3f2c7f22dddcadd26fde0849aa5643b51769c5b6595fbb916060ba64",
+    "apps/server/src/expedition/routes.ts": "d131e3c8662024ec09dc191d24e31e50fd199f44d2ed8c5e76f13166649b7976",
+    "apps/server/src/expedition/service.ts": "07b16ee00ada3be22a56d1406948e0b1216624f8d57f64cb007bb8d9cf150d15",
+    "apps/server/src/index.ts": "21f9962260c8bd7a0ca3fb32fa2045df752a4a38b6fe9f3ce58e62235ea90ab8",
+    "apps/server/src/learning/materials.ts": "4f94e9f050120957d81e0e779ce68932fc5b4a803e169d38c8b5edf8392cf36a",
+    "apps/server/src/learning/pdfWorker.ts": "0b3f85d0159602de4ec05d5e3240a2d690f4686947108d57a0dfed587051a879",
+    "apps/server/src/learning/planner.ts": "91ca518e69bdf5d908f39ce3eb4a492a2bbd4eb5aafe461f6ac56bf5b9d5407f",
+    "apps/server/src/learning/plannerRoutes.ts": "6a953513d2f204314dd83ce0b129bcd32b789af6feb1038d3452058e7d8299d8",
+    "apps/server/src/learning/routes.ts": "5ca74cabbfcb0b9d078a1b6e1bdd7fe00ef2dfd2eaf77ee8d497c0f6fc4d60f8",
+    "apps/server/src/middleware/auth.ts": "a265948bfb6af8f520723b275c85cd194c07090c0dc21a17c3d41a17773c3b48",
+    "apps/server/src/routes/achievements.ts": "994b1bd04484b2cfcdbba82ee711cac3526be521d9892f344410441bc2b132e0",
+    "apps/server/src/routes/auth.ts": "f92194ebf393dc8fde6dbf442b3209f7edee837db547da2b0e354501dcad5cc9",
+    "apps/server/src/routes/checkin.ts": "22c2b44a0e19c2efd67ddea57387455888efe524d168ae3832582c36de764ab6",
+    "apps/server/src/routes/courses.ts": "7729344c96e8ce1f8bab75d38d4e08f46cd223006ab83a49817861b2d03d5c68",
+    "apps/server/src/routes/knowledge.ts": "058051c1a74c40d765f0cd8eba7e3bceb82bda985e72b7fe4d828d3abce48dca",
+    "apps/server/src/routes/notes.ts": "66872d5a56019ef54b1a45069ad88394e966ea14caa59d31272fb5700f228eba",
+    "apps/server/src/routes/tasks.ts": "f94d2eb854382c4843c8bd36efa09cd3fdec3e27b495e378f94bc1ca6b464e33",
+    "apps/server/src/routes/user.ts": "96e840ba81d8c62ab01e59d45b06895c4fe0c4fecf193dad60e5e0764debbcd6",
+    "apps/server/src/services/background.ts": "892c14f07e725db3557504888c787177140329e0c96639437b9c5efaf28ab0e7",
+    "apps/server/src/services/checkin.ts": "0981b3839b86349c18099e9e97d985bedd6937ca38c1729ba7827a965acfe73e",
+    "apps/server/src/services/release.ts": "f32f6ded6bc40457a57a97e61d25b50d22b733b12ca860a4348e2918718ab7b9",
+    "apps/server/src/services/taskCompletion.ts": "0b813f2c43791774c009e4518c34b1976bcf6fcf382f624d8447dc325f9623d7",
+    "apps/server/src/services/taskMutations.ts": "0e258145b6b50aeaa16b8de95c4c63ed9f7b81ddcf7913a286ad928be0cf145b",
+    "apps/web/src/App.tsx": "a80505910ba07a230f40ac3909dce2793ea7a1dee0e345b744a1b7a16642a494",
+    "apps/web/src/assets/icons/achievements.jpg": "973e84adde572ad7b68f572e72b0cee1b637e2c0de0367ed737e503f4ec3a5cd",
+    "apps/web/src/assets/icons/crystals.jpg": "4e60adec83dc600889544b362d47ae3e31a2c019b6c22d3a98bda9e7778f2c2e",
+    "apps/web/src/assets/icons/energy.jpg": "4b0daa5c59ceb9ddd67d93ba05259377a40f05af8154423438e9adee99a8c37f",
+    "apps/web/src/assets/icons/notes.jpg": "d980a477e4fd36cc6fe226c65a1e300d4fa2044849c4a67892b8d3deefcf6510",
+    "apps/web/src/assets/icons/streak.jpg": "374fa8bbcdb37fa438a23c8b05c10244fbb1d99fc83ac9c910510cf6d54635b9",
+    "apps/web/src/clearLegacyCache.ts": "25ff1e1288eca4ab77124346288cd3ee75bee1e1fcf15bf34e575151c2308185",
+    "apps/web/src/components/AppUpdateNotice.css": "a658b80ae4e4c95c4eb6a3c8775c0572f9be0f5ec2a3cfe16a252dec35a2dc2d",
+    "apps/web/src/components/AppUpdateNotice.tsx": "7182faffd33f08d44f37b988291d108d81d8cf4bcaa83395aa195ed1a62a4303",
+    "apps/web/src/components/AskAssistantButton.tsx": "cfe6467f584532fab9ac753411cef80cc625f0064120117bf8a3b53f48f85570",
+    "apps/web/src/components/AssistantContextPanel.css": "72151c22b02e63d15fb6be709a95b5a30113fe4ca359a1ed5293cd538b4d695f",
+    "apps/web/src/components/AssistantContextPanel.tsx": "08ea97fcba6a82a49330a65ab1db2f4092edcb6918297707ae68efc0655ffece",
+    "apps/web/src/components/CoursePlanet.css": "191aafc0da2ab1f75a21a9e1cf4e94a32ac9b26fe5f9aedc896c35acc91e990a",
+    "apps/web/src/components/CoursePlanet.tsx": "74c38510ff4f3f7e68ef6bbcc3ec6c7fd5a1aa3bfab579694dba7f77330570e1",
+    "apps/web/src/components/GuestTrialEntry.css": "77bd2420a6a0a7338ed4025a741f66566123abdd2a837f236b5d6dee448e7d29",
+    "apps/web/src/components/GuestTrialEntry.tsx": "64dba0f0215bde13e1ac7e71611874c0709521400c7a7332ebfe42c02224b04e",
+    "apps/web/src/components/ModelAccessPanel.css": "8973e12fcbaafc4362671443ca3b94ded8a53b67d6f02496b37cf88988c84820",
+    "apps/web/src/components/ModelAccessPanel.tsx": "f9a23ddd170b7d8435855401b50fbf4c435653f0b5089dd001e18c52e5fea199",
+    "apps/web/src/components/ModuleTitle.css": "e8e8bb186dcdc22b1f470af7049ac3b3feff012ccae5771ce516f41e9267d3ed",
+    "apps/web/src/components/ModuleTitle.tsx": "468177464129fae452d5b771a1380fc016e5cbc3872d2da2eb7af86a68c021f6",
+    "apps/web/src/components/NavigationArrow.css": "0a2f10d43e28174ff9abefa6c05b3901aab0d568351c833398f13750abbdbab7",
+    "apps/web/src/components/NavigationArrow.tsx": "78bce6658f0dff6a7fe175bf8d49d2825d314deb070a45aecff46b100118359b",
+    "apps/web/src/components/planetCatalog.ts": "7c1314143152b8f5c5da581ce35742ba07be075d32e7b5043dd3a3aba0430e6a",
+    "apps/web/src/components/StellarArt.tsx": "91a0255cc9f4e406afdd6ad9d810ae9c88992e8105fec5de3287ae6c2ce47df6",
+    "apps/web/src/components/stellarCatalog.ts": "85eedcfb21807bbe29237d941cf86f99d52fe674efda0ba586d5100109a4b49b",
+    "apps/web/src/components/StellarScene.css": "eb0f204c99e469e40011c94073ccf1932b8066f1c6e9089049c3af30b55b4ed7",
+    "apps/web/src/components/StellarScene.tsx": "14c051567fe93f44e77c68a113c6d2125c89fae862e39da6fc19013aecb60f78",
+    "apps/web/src/components/stellarScenes.ts": "e98777dc858cc9392ac7be98d4e944794789fc158f62eed0137b5c4c178ea7a3",
+    "apps/web/src/components/useCourseDialogFocus.ts": "80c1ea8c2d43ef7a4ebe6a774aa79ab393470e8bec8d95b7d2b1eda8acd312e8",
+    "apps/web/src/index.css": "d48aeb5a9203728a35bac0f813a48da8df7cde659fcd381bbe6fcb8a1661f924",
+    "apps/web/src/main.tsx": "45e7f41b9ab519a867fd5e569da6c7a35bdce9a48c9e5e4a16fa47ecbce70221",
+    "apps/web/src/pages/Achievements/Achievements.css": "528ad8a2bc5224e607e8b13e9c0a421966d2f8f754cf3fb9496fba3b14c9bfa0",
+    "apps/web/src/pages/Achievements/Achievements.tsx": "c2cb62e39e8e186c1815fa812ad593e9b643afdd32ea99903ad4206c483ddd19",
+    "apps/web/src/pages/Agent/Agent.css": "5cea73e2f188fe70fac69c776d7f686d2a3b8b00cffd798fd8023f6d30b69fff",
+    "apps/web/src/pages/Agent/Agent.tsx": "6d98657768f837fbf54ad14b5ceb8797fecc08bc32275c711f11b92017aa973d",
+    "apps/web/src/pages/AI/StellarAssistant.css": "f88c9320f8df7905f6a6b332d493be0f1e334efb5f346e67206f636130a3d9dd",
+    "apps/web/src/pages/AI/StellarAssistant.tsx": "c09fa0360e577e845d67b1c1cf1011806fc06fda43916fd2a044456ff219137c",
+    "apps/web/src/pages/Auth/Auth.css": "39ce7783644c65799eb4ae3a0c395df717a48ec4bf6c24742992653f07061309",
+    "apps/web/src/pages/Auth/Login.tsx": "5c0b4450c8495fcc0594a1f041d55b67b90c1917ab0048881d0bdae5fbdb8bf8",
+    "apps/web/src/pages/Auth/Register.tsx": "6cd57c9b7ebfe5a2bd1068d6c2bbf99c6e179d0f5438108c20a38e5e34538a73",
+    "apps/web/src/pages/Expedition/Expedition.css": "44c74d759d09c220981e41088bd3a8aa6dcbd83469115e97cf665ddde9810bd4",
+    "apps/web/src/pages/Expedition/expeditionLabels.ts": "33c4fef0c8cf87819aa47c2100b0e3c9e3a5f4e09420ac43244ba6b5ce83c8f0",
+    "apps/web/src/pages/Expedition/ExpeditionNotice.tsx": "17b13c8bfc252ddcfc6ce9bd23047993c89ef1647efc708bbd279e6ce98b936e",
+    "apps/web/src/pages/Expedition/ExpeditionPages.tsx": "0946e17a53dae6189876cb19f1ee319a00a5bfe0f13d5045c870c613bbf56709",
+    "apps/web/src/pages/Expedition/ExpeditionRun.tsx": "961202f089cbaf3a298840672cd1a43b05227f8a89a52708a6270eb7b06bd50a",
+    "apps/web/src/pages/Expedition/MaterialsPanel.tsx": "b536499945ad419c8a7108b763d57b7637278966cf9b4c1a71beac78af29284a",
+    "apps/web/src/pages/Expedition/SchedulePanel.tsx": "17025430d96c18ab2ce0f88a234a8e3a618d125876589c2f973f9acfb4291c90",
+    "apps/web/src/pages/Expedition/treeOperations.ts": "253b1515970337b1927c46a48d87fde14d30caf22d434a09e9becf905da938d8",
+    "apps/web/src/pages/Expedition/TreeWorkbench.tsx": "59d5b5df32ee04a6fdcfbb869c08519206e22e9afafd689f5f4f9b9c78471ebe",
+    "apps/web/src/pages/Expedition/useExpeditionWorkspace.ts": "66f77afe41bb2eb9770c301edb5c50d29ddeddad1b42c21b216cdd6bdc46160a",
+    "apps/web/src/pages/Explore/Explore.css": "35fb87eebc71308c73fcbcf85b913ea2c4494d323eee1f0288f4ccd3f2e2e899",
+    "apps/web/src/pages/Explore/Explore.tsx": "d9b2f826a8aecf77b9db8bc9c5bae3baf7f079ba395cbc5545632724488a291a",
+    "apps/web/src/pages/Greenhouse/CourseDetail.css": "bc3009ec06c91a33bc33b324888fcb478ea494527aa1b10a6e32d0ffe3859c62",
+    "apps/web/src/pages/Greenhouse/CourseDetail.tsx": "f886b806aa766d53dab38ee1a33a0a71c47ecd56210698619b8e0e5fcbe92305",
+    "apps/web/src/pages/Greenhouse/Greenhouse.css": "f09138423c2fd3718d6dd54907cf9e7514c8dc43fae30552234c0b30e7ab7dca",
+    "apps/web/src/pages/Greenhouse/Greenhouse.tsx": "2cddc7e1540c3912d380c00227a466f48cef8b78e024e05df0be928e40714fa0",
+    "apps/web/src/pages/Guide/Guide.css": "689837cba6b615ed30cb2197247ed0f59f5d01295c52c7cdb007f2197aba5059",
+    "apps/web/src/pages/Guide/Guide.tsx": "4cd92cd5f89c398548b31ed3b6fc7357e96b348fcae18ae7961a1ae31ba296c8",
+    "apps/web/src/pages/Home/StellarHome.css": "d4d747ad9eb215cb89f8de0331f83c428a8a2acbf061b219513aea1d69dee0a8",
+    "apps/web/src/pages/Home/StellarHome.tsx": "5443267121f836087ee1aef3d914c35b371177ac18a904688b6e465f029febbc",
+    "apps/web/src/pages/KnowledgeGraph/KnowledgeGraph.css": "f5d6044f4472f2d2a700775da5ec54538aefa3fc05848c23c620aba979288c56",
+    "apps/web/src/pages/KnowledgeGraph/KnowledgeGraph.tsx": "6600baf1daeb5032d7dacc27c9e7af88485a6c9e3bc228ca460c281a4fe4c152",
+    "apps/web/src/pages/Notes/SharedNotebook.css": "94045325a586c6755ce5e97e4c99c4eecc714c62eaa8943651a3bfd81ffda1c6",
+    "apps/web/src/pages/Notes/SharedNotebook.tsx": "a048080327a96f2eec7ac088cad02c5550cf6b735eaf171731ddc0e86d93e20f",
+    "apps/web/src/pages/Profile/Profile.css": "7aa098d91cb0ed159353f6f5a5d020d6c55201bfa48bcce894ea6b3056b62bec",
+    "apps/web/src/pages/Profile/Profile.tsx": "003d1f9d1479ce76d5a94098570e5c05784f86426fa18eb246f7e0d324cf610c",
+    "apps/web/src/pages/Settings/StellarSettings.css": "7127333618326bcf8a2b2cec2342f7e2cbc272da9a54edd76f627f400fa1faf2",
+    "apps/web/src/pages/Settings/StellarSettings.tsx": "0ddbb81d63042eacc62b9f5fffdcfd8e7f49844169f0cfec02aed3db7cccb5b9",
+    "apps/web/src/pages/StudyReport/StudyReport.css": "fb41f383c413c2225f7243ba37ef7e23099eb84ff92c99414b4136cd5ff80a62",
+    "apps/web/src/pages/StudyReport/StudyReport.tsx": "d014630e4080deb17c7596618082e8202a35aefd43447ac6d55a51a807ef160e",
+    "apps/web/src/pages/Tasks/Tasks.css": "1c0830c3bd8ce7d23a17a50f6b7ae9f2428db057ce6f8e948a2c822e9926d38e",
+    "apps/web/src/pages/Tasks/Tasks.tsx": "e4752f34582bb9d8644910d05aa136f02181ac1ccaa36073d98238b2f8e7d6a4",
+    "apps/web/src/pages/VisualLibrary/VisualLibrary.css": "0c4bcdf8f7a2bc78be970aed5158cb158fc1cd081cd7c8585ec23ba0ceb3aa91",
+    "apps/web/src/pages/VisualLibrary/VisualLibrary.tsx": "1d46f94d1077f090e9d8006549cf99112d4f531911297d1092c9a404facd9e32",
+    "apps/web/src/services/api.ts": "e23ee5948c163a85301a841346982c5d54ec71fb197028ff7c831ac139bbf7a5",
+    "apps/web/src/services/appPath.ts": "6c953a0a8b5e0370058b4ffda2148be44c2e3f694a0c711e396b665e2a5d163c",
+    "apps/web/src/services/appUpdates.ts": "587d815679835b977a4cabec2b8f198a81b55d3a17da48cceef32da77d8b8e4d",
+    "apps/web/src/services/assistant.ts": "95eddb077f80eed7b1964a171da36a65d76119846cb1a0f02cc63c2a19a66a76",
+    "apps/web/src/services/assistantLaunch.ts": "ed556a83c83bd7363a0e402d918f5843b8fe1e392d89c7e8ebb8d677c8b23f54",
+    "apps/web/src/services/authError.ts": "c69ae7323092c279b99f57d23dc803b3c18f6d1351372375061e5f3f20de49fe",
+    "apps/web/src/services/authRedirect.ts": "e39c0092db394c7b75c23ad304e41505e537a126c6f8d223f72e42ae6d72f6fe",
+    "apps/web/src/services/authRequest.ts": "8f61d72a1a38c12670914c31f380424ae0f2d8b2938d50dea0ac608e2f355c16",
+    "apps/web/src/services/expedition.ts": "728d8b30408747073a9dc1e585cdee9d908d487cd791b11de66eb0402ed7993c",
+    "apps/web/src/services/expeditionStorage.ts": "9175ee778c1a4083e179f7d0d23a56e89f5fe930b79a7207655af61a40c65e8d",
+    "apps/web/src/services/guestAI.ts": "dbb0d6455c1bb6776cf8eb452ab136cf70e97fae09252e2dade9be7bde22e442",
+    "apps/web/src/services/guestData.ts": "0505762e9e261da1c7ef6541905300e36080c34059dbacaa6ae1eb280f3e142c",
+    "apps/web/src/services/guestExpedition.ts": "b47a4ae2bb7ac3ce94980a00f755502fe5252036630b89e6e69d43fa95dcaa83",
+    "apps/web/src/services/guestSession.ts": "0f4b5d3d60c372d170e1bdc8db5a28cdcbad1d988af4d58890f056f9a982e2b8",
+    "apps/web/src/services/learningMaterials.ts": "0e0223badd348b1a21248d853f2cd7d7d6cdc1a5fc41e6a5c295234acd34b98a",
+    "apps/web/src/services/learningSchedule.ts": "e78593479561e10bb3624cc27e8653ca686e365856e94accee634a0c8babc790",
+    "apps/web/src/services/modelAccess.ts": "a3305176620cdf950eb34def6f6b03859e3800466312e6f84c90d28e361df1bb",
+    "apps/web/src/services/stellarPath.ts": "89119b46e053d30aa0e14fd5d839ced8e05857b75d466c74da67f6cf709eff65",
+    "apps/web/src/store/useAppStore.ts": "a169dbd7b2a9ae1ca065492dfccca96f127ab9fe16e43f16d64c03ae4ded76e0",
+    "apps/web/src/styles/globals.css": "e9b6cd33de941bd4fc63aecdb540cb4a70b081172f5c5c7b38c8bbb4311bc4f2",
+    "apps/web/src/styles/stellar.css": "fb13a8123c755952a8782df3cd683cb63a9d277eb89aecadb97fb4d5576227a4",
+    "apps/web/src/styles/typography.css": "cd9c2620c9362ce1cb0c1eef7d17c508e6386a5ad84d83b20426db529d553688",
+    "apps/web/src/types/index.ts": "db28fb612d47ce128f789b2880aedee0c20631141a2ff165e7f1b128a56ad16b",
+    "packages/shared/src/expedition/chapter.json": "d2016f6c59ac8fa8770b30ee653438aea75139fac24f1539796054b123f65c1c",
+    "packages/shared/src/expedition/core.ts": "1c4ca1b6ab6ac97041e35462f5a6db25a720ceea8bb03c38739f3146e76eacec",
+    "packages/shared/src/expedition/fixtures.json": "32e036a1aca26ada6f6224818d8be3c316fb8f26f334e61c63a7d837225995de",
+    "packages/shared/src/expedition/index.ts": "52d9ca4bc67643e55e0ac8f6279223661813888061adaf755816f90798b31ea9",
+    "packages/shared/src/expedition/types.ts": "3205dd597c92607e1f68e170c30be1824fb46119bcc0f63c0078a861cc490a84",
+    "packages/shared/src/index.ts": "d60d25d9b224ab7cac7dc1251c9234ba5f4a7b91e2692c69c7e4d34f65bca6ec"
+  },
+  "webConfigurationFileHashes": {
+    "index.html": "c2f2b74ae18d1ad2925e77b3d6b22bf384fc5065d5db0171516e6b5f31b7c7e1",
+    "package.json": "7cddaf1714d5d56751543f89dd82d25701960ffe55e486a786b3845031a00641",
+    "tsconfig.app.json": "aa9e68711a716c499b5730aa6664cab7e6a2cb65e9924252cefe2135a4724112",
+    "tsconfig.json": "770b4140bbb581e2dfd9ea9946ffc9c75a1d86ba7d2db5f77c83e37cbdf9d808",
+    "tsconfig.node.json": "c3dd0fb522feba3596713f51b95bd53d781d845d24aedbfa2ac093d8b39c5120",
+    "vite.config.ts": "fc71d230be2a5f0482ab32b2fb45d6a956fc3ec46dae1daab34b21c389cc63b9",
+    "config/pwa.ts": "0e07a15287a1c75fb64df48fac84c88ce396b44ab001f0f88dc990e6dd884896"
+  },
+  "additionalBuildInputHashesReverifiedAfterPublish": {
+    "package.json": "01d3312d31033d280ce31deda5af7e5373a1b462aa00b2482b30d9c46bfc3306",
+    "package-lock.json": "f2224cc9f4feaa14be1344bfedef0250768345556b471152f20531e9ccf49006",
+    "apps/server/package.json": "30cb5d4c55da464206d348df59818a2d7823de956f39fa38fd5f39a603efbd78",
+    "apps/server/prisma/schema.postgresql.prisma": "b23c8776f81d8faa64c60d21404958fb5ee9ff7035b04d926c08cbceb3bdaac3",
+    "packages/shared/package.json": "34cfbdf7ef6c14e3e3b04fd6dba152a8e3dded0b483d626a3f9bac85ea648ce0",
+    "scripts/prepare-miaoda.cjs": "f48d912fb7122961d25273a1d29931714c74eda778c3e60b7bb251e2a8aa5c7a",
+    "scripts/sync-stellar-assets.cjs": "8f0f2772d0382bca7fb49d51240724e12339ea3bd713bd9b4d453fe95e69d21f",
+    "scripts/verify-stellar-assets.cjs": "7983872d65f289c85a5350fa38a3454be544fa9f62a34dda930e3f4a670708b6",
+    "scripts/lib/shared-fonts.cjs": "3bf81333efbb069aeb545a56ff87e6d0cc4358df2b5c91c0c30126a75b4ae62c",
+    "assets/stellar/manifest.json": "78f17b5b51641ad611a878c732f228d15baed784dedc96dd74b86c8b4baa5c4f",
+    "assets/fonts/manifest.json": "036911aed36a5f5b20ba991d2b85908844b8ab016cdb1971208af3ffd2a38c72",
+    "apps/web/public/registerSW.js": "92e1804e7fb67affca330e755c316905948596013861d7203c0f87db388465cb"
+  },
+  "sourceManifestSha256": "85e4e1f6e679e20d0044fb8320bfc7e0c2bedabdb0a249a70696f9c4376951a9",
+  "checks": {
+    "templateLint": "passed",
+    "isolatedWebTypecheckAndBuild": "passed",
+    "templateProductionBuild": "passed",
+    "gatewayTests": {
+      "passed": 7,
+      "total": 7
+    },
+    "publicResourceHttpTestsWithInjectedStorageStub": {
+      "passed": 8,
+      "total": 8
+    },
+    "generatedOnlineFilesVerifiedByFullSha256": 73,
+    "reachableOnlineJavascriptChunks": 47,
+    "sampledExistingImagesVerifiedByFullSha256": 3,
+    "existingResourcesPreservedByteForByte": 65,
+    "newResourceFilesCommittedToTemplate": 0,
+    "fontCssHasAppBase": true,
+    "adapterSourcesMirroredAndHashed": 11,
+    "fontRouteImplementationUnchanged": true
+  },
+  "health": {
+    "status": "ok",
+    "timestamp": "2026-11-26T09:55:19.841Z",
+    "version": "4.0.5-defense-rc6"
+  },
+  "ready": {
+    "status": "ready"
+  },
+  "publicGuideRoute": {
+    "path": "/guide",
+    "status": 200,
+    "contentType": "text/html; charset=UTF-8",
+    "indexSha256": "4d2a714c315261d21ebd0265075566fac5db30c6fea1b9b5d597ec2a3520d586",
+    "requestedWithoutAuthentication": true
+  },
+  "entryCachePolicies": [
+    {
+      "url": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/index.html",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "text/html; charset=UTF-8",
+      "sha256": "4d2a714c315261d21ebd0265075566fac5db30c6fea1b9b5d597ec2a3520d586",
+      "recoveryOutsideWorkerScope": false
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/offline-shell.html",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "text/html; charset=UTF-8",
+      "sha256": "4d2a714c315261d21ebd0265075566fac5db30c6fea1b9b5d597ec2a3520d586",
+      "recoveryOutsideWorkerScope": false
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/sw.js",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "application/javascript; charset=UTF-8",
+      "sha256": "6312b591ca055b8dbc061206ebdb5d7c93327c64af231cca78157417c0fde7dc",
+      "recoveryOutsideWorkerScope": false
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/registerSW.js",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "application/javascript; charset=UTF-8",
+      "sha256": "92e1804e7fb67affca330e755c316905948596013861d7203c0f87db388465cb",
+      "recoveryOutsideWorkerScope": false
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/manifest.webmanifest",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "application/manifest+json",
+      "sha256": "6258c2f25a84390c47ddce324a37a6b84e1727e544ec6264b15551e02e1d1839",
+      "recoveryOutsideWorkerScope": false
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "text/html; charset=UTF-8",
+      "sha256": "4d2a714c315261d21ebd0265075566fac5db30c6fea1b9b5d597ec2a3520d586",
+      "recoveryOutsideWorkerScope": false
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/explore",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "text/html; charset=UTF-8",
+      "sha256": "4d2a714c315261d21ebd0265075566fac5db30c6fea1b9b5d597ec2a3520d586",
+      "recoveryOutsideWorkerScope": false
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/guide",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "text/html; charset=UTF-8",
+      "sha256": "4d2a714c315261d21ebd0265075566fac5db30c6fea1b9b5d597ec2a3520d586",
+      "recoveryOutsideWorkerScope": false
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg?release=20261126-rc6",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "text/html; charset=UTF-8",
+      "sha256": "4d2a714c315261d21ebd0265075566fac5db30c6fea1b9b5d597ec2a3520d586",
+      "recoveryOutsideWorkerScope": true
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg/index.html",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "text/html; charset=UTF-8",
+      "sha256": "4d2a714c315261d21ebd0265075566fac5db30c6fea1b9b5d597ec2a3520d586",
+      "recoveryOutsideWorkerScope": false
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg/offline-shell.html",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "text/html; charset=UTF-8",
+      "sha256": "4d2a714c315261d21ebd0265075566fac5db30c6fea1b9b5d597ec2a3520d586",
+      "recoveryOutsideWorkerScope": false
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg/sw.js",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "application/javascript; charset=UTF-8",
+      "sha256": "6312b591ca055b8dbc061206ebdb5d7c93327c64af231cca78157417c0fde7dc",
+      "recoveryOutsideWorkerScope": false
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg/registerSW.js",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "application/javascript; charset=UTF-8",
+      "sha256": "92e1804e7fb67affca330e755c316905948596013861d7203c0f87db388465cb",
+      "recoveryOutsideWorkerScope": false
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg/manifest.webmanifest",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "application/manifest+json",
+      "sha256": "6258c2f25a84390c47ddce324a37a6b84e1727e544ec6264b15551e02e1d1839",
+      "recoveryOutsideWorkerScope": false
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg/",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "text/html; charset=UTF-8",
+      "sha256": "4d2a714c315261d21ebd0265075566fac5db30c6fea1b9b5d597ec2a3520d586",
+      "recoveryOutsideWorkerScope": false
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg/explore",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "text/html; charset=UTF-8",
+      "sha256": "4d2a714c315261d21ebd0265075566fac5db30c6fea1b9b5d597ec2a3520d586",
+      "recoveryOutsideWorkerScope": false
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg/guide",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "text/html; charset=UTF-8",
+      "sha256": "4d2a714c315261d21ebd0265075566fac5db30c6fea1b9b5d597ec2a3520d586",
+      "recoveryOutsideWorkerScope": false
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg?release=20261126-rc6",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "text/html; charset=UTF-8",
+      "sha256": "4d2a714c315261d21ebd0265075566fac5db30c6fea1b9b5d597ec2a3520d586",
+      "recoveryOutsideWorkerScope": true
+    }
+  ],
+  "recoveryUrls": [
+    "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg?release=20261126-rc6",
+    "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg?release=20261126-rc6"
+  ],
+  "hostVersions": [
+    {
+      "base": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg",
+      "health": {
+        "status": "ok",
+        "timestamp": "2026-11-26T09:55:41.186Z",
+        "version": "4.0.5-defense-rc6"
+      },
+      "hashedAssetCacheControl": "public, max-age=3600"
+    },
+    {
+      "base": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg",
+      "health": {
+        "status": "ok",
+        "timestamp": "2026-11-26T09:55:43.567Z",
+        "version": "4.0.5-defense-rc6"
+      },
+      "hashedAssetCacheControl": "public, max-age=3600"
+    }
+  ],
+  "pwaDelivery": {
+    "offlineShellMatchesEntry": true,
+    "modernEntryDoesNotInjectLegacyRegistrar": true,
+    "indexIsNotPrecached": true,
+    "navigationNetworkOnlyWithOfflineShell": true,
+    "noCustomUpdateGuard": true
+  },
+  "browserValidation": {
+    "status": "not-run",
+    "reason": "The browser tool timed out in this round. Existing-tab upgrade interaction and the user's actual cached state were not observed."
+  },
+  "deploymentScope": {
+    "miaodaCanonicalAndLegacyDomains": true,
+    "vercelPreview": "excluded; user paused this deployment"
+  },
+  "preFixDiagnosis": {
+    "path": "docs/validation/miaoda-cache-refresh-rc5-diagnosis.json",
+    "sha256": "e5f94cecd09dfcc944c301fa886c4ac714ff31e5a241989a0f5cc996da95f13c"
+  },
+  "runtimeErrorLogQuery": {
+    "pageSize": 100,
+    "level": "error",
+    "environment": "online",
+    "since": "2026-11-26T09:53:12Z",
+    "appId": "app_17h4dw5jwdg",
+    "until": "2026-11-26T09:57:42Z",
+    "returnedCount": 0,
+    "hasMore": false
+  },
+  "entryScript": "/app/app_17h4dw5jwdg/assets/index-CCp2HUWD.js",
+  "entryScriptSha256": "456caced9bbc548a9ecc8fd46154257c8e1ddaa1e56423fe0a5b7f9d0224ebc7",
+  "backendBundleSha256": "76bdd93f44206f1775050e16bc4ee7f93b2cb43d4feb04828139e8d560fd5ae8",
+  "publicResources": [
+    {
+      "route": "/stellar/title_mascots.webp",
+      "storageBucket": "bucket_aadk4xawzf4xg",
+      "storagePath": "/1882830203673659.webp",
+      "sha256": "cb7465ec80df7de393563fe1dc7933fd2867acda31cd8152eb609493b327fd78",
+      "bytes": 1137664,
+      "sourcePath": "assets/stellar/title_mascots.webp",
+      "provenancePath": "assets/stellar/title-mascots-provenance.json",
+      "contentType": "image/webp",
+      "delivery": "signed-redirect",
+      "provenanceSha256": "f768326cdea0339e5354b85046c7c56aeeb9effe92bdcc21e7b6d2f4a9b28638",
+      "online": {
+        "path": "stellar/title_mascots.webp",
+        "status": 200,
+        "bytes": 1137664,
+        "sha256": "cb7465ec80df7de393563fe1dc7933fd2867acda31cd8152eb609493b327fd78",
+        "contentType": "image/webp",
+        "signedStorageRedirect": true
+      }
+    },
+    {
+      "sourcePath": "assets/stellar/navigation_arrow.webp",
+      "route": "/stellar/navigation_arrow.webp",
+      "storageBucket": "bucket_aadk4xawzf4xg",
+      "storagePath": "/1882832922057850.webp",
+      "sha256": "b722445a6f11afa60081ef6c92cb3a907acd288df5832e839212c65d398b6107",
+      "bytes": 330320,
+      "contentType": "image/webp",
+      "uploadedContentType": "image/webp",
+      "provenancePath": "assets/stellar/navigation-arrow-provenance.json",
+      "delivery": "signed-redirect",
+      "provenanceSha256": "932642181c58c10e4853c2d78af7f3cda4962a7cf1b9b39fdf7915e4ad6d4702",
+      "online": {
+        "path": "stellar/navigation_arrow.webp",
+        "status": 200,
+        "bytes": 330320,
+        "sha256": "b722445a6f11afa60081ef6c92cb3a907acd288df5832e839212c65d398b6107",
+        "contentType": "image/webp",
+        "signedStorageRedirect": true
+      }
+    },
+    {
+      "sourcePath": "assets/fonts/STZHONGS.woff2",
+      "route": "/fonts/STZHONGS.woff2",
+      "storageBucket": "bucket_aadk4xawzf4xg",
+      "storagePath": "/1882832924311610.woff2",
+      "sha256": "0451629e411c5b66319cd1558adb59eb9e0660fe07c5537ec7356254823a61c5",
+      "bytes": 6054636,
+      "contentType": "font/woff2",
+      "uploadedContentType": "application/octet-stream",
+      "provenancePath": "assets/fonts/manifest.json",
+      "delivery": "same-origin-sdk-download",
+      "provenanceSha256": "036911aed36a5f5b20ba991d2b85908844b8ab016cdb1971208af3ffd2a38c72",
+      "online": {
+        "path": "fonts/STZHONGS.woff2",
+        "status": 200,
+        "bytes": 6054636,
+        "sha256": "0451629e411c5b66319cd1558adb59eb9e0660fe07c5537ec7356254823a61c5",
+        "contentType": "font/woff2",
+        "signedStorageRedirect": false,
+        "cors": "*",
+        "cacheControl": "public, max-age=86400",
+        "etag": "\"0451629e411c5b66319cd1558adb59eb9e0660fe07c5537ec7356254823a61c5\"",
+        "conditionalGetStatus": 304,
+        "headStatus": 200,
+        "headContentLength": null
+      }
+    },
+    {
+      "sourcePath": "assets/stellar/guide_scroll.webp",
+      "route": "/stellar/guide_scroll.webp",
+      "storageBucket": "bucket_aadk4xawzf4xg",
+      "storagePath": "/1882902547070985.webp",
+      "sha256": "ddb5f0afe6b4545cc062cd18abc0bce73b18fd2b9ec3094209e290bf56a0f695",
+      "bytes": 1021720,
+      "contentType": "image/webp",
+      "uploadedContentType": "image/webp",
+      "provenancePath": "assets/stellar/guide-scroll-provenance.json",
+      "delivery": "signed-redirect",
+      "provenanceSha256": "0c45bd482f5a6e42d67cfda9a92dfbbb8fceeeb3a8ad0efb902fe223ba4295aa",
+      "online": {
+        "path": "stellar/guide_scroll.webp",
+        "status": 200,
+        "bytes": 1021720,
+        "sha256": "ddb5f0afe6b4545cc062cd18abc0bce73b18fd2b9ec3094209e290bf56a0f695",
+        "contentType": "image/webp",
+        "signedStorageRedirect": true
+      }
+    }
+  ],
+  "secondaryHostPublicResources": [
+    {
+      "base": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg",
+      "path": "stellar/title_mascots.webp",
+      "status": 200,
+      "bytes": 1137664,
+      "sha256": "cb7465ec80df7de393563fe1dc7933fd2867acda31cd8152eb609493b327fd78",
+      "contentType": "image/webp"
+    },
+    {
+      "base": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg",
+      "path": "stellar/navigation_arrow.webp",
+      "status": 200,
+      "bytes": 330320,
+      "sha256": "b722445a6f11afa60081ef6c92cb3a907acd288df5832e839212c65d398b6107",
+      "contentType": "image/webp"
+    },
+    {
+      "base": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg",
+      "path": "fonts/STZHONGS.woff2",
+      "status": 200,
+      "bytes": 6054636,
+      "sha256": "0451629e411c5b66319cd1558adb59eb9e0660fe07c5537ec7356254823a61c5",
+      "contentType": "font/woff2"
+    },
+    {
+      "base": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg",
+      "path": "stellar/guide_scroll.webp",
+      "status": 200,
+      "bytes": 1021720,
+      "sha256": "ddb5f0afe6b4545cc062cd18abc0bce73b18fd2b9ec3094209e290bf56a0f695",
+      "contentType": "image/webp"
+    }
+  ],
+  "androidDownload": {
+    "appId": "app_17h4dw5jwdg",
+    "route": "/download/android",
+    "versionName": "4.0.5-defense-rc6",
+    "versionCode": 26,
+    "fileName": "KeLing-ICT-4.0.5-defense-rc6-debug.apk",
+    "bytes": 75027748,
+    "sha256": "4284472d6fa5bba6a5aa6cf0ae6d5b52470e309dd8a6ee317d0f28785e6c748d",
+    "contentType": "application/vnd.android.package-archive",
+    "storageBucket": "bucket_aadk4xawzf4xg",
+    "storagePath": "/1882912753614059.apk",
+    "sourcePath": "apps/android/app/build/outputs/apk/debug/app-debug.apk",
+    "certificateSha256": "e7b4d86c7a02fb6bb1d21215c393b347d2d67652e5e45dfbe3a3d6c66b7c67a3",
+    "signatureScheme": "v2",
+    "githubReleaseTag": "v4.0.5-defense-rc6",
+    "githubAssetUrl": "https://github.com/Hyhyhyyy/KeLing4.0/releases/download/v4.0.5-defense-rc6/KeLing-ICT-4.0.5-defense-rc6-debug.apk"
+  },
+  "androidEntrypoints": [
+    {
+      "base": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg",
+      "versionChecks": [
+        {
+          "clientVersionCode": 24,
+          "latestVersionCode": 26,
+          "latestVersionName": "4.0.5-defense-rc6",
+          "needUpdate": true,
+          "forceUpdate": false,
+          "fileSize": 75027748,
+          "updateUrl": "https://github.com/Hyhyhyyy/KeLing4.0/releases/download/v4.0.5-defense-rc6/KeLing-ICT-4.0.5-defense-rc6-debug.apk"
+        },
+        {
+          "clientVersionCode": 26,
+          "latestVersionCode": 26,
+          "latestVersionName": "4.0.5-defense-rc6",
+          "needUpdate": false,
+          "forceUpdate": false,
+          "fileSize": 75027748,
+          "updateUrl": "https://github.com/Hyhyhyyy/KeLing4.0/releases/download/v4.0.5-defense-rc6/KeLing-ICT-4.0.5-defense-rc6-debug.apk"
+        }
+      ],
+      "directDownload": {
+        "status": 200,
+        "bytes": 75027748,
+        "sha256": "4284472d6fa5bba6a5aa6cf0ae6d5b52470e309dd8a6ee317d0f28785e6c748d",
+        "contentType": "application/vnd.android.package-archive",
+        "redirectCacheControl": "no-store"
+      },
+      "legacyApiDownload": {
+        "status": 302,
+        "location": "https://github.com/Hyhyhyyy/KeLing4.0/releases/download/v4.0.5-defense-rc6/KeLing-ICT-4.0.5-defense-rc6-debug.apk"
+      }
+    },
+    {
+      "base": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg",
+      "versionChecks": [
+        {
+          "clientVersionCode": 24,
+          "latestVersionCode": 26,
+          "latestVersionName": "4.0.5-defense-rc6",
+          "needUpdate": true,
+          "forceUpdate": false,
+          "fileSize": 75027748,
+          "updateUrl": "https://github.com/Hyhyhyyy/KeLing4.0/releases/download/v4.0.5-defense-rc6/KeLing-ICT-4.0.5-defense-rc6-debug.apk"
+        },
+        {
+          "clientVersionCode": 26,
+          "latestVersionCode": 26,
+          "latestVersionName": "4.0.5-defense-rc6",
+          "needUpdate": false,
+          "forceUpdate": false,
+          "fileSize": 75027748,
+          "updateUrl": "https://github.com/Hyhyhyyy/KeLing4.0/releases/download/v4.0.5-defense-rc6/KeLing-ICT-4.0.5-defense-rc6-debug.apk"
+        }
+      ],
+      "directDownload": {
+        "status": 200,
+        "bytes": 75027748,
+        "sha256": "4284472d6fa5bba6a5aa6cf0ae6d5b52470e309dd8a6ee317d0f28785e6c748d",
+        "contentType": "application/vnd.android.package-archive",
+        "redirectCacheControl": "no-store"
+      },
+      "legacyApiDownload": {
+        "status": 302,
+        "location": "https://github.com/Hyhyhyyy/KeLing4.0/releases/download/v4.0.5-defense-rc6/KeLing-ICT-4.0.5-defense-rc6-debug.apk"
+      }
+    }
+  ],
+  "publicResourceRouteFiles": {
+    "server/modules/gateway/artwork.controller.ts": "596835594ba19fa8f522406078322eadea9a20272f69669f22f042016d495f88",
+    "server/modules/gateway/font.controller.ts": "538b84bab623a52342ec43a1526d0309a62259be428dbdf4688e313a84a36b35",
+    "server/modules/gateway/gateway.module.ts": "74712ea9113647a9df67fbdddb644f213bb4fff80dcfe09c7fbf67c2cf107992",
+    "server/modules/gateway/public-assets.spec.cjs": "bf6ea4df45052424fa8457d5bfb2744950c08f39f68b0f272963754a3c6de24b",
+    "server/modules/gateway/gateway.service.ts": "16cb7ebd01cb7eaccbbef44b561387c2f9d2c32b03384995680f7f3298512d7f",
+    "server/modules/gateway/gateway.spec.cjs": "e6b0888c7f508973c437dee29997a4529d461b78d38049fff5ab672571129464",
+    "server/modules/gateway/download.controller.ts": "dfe5ed151359a2dfad6d369c42c99e301d37c8059c3da6317996b8d37d3397a1"
+  },
+  "adapterProvenancePath": "deploy/miaoda/provenance.json",
+  "adapterProvenanceSha256": "5da976a5173ffdcd81d7ec95434f7161f08cc4c063b57bf0f013a3c004dd148c",
+  "evidenceFiles": [
+    "release-status.json",
+    "online-verification.json",
+    "compatibility.json",
+    "vendor/source-manifest.json",
+    "hosted-build.log",
+    "template-build.log",
+    "template-lint.log",
+    "gateway-tests.log",
+    "public-assets-tests.log"
+  ]
+}

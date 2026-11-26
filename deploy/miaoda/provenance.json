@@ -1,6 +1,6 @@
 {
   "sourceProject": "keling-access-gateway",
-  "sourceCommit": "3ee6cf1f1d5b58d215473e401b8f2fe1295ea06e",
+  "sourceCommit": "dd8a4bc17371a659ee97f49d0ffe7b5d4517f93b",
   "observedDate": "2026-11-26",
   "hashBasis": "sourceSha256/sourceBytes describe the template working-tree files at sourceCommit (pending changes are explicit); sha256/bytes describe the copied adapter after LF and trailing-blank-line normalization.",
   "files": [
@@ -13,10 +13,10 @@
     },
     {
       "path": "server/modules/gateway/gateway.service.ts",
-      "bytes": 2676,
-      "sha256": "568309a8bb0e293d4e181cf8ddbdb182a906453a13ff22d02a4c7ca2e7079b18",
-      "sourceSha256": "e8c45315cc637aebad7ed618fbb4f05f2c4e08be32146274bc8bbb7c679a05ec",
-      "sourceBytes": 2678
+      "bytes": 3064,
+      "sha256": "69e0573c2725218d7f02dc2b00f6350b3a2b84680b5d9fdcbb64f3b91b3a47e9",
+      "sourceSha256": "16cb7ebd01cb7eaccbbef44b561387c2f9d2c32b03384995680f7f3298512d7f",
+      "sourceBytes": 3066
     },
     {
       "path": "server/modules/gateway/gateway.module.ts",
@@ -28,16 +28,16 @@
     {
       "path": "server/modules/gateway/download.controller.ts",
       "bytes": 1550,
-      "sha256": "667919e00b1837225e36dcdc9291d54af4b575a574f8cdfb9850808875fce333",
-      "sourceSha256": "667919e00b1837225e36dcdc9291d54af4b575a574f8cdfb9850808875fce333",
+      "sha256": "dfe5ed151359a2dfad6d369c42c99e301d37c8059c3da6317996b8d37d3397a1",
+      "sourceSha256": "dfe5ed151359a2dfad6d369c42c99e301d37c8059c3da6317996b8d37d3397a1",
       "sourceBytes": 1550
     },
     {
       "path": "server/modules/gateway/gateway.spec.cjs",
-      "bytes": 1514,
-      "sha256": "4ccb44bbf93806c69bc19969b5ab4f31a7052c88612a7b5297a8791cdf50559d",
-      "sourceSha256": "31daec777b6605df8d7f2eb6ab2f5697d47044171fdd785a402c227dbadf5294",
-      "sourceBytes": 1516
+      "bytes": 3677,
+      "sha256": "215bbe52ab6210e7ba199c5bf6feeae4f60263b071397648e55d1e87337dee21",
+      "sourceSha256": "e6b0888c7f508973c437dee29997a4529d461b78d38049fff5ab672571129464",
+      "sourceBytes": 3679
     },
     {
       "path": "server/app.module.ts",
@@ -76,10 +76,10 @@
     },
     {
       "path": "server/modules/gateway/public-assets.spec.cjs",
-      "bytes": 7730,
-      "sha256": "b11282ec3b5f9fa9071a67a57d4b8cc648911f6022ae7f4ef44f56811be87eb5",
-      "sourceSha256": "b11282ec3b5f9fa9071a67a57d4b8cc648911f6022ae7f4ef44f56811be87eb5",
-      "sourceBytes": 7730
+      "bytes": 8569,
+      "sha256": "bf6ea4df45052424fa8457d5bfb2744950c08f39f68b0f272963754a3c6de24b",
+      "sourceSha256": "bf6ea4df45052424fa8457d5bfb2744950c08f39f68b0f272963754a3c6de24b",
+      "sourceBytes": 8569
     }
   ],
   "template": {
@@ -223,5 +223,7 @@
   },
   "sourceWorkingTreeHasPendingChanges": false,
   "publicResourcesFile": "public-resources.json",
-  "publicResourcesSha256": "e8925894409bae196a2a771ad31966591ab77fe255a6dd91d298159cd2c69b32"
+  "publicResourcesSha256": "e8925894409bae196a2a771ad31966591ab77fe255a6dd91d298159cd2c69b32",
+  "androidDownloadFile": "android-download.json",
+  "androidDownloadSha256": "9ba76438e342c3cd9d2558cc1377b6c61046f3814e5a251c03fd71a8c5cc0680"
 }

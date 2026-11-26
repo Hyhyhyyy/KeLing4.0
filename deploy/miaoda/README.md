@@ -22,6 +22,10 @@
 
 网页和 API 继续使用课灵的账号令牌。平台 Cookie 的请求校验标记不能替代课灵身份认证。适配器不代理原 Vercel 服务，也不迁移数据库。
 
+公开 Android 下载对象记录在 [android-download.json](android-download.json)，包含真实 versionCode、字节数、SHA-256 和签名证书摘要。`/download/android` 对应应用存储内的固定 APK；`/api/app/version` 与 `/api/app/download` 读取 GitHub Release 目录，发布时须保持两份 APK 字节一致，先发布带真实 versionCode 标记的 GitHub Release，再发布托管应用。APK 二进制不进入模板 Git。
+
+网页导航与 `index.html`、`offline-shell.html`、`sw.js`、`registerSW.js`、`manifest.webmanifest` 使用 `no-store, no-cache, must-revalidate`，确保稳定入口每次重新获取；带哈希的静态资源保留原有一小时缓存。缓存头只约束 HTTP 缓存，旧页面是否采用新脚本还取决于浏览器中的 Service Worker 和更新确认流程，不能仅凭线上文件已更新判断用户页面已更新。
+
 ## 模板与依赖基线
 
 来源工程的 `package.json` 标识为 `fullstack-nestjs-template@2.3.0`；锁文件实际解析到以下版本。这是本次已核实基线，不是对未来官方模板的兼容性承诺。

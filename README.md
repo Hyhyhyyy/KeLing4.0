@@ -1,12 +1,12 @@
 # 课灵 · KeLing
 
-当前网页与 API：**4.0.5-defense-rc5**，新增公开使用指南；Android 候选保持 **4.0.5-defense-rc4 / versionCode 24**。指南入口与验证见[RC5 记录](docs/competition/usage-guide-2026-11-26.md)，标题、箭头与字体见[RC4 记录](docs/competition/typography-arrows-2026-11-26.md)，原提交核对、人工事项和本地排练入口见[版本核对](docs/competition/defense-readiness-2026-11-25.md)。双击 `demo.bat` 或运行 `npm run demo` 可启动独立本机演示库；真实华为工作流尚待账号持有人恢复并验证。候选尚待用户确认，不代表答辩材料已定稿。
+当前网页、API 与 Android：**4.0.5-defense-rc6**，Android **versionCode 26**。本轮补齐网页更新机制与 Android 指南入口，并替换公开旧安装包。更新机制与恢复入口见[RC6 记录](docs/competition/update-recovery-2026-11-26.md)，指南入口与验证见[RC5 记录](docs/competition/usage-guide-2026-11-26.md)，标题、箭头与字体见[RC4 记录](docs/competition/typography-arrows-2026-11-26.md)，原提交核对、人工事项和本地排练入口见[版本核对](docs/competition/defense-readiness-2026-11-25.md)。双击 `demo.bat` 或运行 `npm run demo` 可启动独立本机演示库；真实华为工作流尚待账号持有人恢复并验证。候选尚待用户确认，不代表答辩材料已定稿。
 
 以游戏化学习为核心的 Web 与 Android 应用。课程资料、动手练习、AI 辅导、任务与笔记使用共享账号服务；学习过程围绕「远航、星图、基地、我的」组织，手机另提供资料与设置入口。
 
 [打开网页](https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg) · [使用指南](https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/guide) · [游客试用](https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/trial) · [下载 Android](https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/download/android) · [GitHub Releases](https://github.com/Hyhyhyyy/KeLing4.0/releases)
 
-当前公开 Android 下载仍为 **4.0.4-direct-cloud-preview**，Android versionCode **20**，最低 Android 8.0。预览包使用调试签名。当前网页与 API 运行于妙搭，连接原 Neon PostgreSQL 数据库。
+当前公开 Android 下载为 **4.0.5-defense-rc6 / 26**，最低 Android 8.0。预览包使用调试签名，与公开 code 20、RC4 包名和证书相同。当前网页与 API 运行于妙搭，连接原 Neon PostgreSQL 数据库。旧 Vercel 入口已按用户要求停止更新，暂停尚待账号持有人在终端完成确认；当前有效入口以上述妙搭地址为准。
 
 ## 功能
 
@@ -15,7 +15,7 @@
 - **可控 AI：** 先预览资料范围，再明确发送；回答和计划由用户核对、确认后保存。支持配置个人模型 Key。
 - **游客体验：** 使用本次内存工作区；退出、刷新或进程结束后清空，不自动迁入账号。
 
-注册、登录、跨端互通及恢复登录已在关闭代理的 Chrome 与 Android 14 模拟器验证。真实模型效果、实体手机、学生学习收益与原生 HarmonyOS 尚未完成验收。详见[产品介绍](docs/PRODUCT_INTRODUCTION.md)与[验证记录](docs/auth/DIRECT_ACCESS_2026-10-31.md)。
+注册、登录、跨端互通及恢复登录在 2026-10-31 的关闭代理 Chrome 与 Android 14 模拟器中有历史验证。本轮 RC6 完成自动测试、构建与发布文件核验，尚无当前浏览器升级和真机安装的新增实测。真实模型效果、实体手机、学生学习收益与原生 HarmonyOS 尚未完成验收。详见[产品介绍](docs/PRODUCT_INTRODUCTION.md)与[历史验证记录](docs/auth/DIRECT_ACCESS_2026-10-31.md)。
 
 ## 项目结构
 
@@ -64,6 +64,7 @@ Windows 使用 `gradlew.bat`；中文目录可从仓库根目录运行 `./script
 npm run check
 npm test
 npm run test:web
+npm run test:updates --workspace=keling-web
 npm run assets:check
 ```
 

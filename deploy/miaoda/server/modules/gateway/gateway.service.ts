@@ -4,6 +4,15 @@ import { resolve, extname, sep } from 'node:path';
 import { existsSync } from 'node:fs';
 import { app as keling } from '../../../vendor/keling-server.cjs';
 
+const ENTRY_CACHE_CONTROL: string = 'no-store, no-cache, must-revalidate';
+const ENTRY_FILES: ReadonlySet<string> = new Set([
+  '/index.html', '/offline-shell.html', '/sw.js', '/registerSW.js', '/manifest.webmanifest',
+]);
+
+export function staticCacheControl(pathname: string): string {
+  return ENTRY_FILES.has(pathname) ? ENTRY_CACHE_CONTROL : 'public, max-age=3600';
+}
+
 export function hostedPath(path: string, base: string): string {
   const prefix: string = base.replace(/\/$/, '');
   const relative: string = prefix && (path === prefix || path.startsWith(prefix + '/')) ? path.slice(prefix.length) || '/' : path;
@@ -35,12 +44,12 @@ export class GatewayService {
     const root: string = resolve(__dirname, '../../../vendor/web');
     const file: string = resolve(root, '.' + pathname);
     if (!file.startsWith(root + sep) && file !== root) { res.status(400).end(); return; }
-    if (extname(pathname) && existsSync(file)) { res.setHeader('Cache-Control', 'public, max-age=3600'); res.sendFile(file); return; }
+    if (extname(pathname) && existsSync(file)) { res.setHeader('Cache-Control', staticCacheControl(pathname)); res.sendFile(file); return; }
     if (extname(pathname)) { res.status(404).end(); return; }
     // The platform already supplies its root-scoped CSRF cookie. Remove the
     // obsolete scoped cookie so root navigation and API requests use one value.
     res.clearCookie('suda-csrf-token', { path: base.replace(/\/$/, '') + '/', secure: true, sameSite: 'lax' });
-    res.setHeader('Cache-Control', 'no-store');
+    res.setHeader('Cache-Control', ENTRY_CACHE_CONTROL);
     res.sendFile(resolve(root, 'index.html'));
   }
 }

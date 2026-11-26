@@ -33,6 +33,8 @@ jobs:
       - run: npm test
       - name: Verify web guest, AI, and expedition boundaries
         run: npm run test:web
+      - name: Verify application updates and offline navigation
+        run: npm run test:updates --workspace=keling-web
 
   android-debug:
     runs-on: ubuntu-latest

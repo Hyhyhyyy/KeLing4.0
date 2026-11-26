@@ -4,11 +4,11 @@
 
 网页与共享 API 运行于妙搭，继续使用原 Neon PostgreSQL 数据库：
 
-- 网页：<https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg>
+- 网页：<https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg>（历史 `feishu.link` 同一应用入口继续核验）。
 - API：上述地址加 `/api`。
 - Android 安装包：上述地址加 `/download/android`，每次请求生成新的文件存储下载地址。
 
-Android 4.0.4 默认连接同一服务；原账号沿用原数据库。注册登录及完整安装包下载的实测记录见[直连交付](auth/DIRECT_ACCESS_2026-10-31.md)。本次没有购买域名或服务器，不将当前网络验证扩大为所有地区长期可用的保证。
+Android 4.0.5-defense-rc6 / versionCode 26 默认连接同一服务；原账号沿用原数据库。当前更新、缓存与下载证据见[RC6 交付](competition/update-recovery-2026-11-26.md)，2026-10-31 的注册登录及下载历史实测见[直连交付](auth/DIRECT_ACCESS_2026-10-31.md)。本次没有购买域名或服务器，不将当前网络验证扩大为所有地区长期可用的保证。
 
 本仓库提供 Web、Express API、共享规则、Android、[妙搭适配源与接入说明](../deploy/miaoda/README.md)。`scripts/prepare-miaoda.cjs` 将构建结果及源码摘要写入指定的官方模板项目，不复制环境文件或运行迁移。按适配说明对接模板、配置自己的环境变量并验证后再发布；生成副本命令本身不完成云端部署。
 
@@ -98,4 +98,4 @@ docker compose --env-file .env.deploy exec -T db pg_dump -U keling -d keling > k
 
 不要将 SQLite 初始化 SQL 用于 PostgreSQL，也不要用 `prisma migrate reset` 或删除持久卷解决升级失败。回退应用版本不等于回退数据结构；按[迁移与恢复契约](design/DATA_MIGRATION_AND_RECOVERY.md)处理兼容性。
 
-原 Vercel 配置仍作为可选适配保留；其旧部署方式和当时的验证边界见[历史部署记录](history/2026-10/VERCEL_DEPLOYMENT.md)。新用户使用当前妙搭入口。
+2026-11-26 用户要求旧 Vercel 入口下线，停止向其发布新版；暂停尚待账号持有人登录并完成官方终端确认，不将准备脚本视为已下线。项目、共享数据库及配置保留，历史部署方式见[历史部署记录](history/2026-10/VERCEL_DEPLOYMENT.md)。当前使用妙搭入口，处置状态见[RC6 记录](competition/update-recovery-2026-11-26.md)。

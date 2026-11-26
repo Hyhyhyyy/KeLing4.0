@@ -1,0 +1,105 @@
+{
+  "date": "2026-11-26",
+  "version": "4.0.5-defense-rc6",
+  "codeCommit": "8aafa659ed44a1d0e0fdebf5b3a1b32fc405b2ca",
+  "web": {
+    "businessTests": 49,
+    "updateTests": 8,
+    "lintErrors": 0,
+    "lintWarnings": 34,
+    "build": "passed",
+    "currentBrowserUpgradeTested": false
+  },
+  "server": {
+    "tests": 81,
+    "failures": 0,
+    "database": "isolated temporary SQLite",
+    "log": ".cache/rc6-server-tests.log"
+  },
+  "android": {
+    "versionCode": 26,
+    "tests": 91,
+    "failures": 0,
+    "lintErrors": 0,
+    "lintWarnings": 40,
+    "build": "passed",
+    "deviceInstallTested": false,
+    "guiTested": false,
+    "validation": "android-rc6-2026-11-26.json"
+  },
+  "sharedAssets": {
+    "images": 63,
+    "fonts": 2,
+    "check": "npm run assets:check",
+    "result": "passed",
+    "unchangedVisualFiles": [
+      {
+        "path": "assets/fonts/STZHONGS.woff2",
+        "bytes": 6054636,
+        "sha256": "0451629e411c5b66319cd1558adb59eb9e0660fe07c5537ec7356254823a61c5",
+        "unchangedFromRC5": true
+      },
+      {
+        "path": "assets/fonts/STZHONGS.TTF",
+        "bytes": 12135284,
+        "sha256": "e822a3f2859a6cc982f04c6ad1eabc18371ce26d6874b710188a30c35dced0f1",
+        "unchangedFromRC5": true
+      },
+      {
+        "path": "assets/stellar/navigation_arrow.webp",
+        "bytes": 330320,
+        "sha256": "b722445a6f11afa60081ef6c92cb3a907acd288df5832e839212c65d398b6107",
+        "unchangedFromRC5": true
+      },
+      {
+        "path": "assets/stellar/title_mascots.webp",
+        "bytes": 1137664,
+        "sha256": "cb7465ec80df7de393563fe1dc7933fd2867acda31cd8152eb609493b327fd78",
+        "unchangedFromRC5": true
+      },
+      {
+        "path": "assets/stellar/guide_scroll.webp",
+        "bytes": 1021720,
+        "sha256": "ddb5f0afe6b4545cc062cd18abc0bce73b18fd2b9ec3094209e290bf56a0f695",
+        "unchangedFromRC5": true
+      }
+    ]
+  },
+  "github": {
+    "releaseId": 459204963,
+    "tag": "v4.0.5-defense-rc6",
+    "draft": false,
+    "prerelease": true,
+    "evidence": "github-release-rc6-2026-11-26.json",
+    "digestVerifiedAgainstLocal": true,
+    "fullAssetDownloadedByRootThisRound": false
+  },
+  "vercel": {
+    "userRequested": "pause old project",
+    "project": "keling-ict-preview",
+    "status": "awaiting-user-login-and-terminal-confirmation",
+    "lastHttpStatus": 200,
+    "deletionRequestedOrPerformed": false
+  },
+  "limitations": [
+    "Current browser upgrade GUI not tested because CUA repeatedly timed out.",
+    "No current Android device install or GUI test.",
+    "Real Huawei Runtime and current real-model end-to-end validation remain outside this round.",
+    "A published build does not prove existing browser tabs or user-installed APKs have already changed."
+  ],
+  "miaoda": {
+    "releaseId": "7712415886057737509",
+    "templateCommit": "dd8a4bc17371a659ee97f49d0ffe7b5d4517f93b",
+    "status": "finished",
+    "generatedTextFilesVerified": 73,
+    "stableAndRecoveryEntrypointsVerified": 18,
+    "domains": [
+      "ucn5aajxnx7f.feishuapp.com",
+      "ucn5aajxnx7f.feishu.link"
+    ],
+    "fullApkDownloadsVerified": 2,
+    "publicResourceHashesVerifiedPerDomain": 4,
+    "evidence": "miaoda-cache-refresh-rc6-deployment.json",
+    "onlineEvidence": "miaoda-cache-refresh-rc6-online.json"
+  }
+}
