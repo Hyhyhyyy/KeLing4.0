@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-26",
+  "artifact": "docs/handovers/huawei/课灵华为云工作流恢复与联调交接.docx",
+  "pages": 5,
+  "pageSize": "Letter portrait",
+  "font": "华文中宋",
+  "renderedPagesInspected": 5,
+  "renderer": "Existing Word-compatible export automation (WPS) and bundled Poppler",
+  "packagedRenderer": "attempted; bundled LibreOffice unavailable on this Windows runtime; failure log retained in ignored task cache",
+  "contentSource": "docs/handovers/huawei/README.md",
+  "applicationVersion": "4.0.6-defense-rc7",
+  "applicationCommit": "26e86d962c9a848ffed3d1d748e9a8512aaae6c6",
+  "ownership": "User confirmed original workflow belongs to another Huawei account",
+  "sampleChecks": "plan and review fixtures: requestSchema, validatePlan and readRuntimeStream checked offline",
+  "realModelCallsDuringDocumentTask": 0,
+  "realModelAcceptance": "not passed; previous probe remains HTTP 403",
+  "credentialsIncluded": false,
+  "docxSha256": "a9f8a2b4ba688919dbd6fc01a2a50040f4039f1f4b6f2ee61fdf81307fc2c6f9"
+}

@@ -9,6 +9,7 @@
 | 文档 | 用途 |
 | --- | --- |
 | [项目首页](../README.md) | 功能、有效入口、本地启动与基本检查 |
+| [华为工作流交接](handovers/huawei/README.md) | 原部署账号持有人的恢复步骤、接口样例、验收与回传信息；附 Word 文档 |
 | [在线使用指南](https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/guide) | 首次上手、模块步骤、保存与账号、AI 连接及常见问题 |
 | [产品介绍](PRODUCT_INTRODUCTION.md) | 游戏化学习流程、账号与游客、AI 使用边界 |
 | [贡献指南](../CONTRIBUTING.md) | 工程约定、资源与数据变更要求 |

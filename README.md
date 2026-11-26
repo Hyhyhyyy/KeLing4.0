@@ -2,11 +2,13 @@
 
 当前网页、API 与 Android：**4.0.6-defense-rc7**，Android **versionCode 27**。本轮完成任务计时与点击、资料参与规划检索、读取与冲突恢复、图谱缩放、Android导入导出及统计修复；章节更新为1.0.1。实际操作、自动检查和未完成项见[RC7验收记录](docs/validation/demo-upgrade-2026-11-26.md)。双击`demo.bat`或运行`npm run demo`可启动独立本机演示库。真实华为Runtime当前403，模型功能仍需账号配置与实际调用验收。
 
+原华为工作流已确认位于另一账号。给账号持有人的[恢复与联调交接](docs/handovers/huawei/README.md)包含具体操作、计划与复盘请求样例、验收条件和回传信息；[Word 文档](docs/handovers/huawei/课灵华为云工作流恢复与联调交接.docx)可直接转交。
+
 以游戏化学习为核心的 Web 与 Android 应用。课程资料、动手练习、AI 辅导、任务与笔记使用共享账号服务；学习过程围绕「远航、星图、基地、我的」组织，手机另提供资料与设置入口。
 
 [打开网页](https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg) · [使用指南](https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/guide) · [游客试用](https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/trial) · [下载 Android](https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/download/android) · [GitHub Releases](https://github.com/Hyhyhyyy/KeLing4.0/releases)
 
-当前公开 Android 下载为 **4.0.6-defense-rc7 / 27**，最低 Android 8.0。预览包使用调试签名，与公开 code 20、RC4 包名和证书相同。当前网页与 API 运行于妙搭，连接原 Neon PostgreSQL 数据库。旧 Vercel 入口已按用户要求停止更新，暂停尚待账号持有人在终端完成确认；当前有效入口以上述妙搭地址为准。
+当前公开 Android 下载为 **4.0.6-defense-rc7 / 27**，最低 Android 8.0。预览包使用调试签名，与公开 code 20、RC4 包名和证书相同。当前网页与 API 运行于妙搭，连接原 Neon PostgreSQL 数据库。`vercel.json` 已用 `git.deploymentEnabled: false` 关闭 Git 自动部署；旧 Vercel 入口暂停仍待账号持有人在终端完成确认，关闭自动部署不等于旧站已经下线。当前有效入口以上述妙搭地址为准。
 
 ## 功能
 

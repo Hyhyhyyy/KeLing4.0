@@ -1,0 +1,14 @@
+{
+  "inputs": {
+    "courseId": "handoff-synthetic-course",
+    "courseName": "二叉树合成验收课程",
+    "goal": "结合已有任务复盘：队列规则阅读已完成10分钟，层序综合练习尚未完成。请依据给定资料，为尚未完成项安排一项20分钟的队列出入顺序补强练习，不重新安排已完成阅读，不声称已更新原任务，并引用给定来源ID。",
+    "startDate": "2026-11-27",
+    "examDate": "2026-11-27",
+    "dailyMinutes": 30,
+    "mode": "review",
+    "runId": "handoff-review-20261126-01",
+    "query": "结合已有任务复盘：队列规则阅读已完成10分钟，层序综合练习尚未完成。请依据给定资料，为尚未完成项安排一项20分钟的队列出入顺序补强练习，不重新安排已完成阅读，不声称已更新原任务，并引用给定来源ID。",
+    "context": "{\"course\":{\"name\":\"二叉树合成验收课程\",\"masteryLevel\":0},\"sources\":[{\"id\":\"kg:handoff-demo\",\"title\":\"层序遍历与队列\",\"text\":\"层序遍历按从上到下、同层从左到右访问。队列先进先出；取出队首访问后，依次将存在的左孩子、右孩子放入队尾，空孩子不入队。\"}],\"tasks\":[{\"title\":\"阅读层序遍历与队列规则\",\"status\":\"COMPLETED\",\"estimatedMinutes\":10,\"actualMinutes\":10,\"scheduledAt\":\"2026-11-26T01:00:00.000Z\"},{\"title\":\"完成二叉树层序综合练习\",\"status\":\"PENDING\",\"estimatedMinutes\":20,\"actualMinutes\":0,\"scheduledAt\":\"2026-11-27T01:00:00.000Z\"}]}"
+  }
+}

@@ -31,7 +31,7 @@
 
 ## 演示的真实边界
 
-- 当前华为Runtime实际请求为HTTP 403，包含GetAppCredential超时及模板Error。用户已完成控制台登录，但当前账号在cn-southwest-2的运行时列表显示没有托管智能体，原实例所属账号或工作空间尚待确认，见[控制台续查](huawei-console-2026-11-26.md)。真实模型问答、向量检索与AgentArts规划尚未通过本轮验收。
+- 当前华为Runtime实际请求为HTTP 403，包含GetAppCredential超时及模板Error。用户已确认原工作流在另一个账号；已整理[原账号恢复与联调交接](../handovers/huawei/README.md)，控制台观察和复测见[续查记录](huawei-console-2026-11-26.md)。真实模型问答、向量检索与AgentArts规划尚未通过本轮验收。
 - 线上配置仅有AgentArts相关密钥，没有通用聊天/嵌入模型配置。规则排程和二叉树反馈是程序规则，不能称作已验证的模型推理。
 - 18题humanStatus保持PENDING，讲解题只记自评；严格知识徽章没有擅自开启。
 - 当前后端在妙搭、数据库在Neon；Android为Kotlin应用，不是原生HarmonyOS。

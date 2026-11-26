@@ -1,0 +1,14 @@
+{
+  "inputs": {
+    "courseId": "handoff-synthetic-course",
+    "courseName": "二叉树合成验收课程",
+    "goal": "只根据给定资料，安排一项30分钟的二叉树层序复习任务，解释先进先出的作用并引用给定来源ID。",
+    "startDate": "2026-11-27",
+    "examDate": "2026-11-27",
+    "dailyMinutes": 30,
+    "mode": "plan",
+    "runId": "handoff-20261126-01",
+    "query": "只根据给定资料，安排一项30分钟的二叉树层序复习任务，解释先进先出的作用并引用给定来源ID。",
+    "context": "{\"course\":{\"name\":\"二叉树合成验收课程\",\"masteryLevel\":0},\"sources\":[{\"id\":\"kg:handoff-demo\",\"title\":\"层序遍历与队列\",\"text\":\"层序遍历按从上到下、同层从左到右访问。队列先进先出；取出队首访问后，依次将存在的左孩子、右孩子放入队尾，空孩子不入队。\"}],\"tasks\":[]}"
+  }
+}
