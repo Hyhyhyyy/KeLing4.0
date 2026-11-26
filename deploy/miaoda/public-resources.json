@@ -38,6 +38,19 @@
       "provenancePath": "assets/fonts/manifest.json",
       "delivery": "same-origin-sdk-download",
       "provenanceSha256": "036911aed36a5f5b20ba991d2b85908844b8ab016cdb1971208af3ffd2a38c72"
+    },
+    {
+      "sourcePath": "assets/stellar/guide_scroll.webp",
+      "route": "/stellar/guide_scroll.webp",
+      "storageBucket": "bucket_aadk4xawzf4xg",
+      "storagePath": "/1882902547070985.webp",
+      "sha256": "ddb5f0afe6b4545cc062cd18abc0bce73b18fd2b9ec3094209e290bf56a0f695",
+      "bytes": 1021720,
+      "contentType": "image/webp",
+      "uploadedContentType": "image/webp",
+      "provenancePath": "assets/stellar/guide-scroll-provenance.json",
+      "delivery": "signed-redirect",
+      "provenanceSha256": "0c45bd482f5a6e42d67cfda9a92dfbbb8fceeeb3a8ad0efb902fe223ba4295aa"
     }
   ]
 }

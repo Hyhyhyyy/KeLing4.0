@@ -1,6 +1,6 @@
 {
   "sourceProject": "keling-access-gateway",
-  "sourceCommit": "80fdc1c50813f7e98b95b132e02f38872978077e",
+  "sourceCommit": "3ee6cf1f1d5b58d215473e401b8f2fe1295ea06e",
   "observedDate": "2026-11-26",
   "hashBasis": "sourceSha256/sourceBytes describe the template working-tree files at sourceCommit (pending changes are explicit); sha256/bytes describe the copied adapter after LF and trailing-blank-line normalization.",
   "files": [
@@ -62,10 +62,10 @@
     },
     {
       "path": "server/modules/gateway/artwork.controller.ts",
-      "bytes": 2272,
-      "sha256": "6d766a5246af6d360270d1d0f45946bf5f983d81ce097aac033d4830532c66b5",
-      "sourceSha256": "6d766a5246af6d360270d1d0f45946bf5f983d81ce097aac033d4830532c66b5",
-      "sourceBytes": 2272
+      "bytes": 2577,
+      "sha256": "596835594ba19fa8f522406078322eadea9a20272f69669f22f042016d495f88",
+      "sourceSha256": "596835594ba19fa8f522406078322eadea9a20272f69669f22f042016d495f88",
+      "sourceBytes": 2577
     },
     {
       "path": "server/modules/gateway/font.controller.ts",
@@ -76,10 +76,10 @@
     },
     {
       "path": "server/modules/gateway/public-assets.spec.cjs",
-      "bytes": 7612,
-      "sha256": "37a084625842337d74d8b9095e800b7f05b6fd093287bc4b36e91a9abc940836",
-      "sourceSha256": "37a084625842337d74d8b9095e800b7f05b6fd093287bc4b36e91a9abc940836",
-      "sourceBytes": 7612
+      "bytes": 7730,
+      "sha256": "b11282ec3b5f9fa9071a67a57d4b8cc648911f6022ae7f4ef44f56811be87eb5",
+      "sourceSha256": "b11282ec3b5f9fa9071a67a57d4b8cc648911f6022ae7f4ef44f56811be87eb5",
+      "sourceBytes": 7730
     }
   ],
   "template": {
@@ -223,5 +223,5 @@
   },
   "sourceWorkingTreeHasPendingChanges": false,
   "publicResourcesFile": "public-resources.json",
-  "publicResourcesSha256": "f97236ea868e462ffc3997f6bbf1945d0472045546ebad2dae369dd81ff890a4"
+  "publicResourcesSha256": "e8925894409bae196a2a771ad31966591ab77fe255a6dd91d298159cd2c69b32"
 }

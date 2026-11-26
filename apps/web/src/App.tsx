@@ -30,6 +30,7 @@ const KnowledgeGraph = lazy(() => import('./pages/KnowledgeGraph/KnowledgeGraph'
 const VisualLibrary = lazy(() => import('./pages/VisualLibrary/VisualLibrary'));
 const Agent = lazy(() => import('./pages/Agent/Agent'));
 const Explore = lazy(() => import('./pages/Explore/Explore'));
+const Guide = lazy(() => import('./pages/Guide/Guide'));
 
 // 图标资源
 import crystalsIcon from './assets/icons/crystals.jpg';
@@ -201,6 +202,7 @@ function App() {
           <Route path="/me" element={<ProtectedRoute><MainLayout><ExpeditionMine/></MainLayout></ProtectedRoute>}/>
           <Route path="/trial" element={<GuestEntry/>}/>
           <Route path="/explore" element={<Explore/>}/>
+          <Route path="/guide" element={<Guide/>}/>
           <Route path="/explore/art" element={<VisualLibrary publicView/>}/>
           <Route path="/visual-library" element={<ProtectedRoute><MainLayout><VisualLibrary /></MainLayout></ProtectedRoute>} />
           <Route path="/agent" element={<ProtectedRoute><MainLayout><Agent /></MainLayout></ProtectedRoute>} />

@@ -1,0 +1,25 @@
+{
+  "date": "2026-11-26",
+  "generator": "Built-in image_gen",
+  "originalOutput": "sources/guide_scroll.png",
+  "runtimeAsset": "guide_scroll.webp",
+  "sourceSha256": "e811907f3721629a51d6fca5caacefc9bd279f06a333b6cc0694a0786d7212e4",
+  "runtimeSha256": "ddb5f0afe6b4545cc062cd18abc0bce73b18fd2b9ec3094209e290bf56a0f695",
+  "dimensions": [
+    1536,
+    1024
+  ],
+  "alphaExtrema": [
+    0,
+    254
+  ],
+  "encoding": "Lossless WebP; RGBA pixels unchanged",
+  "references": [
+    {
+      "file": "title_mascots.webp",
+      "sha256": "cb7465ec80df7de393563fe1dc7933fd2867acda31cd8152eb609493b327fd78"
+    }
+  ],
+  "prompt": "Use case: illustration-story. Asset type: one transparent hero illustration for KeLing's public usage guide. The reference is the existing Xingya mascot identity and pixel art style, not an edit target. Draw the same cream and mint robotic owl with navy face, two turquoise eyes, small gold diamond beak, two green sprout leaves, star chest badge and coral feet, standing at the lower right of a wide unfurled cream parchment scroll, proudly holding one end and pointing at a tiny constellation learning route on it. The scroll has thick navy pixel outlines, mint and gold end rods and curled paper corners. On the paper use only three simple illustrated landmarks connected by a subtle dotted trajectory: small book, ringed planet, gold star. Leave generous clean paper around these landmarks, but no lettering, no numbers, no arrow characters and no imitation text. Friendly clear front-facing game UI illustration, consistent chunky pixel-art edges, warm cream #FFFCF4, deep navy #14263D, mint #70C9B5, dark teal #285950 and restrained gold #D6A347. Entire scroll and character visible; centered compact composition, approximately 3:2 landscape, about 1536x1024, generous but not excessive transparent margin. Genuine transparent background, no framed background, no heavy shadows, no realistic texture, no watermark. This will sit next to selectable Chinese guide text in the app; do not paint any text into the image.\n",
+  "usage": "Decorative public-guide hero artwork; instructions remain selectable HTML text"
+}

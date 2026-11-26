@@ -112,6 +112,18 @@
       "rgbRms": 4.5092
     },
     {
+      "name": "guide_scroll.webp",
+      "bytes": 1021720,
+      "sha256": "ddb5f0afe6b4545cc062cd18abc0bce73b18fd2b9ec3094209e290bf56a0f695",
+      "width": 1536,
+      "height": 1024,
+      "source": "sources/guide_scroll.png",
+      "sourceSha256": "e811907f3721629a51d6fca5caacefc9bd279f06a333b6cc0694a0786d7212e4",
+      "sourceOrigin": "Built-in image_gen 2026-11-26; see guide-scroll-provenance.json",
+      "encoding": "WebP lossless, exact alpha",
+      "rgbRms": 0
+    },
+    {
       "name": "hero_web.webp",
       "source": "hero_web.png",
       "sourceSha256": "ddf6d7fa904de4b5b3b668e62604d92ccf48036a48a1f438c0f69d18b5f86c20",

@@ -2,6 +2,7 @@ import { NavigationArrow } from '../../components/NavigationArrow';
 import { ModuleTitle, SectionTitle } from '../../components/ModuleTitle';
 import { appPath, ANDROID_DOWNLOAD_URL } from '../../services/appPath';
 import { Link } from 'react-router-dom';
+import { useAppStore } from '../../store/useAppStore';
 import { StellarScene, type StellarSceneName } from '../../components/StellarScene';
 import './Explore.css';
 
@@ -13,17 +14,22 @@ const features = [
 ];
 
 export default function Explore() {
+  const token = useAppStore(state => state.token);
+  const isGuest = useAppStore(state => state.isGuest);
+  const hasWorkspace = Boolean(token) || isGuest;
+  const entry = hasWorkspace ? '/workspace' : '/trial';
+  const entryLabel = hasWorkspace ? '返回学习空间' : '游客试用';
   return <div className="explore-page">
     <a href="#explore-content" className="explore-skip">跳到主要内容</a>
     <header className="explore-nav">
       <Link to="/explore" aria-label="课灵介绍"><img src={appPath("/stellar/title_logo.webp")} alt="课灵 KeLing"/></Link>
-      <nav aria-label="项目介绍导航"><a className="explore-secondary-nav" href="#capabilities">学习空间</a><Link className="explore-secondary-nav" to="/explore/art">视觉图鉴</Link><Link className="explore-action" to="/trial">游客试用</Link>{!publicPreview && <Link to="/login">账号登录</Link>}</nav>
+      <nav aria-label="项目介绍导航"><a className="explore-secondary-nav" href="#capabilities">学习空间</a><Link className="explore-secondary-nav" to="/explore/art">视觉图鉴</Link><Link className="explore-guide-nav" to="/guide">使用指南</Link><Link className="explore-action" to={entry}>{entryLabel}</Link>{!publicPreview && <Link to="/login">账号登录</Link>}</nav>
     </header>
     <main id="explore-content">
       <section className="explore-hero">
         <div><ModuleTitle kind="home">让每一次理解，<br/>点亮一颗星。</ModuleTitle><p>整理知识、制定计划、专注学习。</p>
-          <div className="explore-actions"><Link className="explore-action" to="/trial">游客试用 <NavigationArrow direction="up-right"/></Link><a href="#capabilities">了解课灵 <NavigationArrow direction="down"/></a></div>
-          <p className="explore-trial-note">游客数据在刷新或退出后清空。</p>
+          <div className="explore-actions"><Link className="explore-action" to={entry}>{entryLabel} <NavigationArrow direction="up-right"/></Link><Link className="explore-guide" to="/guide">使用指南 <NavigationArrow/></Link></div>
+          {!token && <p className="explore-trial-note">游客数据在刷新或退出后清空。</p>}
         </div><figure><StellarScene scene="arrival" eager/><figcaption><span>01 · 轨道观测站</span><span>观察 · 理解 · 生长</span></figcaption></figure>
       </section>
 

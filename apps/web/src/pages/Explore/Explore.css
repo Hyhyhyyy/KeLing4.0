@@ -13,3 +13,7 @@
 
 #root .explore-hero .explore-trial-note{font-size:13px;line-height:1.7;margin-top:18px;color:#52675f}
 @media(max-width:600px){.explore-nav{align-items:center;gap:12px}.explore-nav nav{gap:12px;flex-wrap:wrap;justify-content:flex-end}.explore-nav .explore-secondary-nav{display:none}.explore-nav .explore-action{white-space:nowrap}.explore-actions{gap:20px}}
+
+.explore-page .explore-guide { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 12px 20px; border: 1px solid #285950; border-radius: 5px; background: #fff8e9; min-height: 48px; font-weight: 700; }
+.explore-page .explore-guide:hover { background: #e3eee4; }
+.explore-guide-nav { border-bottom: 1px solid #719d86; padding-block: 7px; }

@@ -1,10 +1,10 @@
 # 课灵 · KeLing
 
-省决赛程序候选版：**4.0.5-defense-rc4**（Android versionCode 24）。当前候选与已提交材料、已公开安装包分别核对；本轮标题、箭头与字体见[RC4 记录](docs/competition/typography-arrows-2026-11-26.md)，此前标题美术见[RC3 记录](docs/competition/title-art-2026-11-25.md)，此前文案精简见[RC2 记录](docs/competition/copy-cleanup-2026-11-25.md)，原提交核对、人工事项和本地排练入口见[版本核对](docs/competition/defense-readiness-2026-11-25.md)。双击 `demo.bat` 或运行 `npm run demo` 可启动独立本机演示库；真实华为工作流尚待账号持有人恢复并验证。此候选尚待用户确认，不代表答辩材料已定稿。
+当前网页与 API：**4.0.5-defense-rc5**，新增公开使用指南；Android 候选保持 **4.0.5-defense-rc4 / versionCode 24**。指南入口与验证见[RC5 记录](docs/competition/usage-guide-2026-11-26.md)，标题、箭头与字体见[RC4 记录](docs/competition/typography-arrows-2026-11-26.md)，原提交核对、人工事项和本地排练入口见[版本核对](docs/competition/defense-readiness-2026-11-25.md)。双击 `demo.bat` 或运行 `npm run demo` 可启动独立本机演示库；真实华为工作流尚待账号持有人恢复并验证。候选尚待用户确认，不代表答辩材料已定稿。
 
 以游戏化学习为核心的 Web 与 Android 应用。课程资料、动手练习、AI 辅导、任务与笔记使用共享账号服务；学习过程围绕「远航、星图、基地、我的」组织，手机另提供资料与设置入口。
 
-[打开网页](https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg) · [游客试用](https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg/trial) · [下载 Android](https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg/download/android) · [GitHub Releases](https://github.com/Hyhyhyyy/KeLing4.0/releases)
+[打开网页](https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg) · [使用指南](https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/guide) · [游客试用](https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/trial) · [下载 Android](https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/download/android) · [GitHub Releases](https://github.com/Hyhyhyyy/KeLing4.0/releases)
 
 当前公开 Android 下载仍为 **4.0.4-direct-cloud-preview**，Android versionCode **20**，最低 Android 8.0。预览包使用调试签名。当前网页与 API 运行于妙搭，连接原 Neon PostgreSQL 数据库。
 
@@ -31,7 +31,7 @@ deploy/               部署配置
 docs/                 当前文档、设计依据与历史归档
 ```
 
-`assets/stellar` 统一维护两端共用的 61 张 WebP 和一张 PNG 启动图标，网页与 Android 打包副本由构建生成。原 PNG 可从 Git 提交 `9583827` 追溯，不再重复保留于当前源码树。详见[资源维护说明](assets/stellar/README.md)。
+`assets/stellar` 统一维护两端共用的 62 张 WebP 和一张 PNG 启动图标，网页与 Android 打包副本由构建生成。原 PNG 可从 Git 提交 `9583827` 追溯，不再重复保留于当前源码树。详见[资源维护说明](assets/stellar/README.md)。
 
 ## 本地运行
 
@@ -85,4 +85,4 @@ cd apps/android
 
 ## 来源与许可
 
-本项目在 [CurryHeng/KeLing_ICT](https://github.com/CurryHeng/KeLing_ICT) 基础上继续开发，当前由 [Hyhyhyyy/KeLing4.0](https://github.com/Hyhyhyyy/KeLing4.0) 维护，代码采用 [MIT License](LICENSE)。Noto Serif SC 字体另遵循 [SIL Open Font License](apps/android/app/src/main/assets/licenses/noto-serif-sc/OFL.txt)，其[来源说明](apps/android/app/src/main/assets/licenses/noto-serif-sc/SOURCE.md)随包保留。视觉和开发使用 AI 辅助，生成来源与原始设计资料保留在仓库中。
+本项目在 [CurryHeng/KeLing_ICT](https://github.com/CurryHeng/KeLing_ICT) 基础上继续开发，当前由 [Hyhyhyyy/KeLing4.0](https://github.com/Hyhyhyyy/KeLing4.0) 维护，代码采用 [MIT License](LICENSE)。当前华文中宋的来源与用户嵌入授权确认见[字体说明](assets/fonts/README.md)，不属于代码的 MIT 授权范围。旧版 Noto Serif SC 的 [SIL Open Font License](apps/android/app/src/main/assets/licenses/noto-serif-sc/OFL.txt) 与[来源说明](apps/android/app/src/main/assets/licenses/noto-serif-sc/SOURCE.md)保留供历史追溯。视觉和开发使用 AI 辅助，生成来源与原始设计资料保留在仓库中。

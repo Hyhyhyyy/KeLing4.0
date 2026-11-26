@@ -1,6 +1,6 @@
 # 游戏美术资源
 
-此目录是 Web 与 Android 共用运行素材的唯一版本控制来源：61 张 WebP，以及供浏览器和 Android 启动图标使用的 `app_icon.png`。`manifest.json` 集中记录当前文件、原始 PNG 来源摘要及既有编码记录；提示词与创作来源保留在本目录。
+此目录是 Web 与 Android 共用运行素材的唯一版本控制来源：62 张 WebP，以及供浏览器和 Android 启动图标使用的 `app_icon.png`。`manifest.json` 集中记录当前文件、原始 PNG 来源摘要及既有编码记录；提示词与创作来源保留在本目录。
 
 - `npm run assets:sync`：从本目录复制 Web 的 `apps/web/public/stellar`，该副本不提交；网页开发和构建会自动执行。同步操作不重建清单。
 - Android 由 Gradle 从本目录生成打包资源及启动图标，无需维护另一套 `optimizedAssets`，普通构建不依赖 Python。
@@ -33,3 +33,7 @@ python scripts/prepare-stellar-art.py ../keling-stellar-originals/assets/stellar
 ## 2026-11-26 主题导航箭头
 
 `navigation_arrow.webp` 是内置 image_gen 新绘的单个向右箭头，供两端通过旋转表示其他方向。薄荷绿主体、深蓝轮廓、奶油白高光和金色星点沿用现有按钮与星芽配色。原稿为 `sources/navigation_arrow.png`，运行 WebP 为逐像素一致的无损编码；完整提示词和摘要见 [绘制记录](navigation-arrow-provenance.json)。图片代替应用的导航、返回、展开、发送及结构化顺序箭头，控件仍保留可访问名称。
+
+## 2026-11-26 使用指南卷轴
+
+`guide_scroll.webp` 为使用指南配图，采用内置 image_gen 绘制；原稿为 `sources/guide_scroll.png`，完整提示词与来源见[绘制记录](guide-scroll-provenance.json)。卷轴内没有说明文字，操作步骤保留为 HTML 文本。PNG 到 WebP 仅做无损编码；旧 RC4 APK 不因网页新增配图而重建。

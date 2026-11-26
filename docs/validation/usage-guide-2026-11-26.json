@@ -1,0 +1,106 @@
+{
+  "date": "2026-11-26",
+  "publicRoute": true,
+  "existingWorkspaceDestination": true,
+  "explorePreservesWorkspace": true,
+  "modules": 9,
+  "faq": 7,
+  "guideAsset": {
+    "bytes": 1021720,
+    "sha256": "ddb5f0afe6b4545cc062cd18abc0bce73b18fd2b9ec3094209e290bf56a0f695"
+  },
+  "checks": {
+    "webTestsPassed": 49,
+    "lintErrors": 0,
+    "lintExistingWarnings": 34,
+    "webBuild": "passed",
+    "isolatedDemoBuildAndStartup": "passed",
+    "serverCompile": "passed"
+  },
+  "browserVerification": {
+    "tool": "cua_repl in-app browser",
+    "scope": "Isolated local rehearsal with outbound model requests disabled",
+    "desktop": {
+      "viewport": [
+        1280,
+        720
+      ],
+      "clientWidth": 1272,
+      "scrollWidth": 1272,
+      "headingPx": 51.2
+    },
+    "mobile": {
+      "viewport": [
+        390,
+        844
+      ],
+      "clientWidth": 382,
+      "scrollWidth": 382,
+      "headingPx": 34,
+      "exploreClientWidth": 382,
+      "exploreScrollWidth": 382
+    },
+    "fontFamily": "华文中宋, STZhongsong, serif",
+    "brokenImages": 0,
+    "checks": [
+      "Explore hero and navigation both link to public guide",
+      "Guide visible without authentication",
+      "Table of contents moves focus and scroll to the selected section",
+      "Course materials disclosure expands with instructions",
+      "Android FAQ expands with platform-specific labels",
+      "Guide starts guest trial",
+      "Settings provides guide entry",
+      "Guide returns existing guest to /workspace",
+      "Same generated sample course UUID before and after guide roundtrip"
+    ],
+    "guestCourseIdBefore": "818ad6f3-619f-492d-9d81-546a8bda6eb2",
+    "guestCourseIdAfter": "818ad6f3-619f-492d-9d81-546a8bda6eb2",
+    "notes": [
+      "First local visit used an older service-worker build; reloaded and observed new guide entry before validation.",
+      "An expired prior local token was rejected; used guest trial in fresh isolated database.",
+      "No real model requests, credentials or production records were used."
+    ],
+    "cleanup": "Viewport reset; temporary tab closed; local demo process stopped."
+  },
+  "contentReviewed": true,
+  "contentCorrections": [
+    "Active Web timer completes directly to save measured minutes; stop does not save the current timer.",
+    "Excerpt editing applies to personal AI mode; shared sessions refresh or remove context.",
+    "Android sync failure uses 重试同步."
+  ],
+  "version": "4.0.5-defense-rc5",
+  "baseCommit": "755717ed4b342de445f12a008044c4f4df12f207",
+  "android": {
+    "version": "4.0.5-defense-rc4",
+    "versionCode": 24,
+    "rebuiltThisTurn": false
+  },
+  "sharedAssets": {
+    "images": 63,
+    "webp": 62,
+    "png": 1,
+    "fonts": 2,
+    "assetsCheckPassed": true
+  },
+  "limitations": [
+    "No Android rebuild or GUI verification in this turn",
+    "Actual cloud AI/Huawei workflow and real-device sync are not covered by this guide test",
+    "Existing tests were run; no implementation-mirroring tests added for static guide content"
+  ],
+  "sourceHashes": {
+    "apps/web/src/pages/Guide/Guide.tsx": "4cd92cd5f89c398548b31ed3b6fc7357e96b348fcae18ae7961a1ae31ba296c8",
+    "apps/web/src/pages/Guide/Guide.css": "689837cba6b615ed30cb2197247ed0f59f5d01295c52c7cdb007f2197aba5059",
+    "apps/web/src/pages/Explore/Explore.tsx": "d9b2f826a8aecf77b9db8bc9c5bae3baf7f079ba395cbc5545632724488a291a",
+    "assets/stellar/guide_scroll.webp": "ddb5f0afe6b4545cc062cd18abc0bce73b18fd2b9ec3094209e290bf56a0f695"
+  },
+  "deployment": {
+    "releaseId": "7712372505571396865",
+    "status": "finished",
+    "templateCommit": "3ee6cf1f1d5b58d215473e401b8f2fe1295ea06e",
+    "publicGuideUrl": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/guide",
+    "generatedFilesVerified": 72,
+    "publicResourcesVerified": 4,
+    "httpAndHashesVerified": true,
+    "liveBrowserObservation": "Unavailable: two browser-control connection timeouts; no live UI claim. Local UI interactions were tested."
+  }
+}

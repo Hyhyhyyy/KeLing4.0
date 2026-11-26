@@ -1,6 +1,6 @@
 # 项目文档
 
-当前省决赛程序候选：**4.0.5-defense-rc4**，Android versionCode **24**；此前公开下载包为 **4.0.4-direct-cloud-preview / 20**。先读[标题、箭头与字体](competition/typography-arrows-2026-11-26.md)、[此前标题美术与布局验证](competition/title-art-2026-11-25.md)、[此前界面精简](competition/copy-cleanup-2026-11-25.md)和[原版本核对及人工事项](competition/defense-readiness-2026-11-25.md)，再按需要查阅历史记录；历史测试不能替代当前验证。
+当前网页与 API：**4.0.5-defense-rc5**；Android 候选保持 **4.0.5-defense-rc4 / versionCode 24**，此前公开下载包为 **4.0.4-direct-cloud-preview / 20**。先读[使用指南与入口](competition/usage-guide-2026-11-26.md)、[标题、箭头与字体](competition/typography-arrows-2026-11-26.md)和[原版本核对及人工事项](competition/defense-readiness-2026-11-25.md)，再按需要查阅历史记录；历史测试不能替代当前验证。
 
 11 月 25 日已重新运行 Web、服务端测试和构建，并独立验证本机演示库。最终 Android、部署与分支记录见本轮交付；去冗余时没有运行测试的历史范围不再代表当前验收状态。
 
@@ -9,6 +9,7 @@
 | 文档 | 用途 |
 | --- | --- |
 | [项目首页](../README.md) | 功能、有效入口、本地启动与基本检查 |
+| [在线使用指南](https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/guide) | 首次上手、模块步骤、保存与账号、AI 连接及常见问题 |
 | [产品介绍](PRODUCT_INTRODUCTION.md) | 游戏化学习流程、账号与游客、AI 使用边界 |
 | [贡献指南](../CONTRIBUTING.md) | 工程约定、资源与数据变更要求 |
 | [部署说明](DEPLOYMENT.md) | 当前托管关系、本地与容器部署 |
@@ -27,7 +28,7 @@
 ## 资源与验证
 
 - [仓库整理验证](validation/repository-cleanup-2026-10-31.json)：删减前的资源、构建与测试历史结果，只适用于记录中的提交。
-- [共享素材与提示词](../assets/stellar/README.md)：61 张 WebP 和一张 PNG 启动图标同时供 Web、Android 使用；两端打包副本均生成，不再提交 Android 独立副本。
+- [共享素材与提示词](../assets/stellar/README.md)：62 张 WebP 和一张 PNG 启动图标同时供 Web、Android 使用；两端打包副本均生成，不再提交 Android 独立副本。
 - [共享字体](../assets/fonts/README.md)：华文中宋 TTF 与 WOFF2 的来源、授权确认及构建方式。
 - [统一素材清单](../assets/stellar/manifest.json)：集中保留当前素材与原 PNG 来源摘要、既有编码记录。既有 WebP 使用有损编码，新增标题与箭头明确使用无损编码；以各条目记录为准。普通 Android 构建不依赖 Python。
 - 原 PNG 及旧 Android 编码清单可从 [Git 提交 9583827](https://github.com/Hyhyhyyy/KeLing4.0/tree/9583827/assets/stellar)追溯；导出和 `prepare-stellar-art.py` 再制作方法见共享素材说明。当前文件体积限制不要求删除 Git 来源历史。

@@ -59,7 +59,7 @@ const Register: React.FC = () => {
 
   return (
     <div className="auth-container">
-      <figure className="auth-arrival"><StellarScene scene="register" eager/><figcaption><ModuleTitle kind="home">创建账号</ModuleTitle><Link to="/explore">了解课灵 <NavigationArrow direction="right"/></Link></figcaption></figure>
+      <figure className="auth-arrival"><StellarScene scene="register" eager/><figcaption><ModuleTitle kind="home">创建账号</ModuleTitle><Link to="/guide">使用指南 <NavigationArrow direction="right"/></Link></figcaption></figure>
 
       <motion.div
         className="auth-card"

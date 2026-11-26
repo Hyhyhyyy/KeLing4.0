@@ -7,6 +7,8 @@ const ART_PATH: string = '/1882830203673659.webp';
 const ART_SHA256: string = 'cb7465ec80df7de393563fe1dc7933fd2867acda31cd8152eb609493b327fd78';
 const ARROW_PATH: string = '/1882832922057850.webp';
 const ARROW_SHA256: string = 'b722445a6f11afa60081ef6c92cb3a907acd288df5832e839212c65d398b6107';
+const GUIDE_PATH: string = '/1882902547070985.webp';
+const GUIDE_SHA256: string = 'ddb5f0afe6b4545cc062cd18abc0bce73b18fd2b9ec3094209e290bf56a0f695';
 
 /** Only reviewed public artwork is exposed; no caller-selected file paths. */
 @Controller('stellar')
@@ -23,6 +25,11 @@ export class ArtworkController {
   @Get('navigation_arrow.webp')
   async navigationArrow(@Res() res: Response): Promise<void> {
     await this.redirectArtwork(res, ARROW_PATH, ARROW_SHA256);
+  }
+
+  @Get('guide_scroll.webp')
+  async guideScroll(@Res() res: Response): Promise<void> {
+    await this.redirectArtwork(res, GUIDE_PATH, GUIDE_SHA256);
   }
 
   private async redirectArtwork(res: Response, path: string, sha256: string): Promise<void> {

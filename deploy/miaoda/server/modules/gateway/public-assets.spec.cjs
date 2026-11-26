@@ -55,6 +55,7 @@ test('artwork routes sign only the reviewed objects and ignore caller paths', as
     for (const [name, asset, hash] of [
       ['title_mascots', '/1882830203673659.webp', 'cb7465ec80df7de393563fe1dc7933fd2867acda31cd8152eb609493b327fd78'],
       ['navigation_arrow', '/1882832922057850.webp', 'b722445a6f11afa60081ef6c92cb3a907acd288df5832e839212c65d398b6107'],
+      ['guide_scroll', '/1882902547070985.webp', 'ddb5f0afe6b4545cc062cd18abc0bce73b18fd2b9ec3094209e290bf56a0f695'],
     ]) {
       const response = await fetch(`${origin}/stellar/${name}.webp?path=/private-file`, { redirect: 'manual' });
       assert.equal(response.status, 302);

@@ -12,7 +12,7 @@
 | `server/modules/gateway/gateway.controller.ts` | 接收应用入口请求 |
 | `server/modules/gateway/gateway.service.ts` | 校验路径，提供课灵网页，把 `/api/*` 交给课灵 Express 后端 |
 | `server/modules/gateway/download.controller.ts` | 仅为固定已发布 APK 签发短期下载链接，再重定向至文件存储 |
-| `server/modules/gateway/artwork.controller.ts` | 为固定的标题吉祥物图集与导航箭头签发短期资源链接 |
+| `server/modules/gateway/artwork.controller.ts` | 为固定的标题吉祥物图集、导航箭头与指南卷轴签发短期资源链接 |
 | `server/modules/gateway/font.controller.ts` | 通过平台 SDK 下载并校验固定字体，以同源 WOFF2 响应提供缓存、ETag 与 CORS |
 | `server/modules/gateway/gateway.module.ts` | 注册上述服务与控制器 |
 | `server/modules/gateway/gateway.spec.cjs` | 检查前缀处理与路径穿越拒绝行为 |
@@ -70,11 +70,11 @@ node scripts/prepare-miaoda.cjs .cache/miaoda-build/vendor
 
 `prepare-miaoda.cjs` 打包课灵后端与共享规则，复制已构建网页和 PostgreSQL schema，并记录源文件摘要。它不复制账号配置、不读取生产数据、不执行数据库迁移。先在缓存目录生成产物，再把后端文本产物及网页的 JS、CSS、HTML、Web Manifest 合入模板 `vendor/`。图片、字体等资源必须先上传到目标应用文件存储，不把新资源二进制提交到模板 Git，也不提交整份生成结果到本主仓库。
 
-当前应用保留了先前已发布的 60 个 PNG 与 5 个 JPG。托管构建将 59 个旧 WebP 引用精确映射到同内容 PNG，标题吉祥物、导航箭头和字体通过下方固定路由加载；主线源资源仍使用 WebP。不要把适配路径替换写回主线源码。
+当前应用保留了先前已发布的 60 个 PNG 与 5 个 JPG。托管构建将 59 个旧 WebP 引用精确映射到同内容 PNG，标题吉祥物、导航箭头、指南卷轴和字体通过下方固定路由加载；主线源资源仍使用 WebP。不要把适配路径替换写回主线源码。
 
 ## 公开美术与字体路由
 
-[public-resources.json](public-resources.json) 记录当前应用的三个固定资源、来源文件、存储位置、字节数和 SHA-256，不包含凭据或临时签名链接。图集与箭头的响应重定向缓存 5 分钟，每次重新签发 1 小时有效的存储 URL。字体通过 `FileService.download` 下载，校验 WOFF2 文件头、大小及完整 SHA-256 后在内存缓存；浏览器响应使用 `font/woff2`、一天缓存和 ETag，支持条件 GET 与 HEAD。字体不依赖存储下载域名的 CORS 或默认 MIME。
+[public-resources.json](public-resources.json) 记录当前应用的四个固定资源、来源文件、存储位置、字节数和 SHA-256，不包含凭据或临时签名链接。图集、箭头与卷轴的响应重定向缓存 5 分钟，每次重新签发 1 小时有效的存储 URL。字体通过 `FileService.download` 下载，校验 WOFF2 文件头、大小及完整 SHA-256 后在内存缓存；浏览器响应使用 `font/woff2`、一天缓存和 ETag，支持条件 GET 与 HEAD。字体不依赖存储下载域名的 CORS 或默认 MIME。
 
 这些存储路径仅属于记录中的应用。重建到新应用时，先上传主线对应资源，再替换控制器内的固定 bucket/path/摘要/大小，并更新来源记录；不能跨应用复用存储地址。字体使用授权记录见主线 `assets/fonts/manifest.json`。
 
@@ -134,4 +134,4 @@ lark-cli apps +release-get --as user --app-id app_xxx --release-id <returned_rel
 
 以该次发布返回 `finished`、对应代码提交正确、实际入口验证通过为完成依据。发布后检查无代理注册、登录、错误密码后的重试、网页刷新、Android 跨端账号与重启恢复；下载完整 APK，比对摘要。平台请求校验需要 Cookie 与对应请求头一致，裸 HTTP 健康探测收到 403 不能直接等同于课灵服务离线。
 
-历史实测范围见[注册登录交付记录](../../docs/auth/DIRECT_ACCESS_2026-10-31.md)。本次仓库整理只收录源码和重建所需说明，没有新建、修改或重新发布线上应用；官方模板、依赖安装、环境配置、文件上传和最终云端构建仍需要在目标应用中完成。
+历史账号实测范围见[注册登录交付记录](../../docs/auth/DIRECT_ACCESS_2026-10-31.md)，当前适配器来源以本目录 provenance 为准。重建到新应用时，官方模板、依赖安装、环境配置、文件上传和最终云端构建仍须在目标应用中完成。
