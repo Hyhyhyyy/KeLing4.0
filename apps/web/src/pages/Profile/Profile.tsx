@@ -60,9 +60,7 @@ const Profile: React.FC = () => {
   // 计算等级进度
   const getLevelProgress = () => {
     if (!user) return 0;
-    const currentLevelExp = user.level * 100;
-    const nextLevelExp = (user.level + 1) * 100;
-    const progress = ((user.exp - currentLevelExp) / (nextLevelExp - currentLevelExp)) * 100;
+    const progress = user.exp / Math.max(1, user.level * 100) * 100;
     return Math.min(100, Math.max(0, progress));
   };
 
@@ -142,7 +140,7 @@ const Profile: React.FC = () => {
             <div className="exp-fill" style={{ width: `${getLevelProgress()}%` }} />
           </div>
           <span className="exp-text">
-            {user?.exp || 0} / {(user?.level || 1 + 1) * 100} EXP
+            {user?.exp || 0} / {(user?.level || 1) * 100} EXP
           </span>
         </div>
       </motion.div>

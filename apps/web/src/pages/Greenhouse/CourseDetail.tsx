@@ -1,7 +1,7 @@
 import { NavigationArrow } from '../../components/NavigationArrow';
 import { ModuleTitle, SectionTitle } from '../../components/ModuleTitle';
 import { StellarSceneBanner } from '../../components/StellarScene';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
@@ -15,6 +15,7 @@ import AskAssistantButton from '../../components/AskAssistantButton';
 import { useCourseDialogFocus } from '../../components/useCourseDialogFocus';
 import { CoursePlanet, CoursePlanetPicker } from '../../components/CoursePlanet';
 import { coursePlanet, coursePlanetIndex } from '../../components/planetCatalog';
+import { assistantError } from '../../services/assistant';
 import './CourseDetail.css';
 
 const CourseDetail: React.FC = () => {
@@ -30,6 +31,8 @@ const CourseDetail: React.FC = () => {
   useCourseDialogFocus(dialogRef, showEditDialog);
   const [isSaving, setIsSaving] = useState(false);
   const [editError, setEditError] = useState('');
+  const [loadError, setLoadError] = useState('');
+  const detailRequest = useRef<symbol | null>(null);
   const [editData, setEditData] = useState({
     name: '',
     code: '',
@@ -38,18 +41,16 @@ const CourseDetail: React.FC = () => {
     planetStyleIndex: 0
   });
 
-  useEffect(() => {
-    loadCourseDetail();
-  }, [id]);
-
-  const loadCourseDetail = async () => {
+  const loadCourseDetail = useCallback(async () => {
     if (!id) return;
-    setIsLoading(true);
+    const request = Symbol(id); detailRequest.current = request;
+    setIsLoading(true); setLoadError('');
     try {
       const [courseRes, nodesRes] = await Promise.all([
         courseAPI.getById(id),
         knowledgeAPI.getNodes(id)
       ]);
+      if (request !== detailRequest.current) return;
       setCourse(courseRes.data.course);
       setNodes(nodesRes.data.nodes || []);
       setEditData({
@@ -60,12 +61,17 @@ const CourseDetail: React.FC = () => {
         planetStyleIndex: coursePlanetIndex(courseRes.data.course.planetStyleIndex)
       });
     } catch (error) {
-      console.error('加载课程详情失败:', error);
-      navigate('/greenhouse');
+      if (request === detailRequest.current) setLoadError(assistantError(error));
     } finally {
-      setIsLoading(false);
+      if (request === detailRequest.current) setIsLoading(false);
     }
-  };
+  }, [id]);
+
+  useEffect(() => {
+    setCourse(null); setNodes([]);
+    void loadCourseDetail();
+    return () => { detailRequest.current = null; };
+  }, [loadCourseDetail]);
 
   const handleUpdateCourse = async () => {
     if (!course || !editData.name.trim() || isSaving) return;
@@ -132,7 +138,8 @@ const CourseDetail: React.FC = () => {
   if (!course) {
     return (
       <div className="error-container">
-        <p>课程不存在</p>
+        <p role="alert">{loadError || '课程不存在'}</p>
+        <button className="btn btn-primary" onClick={() => void loadCourseDetail()}>重新读取</button>
         <button className="btn btn-primary" onClick={() => navigate('/greenhouse')}>
           返回温室
         </button>
@@ -144,6 +151,7 @@ const CourseDetail: React.FC = () => {
 
   return (
     <div className="course-detail-container">
+      {loadError && <p role="alert">{loadError} <button onClick={() => void loadCourseDetail()}>重新读取</button></p>}
       {/* 头部区域 */}
       <motion.div
         className="course-header"

@@ -165,7 +165,7 @@ fun CloudAgentScreen(accountId: String, token: String, onBack: () -> Unit) {
     }
     completion?.let { task ->
         AlertDialog(onDismissRequest = { completion = null }, title = { Text("完成「${task.title}」") }, text = {
-            OutlinedTextField(actualMinutes, { actualMinutes = it.filter(Char::isDigit).take(4) }, label = { Text("实际学习分钟（0–1440）") }, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number))
-        }, confirmButton = { TextButton(onClick = { model.complete(task.id, actualMinutes.toIntOrNull() ?: -1); completion = null }, enabled = (actualMinutes.toIntOrNull() ?: -1) in 0..1440 && !state.busy) { Text("保存完成记录") } }, dismissButton = { TextButton(onClick = { completion = null }) { Text("取消") } })
+            OutlinedTextField(actualMinutes, { actualMinutes = it.filter(Char::isDigit).take(4) }, label = { Text("实际学习分钟（0–1440）") }, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number), supportingText = { state.error?.let { Text(it, color = MaterialTheme.colorScheme.error) } })
+        }, confirmButton = { TextButton(onClick = { model.complete(task.id, actualMinutes.toIntOrNull() ?: -1) { completion = null } }, enabled = (actualMinutes.toIntOrNull() ?: -1) in 0..1440 && !state.busy) { Text("保存完成记录") } }, dismissButton = { TextButton(onClick = { completion = null }) { Text("取消") } })
     }
 }

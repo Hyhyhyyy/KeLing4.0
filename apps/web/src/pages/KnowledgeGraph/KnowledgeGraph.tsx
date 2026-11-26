@@ -62,27 +62,32 @@ const KnowledgeGraph: React.FC = () => {
   const canvasRef = useRef<HTMLDivElement>(null);
   const isDragging = useRef(false);
   const lastMousePos = useRef({ x: 0, y: 0 });
+  const loadRequest = useRef<symbol | null>(null);
 
   // 找到课程
   const course = courses.find(c => c.id === courseId);
 
-  // 加载知识点
-  useEffect(() => {
-    if (courseId) {
-      loadNodes();
+  const loadNodes = useCallback(async () => {
+    if (!courseId) { setIsLoading(false); return; }
+    const request = Symbol();
+    loadRequest.current = request;
+    setIsLoading(true);
+    try {
+      const { data } = await knowledgeAPI.getNodes(courseId);
+      if (loadRequest.current !== request) return;
+      setNodes(data.nodes || []); setError('');
+    } catch (error) {
+      if (loadRequest.current === request) setError(assistantError(error));
+    } finally {
+      if (loadRequest.current === request) setIsLoading(false);
     }
   }, [courseId]);
 
-  const loadNodes = async () => {
-    try {
-      const { data } = await knowledgeAPI.getNodes(courseId!);
-      setNodes(data.nodes || []);
-    } catch (error) {
-      setError(assistantError(error));
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  useEffect(() => {
+    setNodes([]); setError(''); setShowEditDialog(false); setEditingNode(null);
+    void loadNodes();
+    return () => { loadRequest.current = null; };
+  }, [loadNodes]);
 
   // 计算思维导图布局
   const calculateLayout = useCallback((nodes: KnowledgeNode[]): NodePosition[] => {
@@ -204,7 +209,7 @@ const KnowledgeGraph: React.FC = () => {
         minX = Math.min(minX, pos.x);
         maxX = Math.max(maxX, pos.x + 200);
         minY = Math.min(minY, pos.y);
-        maxY = Math.max(maxY, pos.y + 60);
+        maxY = Math.max(maxY, pos.y + 74);
       });
 
       const contentWidth = maxX - minX;
@@ -227,25 +232,20 @@ const KnowledgeGraph: React.FC = () => {
   }, [allPositions]);
 
   // 处理拖拽和缩放
-  const handleMouseDown = (e: React.MouseEvent) => {
-    if (e.button === 0) {
-      isDragging.current = true;
-      lastMousePos.current = { x: e.clientX, y: e.clientY };
-    }
+  const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.button !== 0 || (e.target as HTMLElement).closest('button')) return;
+    isDragging.current = true;
+    lastMousePos.current = { x: e.clientX, y: e.clientY };
+    e.currentTarget.setPointerCapture(e.pointerId);
   };
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (isDragging.current) {
-      const dx = e.clientX - lastMousePos.current.x;
-      const dy = e.clientY - lastMousePos.current.y;
-      setOffset(prev => ({ x: prev.x + dx, y: prev.y + dy }));
-      lastMousePos.current = { x: e.clientX, y: e.clientY };
-    }
+  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!isDragging.current) return;
+    const dx = e.clientX - lastMousePos.current.x;
+    const dy = e.clientY - lastMousePos.current.y;
+    setOffset(prev => ({ x: prev.x + dx, y: prev.y + dy }));
+    lastMousePos.current = { x: e.clientX, y: e.clientY };
   };
-
-  const handleMouseUp = () => {
-    isDragging.current = false;
-  };
+  const handlePointerUp = () => { isDragging.current = false; };
 
   const handleWheel = (e: React.WheelEvent) => {
     const delta = e.deltaY > 0 ? 0.9 : 1.1;
@@ -316,7 +316,7 @@ const KnowledgeGraph: React.FC = () => {
 
   return (
     <div className="knowledge-graph-container">
-      {error && <p role="alert">{error}</p>}
+      {error && <p role="alert">{error} <button onClick={() => void loadNodes()}>重新读取</button></p>}
       {/* 顶部导航 */}
       <motion.div
         className="graph-header"
@@ -332,11 +332,11 @@ const KnowledgeGraph: React.FC = () => {
           <p>共 {nodes.length} 个知识点</p>
         </div>
         <div className="zoom-controls">
-          <button className="zoom-btn" onClick={handleZoomOut}>
+          <button className="zoom-btn" aria-label="缩小图谱" onClick={handleZoomOut}>
             <ZoomOut size={18} />
           </button>
           <span className="zoom-percent">{Math.round(scale * 100)}%</span>
-          <button className="zoom-btn" onClick={handleZoomIn}>
+          <button className="zoom-btn" aria-label="放大图谱" onClick={handleZoomIn}>
             <ZoomIn size={18} />
           </button>
         </div>
@@ -368,17 +368,17 @@ const KnowledgeGraph: React.FC = () => {
         <div
           ref={canvasRef}
           className="graph-canvas"
-          onMouseDown={handleMouseDown}
-          onMouseMove={handleMouseMove}
-          onMouseUp={handleMouseUp}
-          onMouseLeave={handleMouseUp}
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          onPointerUp={handlePointerUp}
+          onPointerCancel={handlePointerUp}
           onWheel={handleWheel}
         >
           {/* SVG 绘制连线 */}
           <svg
             className="connections-svg"
             style={{
-              transform: `scale(${scale}) translate(${offset.x / scale}px, ${offset.y / scale}px)`,
+              transform: `translate(${offset.x}px, ${offset.y}px) scale(${scale})`,
             }}
           >
             {positions.map(rootPos => {
@@ -386,9 +386,9 @@ const KnowledgeGraph: React.FC = () => {
                 const lines: React.ReactNode[] = [];
                 pos.children.forEach(child => {
                   const startX = pos.x + 180;
-                  const startY = pos.y + 30;
+                  const startY = pos.y + 37;
                   const endX = child.x;
-                  const endY = child.y + 30;
+                  const endY = child.y + 37;
                   const midX = (startX + endX) / 2;
 
                   const path = `M ${startX} ${startY} C ${midX} ${startY}, ${midX} ${endY}, ${endX} ${endY}`;
@@ -414,12 +414,14 @@ const KnowledgeGraph: React.FC = () => {
           <div
             className="nodes-container"
             style={{
-              transform: `scale(${scale}) translate(${offset.x}px, ${offset.y}px)`,
+              transform: `translate(${offset.x}px, ${offset.y}px) scale(${scale})`,
             }}
           >
             {allPositions.map(pos => (
-              <div
+              <button
                 key={pos.node.id}
+                type="button"
+                aria-label={`编辑知识点：${pos.node.name}`}
                 className="mind-map-node"
                 style={{
                   left: pos.x,
@@ -447,7 +449,7 @@ const KnowledgeGraph: React.FC = () => {
                 <span className="node-mastery">
                   {Math.round(pos.node.masteryLevel * 100)}%
                 </span>
-              </div>
+              </button>
             ))}
           </div>
         </div>

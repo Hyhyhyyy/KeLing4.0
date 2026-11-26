@@ -6,6 +6,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
@@ -206,6 +207,12 @@ fun ExpeditionScreen(vm: ExpeditionViewModel, tab: String, guest: Boolean, onNav
     var showCancel by remember(run.id) { mutableStateOf(false) }
     if (showCancel) AlertDialog(onDismissRequest = { showCancel = false }, title = { Text("结束这次远征？") }, text = { Text("结束后保留已提交记录，当前题不结算。") }, confirmButton = { TextButton(onClick = { showCancel = false; vm.command(ExpeditionAction("CANCEL")) }, enabled = !state.busy) { Text("确认结束") } }, dismissButton = { TextButton(onClick = { showCancel = false }) { Text("继续学习") } })
     var direct by remember(run.id, exercise.id) { mutableStateOf(false) }; var saveMemory by remember(run.id, exercise.id) { mutableStateOf(false) }
+    var orderInput by rememberSaveable(run.id, exercise.id) { mutableStateOf(draft.answer.order.orEmpty().joinToString(",")) }
+    LaunchedEffect(draft.answer.order) {
+        if (parseOrderInput(orderInput) != draft.answer.order.orEmpty()) {
+            orderInput = draft.answer.order.orEmpty().joinToString(",")
+        }
+    }
     val ready = !state.busy && state.saved.pending.isEmpty() && run.status in listOf("ACTIVE", "AWAITING_FEEDBACK") && run.nextStep == null
     Card { Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
         StellarSectionTitle(exercise.title, motif = 3, style = MaterialTheme.typography.headlineSmall)
@@ -232,7 +239,10 @@ fun ExpeditionScreen(vm: ExpeditionViewModel, tab: String, guest: Boolean, onNav
             Column { FilterChip(draft.answer.structure == "QUEUE", { vm.changeDraft { it.copy(answer = Answer(structure = "QUEUE", order = emptyList()), container = emptyList(), steps = emptyList()) } }, label = { Text("队列 · 先进先出") }, enabled = ready)
                 Spacer(Modifier.height(4.dp)); FilterChip(draft.answer.structure == "STACK", { vm.changeDraft { it.copy(answer = Answer(structure = "STACK", order = emptyList()), container = emptyList(), steps = emptyList()) } }, label = { Text("栈 · 后进先出") }, enabled = ready) }
             TextButton(onClick = { direct = !direct }, enabled = ready) { Text(if (direct) "切换到容器操作" else "直接输入顺序") }
-            if (direct) OutlinedTextField(draft.answer.order.orEmpty().joinToString(","), { value -> vm.changeDraft { it.copy(answer = it.answer.copy(order = value.take(600).split(',', '，', ' ').filter(String::isNotBlank)), steps = emptyList()) } }, modifier = Modifier.fillMaxWidth(), label = { Text("访问编号，逗号分隔，例如 A,B,C") }, enabled = ready)
+            if (direct) OutlinedTextField(orderInput, { value ->
+                orderInput = value.take(600)
+                vm.changeDraft { it.copy(answer = it.answer.copy(order = parseOrderInput(orderInput)), steps = emptyList()) }
+            }, modifier = Modifier.fillMaxWidth(), label = { Text("访问编号，逗号分隔，例如 A,B,C") }, enabled = ready)
             else {
                 Text("容器：${draft.container.joinToString(" · ").ifBlank { "空" }}")
                 exercise.tree.nodes.chunked(2).forEach { nodes -> Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) { nodes.forEach { node ->
@@ -270,6 +280,7 @@ fun ExpeditionScreen(vm: ExpeditionViewModel, tab: String, guest: Boolean, onNav
         TextButton(onClick = vm::leaveRun, enabled = !state.busy) { Text(if (run.status == "SETTLED") "返回远航" else "保存草稿并返回") }
     } }
 }
+internal fun parseOrderInput(value: String): List<String> = value.split(',', '，', ' ', '\n', '\t').map(String::trim).filter(String::isNotBlank)
 private fun objectiveTitle(state: ExpeditionUiState, key: String) = state.chapter?.objectives?.firstOrNull { it.key == key }?.title ?: key
 private fun statusLabel(status: String) = when (status) { "ACTIVE" -> "进行中"; "PAUSED" -> "已暂停"; "AWAITING_FEEDBACK" -> "待确认反馈"; "SETTLED" -> "已结算"; "CANCELLED" -> "已取消"; "CONTENT_STALE" -> "资料已变化"; else -> status }
 private fun evidenceLabel(value: String?) = when (value) { "ATTEMPTED" -> "已尝试"; "INDEPENDENT" -> "有独立证据"; "DELAYED" -> "有延迟证据"; else -> "待探索" }

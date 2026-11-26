@@ -162,6 +162,7 @@
 
 .task-card.timing {
   border: 2px solid var(--color-stellar-orange);
+  flex-wrap: wrap;
 }
 
 .task-card.completed {
@@ -298,16 +299,20 @@
 
 /* 任务计时器 */
 .task-timer {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  flex: 0 0 100%;
+  margin-top: 12px;
   background: var(--color-stellar-orange);
   color: white;
   text-align: center;
   padding: 8px;
+  border-radius: 8px;
   font-weight: 600;
   font-family: var(--font-ui);
+  pointer-events: none;
+}
+
+@media (max-width: 760px) {
+  .task-timer { flex-basis: auto; width: 100%; }
 }
 
 /* 添加按钮 */

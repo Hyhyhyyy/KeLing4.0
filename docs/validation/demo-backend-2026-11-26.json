@@ -1,0 +1,83 @@
+{
+  "date": "2026-11-26",
+  "scope": "Backend readiness for the existing demonstration flows",
+  "baseCommit": "6270399d12c58804a47c14e8aead2f5de1d36c29",
+  "changes": [
+    "Imported course material now supplies planning evidence without first converting it into a note or knowledge node.",
+    "Global assistant keyword retrieval includes matching current material excerpts.",
+    "Latest versions are selected before tombstone filtering; archived and foreign courses remain excluded.",
+    "Plans referencing replaced or removed material fail before task confirmation; source checks remain valid after unrelated uploads.",
+    "Plan confirmation serializes with account writers; concurrent retries create tasks once.",
+    "Stale confirmations return PLAN_STALE with an actionable message."
+  ],
+  "verification": {
+    "command": "npm test",
+    "tests": 86,
+    "passed": 86,
+    "failed": 0,
+    "typescriptBuild": "passed as part of test runner",
+    "database": "disposable temporary SQLite only",
+    "modelResponses": "mocked in regression tests; not evidence of model capability",
+    "newRegressionTests": 5,
+    "log": ".cache/full-demo-20261126/backend-tests-after-content.log"
+  },
+  "runtimeProbe": {
+    "elapsedSeconds": 1.11,
+    "runId": "0ae14197-2163-4ba4-91a7-9ec1578ac957",
+    "credentialTimeout": true,
+    "httpStatus": 403,
+    "eventNames": [],
+    "sample": "synthetic real runtime probe; no production database change",
+    "date": "2026-11-26",
+    "templateError": true
+  },
+  "limits": [
+    "Current real AgentArts probe is HTTP 403 with template Error and GetAppCredential timeout; management recovery is being investigated separately.",
+    "No live chat or embedding model key was present in the inspected local configuration.",
+    "No production database migration or learning-data write was performed.",
+    "Broad imported-material search considers up to 40 recently changed materials; planning uses at most 12 matching or fallback excerpts, then retrieves up to 8 sources; the global assistant adds at most 3 matching excerpts.",
+    "No browser or device interaction is claimed by this backend report."
+  ],
+  "files": [
+    {
+      "path": "apps/server/src/learning/currentMaterials.ts",
+      "sha256": "53b3ec8f83a8055e9e458c4db56eb5b4964fc92df3d7e54a90ac6d52d9fe84ca"
+    },
+    {
+      "path": "apps/server/src/agentarts/service.ts",
+      "sha256": "52e0a37cdc46f33596592d5097a8f588b9f5178f3856e5c78f13a8e968c6573d"
+    },
+    {
+      "path": "apps/server/src/agentarts/routes.ts",
+      "sha256": "c20717777f866b9386fcafd494b3258828f7f6ca84ac122e0d432162c6fa7559"
+    },
+    {
+      "path": "apps/server/src/ai/retrieval.ts",
+      "sha256": "a82069470378962a37302cd6e0bcb544b3c2e731b44d13b8e34553a56fa56533"
+    },
+    {
+      "path": "apps/server/tests/material-ai.test.cjs",
+      "sha256": "ca618c597b67ac24a2035d5d8494fb1762eff0e8c13e9aaeff4fac4ab860894b"
+    }
+  ],
+  "contentAudit": {
+    "report": "docs/validation/expedition-content-2026-11-26.json",
+    "exercises": 18,
+    "canonicalMatches": 18,
+    "chapterVersion": "1.0.1",
+    "humanPending": 18,
+    "changedExercises": [
+      "bt-3-2",
+      "bt-3-4",
+      "bt-3-6"
+    ],
+    "treesAndCanonicalAnswersChanged": false
+  },
+  "localApiSmoke": {
+    "report": "docs/validation/local-api-smoke-2026-11-26.json",
+    "requests": 31,
+    "checksPassed": 15,
+    "cleanupStepsPassed": 6,
+    "production": false
+  }
+}

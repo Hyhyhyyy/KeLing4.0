@@ -118,7 +118,6 @@ import com.keling.app.ui.screens.ai.PastoralAIScreen
 import com.keling.app.ui.screens.knowledge.MindMapKnowledgeGraphScreen
 import com.keling.app.ui.screens.profile.PastoralProfileScreen
 import com.keling.app.ui.screens.achievements.PastoralAchievementsScreen
-import com.keling.app.ui.screens.report.PastoralStudyReportScreen
 import com.keling.app.ui.screens.settings.PastoralSettingsScreen
 import com.keling.app.ui.screens.notes.PastoralNotesScreen
 import com.keling.app.ui.components.CheckInDialog
@@ -267,6 +266,14 @@ fun MainAppContent(authViewModel: AuthViewModel, viewModel: AppViewModel, onRetr
 
     // 页面历史栈，用于返回键导航
     val screenHistory = remember { mutableStateListOf("home") }
+    LaunchedEffect(currentScreen) {
+        val previousIndex = screenHistory.indexOfLast { it == currentScreen }
+        if (previousIndex >= 0) {
+            while (screenHistory.lastIndex > previousIndex) screenHistory.removeLast()
+        } else {
+            screenHistory.add(currentScreen)
+        }
+    }
 
     // 版本更新对话框
     var showUpdateDialog by remember { mutableStateOf(false) }
@@ -282,7 +289,7 @@ fun MainAppContent(authViewModel: AuthViewModel, viewModel: AppViewModel, onRetr
     // 主页面列表（显示底部导航栏）
     val mainScreens = listOf("home", "star_map", "base", "profile", "account_profile", "settings", "dashboard")
     val isMainScreen = currentScreen in mainScreens
-    val needsLocalData = currentScreen.startsWith("offline_") || currentScreen in listOf("local_ai", "greenhouse_course", "knowledge_graph", "task_detail", "achievements", "report")
+    val needsLocalData = currentScreen.startsWith("offline_") || currentScreen in listOf("local_ai", "greenhouse_course", "knowledge_graph", "task_detail")
 
     // 检查更新的函数
     fun checkForUpdate() {
@@ -491,7 +498,7 @@ fun MainAppContent(authViewModel: AuthViewModel, viewModel: AppViewModel, onRetr
                 "expedition_materials" -> assistantAccount?.let { session ->
                     com.keling.app.expedition.LearningMaterialsScreen(session.token, expeditionVm?.state?.value?.saved?.selectedCourseId) { viewModel.navigateTo("star_map") }
                 }
-                "greenhouse", "tasks", "notes", "account_profile", "dashboard", "cloud_workspace" -> {
+                "greenhouse", "tasks", "notes", "account_profile", "dashboard", "cloud_workspace", "report", "achievements" -> {
                     assistantAccount?.let { session ->
                         com.keling.app.ui.screens.agent.CloudWorkspaceScreen(session.userId, session.token,
                             initialTab = when (currentScreen) { "cloud_workspace" -> "notes"; "account_profile" -> "profile"; "dashboard" -> "home"; else -> currentScreen },
@@ -579,14 +586,6 @@ fun MainAppContent(authViewModel: AuthViewModel, viewModel: AppViewModel, onRetr
                     onNavigateToAchievements = { viewModel.navigateTo("achievements") },
                     onNavigateToSettings = { viewModel.navigateTo("settings") },
                     onNavigateToReport = { viewModel.navigateTo("report") }
-                )
-                "achievements" -> PastoralAchievementsScreen(
-                    viewModel = viewModel,
-                    onBack = { viewModel.navigateTo("profile") }
-                )
-                "report" -> PastoralStudyReportScreen(
-                    viewModel = viewModel,
-                    onBack = { viewModel.navigateTo("profile") }
                 )
                 "settings" -> PastoralSettingsScreen(
                     guest = guest,

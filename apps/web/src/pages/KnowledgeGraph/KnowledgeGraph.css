@@ -1,6 +1,8 @@
 /* 知识图谱思维导图页面样式 */
 
 .knowledge-graph-container {
+  position: relative;
+  padding-bottom: 110px;
   min-height: 100vh;
   background: var(--color-dawn-white);
   display: flex;
@@ -82,6 +84,8 @@
 
 /* 画布区域 */
 .graph-canvas {
+  min-height: 480px;
+  touch-action: none;
   flex: 1;
   overflow: hidden;
   position: relative;
@@ -93,6 +97,8 @@
 }
 
 .connections-svg {
+  transform-origin: 0 0;
+  pointer-events: none;
   position: absolute;
   top: 0;
   left: 0;
@@ -102,6 +108,7 @@
 }
 
 .nodes-container {
+  transform-origin: 0 0;
   position: absolute;
   top: 0;
   left: 0;
@@ -112,18 +119,18 @@
 /* 思维导图节点 */
 .mind-map-node {
   position: absolute;
-  min-width: 140px;
-  max-width: 180px;
+  width: 180px;
+  height: 74px;
+  text-align: left;
   padding: 10px 12px;
   border-radius: 12px;
   border: 2px solid;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: box-shadow 0.2s ease;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .mind-map-node:hover {
-  transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
@@ -407,3 +414,5 @@
 .btn-danger:hover {
   background: #d32f2f;
 }
+.knowledge-graph-container .mind-map-node:focus-visible { outline: 3px solid #285950; outline-offset: 3px; }
+@media(max-width: 600px) { .knowledge-graph-container .legend-card { position: static; margin: 16px; } .knowledge-graph-container .graph-canvas { min-height: 420px; } }

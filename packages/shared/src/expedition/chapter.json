@@ -1,6 +1,6 @@
 {
   "id": "binary-tree",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "title": "二叉树区域 · 重启通信站",
   "materialTitle": "课灵原创二叉树远征手册",
   "materialParagraphs": [
@@ -11,7 +11,8 @@
   ],
   "references": [
     "https://algs4.cs.princeton.edu/32bst/",
-    "https://algs4.cs.princeton.edu/32bst/BST.java.html"
+    "https://algs4.cs.princeton.edu/32bst/BST.java.html",
+    "https://courses.cs.cornell.edu/courses/cs2110/2026sp/lectures/lec16/"
   ],
   "objectives": [
     {
@@ -921,7 +922,7 @@
     },
     {
       "id": "bt-3-2",
-      "version": "1",
+      "version": "2",
       "objectiveKey": "bt.bst.bounds",
       "template": "ROUTE_REPAIR",
       "role": "FRESH",
@@ -975,7 +976,7 @@
       "rubric": [
         "说明整个子树条件",
         "追踪祖先上下界",
-        "给出局部正确但全局越界的解释"
+        "逐个核对节点满足所有祖先边界，说明本树为何有效"
       ],
       "sourceParagraph": 2,
       "review": {
@@ -1053,7 +1054,7 @@
     },
     {
       "id": "bt-3-4",
-      "version": "1",
+      "version": "2",
       "objectiveKey": "bt.bst.bounds",
       "template": "ROUTE_REPAIR",
       "role": "REVIEW",
@@ -1113,7 +1114,7 @@
       "rubric": [
         "说明整个子树条件",
         "追踪祖先上下界",
-        "给出局部正确但全局越界的解释"
+        "逐个核对节点满足所有祖先边界，说明本树为何有效"
       ],
       "sourceParagraph": 2,
       "review": {
@@ -1191,12 +1192,12 @@
     },
     {
       "id": "bt-3-6",
-      "version": "1",
+      "version": "2",
       "objectiveKey": "bt.bst.bounds",
       "template": "TEACH_COMPANION",
       "role": "REVIEW",
       "title": "二叉搜索树的全局边界 · 再讲一次",
-      "prompt": "向星芽解释：为什么只看父子大小关系不够？用这棵树说明祖先边界。",
+      "prompt": "向星芽解释：节点 E 的数值 32 需要同时满足哪些祖先边界？再假设 E 改为 58，为什么只检查父子大小关系会漏掉错误？",
       "tree": {
         "root": "A",
         "nodes": [
@@ -1239,13 +1240,13 @@
         ]
       },
       "hints": [
-        "从根开始给子树传递上下界；子树仍要遵守祖先的边界。",
-        "左子树的上界变为父节点值；右子树的下界变为父节点值。其他边界继续保留。"
+        "E 位于 B 的右子树和 A 的左子树，需要同时满足 B 与 A 的边界。",
+        "先检查原值 32，再比较假设值 58；假设不改变题图。"
       ],
       "rubric": [
-        "说明整个子树条件",
-        "追踪祖先上下界",
-        "给出局部正确但全局越界的解释"
+        "说明原树有效，E 的允许范围为 23 < E < 54",
+        "说明原值 32 同时满足父节点 B 与祖先 A 的边界",
+        "说明假设值 58 虽大于父节点 23，却超过祖先上界 54"
       ],
       "sourceParagraph": 2,
       "review": {

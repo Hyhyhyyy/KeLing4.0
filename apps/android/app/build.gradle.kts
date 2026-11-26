@@ -75,9 +75,9 @@ android {
         targetSdk = 34
 
         // 版本号，每次更新应用要+1
-        versionCode = 26
+        versionCode = 27
         // 版本名称，用户看到的版本
-        versionName = "4.0.5-defense-rc6"
+        versionName = "4.0.6-defense-rc7"
         buildConfigField("String", "API_BASE_URL", "\"${apiBaseUrl.replace("\\", "\\\\").replace("\"", "\\\"")}\"")
 
         // 启用矢量图支持，这样图标可以缩放不失真

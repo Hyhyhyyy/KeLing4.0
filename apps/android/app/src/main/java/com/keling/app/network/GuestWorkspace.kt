@@ -132,6 +132,20 @@ class GuestWorkspace internal constructor(private val suppliedClient: HttpClient
         return com.keling.app.expedition.ScheduleConfirmation(created.map { it.id }, created.size, false).also { scheduleConfirmations[previewId] = it }
     }
     fun taskList(): TaskResponse { ensureOpen(); return TaskResponse(tasks = tasks.toList()) }
+    fun createTask(input: WorkspaceTaskInput): TaskResponse {
+        ensureOpen()
+        require(input.title.trim().length in 1..180 && input.description.length <= 4000 && input.estimatedMinutes in 1..1440)
+        if (input.courseId != null && courses.none { it.id == input.courseId && !it.isArchived }) throw ApiException(404, "课程不存在")
+        val task = TaskData(id(), input.title.trim(), input.description, courseId = input.courseId,
+            estimatedMinutes = input.estimatedMinutes, rewardsEnergy = 0, rewardsCrystals = 0, rewardsExp = 0, createdAt = now())
+        tasks.add(0, task)
+        return TaskResponse(task = task)
+    }
+    fun deleteTask(taskId: String) {
+        ensureOpen()
+        if (tasks.none { it.id == taskId }) throw ApiException(404, "任务不存在")
+        tasks.removeAll { it.id == taskId }
+    }
     fun complete(id: String, minutes: Int): TaskResponse {
         ensureOpen(); require(minutes in 0..1440)
         val index = tasks.indexOfFirst { it.id == id }; if (index < 0) throw ApiException(404, "任务不存在")

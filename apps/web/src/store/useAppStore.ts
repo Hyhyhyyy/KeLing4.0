@@ -7,6 +7,9 @@ import { startGuestSession, endGuestSession, getGuestSessionId } from '../servic
 import { clearModelAccess } from '../services/modelAccess';
 import { readExpeditionIdentity, rememberExpeditionIdentity } from '../services/expeditionStorage';
 
+const dataRequests = { courses: 0, tasks: 0, notes: 0 };
+const emptyDataErrors = () => ({ courses: '', tasks: '', notes: '', profile: '' });
+
 const workspaceIdentity = () => getGuestSessionId() || `account:${localStorage.getItem('token') || ''}`;
 
 interface AppState {
@@ -18,6 +21,7 @@ interface AppState {
   isLoading: boolean;
   authError: string | null;
   offlineAccount: boolean;
+  dataErrors: ReturnType<typeof emptyDataErrors>;
 
   // 数据状态
   courses: Course[];
@@ -73,6 +77,7 @@ export const useAppStore = create<AppState>()(
       currentScreen: 'home',
       authError: null,
       offlineAccount: false,
+      dataErrors: emptyDataErrors(),
 
       // 登录
       login: async (email, password, signal) => {
@@ -91,6 +96,7 @@ export const useAppStore = create<AppState>()(
             user: data.user,
             isAuthenticated: true,
             offlineAccount: false,
+            dataErrors: emptyDataErrors(),
             isGuest: false,
             isLoading: false,
           });
@@ -116,6 +122,7 @@ export const useAppStore = create<AppState>()(
             user: data.user,
             isAuthenticated: true,
             offlineAccount: false,
+            dataErrors: emptyDataErrors(),
             isGuest: false,
             isLoading: false,
           });
@@ -136,6 +143,7 @@ export const useAppStore = create<AppState>()(
           token: null,
           isAuthenticated: false,
           offlineAccount: false,
+          dataErrors: emptyDataErrors(),
           isGuest: false,
           courses: [],
           tasks: [],
@@ -148,7 +156,7 @@ export const useAppStore = create<AppState>()(
         startGuestSession();
         clearModelAccess();
         set({ isGuest: true, isAuthenticated: false, offlineAccount: false, user: null, authError: null,
-          courses: [], tasks: [], notes: [], isLoading: true });
+          courses: [], tasks: [], notes: [], dataErrors: emptyDataErrors(), isLoading: true });
         await get().loadUser();
       },
       endGuest: () => {
@@ -156,7 +164,7 @@ export const useAppStore = create<AppState>()(
         clearModelAccess();
         // The visitor never replaces or removes an existing account credential.
         set({ isGuest: false, isAuthenticated: false, offlineAccount: false, user: null, authError: null,
-          token: localStorage.getItem('token'), courses: [], tasks: [], notes: [], isLoading: false });
+          token: localStorage.getItem('token'), courses: [], tasks: [], notes: [], dataErrors: emptyDataErrors(), isLoading: false });
       },
 
       // 加载用户数据
@@ -179,7 +187,7 @@ export const useAppStore = create<AppState>()(
         try {
           const {data}=await authAPI.getMe();
           if(workspaceIdentity()!==session)return;
-          set({user:data.user,token,isAuthenticated:true,isLoading:false,offlineAccount:false});
+          set(state => ({user:data.user,token,isAuthenticated:true,isLoading:false,offlineAccount:false,dataErrors:{...state.dataErrors,profile:''}}));
           void rememberExpeditionIdentity(data.user,token).catch(() => {});
           void get().loadCourses();void get().loadTasks();void get().loadNotes();
         } catch(error) {
@@ -199,41 +207,45 @@ export const useAppStore = create<AppState>()(
 
       // 加载课程
       loadCourses: async () => {
-        const session=workspaceIdentity();
+        const session = workspaceIdentity(), request = ++dataRequests.courses;
         try {
           const { data } = await courseAPI.getAll();
-          if(session===workspaceIdentity())set({ courses: data.courses || [] });
-        } catch (error) {
-          console.error('加载课程失败:', error);
+          if (session === workspaceIdentity() && request === dataRequests.courses) set(state => ({ courses: data.courses || [], dataErrors: { ...state.dataErrors, courses: '' } }));
+        } catch {
+          if (session === workspaceIdentity() && request === dataRequests.courses) set(state => ({ dataErrors: { ...state.dataErrors, courses: '课程未能刷新' } }));
         }
       },
 
       // 加载任务
       loadTasks: async () => {
-        const session=workspaceIdentity();
+        const session = workspaceIdentity(), request = ++dataRequests.tasks;
         try {
           const { data } = await taskAPI.getAll();
-          if(session===workspaceIdentity())set({ tasks: data.tasks || [] });
-        } catch (error) {
-          console.error('加载任务失败:', error);
+          if (session === workspaceIdentity() && request === dataRequests.tasks) set(state => ({ tasks: data.tasks || [], dataErrors: { ...state.dataErrors, tasks: '' } }));
+        } catch {
+          if (session === workspaceIdentity() && request === dataRequests.tasks) set(state => ({ dataErrors: { ...state.dataErrors, tasks: '任务未能刷新' } }));
         }
       },
 
       // 加载笔记
       loadNotes: async () => {
-        const session=workspaceIdentity();
+        const session = workspaceIdentity(), request = ++dataRequests.notes;
         try {
           const { data } = await noteAPI.getAll();
-          if(session===workspaceIdentity())set({ notes: data.notes || [] });
-        } catch (error) {
-          console.error('加载笔记失败:', error);
+          if (session === workspaceIdentity() && request === dataRequests.notes) set(state => ({ notes: data.notes || [], dataErrors: { ...state.dataErrors, notes: '' } }));
+        } catch {
+          if (session === workspaceIdentity() && request === dataRequests.notes) set(state => ({ dataErrors: { ...state.dataErrors, notes: '笔记未能刷新' } }));
         }
       },
 
       // 创建课程
       createCourse: async (data) => {
+        const session = workspaceIdentity();
         try {
-          await courseAPI.create(data);
+          const response = await courseAPI.create(data);
+          if (session !== workspaceIdentity()) return;
+          dataRequests.courses++;
+          if (response.data.course) set(state => ({ courses: [response.data.course, ...state.courses.filter(item => item.id !== response.data.course.id)] }));
           await get().loadCourses();
         } catch (error: any) {
           throw new Error(error.response?.data?.error || '创建课程失败');
@@ -242,8 +254,12 @@ export const useAppStore = create<AppState>()(
 
       // 更新课程
       updateCourse: async (id, data) => {
+        const session = workspaceIdentity();
         try {
-          await courseAPI.update(id, data);
+          const response = await courseAPI.update(id, data);
+          if (session !== workspaceIdentity()) return;
+          dataRequests.courses++;
+          if (response.data.course) set(state => ({ courses: state.courses.map(item => item.id === id ? response.data.course : item) }));
           await get().loadCourses();
         } catch (error: any) {
           throw new Error(error.response?.data?.error || '更新课程失败');
@@ -252,8 +268,12 @@ export const useAppStore = create<AppState>()(
 
       // 删除课程
       deleteCourse: async (id) => {
+        const session = workspaceIdentity();
         try {
           await courseAPI.delete(id);
+          if (session !== workspaceIdentity()) return;
+          dataRequests.courses++;
+          set(state => ({ courses: state.courses.filter(item => item.id !== id) }));
           await get().loadCourses();
         } catch (error: any) {
           throw new Error(error.response?.data?.error || '删除课程失败');
@@ -262,8 +282,12 @@ export const useAppStore = create<AppState>()(
 
       // 创建任务
       createTask: async (data) => {
+        const session = workspaceIdentity();
         try {
-          await taskAPI.create(data);
+          const response = await taskAPI.create(data);
+          if (session !== workspaceIdentity()) return;
+          dataRequests.tasks++;
+          if (response.data.task) set(state => ({ tasks: [response.data.task, ...state.tasks.filter(item => item.id !== response.data.task.id)] }));
           await get().loadTasks();
         } catch (error: any) {
           throw new Error(error.response?.data?.error || '创建任务失败');
@@ -272,8 +296,12 @@ export const useAppStore = create<AppState>()(
 
       // 更新任务
       updateTask: async (id, data) => {
+        const session = workspaceIdentity();
         try {
-          await taskAPI.update(id, data);
+          const response = await taskAPI.update(id, data);
+          if (session !== workspaceIdentity()) return;
+          dataRequests.tasks++;
+          if (response.data.task) set(state => ({ tasks: state.tasks.map(item => item.id === id ? response.data.task : item) }));
           await get().loadTasks();
         } catch (error: any) {
           throw new Error(error.response?.data?.error || '更新任务失败');
@@ -284,22 +312,33 @@ export const useAppStore = create<AppState>()(
       completeTask: async (id, actualMinutes) => {
         const session = workspaceIdentity();
         try {
-          await taskAPI.complete(id, { actualMinutes });
-
-          // Fetch authoritative levels and minutes, including changes from another device.
-            const profile = await authAPI.getMe();
-            if (workspaceIdentity() !== session) return;
-            set({user:profile.data.user});
-            await get().loadTasks();
+          const { data } = await taskAPI.complete(id, { actualMinutes });
+          if (workspaceIdentity() !== session) return;
+          dataRequests.tasks++;
+          if (data.task) set(state => ({ tasks: state.tasks.map(task => task.id === id ? data.task : task) }));
         } catch (error: any) {
           throw new Error(error.response?.data?.error || '完成任务失败');
         }
+        // Completion was accepted. A profile refresh failure must not report the
+        // accepted write as failed or encourage another submission.
+        try {
+          const profile = await authAPI.getMe();
+          if (workspaceIdentity() !== session) return;
+          set(state => ({ user: profile.data.user, dataErrors: { ...state.dataErrors, profile: '' } }));
+        } catch {
+          if (workspaceIdentity() === session) set(state => ({ dataErrors: { ...state.dataErrors, profile: '任务已完成，个人统计待刷新' } }));
+        }
+        if (workspaceIdentity() === session) await get().loadTasks();
       },
 
       // 删除任务
       deleteTask: async (id) => {
+        const session = workspaceIdentity();
         try {
           await taskAPI.delete(id);
+          if (session !== workspaceIdentity()) return;
+          dataRequests.tasks++;
+          set(state => ({ tasks: state.tasks.filter(item => item.id !== id) }));
           await get().loadTasks();
         } catch (error: any) {
           throw new Error(error.response?.data?.error || '删除任务失败');
@@ -308,8 +347,12 @@ export const useAppStore = create<AppState>()(
 
       // 创建笔记
       createNote: async (data) => {
+        const session = workspaceIdentity();
         try {
-          await noteAPI.create(data);
+          const response = await noteAPI.create(data);
+          if (session !== workspaceIdentity()) return;
+          dataRequests.notes++;
+          if (response.data.note) set(state => ({ notes: [response.data.note, ...state.notes.filter(item => item.id !== response.data.note.id)] }));
           await get().loadNotes();
         } catch (error: any) {
           throw new Error(error.response?.data?.error || '创建笔记失败');

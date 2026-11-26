@@ -8,6 +8,7 @@ export * from './src/services/guestSession'; export * from './src/services/guest
 export * from './src/services/expedition'; export * from './src/services/expeditionStorage';
 export * from './src/services/learningMaterials'; export * from './src/services/learningSchedule';
 export * from './src/pages/Expedition/treeOperations';
+export * from './src/services/focusClock';
 export * from '@keling/shared/expedition';
 export { useAppStore } from './src/store/useAppStore'; export {default as transport} from './src/services/api';
 `, resolveDir: path.resolve(__dirname, '..') }, bundle: true, platform: 'node', format: 'cjs', write: false, define: require('../../../scripts/lib/vite-test-env.cjs') }).outputFiles[0].text;

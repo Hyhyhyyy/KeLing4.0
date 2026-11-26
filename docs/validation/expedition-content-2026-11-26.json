@@ -1,0 +1,1123 @@
+{
+  "date": "2026-11-26T11:50:19.825Z",
+  "contentVersion": "1.0.1",
+  "contentSha256": "385faf06336f70ef0a25685bd235a60a05492fe31ee7eb5afc6569022b279f2f",
+  "method": "BFS by recursive depth buckets; preorder recursion; BST ancestor path constraints cross-checked with strictly increasing inorder. App canonical functions used only for comparison.",
+  "counts": {
+    "objectives": 3,
+    "exercises": 18,
+    "structurallyValid": 18,
+    "canonicalMatches": 18,
+    "ruleChecked": 12,
+    "selfReported": 6,
+    "humanPending": 18
+  },
+  "oldVersionBlocked": true,
+  "hypotheticalCounterexample": {
+    "exerciseId": "bt-3-6",
+    "originalE": 32,
+    "hypotheticalE": 58,
+    "bounds": [
+      23,
+      54
+    ],
+    "invalidNodes": [
+      "E"
+    ]
+  },
+  "limitations": [
+    "Automated algorithm and AI-assisted wording audit; not independent human approval.",
+    "All human review fields remain pending.",
+    "Traversal practice/review variants can share topology; IDs alone do not prove learning transfer."
+  ],
+  "exercises": [
+    {
+      "id": "bt-1-1",
+      "version": "1",
+      "objective": "bt.bfs.queue",
+      "template": "ROUTE_REPAIR",
+      "nodeCount": 7,
+      "expected": {
+        "order": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G"
+        ],
+        "structure": "QUEUE"
+      },
+      "sourceParagraph": 0,
+      "treeValid": true,
+      "canonicalMatches": true,
+      "checks": {
+        "correctAnswerAccepted": true,
+        "wrongChoiceRejected": true,
+        "wrongOrderRejected": true,
+        "feedbackMatchesRubric": true
+      },
+      "humanStatus": "PENDING"
+    },
+    {
+      "id": "bt-1-2",
+      "version": "1",
+      "objective": "bt.bfs.queue",
+      "template": "ROUTE_REPAIR",
+      "nodeCount": 6,
+      "expected": {
+        "order": [
+          "A",
+          "B",
+          "C",
+          "E",
+          "F",
+          "G"
+        ],
+        "structure": "QUEUE"
+      },
+      "sourceParagraph": 0,
+      "treeValid": true,
+      "canonicalMatches": true,
+      "checks": {
+        "correctAnswerAccepted": true,
+        "wrongChoiceRejected": true,
+        "wrongOrderRejected": true,
+        "feedbackMatchesRubric": true
+      },
+      "humanStatus": "PENDING"
+    },
+    {
+      "id": "bt-1-3",
+      "version": "1",
+      "objective": "bt.bfs.queue",
+      "template": "ROUTE_REPAIR",
+      "nodeCount": 6,
+      "expected": {
+        "order": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F"
+        ],
+        "structure": "QUEUE"
+      },
+      "sourceParagraph": 0,
+      "treeValid": true,
+      "canonicalMatches": true,
+      "checks": {
+        "correctAnswerAccepted": true,
+        "wrongChoiceRejected": true,
+        "wrongOrderRejected": true,
+        "feedbackMatchesRubric": true
+      },
+      "humanStatus": "PENDING"
+    },
+    {
+      "id": "bt-1-4",
+      "version": "1",
+      "objective": "bt.bfs.queue",
+      "template": "ROUTE_REPAIR",
+      "nodeCount": 7,
+      "expected": {
+        "order": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G"
+        ],
+        "structure": "QUEUE"
+      },
+      "sourceParagraph": 0,
+      "treeValid": true,
+      "canonicalMatches": true,
+      "checks": {
+        "correctAnswerAccepted": true,
+        "wrongChoiceRejected": true,
+        "wrongOrderRejected": true,
+        "feedbackMatchesRubric": true
+      },
+      "humanStatus": "PENDING"
+    },
+    {
+      "id": "bt-1-5",
+      "version": "1",
+      "objective": "bt.bfs.queue",
+      "template": "TEACH_COMPANION",
+      "nodeCount": 6,
+      "expected": {
+        "order": [
+          "A",
+          "B",
+          "C",
+          "E",
+          "F",
+          "G"
+        ],
+        "structure": "QUEUE"
+      },
+      "sourceParagraph": 0,
+      "treeValid": true,
+      "canonicalMatches": true,
+      "checks": {
+        "selfReportNotAutoGraded": true
+      },
+      "humanStatus": "PENDING"
+    },
+    {
+      "id": "bt-1-6",
+      "version": "1",
+      "objective": "bt.bfs.queue",
+      "template": "TEACH_COMPANION",
+      "nodeCount": 6,
+      "expected": {
+        "order": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F"
+        ],
+        "structure": "QUEUE"
+      },
+      "sourceParagraph": 0,
+      "treeValid": true,
+      "canonicalMatches": true,
+      "checks": {
+        "selfReportNotAutoGraded": true
+      },
+      "humanStatus": "PENDING"
+    },
+    {
+      "id": "bt-2-1",
+      "version": "1",
+      "objective": "bt.dfs.stack",
+      "template": "ROUTE_REPAIR",
+      "nodeCount": 7,
+      "expected": {
+        "order": [
+          "A",
+          "B",
+          "D",
+          "E",
+          "C",
+          "F",
+          "G"
+        ],
+        "structure": "STACK"
+      },
+      "sourceParagraph": 1,
+      "treeValid": true,
+      "canonicalMatches": true,
+      "checks": {
+        "correctAnswerAccepted": true,
+        "wrongChoiceRejected": true,
+        "wrongOrderRejected": true,
+        "feedbackMatchesRubric": true
+      },
+      "humanStatus": "PENDING"
+    },
+    {
+      "id": "bt-2-2",
+      "version": "1",
+      "objective": "bt.dfs.stack",
+      "template": "ROUTE_REPAIR",
+      "nodeCount": 6,
+      "expected": {
+        "order": [
+          "A",
+          "B",
+          "E",
+          "C",
+          "F",
+          "G"
+        ],
+        "structure": "STACK"
+      },
+      "sourceParagraph": 1,
+      "treeValid": true,
+      "canonicalMatches": true,
+      "checks": {
+        "correctAnswerAccepted": true,
+        "wrongChoiceRejected": true,
+        "wrongOrderRejected": true,
+        "feedbackMatchesRubric": true
+      },
+      "humanStatus": "PENDING"
+    },
+    {
+      "id": "bt-2-3",
+      "version": "1",
+      "objective": "bt.dfs.stack",
+      "template": "ROUTE_REPAIR",
+      "nodeCount": 6,
+      "expected": {
+        "order": [
+          "A",
+          "B",
+          "D",
+          "E",
+          "C",
+          "F"
+        ],
+        "structure": "STACK"
+      },
+      "sourceParagraph": 1,
+      "treeValid": true,
+      "canonicalMatches": true,
+      "checks": {
+        "correctAnswerAccepted": true,
+        "wrongChoiceRejected": true,
+        "wrongOrderRejected": true,
+        "feedbackMatchesRubric": true
+      },
+      "humanStatus": "PENDING"
+    },
+    {
+      "id": "bt-2-4",
+      "version": "1",
+      "objective": "bt.dfs.stack",
+      "template": "ROUTE_REPAIR",
+      "nodeCount": 7,
+      "expected": {
+        "order": [
+          "A",
+          "B",
+          "D",
+          "E",
+          "C",
+          "F",
+          "G"
+        ],
+        "structure": "STACK"
+      },
+      "sourceParagraph": 1,
+      "treeValid": true,
+      "canonicalMatches": true,
+      "checks": {
+        "correctAnswerAccepted": true,
+        "wrongChoiceRejected": true,
+        "wrongOrderRejected": true,
+        "feedbackMatchesRubric": true
+      },
+      "humanStatus": "PENDING"
+    },
+    {
+      "id": "bt-2-5",
+      "version": "1",
+      "objective": "bt.dfs.stack",
+      "template": "TEACH_COMPANION",
+      "nodeCount": 6,
+      "expected": {
+        "order": [
+          "A",
+          "B",
+          "E",
+          "C",
+          "F",
+          "G"
+        ],
+        "structure": "STACK"
+      },
+      "sourceParagraph": 1,
+      "treeValid": true,
+      "canonicalMatches": true,
+      "checks": {
+        "selfReportNotAutoGraded": true
+      },
+      "humanStatus": "PENDING"
+    },
+    {
+      "id": "bt-2-6",
+      "version": "1",
+      "objective": "bt.dfs.stack",
+      "template": "TEACH_COMPANION",
+      "nodeCount": 6,
+      "expected": {
+        "order": [
+          "A",
+          "B",
+          "D",
+          "E",
+          "C",
+          "F"
+        ],
+        "structure": "STACK"
+      },
+      "sourceParagraph": 1,
+      "treeValid": true,
+      "canonicalMatches": true,
+      "checks": {
+        "selfReportNotAutoGraded": true
+      },
+      "humanStatus": "PENDING"
+    },
+    {
+      "id": "bt-3-1",
+      "version": "1",
+      "objective": "bt.bst.bounds",
+      "template": "ROUTE_REPAIR",
+      "nodeCount": 7,
+      "expected": {
+        "validBst": false,
+        "order": [
+          "E"
+        ]
+      },
+      "sourceParagraph": 2,
+      "treeValid": true,
+      "canonicalMatches": true,
+      "checks": {
+        "correctAnswerAccepted": true,
+        "wrongChoiceRejected": true,
+        "wrongOrderRejected": true,
+        "feedbackMatchesRubric": true
+      },
+      "inorder": [
+        "D",
+        "B",
+        "E",
+        "A",
+        "F",
+        "C",
+        "G"
+      ],
+      "ancestorChecks": [
+        {
+          "node": "A",
+          "value": 35,
+          "checks": [],
+          "valid": true
+        },
+        {
+          "node": "B",
+          "value": 14,
+          "checks": [
+            {
+              "ancestor": "A",
+              "relation": "<",
+              "bound": 35,
+              "satisfied": true
+            }
+          ],
+          "valid": true
+        },
+        {
+          "node": "C",
+          "value": 69,
+          "checks": [
+            {
+              "ancestor": "A",
+              "relation": ">",
+              "bound": 35,
+              "satisfied": true
+            }
+          ],
+          "valid": true
+        },
+        {
+          "node": "D",
+          "value": 6,
+          "checks": [
+            {
+              "ancestor": "B",
+              "relation": "<",
+              "bound": 14,
+              "satisfied": true
+            },
+            {
+              "ancestor": "A",
+              "relation": "<",
+              "bound": 35,
+              "satisfied": true
+            }
+          ],
+          "valid": true
+        },
+        {
+          "node": "E",
+          "value": 39,
+          "checks": [
+            {
+              "ancestor": "B",
+              "relation": ">",
+              "bound": 14,
+              "satisfied": true
+            },
+            {
+              "ancestor": "A",
+              "relation": "<",
+              "bound": 35,
+              "satisfied": false
+            }
+          ],
+          "valid": false
+        },
+        {
+          "node": "F",
+          "value": 48,
+          "checks": [
+            {
+              "ancestor": "C",
+              "relation": "<",
+              "bound": 69,
+              "satisfied": true
+            },
+            {
+              "ancestor": "A",
+              "relation": ">",
+              "bound": 35,
+              "satisfied": true
+            }
+          ],
+          "valid": true
+        },
+        {
+          "node": "G",
+          "value": 83,
+          "checks": [
+            {
+              "ancestor": "C",
+              "relation": ">",
+              "bound": 69,
+              "satisfied": true
+            },
+            {
+              "ancestor": "A",
+              "relation": ">",
+              "bound": 35,
+              "satisfied": true
+            }
+          ],
+          "valid": true
+        }
+      ],
+      "humanStatus": "PENDING"
+    },
+    {
+      "id": "bt-3-2",
+      "version": "2",
+      "objective": "bt.bst.bounds",
+      "template": "ROUTE_REPAIR",
+      "nodeCount": 6,
+      "expected": {
+        "validBst": true,
+        "order": []
+      },
+      "sourceParagraph": 2,
+      "treeValid": true,
+      "canonicalMatches": true,
+      "checks": {
+        "correctAnswerAccepted": true,
+        "wrongChoiceRejected": true,
+        "wrongOrderRejected": true,
+        "feedbackMatchesRubric": true
+      },
+      "inorder": [
+        "B",
+        "E",
+        "A",
+        "F",
+        "C",
+        "G"
+      ],
+      "ancestorChecks": [
+        {
+          "node": "A",
+          "value": 61,
+          "checks": [],
+          "valid": true
+        },
+        {
+          "node": "B",
+          "value": 27,
+          "checks": [
+            {
+              "ancestor": "A",
+              "relation": "<",
+              "bound": 61,
+              "satisfied": true
+            }
+          ],
+          "valid": true
+        },
+        {
+          "node": "C",
+          "value": 85,
+          "checks": [
+            {
+              "ancestor": "A",
+              "relation": ">",
+              "bound": 61,
+              "satisfied": true
+            }
+          ],
+          "valid": true
+        },
+        {
+          "node": "E",
+          "value": 43,
+          "checks": [
+            {
+              "ancestor": "B",
+              "relation": ">",
+              "bound": 27,
+              "satisfied": true
+            },
+            {
+              "ancestor": "A",
+              "relation": "<",
+              "bound": 61,
+              "satisfied": true
+            }
+          ],
+          "valid": true
+        },
+        {
+          "node": "F",
+          "value": 74,
+          "checks": [
+            {
+              "ancestor": "C",
+              "relation": "<",
+              "bound": 85,
+              "satisfied": true
+            },
+            {
+              "ancestor": "A",
+              "relation": ">",
+              "bound": 61,
+              "satisfied": true
+            }
+          ],
+          "valid": true
+        },
+        {
+          "node": "G",
+          "value": 97,
+          "checks": [
+            {
+              "ancestor": "C",
+              "relation": ">",
+              "bound": 85,
+              "satisfied": true
+            },
+            {
+              "ancestor": "A",
+              "relation": ">",
+              "bound": 61,
+              "satisfied": true
+            }
+          ],
+          "valid": true
+        }
+      ],
+      "humanStatus": "PENDING"
+    },
+    {
+      "id": "bt-3-3",
+      "version": "1",
+      "objective": "bt.bst.bounds",
+      "template": "ROUTE_REPAIR",
+      "nodeCount": 6,
+      "expected": {
+        "validBst": false,
+        "order": [
+          "E"
+        ]
+      },
+      "sourceParagraph": 2,
+      "treeValid": true,
+      "canonicalMatches": true,
+      "checks": {
+        "correctAnswerAccepted": true,
+        "wrongChoiceRejected": true,
+        "wrongOrderRejected": true,
+        "feedbackMatchesRubric": true
+      },
+      "inorder": [
+        "D",
+        "B",
+        "E",
+        "A",
+        "F",
+        "C"
+      ],
+      "ancestorChecks": [
+        {
+          "node": "A",
+          "value": 46,
+          "checks": [],
+          "valid": true
+        },
+        {
+          "node": "B",
+          "value": 20,
+          "checks": [
+            {
+              "ancestor": "A",
+              "relation": "<",
+              "bound": 46,
+              "satisfied": true
+            }
+          ],
+          "valid": true
+        },
+        {
+          "node": "C",
+          "value": 79,
+          "checks": [
+            {
+              "ancestor": "A",
+              "relation": ">",
+              "bound": 46,
+              "satisfied": true
+            }
+          ],
+          "valid": true
+        },
+        {
+          "node": "D",
+          "value": 9,
+          "checks": [
+            {
+              "ancestor": "B",
+              "relation": "<",
+              "bound": 20,
+              "satisfied": true
+            },
+            {
+              "ancestor": "A",
+              "relation": "<",
+              "bound": 46,
+              "satisfied": true
+            }
+          ],
+          "valid": true
+        },
+        {
+          "node": "E",
+          "value": 50,
+          "checks": [
+            {
+              "ancestor": "B",
+              "relation": ">",
+              "bound": 20,
+              "satisfied": true
+            },
+            {
+              "ancestor": "A",
+              "relation": "<",
+              "bound": 46,
+              "satisfied": false
+            }
+          ],
+          "valid": false
+        },
+        {
+          "node": "F",
+          "value": 63,
+          "checks": [
+            {
+              "ancestor": "C",
+              "relation": "<",
+              "bound": 79,
+              "satisfied": true
+            },
+            {
+              "ancestor": "A",
+              "relation": ">",
+              "bound": 46,
+              "satisfied": true
+            }
+          ],
+          "valid": true
+        }
+      ],
+      "humanStatus": "PENDING"
+    },
+    {
+      "id": "bt-3-4",
+      "version": "2",
+      "objective": "bt.bst.bounds",
+      "template": "ROUTE_REPAIR",
+      "nodeCount": 7,
+      "expected": {
+        "validBst": true,
+        "order": []
+      },
+      "sourceParagraph": 2,
+      "treeValid": true,
+      "canonicalMatches": true,
+      "checks": {
+        "correctAnswerAccepted": true,
+        "wrongChoiceRejected": true,
+        "wrongOrderRejected": true,
+        "feedbackMatchesRubric": true
+      },
+      "inorder": [
+        "D",
+        "B",
+        "E",
+        "A",
+        "F",
+        "C",
+        "G"
+      ],
+      "ancestorChecks": [
+        {
+          "node": "A",
+          "value": 57,
+          "checks": [],
+          "valid": true
+        },
+        {
+          "node": "B",
+          "value": 24,
+          "checks": [
+            {
+              "ancestor": "A",
+              "relation": "<",
+              "bound": 57,
+              "satisfied": true
+            }
+          ],
+          "valid": true
+        },
+        {
+          "node": "C",
+          "value": 81,
+          "checks": [
+            {
+              "ancestor": "A",
+              "relation": ">",
+              "bound": 57,
+              "satisfied": true
+            }
+          ],
+          "valid": true
+        },
+        {
+          "node": "D",
+          "value": 13,
+          "checks": [
+            {
+              "ancestor": "B",
+              "relation": "<",
+              "bound": 24,
+              "satisfied": true
+            },
+            {
+              "ancestor": "A",
+              "relation": "<",
+              "bound": 57,
+              "satisfied": true
+            }
+          ],
+          "valid": true
+        },
+        {
+          "node": "E",
+          "value": 38,
+          "checks": [
+            {
+              "ancestor": "B",
+              "relation": ">",
+              "bound": 24,
+              "satisfied": true
+            },
+            {
+              "ancestor": "A",
+              "relation": "<",
+              "bound": 57,
+              "satisfied": true
+            }
+          ],
+          "valid": true
+        },
+        {
+          "node": "F",
+          "value": 66,
+          "checks": [
+            {
+              "ancestor": "C",
+              "relation": "<",
+              "bound": 81,
+              "satisfied": true
+            },
+            {
+              "ancestor": "A",
+              "relation": ">",
+              "bound": 57,
+              "satisfied": true
+            }
+          ],
+          "valid": true
+        },
+        {
+          "node": "G",
+          "value": 93,
+          "checks": [
+            {
+              "ancestor": "C",
+              "relation": ">",
+              "bound": 81,
+              "satisfied": true
+            },
+            {
+              "ancestor": "A",
+              "relation": ">",
+              "bound": 57,
+              "satisfied": true
+            }
+          ],
+          "valid": true
+        }
+      ],
+      "humanStatus": "PENDING"
+    },
+    {
+      "id": "bt-3-5",
+      "version": "1",
+      "objective": "bt.bst.bounds",
+      "template": "TEACH_COMPANION",
+      "nodeCount": 6,
+      "expected": {
+        "validBst": false,
+        "order": [
+          "E"
+        ]
+      },
+      "sourceParagraph": 2,
+      "treeValid": true,
+      "canonicalMatches": true,
+      "checks": {
+        "selfReportNotAutoGraded": true
+      },
+      "inorder": [
+        "B",
+        "E",
+        "A",
+        "F",
+        "C",
+        "G"
+      ],
+      "ancestorChecks": [
+        {
+          "node": "A",
+          "value": 40,
+          "checks": [],
+          "valid": true
+        },
+        {
+          "node": "B",
+          "value": 18,
+          "checks": [
+            {
+              "ancestor": "A",
+              "relation": "<",
+              "bound": 40,
+              "satisfied": true
+            }
+          ],
+          "valid": true
+        },
+        {
+          "node": "C",
+          "value": 72,
+          "checks": [
+            {
+              "ancestor": "A",
+              "relation": ">",
+              "bound": 40,
+              "satisfied": true
+            }
+          ],
+          "valid": true
+        },
+        {
+          "node": "E",
+          "value": 44,
+          "checks": [
+            {
+              "ancestor": "B",
+              "relation": ">",
+              "bound": 18,
+              "satisfied": true
+            },
+            {
+              "ancestor": "A",
+              "relation": "<",
+              "bound": 40,
+              "satisfied": false
+            }
+          ],
+          "valid": false
+        },
+        {
+          "node": "F",
+          "value": 56,
+          "checks": [
+            {
+              "ancestor": "C",
+              "relation": "<",
+              "bound": 72,
+              "satisfied": true
+            },
+            {
+              "ancestor": "A",
+              "relation": ">",
+              "bound": 40,
+              "satisfied": true
+            }
+          ],
+          "valid": true
+        },
+        {
+          "node": "G",
+          "value": 91,
+          "checks": [
+            {
+              "ancestor": "C",
+              "relation": ">",
+              "bound": 72,
+              "satisfied": true
+            },
+            {
+              "ancestor": "A",
+              "relation": ">",
+              "bound": 40,
+              "satisfied": true
+            }
+          ],
+          "valid": true
+        }
+      ],
+      "humanStatus": "PENDING"
+    },
+    {
+      "id": "bt-3-6",
+      "version": "2",
+      "objective": "bt.bst.bounds",
+      "template": "TEACH_COMPANION",
+      "nodeCount": 6,
+      "expected": {
+        "validBst": true,
+        "order": []
+      },
+      "sourceParagraph": 2,
+      "treeValid": true,
+      "canonicalMatches": true,
+      "checks": {
+        "selfReportNotAutoGraded": true
+      },
+      "inorder": [
+        "D",
+        "B",
+        "E",
+        "A",
+        "F",
+        "C"
+      ],
+      "ancestorChecks": [
+        {
+          "node": "A",
+          "value": 54,
+          "checks": [],
+          "valid": true
+        },
+        {
+          "node": "B",
+          "value": 23,
+          "checks": [
+            {
+              "ancestor": "A",
+              "relation": "<",
+              "bound": 54,
+              "satisfied": true
+            }
+          ],
+          "valid": true
+        },
+        {
+          "node": "C",
+          "value": 87,
+          "checks": [
+            {
+              "ancestor": "A",
+              "relation": ">",
+              "bound": 54,
+              "satisfied": true
+            }
+          ],
+          "valid": true
+        },
+        {
+          "node": "D",
+          "value": 11,
+          "checks": [
+            {
+              "ancestor": "B",
+              "relation": "<",
+              "bound": 23,
+              "satisfied": true
+            },
+            {
+              "ancestor": "A",
+              "relation": "<",
+              "bound": 54,
+              "satisfied": true
+            }
+          ],
+          "valid": true
+        },
+        {
+          "node": "E",
+          "value": 32,
+          "checks": [
+            {
+              "ancestor": "B",
+              "relation": ">",
+              "bound": 23,
+              "satisfied": true
+            },
+            {
+              "ancestor": "A",
+              "relation": "<",
+              "bound": 54,
+              "satisfied": true
+            }
+          ],
+          "valid": true
+        },
+        {
+          "node": "F",
+          "value": 65,
+          "checks": [
+            {
+              "ancestor": "C",
+              "relation": "<",
+              "bound": 87,
+              "satisfied": true
+            },
+            {
+              "ancestor": "A",
+              "relation": ">",
+              "bound": 54,
+              "satisfied": true
+            }
+          ],
+          "valid": true
+        }
+      ],
+      "humanStatus": "PENDING"
+    }
+  ]
+}

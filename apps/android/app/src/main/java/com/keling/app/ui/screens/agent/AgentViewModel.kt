@@ -98,9 +98,10 @@ class AgentViewModel(private val token: String, private val api: AgentApi = Agen
         mutable.update { it.copy(selected = updated, notice = if (token.startsWith("guest-memory:")) "任务已添加" else "任务已添加") }
         load()
     }
-    fun complete(id: String, minutes: Int) = action {
+    fun complete(id: String, minutes: Int, onSaved: () -> Unit = {}) = action {
         require(minutes in 0..1440) { "实际时长须在 0 至 1440 分钟之间" }
         api.complete(token, id, minutes)
+        onSaved()
         load()
         mutable.update { it.copy(notice = "完成记录已保存") }
     }

@@ -667,7 +667,7 @@ private fun ThemeStep(
                             .clickable { onPlanetSelected(-1) },
                         contentAlignment = Alignment.Center
                     ) {
-                        Text("🎲", fontSize = 28.sp)
+                        StellarTitleMark(motif = 0, modifier = Modifier.size(32.dp))
                     }
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
@@ -737,7 +737,7 @@ private fun ThemeStep(
                             modifier = Modifier.size(48.dp)
                         )
                     } else {
-                        Text("🌍", fontSize = 36.sp)
+                        StellarSprite("modules", 4, "课程星球", Modifier.size(48.dp))
                     }
 
                     Spacer(modifier = Modifier.width(12.dp))

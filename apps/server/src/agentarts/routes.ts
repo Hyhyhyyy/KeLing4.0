@@ -32,6 +32,13 @@ export function agentRouter(db:PrismaClient){
     if(!planningProvider())return res.status(503).json({error:'尚未配置学习规划服务，请配置DeepSeek API Key或AgentArts运行时'});
     try{return res.json(await service.run(req.userId!,req.body));}catch(error){return res.status(400).json({error:error instanceof z.ZodError?'请检查课程、目标、考试日期和每日时长':error instanceof Error?error.message:'创建运行失败'});}
   });
-  router.post('/runs/:id/confirm',async(req:AuthRequest,res:Response)=>{try{return res.json(await service.confirm(req.userId!,String(req.params.id)));}catch{return res.status(409).json({error:'该运行无法确认：请检查归属、运行状态及计划日期'});}});
+  router.post('/runs/:id/confirm',async(req:AuthRequest,res:Response)=>{
+    try{return res.json(await service.confirm(req.userId!,String(req.params.id)));}
+    catch(error){
+      const message=error instanceof Error?error.message:'';
+      const stale=['来源资料已更新或移除，请重新生成计划','计划已过期，请重新生成','课程已不存在或已归档'];
+      return res.status(409).json(stale.includes(message)?{error:message,code:'PLAN_STALE'}:{error:'该运行无法确认：请检查归属、运行状态及计划日期',code:'PLAN_CONFLICT'});
+    }
+  });
   return router;
 }

@@ -496,7 +496,7 @@ private fun TaskTypeSelector(
                     modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(text = icon, fontSize = 16.sp)
+                    StellarMetricMark(symbol = icon, modifier = Modifier.size(22.dp))
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
                         text = name,

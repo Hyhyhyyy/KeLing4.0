@@ -3,6 +3,7 @@ import { SectionTitle } from '../../components/ModuleTitle';
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import api, { noteAPI } from '../../services/api';
+import { assistantError } from '../../services/assistant';
 import ModelAccessPanel from '../../components/ModelAccessPanel';
 import { modelAccess, useModelAccess } from '../../services/modelAccess';
 import { assertTutorSourcesCurrent, previewTutorSources, checkLearningScope, confirmMaterialMap, deleteLearningMaterial, listLearningMaterials, parseLearningMaterial, proposeMaterialMap, readLearningMaterial, saveLearningMaterial } from '../../services/learningMaterials';
@@ -20,8 +21,9 @@ export default function MaterialsPanel({ courseId }: { courseId: string }) {
   const [sources, setSources] = useState<TutorSource[]>([]), [sourceSignature, setSourceSignature] = useState(''), [answerSources, setAnswerSources] = useState<TutorSource[]>([]), [answeredQuestion, setAnsweredQuestion] = useState('');
   const saveRequest = useRef({ signature: '', opId: '' }), mapRequest = useRef({ signature: '', opId: '' });
   const credentials = useModelAccess();
-  const refresh = async () => { if (scope) setItems(await listLearningMaterials(scope, courseId)); };
-  useEffect(() => { let active = true; if (scope) void listLearningMaterials(scope, courseId).then(value => { if (active) setItems(value); }).catch(() => {}); return () => { active = false; }; }, [scope, courseId]);
+  const [listError, setListError] = useState('');
+  const refresh = async () => { if (scope) { setItems(await listLearningMaterials(scope, courseId)); setListError(''); } };
+  useEffect(() => { let active = true; if (scope) void listLearningMaterials(scope, courseId).then(value => { if (active) { setItems(value); setListError(''); } }).catch(e => { if (active) setListError(assistantError(e)); }); return () => { active = false; }; }, [scope, courseId]);
   const loadFile = (file?: File) => void perform(async () => {
     if (!file) return; if (file.size > 512 * 1024) throw new Error('请使用 512 KiB 以内的 TXT、Markdown 或文字 PDF。');
     if (/\.pdf$/i.test(file.name)) { const bytes = new Uint8Array(await file.arrayBuffer()); let binary = ''; for (const byte of bytes) binary += String.fromCharCode(byte); setInput({ title: input.title || file.name.replace(/\.pdf$/i, ''), sourceName: file.name, format: 'PDF', pdfBase64: btoa(binary) }); }
@@ -33,9 +35,9 @@ export default function MaterialsPanel({ courseId }: { courseId: string }) {
     if (!scope || !parsed || parsedSignature !== JSON.stringify(input)) return;
     const signature = JSON.stringify({ input, previous: previous?.id }); if (saveRequest.current.signature !== signature) saveRequest.current = { signature, opId: crypto.randomUUID() };
     const saved = await saveLearningMaterial(scope, courseId, input, parsed, saveRequest.current.opId, previous);
-    setViewing(saved); setSelected([saved.id]); setPrevious(undefined); setNotice('资料已保存。'); await refresh();
+    setViewing(saved); setSelected([saved.id]); setPrevious(undefined); setParsed(null); setInput({ title: '', sourceName: '手动输入', format: 'TEXT', text: '' }); setNotice('资料已保存。'); await refresh();
   });
-  return <section className="exp-panel exp-materials"><SectionTitle kind="notes">课程资料</SectionTitle><ExpeditionNotice error={workspace.error} notice={workspace.notice}/>
+  return <section className="exp-panel exp-materials"><SectionTitle kind="notes">课程资料</SectionTitle><ExpeditionNotice error={workspace.error} notice={workspace.notice}/>{listError && <p role="alert" className="exp-error">{listError} <button disabled={busy} onClick={() => void perform(refresh)}>重新读取资料</button></p>}
     <details><summary>{previous ? `更新资料：${previous.title}` : '导入资料'}</summary><label>资料标题<input value={input.title} maxLength={120} onChange={event => setInput({ ...input, title: event.target.value })}/></label><label>TXT、Markdown 或文字 PDF<input type="file" accept=".txt,.md,.markdown,.pdf" disabled={busy} onChange={event => loadFile(event.target.files?.[0])}/></label>{input.format !== 'PDF' && <><label>文本格式<SelectFrame><select value={input.format} onChange={event => setInput({ ...input, format: event.target.value as 'TEXT' | 'MARKDOWN' })}><option value="TEXT">普通文本</option><option value="MARKDOWN">Markdown</option></select></SelectFrame></label><label>原文<textarea rows={7} maxLength={100000} value={input.text || ''} onChange={event => setInput({ ...input, text: event.target.value })}/></label></>}<p>上限：512 KiB · PDF 50 页 · 10 万字符</p><button disabled={busy || !scope || !input.title.trim() || (!input.text?.trim() && !input.pdfBase64)} onClick={() => void perform(async () => { if (!scope) return; const result = await parseLearningMaterial(scope, input); setParsed(result); setParsedSignature(JSON.stringify(input)); })}>上传到课灵并预览</button>
       {parsed && <section><h3>解析预览 · {parsed.spans.length} 个片段</h3>{parsed.warnings.map(warning => <p className="exp-notice" key={warning}>{warning}</p>)}<pre className="exp-material-text">{parsed.content}</pre><button className="exp-primary" disabled={busy || parsedSignature !== JSON.stringify(input)} onClick={saveMaterial}>保存{previous ? '新版本' : '资料'}</button>{parsedSignature !== JSON.stringify(input) && <p>原文已修改，请重新预览。</p>}</section>}
     </details>

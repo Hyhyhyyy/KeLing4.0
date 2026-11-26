@@ -9,6 +9,7 @@ import kotlinx.serialization.Serializable
 @Serializable data class WorkspaceProfile(val id: String, val name: String, val avatarUrl: String? = null, val bio: String = "", val level: Int = 1, val energy: Int = 0, val crystals: Int = 0, val totalStudyMinutes: Int = 0, val streakDays: Int = 0)
 @Serializable data class WorkspaceUser(val user: WorkspaceProfile)
 @Serializable data class WorkspaceNoteInput(val title: String, val content: String, val expectedUpdatedAt: String? = null)
+@Serializable data class WorkspaceTaskInput(val title: String, val description: String = "", val courseId: String? = null, val estimatedMinutes: Int = 25)
 @Serializable private data class CoursePlanetInput(val planetStyleIndex: Int)
 @Serializable private data class AvatarInput(val avatarUrl: String)
 class WorkspaceApi(private val client: HttpClient = KelingHttpClient.client) {
@@ -31,4 +32,11 @@ class WorkspaceApi(private val client: HttpClient = KelingHttpClient.client) {
         else client.put(url("/notes/$id")) { bearerAuth(token); contentType(ContentType.Application.Json); setBody(input) }
     }
     suspend fun deleteNote(token: String, id: String) { GuestWorkspaces.find(token)?.let { it.deleteNote(id); return }; client.delete(url("/notes/$id")) { bearerAuth(token) } }
+    suspend fun createTask(token: String, input: WorkspaceTaskInput): TaskResponse {
+        require(input.title.trim().length in 1..180 && input.description.length <= 4000 && input.estimatedMinutes in 1..1440) { "请填写标题和 1–1440 分钟的预计时长" }
+        return GuestWorkspaces.find(token)?.let { it.createTask(input) } ?: client.post(url("/tasks")) {
+            bearerAuth(token); contentType(ContentType.Application.Json); setBody(input.copy(title = input.title.trim()))
+        }.body()
+    }
+    suspend fun deleteTask(token: String, id: String) { GuestWorkspaces.find(token)?.let { it.deleteTask(id); return }; client.delete(url("/tasks/$id")) { bearerAuth(token) } }
 }

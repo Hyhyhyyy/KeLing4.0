@@ -2,6 +2,7 @@ import { SelectFrame } from '../../components/NavigationArrow';
 import { ModuleTitle, SectionTitle } from '../../components/ModuleTitle';
 import { appPath } from '../../services/appPath';
 import { StellarSceneBanner } from '../../components/StellarScene';
+import { StellarSprite } from '../../components/StellarArt';
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -11,14 +12,15 @@ import {
 import { useAppStore } from '../../store/useAppStore';
 import type { TaskType, TaskStatus } from '../../types';
 import AskAssistantButton from '../../components/AskAssistantButton';
+import { FocusClock } from '../../services/focusClock';
 import './Tasks.css';
 
-const TASK_TYPES: { value: TaskType; label: string; icon: string; color: string }[] = [
-  { value: 'DAILY_CARE', label: '日常照料', icon: '🌱', color: '#85CDA9' },
-  { value: 'DEEP_EXPLORATION', label: '深度探索', icon: '🔍', color: '#E8A87C' },
-  { value: 'REVIEW_RITUAL', label: '复习仪式', icon: '📚', color: '#7A6B5D' },
-  { value: 'BOUNTY', label: '悬赏任务', icon: '🎯', color: '#FF6B6B' },
-  { value: 'RESCUE', label: '紧急救援', icon: '🚨', color: '#F44336' },
+const TASK_TYPES: { value: TaskType; label: string; icon: number; color: string }[] = [
+  { value: 'DAILY_CARE', label: '日常照料', icon: 4, color: '#85CDA9' },
+  { value: 'DEEP_EXPLORATION', label: '深度探索', icon: 0, color: '#E8A87C' },
+  { value: 'REVIEW_RITUAL', label: '复习仪式', icon: 3, color: '#8CAFA3' },
+  { value: 'BOUNTY', label: '悬赏任务', icon: 8, color: '#D6B878' },
+  { value: 'RESCUE', label: '紧急救援', icon: 7, color: '#D78D7A' },
 ];
 
 const TASK_STATUS_CONFIG: Record<TaskStatus, { label: string; color: string }> = {
@@ -45,76 +47,76 @@ const Tasks: React.FC = () => {
   });
   const [activeTimer, setActiveTimer] = useState<string | null>(null);
   const [timerSeconds, setTimerSeconds] = useState(0);
-  const startedAt = useRef(0);
+  const clock = useRef(new FocusClock());
+  const [running, setRunning] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const busyLock = useRef(false);
+  const [error, setError] = useState('');
 
   // 番茄钟计时器
   useEffect(() => {
     let interval: ReturnType<typeof setInterval>;
-    if (activeTimer) {
+    if (activeTimer && running) {
       interval = setInterval(() => {
-        setTimerSeconds(Math.max(0, Math.floor((performance.now() - startedAt.current) / 1000)));
+        setTimerSeconds(Math.max(0, Math.floor(clock.current.milliseconds(activeTimer, performance.now()) / 1000)));
       }, 1000);
     }
     return () => clearInterval(interval);
-  }, [activeTimer]);
+  }, [activeTimer, running]);
+
+  useEffect(() => {
+    if (activeTimer && !tasks.some(task => task.id === activeTimer && task.status === 'IN_PROGRESS')) {
+      clock.current.remove(activeTimer); setActiveTimer(null); setRunning(false); setTimerSeconds(0);
+    }
+  }, [tasks, activeTimer]);
+
+  const perform = async (action: () => Promise<void>) => {
+    if (busyLock.current) return;
+    busyLock.current = true; setBusy(true); setError('');
+    try { await action(); }
+    catch (e) { setError(e instanceof Error ? e.message : '操作失败，请重试。'); }
+    finally { busyLock.current = false; setBusy(false); }
+  };
 
   const handleCreateTask = async () => {
     if (!newTask.title.trim()) return;
-
-    try {
-      const rewards = calculateRewards(newTask.type, newTask.estimatedMinutes);
-      await createTask({
-        ...newTask,
-        courseId: newTask.courseId || undefined,
-        rewards,
-      });
+    await perform(async () => {
+      await createTask({ ...newTask, title: newTask.title.trim(), courseId: newTask.courseId || undefined,
+        rewards: calculateRewards(newTask.type, newTask.estimatedMinutes) });
       setShowCreateDialog(false);
-      setNewTask({
-        title: '',
-        description: '',
-        type: 'DAILY_CARE',
-        courseId: '',
-        priority: 2,
-        estimatedMinutes: 25,
-      });
-    } catch (error: any) {
-      alert(error.message);
-    }
+      setNewTask({ title: '', description: '', type: 'DAILY_CARE', courseId: '', priority: 2, estimatedMinutes: 25 });
+    });
   };
 
   const handleStartTask = async (taskId: string) => {
-    try {
-      if (activeTimer && activeTimer !== taskId && !confirm('切换任务会结束本次本机计时，是否继续？')) return;
-      await updateTask(taskId, { status: 'IN_PROGRESS' });
-      startedAt.current = performance.now();
-      setActiveTimer(taskId);
-      setTimerSeconds(0);
-    } catch (error: any) {
-      alert(error.message);
-    }
+    await perform(async () => {
+      if (tasks.find(task => task.id === taskId)?.status !== 'IN_PROGRESS') await updateTask(taskId, { status: 'IN_PROGRESS' });
+      clock.current.start(taskId, performance.now());
+      setActiveTimer(taskId); setRunning(true);
+      setTimerSeconds(Math.floor(clock.current.milliseconds(taskId, performance.now()) / 1000));
+    });
+  };
+
+  const handlePause = () => {
+    if (!activeTimer) return;
+    clock.current.pause(performance.now()); setRunning(false);
+    setTimerSeconds(Math.floor(clock.current.milliseconds(activeTimer, performance.now()) / 1000));
   };
 
   const handleCompleteTask = async (taskId: string) => {
-    try {
-      const actualMinutes = Math.min(1440, Math.floor((performance.now() - startedAt.current) / 60000));
-      await completeTask(taskId, activeTimer === taskId ? actualMinutes : undefined);
-      if (activeTimer === taskId) {
-        setActiveTimer(null);
-        setTimerSeconds(0);
-      }
-    } catch (error: any) {
-      alert(error.message);
-    }
+    await perform(async () => {
+      if (activeTimer === taskId) handlePause();
+      await completeTask(taskId, clock.current.minutes(taskId, performance.now()));
+      clock.current.remove(taskId);
+      if (activeTimer === taskId) { setActiveTimer(null); setRunning(false); setTimerSeconds(0); }
+    });
   };
 
   const handleDeleteTask = async (taskId: string) => {
-    if (confirm('确定要删除这个任务吗？')) {
-      try {
-        await deleteTask(taskId);
-      } catch (error: any) {
-        alert(error.message);
-      }
-    }
+    if (confirm('确定要删除这个任务吗？')) await perform(async () => {
+      await deleteTask(taskId); clock.current.remove(taskId);
+      if (activeTimer === taskId) { setActiveTimer(null); setRunning(false); setTimerSeconds(0); }
+    });
   };
 
   const calculateRewards = (type: TaskType, minutes: number) => {
@@ -165,9 +167,10 @@ const Tasks: React.FC = () => {
         animate={{ opacity: 1, y: 0 }}
       >
         <ModuleTitle kind="tasks">学习任务 · 轨道专注</ModuleTitle>
-        <p>离开页面将停止计时</p>
+        <p>离开页面将清空本机计时</p>
       </motion.div>
 
+      {error && <p role="alert" className="notebook-alert">{error}</p>}
       <StellarSceneBanner scene="focus" title="专注任务"/>
 
       {/* 统计卡片 */}
@@ -201,17 +204,15 @@ const Tasks: React.FC = () => {
           <div className="stellar-timer-face"><img src={appPath("/stellar/timer_frame.webp")} alt=""/><span className="timer-display">{formatTime(timerSeconds)}</span></div>
           <button
             className="btn-timer-stop"
-            onClick={() => {
-              setActiveTimer(null);
-              setTimerSeconds(0);
-            }}
+            disabled={busy}
+            onClick={() => running ? handlePause() : void handleStartTask(activeTimer)}
           >
-            停止
+            {running ? '暂停' : '继续'}
           </button>
         </motion.div>
       )}
 
-      {activeTimer && <p id="task-context-help" className="notebook-context-help" role="status">问 AI 前请先停止计时</p>}
+      {running && <p id="task-context-help" className="notebook-context-help" role="status">问 AI 前请先暂停计时</p>}
 
       {/* 筛选标签 */}
       <div className="filter-tabs">
@@ -237,7 +238,7 @@ const Tasks: React.FC = () => {
             >
               <Target size={48} />
               <p>暂无任务</p>
-              <button className="btn btn-primary" onClick={() => setShowCreateDialog(true)}>
+              <button className="btn btn-primary" aria-label="创建任务" disabled={busy} onClick={() => setShowCreateDialog(true)}>
                 创建任务
               </button>
             </motion.div>
@@ -259,9 +260,9 @@ const Tasks: React.FC = () => {
                   <div className="task-left">
                     <div
                       className="task-type-badge"
-                      style={{ background: typeConfig.color }}
+                      style={{ background: `${typeConfig.color}26` }}
                     >
-                      {typeConfig.icon}
+                      <StellarSprite atlas="modules" index={typeConfig.icon} size={36}/>
                     </div>
                     <div className="task-info">
                       <h4>{task.title}</h4>
@@ -291,30 +292,34 @@ const Tasks: React.FC = () => {
 
                     {/* 操作按钮 */}
                     <div className="task-actions">
-                      <AskAssistantButton source={{ kind: 'task', id: task.id }} prompt="请根据这项任务，帮我拆解可以执行的学习步骤，解释可能的难点，并给出开始第一步的方法。" disabled={Boolean(activeTimer)} describedBy={activeTimer ? 'task-context-help' : undefined} label={`带着任务“${task.title}”问 AI`}>问 AI</AskAssistantButton>
-                      {task.status === 'PENDING' && (
+                      <AskAssistantButton source={{ kind: 'task', id: task.id }} prompt="请根据这项任务，帮我拆解可以执行的学习步骤，解释可能的难点，并给出开始第一步的方法。" disabled={busy || running} describedBy={running ? 'task-context-help' : undefined} label={`带着任务“${task.title}”问 AI`}>问 AI</AskAssistantButton>
+                      {(task.status === 'PENDING' || (task.status === 'IN_PROGRESS' && (activeTimer !== task.id || !running))) && (
                         <button
+                          disabled={busy}
                           className="action-btn start"
                           onClick={() => handleStartTask(task.id)}
-                          title="开始任务"
+                          title={task.status === 'IN_PROGRESS' ? '继续计时' : '开始任务'}
+                          aria-label={`${task.status === 'IN_PROGRESS' ? '继续计时' : '开始任务'}：${task.title}`}
                         >
                           <Play size={16} />
                         </button>
                       )}
                       {task.status === 'IN_PROGRESS' && (
                         <button
+                          disabled={busy}
                           className="action-btn complete"
                           onClick={() => handleCompleteTask(task.id)}
-                          title="完成任务"
+                          title="完成任务" aria-label={`完成任务：${task.title}`}
                         >
                           <Check size={16} />
                         </button>
                       )}
                       {task.status === 'PENDING' && (
                         <button
+                          disabled={busy}
                           className="action-btn delete"
                           onClick={() => handleDeleteTask(task.id)}
-                          title="删除任务"
+                          title="删除任务" aria-label={`删除任务：${task.title}`}
                         >
                           <X size={14} />
                         </button>
@@ -337,7 +342,7 @@ const Tasks: React.FC = () => {
 
       {/* 添加任务按钮 */}
       <motion.button
-        className="fab-add"
+        className="fab-add" aria-label="创建任务" title="创建任务" disabled={busy}
         onClick={() => setShowCreateDialog(true)}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
@@ -353,10 +358,10 @@ const Tasks: React.FC = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setShowCreateDialog(false)}
+            onClick={() => { if (!busy) setShowCreateDialog(false); }}
           >
             <motion.div
-              className="create-dialog"
+              className="create-dialog" role="dialog" aria-modal="true" aria-label="创建任务"
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
@@ -364,24 +369,26 @@ const Tasks: React.FC = () => {
             >
               <div className="dialog-header">
                 <SectionTitle kind="tasks">创建培育任务</SectionTitle>
-                <button className="close-btn" onClick={() => setShowCreateDialog(false)}>
+                <button className="close-btn" aria-label="关闭创建任务" disabled={busy} onClick={() => { if (!busy) setShowCreateDialog(false); }}>
                   <X size={20} />
                 </button>
               </div>
 
               <div className="dialog-content">
+                {error && <p role="alert">{error}</p>}
                 {/* 任务标题 */}
                 <div className="form-group">
                   <label>任务标题 *</label>
                   <input
                     type="text"
                     className="input"
-                    placeholder="输入任务标题"
+                    placeholder="输入任务标题" maxLength={180} aria-label="任务标题" disabled={busy}
                     value={newTask.title}
                     onChange={(e) => setNewTask({ ...newTask, title: e.target.value })}
                   />
                 </div>
 
+                <div className="form-group"><label htmlFor="task-description">任务内容</label><textarea id="task-description" className="input" value={newTask.description} maxLength={4000} disabled={busy} onChange={e => setNewTask({ ...newTask, description: e.target.value })}/></div>
                 {/* 任务类型 */}
                 <div className="form-group">
                   <label>任务类型</label>
@@ -389,11 +396,12 @@ const Tasks: React.FC = () => {
                     {TASK_TYPES.map((type) => (
                       <button
                         key={type.value}
+                        disabled={busy}
                         className={`type-option ${newTask.type === type.value ? 'selected' : ''}`}
                         style={{ borderColor: newTask.type === type.value ? type.color : '#eee' }}
                         onClick={() => setNewTask({ ...newTask, type: type.value })}
                       >
-                        <span className="type-icon">{type.icon}</span>
+                        <StellarSprite atlas="modules" index={type.icon} size={44}/>
                         <span className="type-label">{type.label}</span>
                       </button>
                     ))}
@@ -404,7 +412,7 @@ const Tasks: React.FC = () => {
                 <div className="form-group">
                   <label>关联课程（可选）</label>
                   <SelectFrame><select
-                    className="input"
+                    className="input" disabled={busy} aria-label="关联课程"
                     value={newTask.courseId}
                     onChange={(e) => setNewTask({ ...newTask, courseId: e.target.value })}
                   >
@@ -425,7 +433,7 @@ const Tasks: React.FC = () => {
                   </label>
                   <div className="duration-slider">
                     <input
-                      type="range"
+                      type="range" disabled={busy} aria-label="预计时长"
                       min="5"
                       max="120"
                       step="5"
@@ -454,13 +462,13 @@ const Tasks: React.FC = () => {
               </div>
 
               <div className="dialog-footer">
-                <button className="btn btn-outline" onClick={() => setShowCreateDialog(false)}>
+                <button className="btn btn-outline" onClick={() => { if (!busy) setShowCreateDialog(false); }}>
                   取消
                 </button>
                 <button
                   className="btn btn-primary"
                   onClick={handleCreateTask}
-                  disabled={!newTask.title.trim()}
+                  disabled={busy || !newTask.title.trim()}
                 >
                   创建任务
                 </button>

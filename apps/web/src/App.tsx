@@ -142,7 +142,12 @@ const TopNav: React.FC = () => {
 
 // 主布局
 const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { isGuest, endGuest, offlineAccount } = useAppStore();
+  const { isGuest, endGuest, offlineAccount, dataErrors, loadCourses, loadTasks, loadNotes, loadUser } = useAppStore();
+  const [retrying, setRetrying] = React.useState(false);
+  const retryData = async () => {
+    if (retrying) return; setRetrying(true);
+    try { await Promise.all([...(dataErrors.courses ? [loadCourses()] : []), ...(dataErrors.tasks ? [loadTasks()] : []), ...(dataErrors.notes ? [loadNotes()] : []), ...(dataErrors.profile ? [loadUser()] : [])]); } finally { setRetrying(false); }
+  };
   const navigate = useNavigate();
   return (
     <div className="app-layout">
@@ -150,6 +155,7 @@ const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       <main className="main-content">
         {isGuest && <aside className="guest-workspace-banner" aria-label="游客模式"><strong>游客模式 · 刷新或退出后清空</strong><button onClick={() => { endGuest(); navigate('/explore'); }}>退出并清空</button></aside>}
         {offlineAccount && <aside className="exp-offline-banner" role="status">离线 · 待同步<Link to="/voyage/sync">查看草稿</Link></aside>}
+        {Object.values(dataErrors).some(Boolean) && <aside className="exp-offline-banner" role="alert"><span>{Object.values(dataErrors).filter(Boolean).join('；')}</span><button disabled={retrying} onClick={() => void retryData()}>{retrying ? '正在读取…' : '重新读取'}</button></aside>}
         {children}
       </main>
     </div>

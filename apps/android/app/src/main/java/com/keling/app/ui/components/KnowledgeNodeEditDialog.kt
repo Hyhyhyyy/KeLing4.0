@@ -98,12 +98,7 @@ fun KnowledgeNodeEditDialog(
 
                     // 删除按钮
                     if (node != null && onDelete != null) {
-                        IconButton(onClick = onDelete) {
-                            Text(
-                                text = "🗑️",
-                                fontSize = 20.sp
-                            )
-                        }
+                        TextButton(onClick = onDelete) { Text("删除") }
                     }
                 }
 
