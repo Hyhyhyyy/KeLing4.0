@@ -2,6 +2,7 @@
 <resources>
     <!-- Compose draws the app header; reserve no duplicate platform action bar. -->
     <style name="Theme.KeLing" parent="android:style/Theme.Material.Light.NoActionBar">
+        <item name="android:fontFamily">@font/stzhongs</item>
         <item name="android:statusBarColor">#FFFCF4</item>
         <item name="android:navigationBarColor">#14263D</item>
         <item name="android:windowLightStatusBar">true</item>

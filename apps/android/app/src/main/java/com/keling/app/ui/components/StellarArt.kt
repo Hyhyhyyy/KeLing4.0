@@ -23,7 +23,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
+import com.keling.app.ui.theme.HuaWenZhongSong
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.IntSize
@@ -82,7 +82,7 @@ private object StellarBitmaps {
         StellarArt(name, null, Modifier.fillMaxWidth().height(144.dp), ContentScale.Crop,
             if (name == "station_full") Alignment.CenterEnd else BiasAlignment(0f, 0.4f))
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-            StellarSectionTitle(title, motif = 1)
+            StellarSectionTitle(title, motif = 1, style = MaterialTheme.typography.headlineSmall)
             if (description.isNotBlank()) Text(description, style = MaterialTheme.typography.bodySmall)
         }
     } }
@@ -94,21 +94,21 @@ private object StellarBitmaps {
     }
 }
 private val StellarTypography = Typography(
-    displayLarge = TextStyle(fontFamily = FontFamily.SansSerif, fontWeight = FontWeight.Bold, fontSize = 44.sp, lineHeight = 54.sp),
-    displayMedium = TextStyle(fontFamily = FontFamily.SansSerif, fontWeight = FontWeight.Bold, fontSize = 38.sp, lineHeight = 48.sp),
-    displaySmall = TextStyle(fontFamily = FontFamily.SansSerif, fontWeight = FontWeight.Bold, fontSize = 32.sp, lineHeight = 42.sp),
-    headlineLarge = TextStyle(fontFamily = FontFamily.SansSerif, fontWeight = FontWeight.Bold, fontSize = 32.sp, lineHeight = 42.sp),
-    headlineMedium = TextStyle(fontFamily = FontFamily.SansSerif, fontWeight = FontWeight.Bold, fontSize = 28.sp, lineHeight = 38.sp),
-    headlineSmall = TextStyle(fontFamily = FontFamily.SansSerif, fontWeight = FontWeight.Bold, fontSize = 24.sp, lineHeight = 34.sp),
-    titleLarge = TextStyle(fontFamily = FontFamily.SansSerif, fontWeight = FontWeight.Bold, fontSize = 20.sp, lineHeight = 30.sp),
-    titleMedium = TextStyle(fontFamily = FontFamily.SansSerif, fontWeight = FontWeight.SemiBold, fontSize = 18.sp, lineHeight = 28.sp),
-    titleSmall = TextStyle(fontFamily = FontFamily.SansSerif, fontWeight = FontWeight.SemiBold, fontSize = 16.sp, lineHeight = 24.sp),
-    bodyLarge = TextStyle(fontFamily = FontFamily.SansSerif, fontSize = 16.sp, lineHeight = 27.sp),
-    bodyMedium = TextStyle(fontFamily = FontFamily.SansSerif, fontSize = 15.sp, lineHeight = 25.sp),
-    bodySmall = TextStyle(fontFamily = FontFamily.SansSerif, fontSize = 13.sp, lineHeight = 22.sp),
-    labelLarge = TextStyle(fontFamily = FontFamily.SansSerif, fontWeight = FontWeight.SemiBold, fontSize = 15.sp, lineHeight = 23.sp),
-    labelMedium = TextStyle(fontFamily = FontFamily.SansSerif, fontWeight = FontWeight.SemiBold, fontSize = 13.sp, lineHeight = 21.sp),
-    labelSmall = TextStyle(fontFamily = FontFamily.SansSerif, fontWeight = FontWeight.Medium, fontSize = 12.sp, lineHeight = 19.sp)
+    displayLarge = TextStyle(fontFamily = HuaWenZhongSong, fontWeight = FontWeight.Bold, fontSize = 44.sp, lineHeight = 54.sp),
+    displayMedium = TextStyle(fontFamily = HuaWenZhongSong, fontWeight = FontWeight.Bold, fontSize = 38.sp, lineHeight = 48.sp),
+    displaySmall = TextStyle(fontFamily = HuaWenZhongSong, fontWeight = FontWeight.Bold, fontSize = 32.sp, lineHeight = 42.sp),
+    headlineLarge = TextStyle(fontFamily = HuaWenZhongSong, fontWeight = FontWeight.Bold, fontSize = 36.sp, lineHeight = 46.sp),
+    headlineMedium = TextStyle(fontFamily = HuaWenZhongSong, fontWeight = FontWeight.Bold, fontSize = 32.sp, lineHeight = 42.sp),
+    headlineSmall = TextStyle(fontFamily = HuaWenZhongSong, fontWeight = FontWeight.Bold, fontSize = 28.sp, lineHeight = 38.sp),
+    titleLarge = TextStyle(fontFamily = HuaWenZhongSong, fontWeight = FontWeight.Bold, fontSize = 24.sp, lineHeight = 34.sp),
+    titleMedium = TextStyle(fontFamily = HuaWenZhongSong, fontWeight = FontWeight.SemiBold, fontSize = 22.sp, lineHeight = 32.sp),
+    titleSmall = TextStyle(fontFamily = HuaWenZhongSong, fontWeight = FontWeight.SemiBold, fontSize = 16.sp, lineHeight = 24.sp),
+    bodyLarge = TextStyle(fontFamily = HuaWenZhongSong, fontSize = 16.sp, lineHeight = 27.sp),
+    bodyMedium = TextStyle(fontFamily = HuaWenZhongSong, fontSize = 15.sp, lineHeight = 25.sp),
+    bodySmall = TextStyle(fontFamily = HuaWenZhongSong, fontSize = 13.sp, lineHeight = 22.sp),
+    labelLarge = TextStyle(fontFamily = HuaWenZhongSong, fontWeight = FontWeight.SemiBold, fontSize = 15.sp, lineHeight = 23.sp),
+    labelMedium = TextStyle(fontFamily = HuaWenZhongSong, fontWeight = FontWeight.SemiBold, fontSize = 13.sp, lineHeight = 21.sp),
+    labelSmall = TextStyle(fontFamily = HuaWenZhongSong, fontWeight = FontWeight.Medium, fontSize = 12.sp, lineHeight = 19.sp)
 )
 
 @Composable fun StellarTheme(reducedMotion: Boolean = false, content: @Composable () -> Unit) {

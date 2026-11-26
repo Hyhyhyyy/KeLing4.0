@@ -1,8 +1,15 @@
 /* Shared type hierarchy. #root keeps lazily loaded page CSS from changing it.
    Colours belong to semantic roles; inverse surfaces are handled explicitly below. */
+@font-face {
+  font-family: '华文中宋';
+  src: local('STZhongsong'), local('华文中宋'), url('/fonts/STZHONGS.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
 :root {
-  --font-ui: "Inter", "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", "Noto Sans SC", system-ui, sans-serif;
-  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  --font-ui: '华文中宋', 'STZhongsong', serif;
+  --font-mono: '华文中宋', 'STZhongsong', serif;
   --type-heading: #14263d;
   --type-body: #34483f;
   --type-secondary: #52675f;
@@ -48,14 +55,14 @@ body, #root, #root .explore-page {
   text-wrap: pretty;
   overflow-wrap: anywhere;
 }
-#root h1 { font-size: clamp(28px, 2.8vw, 38px); line-height: 1.35; }
-#root h2 { font-size: 24px; line-height: 1.45; }
-#root h3 { font-size: 19px; line-height: 1.5; }
-#root h4 { font-size: 16px; line-height: 1.55; font-weight: 600; }
+#root h1 { font-size: clamp(36px, 3.3vw, 48px); line-height: 1.3; }
+#root h2 { font-size: 32px; line-height: 1.35; }
+#root h3 { font-size: 24px; line-height: 1.4; }
+#root h4 { font-size: 20px; line-height: 1.55; font-weight: 600; }
 #root p { font-size: 16px; font-weight: 400; line-height: 1.85; overflow-wrap: anywhere; }
 #root :is(strong, b) { font-weight: 700; }
 #root small { font-size: 13px; line-height: 1.7; }
-#root :is(code, pre, kbd) { font-family: var(--font-mono); }
+#root :is(code, pre, kbd) { font-family: var(--font-ui); }
 #root pre { overflow-x: auto; }
 #root :is(label, summary) { font-size: 14px; font-weight: 600; line-height: 1.6; }
 #root :is(.nav-link, .menu-item span, .filter-tab, .category-tab) { font-size: 15px; font-weight: 600; }
@@ -111,13 +118,13 @@ body, #root, #root .explore-page {
   .stellar-task-row strong, .session strong, .notebook-layout aside strong,
   .agent-history, .node-name) {
   color: var(--type-heading);
-  font-size: 16px;
+  font-size: 19px;
   font-weight: 600;
-  line-height: 1.6;
+  line-height: 1.5;
   overflow-wrap: anywhere;
 }
 #root :is(.session-list h2, .conversation h2, .notebook-shelf strong,
-  .session-observatory strong) { font-size: 16px; font-weight: 700; }
+  .session-observatory strong) { font-size: 20px; font-weight: 700; }
 #root :is(.stellar-section-title a, .stellar-link, .scene-banner-copy a,
   .course-footer, .stellar-module-grid span, .course-expedition span,
   .empty-planet strong, .session-observatory a, .auth-footer a,
@@ -178,7 +185,7 @@ body, #root, #root .explore-page {
 #root :is(.stellar-notice, .notebook-notice, .stellar-status) { color: var(--type-success); font-size: 14px; font-weight: 500; }
 
 /* Dark surfaces: never inherit dark text from a light page's text role. */
-#root .stellar-hero h1 { font-size: clamp(30px, 2.8vw, 42px); color: var(--type-inverse); line-height: 1.4; text-shadow: 0 2px 0 #071d30, 0 5px 18px #071d3066; }
+#root .stellar-hero h1 { font-size: clamp(38px, 3.4vw, 50px); color: var(--type-inverse); line-height: 1.4; text-shadow: 0 2px 0 #071d30, 0 5px 18px #071d3066; }
 #root .stellar-hero p { font-size: 16px; color: var(--type-inverse-secondary); }
 #root .stellar-hero .eyebrow { color: #9be5cc; }
 #root .hero-destinations a { font-size: 14px; font-weight: 600; color: var(--type-inverse-secondary); }
@@ -212,8 +219,8 @@ body, #root, #root .explore-page {
 #root .auth-footer { font-size: 14px; }
 #root .auth-card { width: min(460px, calc(100% - 32px)); padding: 36px; }
 #root .auth-container { padding-block: 24px; }
-#root .explore-hero h1 { font-size: clamp(36px, 4vw, 56px); line-height: 1.35; letter-spacing: -.02em; text-shadow: 2px 3px 0 #d4e5d7; }
-#root .explore-page h2 { font-size: 28px; }
+#root .explore-hero h1 { font-size: clamp(42px, 4.4vw, 62px); line-height: 1.35; letter-spacing: -.02em; text-shadow: 2px 3px 0 #d4e5d7; }
+#root .explore-page h2 { font-size: 34px; }
 #root .explore-hero p { font-size: 16px; }
 #root .explore-page .explore-action { font-weight: 700; color: var(--type-inverse); }
 
@@ -227,7 +234,7 @@ body, #root, #root .explore-page {
 #root :is(.scene-banner-copy h2, .stellar-section-title h2, .home-voyage-copy h2) { color: #214e48; }
 #root :is(.exp-eyebrow, .eyebrow, .explore-eyebrow) { font-size: 13px; font-weight: 700; color: #32685a; }
 #root .stellar-hero .eyebrow { color: #9be5cc; }
-#root :is(.stellar-course h3, .stellar-task-row strong) { font-size: 17px; font-weight: 700; }
+#root :is(.stellar-course h3, .stellar-task-row strong) { font-size: 21px; font-weight: 700; }
 #root :is(.stellar-metrics strong, .stat-num, .resource-value) { font-size: 34px; color: #214e48; }
 #root .achievements-container .stat-num { color: #f4ce72; }
 #root :is(.exp-page button, .exp-primary, .exp-secondary, .exp-page legend) { font-size: 16px; font-weight: 700; }
@@ -239,7 +246,7 @@ body, #root, #root .explore-page {
 #root .stellar-empty a { color: #245b50; font-weight: 700; text-underline-offset: 4px; }
 #root .exp-page :is(.exp-caption, small) { font-size: 14px; }
 #root .exp-world-panel :is(h2, h3, strong) { color: #fff6df; }
-#root .exp-world-panel h2 { font-size: clamp(23px, 2vw, 29px); text-shadow: 0 2px 0 #071d30; }
+#root .exp-world-panel h2 { font-size: clamp(28px, 2.5vw, 36px); text-shadow: 0 2px 0 #071d30; }
 #root .exp-world-panel :is(p, small) { color: #cde7d8; }
 #root .exp-route-strip a { font-weight: 700; }
 #root .exp-route-strip small { font-weight: 400; }
@@ -267,14 +274,14 @@ body, #root, #root .explore-page {
 }
 
 @media (max-width: 760px) {
-  #root h1 { font-size: 28px; }
-  #root h2 { font-size: 22px; }
-  #root h3 { font-size: 18px; }
+  #root h1 { font-size: 32px; }
+  #root h2 { font-size: 27px; }
+  #root h3 { font-size: 22px; }
   #root :is(input, select, textarea) { font-size: 16px; }
   #root .notebook-layout textarea { font-size: 16px; }
-  #root .stellar-hero h1 { font-size: 28px; }
-  #root .explore-hero h1 { font-size: 34px; }
-  #root .explore-page h2 { font-size: 25px; }
+  #root .stellar-hero h1 { font-size: 34px; }
+  #root .explore-hero h1 { font-size: 38px; }
+  #root .explore-page h2 { font-size: 29px; }
   #root :is(.stellar-metrics strong, .stat-num, .resource-value) { font-size: 27px; }
   #root .auth-card { padding: 28px 24px; }
   #root .stellar-metrics > div { flex-wrap: wrap; gap: 6px 12px; }
@@ -290,4 +297,30 @@ body, #root, #root .explore-page {
   #root .resource-item { min-width: 75px; }
   #root .resource-divider { display: none; }
   #root .report-container .data-value { flex-shrink: 1; overflow-wrap: anywhere; }
+}
+
+/* Display titles use the available card space; nested spans keep the title scale. */
+#root :is(.module-title, .section-title-art) .title-copy {
+  font: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+#root :is(.daily-supply, .home-voyage-copy) h2 {
+  font-size: clamp(32px, 3vw, 42px);
+  line-height: 1.3;
+  margin-block: 0 20px;
+}
+#root .stellar-module-grid h3 { font-size: 28px; line-height: 1.35; }
+#root :is(.stellar-section-title, .agent-section-heading) { gap: 12px; flex-wrap: wrap; }
+#root :is(.stellar-section-title, .agent-section-heading) > h2 { flex: 1 1 220px; }
+#root :is(.stellar-course, .stellar-task-row, .menu-item, .action-card, .report-action-button) > div { min-width: 0; }
+#root .calendar-header { gap: 8px; }
+#root .calendar-header h3 { font-size: 24px; text-align: center; }
+#root .month-nav { width: 44px; height: 44px; flex: 0 0 44px; padding: 2px; justify-content: center; }
+@media (max-width: 760px) {
+  #root :is(.daily-supply, .home-voyage-copy) h2 { font-size: 32px; margin-block: 0 16px; }
+  #root .stellar-module-grid h3 { font-size: 25px; }
+  #root .calendar-header h3 { font-size: 22px; }
 }

@@ -1,3 +1,4 @@
+import { NavigationArrow } from './components/NavigationArrow';
 import React, { lazy, Suspense, useEffect } from 'react';
 import { APP_BASE, appPath } from './services/appPath';
 import { BrowserRouter as Router, Routes, Route, Navigate, Link, useNavigate, useLocation } from 'react-router-dom';
@@ -69,8 +70,8 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
     void connect().finally(()=>{if(active)setChecked(true);});
     return ()=>{active=false;window.removeEventListener('focus',refresh);};
   },[loadUser,startGuest,isGuest]);
-  if(authError)return <div className="loading-screen" role="alert"><p>{authError}</p><button className="btn btn-primary" onClick={()=>void loadUser()}>重试连接</button><button className="btn" onClick={logout}>退出登录</button><Link className="btn btn-secondary" to="/trial">游客试用 →</Link></div>;
-  if(!checked||(isLoading&&!isAuthenticated))return <div className="loading-screen" role="status"><div className="loading-spinner"/><p>正在连接账户…</p><Link className="btn btn-secondary" to="/trial">游客试用 →</Link></div>;
+  if(authError)return <div className="loading-screen" role="alert"><p>{authError}</p><button className="btn btn-primary" onClick={()=>void loadUser()}>重试连接</button><button className="btn" onClick={logout}>退出登录</button><Link className="btn btn-secondary" to="/trial">游客试用 <NavigationArrow direction="right"/></Link></div>;
+  if(!checked||(isLoading&&!isAuthenticated))return <div className="loading-screen" role="status"><div className="loading-spinner"/><p>正在连接账户…</p><Link className="btn btn-secondary" to="/trial">游客试用 <NavigationArrow direction="right"/></Link></div>;
   if(!isAuthenticated&&!isGuest)return <Navigate to="/login" replace/>;
   return <>{children}</>;
 };

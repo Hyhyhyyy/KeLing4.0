@@ -1,7 +1,6 @@
 /**
  * Type.kt
- * 高级字体排版系统 - Noto Serif SC 衬线字体 + 系统黑体
- * 精致、优雅、专业的设计风格
+ * 全应用共享华文中宋字体；字号继续遵循系统缩放。
  */
 
 package com.keling.app.ui.theme
@@ -37,31 +36,16 @@ private fun glowShadow(color: Color) = Shadow(
     blurRadius = 8f
 )
 
-/**
- * Noto Serif SC 衬线字体家族
- * 用于标题和重要文字，展现优雅气质
- */
-val NotoSerifFamily = FontFamily(
-    Font(R.font.noto_serif_sc, FontWeight.Normal),
-    Font(R.font.noto_serif_sc, FontWeight.Medium),
-    Font(R.font.noto_serif_sc, FontWeight.Bold)
-)
+val HuaWenZhongSong = FontFamily(Font(R.font.stzhongs, FontWeight.Normal))
 
 /**
- * 系统黑体字体家族
- * 用于正文和界面文字，确保可读性
- */
-val HeiTiFontFamily = FontFamily.Default
-
-/**
- * 混合字体排版系统
- * 衬线标题 + 黑体正文
+ * 页面、表单与旧模块共用的排版系统
  */
 val Typography = Typography(
     // ==================== 展示级标题（衬线字体） ====================
     /** 超大标题 - 用于启动页、重要页面主标题 */
     displayLarge = TextStyle(
-        fontFamily = NotoSerifFamily,
+        fontFamily = HuaWenZhongSong,
         fontWeight = FontWeight.Bold,
         fontSize = 44.sp,
         lineHeight = 56.sp,
@@ -71,7 +55,7 @@ val Typography = Typography(
 
     /** 大型展示标题 - 用于特殊强调 */
     displayMedium = TextStyle(
-        fontFamily = NotoSerifFamily,
+        fontFamily = HuaWenZhongSong,
         fontWeight = FontWeight.Bold,
         fontSize = 36.sp,
         lineHeight = 46.sp,
@@ -81,7 +65,7 @@ val Typography = Typography(
 
     /** 展示小标题 */
     displaySmall = TextStyle(
-        fontFamily = NotoSerifFamily,
+        fontFamily = HuaWenZhongSong,
         fontWeight = FontWeight.Medium,
         fontSize = 30.sp,
         lineHeight = 40.sp,
@@ -92,63 +76,63 @@ val Typography = Typography(
     // ==================== 标题级（衬线字体） ====================
     /** 大标题 - 用于页面主标题 */
     headlineLarge = TextStyle(
-        fontFamily = NotoSerifFamily,
+        fontFamily = HuaWenZhongSong,
         fontWeight = FontWeight.Bold,
-        fontSize = 28.sp,
-        lineHeight = 38.sp,
+        fontSize = 32.sp,
+        lineHeight = 42.sp,
         letterSpacing = (-0.2).sp
     ),
 
     /** 中标题 - 用于区块标题、卡片标题 */
     headlineMedium = TextStyle(
-        fontFamily = NotoSerifFamily,
+        fontFamily = HuaWenZhongSong,
         fontWeight = FontWeight.Bold,
-        fontSize = 22.sp,
-        lineHeight = 30.sp,
+        fontSize = 28.sp,
+        lineHeight = 38.sp,
         letterSpacing = (-0.1).sp
     ),
 
     /** 小标题 - 用于列表项标题 */
     headlineSmall = TextStyle(
-        fontFamily = NotoSerifFamily,
+        fontFamily = HuaWenZhongSong,
         fontWeight = FontWeight.Medium,
-        fontSize = 18.sp,
-        lineHeight = 26.sp,
+        fontSize = 24.sp,
+        lineHeight = 34.sp,
         letterSpacing = 0.sp
     ),
 
-    // ==================== 副标题级（黑体） ====================
+    // ==================== 副标题级 ====================
     /** 大副标题 - 用于重要副标题 */
     titleLarge = TextStyle(
-        fontFamily = HeiTiFontFamily,
+        fontFamily = HuaWenZhongSong,
         fontWeight = FontWeight.Bold,
-        fontSize = 17.sp,
-        lineHeight = 24.sp,
+        fontSize = 22.sp,
+        lineHeight = 32.sp,
         letterSpacing = 0.sp
     ),
 
     /** 中副标题 - 默认副标题 */
     titleMedium = TextStyle(
-        fontFamily = HeiTiFontFamily,
+        fontFamily = HuaWenZhongSong,
         fontWeight = FontWeight.SemiBold,
-        fontSize = 15.sp,
-        lineHeight = 21.sp,
+        fontSize = 19.sp,
+        lineHeight = 29.sp,
         letterSpacing = 0.1.sp
     ),
 
     /** 小副标题 */
     titleSmall = TextStyle(
-        fontFamily = HeiTiFontFamily,
+        fontFamily = HuaWenZhongSong,
         fontWeight = FontWeight.Medium,
-        fontSize = 13.sp,
-        lineHeight = 19.sp,
+        fontSize = 16.sp,
+        lineHeight = 24.sp,
         letterSpacing = 0.1.sp
     ),
 
-    // ==================== 正文级（黑体） ====================
+    // ==================== 正文级 ====================
     /** 大正文 - 主要内容 */
     bodyLarge = TextStyle(
-        fontFamily = HeiTiFontFamily,
+        fontFamily = HuaWenZhongSong,
         fontWeight = FontWeight.Normal,
         fontSize = 15.sp,
         lineHeight = 24.sp,
@@ -157,7 +141,7 @@ val Typography = Typography(
 
     /** 中正文 - 默认正文 */
     bodyMedium = TextStyle(
-        fontFamily = HeiTiFontFamily,
+        fontFamily = HuaWenZhongSong,
         fontWeight = FontWeight.Normal,
         fontSize = 14.sp,
         lineHeight = 22.sp,
@@ -166,17 +150,17 @@ val Typography = Typography(
 
     /** 小正文 - 辅助文字 */
     bodySmall = TextStyle(
-        fontFamily = HeiTiFontFamily,
+        fontFamily = HuaWenZhongSong,
         fontWeight = FontWeight.Normal,
         fontSize = 12.sp,
         lineHeight = 18.sp,
         letterSpacing = 0.3.sp
     ),
 
-    // ==================== 标签级（黑体） ====================
+    // ==================== 标签级 ====================
     /** 大标签 */
     labelLarge = TextStyle(
-        fontFamily = HeiTiFontFamily,
+        fontFamily = HuaWenZhongSong,
         fontWeight = FontWeight.SemiBold,
         fontSize = 13.sp,
         lineHeight = 18.sp,
@@ -185,7 +169,7 @@ val Typography = Typography(
 
     /** 中标签 - 默认标签 */
     labelMedium = TextStyle(
-        fontFamily = HeiTiFontFamily,
+        fontFamily = HuaWenZhongSong,
         fontWeight = FontWeight.Medium,
         fontSize = 12.sp,
         lineHeight = 16.sp,
@@ -194,7 +178,7 @@ val Typography = Typography(
 
     /** 小标签 */
     labelSmall = TextStyle(
-        fontFamily = HeiTiFontFamily,
+        fontFamily = HuaWenZhongSong,
         fontWeight = FontWeight.Medium,
         fontSize = 10.sp,
         lineHeight = 14.sp,
@@ -208,7 +192,7 @@ val Typography = Typography(
 object SpecialTextStyle {
     /** 数字显示 - 用于计时器、统计数字 */
     val number = TextStyle(
-        fontFamily = NotoSerifFamily,
+        fontFamily = HuaWenZhongSong,
         fontWeight = FontWeight.Bold,
         fontSize = 48.sp,
         letterSpacing = (-1.5).sp,
@@ -217,7 +201,7 @@ object SpecialTextStyle {
 
     /** 引用文字 - 优雅衬线 */
     val quote = TextStyle(
-        fontFamily = NotoSerifFamily,
+        fontFamily = HuaWenZhongSong,
         fontWeight = FontWeight.Medium,
         fontSize = 16.sp,
         lineHeight = 26.sp,
@@ -226,7 +210,7 @@ object SpecialTextStyle {
 
     /** 代码文字 */
     val code = TextStyle(
-        fontFamily = FontFamily.Monospace,
+        fontFamily = HuaWenZhongSong,
         fontWeight = FontWeight.Normal,
         fontSize = 13.sp,
         lineHeight = 20.sp,
@@ -235,7 +219,7 @@ object SpecialTextStyle {
 
     /** 强调文字 */
     val emphasis = TextStyle(
-        fontFamily = NotoSerifFamily,
+        fontFamily = HuaWenZhongSong,
         fontWeight = FontWeight.Bold,
         fontSize = 18.sp,
         lineHeight = 26.sp,
@@ -244,7 +228,7 @@ object SpecialTextStyle {
 
     /** 装饰性标题 */
     val decorative = TextStyle(
-        fontFamily = NotoSerifFamily,
+        fontFamily = HuaWenZhongSong,
         fontWeight = FontWeight.Bold,
         fontSize = 32.sp,
         lineHeight = 42.sp,
@@ -255,15 +239,15 @@ object SpecialTextStyle {
 
 /**
  * 游戏化文字样式
- * 混合字体风格
+ * 统一华文中宋
  */
 object GameTextStyle {
     /** 游戏大标题 - 衬线字体带阴影 */
     val gameTitle = TextStyle(
-        fontFamily = NotoSerifFamily,
+        fontFamily = HuaWenZhongSong,
         fontWeight = FontWeight.Bold,
-        fontSize = 26.sp,
-        lineHeight = 36.sp,
+        fontSize = 30.sp,
+        lineHeight = 40.sp,
         letterSpacing = (-0.3).sp,
         shadow = Shadow(
             color = Color.Black.copy(alpha = 0.12f),
@@ -274,7 +258,7 @@ object GameTextStyle {
 
     /** 游戏副标题 */
     val gameSubtitle = TextStyle(
-        fontFamily = HeiTiFontFamily,
+        fontFamily = HuaWenZhongSong,
         fontWeight = FontWeight.SemiBold,
         fontSize = 15.sp,
         lineHeight = 22.sp,
@@ -283,16 +267,16 @@ object GameTextStyle {
 
     /** 游戏卡片标题 */
     val cardTitle = TextStyle(
-        fontFamily = NotoSerifFamily,
+        fontFamily = HuaWenZhongSong,
         fontWeight = FontWeight.Bold,
-        fontSize = 16.sp,
-        lineHeight = 24.sp,
+        fontSize = 22.sp,
+        lineHeight = 32.sp,
         letterSpacing = (-0.1).sp
     )
 
     /** 游戏按钮文字 */
     val buttonText = TextStyle(
-        fontFamily = HeiTiFontFamily,
+        fontFamily = HuaWenZhongSong,
         fontWeight = FontWeight.Bold,
         fontSize = 14.sp,
         lineHeight = 20.sp,
@@ -301,7 +285,7 @@ object GameTextStyle {
 
     /** 游戏标签文字 */
     val tagText = TextStyle(
-        fontFamily = HeiTiFontFamily,
+        fontFamily = HuaWenZhongSong,
         fontWeight = FontWeight.SemiBold,
         fontSize = 11.sp,
         lineHeight = 15.sp,
@@ -310,7 +294,7 @@ object GameTextStyle {
 
     /** 游戏奖励数字 - 衬线字体 */
     val rewardNumber = TextStyle(
-        fontFamily = NotoSerifFamily,
+        fontFamily = HuaWenZhongSong,
         fontWeight = FontWeight.Bold,
         fontSize = 20.sp,
         letterSpacing = (-0.5).sp,
@@ -319,7 +303,7 @@ object GameTextStyle {
 
     /** 游戏统计数字 */
     val statNumber = TextStyle(
-        fontFamily = NotoSerifFamily,
+        fontFamily = HuaWenZhongSong,
         fontWeight = FontWeight.Bold,
         fontSize = 28.sp,
         letterSpacing = (-0.8).sp
@@ -327,7 +311,7 @@ object GameTextStyle {
 
     /** 游戏提示文字 */
     val hint = TextStyle(
-        fontFamily = HeiTiFontFamily,
+        fontFamily = HuaWenZhongSong,
         fontWeight = FontWeight.Medium,
         fontSize = 13.sp,
         lineHeight = 19.sp,
@@ -336,7 +320,7 @@ object GameTextStyle {
 
     /** 游戏描述文字 */
     val description = TextStyle(
-        fontFamily = HeiTiFontFamily,
+        fontFamily = HuaWenZhongSong,
         fontWeight = FontWeight.Normal,
         fontSize = 14.sp,
         lineHeight = 22.sp,

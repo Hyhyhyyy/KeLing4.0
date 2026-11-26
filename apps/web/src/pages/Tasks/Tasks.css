@@ -76,7 +76,7 @@
 .timer-display {
   font-size: 18px;
   font-weight: 600;
-  font-family: monospace;
+  font-family: var(--font-ui);
 }
 
 .btn-timer-stop {
@@ -307,7 +307,7 @@
   text-align: center;
   padding: 8px;
   font-weight: 600;
-  font-family: monospace;
+  font-family: var(--font-ui);
 }
 
 /* 添加按钮 */

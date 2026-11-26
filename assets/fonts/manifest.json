@@ -1,0 +1,29 @@
+{
+  "family": "STZhongsong",
+  "displayName": "华文中宋",
+  "copyright": "Copyright (c) 1991-1998, Changzhou SinoType Technology Co., Ltd. All rights reserved.",
+  "authorization": {
+    "confirmedBy": "project owner in conversation",
+    "date": "2026-11-26",
+    "scope": "Web and Android application embedding",
+    "openSourceLicenseGranted": false
+  },
+  "source": "Existing owner-provided local installation C:/Windows/Fonts/STZHONGS.TTF",
+  "conversion": "fontTools lossless WOFF2 container encoding; full character coverage, no subsetting",
+  "glyphCount": 25185,
+  "cmapEntries": 24367,
+  "fsType": 8,
+  "reference": "https://learn.microsoft.com/en-us/typography/font-list/stzhongsong",
+  "files": [
+    {
+      "name": "STZHONGS.TTF",
+      "bytes": 12135284,
+      "sha256": "e822a3f2859a6cc982f04c6ad1eabc18371ce26d6874b710188a30c35dced0f1"
+    },
+    {
+      "name": "STZHONGS.woff2",
+      "bytes": 6054636,
+      "sha256": "0451629e411c5b66319cd1558adb59eb9e0660fe07c5537ec7356254823a61c5"
+    }
+  ]
+}

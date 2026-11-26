@@ -1,8 +1,8 @@
 # Noto Serif SC font notice
 
-Bundled font: `app/src/main/res/font/noto_serif_sc.ttf`.
+Historical font: `app/src/main/res/font/noto_serif_sc.ttf`, removed from the runtime package on 2026-11-26 when HuaWen ZhongSong replaced it. The original binary and notice remain traceable in Git at baseline `f8167ea`; this notice preserves its provenance.
 
-The bundled font's name table identifies it as **Noto Serif SC ExtraLight**, version **2.003-H1;hotconv 1.1.1;makeotfexe 2.6.0**, unique ID `2.003;GOOG;NotoSerifSC-ExtraLight;ADOBE`.
+The former font's name table identifies it as **Noto Serif SC ExtraLight**, version **2.003-H1;hotconv 1.1.1;makeotfexe 2.6.0**, unique ID `2.003;GOOG;NotoSerifSC-ExtraLight;ADOBE`.
 
 Its embedded copyright is **(c) 2017-2024 Adobe (http://www.adobe.com/).** The embedded license states SIL Open Font License 1.1 and links to <https://openfontlicense.org>.
 
@@ -14,6 +14,6 @@ Official family source: <https://github.com/notofonts/noto-cjk/tree/main/Serif>.
 
 Font metadata vendor page: <https://fonts.google.com/noto>.
 
-The font remains under OFL 1.1; the application's MIT license does not replace the font license. This notice records the bundled binary's metadata and license; it does not claim the binary is identical to a currently downloadable upstream build.
+The font remains under OFL 1.1; the application's MIT license does not replace the font license. This notice records the former binary's metadata and license; it does not claim the binary is identical to a currently downloadable upstream build.
 
 These notices are in Android assets so that source distributions and built APKs carry them. Text notices are not placed in `res/font`, which is an Android font resource directory.

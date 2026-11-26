@@ -13,4 +13,6 @@ for (const file of fs.readdirSync(target, { withFileTypes: true })) {
 }
 for (const { name } of manifest.assets) fs.copyFileSync(path.join(source, name), path.join(target, name));
 fs.copyFileSync(path.join(source, 'manifest.json'), path.join(target, 'manifest.json'));
+require('./lib/shared-fonts.cjs').syncWebFonts();
 console.log(`Prepared ${manifest.assets.length} Web images from assets/stellar.`);
+console.log('Prepared the shared STZhongsong web font.');

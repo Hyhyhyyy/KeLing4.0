@@ -1,11 +1,12 @@
+import { NavigationArrow } from '../../components/NavigationArrow';
 import { ModuleTitle, SectionTitle } from '../../components/ModuleTitle';
 import { StellarSceneBanner } from '../../components/StellarScene';
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
-  ArrowLeft, BookOpen, Clock, MapPin, User, Trash2,
-  Edit3, Target, Zap, ChevronRight, GitBranch
+  BookOpen, Clock, MapPin, User, Trash2,
+  Edit3, Target, Zap, GitBranch
 } from 'lucide-react';
 import { useAppStore } from '../../store/useAppStore';
 import { courseAPI, knowledgeAPI } from '../../services/api';
@@ -152,7 +153,7 @@ const CourseDetail: React.FC = () => {
       >
         <div className="header-nav">
           <button className="back-btn" aria-label="返回知识星球" onClick={() => navigate('/greenhouse')}>
-            <ArrowLeft size={20} />
+            <NavigationArrow direction="left"/>
           </button>
           <div className="header-actions">
             <button className="course-appearance-button" onClick={openEditor}><span>更换星球</span></button>
@@ -257,7 +258,7 @@ const CourseDetail: React.FC = () => {
             <h4>知识图谱</h4>
 
           </div>
-          <ChevronRight size={20} className="chevron" />
+          <NavigationArrow direction="right" className="chevron"/>
         </div>
 
         <AskAssistantButton className="action-card" source={{ kind: 'course', id: course.id }} prompt="请根据这门课程的现有知识点，梳理概念之间的联系，并建议下一步该复习什么。" label={`带着课程“${course.name}”问 AI`}>
@@ -268,7 +269,7 @@ const CourseDetail: React.FC = () => {
             <strong>AI 辅导</strong>
 
           </span>
-          <ChevronRight size={20} className="chevron" aria-hidden="true" />
+          <NavigationArrow direction="right" className="chevron"/>
         </AskAssistantButton>
 
         <div className="action-card" onClick={() => navigate('/tasks')}>
@@ -279,7 +280,7 @@ const CourseDetail: React.FC = () => {
             <h4>创建任务</h4>
 
           </div>
-          <ChevronRight size={20} className="chevron" />
+          <NavigationArrow direction="right" className="chevron"/>
         </div>
       </motion.div>
 

@@ -1,10 +1,11 @@
+import { NavigationArrow } from '../../components/NavigationArrow';
 import { SectionTitle } from '../../components/ModuleTitle';
 import { StellarSceneBanner } from '../../components/StellarScene';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
-  Settings, LogOut, ChevronRight, Target
+  Settings, Target
 } from 'lucide-react';
 import { useAppStore } from '../../store/useAppStore';
 import { checkinAPI, userAPI } from '../../services/api';
@@ -225,18 +226,20 @@ const Profile: React.FC = () => {
         <div className="calendar-header">
           <button
             className="month-nav"
+            aria-label="上个月"
             onClick={() => setCurrentMonth(new Date(currentMonth.setMonth(currentMonth.getMonth() - 1)))}
           >
-            ‹
+            <NavigationArrow direction="left"/>
           </button>
           <h3>
             {currentMonth.getFullYear()}年{currentMonth.getMonth() + 1}月
           </h3>
           <button
             className="month-nav"
+            aria-label="下个月"
             onClick={() => setCurrentMonth(new Date(currentMonth.setMonth(currentMonth.getMonth() + 1)))}
           >
-            ›
+            <NavigationArrow direction="right"/>
           </button>
         </div>
 
@@ -269,22 +272,22 @@ const Profile: React.FC = () => {
         <div className="menu-item" onClick={() => navigate('/achievements')}>
           <img src={achievementsIcon} alt="成就" className="menu-icon-img" />
           <span>成就殿堂</span>
-          <ChevronRight size={18} className="chevron" />
+          <NavigationArrow direction="right" className="chevron"/>
         </div>
         <div className="menu-item" onClick={() => navigate('/study-report')}>
           <span className="menu-icon-emoji">📊</span>
           <span>学习报告</span>
-          <ChevronRight size={18} className="chevron" />
+          <NavigationArrow direction="right" className="chevron"/>
         </div>
         <div className="menu-item" onClick={() => navigate('/notes')}>
           <img src={notesIcon} alt="笔记" className="menu-icon-img" />
           <span>我的笔记</span>
-          <ChevronRight size={18} className="chevron" />
+          <NavigationArrow direction="right" className="chevron"/>
         </div>
         <div className="menu-item" onClick={() => navigate('/settings')}>
           <Settings size={20} className="menu-icon" />
           <span>设置</span>
-          <ChevronRight size={18} className="chevron" />
+          <NavigationArrow direction="right" className="chevron"/>
         </div>
       </motion.div>
 
@@ -296,7 +299,7 @@ const Profile: React.FC = () => {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5 }}
       >
-        <LogOut size={18} />
+        <NavigationArrow direction="right"/>
         {isGuest ? '退出试用并清空' : '退出登录'}
       </motion.button>
     </div>

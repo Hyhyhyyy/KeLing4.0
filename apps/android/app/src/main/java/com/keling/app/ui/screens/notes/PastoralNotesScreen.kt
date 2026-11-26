@@ -1,5 +1,8 @@
 package com.keling.app.ui.screens.notes
 
+import com.keling.app.ui.components.StellarArrow
+import com.keling.app.ui.components.StellarArrowDirection
+
 /**
  * =========================
  * 田园治愈风知识笔记系统
@@ -167,11 +170,7 @@ private fun NotesHeader(
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp),
                 contentAlignment = Alignment.Center
             ) {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_arrow_left),
-                    contentDescription = "返回",
-                    modifier = Modifier.size(24.dp)
-                )
+                StellarArrow(direction = StellarArrowDirection.Left, description = "返回")
             }
         }
 
@@ -284,11 +283,7 @@ private fun AINoteCard(onAskAI: () -> Unit) {
                 )
             }
 
-            Image(
-                painter = painterResource(id = R.drawable.ic_arrow_right),
-                contentDescription = null,
-                modifier = Modifier.size(60.dp)
-            )
+            StellarArrow(Modifier.size(48.dp))
         }
         }
     }

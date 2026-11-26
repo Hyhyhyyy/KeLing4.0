@@ -133,11 +133,7 @@ private fun MonthNavigation(
                 modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
                 contentAlignment = Alignment.Center
             ) {
-                Text(
-                    text = "‹",
-                    style = MaterialTheme.typography.titleLarge,
-                    color = EarthBrown
-                )
+                StellarArrow(direction = StellarArrowDirection.Left, description = "上个月")
             }
         }
 
@@ -159,11 +155,7 @@ private fun MonthNavigation(
                 modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
                 contentAlignment = Alignment.Center
             ) {
-                Text(
-                    text = "›",
-                    style = MaterialTheme.typography.titleLarge,
-                    color = EarthBrown
-                )
+                StellarArrow(description = "下个月")
             }
         }
     }

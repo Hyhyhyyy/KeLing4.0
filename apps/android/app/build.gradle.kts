@@ -46,6 +46,17 @@ val prepareLauncherResources by tasks.registering(Sync::class) {
     into(launcherResourceDirectory)
 }
 
+val sharedFont = rootProject.file("../../assets/fonts/STZHONGS.TTF")
+val fontResourceDirectory = layout.buildDirectory.dir("generated/font-resources")
+val prepareFontResources by tasks.registering(Sync::class) {
+    from(sharedFont) {
+        into("font")
+        rename { "stzhongs.ttf" }
+    }
+    into(fontResourceDirectory)
+    doFirst { require(sharedFont.isFile) { "Missing canonical font: assets/fonts/STZHONGS.TTF" } }
+}
+
 android {
     // 应用的命名空间，必须是唯一的，通常用反向域名
     namespace = "com.keling.app"
@@ -64,9 +75,9 @@ android {
         targetSdk = 34
 
         // 版本号，每次更新应用要+1
-        versionCode = 23
+        versionCode = 24
         // 版本名称，用户看到的版本
-        versionName = "4.0.5-defense-rc3"
+        versionName = "4.0.5-defense-rc4"
         buildConfigField("String", "API_BASE_URL", "\"${apiBaseUrl.replace("\\", "\\\\").replace("\"", "\\\"")}\"")
 
         // 启用矢量图支持，这样图标可以缩放不失真
@@ -79,6 +90,7 @@ android {
     sourceSets.getByName("main").apply {
         assets.setSrcDirs(listOf(packagedAssetDirectory))
         res.srcDir(launcherResourceDirectory)
+        res.srcDir(fontResourceDirectory)
     }
     sourceSets.getByName("test").resources.setSrcDirs(listOf(expeditionTestResourceDirectory))
 
@@ -133,7 +145,7 @@ android {
     }
 }
 
-tasks.named("preBuild").configure { dependsOn(preparePackagedAssets, prepareLauncherResources) }
+tasks.named("preBuild").configure { dependsOn(preparePackagedAssets, prepareLauncherResources, prepareFontResources) }
 tasks.matching { it.name.endsWith("UnitTestJavaRes") }.configureEach { dependsOn(prepareExpeditionTestResources) }
 
 /**

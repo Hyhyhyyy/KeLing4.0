@@ -1,3 +1,4 @@
+import { NavigationArrow } from '../../components/NavigationArrow';
 import { ModuleTitle, SectionTitle } from '../../components/ModuleTitle';
 import { appPath, ANDROID_DOWNLOAD_URL } from '../../services/appPath';
 import { Link } from 'react-router-dom';
@@ -21,15 +22,15 @@ export default function Explore() {
     <main id="explore-content">
       <section className="explore-hero">
         <div><ModuleTitle kind="home">让每一次理解，<br/>点亮一颗星。</ModuleTitle><p>整理知识、制定计划、专注学习。</p>
-          <div className="explore-actions"><Link className="explore-action" to="/trial">游客试用 <span aria-hidden="true">↗</span></Link><a href="#capabilities">了解课灵 <span aria-hidden="true">↓</span></a></div>
+          <div className="explore-actions"><Link className="explore-action" to="/trial">游客试用 <NavigationArrow direction="up-right"/></Link><a href="#capabilities">了解课灵 <NavigationArrow direction="down"/></a></div>
           <p className="explore-trial-note">游客数据在刷新或退出后清空。</p>
         </div><figure><StellarScene scene="arrival" eager/><figcaption><span>01 · 轨道观测站</span><span>观察 · 理解 · 生长</span></figcaption></figure>
       </section>
 
       <section id="capabilities" className="explore-capabilities"><SectionTitle kind="home">一个空间，贯穿学习的每一步</SectionTitle><div className="explore-grid">{features.map(item => <article key={item.title}><StellarScene scene={item.scene} decorative/><div><h3>{item.title}</h3><p>{item.text}</p></div></article>)}</div></section>
-      <section className="explore-companion"><StellarScene scene="companion"/><div><SectionTitle kind="home">你的星际学习伙伴，星芽</SectionTitle><Link to="/explore/art">查看图鉴 →</Link></div></section>
+      <section className="explore-companion"><StellarScene scene="companion"/><div><SectionTitle kind="home">你的星际学习伙伴，星芽</SectionTitle><Link to="/explore/art">查看图鉴 <NavigationArrow direction="right"/></Link></div></section>
       <section className="explore-devices"><div><SectionTitle kind="home">同一片星空，适合不同的屏幕</SectionTitle></div><article><StellarScene scene="webWorkspace" decorative/><h3>网页 · 展开思路</h3><p>整理资料与笔记</p></article><article><StellarScene scene="mobileRover" decorative/><h3>手机端 · 随身专注</h3><p>随时记录与专注</p></article></section>
     </main>
-    <footer className="explore-footer"><span>课灵 4.0 · 让知识在你的星球上生长</span><a href={ANDROID_DOWNLOAD_URL}>下载 Android 预览包 →</a><Link to="/explore/art">视觉图鉴 →</Link></footer>
+    <footer className="explore-footer"><span>课灵 4.0 · 让知识在你的星球上生长</span><a href={ANDROID_DOWNLOAD_URL}>下载 Android 预览包 <NavigationArrow direction="right"/></a><Link to="/explore/art">视觉图鉴 <NavigationArrow direction="right"/></Link></footer>
   </div>;
 }

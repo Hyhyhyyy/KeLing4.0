@@ -2,7 +2,7 @@
 
 这里保存课灵运行在妙搭上的自有适配代码，供审核和重建使用。它是覆盖到官方全栈模板的文件集合，不是独立 npm 项目；没有模板运行时、完整依赖锁文件、环境配置或部署凭据，不能在本目录直接 `npm install && npm start`。
 
-本次收录对应已发布适配工程的提交 `2227303c9bd148fd3b77434f7a8e4332cb853e03`。八个文件来自该提交，统一使用 LF 换行并去除尾部空行；未改变执行逻辑。原始 Git 内容与规范化后的文件分别记录 SHA-256。文件摘要、模板和依赖版本见 [provenance.json](provenance.json)。没有复制 SDK 库、`vendor/`、`node_modules/`、`.git/`、`.spark/` 或任何 `.env` 文件。
+本次收录 11 个适配源文件，统一使用 LF 换行并去除尾部空行；未改变执行逻辑。来源提交、是否有待提交改动、文件 SHA-256、模板和依赖版本见 [provenance.json](provenance.json)。没有复制 SDK 库、`vendor/`、`node_modules/`、`.git/`、`.spark/` 或任何 `.env` 文件。
 
 ## 文件作用
 
@@ -12,8 +12,11 @@
 | `server/modules/gateway/gateway.controller.ts` | 接收应用入口请求 |
 | `server/modules/gateway/gateway.service.ts` | 校验路径，提供课灵网页，把 `/api/*` 交给课灵 Express 后端 |
 | `server/modules/gateway/download.controller.ts` | 仅为固定已发布 APK 签发短期下载链接，再重定向至文件存储 |
+| `server/modules/gateway/artwork.controller.ts` | 为固定的标题吉祥物图集与导航箭头签发短期资源链接 |
+| `server/modules/gateway/font.controller.ts` | 通过平台 SDK 下载并校验固定字体，以同源 WOFF2 响应提供缓存、ETag 与 CORS |
 | `server/modules/gateway/gateway.module.ts` | 注册上述服务与控制器 |
 | `server/modules/gateway/gateway.spec.cjs` | 检查前缀处理与路径穿越拒绝行为 |
+| `server/modules/gateway/public-assets.spec.cjs` | 检查公开资源白名单、字体完整性、MIME、缓存与失败重试 |
 | `scripts/build-keling.cjs` | 生成 PostgreSQL Prisma 客户端，并把课灵部署产物复制到 `dist/vendor/` |
 | `scripts/copy-prisma.cjs` | 在平台依赖裁剪后保留生成的 Prisma 运行时客户端 |
 
@@ -62,14 +65,29 @@ npm run build:shared
 VITE_PUBLIC_BASE="/app/${APP_ID}/" \
 VITE_API_BASE_URL="/app/${APP_ID}/api" \
 VITE_HOSTING_PLATFORM=miaoda npm run build:web
-node scripts/prepare-miaoda.cjs "$MIAODA_PROJECT/vendor"
+node scripts/prepare-miaoda.cjs .cache/miaoda-build/vendor
 ```
 
-`prepare-miaoda.cjs` 打包课灵后端与共享规则，复制已构建网页和 PostgreSQL schema，并记录源文件摘要。它不复制账号配置、不读取生产数据、不执行数据库迁移。生成的 `vendor/` 属于独立妙搭发布工程；不要把整份生成结果再提交到本主仓库。
+`prepare-miaoda.cjs` 打包课灵后端与共享规则，复制已构建网页和 PostgreSQL schema，并记录源文件摘要。它不复制账号配置、不读取生产数据、不执行数据库迁移。先在缓存目录生成产物，再把后端文本产物及网页的 JS、CSS、HTML、Web Manifest 合入模板 `vendor/`。图片、字体等资源必须先上传到目标应用文件存储，不把新资源二进制提交到模板 Git，也不提交整份生成结果到本主仓库。
+
+当前应用保留了先前已发布的 60 个 PNG 与 5 个 JPG。托管构建将 59 个旧 WebP 引用精确映射到同内容 PNG，标题吉祥物、导航箭头和字体通过下方固定路由加载；主线源资源仍使用 WebP。不要把适配路径替换写回主线源码。
+
+## 公开美术与字体路由
+
+[public-resources.json](public-resources.json) 记录当前应用的三个固定资源、来源文件、存储位置、字节数和 SHA-256，不包含凭据或临时签名链接。图集与箭头的响应重定向缓存 5 分钟，每次重新签发 1 小时有效的存储 URL。字体通过 `FileService.download` 下载，校验 WOFF2 文件头、大小及完整 SHA-256 后在内存缓存；浏览器响应使用 `font/woff2`、一天缓存和 ETag，支持条件 GET 与 HEAD。字体不依赖存储下载域名的 CORS 或默认 MIME。
+
+这些存储路径仅属于记录中的应用。重建到新应用时，先上传主线对应资源，再替换控制器内的固定 bucket/path/摘要/大小，并更新来源记录；不能跨应用复用存储地址。字体使用授权记录见主线 `assets/fonts/manifest.json`。
+
+在已安装模板依赖的工程根目录运行接口测试，字体参数指向主线已校验的资源：
+
+```bash
+KELING_FONT_SOURCE=/absolute/path/to/KeLing_ICT/assets/fonts/STZHONGS.woff2 \
+  node --test server/modules/gateway/gateway.spec.cjs server/modules/gateway/public-assets.spec.cjs
+```
 
 ## 模板中还需人工接入的配置
 
-仅复制这八个文件不够，以下修改存在于来源发布工程，须核对后合入自己的模板：
+复制上述适配文件后，以下修改仍须核对并合入自己的模板：
 
 - `package.json` 的 `build:server` 先运行 `node scripts/build-keling.cjs`，再执行原 Nest 构建。来源值为 `node scripts/build-keling.cjs && NODE_ENV=production nest build`，适用于平台的 Bash 构建环境。
 - 核对来源模板的功能标记，尤其是 `supportBusinessUser: true`；完整标记记录在 `provenance.json`。不要因为只复制业务模块而丢失平台初始化配置。

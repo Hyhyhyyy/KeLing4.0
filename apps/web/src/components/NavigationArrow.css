@@ -1,0 +1,75 @@
+#root img.navigation-arrow {
+  display: inline-block;
+  flex: 0 0 var(--arrow-size, 40px);
+  width: var(--arrow-size, 40px);
+  height: var(--arrow-size, 40px);
+  max-width: none;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: none;
+  object-fit: contain;
+  vertical-align: middle;
+  transform: rotate(var(--arrow-turn, 0deg));
+  pointer-events: none;
+  image-rendering: auto;
+}
+#root :is(a, button):has(> .navigation-arrow) { align-items: center; gap: 8px; }
+#root :is(a, button):has(> .navigation-arrow):not(.stellar-task-row, .menu-item, .action-card, .report-action-button) { display: inline-flex; }
+#root :is(.stellar-cta, .explore-action) > .navigation-arrow { --arrow-size: 48px !important; }
+#root .select-arrow-frame { display: block; position: relative; width: 100%; min-width: 0; }
+#root .select-arrow-frame > select {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  padding-inline-end: 52px;
+}
+#root .select-arrow-frame > .navigation-arrow {
+  position: absolute;
+  inset-inline-end: 10px;
+  top: 50%;
+  translate: 0 -50%;
+}
+#root .select-arrow-frame:has(select:disabled) > .navigation-arrow { opacity: .45; }
+#root summary { list-style: none; position: relative; padding-inline-end: 40px; }
+#root summary::-webkit-details-marker { display: none; }
+#root summary::marker { content: ''; }
+#root summary::after {
+  content: '';
+  position: absolute;
+  inset-inline-end: 2px;
+  top: 50%;
+  width: 36px;
+  height: 36px;
+  translate: 0 -50%;
+  background: url('/stellar/navigation_arrow.webp') center / contain no-repeat;
+  pointer-events: none;
+}
+#root details[open] > summary::after { transform: rotate(90deg); }
+#root .flow-sequence { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 4px; vertical-align: middle; }
+.arrow-reading-order { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+#root :is(.back-btn, .month-nav) > .navigation-arrow { flex-shrink: 0; }
+#root :is(.stellar-task-row, .menu-item, .action-card, .report-action-button) > .navigation-arrow { margin-inline-start: auto; }
+#root .number-field { flex: 1; min-width: 0; margin-block: 12px; }
+#root .number-field > label { margin: 0 0 7px; }
+#root .number-arrow-frame { display: flex; align-items: stretch; gap: 6px; }
+#root .number-arrow-frame > input { appearance: textfield; min-width: 0; width: 100%; flex: 1; margin: 0; }
+#root .number-arrow-frame input::-webkit-inner-spin-button,
+#root .number-arrow-frame input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+#root .number-arrow-controls { display: flex; flex-direction: column; flex: 0 0 40px; gap: 3px; }
+#root .number-arrow-controls > button { display: flex; justify-content: center; width: 40px; height: 32px; min-height: 32px; padding: 0; margin: 0; }
+
+#root .number-arrow-controls > button {
+  border: 1px solid #3e7768;
+  border-radius: 6px;
+  background: #e5f1e7;
+  color: #285950;
+  cursor: pointer;
+}
+#root .number-arrow-controls > button:hover:not(:disabled) { background: #fff5dd; }
+#root .number-arrow-controls > button:disabled { opacity: .45; cursor: not-allowed; background: #f4f2e7; }
+#root .number-arrow-controls > button:focus-visible { outline: 3px solid #b97940; outline-offset: 3px; }

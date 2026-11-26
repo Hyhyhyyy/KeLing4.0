@@ -1,5 +1,8 @@
 package com.keling.app.ui.screens.home
 
+import com.keling.app.ui.components.StellarArrow
+import com.keling.app.ui.components.StellarArrowDirection
+
 /**
  * =========================
  * 田园治愈风首页 - 增强版
@@ -413,7 +416,7 @@ private fun EnhancedGreetingHeader(
                         style = MaterialTheme.typography.titleLarge,
                         color = EarthBrown,
                         fontWeight = FontWeight.Bold,
-                        fontSize = 20.sp
+                        fontSize = 24.sp
                     )
 
                     Spacer(modifier = Modifier.height(6.dp))
@@ -655,11 +658,7 @@ private fun EnhancedSpiritCard(
                         modifier = Modifier.padding(10.dp),
                         contentAlignment = Alignment.Center
                     ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.ic_arrow_right),
-                            contentDescription = null,
-                            modifier = Modifier.size(60.dp)
-                        )
+                        StellarArrow(Modifier.size(48.dp))
                     }
                 }
             }
@@ -759,11 +758,7 @@ private fun EnhancedSectionTitle(
                         fontWeight = FontWeight.Bold
                     )
                     Spacer(modifier = Modifier.width(4.dp))
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_arrow_right),
-                        contentDescription = null,
-                        modifier = Modifier.size(48.dp)
-                    )
+                    StellarArrow(Modifier.size(48.dp))
                 }
             }
         }
@@ -1418,7 +1413,7 @@ private fun GlassmorphismGreetingHeader(
                         style = MaterialTheme.typography.titleLarge,
                         color = EarthBrown,
                         fontWeight = FontWeight.Bold,
-                        fontSize = 20.sp
+                        fontSize = 24.sp
                     )
 
                     Spacer(modifier = Modifier.height(6.dp))
@@ -1602,12 +1597,7 @@ private fun GlassmorphismSpiritCard(
                             modifier = Modifier.padding(10.dp),
                             contentAlignment = Alignment.Center
                         ) {
-                            Text(
-                                text = "→",
-                                style = MaterialTheme.typography.titleMedium,
-                                color = Color.White,
-                                fontWeight = FontWeight.Bold
-                            )
+                            StellarArrow(Modifier.size(48.dp))
                         }
                     }
             }
@@ -1683,11 +1673,7 @@ private fun GlassmorphismSectionTitle(
                         fontWeight = FontWeight.Bold
                     )
                     Spacer(modifier = Modifier.width(4.dp))
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_arrow_right),
-                        contentDescription = null,
-                        modifier = Modifier.size(48.dp)
-                    )
+                    StellarArrow(Modifier.size(48.dp))
                 }
             }
         }

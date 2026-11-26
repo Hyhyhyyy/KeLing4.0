@@ -1,5 +1,8 @@
 package com.keling.app.ui.screens.profile
 
+import com.keling.app.ui.components.StellarArrow
+import com.keling.app.ui.components.StellarArrowDirection
+
 /**
  * =========================
  * 田园治愈风个人中心页面
@@ -184,11 +187,7 @@ private fun ProfileHeader(
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp),
                 contentAlignment = Alignment.Center
             ) {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_arrow_left),
-                    contentDescription = "返回",
-                    modifier = Modifier.size(24.dp)
-                )
+                StellarArrow(direction = StellarArrowDirection.Left, description = "返回")
             }
         }
 

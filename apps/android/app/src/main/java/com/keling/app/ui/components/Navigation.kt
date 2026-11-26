@@ -47,17 +47,12 @@ fun KeLingTopBar(
         // 返回按钮
         Box(
             modifier = Modifier
-                .size(44.dp)
+                .size(48.dp)
                 .clip(CircleShape)
                 .clickable { onBack() },
             contentAlignment = Alignment.Center
         ) {
-            Text(
-                text = "←",
-                style = MaterialTheme.typography.headlineSmall,
-                fontWeight = FontWeight.Bold,
-                color = EarthBrown
-            )
+            StellarArrow(direction = StellarArrowDirection.Left, description = "返回")
         }
 
         // 标题区域
@@ -89,7 +84,7 @@ fun KeLingTopBar(
         if (action != null) {
             action()
         } else {
-            Spacer(modifier = Modifier.width(44.dp))
+            Spacer(modifier = Modifier.width(48.dp))
         }
     }
 }

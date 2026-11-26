@@ -1,6 +1,6 @@
 # 课灵 · KeLing
 
-省决赛程序候选版：**4.0.5-defense-rc3**（Android versionCode 23）。当前候选与已提交材料、已公开安装包分别核对；本轮标题美术见[RC3 记录](docs/competition/title-art-2026-11-25.md)，此前文案精简见[RC2 记录](docs/competition/copy-cleanup-2026-11-25.md)，原提交核对、人工事项和本地排练入口见[版本核对](docs/competition/defense-readiness-2026-11-25.md)。双击 `demo.bat` 或运行 `npm run demo` 可启动独立本机演示库；真实华为工作流尚待账号持有人恢复并验证。此候选尚待用户确认，不代表答辩材料已定稿。
+省决赛程序候选版：**4.0.5-defense-rc4**（Android versionCode 24）。当前候选与已提交材料、已公开安装包分别核对；本轮标题、箭头与字体见[RC4 记录](docs/competition/typography-arrows-2026-11-26.md)，此前标题美术见[RC3 记录](docs/competition/title-art-2026-11-25.md)，此前文案精简见[RC2 记录](docs/competition/copy-cleanup-2026-11-25.md)，原提交核对、人工事项和本地排练入口见[版本核对](docs/competition/defense-readiness-2026-11-25.md)。双击 `demo.bat` 或运行 `npm run demo` 可启动独立本机演示库；真实华为工作流尚待账号持有人恢复并验证。此候选尚待用户确认，不代表答辩材料已定稿。
 
 以游戏化学习为核心的 Web 与 Android 应用。课程资料、动手练习、AI 辅导、任务与笔记使用共享账号服务；学习过程围绕「远航、星图、基地、我的」组织，手机另提供资料与设置入口。
 
@@ -31,7 +31,7 @@ deploy/               部署配置
 docs/                 当前文档、设计依据与历史归档
 ```
 
-`assets/stellar` 统一维护两端共用的 60 张 WebP 和一张 PNG 启动图标，网页与 Android 打包副本由构建生成。原 PNG 可从 Git 提交 `9583827` 追溯，不再重复保留于当前源码树。详见[资源维护说明](assets/stellar/README.md)。
+`assets/stellar` 统一维护两端共用的 61 张 WebP 和一张 PNG 启动图标，网页与 Android 打包副本由构建生成。原 PNG 可从 Git 提交 `9583827` 追溯，不再重复保留于当前源码树。详见[资源维护说明](assets/stellar/README.md)。
 
 ## 本地运行
 

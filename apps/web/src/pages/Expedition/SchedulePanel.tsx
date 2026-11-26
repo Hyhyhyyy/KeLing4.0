@@ -1,3 +1,4 @@
+import { NumberField } from '../../components/NavigationArrow';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CHAPTER } from '@keling/shared/expedition';
@@ -19,7 +20,7 @@ export default function SchedulePanel({ courseId }: { courseId: string }) {
   return <details className="exp-panel"><summary><strong>安排学习目标 · 规则排程</strong></summary>
     <ExpeditionNotice error={workspace.error} notice={workspace.notice}/><div className="exp-form-grid">
       <label>开始日期<input type="date" value={startDate} onChange={event => setStart(event.target.value)}/></label><label>截止日期<input type="date" value={examDate} onChange={event => setExam(event.target.value)}/></label>
-      <label>每日总时长（分钟）<input type="number" min={10} max={240} value={dailyMinutes} onChange={event => setBudget(Number(event.target.value))}/></label>
+      <NumberField label="每日总时长（分钟）" min={10} max={240} value={dailyMinutes} onChange={setBudget}/>
       <label>每日开始<input type="time" value={dayStart} onChange={event => setDayStart(event.target.value)}/></label><label>每日结束<input type="time" value={dayEnd} onChange={event => setDayEnd(event.target.value)}/></label>
     </div><label className="exp-check"><input type="checkbox" checked={rest} onChange={event => setRest(event.target.checked)}/>保留每日休息时段</label>{rest && <div className="exp-form-grid"><label>休息开始<input type="time" value={restStart} onChange={event => setRestStart(event.target.value)}/></label><label>休息结束<input type="time" value={restEnd} onChange={event => setRestEnd(event.target.value)}/></label></div>}
     <label>不安排的日期（YYYY-MM-DD，空格或逗号分隔）<input value={excluded} onChange={event => setExcluded(event.target.value)} placeholder="2026-11-01 2026-11-02"/></label>

@@ -57,7 +57,7 @@ class TrialSession(private val api: TrialApi = TrialApi()) {
     fun showExample() {
         cancel()
         change { it.copy(answeredQuestion = "固定示例题：前序、中序、后序遍历有什么区别？", example = true, answerModel = null, error = null,
-            answer = "内置示例\n\n用根节点 A、左孩子 B、右孩子 C 的二叉树演示：\n前序先根：A → B → C；中序根在中间：B → A → C；后序最后根：B → C → A。\n\n练习：为 B 添加一个左孩子 D，自己写出三种顺序，再核对定义。", usage = TrialUsage()) }
+            answer = "内置示例\n\n用根节点 A、左孩子 B、右孩子 C 的二叉树演示：\n前序先根，依次为 A、B、C；中序根在中间，依次为 B、A、C；后序最后根，依次为 B、C、A。\n\n练习：为 B 添加一个左孩子 D，自己写出三种顺序，再核对定义。", usage = TrialUsage()) }
     }
     fun loadConfig(scope: CoroutineScope) {
         if (closed || mutable.value.configuring) return

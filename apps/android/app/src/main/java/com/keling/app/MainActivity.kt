@@ -985,11 +985,7 @@ private fun AIEngineCard(
             }
 
             // 箭头指示
-            Text(
-                text = "→",
-                style = MaterialTheme.typography.titleLarge,
-                color = StellarOrange
-            )
+            StellarArrow(Modifier.size(48.dp))
         }
     }
 }
@@ -1856,7 +1852,7 @@ fun KelingTopBar(
             onClick = onBack,
             modifier = Modifier.height(52.dp)
         ) {
-            Text("←", fontSize = 24.sp, color = EarthBrown)
+            StellarArrow(direction = StellarArrowDirection.Left, description = "返回")
         }
         Spacer(modifier = Modifier.width(8.dp))
         Text(
@@ -3176,7 +3172,7 @@ fun ScheduleEditScreen(
             verticalAlignment = Alignment.CenterVertically
         ) {
             TextButton(onClick = onBack) {
-                Text("←", style = MaterialTheme.typography.headlineMedium, color = EarthBrown)
+                StellarArrow(direction = StellarArrowDirection.Left, description = "返回")
             }
             StellarHeading(
                 text = "课程表", mascot = 5, compact = true,
@@ -3550,7 +3546,7 @@ fun KnowledgeGraphScreen(
             verticalAlignment = Alignment.CenterVertically
         ) {
             TextButton(onClick = onBack) {
-                Text("← 返回", color = EarthBrown)
+                Row(verticalAlignment = Alignment.CenterVertically) { StellarArrow(direction = StellarArrowDirection.Left); Text("返回", color = EarthBrown) }
             }
             Spacer(modifier = Modifier.width(8.dp))
             Text(
@@ -3863,7 +3859,7 @@ fun AIScreen(
                         .clickable { onBack() },
                     contentAlignment = Alignment.Center
                 ) {
-                    Text("←", style = MaterialTheme.typography.headlineSmall, color = EarthBrown, fontWeight = FontWeight.Bold)
+                    StellarArrow(direction = StellarArrowDirection.Left, description = "返回")
                 }
                 Spacer(modifier = Modifier.width(Spacing.sm))
 
@@ -4228,14 +4224,7 @@ fun AIScreen(
                     else
                         EarthBrown.copy(alpha = 0.2f),  // 不可发送：灰色
                     content = {
-                        Text(
-                            "➤",  // 发送箭头图标
-                            fontSize = 20.sp,
-                            color = if (inputText.isNotBlank() && !isLoading)
-                                DawnWhite      // 可发送：白色
-                            else
-                                EarthBrown.copy(alpha = 0.4f)  // 不可发送：淡色
-                        )
+                        StellarArrow(description = "发送")
                     }
                 )
             }

@@ -1,5 +1,8 @@
 package com.keling.app.ui.screens.report
 
+import com.keling.app.ui.components.StellarArrow
+import com.keling.app.ui.components.StellarArrowDirection
+
 /**
  * =========================
  * 田园治愈风学习报告页面
@@ -157,11 +160,7 @@ private fun ReportHeader(onBack: () -> Unit) {
                 modifier = Modifier.size(48.dp),
                 contentAlignment = Alignment.Center
             ) {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_arrow_left),
-                    contentDescription = "返回",
-                    modifier = Modifier.size(24.dp)
-                )
+                StellarArrow(direction = StellarArrowDirection.Left, description = "返回")
             }
         }
 

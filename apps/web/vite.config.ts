@@ -46,7 +46,16 @@ export default defineConfig({
         cleanupOutdatedCaches: true,
         runtimeCaching: [
           {
-            urlPattern: ({ url }) => url.pathname.startsWith(publicBase + 'api/'),
+            urlPattern: ({ url, sameOrigin }) => sameOrigin && /\/fonts\/[^/]+\.woff2$/i.test(url.pathname),
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'stellar-fonts-v1',
+              expiration: { maxEntries: 2, maxAgeSeconds: 2592000, purgeOnQuotaError: true },
+              cacheableResponse: { statuses: [200] }
+            }
+          },
+          {
+            urlPattern: ({ url, sameOrigin }) => sameOrigin && /\/api\//.test(url.pathname),
             handler: 'NetworkOnly',
             options: {
               cacheName: 'api-cache',
@@ -60,7 +69,7 @@ export default defineConfig({
             }
           },
           {
-            urlPattern: ({ url, sameOrigin }) => sameOrigin && url.pathname.startsWith(publicBase + 'stellar/'),
+            urlPattern: ({ url, sameOrigin }) => sameOrigin && /\/stellar\/[^/]+\.(?:webp|png)$/i.test(url.pathname),
             handler: 'CacheFirst',
             options: { cacheName: 'stellar-art-v1', expiration: { maxEntries: 24, maxAgeSeconds: 2592000 }, cacheableResponse: { statuses: [200] } }
           }

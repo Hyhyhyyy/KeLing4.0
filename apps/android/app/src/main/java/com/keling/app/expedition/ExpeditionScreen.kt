@@ -175,7 +175,14 @@ fun ExpeditionScreen(vm: ExpeditionViewModel, tab: String, guest: Boolean, onNav
                 items(state.saved.runs.values.filter { it.run.courseId == state.saved.selectedCourseId }.sortedByDescending { it.run.startedAt }, key = { it.run.id }) { record ->
                     OutlinedButton(onClick = { vm.openRun(record.run.id); onNavigate("home") }, modifier = Modifier.fillMaxWidth()) { Text("${objectiveTitle(state, record.run.objectiveKey)} · ${record.run.attempts.size} 次作答 · ${statusLabel(record.run.status)}") }
                 }
-                if (state.saved.preservedDrafts.isNotEmpty()) item { Card { Column(Modifier.padding(12.dp)) { Text("练习副本（${state.saved.preservedDrafts.size}）"); state.saved.preservedDrafts.takeLast(5).forEach { draft -> SelectionContainer { Text("${draft.savedAt}\n${draft.answer.explanation ?: draft.answer.order.orEmpty().joinToString(" → ")}") } } } } }
+                if (state.saved.preservedDrafts.isNotEmpty()) item { Card { Column(Modifier.padding(12.dp)) {
+                    Text("练习副本（${state.saved.preservedDrafts.size}）")
+                    state.saved.preservedDrafts.takeLast(5).forEach { draft ->
+                        Text(draft.savedAt)
+                        draft.answer.explanation?.let { SelectionContainer { Text(it) } }
+                            ?: StellarSequence("访问顺序", draft.answer.order.orEmpty(), "尚未访问")
+                    }
+                } } }
                 if (state.saved.preservedOperations.isNotEmpty()) item { Card { Column(Modifier.padding(12.dp)) { Text("操作副本"); state.saved.preservedOperations.takeLast(5).forEach { operation -> SelectionContainer { Text("已保存操作\n${operation.memory?.text ?: operation.selfReport?.let { it.title + "\n" + it.notes } ?: operation.action?.answer?.explanation.orEmpty()}", style = MaterialTheme.typography.bodySmall) } } } } }
             }
         }
@@ -235,7 +242,7 @@ fun ExpeditionScreen(vm: ExpeditionViewModel, tab: String, guest: Boolean, onNav
                     old.copy(container = container, answer = old.answer.copy(order = visited), steps = old.steps + DraftStep("POP", node, container, visited))
                 } }, enabled = ready && draft.container.isNotEmpty(), modifier = Modifier.fillMaxWidth()) { Text("${if (draft.answer.structure == "QUEUE") "取队首" else "弹栈顶"}并访问") }
             }
-            Text("访问结果：${draft.answer.order.orEmpty().joinToString(" → ").ifBlank { "尚未访问" }}")
+            StellarSequence("访问结果", draft.answer.order.orEmpty(), "尚未访问")
             if (draft.steps.isNotEmpty()) { Text("步骤回放", style = MaterialTheme.typography.titleSmall); draft.steps.forEachIndexed { i, step -> Text("${i + 1}. ${if (step.type == "PUSH") "放入" else "取出"}${step.nodeId} · 容器 ${step.container.joinToString(",").ifBlank { "空" }}", style = MaterialTheme.typography.bodySmall) } }
             TextButton(onClick = { vm.changeDraft { it.copy(answer = Answer(structure = it.answer.structure, order = emptyList()), container = emptyList(), steps = emptyList()) } }, enabled = ready) { Text("清空重做") }
         }
@@ -246,7 +253,7 @@ fun ExpeditionScreen(vm: ExpeditionViewModel, tab: String, guest: Boolean, onNav
         }
         run.feedback?.let { feedback -> Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer)) { Column(Modifier.fillMaxWidth().padding(12.dp)) {
             StellarSectionTitle(if (feedback.kind == "SELF_REPORTED") "自评反馈" else if (feedback.correct == true) "规则判定 · 正确" else "规则判定 · 待修正")
-            Text(feedback.message); feedback.expectedOrder?.let { Text("规则推演：${it.joinToString(" → ").ifBlank { "无越界节点" }}") }
+            Text(feedback.message); feedback.expectedOrder?.let { StellarSequence("规则推演", it, "无越界节点") }
             feedback.rubric.forEach { Text("· $it") }
         } } }
         if (run.status == "AWAITING_FEEDBACK" && run.nextStep == null) {

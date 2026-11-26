@@ -1,5 +1,8 @@
 package com.keling.app.ui.screens.ai
 
+import com.keling.app.ui.components.StellarArrow
+import com.keling.app.ui.components.StellarArrowDirection
+
 import com.keling.app.ui.components.StellarHeading
 import com.keling.app.ui.components.StellarSectionTitle
 import com.keling.app.ui.components.StellarTitleMark
@@ -358,11 +361,7 @@ private fun PastoralAIHeader(
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp),
                 contentAlignment = Alignment.Center
             ) {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_arrow_left),
-                    contentDescription = "返回",
-                    modifier = Modifier.size(24.dp)
-                )
+                StellarArrow(direction = StellarArrowDirection.Left, description = "返回")
             }
         }
 
@@ -651,11 +650,7 @@ private fun PastoralInputArea(
                 modifier = Modifier.padding(12.dp),
                 contentAlignment = Alignment.Center
             ) {
-                Text(
-                    text = "➤",
-                    fontSize = 18.sp,
-                    color = if (inputText.isNotBlank() && !isLoading) Color.White else EarthBrown.copy(alpha = 0.3f)
-                )
+                StellarArrow(description = "发送")
             }
         }
     }

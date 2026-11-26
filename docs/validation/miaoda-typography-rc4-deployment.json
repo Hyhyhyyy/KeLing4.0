@@ -1,0 +1,137 @@
+{
+  "checkedAt": "2026-11-26T01:35:31.066152+00:00",
+  "localDate": "2026-11-26",
+  "version": "4.0.5-defense-rc4",
+  "appId": "app_17h4dw5jwdg",
+  "releaseId": "7712285431664594098",
+  "status": "finished",
+  "errorLogs": [],
+  "onlineUrl": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg",
+  "templateCommit": "80fdc1c50813f7e98b95b132e02f38872978077e",
+  "templateBranch": "sprint/default",
+  "templateWorktreeClean": true,
+  "sourceBaseCommit": "f8167ea7725b748eb7007271c0b583789141550b",
+  "sourceRecordedAsWorkingTreeHashes": true,
+  "sourceFileHashesReverifiedAfterPublish": 146,
+  "sourceManifestSha256": "b3dfffc142fab78bcd3c3c4ed4187c4192f49af9dd216eed2b43119c91e62ecc",
+  "checks": {
+    "templateLint": "passed",
+    "isolatedWebTypecheckAndBuild": "passed",
+    "templateProductionBuild": "passed",
+    "gatewayTests": {
+      "passed": 4,
+      "total": 4
+    },
+    "publicResourceHttpTestsWithInjectedStorageStub": {
+      "passed": 7,
+      "total": 7
+    },
+    "generatedOnlineFilesVerifiedByFullSha256": 70,
+    "reachableOnlineJavascriptChunks": 44,
+    "sampledExistingImagesVerifiedByFullSha256": 3,
+    "existingResourcesPreservedByteForByte": 65,
+    "newResourceFilesCommittedToTemplate": 0,
+    "fontCssHasAppBase": true,
+    "adapterSourcesMirroredAndHashed": 11
+  },
+  "health": {
+    "status": "ok",
+    "timestamp": "2026-11-26T01:33:56.840Z",
+    "version": "4.0.5-defense-rc4"
+  },
+  "ready": {
+    "status": "ready"
+  },
+  "entryScript": "/app/app_17h4dw5jwdg/assets/index-BuEplmxx.js",
+  "entryScriptSha256": "542595f06370d2e7d7f36ef8cc70cde5340928390112d6925a84fc114076a085",
+  "backendBundleSha256": "8575531d6a867af3db4357f46919449dab1b38cc856c11824575594d4e508599",
+  "publicResources": [
+    {
+      "route": "/stellar/title_mascots.webp",
+      "storageBucket": "bucket_aadk4xawzf4xg",
+      "storagePath": "/1882830203673659.webp",
+      "sha256": "cb7465ec80df7de393563fe1dc7933fd2867acda31cd8152eb609493b327fd78",
+      "bytes": 1137664,
+      "sourcePath": "assets/stellar/title_mascots.webp",
+      "provenancePath": "assets/stellar/title-mascots-provenance.json",
+      "contentType": "image/webp",
+      "delivery": "signed-redirect",
+      "provenanceSha256": "f768326cdea0339e5354b85046c7c56aeeb9effe92bdcc21e7b6d2f4a9b28638",
+      "online": {
+        "path": "stellar/title_mascots.webp",
+        "status": 200,
+        "bytes": 1137664,
+        "sha256": "cb7465ec80df7de393563fe1dc7933fd2867acda31cd8152eb609493b327fd78",
+        "contentType": "image/webp",
+        "signedStorageRedirect": true
+      }
+    },
+    {
+      "sourcePath": "assets/stellar/navigation_arrow.webp",
+      "route": "/stellar/navigation_arrow.webp",
+      "storageBucket": "bucket_aadk4xawzf4xg",
+      "storagePath": "/1882832922057850.webp",
+      "sha256": "b722445a6f11afa60081ef6c92cb3a907acd288df5832e839212c65d398b6107",
+      "bytes": 330320,
+      "contentType": "image/webp",
+      "uploadedContentType": "image/webp",
+      "provenancePath": "assets/stellar/navigation-arrow-provenance.json",
+      "delivery": "signed-redirect",
+      "provenanceSha256": "932642181c58c10e4853c2d78af7f3cda4962a7cf1b9b39fdf7915e4ad6d4702",
+      "online": {
+        "path": "stellar/navigation_arrow.webp",
+        "status": 200,
+        "bytes": 330320,
+        "sha256": "b722445a6f11afa60081ef6c92cb3a907acd288df5832e839212c65d398b6107",
+        "contentType": "image/webp",
+        "signedStorageRedirect": true
+      }
+    },
+    {
+      "sourcePath": "assets/fonts/STZHONGS.woff2",
+      "route": "/fonts/STZHONGS.woff2",
+      "storageBucket": "bucket_aadk4xawzf4xg",
+      "storagePath": "/1882832924311610.woff2",
+      "sha256": "0451629e411c5b66319cd1558adb59eb9e0660fe07c5537ec7356254823a61c5",
+      "bytes": 6054636,
+      "contentType": "font/woff2",
+      "uploadedContentType": "application/octet-stream",
+      "provenancePath": "assets/fonts/manifest.json",
+      "delivery": "same-origin-sdk-download",
+      "provenanceSha256": "036911aed36a5f5b20ba991d2b85908844b8ab016cdb1971208af3ffd2a38c72",
+      "online": {
+        "path": "fonts/STZHONGS.woff2",
+        "status": 200,
+        "bytes": 6054636,
+        "sha256": "0451629e411c5b66319cd1558adb59eb9e0660fe07c5537ec7356254823a61c5",
+        "contentType": "font/woff2",
+        "signedStorageRedirect": false,
+        "cors": "*",
+        "cacheControl": "public, max-age=86400",
+        "etag": "\"0451629e411c5b66319cd1558adb59eb9e0660fe07c5537ec7356254823a61c5\"",
+        "conditionalGetStatus": 304,
+        "headStatus": 200,
+        "headContentLength": null
+      }
+    }
+  ],
+  "publicResourceRouteFiles": {
+    "server/modules/gateway/artwork.controller.ts": "6d766a5246af6d360270d1d0f45946bf5f983d81ce097aac033d4830532c66b5",
+    "server/modules/gateway/font.controller.ts": "538b84bab623a52342ec43a1526d0309a62259be428dbdf4688e313a84a36b35",
+    "server/modules/gateway/gateway.module.ts": "74712ea9113647a9df67fbdddb644f213bb4fff80dcfe09c7fbf67c2cf107992",
+    "server/modules/gateway/public-assets.spec.cjs": "37a084625842337d74d8b9095e800b7f05b6fd093287bc4b36e91a9abc940836"
+  },
+  "adapterProvenancePath": "deploy/miaoda/provenance.json",
+  "adapterProvenanceSha256": "0259c2cd4104feae0b99e177b7bb49ec1c8207e3d3c5aea2c589ca1e2276d436",
+  "evidenceFiles": [
+    "release-status.json",
+    "online-verification.json",
+    "compatibility.json",
+    "vendor/source-manifest.json",
+    "hosted-build.log",
+    "template-build.log",
+    "template-lint.log",
+    "gateway-tests.log",
+    "public-assets-tests.log"
+  ]
+}

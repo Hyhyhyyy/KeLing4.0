@@ -211,6 +211,7 @@ fun EnhancedRichTextEditor(
                 unfocusedContainerColor = DawnWhite
             ),
             textStyle = TextStyle(
+                fontFamily = HuaWenZhongSong,
                 color = state.textColor,
                 fontSize = state.fontSize.sp,
                 fontWeight = if (state.isBold) FontWeight.Bold else FontWeight.Normal,
@@ -872,6 +873,7 @@ fun RichTextEditor(
                 unfocusedContainerColor = DawnWhite
             ),
             textStyle = TextStyle(
+                fontFamily = HuaWenZhongSong,
                 color = EarthBrown,
                 fontSize = when (headingLevel) {
                     1 -> 24.sp

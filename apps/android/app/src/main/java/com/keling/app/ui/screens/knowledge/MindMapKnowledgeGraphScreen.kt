@@ -1,5 +1,8 @@
 package com.keling.app.ui.screens.knowledge
 
+import com.keling.app.ui.components.StellarArrow
+import com.keling.app.ui.components.StellarArrowDirection
+
 /**
  * =========================
  * 思维导图式知识图谱界面 - 增强版
@@ -35,6 +38,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
@@ -47,6 +51,7 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -142,6 +147,7 @@ fun MindMapKnowledgeGraphScreen(
 
     // 计算内容边界，用于初始居中
     val density = LocalDensity.current
+    var headerHeight by remember { mutableStateOf(120.dp) }
     val contentBounds = remember(nodeStates.values.toList()) {
         val allStates = nodeStates.values.toList()
         if (allStates.isEmpty()) {
@@ -176,7 +182,8 @@ fun MindMapKnowledgeGraphScreen(
         Surface(
             modifier = Modifier
                 .fillMaxWidth()
-                .align(Alignment.TopCenter),
+                .align(Alignment.TopCenter)
+                .onSizeChanged { headerHeight = with(density) { it.height.toDp() } },
             color = CreamWhite.copy(alpha = 0.8f),
             shadowElevation = 0.dp
         ) {
@@ -187,76 +194,28 @@ fun MindMapKnowledgeGraphScreen(
                     modifier = Modifier.matchParentSize(),
                     contentScale = ContentScale.FillBounds
                 )
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp, vertical = 12.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    // 返回按钮
-                    Surface(
-                        onClick = onBack,
-                        shape = CircleShape,
-                        color = BeigeSurface
-                    ) {
-                        Box(
-                            modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Image(
-                                painter = painterResource(id = R.drawable.ic_arrow_left),
-                                contentDescription = "返回",
-                                modifier = Modifier.size(24.dp)
-                            )
-                        }
-                    }
-
-                    Spacer(modifier = Modifier.width(16.dp))
-
-                    // 标题
-                    Column(modifier = Modifier.weight(1f)) {
-                        StellarHeading(
-                            text = course?.name ?: "知识图谱", mascot = 3, compact = true,
-                            style = MaterialTheme.typography.titleMedium,
-                            color = EarthBrown,
-                            fontWeight = FontWeight.Bold
-                        )
-                        Text(
-                            text = "共 ${nodes.size} 个知识点 · 可拖动编辑",
-                            style = MaterialTheme.typography.labelSmall,
-                            color = EarthBrownLight
-                        )
-                    }
-
-                    // 缩放控制
+                Column(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 12.dp)) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Surface(
-                            onClick = { scale = (scale * 0.8f).coerceIn(0.3f, 3f) },
-                            shape = CircleShape,
-                            color = BeigeSurface,
-                            modifier = Modifier.size(36.dp)
-                        ) {
-                            Box(contentAlignment = Alignment.Center) {
-                                Text("−", color = EarthBrown, fontSize = 20.sp)
-                            }
+                        IconButton(onClick = onBack, modifier = Modifier.size(48.dp)) {
+                            StellarArrow(direction = StellarArrowDirection.Left, description = "返回")
                         }
-
-                        Text(
-                            text = "${(scale * 100).toInt()}%",
-                            style = MaterialTheme.typography.labelMedium,
-                            color = EarthBrown,
-                            modifier = Modifier.padding(horizontal = 8.dp)
-                        )
-
-                        Surface(
-                            onClick = { scale = (scale * 1.25f).coerceIn(0.3f, 3f) },
-                            shape = CircleShape,
-                            color = BeigeSurface,
-                            modifier = Modifier.size(36.dp)
-                        ) {
-                            Box(contentAlignment = Alignment.Center) {
-                                Text("+", color = EarthBrown, fontSize = 20.sp)
-                            }
+                        Spacer(Modifier.width(8.dp))
+                        Column(Modifier.weight(1f)) {
+                            StellarHeading(
+                                text = course?.name ?: "知识图谱", mascot = 3, compact = true,
+                                style = MaterialTheme.typography.titleLarge,
+                                color = EarthBrown, fontWeight = FontWeight.Bold
+                            )
+                            Text("共 ${nodes.size} 个知识点", style = MaterialTheme.typography.labelSmall, color = EarthBrownLight)
+                        }
+                    }
+                    Row(Modifier.align(Alignment.End), verticalAlignment = Alignment.CenterVertically) {
+                        IconButton(onClick = { scale = (scale * 0.8f).coerceIn(0.3f, 3f) }) {
+                            Text("−", color = EarthBrown, fontSize = 20.sp)
+                        }
+                        Text("${(scale * 100).toInt()}%", style = MaterialTheme.typography.labelMedium, color = EarthBrown)
+                        IconButton(onClick = { scale = (scale * 1.25f).coerceIn(0.3f, 3f) }) {
+                            Text("+", color = EarthBrown, fontSize = 20.sp)
                         }
                     }
                 }
@@ -309,7 +268,7 @@ fun MindMapKnowledgeGraphScreen(
             BoxWithConstraints(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(top = 72.dp)
+                    .padding(top = headerHeight)
                     .pointerInput(Unit) {
                         detectTransformGestures { _, pan, zoom, _ ->
                             scale = (scale * zoom).coerceIn(0.3f, 3f)
@@ -376,28 +335,23 @@ fun MindMapKnowledgeGraphScreen(
                                         color = color.copy(alpha = 0.6f),
                                         style = Stroke(width = 2.5f)
                                     )
-
-                                    // 绘制箭头
-                                    val arrowSize = 8f
-                                    val angle = kotlin.math.atan2(endY - (startY + endY) / 2, endX - midX)
-                                    val arrowPath = Path().apply {
-                                        moveTo(endX, endY)
-                                        lineTo(
-                                            endX - arrowSize * kotlin.math.cos(angle - kotlin.math.PI / 6).toFloat(),
-                                            endY - arrowSize * kotlin.math.sin(angle - kotlin.math.PI / 6).toFloat()
-                                        )
-                                        moveTo(endX, endY)
-                                        lineTo(
-                                            endX - arrowSize * kotlin.math.cos(angle + kotlin.math.PI / 6).toFloat(),
-                                            endY - arrowSize * kotlin.math.sin(angle + kotlin.math.PI / 6).toFloat()
-                                        )
-                                    }
-                                    drawPath(
-                                        path = arrowPath,
-                                        color = color.copy(alpha = 0.6f),
-                                        style = Stroke(width = 2f)
-                                    )
                                 }
+                            }
+                        }
+                    }
+
+                    val arrowSize = with(density) { 40.dp.toPx() }
+                    nodeStates.values.forEach { state ->
+                        state.node.childIds.forEach { childId ->
+                            nodeStates[childId]?.let { child ->
+                                val angle = kotlin.math.atan2(child.offsetY - state.offsetY, child.offsetX - state.offsetX - 180f)
+                                val half = arrowSize / 2f
+                                StellarArrow(Modifier.offset {
+                                    IntOffset(
+                                        (child.offsetX - half - half * kotlin.math.cos(angle)).toInt(),
+                                        (child.offsetY + 30f - half - half * kotlin.math.sin(angle)).toInt()
+                                    )
+                                }.rotate(Math.toDegrees(angle.toDouble()).toFloat()))
                             }
                         }
                     }

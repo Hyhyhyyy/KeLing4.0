@@ -1,8 +1,8 @@
 {
   "sourceProject": "keling-access-gateway",
-  "sourceCommit": "2227303c9bd148fd3b77434f7a8e4332cb853e03",
-  "observedDate": "2026-10-31",
-  "hashBasis": "sourceSha256/sourceBytes describe exact sourceCommit blobs; sha256/bytes describe repository files after LF and trailing-blank-line normalization.",
+  "sourceCommit": "80fdc1c50813f7e98b95b132e02f38872978077e",
+  "observedDate": "2026-11-26",
+  "hashBasis": "sourceSha256/sourceBytes describe the template working-tree files at sourceCommit (pending changes are explicit); sha256/bytes describe the copied adapter after LF and trailing-blank-line normalization.",
   "files": [
     {
       "path": "server/modules/gateway/gateway.controller.ts",
@@ -15,15 +15,15 @@
       "path": "server/modules/gateway/gateway.service.ts",
       "bytes": 2676,
       "sha256": "568309a8bb0e293d4e181cf8ddbdb182a906453a13ff22d02a4c7ca2e7079b18",
-      "sourceSha256": "985edc385f695fee8a3daf9a0ce3cc28912cea1fd23ff00d4c43887ebcfe0f30",
-      "sourceBytes": 2677
+      "sourceSha256": "e8c45315cc637aebad7ed618fbb4f05f2c4e08be32146274bc8bbb7c679a05ec",
+      "sourceBytes": 2678
     },
     {
       "path": "server/modules/gateway/gateway.module.ts",
-      "bytes": 337,
-      "sha256": "ae589027256d3e26324f9f6fb8057a12719233011b6fadcada76fcd60015e4e8",
-      "sourceSha256": "ae589027256d3e26324f9f6fb8057a12719233011b6fadcada76fcd60015e4e8",
-      "sourceBytes": 337
+      "bytes": 482,
+      "sha256": "74712ea9113647a9df67fbdddb644f213bb4fff80dcfe09c7fbf67c2cf107992",
+      "sourceSha256": "74712ea9113647a9df67fbdddb644f213bb4fff80dcfe09c7fbf67c2cf107992",
+      "sourceBytes": 482
     },
     {
       "path": "server/modules/gateway/download.controller.ts",
@@ -36,8 +36,8 @@
       "path": "server/modules/gateway/gateway.spec.cjs",
       "bytes": 1514,
       "sha256": "4ccb44bbf93806c69bc19969b5ab4f31a7052c88612a7b5297a8791cdf50559d",
-      "sourceSha256": "7cb62db915c009c619c0d5bc481827edd3c991d9812d99e48cce8ef733b18a98",
-      "sourceBytes": 1515
+      "sourceSha256": "31daec777b6605df8d7f2eb6ab2f5697d47044171fdd785a402c227dbadf5294",
+      "sourceBytes": 1516
     },
     {
       "path": "server/app.module.ts",
@@ -59,6 +59,27 @@
       "sha256": "a3165fd729a12f710c097388e179dfbe93ab26958b8dab64857b2a7e9efc251c",
       "sourceSha256": "a3165fd729a12f710c097388e179dfbe93ab26958b8dab64857b2a7e9efc251c",
       "sourceBytes": 356
+    },
+    {
+      "path": "server/modules/gateway/artwork.controller.ts",
+      "bytes": 2272,
+      "sha256": "6d766a5246af6d360270d1d0f45946bf5f983d81ce097aac033d4830532c66b5",
+      "sourceSha256": "6d766a5246af6d360270d1d0f45946bf5f983d81ce097aac033d4830532c66b5",
+      "sourceBytes": 2272
+    },
+    {
+      "path": "server/modules/gateway/font.controller.ts",
+      "bytes": 3256,
+      "sha256": "2426d88e0960e7e3be111315aa5e46b685d58df34ba88a1591bd474329abee27",
+      "sourceSha256": "538b84bab623a52342ec43a1526d0309a62259be428dbdf4688e313a84a36b35",
+      "sourceBytes": 3334
+    },
+    {
+      "path": "server/modules/gateway/public-assets.spec.cjs",
+      "bytes": 7612,
+      "sha256": "37a084625842337d74d8b9095e800b7f05b6fd093287bc4b36e91a9abc940836",
+      "sourceSha256": "37a084625842337d74d8b9095e800b7f05b6fd093287bc4b36e91a9abc940836",
+      "sourceBytes": 7612
     }
   ],
   "template": {
@@ -199,5 +220,8 @@
       "supportScrollReveal": true,
       "customToaster": true
     }
-  }
+  },
+  "sourceWorkingTreeHasPendingChanges": false,
+  "publicResourcesFile": "public-resources.json",
+  "publicResourcesSha256": "f97236ea868e462ffc3997f6bbf1945d0472045546ebad2dae369dd81ff890a4"
 }

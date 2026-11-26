@@ -1,3 +1,4 @@
+import { FlowSequence } from '../../components/NavigationArrow';
 import { useMemo, useState } from 'react';
 import type { Answer, Exercise, Tree } from '@keling/shared/expedition';
 
@@ -48,8 +49,8 @@ export default function TreeWorkbench({ exercise, value, onChange, disabled }: {
       <fieldset disabled={disabled}><legend>选择容器</legend><div className="exp-choice-row">{(['QUEUE', 'STACK'] as const).map(kind => <button type="button" key={kind} aria-pressed={structure === kind} disabled={value.operations.length > 1} onClick={() => onChange({ answer: { ...answer, structure: kind, order: [] }, operations: [{ type: 'PUSH', nodeId: exercise.tree.root }] })}>{kind === 'QUEUE' ? '队列 · 先进先出' : '栈 · 后进先出'}</button>)}</div></fieldset>
       <button type="button" disabled={disabled} onClick={() => { onChange({ inputMode: traditional ? 'CONTAINER' : 'ORDER', rawOrder: '', answer: { ...answer, order: [] }, operations: structure ? [{ type: 'PUSH', nodeId: exercise.tree.root }] : [] }); }}>{traditional ? '使用容器操作' : '输入访问顺序'}</button>
       {traditional ? <label>访问顺序（节点 ID，以逗号分隔）<input disabled={disabled} value={value.rawOrder ?? (answer.order || []).join(', ')} onChange={event => onChange({ ...value, rawOrder: event.target.value, answer: { ...answer, order: event.target.value.split(/[,，\s]+/).filter(Boolean) } })} placeholder={exercise.tree.nodes.map(node => node.id).join(', ')} /></label> : structure && state && <section className="exp-container-state" aria-live="polite">
-        <p><strong>{structure === 'QUEUE' ? '队头 → 队尾' : '栈底 → 栈顶'}：</strong>{state.frontier.join(' → ') || '空'}</p>
-        <p><strong>已经访问：</strong>{state.order.join(' → ') || '尚未访问'}</p>
+        <p><strong><FlowSequence items={structure === 'QUEUE' ? ['队头', '队尾'] : ['栈底', '栈顶']}/>：</strong><FlowSequence items={state.frontier} empty="空"/></p>
+        <p><strong>已经访问：</strong><FlowSequence items={state.order} empty="尚未访问"/></p>
         {state.children.length > 0 ? <><p>将子节点加入容器</p><div className="exp-choice-row">{state.children.map(id => <button type="button" key={id} disabled={disabled} onClick={() => append({ type: 'PUSH', nodeId: id })}>加入 {id}（值 {exercise.tree.nodes.find(node => node.id === id)?.value}）</button>)}</div></> : <button type="button" disabled={disabled || !state.frontier.length} onClick={() => append({ type: 'POP', nodeId: structure === 'QUEUE' ? state.frontier[0] : state.frontier[state.frontier.length - 1] })}>{state.frontier.length ? '取出并访问' : '全部处理完成'}</button>}
         <button type="button" disabled={disabled} onClick={() => onChange({ answer: { ...answer, order: [] }, operations: [{ type: 'PUSH', nodeId: exercise.tree.root }] })}>重置操作</button>
         <details><summary>操作记录（{value.operations.length} 步）</summary><ol>{value.operations.map((operation, index) => <li key={index}>{operation.type === 'PUSH' ? '加入' : '取出并访问'} {operation.nodeId}</li>)}</ol></details>

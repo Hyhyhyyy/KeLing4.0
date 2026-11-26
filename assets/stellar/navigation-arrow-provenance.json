@@ -1,0 +1,35 @@
+{
+  "date": "2026-11-26",
+  "generator": "Built-in image_gen",
+  "originalOutput": "sources/navigation_arrow.png",
+  "runtimeAsset": "navigation_arrow.webp",
+  "sourceSha256": "76a0ce84cb74929394f35f24322390c173984dc14b104e8cd9a8ca136241a1b1",
+  "runtimeSha256": "b722445a6f11afa60081ef6c92cb3a907acd288df5832e839212c65d398b6107",
+  "dimensions": [
+    1254,
+    1254
+  ],
+  "alphaExtrema": [
+    0,
+    255
+  ],
+  "opaqueBounds": [
+    32,
+    277,
+    1221,
+    1004
+  ],
+  "encoding": "Lossless WebP; exact original RGBA pixels",
+  "references": [
+    {
+      "file": "button_primary.webp",
+      "sha256": "27d332a7954a586cdefc8381d18c5626c8eb97d1df61fd657139dac498185764"
+    },
+    {
+      "file": "title_mascots.webp",
+      "sha256": "cb7465ec80df7de393563fe1dc7933fd2867acda31cd8152eb609493b327fd78"
+    }
+  ],
+  "prompt": "Use case: logo-brand. Asset type: one production UI navigation arrow image for the KeLing space-learning app, to replace every tiny text arrow. Generate a single new right-pointing arrow on a real transparent background. The two supplied images are STYLE AND PALETTE REFERENCES ONLY (existing pixel-art button and Xingya mascot atlas), not edit targets. Draw a bold, exceptionally legible horizontal right arrow with a broad shaft and large triangular arrowhead, occupying 86–90% of the canvas width and roughly 65–72% of its height. Compact centered silhouette, only small transparent safety margins. Navy #14263D crisp thick stepped outline, mint-green #70C9B5 main surface, deeper teal #285950 lower edge, a thin warm cream highlight and a very small golden #D6A347 four-point star inset at the tail. Match the friendly polished pixel-art spacecraft controls of the reference, but keep the icon simple enough to read at 32–44 pixels. No letters, numbers, text, emoji, face, rocket, cursor hand, surrounding badge, decorative background, large detached sparks, cast shadow, or alternate arrows. Do not draw a chart or icon sheet. Exactly one arrow aimed horizontally RIGHT; we will rotate the same asset for other directions. Flat front-facing 2D game UI sprite, high contrast on both cream and navy surfaces. Output square approximately 1024 by 1024 with genuine alpha transparency.\n",
+  "usage": "One right-pointing sprite rotated for other UI directions; keep accessible control labels"
+}

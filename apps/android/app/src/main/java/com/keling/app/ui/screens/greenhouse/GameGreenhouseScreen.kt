@@ -1,5 +1,8 @@
 package com.keling.app.ui.screens.greenhouse
 
+import com.keling.app.ui.components.StellarArrow
+import com.keling.app.ui.components.StellarArrowDirection
+
 import com.keling.app.ui.components.StellarMetricMark
 import com.keling.app.ui.components.StellarHeading
 import com.keling.app.ui.components.StellarSectionTitle
@@ -195,11 +198,7 @@ private fun PastoralGreenhouseHeader(
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp),
                 contentAlignment = Alignment.Center
             ) {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_arrow_left),
-                    contentDescription = "返回",
-                    modifier = Modifier.size(24.dp)
-                )
+                StellarArrow(direction = StellarArrowDirection.Left, description = "返回")
             }
         }
 

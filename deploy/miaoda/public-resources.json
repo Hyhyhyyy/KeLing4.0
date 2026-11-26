@@ -1,0 +1,43 @@
+{
+  "appId": "app_17h4dw5jwdg",
+  "resources": [
+    {
+      "route": "/stellar/title_mascots.webp",
+      "storageBucket": "bucket_aadk4xawzf4xg",
+      "storagePath": "/1882830203673659.webp",
+      "sha256": "cb7465ec80df7de393563fe1dc7933fd2867acda31cd8152eb609493b327fd78",
+      "bytes": 1137664,
+      "sourcePath": "assets/stellar/title_mascots.webp",
+      "provenancePath": "assets/stellar/title-mascots-provenance.json",
+      "contentType": "image/webp",
+      "delivery": "signed-redirect",
+      "provenanceSha256": "f768326cdea0339e5354b85046c7c56aeeb9effe92bdcc21e7b6d2f4a9b28638"
+    },
+    {
+      "sourcePath": "assets/stellar/navigation_arrow.webp",
+      "route": "/stellar/navigation_arrow.webp",
+      "storageBucket": "bucket_aadk4xawzf4xg",
+      "storagePath": "/1882832922057850.webp",
+      "sha256": "b722445a6f11afa60081ef6c92cb3a907acd288df5832e839212c65d398b6107",
+      "bytes": 330320,
+      "contentType": "image/webp",
+      "uploadedContentType": "image/webp",
+      "provenancePath": "assets/stellar/navigation-arrow-provenance.json",
+      "delivery": "signed-redirect",
+      "provenanceSha256": "932642181c58c10e4853c2d78af7f3cda4962a7cf1b9b39fdf7915e4ad6d4702"
+    },
+    {
+      "sourcePath": "assets/fonts/STZHONGS.woff2",
+      "route": "/fonts/STZHONGS.woff2",
+      "storageBucket": "bucket_aadk4xawzf4xg",
+      "storagePath": "/1882832924311610.woff2",
+      "sha256": "0451629e411c5b66319cd1558adb59eb9e0660fe07c5537ec7356254823a61c5",
+      "bytes": 6054636,
+      "contentType": "font/woff2",
+      "uploadedContentType": "application/octet-stream",
+      "provenancePath": "assets/fonts/manifest.json",
+      "delivery": "same-origin-sdk-download",
+      "provenanceSha256": "036911aed36a5f5b20ba991d2b85908844b8ab016cdb1971208af3ffd2a38c72"
+    }
+  ]
+}

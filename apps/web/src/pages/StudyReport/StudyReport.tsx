@@ -1,7 +1,8 @@
+import { NavigationArrow } from '../../components/NavigationArrow';
 import { ModuleTitle, SectionTitle } from '../../components/ModuleTitle';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { BookOpen, CheckCircle, Flame, Sparkles, Target, TrendingUp, Lightbulb, ChevronRight, RefreshCw } from 'lucide-react';
+import { BookOpen, CheckCircle, Flame, Sparkles, Target, Lightbulb} from 'lucide-react';
 import { useAppStore } from '../../store/useAppStore';
 import { authAPI, courseAPI, taskAPI } from '../../services/api';
 import type { Course, Task, User } from '../../types';
@@ -99,9 +100,9 @@ const StudyReport: React.FC = () => {
   const current = report?.accountId === accountId ? report : null;
   return <div className="report-container">
     <header className="page-header">
-      <button className="back-btn" onClick={() => navigate(-1)}>‹ 返回</button>
+      <button className="back-btn" onClick={() => navigate(-1)}><NavigationArrow direction="left"/> 返回</button>
       <div className="header-title"><ModuleTitle kind="report">学习轨迹报告</ModuleTitle></div>
-      <button className="report-refresh" onClick={refresh} disabled={isLoading}><RefreshCw size={16}/>{isLoading ? '读取中' : '刷新记录'}</button>
+      <button className="report-refresh" onClick={refresh} disabled={isLoading}><NavigationArrow direction="right"/>{isLoading ? '读取中' : '刷新记录'}</button>
     </header>
     <StellarSceneBanner scene="report" title="学习记录"/>
     {error ? <div className="report-error" role="alert"><p>{error}</p><button onClick={refresh} disabled={isLoading}>重新读取</button></div>
@@ -133,7 +134,7 @@ const StudyReport: React.FC = () => {
             <ul className="analysis-list">{current.courseRecords.map(point => <li key={point}>{point}</li>)}</ul>
           </section>
           <section className="analysis-card">
-            <div className="card-header"><div className="card-icon weak-icon"><TrendingUp size={24}/></div><h3>记录状态</h3></div>
+            <div className="card-header"><div className="card-icon weak-icon"><NavigationArrow direction="up-right"/></div><h3>记录状态</h3></div>
             <ul className="analysis-list">{current.checks.map(point => <li key={point}>{point}</li>)}</ul>
           </section>
         </div>
@@ -143,8 +144,8 @@ const StudyReport: React.FC = () => {
 
         </section>
         <section className="quick-actions-card"><h3>继续学习</h3><div className="report-action-buttons">
-          <button className="report-action-button" onClick={() => navigate('/ai')}><Sparkles size={20}/><span>问 AI</span><ChevronRight size={16}/></button>
-          <button className="report-action-button" onClick={() => navigate('/tasks')}><CheckCircle size={20}/><span>查看任务</span><ChevronRight size={16}/></button>
+          <button className="report-action-button" onClick={() => navigate('/ai')}><Sparkles size={20}/><span>问 AI</span><NavigationArrow direction="right"/></button>
+          <button className="report-action-button" onClick={() => navigate('/tasks')}><CheckCircle size={20}/><span>查看任务</span><NavigationArrow direction="right"/></button>
         </div></section>
       </>}
   </div>;

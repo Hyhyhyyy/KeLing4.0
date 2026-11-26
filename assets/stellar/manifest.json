@@ -192,6 +192,18 @@
       "rgbRms": 2.9143
     },
     {
+      "name": "navigation_arrow.webp",
+      "bytes": 330320,
+      "sha256": "b722445a6f11afa60081ef6c92cb3a907acd288df5832e839212c65d398b6107",
+      "width": 1254,
+      "height": 1254,
+      "source": "sources/navigation_arrow.png",
+      "sourceSha256": "76a0ce84cb74929394f35f24322390c173984dc14b104e8cd9a8ca136241a1b1",
+      "sourceOrigin": "built-in image_gen 2026-11-26",
+      "encoding": "WebP lossless, exact alpha",
+      "rgbRms": 0
+    },
+    {
       "name": "planet_01.webp",
       "source": "planet_01.png",
       "sourceSha256": "82c27c305e5bc96a694cc0a2974f051edc904575b343430f733d7bd261d7fde8",

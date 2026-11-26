@@ -18,9 +18,18 @@
 .home-voyage-copy { padding: clamp(20px, 3vw, 36px); min-width: 0; }
 .home-voyage-copy h2 { margin: 12px 0; }
 .home-voyage-copy p { color: #52675f; }
+.daily-supply > div { flex: 1; min-width: 0; }
+.daily-supply button { max-width: 100%; }
+.stellar-task-row > span:last-child { flex: 0 0 40px; }
 .home-voyage-secondary { display: inline-block; margin: 18px 0 0 20px; font-weight: 600; color: #285950; }
 @media (max-width: 700px) {
   .home-voyage { grid-template-columns: 1fr; padding: 0; }
   .home-voyage-copy { padding: 22px; }
   .home-voyage-secondary { display: block; margin-left: 0; }
 }
+
+#root .stellar-hero .greeting-fragment { display: inline-block; max-width: 100%; font: inherit; color: inherit; vertical-align: top; overflow-wrap: anywhere; }
+#root .course-expedition strong { display: block; font-size: 24px; line-height: 1.4; }
+#root .course-expedition > div > span { display: inline-flex; align-items: center; gap: 8px; max-width: 100%; margin-top: 12px; }
+#root .stellar-home .stellar-empty > strong { display: block; }
+#root .stellar-home .stellar-empty > a { margin-top: 8px; }

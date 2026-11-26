@@ -6,3 +6,9 @@
 
 .agent-empty>.stellar-scene{height:auto;max-height:360px;object-fit:contain;object-position:center}.agent-run-art{width:100%;height:auto;max-height:160px;object-fit:contain;border-radius:8px;margin:4px 0 18px}
 @media(max-width:800px){.agent-empty>.stellar-scene{height:auto;max-height:240px}.agent-run-art{max-height:130px}}
+
+@media (max-width: 600px) {
+  #root .agent-row { flex-direction: column; gap: 0; }
+  #root .agent-row > label,
+  #root .agent-row > .number-field { flex: none; width: 100%; min-width: 0; margin-block: 0 16px; }
+}

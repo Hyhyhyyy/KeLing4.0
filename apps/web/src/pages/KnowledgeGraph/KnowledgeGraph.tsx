@@ -1,11 +1,11 @@
+import { NavigationArrow, SelectFrame } from '../../components/NavigationArrow';
 import { ModuleTitle } from '../../components/ModuleTitle';
 import { StellarSceneBanner } from '../../components/StellarScene';
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
-  ZoomIn, ZoomOut, Plus, X, ArrowLeft
-} from 'lucide-react';
+  ZoomIn, ZoomOut, Plus, X} from 'lucide-react';
 import { useAppStore } from '../../store/useAppStore';
 import { knowledgeAPI } from '../../services/api';
 import type { KnowledgeNode } from '../../types';
@@ -324,7 +324,7 @@ const KnowledgeGraph: React.FC = () => {
         animate={{ opacity: 1, y: 0 }}
       >
         <button className="back-btn" onClick={() => navigate(-1)}>
-          <ArrowLeft size={20} />
+          <NavigationArrow direction="left"/>
           返回
         </button>
         <div className="header-info">
@@ -539,7 +539,7 @@ const KnowledgeGraph: React.FC = () => {
 
               <div className="form-group">
                 <label>父节点</label>
-                <select
+                <SelectFrame><select
                   className="input"
                   aria-label="父节点"
                   disabled={saving}
@@ -550,7 +550,7 @@ const KnowledgeGraph: React.FC = () => {
                   {nodes.filter(n => n.id !== editingNode?.id).map(node => (
                     <option key={node.id} value={node.id}>{node.name}</option>
                   ))}
-                </select>
+                </select></SelectFrame>
               </div>
 
               <div className="form-group">

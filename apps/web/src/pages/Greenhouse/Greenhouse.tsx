@@ -1,10 +1,11 @@
+import { NavigationArrow } from '../../components/NavigationArrow';
 import { ModuleTitle, SectionTitle } from '../../components/ModuleTitle';
 import { appPath } from '../../services/appPath';
 import { StellarSceneBanner } from '../../components/StellarScene';
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Plus, X, BookOpen, Clock, MapPin, User, ChevronRight } from 'lucide-react';
+import { Plus, X, BookOpen, Clock, MapPin, User} from 'lucide-react';
 import { useAppStore } from '../../store/useAppStore';
 import './Greenhouse.css';
 import { useCourseDialogFocus } from '../../components/useCourseDialogFocus';
@@ -162,7 +163,7 @@ const Greenhouse: React.FC = () => {
 
                 <button type="button" className="course-footer" onClick={event => { event.stopPropagation(); navigate(`/greenhouse/${course.id}`); }} aria-label={`查看 ${course.name}，管理课程与星球外观`}>
                   <span>查看详情 · 更换星球</span>
-                  <ChevronRight size={16} aria-hidden="true" />
+                  <NavigationArrow direction="right"/>
                 </button>
               </motion.div>
             ))}

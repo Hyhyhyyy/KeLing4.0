@@ -1,3 +1,4 @@
+import { SelectFrame } from '../../components/NavigationArrow';
 import { ModuleTitle, SectionTitle } from '../../components/ModuleTitle';
 import { appPath } from '../../services/appPath';
 import { StellarSceneBanner } from '../../components/StellarScene';
@@ -402,7 +403,7 @@ const Tasks: React.FC = () => {
                 {/* 关联课程 */}
                 <div className="form-group">
                   <label>关联课程（可选）</label>
-                  <select
+                  <SelectFrame><select
                     className="input"
                     value={newTask.courseId}
                     onChange={(e) => setNewTask({ ...newTask, courseId: e.target.value })}
@@ -413,7 +414,7 @@ const Tasks: React.FC = () => {
                         {course.name}
                       </option>
                     ))}
-                  </select>
+                  </select></SelectFrame>
                 </div>
 
                 {/* 预计时长 */}

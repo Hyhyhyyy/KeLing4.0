@@ -1,3 +1,4 @@
+import { NavigationArrow } from '../../components/NavigationArrow';
 import { ModuleTitle } from '../../components/ModuleTitle';
 import { appPath } from '../../services/appPath';
 import { StellarScene } from '../../components/StellarScene';
@@ -40,7 +41,7 @@ const Login: React.FC = () => {
 
   return (
     <div className="auth-container">
-      <figure className="auth-arrival"><StellarScene scene="login" eager/><figcaption><ModuleTitle kind="home">欢迎回到学习轨道</ModuleTitle><Link to="/explore">了解课灵 →</Link></figcaption></figure>
+      <figure className="auth-arrival"><StellarScene scene="login" eager/><figcaption><ModuleTitle kind="home">欢迎回到学习轨道</ModuleTitle><Link to="/explore">了解课灵 <NavigationArrow direction="right"/></Link></figcaption></figure>
 
       <motion.div
         className="auth-card"
