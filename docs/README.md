@@ -1,6 +1,6 @@
 # 项目文档
 
-当前网页、API 与公开 Android 包：**4.0.5-defense-rc6**，Android **versionCode 26**。本轮替换此前公开的 **4.0.4-direct-cloud-preview / 20** 安装包，保留字体、绘制箭头和指南。先读[全端更新与旧入口处置](competition/update-recovery-2026-11-26.md)、[使用指南与入口](competition/usage-guide-2026-11-26.md)、[标题、箭头与字体](competition/typography-arrows-2026-11-26.md)和[原版本核对及人工事项](competition/defense-readiness-2026-11-25.md)，再按需要查阅历史记录；历史测试不能替代当前验证。
+当前网页、API与公开Android包：**4.0.6-defense-rc7 / versionCode 27**。先读[本轮功能与演示验收](validation/demo-upgrade-2026-11-26.md)、[真实线上接口验证](validation/online-api-smoke-2026-11-26.md)、[Android实装验证](validation/android-demo-2026-11-26.md)和[发布元数据](validation/release-rc7-2026-11-26.json)。华为Runtime、模型配置、真人审题和实体设备仍按真实边界处理。RC6及更早记录保留为历史证据。
 
 11 月 25 日已重新运行 Web、服务端测试和构建，并独立验证本机演示库。最终 Android、部署与分支记录见本轮交付；去冗余时没有运行测试的历史范围不再代表当前验收状态。
 

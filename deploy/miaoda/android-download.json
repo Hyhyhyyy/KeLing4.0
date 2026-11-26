@@ -1,17 +1,17 @@
 {
   "appId": "app_17h4dw5jwdg",
   "route": "/download/android",
-  "versionName": "4.0.5-defense-rc6",
-  "versionCode": 26,
-  "fileName": "KeLing-ICT-4.0.5-defense-rc6-debug.apk",
-  "bytes": 75027748,
-  "sha256": "4284472d6fa5bba6a5aa6cf0ae6d5b52470e309dd8a6ee317d0f28785e6c748d",
+  "versionName": "4.0.6-defense-rc7",
+  "versionCode": 27,
+  "fileName": "KeLing-ICT-4.0.6-defense-rc7-debug.apk",
+  "bytes": 75419281,
+  "sha256": "30b21d551c915e8dc2fddcda39f52a97dcf80c38d19230d976d87a59993bf9e9",
   "contentType": "application/vnd.android.package-archive",
   "storageBucket": "bucket_aadk4xawzf4xg",
-  "storagePath": "/1882912753614059.apk",
+  "storagePath": "/1882921847399499.apk",
   "sourcePath": "apps/android/app/build/outputs/apk/debug/app-debug.apk",
   "certificateSha256": "e7b4d86c7a02fb6bb1d21215c393b347d2d67652e5e45dfbe3a3d6c66b7c67a3",
   "signatureScheme": "v2",
-  "githubReleaseTag": "v4.0.5-defense-rc6",
-  "githubAssetUrl": "https://github.com/Hyhyhyyy/KeLing4.0/releases/download/v4.0.5-defense-rc6/KeLing-ICT-4.0.5-defense-rc6-debug.apk"
+  "githubReleaseTag": "v4.0.6-defense-rc7",
+  "githubAssetUrl": "https://github.com/Hyhyhyyy/KeLing4.0/releases/download/v4.0.6-defense-rc7/KeLing-ICT-4.0.6-defense-rc7-debug.apk"
 }

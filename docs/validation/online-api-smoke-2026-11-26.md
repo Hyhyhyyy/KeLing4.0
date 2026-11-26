@@ -1,6 +1,6 @@
 # 隔离账号实际 API 冒烟脚本
 
-脚本：`scripts/smoke-online-api.cjs`。已通过 Node 语法检查，并在本轮最终演示服务 `http://127.0.0.1:4173` 实际运行成功。**未执行线上写入**；生产环境须等本轮版本发布并得到主线程开始信号后运行。
+脚本：`scripts/smoke-online-api.cjs`。已通过 Node 语法检查，并在本轮最终演示服务 `http://127.0.0.1:4173` 实际运行成功。本轮 RC7 发布完成后，已按主线程授权在生产环境使用新建隔离账号实际运行成功，未修改既有用户数据。
 
 默认执行 `node scripts/smoke-online-api.cjs` 仅打印步骤，不联网、不注册。正式执行命令为：
 
@@ -33,3 +33,15 @@ node scripts/smoke-online-api.cjs --cleanup-only --state .cache/online-api-smoke
 ## 本地真实接口结果
 
 2026-11-26 19:57（北京时间），使用最终本机演示库实际执行一次：31 个 HTTP 请求、15 个行为检查通过，6 项清理步骤成功。笔记旧版本请求按预期返回 409，其余接口返回成功状态。课程、笔记、任务已通过接口删除；资料留删除标记，隔离账号与审计记录按上述策略保留。未影响 GUI 演示账号，未执行 Prisma generate、未调用模型。脱敏原始报告为 `docs/validation/local-api-smoke-2026-11-26.json`。本地成功不替代线上发布后的实际验证。
+
+## 发布后线上结果
+
+2026-11-26 本轮发布 `7712450156196810021` 完成后，先核验 `/api/health` 为 `4.0.6-defense-rc7`，再执行隔离账号闭环：**32 个 HTTP 请求、16 项检查通过，6 项清理步骤成功**。章节为 `1.0.1`，18 题仍待人工审核。脱敏报告为 `docs/validation/online-api-smoke-2026-11-26.json`。
+
+第一次尝试在注册前因脚本未区分同名 Cookie 的路径，误把妙搭下发的旧路径过期删除项覆盖了根路径有效 CSRF Cookie，`/health` 返回 403；该次没有创建账号或写业务数据。脚本已按 Cookie 路径保存与删除对应条目，重试通过。这里修的是验收脚本，不是把接口拒绝改为成功。
+
+另使用 `scripts/create-cross-device-fixture.ps1 -Execute` 创建了独立的“演示验收”账号、课程、待完成任务和笔记，并用同一 JWT 读回确认。该账号专用于 Android 与网页同步验收，按授权保留用于比赛演练；不属于上述自动清理 smoke 账号。凭据仅在 `.cache/cross-device-fixture/*.private.json`，不提交。API 读回不等于双端界面验证，后者由主线程和 Android 代理另外记录。
+
+跨端测试首次登录辅助出现输入焦点错误，合成账号凭据进入调试输出。按主线程处理决定，已使用旧账号自身 token 删除它的任务、笔记、课程（均 HTTP 200），旧私有文件标记退役并清除凭据；没有直接改生产数据库，也没有声称旧账号已技术禁用。随后生成了全新账号与新随机密码，重新创建并读回测试内容。最终 fixture 名称为“演示验收 d798ed6d”，脱敏记录见 `docs/validation/cross-device-fixture-2026-11-26.json`；原账号只保留合成账号壳，不再使用。
+
+最终跨端数据验证：Android 界面完成任务后，新一次 `POST /auth/login` 获得独立会话 token，读取网页共用的 `/tasks`、`/notes`、`/user/profile` 均返回 200；同一任务为 COMPLETED/10 分钟，同一笔记仍在，累计 10 分钟。准确边界是“Android写入→网页共享API独立会话读回”；10 分钟是合成验收值，未声称已完成网页浏览器登录。证据见 `docs/validation/cross-device-readback-2026-11-26.json`。

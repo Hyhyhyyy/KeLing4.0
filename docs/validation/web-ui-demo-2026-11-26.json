@@ -1,0 +1,39 @@
+{
+  "date": "2026-11-26",
+  "version": "4.0.6-defense-rc7",
+  "browser": "CUA in-app browser",
+  "target": "http://127.0.0.1:4173",
+  "observed": [
+    {
+      "flow": "task",
+      "result": "created task, started timer, paused at 00:05, resumed; after obstruction fix final task changed to COMPLETED and today count became 1",
+      "minutesBoundary": "covered by FocusClock regression, not simulated as actual study"
+    },
+    {
+      "flow": "knowledge graph",
+      "result": "edited parent relation, saved; screenshot at 96% shows nodes and line aligned"
+    },
+    {
+      "flow": "notebook to assistant",
+      "result": "saved 27-character note; assistant displayed its title and 1 selected context section; unconfigured model disables send"
+    },
+    {
+      "flow": "update",
+      "result": "older cached page initially observed; reopening allowed current worker; later rebuild offered update, updated page showed current controls"
+    },
+    {
+      "flow": "visual",
+      "result": "screenshots show large module titles, mascot, rendered arrows and Chinese font"
+    }
+  ],
+  "limits": [
+    "No real model completion",
+    "No browser fault-injection run; transient failure recovery covered in automated tests",
+    "No claim that the user original Chrome cached tab has been updated"
+  ],
+  "localApiEvidence": "local-api-smoke-2026-11-26.json",
+  "artifactHashes": {
+    "KeLing-ICT-4.0.6-defense-rc7-debug.apk": "30b21d551c915e8dc2fddcda39f52a97dcf80c38d19230d976d87a59993bf9e9",
+    "uploaded-rc7.apk": "30b21d551c915e8dc2fddcda39f52a97dcf80c38d19230d976d87a59993bf9e9"
+  }
+}

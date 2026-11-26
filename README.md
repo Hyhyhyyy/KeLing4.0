@@ -1,12 +1,12 @@
 # 课灵 · KeLing
 
-当前网页、API 与 Android：**4.0.5-defense-rc6**，Android **versionCode 26**。本轮补齐网页更新机制与 Android 指南入口，并替换公开旧安装包。更新机制与恢复入口见[RC6 记录](docs/competition/update-recovery-2026-11-26.md)，指南入口与验证见[RC5 记录](docs/competition/usage-guide-2026-11-26.md)，标题、箭头与字体见[RC4 记录](docs/competition/typography-arrows-2026-11-26.md)，原提交核对、人工事项和本地排练入口见[版本核对](docs/competition/defense-readiness-2026-11-25.md)。双击 `demo.bat` 或运行 `npm run demo` 可启动独立本机演示库；真实华为工作流尚待账号持有人恢复并验证。候选尚待用户确认，不代表答辩材料已定稿。
+当前网页、API 与 Android：**4.0.6-defense-rc7**，Android **versionCode 27**。本轮完成任务计时与点击、资料参与规划检索、读取与冲突恢复、图谱缩放、Android导入导出及统计修复；章节更新为1.0.1。实际操作、自动检查和未完成项见[RC7验收记录](docs/validation/demo-upgrade-2026-11-26.md)。双击`demo.bat`或运行`npm run demo`可启动独立本机演示库。真实华为Runtime当前403，模型功能仍需账号配置与实际调用验收。
 
 以游戏化学习为核心的 Web 与 Android 应用。课程资料、动手练习、AI 辅导、任务与笔记使用共享账号服务；学习过程围绕「远航、星图、基地、我的」组织，手机另提供资料与设置入口。
 
 [打开网页](https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg) · [使用指南](https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/guide) · [游客试用](https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/trial) · [下载 Android](https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/download/android) · [GitHub Releases](https://github.com/Hyhyhyyy/KeLing4.0/releases)
 
-当前公开 Android 下载为 **4.0.5-defense-rc6 / 26**，最低 Android 8.0。预览包使用调试签名，与公开 code 20、RC4 包名和证书相同。当前网页与 API 运行于妙搭，连接原 Neon PostgreSQL 数据库。旧 Vercel 入口已按用户要求停止更新，暂停尚待账号持有人在终端完成确认；当前有效入口以上述妙搭地址为准。
+当前公开 Android 下载为 **4.0.6-defense-rc7 / 27**，最低 Android 8.0。预览包使用调试签名，与公开 code 20、RC4 包名和证书相同。当前网页与 API 运行于妙搭，连接原 Neon PostgreSQL 数据库。旧 Vercel 入口已按用户要求停止更新，暂停尚待账号持有人在终端完成确认；当前有效入口以上述妙搭地址为准。
 
 ## 功能
 
@@ -15,7 +15,7 @@
 - **可控 AI：** 先预览资料范围，再明确发送；回答和计划由用户核对、确认后保存。支持配置个人模型 Key。
 - **游客体验：** 使用本次内存工作区；退出、刷新或进程结束后清空，不自动迁入账号。
 
-注册、登录、跨端互通及恢复登录在 2026-10-31 的关闭代理 Chrome 与 Android 14 模拟器中有历史验证。本轮 RC6 完成自动测试、构建与发布文件核验，尚无当前浏览器升级和真机安装的新增实测。真实模型效果、实体手机、学生学习收益与原生 HarmonyOS 尚未完成验收。详见[产品介绍](docs/PRODUCT_INTRODUCTION.md)与[历史验证记录](docs/auth/DIRECT_ACCESS_2026-10-31.md)。
+本轮已验证线上RC7页面与指南、全部构建文件与APK字节，以及线上实际API闭环16项检查。Android14模拟器已实装当前包并操作任务、报告、远航及笔记导入导出。网页56项、服务端86项、页面更新8项、Android94项自动测试通过；范围见[验证索引](docs/validation/demo-upgrade-2026-11-26.md)。这些结果不替代真实模型、实体手机、真人审题或学习效果证据。
 
 ## 项目结构
 

@@ -1,0 +1,302 @@
+{
+  "startedAt": "2026-11-26T12:10:46.164Z",
+  "target": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg",
+  "runId": "9f65e517-cbed-498a-888b-fae814eeca1f",
+  "mode": "smoke",
+  "steps": [
+    {
+      "label": "/health",
+      "method": "GET",
+      "status": 200,
+      "ms": 588
+    },
+    {
+      "label": "/auth/register",
+      "method": "POST",
+      "status": 201,
+      "ms": 2013
+    },
+    {
+      "label": "/courses",
+      "method": "POST",
+      "status": 201,
+      "ms": 710
+    },
+    {
+      "label": "/notes",
+      "method": "POST",
+      "status": 201,
+      "ms": 472
+    },
+    {
+      "label": "/notes/516be62f-5afe-40f7-a5fa-a799872c1fd2",
+      "method": "PUT",
+      "status": 200,
+      "ms": 696
+    },
+    {
+      "label": "stale note write",
+      "method": "PUT",
+      "status": 409,
+      "ms": 614
+    },
+    {
+      "label": "/learning/v1/courses/78746d93-7416-49c0-ac19-9c0d7ffcd27d/materials",
+      "method": "POST",
+      "status": 200,
+      "ms": 1873
+    },
+    {
+      "label": "/learning/v1/courses/78746d93-7416-49c0-ac19-9c0d7ffcd27d/materials",
+      "method": "POST",
+      "status": 200,
+      "ms": 437
+    },
+    {
+      "label": "/learning/v1/courses/78746d93-7416-49c0-ac19-9c0d7ffcd27d/materials/search",
+      "method": "POST",
+      "status": 200,
+      "ms": 472
+    },
+    {
+      "label": "/learning/v1/courses/78746d93-7416-49c0-ac19-9c0d7ffcd27d/map-draft",
+      "method": "POST",
+      "status": 200,
+      "ms": 485
+    },
+    {
+      "label": "/learning/v1/courses/78746d93-7416-49c0-ac19-9c0d7ffcd27d/map-confirm",
+      "method": "POST",
+      "status": 200,
+      "ms": 1094
+    },
+    {
+      "label": "/tasks",
+      "method": "POST",
+      "status": 201,
+      "ms": 687
+    },
+    {
+      "label": "/tasks/a7fb152d-67fd-4066-b0e3-d6ae6d6727bf/complete",
+      "method": "POST",
+      "status": 200,
+      "ms": 1225
+    },
+    {
+      "label": "/tasks/a7fb152d-67fd-4066-b0e3-d6ae6d6727bf/complete",
+      "method": "POST",
+      "status": 200,
+      "ms": 628
+    },
+    {
+      "label": "/learning/v1/courses/78746d93-7416-49c0-ac19-9c0d7ffcd27d/schedule",
+      "method": "POST",
+      "status": 200,
+      "ms": 608
+    },
+    {
+      "label": "/learning/v1/schedule/b0eeb0a3-d492-4726-84c4-7c9f8f333ef8/confirm",
+      "method": "POST",
+      "status": 200,
+      "ms": 904
+    },
+    {
+      "label": "/learning/v1/schedule/b0eeb0a3-d492-4726-84c4-7c9f8f333ef8/confirm",
+      "method": "POST",
+      "status": 200,
+      "ms": 608
+    },
+    {
+      "label": "/expedition/v1/catalog",
+      "method": "GET",
+      "status": 200,
+      "ms": 224
+    },
+    {
+      "label": "/expedition/v1/runs",
+      "method": "POST",
+      "status": 200,
+      "ms": 3849
+    },
+    {
+      "label": "/expedition/v1/runs/24dd6cb1-df58-4efd-87d6-00e62e4c619a/commands",
+      "method": "POST",
+      "status": 200,
+      "ms": 3088
+    },
+    {
+      "label": "/expedition/v1/runs/24dd6cb1-df58-4efd-87d6-00e62e4c619a/commands",
+      "method": "POST",
+      "status": 200,
+      "ms": 4155
+    },
+    {
+      "label": "/expedition/v1/runs/24dd6cb1-df58-4efd-87d6-00e62e4c619a/commands",
+      "method": "POST",
+      "status": 200,
+      "ms": 828
+    },
+    {
+      "label": "/expedition/v1/courses/78746d93-7416-49c0-ac19-9c0d7ffcd27d/evidence",
+      "method": "GET",
+      "status": 200,
+      "ms": 567
+    },
+    {
+      "label": "/expedition/v1/rewards",
+      "method": "GET",
+      "status": 200,
+      "ms": 736
+    },
+    {
+      "label": "/user/profile",
+      "method": "GET",
+      "status": 200,
+      "ms": 396
+    },
+    {
+      "label": "/user/profile",
+      "method": "GET",
+      "status": 200,
+      "ms": 437
+    },
+    {
+      "label": "/expedition/v1/runs/24dd6cb1-df58-4efd-87d6-00e62e4c619a",
+      "method": "GET",
+      "status": 200,
+      "ms": 1559
+    },
+    {
+      "label": "/tasks/a7fb152d-67fd-4066-b0e3-d6ae6d6727bf",
+      "method": "DELETE",
+      "status": 200,
+      "ms": 4722
+    },
+    {
+      "label": "/tasks/3fa7a755-47ef-4006-993b-2b202cf2f891",
+      "method": "DELETE",
+      "status": 200,
+      "ms": 654
+    },
+    {
+      "label": "/notes/516be62f-5afe-40f7-a5fa-a799872c1fd2",
+      "method": "DELETE",
+      "status": 200,
+      "ms": 376
+    },
+    {
+      "label": "/learning/v1/materials/b8ee3e83-f3d2-46a9-9865-2adf129c69ff",
+      "method": "DELETE",
+      "status": 200,
+      "ms": 1666
+    },
+    {
+      "label": "/courses/78746d93-7416-49c0-ac19-9c0d7ffcd27d",
+      "method": "DELETE",
+      "status": 200,
+      "ms": 1688
+    }
+  ],
+  "checks": [
+    {
+      "name": "current release is deployed before registering",
+      "passed": true
+    },
+    {
+      "name": "material import replay keeps version ID",
+      "passed": true
+    },
+    {
+      "name": "search returns imported evidence",
+      "passed": true
+    },
+    {
+      "name": "map draft has cited material",
+      "passed": true
+    },
+    {
+      "name": "map confirmation creates cited knowledge point",
+      "passed": true
+    },
+    {
+      "name": "task completion is idempotent",
+      "passed": true
+    },
+    {
+      "name": "constraint preview is explicit and allocates once",
+      "passed": true
+    },
+    {
+      "name": "schedule confirmation is idempotent",
+      "passed": true
+    },
+    {
+      "name": "current shared chapter is deployed",
+      "passed": true
+    },
+    {
+      "name": "human review remains pending",
+      "passed": true
+    },
+    {
+      "name": "real server checks canonical tree answer",
+      "passed": true
+    },
+    {
+      "name": "expedition settles once without independent badge",
+      "passed": true
+    },
+    {
+      "name": "expedition evidence remains readable",
+      "passed": true
+    },
+    {
+      "name": "one cycle reward after replay",
+      "passed": true
+    },
+    {
+      "name": "manual time credited once",
+      "passed": true
+    },
+    {
+      "name": "cleanup uses exactly the generated account",
+      "passed": true
+    }
+  ],
+  "cleanup": [
+    {
+      "label": "close active test expedition",
+      "passed": true
+    },
+    {
+      "label": "delete created task",
+      "passed": true
+    },
+    {
+      "label": "delete created task",
+      "passed": true
+    },
+    {
+      "label": "delete created note",
+      "passed": true
+    },
+    {
+      "label": "tombstone imported material",
+      "passed": true
+    },
+    {
+      "label": "delete created course and its knowledge nodes",
+      "passed": true
+    }
+  ],
+  "externalModelsCalled": false,
+  "humanReviewChanged": false,
+  "status": "PASSED",
+  "retained": [
+    "isolated test account",
+    "operation receipts",
+    "expedition/progress/reward audit records",
+    "material tombstones and immutable references"
+  ],
+  "finishedAt": "2026-11-26T12:11:26.176Z"
+}

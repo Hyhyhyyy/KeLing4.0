@@ -1,0 +1,44 @@
+{
+  "date": "2026-11-26T12:18:53.0654879Z",
+  "target": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg",
+  "description": "Android写入→网页共享API独立会话读回",
+  "fixtureName": "演示验收 d798ed6d",
+  "authentication": {
+    "status": 200,
+    "independentSession": true,
+    "credentialsLogged": false,
+    "cachedTokenUsed": false,
+    "method": "POST /api/auth/login"
+  },
+  "androidWrite": {
+    "minutesMeaning": "合成验收值，不是实际学习效果",
+    "source": "demo_android UI verification",
+    "actualMinutes": 10,
+    "taskCompleted": true
+  },
+  "reads": [
+    {
+      "actualMinutes": 10,
+      "endpoint": "/api/tasks",
+      "status": 200,
+      "title": "演示验收·跨端任务 d798ed6d",
+      "expectedIdMatched": true,
+      "taskStatus": "COMPLETED"
+    },
+    {
+      "endpoint": "/api/notes",
+      "expectedIdMatched": true,
+      "title": "演示验收·跨端笔记 d798ed6d",
+      "status": 200
+    },
+    {
+      "endpoint": "/api/user/profile",
+      "totalStudyMinutes": 10,
+      "expectedAccountMatched": true,
+      "status": 200
+    }
+  ],
+  "browserLoginVerified": false,
+  "dataRetained": true,
+  "passed": true
+}

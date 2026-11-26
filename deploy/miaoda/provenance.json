@@ -1,6 +1,6 @@
 {
   "sourceProject": "keling-access-gateway",
-  "sourceCommit": "dd8a4bc17371a659ee97f49d0ffe7b5d4517f93b",
+  "sourceCommit": "be50cd315f0bd713e62a9819cac243da070963c8",
   "observedDate": "2026-11-26",
   "hashBasis": "sourceSha256/sourceBytes describe the template working-tree files at sourceCommit (pending changes are explicit); sha256/bytes describe the copied adapter after LF and trailing-blank-line normalization.",
   "files": [
@@ -28,8 +28,8 @@
     {
       "path": "server/modules/gateway/download.controller.ts",
       "bytes": 1550,
-      "sha256": "dfe5ed151359a2dfad6d369c42c99e301d37c8059c3da6317996b8d37d3397a1",
-      "sourceSha256": "dfe5ed151359a2dfad6d369c42c99e301d37c8059c3da6317996b8d37d3397a1",
+      "sha256": "6dbb1aca19fcf022143c35d3ca06dbe93b03f632da8899651abef6fc5269725f",
+      "sourceSha256": "6dbb1aca19fcf022143c35d3ca06dbe93b03f632da8899651abef6fc5269725f",
       "sourceBytes": 1550
     },
     {
@@ -77,8 +77,8 @@
     {
       "path": "server/modules/gateway/public-assets.spec.cjs",
       "bytes": 8569,
-      "sha256": "bf6ea4df45052424fa8457d5bfb2744950c08f39f68b0f272963754a3c6de24b",
-      "sourceSha256": "bf6ea4df45052424fa8457d5bfb2744950c08f39f68b0f272963754a3c6de24b",
+      "sha256": "c3f7391eaf9a64647f40c8c5c353ea6fde814a169a53195b43a2ee5f1704c31f",
+      "sourceSha256": "c3f7391eaf9a64647f40c8c5c353ea6fde814a169a53195b43a2ee5f1704c31f",
       "sourceBytes": 8569
     }
   ],
@@ -225,5 +225,5 @@
   "publicResourcesFile": "public-resources.json",
   "publicResourcesSha256": "e8925894409bae196a2a771ad31966591ab77fe255a6dd91d298159cd2c69b32",
   "androidDownloadFile": "android-download.json",
-  "androidDownloadSha256": "9ba76438e342c3cd9d2558cc1377b6c61046f3814e5a251c03fd71a8c5cc0680"
+  "androidDownloadSha256": "1ca33fbc4da2306d605995f2420a2a316a767c0a4777b36c24f65d1f158e407c"
 }

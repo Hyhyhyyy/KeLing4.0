@@ -39,12 +39,20 @@ const report = { startedAt: new Date().toISOString(), target: base, runId: state
 const reportPath = statePath.replace('.private.json', '.report.json');
 const cookies = new Map();
 function captureCookies(headers) {
-  for (const cookie of headers.getSetCookie()) { const first = cookie.split(';')[0], p = first.indexOf('='); if (p > 0) cookies.set(first.slice(0, p), first.slice(p + 1)); }
+  for (const cookie of headers.getSetCookie()) {
+    const [first, ...attributes] = cookie.split(';'), p = first.indexOf('='); if (p <= 0) continue;
+    const options = Object.fromEntries(attributes.map(a => { const i = a.indexOf('='); return i < 0 ? [a.trim().toLowerCase(), true] : [a.slice(0, i).trim().toLowerCase(), a.slice(i + 1).trim()]; }));
+    const name = first.slice(0, p), cookiePath = options.path || '/', key = name + ';' + cookiePath;
+    if ((options['max-age'] !== undefined && Number(options['max-age']) <= 0) || (options.expires && Date.parse(options.expires) <= Date.now())) cookies.delete(key);
+    else cookies.set(key, { name, value: first.slice(p + 1), path: cookiePath });
+  }
 }
 function requestHeaders() {
   const headers = { Accept: 'application/json', 'Content-Type': 'application/json', Origin: url.origin, Referer: base + '/' };
-  if (cookies.size) headers.Cookie = [...cookies].map(([k, v]) => `${k}=${v}`).join('; ');
-  if (cookies.has('suda-csrf-token')) headers['X-Suda-Csrf-Token'] = cookies.get('suda-csrf-token');
+  const applicable = [...cookies.values()].filter(c => (url.pathname + '/api').startsWith(c.path)).sort((a, b) => b.path.length - a.path.length);
+  if (applicable.length) headers.Cookie = applicable.map(c => `${c.name}=${c.value}`).join('; ');
+  const csrf = applicable.find(c => c.name === 'suda-csrf-token');
+  if (csrf) headers['X-Suda-Csrf-Token'] = csrf.value;
   if (state.token) headers.Authorization = 'Bearer ' + state.token;
   return headers;
 }
@@ -159,6 +167,10 @@ async function smoke() {
   try {
     const initial = await fetch(base, { signal: AbortSignal.timeout(30000), redirect: 'error' }); captureCookies(initial.headers);
     if (!initial.ok) throw new Error('Bootstrap HTTP ' + initial.status);
+    if (!cleanupOnly) {
+      const health = await api('/health');
+      check('current release is deployed before registering', health.version === '4.0.6-defense-rc7');
+    }
     if (!cleanupOnly) await smoke();
     report.status = 'PASSED';
   } catch (error) { report.status = 'FAILED'; report.failure = String(error.message).replace(/[\r\n]/g, ' ').slice(0, 240); }

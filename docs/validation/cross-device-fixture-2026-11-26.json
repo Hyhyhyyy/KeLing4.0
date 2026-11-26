@@ -1,0 +1,33 @@
+{
+  "date": "2026-11-26T12:15:34.109Z",
+  "target": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg",
+  "fixtureName": "演示验收 d798ed6d",
+  "taskTitle": "演示验收·跨端任务 d798ed6d",
+  "noteTitle": "演示验收·跨端笔记 d798ed6d",
+  "status": "READY",
+  "apiReadbackVerified": true,
+  "uiVerification": "Android UI verified; Web shared API read back through an independent session; browser account login not performed in this round",
+  "retainedForRehearsal": true,
+  "externalModelsCalled": false,
+  "previousFixture": {
+    "retired": true,
+    "cleanup": [
+      {
+        "status": 200,
+        "resource": "task"
+      },
+      {
+        "status": 200,
+        "resource": "note"
+      },
+      {
+        "status": 200,
+        "resource": "course"
+      }
+    ],
+    "accountDisabled": false,
+    "onlySyntheticData": true,
+    "credentialsRemovedFromPrivateState": true,
+    "reason": "Synthetic credential was entered into the wrong login field during UI automation; account replaced, not reused. No real-user data involved."
+  }
+}

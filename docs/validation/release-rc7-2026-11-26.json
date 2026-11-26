@@ -1,0 +1,54 @@
+{
+  "date": "2026-11-26",
+  "version": "4.0.6-defense-rc7",
+  "sourceCommit": "26e86d962c9a848ffed3d1d748e9a8512aaae6c6",
+  "templateCommit": "be50cd315f0bd713e62a9819cac243da070963c8",
+  "releaseId": "7712450156196810021",
+  "status": "finished",
+  "onlineUrl": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg",
+  "entryScript": "/app/app_17h4dw5jwdg/assets/index-dvrcen94.js",
+  "githubRelease": "https://github.com/Hyhyhyyy/KeLing4.0/releases/tag/v4.0.6-defense-rc7",
+  "android": {
+    "appId": "app_17h4dw5jwdg",
+    "route": "/download/android",
+    "versionName": "4.0.6-defense-rc7",
+    "versionCode": 27,
+    "fileName": "KeLing-ICT-4.0.6-defense-rc7-debug.apk",
+    "bytes": 75419281,
+    "sha256": "30b21d551c915e8dc2fddcda39f52a97dcf80c38d19230d976d87a59993bf9e9",
+    "contentType": "application/vnd.android.package-archive",
+    "storageBucket": "bucket_aadk4xawzf4xg",
+    "storagePath": "/1882921847399499.apk",
+    "sourcePath": "apps/android/app/build/outputs/apk/debug/app-debug.apk",
+    "certificateSha256": "e7b4d86c7a02fb6bb1d21215c393b347d2d67652e5e45dfbe3a3d6c66b7c67a3",
+    "signatureScheme": "v2",
+    "githubReleaseTag": "v4.0.6-defense-rc7",
+    "githubAssetUrl": "https://github.com/Hyhyhyyy/KeLing4.0/releases/download/v4.0.6-defense-rc7/KeLing-ICT-4.0.6-defense-rc7-debug.apk"
+  },
+  "checks": {
+    "web": 56,
+    "server": 86,
+    "updates": 8,
+    "android": 94,
+    "gateway": 15,
+    "generatedFilesHashed": 73,
+    "fontArrowMascotGuideBytes": "matched on both domains"
+  },
+  "browser": {
+    "onlineEntryScript": "observed RC7 index-dvrcen94.js",
+    "titleComputedFont": "华文中宋, STZhongsong, serif",
+    "guide": "opened actual live guide"
+  },
+  "limits": [
+    "Real AgentArts 403 remains unresolved",
+    "No physical Android device",
+    "Human question review remains PENDING",
+    "Vercel pause still requires official interactive confirmation"
+  ],
+  "crossDeviceReadback": "passed: Android UI write, independent Web shared API session read",
+  "giteeMirror": {
+    "status": "authentication-required",
+    "remote": "https://gitee.com/CurryHeng/ke-ling4.0.git",
+    "pushed": false
+  }
+}

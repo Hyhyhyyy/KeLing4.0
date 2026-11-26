@@ -1,0 +1,953 @@
+{
+  "checkedAt": "2026-11-26T12:09:26.272125+00:00",
+  "base": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg",
+  "browserValidation": {
+    "status": "not-run",
+    "reason": "This script checks HTTP artifacts only; browser interaction evidence is recorded separately."
+  },
+  "deploymentScope": {
+    "miaodaCanonicalAndLegacyDomains": true,
+    "vercelPreview": "excluded; user paused this deployment"
+  },
+  "health": {
+    "status": "ok",
+    "timestamp": "2026-11-26T12:08:25.223Z",
+    "version": "4.0.6-defense-rc7"
+  },
+  "ready": {
+    "status": "ready"
+  },
+  "generatedFiles": [
+    {
+      "path": "assets/Achievements-BXhnff_j.css",
+      "status": 200,
+      "bytes": 3280,
+      "sha256": "f04af8d5e4336b1102ce8b5ff93d5f4e9a66cd1ae6e51474766266d38693e5c2",
+      "contentType": "text/css; charset=UTF-8"
+    },
+    {
+      "path": "assets/Achievements-CznpKCuL.js",
+      "status": 200,
+      "bytes": 5457,
+      "sha256": "ac1b25819d148b14980e9ab5aaf74da944b735f6ec59e1203f42e78439440699",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/Agent-BbH5jGaf.css",
+      "status": 200,
+      "bytes": 4922,
+      "sha256": "13e11cc83306bc91a172967f72db76f3ec3d9d881cf8a362b3c2bc44c1662bdd",
+      "contentType": "text/css; charset=UTF-8"
+    },
+    {
+      "path": "assets/Agent-BmijtU1c.js",
+      "status": 200,
+      "bytes": 8943,
+      "sha256": "c79f55038e4cf79b3225fa608e3f8b52d4fb67ed9f62b0830e3ba3c19dda1871",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/AskAssistantButton-B1mKiDp2.js",
+      "status": 200,
+      "bytes": 569,
+      "sha256": "810b0159336d1f616bf5acd8acbfc9802d06a8e54c60a2c6782ef7ccffe8b756",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/AssistantContextPanel-DTh6f1or.css",
+      "status": 200,
+      "bytes": 2930,
+      "sha256": "9c81fa2a03dc0ada7d625f141db35b24ff80a315b6727ab24f2b71343b6475ae",
+      "contentType": "text/css; charset=UTF-8"
+    },
+    {
+      "path": "assets/Auth-CaLatLCu.css",
+      "status": 200,
+      "bytes": 4991,
+      "sha256": "acb84dad7b5824eb86ba6738a6f172b6098655e0ab781620b51abac32540eeac",
+      "contentType": "text/css; charset=UTF-8"
+    },
+    {
+      "path": "assets/Auth-DMbjdgfM.js",
+      "status": 200,
+      "bytes": 700,
+      "sha256": "ca6ca993d022ca8824f8eda44c0c4df1803ef2fcc985074dac938f3da7524c48",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/CourseDetail-BtXVdPAp.js",
+      "status": 200,
+      "bytes": 11456,
+      "sha256": "c3192a896ec02ae1ec2883b352912d788f62b0fbc94abd25d82b7d9f37fac092",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/CourseDetail-Djp_DKXZ.css",
+      "status": 200,
+      "bytes": 8464,
+      "sha256": "1fe269996cedc560483e065f1a45ee382173a5d19b9b0108f42c40d92b083458",
+      "contentType": "text/css; charset=UTF-8"
+    },
+    {
+      "path": "assets/CoursePlanet-Bse_kTpl.js",
+      "status": 200,
+      "bytes": 1143,
+      "sha256": "5d5ebd6a3bbf602a065aa0b1f08f6814a1ce6460a7f820cfb42044a8f1652864",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/CoursePlanet-Cs3hLOVA.css",
+      "status": 200,
+      "bytes": 1358,
+      "sha256": "97cbfbe4e1448641ef23b352c443fff3475590ff72831a64e9880cb3b9d2e7e6",
+      "contentType": "text/css; charset=UTF-8"
+    },
+    {
+      "path": "assets/ExpeditionPages-0RaEr3uA.js",
+      "status": 200,
+      "bytes": 38150,
+      "sha256": "e2845b279c7f614d338e33f97f62d012e1ab1b1c0005bb1027952a288b2ac186",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/ExpeditionRun-DX4GzsOU.js",
+      "status": 200,
+      "bytes": 17619,
+      "sha256": "016db074a7dc49807d4eb217fd4a28f74298583bd76781807b241a5fc2e5e2f1",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/Explore-KOlcEPUZ.css",
+      "status": 200,
+      "bytes": 8446,
+      "sha256": "93d682a892e474efa752b7df9924bd82decf399d5aae992521c051d7f3fe885f",
+      "contentType": "text/css; charset=UTF-8"
+    },
+    {
+      "path": "assets/Explore-xAxPqu4Z.js",
+      "status": 200,
+      "bytes": 3721,
+      "sha256": "28f1ec322bbeb2f6e9e5ea7dce40a0f6ecd44f6fbe72b5f548214c8df9bee8c2",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/Greenhouse-89PF_d51.css",
+      "status": 200,
+      "bytes": 6396,
+      "sha256": "d967a32c2a3657f404fea2d9d28ba6293cfa1a3a39f325509c9f854d36e70bdf",
+      "contentType": "text/css; charset=UTF-8"
+    },
+    {
+      "path": "assets/Greenhouse-D6WQwfzF.js",
+      "status": 200,
+      "bytes": 6815,
+      "sha256": "0ebda1c4a42f71a3ab1719e20455975e22996b31c95ab2024583253dd2e63873",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/Guide-DSuxSE9Z.css",
+      "status": 200,
+      "bytes": 6227,
+      "sha256": "59b14542d4a8f86f9183b6c86f4190d4b88930668649a261f6582bde6cc5d5f4",
+      "contentType": "text/css; charset=UTF-8"
+    },
+    {
+      "path": "assets/Guide-yFDckbMq.js",
+      "status": 200,
+      "bytes": 16021,
+      "sha256": "4be5a01bf7b7e746256c7b1fee77d73e249c6c22b41a61000adcc435ebf25f2f",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/KnowledgeGraph-CtV4DL3J.css",
+      "status": 200,
+      "bytes": 5587,
+      "sha256": "627c4102b1bdd5dc2ec098588888eec6d7faffe9b4403b1bcad465c7edb1b97b",
+      "contentType": "text/css; charset=UTF-8"
+    },
+    {
+      "path": "assets/KnowledgeGraph-CveibP-Q.js",
+      "status": 200,
+      "bytes": 10800,
+      "sha256": "83ae6d51415af95bd6bdbb473783d883581139a1773c257cfccca7f05f684843",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/Login-C8CUDgw1.js",
+      "status": 200,
+      "bytes": 2601,
+      "sha256": "592fe35fc2df3873f847a5b3ed55a33cc1f89f6e9f45c2ff7bccba1dc1131887",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/ModelAccessPanel-CG64kJM3.js",
+      "status": 200,
+      "bytes": 13000,
+      "sha256": "10b062885f5a2fd6ebc6c3d05f8a8ef059e6e07c7209e0c7ac7cd53951f6624b",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/ModelAccessPanel-DFYV40ER.css",
+      "status": 200,
+      "bytes": 5449,
+      "sha256": "5db0338c3736c7e89d850fe55b3ea860fc98a0002c0ff9b8c6a5adf57279559c",
+      "contentType": "text/css; charset=UTF-8"
+    },
+    {
+      "path": "assets/ModuleTitle-Cil6LhSK.css",
+      "status": 200,
+      "bytes": 1601,
+      "sha256": "310de4bb3b23f7a8f5359f8036588363922367b3cdbd25add91e5eeb0e3caf0e",
+      "contentType": "text/css; charset=UTF-8"
+    },
+    {
+      "path": "assets/ModuleTitle-VGZoZCcE.js",
+      "status": 200,
+      "bytes": 2476,
+      "sha256": "660c42e149f284a8944934b3f296363a380a28917cde4027c44a89afe006278e",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/Profile-BroVxbU6.js",
+      "status": 200,
+      "bytes": 8633,
+      "sha256": "eaa3a2e8bd757ef769552ee2611054ede29402917b8965d0926c8bd6de906d45",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/Profile-CFnqHTlr.css",
+      "status": 200,
+      "bytes": 4227,
+      "sha256": "87cddcd48ae84e02ce35f9c01c31371237cded7c0de5711f071421474825622f",
+      "contentType": "text/css; charset=UTF-8"
+    },
+    {
+      "path": "assets/Register-K4osdkoV.js",
+      "status": 200,
+      "bytes": 3482,
+      "sha256": "5320a60bba6388e7683fbcf5f013cc1a073f6119821d34f816632af146ad6105",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/SharedNotebook-CMpabXUL.js",
+      "status": 200,
+      "bytes": 5888,
+      "sha256": "61a73ff95f47d50114c1b362bfd7cbdc4b06aae6040de57243f6816980b09f99",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/SharedNotebook-DN5kK0OW.css",
+      "status": 200,
+      "bytes": 3445,
+      "sha256": "928e6aa8f3f913e68f6950bd4d197b35ea67d119c7a2f7dc89176b6fdff27f9e",
+      "contentType": "text/css; charset=UTF-8"
+    },
+    {
+      "path": "assets/StellarAssistant-Cb9lhkIW.css",
+      "status": 200,
+      "bytes": 7475,
+      "sha256": "d896228a74120fc35fdee6f051054c2b967449d75345b28350a5758fc5232cb9",
+      "contentType": "text/css; charset=UTF-8"
+    },
+    {
+      "path": "assets/StellarAssistant-CeAstgNB.js",
+      "status": 200,
+      "bytes": 17228,
+      "sha256": "869d7ae7df255b3bc8fd500692ad51ac06f31ec7f2d798c0b50e392e4d196257",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/StellarHome-CckphiUk.css",
+      "status": 200,
+      "bytes": 10092,
+      "sha256": "5f57c3bbf64db37d3187eda5e8bf96a2987796489cf85e50a723af9e1406006f",
+      "contentType": "text/css; charset=UTF-8"
+    },
+    {
+      "path": "assets/StellarHome-fGEBkRBP.js",
+      "status": 200,
+      "bytes": 6524,
+      "sha256": "6f21a35aace47212880afa768ad836ac5b230da3d0de55540dfafb941a06cf02",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/StellarScene-B1_u1V7v.js",
+      "status": 200,
+      "bytes": 3930,
+      "sha256": "92291bd3939ada79fdfa9688d818abf534afaea278ce0ce83fda65f691cd7503",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/StellarScene-DMdcK0w2.css",
+      "status": 200,
+      "bytes": 2700,
+      "sha256": "d5450777eca018a694b76f17f41d2678b3c5125d7a35b21a3999a22932d3cfad",
+      "contentType": "text/css; charset=UTF-8"
+    },
+    {
+      "path": "assets/StellarSettings-BqKfADXq.js",
+      "status": 200,
+      "bytes": 2426,
+      "sha256": "8e32103237d3308c5bdd25afa4fa7aefdd2e23716af0d851c1df0b80e176bc1a",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/StellarSettings-CnoziLUV.css",
+      "status": 200,
+      "bytes": 787,
+      "sha256": "7127333618326bcf8a2b2cec2342f7e2cbc272da9a54edd76f627f400fa1faf2",
+      "contentType": "text/css; charset=UTF-8"
+    },
+    {
+      "path": "assets/StudyReport-CSkQYRDj.js",
+      "status": 200,
+      "bytes": 9286,
+      "sha256": "01401817afe1b0fbc0c0576f809961a1145db5842de0e00aca6286aae5280704",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/StudyReport-DyVXUnZ_.css",
+      "status": 200,
+      "bytes": 5299,
+      "sha256": "e2c04649a74fdc557498bfcfc3e6d21e2539d1a7503294d0a9874d4dfa0f37f0",
+      "contentType": "text/css; charset=UTF-8"
+    },
+    {
+      "path": "assets/Tasks-BW6_DXw7.js",
+      "status": 200,
+      "bytes": 12887,
+      "sha256": "aebc6aa514c50423b7cf5b0b686a1b316367567c2f52a4fa4106fcb342071057",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/Tasks-DEmHPbg6.css",
+      "status": 200,
+      "bytes": 6380,
+      "sha256": "6a3b1cfe572603ce879a1f355c1a75750a0740e530de3aff7728c2faec6c5f33",
+      "contentType": "text/css; charset=UTF-8"
+    },
+    {
+      "path": "assets/VisualLibrary-BKRlweH-.css",
+      "status": 200,
+      "bytes": 2554,
+      "sha256": "2f1add17febd015ac9acb70705592e851fa7bddebd0ea7e52317f6c356e2c076",
+      "contentType": "text/css; charset=UTF-8"
+    },
+    {
+      "path": "assets/VisualLibrary-D2hEqnSE.js",
+      "status": 200,
+      "bytes": 3917,
+      "sha256": "45e285aa91e6a66d03e7ad1f1c4fd7e1c2fb975afd72da0d6cc64d9e1a475f96",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/assistant-Bsvr3_AE.js",
+      "status": 200,
+      "bytes": 784,
+      "sha256": "0eb5ab924de3d2841825823ac263d7db0603dc2c27b14d4a84589ad8eac60954",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/assistantLaunch-CwsZoiaQ.js",
+      "status": 200,
+      "bytes": 481,
+      "sha256": "9ae94f6ee222718cfba466eaf609505a87998e5090ca3270ba7622625b5e0ec1",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/book-open-BOU_24MP.js",
+      "status": 200,
+      "bytes": 461,
+      "sha256": "5c4b420d117502d19bdccb3b19f357a521959d50e6f3d045b465e52b9dda9826",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/clock-C9I6OjAn.js",
+      "status": 200,
+      "bytes": 346,
+      "sha256": "79f37b58efae7f4aa5a5ad2614cafe0963755c296b48b0b03f7c72b5883f83a5",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/createLucideIcon-Bm7fVR0L.js",
+      "status": 200,
+      "bytes": 2569,
+      "sha256": "43f55ef3e829978ad4a09da9fda33262275703652be1904a46ae4fc0e0eda841",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/expedition-1D9jXngv.js",
+      "status": 200,
+      "bytes": 6008,
+      "sha256": "2462f5510bad6549bcf1370feab00afb18187a2d7b565dcd2b046484352b8993",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/expeditionLabels-B3GRFj0F.js",
+      "status": 200,
+      "bytes": 1535,
+      "sha256": "2c8d349eda73a849a598c2312face60fa2fa209691fb489078fc33e79f3c3f92",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/gem-CfLTf1s7.js",
+      "status": 200,
+      "bytes": 516,
+      "sha256": "d78ef60d62ccb74f1f752415f9fc43b08ce0acd31eaa3b958699ffffd5366fb8",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/guestExpedition-DYkRek2j.js",
+      "status": 200,
+      "bytes": 43303,
+      "sha256": "c635da13f183a482c4c3310d7c5875b7de34c266f674810d5a817b729110a02f",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/index-Ba8EWx4e.css",
+      "status": 200,
+      "bytes": 40060,
+      "sha256": "e4e8d9d25ae98fdbc32612df142b87cbc1404223ff9f127a8f1fa80a365b59df",
+      "contentType": "text/css; charset=UTF-8"
+    },
+    {
+      "path": "assets/index-dvrcen94.js",
+      "status": 200,
+      "bytes": 368757,
+      "sha256": "c3bf3735ab82ba813a53590efb43a795b6228743772e81bbd1fd930522da977f",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/index-qMEElw1i.js",
+      "status": 200,
+      "bytes": 3987,
+      "sha256": "a9bd629820b1a78813604845d900640bedb43a180f46c6e492548191f3f46c2c",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/learningMaterials-NTROnHnv.js",
+      "status": 200,
+      "bytes": 5859,
+      "sha256": "ae0edb85803610a0f35bfb5abc2fced888791374166bd234021faa91f0d4573c",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/lock-XpbXIrY4.js",
+      "status": 200,
+      "bytes": 383,
+      "sha256": "59c77fbd3eb347387326faaadd6204bed80271389431ccd202eabbe329f4afac",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/planetCatalog-FUmZxliy.js",
+      "status": 200,
+      "bytes": 994,
+      "sha256": "7f8a2a18f5a94fc59414b93fb75b424c0fc8115edb0847c986641b3c377b9108",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/proxy-CHdCTfIt.js",
+      "status": 200,
+      "bytes": 124047,
+      "sha256": "9accb97d321218bad1c9519a2319f175ec9fbc0f3409c59aa6b85177ee0dada1",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/target-DA7xsdn4.js",
+      "status": 200,
+      "bytes": 403,
+      "sha256": "8f2263fa5baf13bd9325f546280a2c6d625d6b4fe2fe641ea789fbcb4520369a",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/useCourseDialogFocus-BPJ52dh2.js",
+      "status": 200,
+      "bytes": 1439,
+      "sha256": "e7a4d8e345d0a9ba649910c5d43ce74eb6300f3f9ecb8d45847c73c4043852a5",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/user-BOlcVTJJ.js",
+      "status": 200,
+      "bytes": 373,
+      "sha256": "ef8492a15105a16eb165fce20c19db413dda705ee60799701859bcfd022a392f",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/x-CJ4L0nF0.js",
+      "status": 200,
+      "bytes": 611,
+      "sha256": "5bc150efe049e55d3bbfc51d6752eeac6230ac3afd6d3060037add855a54728e",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/zap-t2LzI7Vn.js",
+      "status": 200,
+      "bytes": 444,
+      "sha256": "8defc789acb6e9dd23fc3759547cd7b1bbbb4b5bb99f437c7a1969289ccd33c9",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "index.html",
+      "status": 200,
+      "bytes": 2245,
+      "sha256": "97fae4bb37333f2e30d4c83a5ed84d6450c68fc089360acc6acbd6cc9394e7c5",
+      "contentType": "text/html; charset=UTF-8"
+    },
+    {
+      "path": "manifest.webmanifest",
+      "status": 200,
+      "bytes": 889,
+      "sha256": "6258c2f25a84390c47ddce324a37a6b84e1727e544ec6264b15551e02e1d1839",
+      "contentType": "application/manifest+json"
+    },
+    {
+      "path": "offline-shell.html",
+      "status": 200,
+      "bytes": 2245,
+      "sha256": "97fae4bb37333f2e30d4c83a5ed84d6450c68fc089360acc6acbd6cc9394e7c5",
+      "contentType": "text/html; charset=UTF-8"
+    },
+    {
+      "path": "registerSW.js",
+      "status": 200,
+      "bytes": 451,
+      "sha256": "92e1804e7fb67affca330e755c316905948596013861d7203c0f87db388465cb",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "sw.js",
+      "status": 200,
+      "bytes": 5476,
+      "sha256": "bff294d70c12780f3b8175fa8e8ad3ad27fc7fe37a17feceff2832da06935d5e",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "workbox-d45e0c38.js",
+      "status": 200,
+      "bytes": 22061,
+      "sha256": "ef15413b97f1c0db1f16342cbad4a9e61f0b160f372081d61f3a2270e3723557",
+      "contentType": "application/javascript; charset=UTF-8"
+    }
+  ],
+  "entryScript": "/app/app_17h4dw5jwdg/assets/index-dvrcen94.js",
+  "pwaDelivery": {
+    "offlineShellMatchesEntry": true,
+    "modernEntryDoesNotInjectLegacyRegistrar": true,
+    "indexIsNotPrecached": true,
+    "navigationNetworkOnlyWithOfflineShell": true,
+    "noCustomUpdateGuard": true
+  },
+  "entryCachePolicies": [
+    {
+      "url": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/index.html",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "text/html; charset=UTF-8",
+      "sha256": "97fae4bb37333f2e30d4c83a5ed84d6450c68fc089360acc6acbd6cc9394e7c5",
+      "recoveryOutsideWorkerScope": false
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/offline-shell.html",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "text/html; charset=UTF-8",
+      "sha256": "97fae4bb37333f2e30d4c83a5ed84d6450c68fc089360acc6acbd6cc9394e7c5",
+      "recoveryOutsideWorkerScope": false
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/sw.js",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "application/javascript; charset=UTF-8",
+      "sha256": "bff294d70c12780f3b8175fa8e8ad3ad27fc7fe37a17feceff2832da06935d5e",
+      "recoveryOutsideWorkerScope": false
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/registerSW.js",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "application/javascript; charset=UTF-8",
+      "sha256": "92e1804e7fb67affca330e755c316905948596013861d7203c0f87db388465cb",
+      "recoveryOutsideWorkerScope": false
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/manifest.webmanifest",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "application/manifest+json",
+      "sha256": "6258c2f25a84390c47ddce324a37a6b84e1727e544ec6264b15551e02e1d1839",
+      "recoveryOutsideWorkerScope": false
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "text/html; charset=UTF-8",
+      "sha256": "97fae4bb37333f2e30d4c83a5ed84d6450c68fc089360acc6acbd6cc9394e7c5",
+      "recoveryOutsideWorkerScope": false
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/explore",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "text/html; charset=UTF-8",
+      "sha256": "97fae4bb37333f2e30d4c83a5ed84d6450c68fc089360acc6acbd6cc9394e7c5",
+      "recoveryOutsideWorkerScope": false
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/guide",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "text/html; charset=UTF-8",
+      "sha256": "97fae4bb37333f2e30d4c83a5ed84d6450c68fc089360acc6acbd6cc9394e7c5",
+      "recoveryOutsideWorkerScope": false
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg?release=20261126-rc7",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "text/html; charset=UTF-8",
+      "sha256": "97fae4bb37333f2e30d4c83a5ed84d6450c68fc089360acc6acbd6cc9394e7c5",
+      "recoveryOutsideWorkerScope": true
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg/index.html",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "text/html; charset=UTF-8",
+      "sha256": "97fae4bb37333f2e30d4c83a5ed84d6450c68fc089360acc6acbd6cc9394e7c5",
+      "recoveryOutsideWorkerScope": false
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg/offline-shell.html",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "text/html; charset=UTF-8",
+      "sha256": "97fae4bb37333f2e30d4c83a5ed84d6450c68fc089360acc6acbd6cc9394e7c5",
+      "recoveryOutsideWorkerScope": false
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg/sw.js",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "application/javascript; charset=UTF-8",
+      "sha256": "bff294d70c12780f3b8175fa8e8ad3ad27fc7fe37a17feceff2832da06935d5e",
+      "recoveryOutsideWorkerScope": false
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg/registerSW.js",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "application/javascript; charset=UTF-8",
+      "sha256": "92e1804e7fb67affca330e755c316905948596013861d7203c0f87db388465cb",
+      "recoveryOutsideWorkerScope": false
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg/manifest.webmanifest",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "application/manifest+json",
+      "sha256": "6258c2f25a84390c47ddce324a37a6b84e1727e544ec6264b15551e02e1d1839",
+      "recoveryOutsideWorkerScope": false
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg/",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "text/html; charset=UTF-8",
+      "sha256": "97fae4bb37333f2e30d4c83a5ed84d6450c68fc089360acc6acbd6cc9394e7c5",
+      "recoveryOutsideWorkerScope": false
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg/explore",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "text/html; charset=UTF-8",
+      "sha256": "97fae4bb37333f2e30d4c83a5ed84d6450c68fc089360acc6acbd6cc9394e7c5",
+      "recoveryOutsideWorkerScope": false
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg/guide",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "text/html; charset=UTF-8",
+      "sha256": "97fae4bb37333f2e30d4c83a5ed84d6450c68fc089360acc6acbd6cc9394e7c5",
+      "recoveryOutsideWorkerScope": false
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg?release=20261126-rc7",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "text/html; charset=UTF-8",
+      "sha256": "97fae4bb37333f2e30d4c83a5ed84d6450c68fc089360acc6acbd6cc9394e7c5",
+      "recoveryOutsideWorkerScope": true
+    }
+  ],
+  "recoveryUrls": [
+    "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg?release=20261126-rc7",
+    "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg?release=20261126-rc7"
+  ],
+  "hostVersions": [
+    {
+      "base": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg",
+      "health": {
+        "status": "ok",
+        "timestamp": "2026-11-26T12:08:54.472Z",
+        "version": "4.0.6-defense-rc7"
+      },
+      "hashedAssetCacheControl": "public, max-age=3600"
+    },
+    {
+      "base": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg",
+      "health": {
+        "status": "ok",
+        "timestamp": "2026-11-26T12:08:56.275Z",
+        "version": "4.0.6-defense-rc7"
+      },
+      "hashedAssetCacheControl": "public, max-age=3600"
+    }
+  ],
+  "publicGuideRoute": {
+    "path": "/guide",
+    "status": 200,
+    "contentType": "text/html; charset=UTF-8",
+    "indexSha256": "97fae4bb37333f2e30d4c83a5ed84d6450c68fc089360acc6acbd6cc9394e7c5",
+    "requestedWithoutAuthentication": true
+  },
+  "reachableChunks": [
+    "assets/Achievements-CznpKCuL.js",
+    "assets/Agent-BmijtU1c.js",
+    "assets/AskAssistantButton-B1mKiDp2.js",
+    "assets/Auth-DMbjdgfM.js",
+    "assets/CourseDetail-BtXVdPAp.js",
+    "assets/CoursePlanet-Bse_kTpl.js",
+    "assets/ExpeditionPages-0RaEr3uA.js",
+    "assets/ExpeditionRun-DX4GzsOU.js",
+    "assets/Explore-xAxPqu4Z.js",
+    "assets/Greenhouse-D6WQwfzF.js",
+    "assets/Guide-yFDckbMq.js",
+    "assets/KnowledgeGraph-CveibP-Q.js",
+    "assets/Login-C8CUDgw1.js",
+    "assets/ModelAccessPanel-CG64kJM3.js",
+    "assets/ModuleTitle-VGZoZCcE.js",
+    "assets/Profile-BroVxbU6.js",
+    "assets/Register-K4osdkoV.js",
+    "assets/SharedNotebook-CMpabXUL.js",
+    "assets/StellarAssistant-CeAstgNB.js",
+    "assets/StellarHome-fGEBkRBP.js",
+    "assets/StellarScene-B1_u1V7v.js",
+    "assets/StellarSettings-BqKfADXq.js",
+    "assets/StudyReport-CSkQYRDj.js",
+    "assets/Tasks-BW6_DXw7.js",
+    "assets/VisualLibrary-D2hEqnSE.js",
+    "assets/assistant-Bsvr3_AE.js",
+    "assets/assistantLaunch-CwsZoiaQ.js",
+    "assets/book-open-BOU_24MP.js",
+    "assets/clock-C9I6OjAn.js",
+    "assets/createLucideIcon-Bm7fVR0L.js",
+    "assets/expedition-1D9jXngv.js",
+    "assets/expeditionLabels-B3GRFj0F.js",
+    "assets/gem-CfLTf1s7.js",
+    "assets/guestExpedition-DYkRek2j.js",
+    "assets/index-dvrcen94.js",
+    "assets/index-qMEElw1i.js",
+    "assets/learningMaterials-NTROnHnv.js",
+    "assets/lock-XpbXIrY4.js",
+    "assets/planetCatalog-FUmZxliy.js",
+    "assets/proxy-CHdCTfIt.js",
+    "assets/target-DA7xsdn4.js",
+    "assets/useCourseDialogFocus-BPJ52dh2.js",
+    "assets/user-BOlcVTJJ.js",
+    "assets/x-CJ4L0nF0.js",
+    "assets/zap-t2LzI7Vn.js",
+    "registerSW.js",
+    "sw.js"
+  ],
+  "requiredPublicResourceCodePresent": [
+    "title_mascots.webp",
+    "navigation_arrow.webp",
+    "guide_scroll.webp",
+    "/guide",
+    "title-mascot",
+    "module-title",
+    "STZHONGS.woff2",
+    "4.0.6-defense-rc7"
+  ],
+  "fontCssHasAppBase": true,
+  "publicResources": [
+    {
+      "path": "stellar/title_mascots.webp",
+      "status": 200,
+      "bytes": 1137664,
+      "sha256": "cb7465ec80df7de393563fe1dc7933fd2867acda31cd8152eb609493b327fd78",
+      "contentType": "image/webp",
+      "signedStorageRedirect": true
+    },
+    {
+      "path": "stellar/navigation_arrow.webp",
+      "status": 200,
+      "bytes": 330320,
+      "sha256": "b722445a6f11afa60081ef6c92cb3a907acd288df5832e839212c65d398b6107",
+      "contentType": "image/webp",
+      "signedStorageRedirect": true
+    },
+    {
+      "path": "fonts/STZHONGS.woff2",
+      "status": 200,
+      "bytes": 6054636,
+      "sha256": "0451629e411c5b66319cd1558adb59eb9e0660fe07c5537ec7356254823a61c5",
+      "contentType": "font/woff2",
+      "signedStorageRedirect": false,
+      "cors": "*",
+      "cacheControl": "public, max-age=86400",
+      "etag": "\"0451629e411c5b66319cd1558adb59eb9e0660fe07c5537ec7356254823a61c5\"",
+      "conditionalGetStatus": 304,
+      "headStatus": 200,
+      "headContentLength": null
+    },
+    {
+      "path": "stellar/guide_scroll.webp",
+      "status": 200,
+      "bytes": 1021720,
+      "sha256": "ddb5f0afe6b4545cc062cd18abc0bce73b18fd2b9ec3094209e290bf56a0f695",
+      "contentType": "image/webp",
+      "signedStorageRedirect": true
+    }
+  ],
+  "secondaryHostPublicResources": [
+    {
+      "base": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg",
+      "path": "stellar/title_mascots.webp",
+      "status": 200,
+      "bytes": 1137664,
+      "sha256": "cb7465ec80df7de393563fe1dc7933fd2867acda31cd8152eb609493b327fd78",
+      "contentType": "image/webp"
+    },
+    {
+      "base": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg",
+      "path": "stellar/navigation_arrow.webp",
+      "status": 200,
+      "bytes": 330320,
+      "sha256": "b722445a6f11afa60081ef6c92cb3a907acd288df5832e839212c65d398b6107",
+      "contentType": "image/webp"
+    },
+    {
+      "base": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg",
+      "path": "fonts/STZHONGS.woff2",
+      "status": 200,
+      "bytes": 6054636,
+      "sha256": "0451629e411c5b66319cd1558adb59eb9e0660fe07c5537ec7356254823a61c5",
+      "contentType": "font/woff2"
+    },
+    {
+      "base": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg",
+      "path": "stellar/guide_scroll.webp",
+      "status": 200,
+      "bytes": 1021720,
+      "sha256": "ddb5f0afe6b4545cc062cd18abc0bce73b18fd2b9ec3094209e290bf56a0f695",
+      "contentType": "image/webp"
+    }
+  ],
+  "androidEntrypoints": [
+    {
+      "base": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg",
+      "versionChecks": [
+        {
+          "clientVersionCode": 26,
+          "latestVersionCode": 27,
+          "latestVersionName": "4.0.6-defense-rc7",
+          "needUpdate": true,
+          "forceUpdate": false,
+          "fileSize": 75419281,
+          "updateUrl": "https://github.com/Hyhyhyyy/KeLing4.0/releases/download/v4.0.6-defense-rc7/KeLing-ICT-4.0.6-defense-rc7-debug.apk"
+        },
+        {
+          "clientVersionCode": 27,
+          "latestVersionCode": 27,
+          "latestVersionName": "4.0.6-defense-rc7",
+          "needUpdate": false,
+          "forceUpdate": false,
+          "fileSize": 75419281,
+          "updateUrl": "https://github.com/Hyhyhyyy/KeLing4.0/releases/download/v4.0.6-defense-rc7/KeLing-ICT-4.0.6-defense-rc7-debug.apk"
+        }
+      ],
+      "directDownload": {
+        "status": 200,
+        "bytes": 75419281,
+        "sha256": "30b21d551c915e8dc2fddcda39f52a97dcf80c38d19230d976d87a59993bf9e9",
+        "contentType": "application/vnd.android.package-archive",
+        "redirectCacheControl": "no-store"
+      },
+      "legacyApiDownload": {
+        "status": 302,
+        "location": "https://github.com/Hyhyhyyy/KeLing4.0/releases/download/v4.0.6-defense-rc7/KeLing-ICT-4.0.6-defense-rc7-debug.apk"
+      }
+    },
+    {
+      "base": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg",
+      "versionChecks": [
+        {
+          "clientVersionCode": 26,
+          "latestVersionCode": 27,
+          "latestVersionName": "4.0.6-defense-rc7",
+          "needUpdate": true,
+          "forceUpdate": false,
+          "fileSize": 75419281,
+          "updateUrl": "https://github.com/Hyhyhyyy/KeLing4.0/releases/download/v4.0.6-defense-rc7/KeLing-ICT-4.0.6-defense-rc7-debug.apk"
+        },
+        {
+          "clientVersionCode": 27,
+          "latestVersionCode": 27,
+          "latestVersionName": "4.0.6-defense-rc7",
+          "needUpdate": false,
+          "forceUpdate": false,
+          "fileSize": 75419281,
+          "updateUrl": "https://github.com/Hyhyhyyy/KeLing4.0/releases/download/v4.0.6-defense-rc7/KeLing-ICT-4.0.6-defense-rc7-debug.apk"
+        }
+      ],
+      "directDownload": {
+        "status": 200,
+        "bytes": 75419281,
+        "sha256": "30b21d551c915e8dc2fddcda39f52a97dcf80c38d19230d976d87a59993bf9e9",
+        "contentType": "application/vnd.android.package-archive",
+        "redirectCacheControl": "no-store"
+      },
+      "legacyApiDownload": {
+        "status": 302,
+        "location": "https://github.com/Hyhyhyyy/KeLing4.0/releases/download/v4.0.6-defense-rc7/KeLing-ICT-4.0.6-defense-rc7-debug.apk"
+      }
+    }
+  ],
+  "sampledImages": [
+    {
+      "path": "stellar/title_logo.png",
+      "status": 200,
+      "bytes": 872877,
+      "sha256": "4a4948386448fd115081bcb59f994a90394b1d5ab8a197c30728bb3e7d0c3fa0",
+      "contentType": "image/png"
+    },
+    {
+      "path": "stellar/expedition_voyage.png",
+      "status": 200,
+      "bytes": 2757065,
+      "sha256": "dc92cef2a5a1d000014a90be7dbcea3a30e4e076a4ad8a41ae181f04fcd5a30f",
+      "contentType": "image/png"
+    },
+    {
+      "path": "stellar/scene_login.png",
+      "status": 200,
+      "bytes": 2398382,
+      "sha256": "3705231ee4f475982fd69d87eb82465fb0a4591f3b6d7af2da564fbbd10bb990",
+      "contentType": "image/png"
+    }
+  ],
+  "resourceVerification": {
+    "canonicalImages": 63,
+    "existingPngs": 60,
+    "existingJpgs": 5,
+    "storedPublicResources": 4,
+    "newResourceFilesCommittedToTemplate": 0
+  },
+  "result": "passed"
+}

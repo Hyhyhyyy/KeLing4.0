@@ -34,7 +34,7 @@
   "limits": [
     "Current real AgentArts probe is HTTP 403 with template Error and GetAppCredential timeout; management recovery is being investigated separately.",
     "No live chat or embedding model key was present in the inspected local configuration.",
-    "No production database migration or learning-data write was performed.",
+    "No direct production database migration or existing-user modification. Authorized live API smoke and a separate retained cross-device fixture used newly generated test accounts.",
     "Broad imported-material search considers up to 40 recently changed materials; planning uses at most 12 matching or fallback excerpts, then retrieves up to 8 sources; the global assistant adds at most 3 matching excerpts.",
     "No browser or device interaction is claimed by this backend report."
   ],
@@ -79,5 +79,31 @@
     "checksPassed": 15,
     "cleanupStepsPassed": 6,
     "production": false
+  },
+  "onlineApiSmoke": {
+    "report": "docs/validation/online-api-smoke-2026-11-26.json",
+    "releaseId": "7712450156196810021",
+    "releaseVersion": "4.0.6-defense-rc7",
+    "requests": 32,
+    "checksPassed": 16,
+    "cleanupStepsPassed": 6,
+    "production": true,
+    "newIsolatedAccountOnly": true,
+    "retained": [
+      "test account",
+      "operation/expedition/reward audit records",
+      "material tombstones"
+    ]
+  },
+  "crossDeviceReadback": {
+    "report": "docs/validation/cross-device-readback-2026-11-26.json",
+    "description": "Android写入→网页共享API独立会话读回",
+    "freshLogin": true,
+    "taskStatus": "COMPLETED",
+    "actualMinutes": 10,
+    "minutesAreSynthetic": true,
+    "noteIdMatched": true,
+    "totalStudyMinutes": 10,
+    "browserLoginVerified": false
   }
 }
