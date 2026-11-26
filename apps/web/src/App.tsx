@@ -1,4 +1,5 @@
 import { NavigationArrow } from './components/NavigationArrow';
+import AppUpdateNotice from './components/AppUpdateNotice';
 import React, { lazy, Suspense, useEffect } from 'react';
 import { APP_BASE, appPath } from './services/appPath';
 import { BrowserRouter as Router, Routes, Route, Navigate, Link, useNavigate, useLocation } from 'react-router-dom';
@@ -189,6 +190,7 @@ function App() {
   }, []);
   return (
     <AppErrorBoundary>
+      <AppUpdateNotice/>
       <Router basename={APP_BASE || '/'}>
         <Suspense fallback={<div className="loading-screen" role="status">正在加载页面…</div>}>
         <Routes>

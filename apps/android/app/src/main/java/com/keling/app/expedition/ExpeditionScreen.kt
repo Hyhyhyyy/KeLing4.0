@@ -38,6 +38,7 @@ fun ExpeditionScreen(vm: ExpeditionViewModel, tab: String, guest: Boolean, onNav
         LazyColumn(Modifier.weight(1f).padding(horizontal = 16.dp), verticalArrangement = Arrangement.spacedBy(12.dp), contentPadding = PaddingValues(vertical = 12.dp)) {
             item { Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                 StellarHeading(when (tab) { "star_map" -> "星图"; "base" -> "基地"; "profile" -> "我的"; else -> "远航" }, mascot = when (tab) { "star_map" -> 3; "base" -> 8; "profile" -> 7; else -> 2 }, modifier = Modifier.weight(1f))
+                UsageGuideButton()
             } }
             state.notice?.let { item { Text(it, color = MaterialTheme.colorScheme.primary) } }
             state.error?.let { item { Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer)) { Column(Modifier.padding(12.dp)) {

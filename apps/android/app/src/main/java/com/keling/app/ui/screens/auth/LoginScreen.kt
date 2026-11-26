@@ -6,6 +6,7 @@
 package com.keling.app.ui.screens.auth
 
 import com.keling.app.ui.components.StellarHeading
+import com.keling.app.ui.components.UsageGuideButton
 import com.keling.app.ui.components.StellarSectionTitle
 import com.keling.app.ui.components.StellarTitleMark
 import androidx.compose.animation.*
@@ -136,6 +137,8 @@ fun LoginScreen(
 
             Button(onClick = onStartTrial, modifier = Modifier.fillMaxWidth()) { Text("游客试用") }
             Text("游客记录退出即清空", style = MaterialTheme.typography.bodySmall, modifier = Modifier.padding(vertical = 8.dp))
+            UsageGuideButton(Modifier.fillMaxWidth())
+            Spacer(Modifier.height(12.dp))
 
             // 登录卡片
             Card(

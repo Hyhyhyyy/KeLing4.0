@@ -79,6 +79,7 @@ fun CloudWorkspaceScreen(accountId: String, token: String, initialTab: String = 
                 if (tab == "home") {
                     item { Card { Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                         StellarSectionTitle("学习工具箱", motif = 3)
+                        UsageGuideButton(Modifier.fillMaxWidth())
                         listOf("greenhouse" to "课程", "tasks" to "任务与专注", "notes" to "笔记", "ai" to "AI 助手", "cloud_agent" to "智能编排", "report" to "学习报告", "achievements" to "学习成就").forEach { (route, label) ->
                             OutlinedButton(onClick = { onNavigate(route) }, modifier = Modifier.fillMaxWidth()) { Text(label) }
                         }

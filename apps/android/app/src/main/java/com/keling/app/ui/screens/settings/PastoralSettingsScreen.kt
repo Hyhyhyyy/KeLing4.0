@@ -1,6 +1,8 @@
 package com.keling.app.ui.screens.settings
 
 import com.keling.app.ui.components.StellarHeading
+import com.keling.app.ui.components.UsageGuideButton
+import com.keling.app.network.PUBLIC_WEB_URL
 import com.keling.app.ui.components.StellarSectionTitle
 import com.keling.app.ui.components.StellarTitleMark
 import androidx.compose.foundation.layout.*
@@ -73,12 +75,12 @@ fun PastoralSettingsScreen(
                         if (version.updateUrl.startsWith("https://")) Button(onClick = { uri.openUri(version.updateUrl) }, modifier = Modifier.fillMaxWidth()) { Text("下载新版") }
                         else Text("下载地址无效，请访问项目发布页。", color = MaterialTheme.colorScheme.error)
                     }
-                    OutlinedButton(onClick = { uri.openUri("https://github.com/Hyhyhyyy/KeLing4.0#readme") }, modifier = Modifier.fillMaxWidth()) { Text("使用指南") }
+                    UsageGuideButton(Modifier.fillMaxWidth())
                     OutlinedButton(onClick = { uri.openUri("https://github.com/Hyhyhyyy/KeLing4.0/issues") }, modifier = Modifier.fillMaxWidth()) { Text("意见反馈") }
                     TextButton(onClick = { showAbout = !showAbout }) { Text(if (showAbout) "收起" else "关于课灵") }
                     if (showAbout) {
                         Text("课灵 · AI 学习与知识管理", style = MaterialTheme.typography.titleMedium)
-                        OutlinedButton(onClick = { uri.openUri("https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg") }, modifier = Modifier.fillMaxWidth()) { Text("访问网页版") }
+                        OutlinedButton(onClick = { uri.openUri(PUBLIC_WEB_URL) }, modifier = Modifier.fillMaxWidth()) { Text("访问网页版") }
                     }
                 } }
             }

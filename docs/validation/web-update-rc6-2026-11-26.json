@@ -1,0 +1,37 @@
+{
+  "date": "2026-11-26",
+  "release": "4.0.5-defense-rc6",
+  "registration": {
+    "mode": "prompt",
+    "automaticInjection": false,
+    "updateViaCache": "none",
+    "reloadOnlyAfterExplicitConfirmation": true,
+    "initialInstallNoPrompt": true,
+    "outOfScopeRecoveryDoesNotWaitForController": true
+  },
+  "navigation": {
+    "strategy": "NetworkOnly",
+    "offlineFallback": "offline-shell.html",
+    "indexNotPrecached": true,
+    "shellEqualsIndex": true,
+    "htmlSha256": "13fe58b2e66e9e310e4524fe092186dbd2dde05350706e7dd415428ce5428176",
+    "apiOfflineFallback": false
+  },
+  "checks": {
+    "webRegression": 49,
+    "updateTests": 8,
+    "lintErrors": 0,
+    "lintExistingWarnings": 34
+  },
+  "limitations": [
+    "旧版本到新版本的真实浏览器升级尚未验收；根线程报告浏览器工具超时。",
+    "用户主动激活新Worker后，其他旧标签页可能仍需刷新；确认文案提醒先保存其他课灵页面，多标签并发未全面实测。",
+    "本轮未手动清除浏览器缓存或学习数据；更新模块不修改IndexedDB、账号与游客草稿，不持久化临时密钥/游客内存。用户确认激活后，Workbox按正常生命周期替换静态预缓存。",
+    "已修复可证实的更新设计缺陷，但不能确定用户本次看到旧UI的具体成因。"
+  ],
+  "androidQuery": {
+    "versionName": "4.0.5-defense-rc6",
+    "versionCode": 26
+  },
+  "androidDownload": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/download/android"
+}

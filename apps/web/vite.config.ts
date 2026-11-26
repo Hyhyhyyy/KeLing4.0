@@ -1,6 +1,9 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
+import { copyFileSync } from 'node:fs'
+import { resolve } from 'node:path'
+import { OFFLINE_SHELL, workboxOptions } from './config/pwa'
 const publicBase = process.env.VITE_PUBLIC_BASE || '/';
 
 // https://vite.dev/config/
@@ -8,8 +11,17 @@ export default defineConfig({
   base: publicBase,
   plugins: [
     react(),
+    {
+      name: 'keling-offline-shell',
+      apply: 'build',
+      writeBundle(output) {
+        if (!output.dir) throw new Error('Web output directory is required');
+        copyFileSync(resolve(output.dir, 'index.html'), resolve(output.dir, OFFLINE_SHELL));
+      }
+    },
     VitePWA({
-      registerType: 'autoUpdate',
+      registerType: 'prompt',
+      injectRegister: false,
       includeAssets: ['stellar/app_icon.png'],
       manifest: {
         name: '课灵 - AI学习助手',
@@ -40,41 +52,7 @@ export default defineConfig({
           }
         ]
       },
-      workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,svg}'],
-        navigateFallbackDenylist: [/\/api\//],
-        cleanupOutdatedCaches: true,
-        runtimeCaching: [
-          {
-            urlPattern: ({ url, sameOrigin }) => sameOrigin && /\/fonts\/[^/]+\.woff2$/i.test(url.pathname),
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'stellar-fonts-v1',
-              expiration: { maxEntries: 2, maxAgeSeconds: 2592000, purgeOnQuotaError: true },
-              cacheableResponse: { statuses: [200] }
-            }
-          },
-          {
-            urlPattern: ({ url, sameOrigin }) => sameOrigin && /\/api\//.test(url.pathname),
-            handler: 'NetworkOnly',
-            options: {
-              cacheName: 'api-cache',
-              expiration: {
-                maxEntries: 100,
-                maxAgeSeconds: 60 * 60 * 24 // 24 hours
-              },
-              cacheableResponse: {
-                statuses: [0, 200]
-              }
-            }
-          },
-          {
-            urlPattern: ({ url, sameOrigin }) => sameOrigin && /\/stellar\/[^/]+\.(?:webp|png)$/i.test(url.pathname),
-            handler: 'CacheFirst',
-            options: { cacheName: 'stellar-art-v1', expiration: { maxEntries: 24, maxAgeSeconds: 2592000 }, cacheableResponse: { statuses: [200] } }
-          }
-        ]
-      },
+      workbox: workboxOptions(),
       devOptions: {
         enabled: false
       }
