@@ -1,0 +1,51 @@
+{
+  "timestampUtc": "2026-11-26T14:03:33.9792483Z",
+  "probeCount": 1,
+  "runId": "f791241b-e255-41aa-ae58-694fd5d60dbb",
+  "sourceDocument": "用户提供的工作流连接资料（不公开本机私人文件路径）",
+  "sourceNonemptyParagraphs": 3,
+  "runtimeHost": "defaultgw-gbtdsolbmn.cn-southwest-2.huaweicloud-agentarts.com",
+  "runtimePath": "/runtimes/agent-arts-6f9853e5fb1c4da595d8ed23c4e4b715/invocations",
+  "region": "cn-southwest-2",
+  "sourceHasOwnerOrWorkspace": false,
+  "sourceAccountIds": [],
+  "keyPresent": true,
+  "keyPrinted": false,
+  "rawResponseSaved": false,
+  "payload": "synthetic course only",
+  "productionLearningDataModified": false,
+  "frozenCodeModified": false,
+  "httpStatus": 403,
+  "elapsedSeconds": 0.89,
+  "credentialTimeout": true,
+  "getAppCredentialMentioned": true,
+  "templateError": true,
+  "eventNames": [],
+  "responseCharacters": 332,
+  "responseSha256": "32a234c2b80e2030233654a85d7cd86b9c1a5a984e2c60b47a6513c9bd4c7279",
+  "successfulPlanVerified": false,
+  "sourceExternalLinkCount": 0,
+  "separateApplicationIdKnown": false,
+  "originAssessment": {
+    "inference": "Likely a low-code workflow published as API, based on original document label and inputs contract; not confirmed in original console.",
+    "endpointAloneDistinguishesDevelopmentMode": false,
+    "currentRuntimeListAbsenceProvesLowcodeApplicationAbsent": false,
+    "officialConsoleMenu": "开发中心 > 智能体管理 > 工作流; compare original ID and full invocation path before checking runtime deployment",
+    "references": [
+      "https://support.huaweicloud.com/bestpractice-agentarts/agentarts_06_0136.html",
+      "https://support.huaweicloud.com/agentarts_faq/agentarts_09_0038.html",
+      "https://support.huaweicloud.com/lowcode-agentarts/agentarts_05_0031.html"
+    ]
+  },
+  "consoleObservation": {
+    "region": "cn-southwest-2",
+    "account": "hw…0013",
+    "runtimeList": "empty state observed",
+    "workflowList": "empty state observed",
+    "singleAgentList": "empty state observed",
+    "creationButtons": "disabled",
+    "betaAccessNotice": true,
+    "ownershipConfirmed": false,
+    "permissionsChanged": false
+  }
+}
