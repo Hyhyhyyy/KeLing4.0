@@ -1,0 +1,27 @@
+{
+  "startedAt": "2026-11-27T03:20:34.638Z",
+  "context": "real Miaoda development capability; not synthetic",
+  "results": [
+    {
+      "purpose": "chat",
+      "milliseconds": 2751,
+      "output": {
+        "content": "这是队列“先进先出”规则的体现：甲、乙、丙按顺序排队，没人插队，甲是最早进入队列的人，乙在甲之后进入。按照队列先到先处理的原则，必须先处理最早来的甲，等甲处理完离开队列后，才能接着处理排在第二位的乙，就像日常排队办事要按先后顺序来一样。"
+      }
+    },
+    {
+      "purpose": "study-plan",
+      "milliseconds": 8357,
+      "output": {
+        "content": "{\"summary\":\"本次学习计划围绕“理解队列先进先出”核心目标制定，依据来源S1《队列基础》中关于队列先进先出特性、入队出队位置及甲乙丙排队示例的内容，结合2026-11-27至2026-11-28的时间范围与每日20分钟的时间预算安排。计划通过概念学习、示例推演、自测验证的递进方式推进，确保在有限时间内掌握核心知识点，所有任务均基于真实来源S1设计，未引入额外资料。\",\"tasks\":[{\"title\":\"学习队列基础概念与特性\",\"description\":\"阅读来源S1中队列先进先出的定义、入队出队位置规则，整理出队列核心特性的3个要点（先进先出原则、入队位置、出队位置），形成100字以内的文字笔记，确保能准确复述核心概念。\",\"date\":\"2026-11-27\",\"minutes\":10,\"sourceIds\":[\"S1\"]},{\"title\":\"推演甲乙丙排队示例验证先进先出\",\"description\":\"基于来源S1中的甲乙丙排队示例，手动模拟3次入队（甲、乙、丙依次入队）和3次出队过程，记录每一步的队首、队尾元素变化，形成完整的模拟过程记录，验证先进先出规律。\",\"date\":\"2026-11-27\",\"minutes\":10,\"sourceIds\":[\"S1\"]},{\"title\":\"队列先进先出知识点自测与巩固\",\"description\":\"根据来源S1内容，自行设计5道判断题（如“入队在队首是否正确”“队列遵循先进后出是否正确”等）并完成作答，对照知识点批改，标注错题原因，确保正确率达到100%。\",\"date\":\"2026-11-28\",\"minutes\":15,\"sourceIds\":[\"S1\"]},{\"title\":\"队列核心知识点复盘梳理\",\"description\":\"结合前两日的学习笔记和自测结果，梳理队列先进先出特性的核心框架，用思维导图形式（文字版）呈现定义、入队出队规则、示例验证三个模块，形成可快速回顾的复习资料。\",\"date\":\"2026-11-28\",\"minutes\":5,\"sourceIds\":[\"S1\"]}]}"
+      }
+    }
+  ],
+  "status": "PASSED",
+  "finishedAt": "2026-11-27T03:20:45.748Z",
+  "limitations": [
+    "Development capability invocation only; hosted end-to-end checks pending.",
+    "Application-context shutdown emitted Database not initialized because this probe did not listen/start the database; both model calls completed before shutdown.",
+    "Model-generated content is unreviewed; no learning-outcome claims."
+  ]
+}

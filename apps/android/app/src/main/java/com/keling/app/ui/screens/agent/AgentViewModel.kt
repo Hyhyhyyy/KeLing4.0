@@ -91,6 +91,14 @@ class AgentViewModel(private val token: String, private val api: AgentApi = Agen
         } catch (e: CancellationException) { throw e }
         catch (e: Exception) { mutable.update { it.copy(polling = false, error = "${e.message ?: "网络中断"}，请刷新重试。") } }
     }
+    fun stopWaiting() {
+        val workspace = GuestWorkspaces.find(token)
+        val selected = mutable.value.selected
+        if (workspace != null && selected != null) {
+            workspace.cancelPlanWait(selected.id)
+            mutable.update { it.copy(selected = workspace.run(selected.id), polling = false, notice = "已取消等待，目标已保留") }
+        } else mutable.update { it.copy(polling = false, notice = "已停止等待，可刷新查看结果") }
+    }
     fun confirm() = action {
         val run = mutable.value.selected ?: return@action
         api.confirm(token, run.id)

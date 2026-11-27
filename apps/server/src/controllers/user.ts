@@ -1,4 +1,5 @@
 import { Response } from 'express';
+import { INTERNAL_NOTE_TYPES } from '../services/internalNotes';
 import { prisma } from '../database';
 import { AuthRequest } from '../middleware/auth';
 import { z } from 'zod';
@@ -40,7 +41,7 @@ export const getProfile = async (req: AuthRequest, res: Response) => {
         _count: {
           select: {
             tasks: { where: { status: 'COMPLETED' } },
-            notes: { where: { sourceType: { not: 'LEARNING_PLANET_INTERNAL' } } }
+            notes: { where: { sourceType: { notIn: INTERNAL_NOTE_TYPES } } }
           }
         }
       }

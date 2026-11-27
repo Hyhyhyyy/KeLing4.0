@@ -85,6 +85,9 @@ test('real Workbox fetch routes use the network for roots, index.html and guide,
   fs.writeFileSync(path.join(directory, 'fixture.js'), 'self.fixture = true;');
   fs.writeFileSync(path.join(directory, 'index.html'), '<html>current build</html>');
   fs.copyFileSync(path.join(directory, 'index.html'), path.join(directory, OFFLINE_SHELL));
+  fs.mkdirSync(path.join(directory, 'graph-editor'));
+  fs.writeFileSync(path.join(directory, 'graph-editor/index.html'), '<html>offline graph editor</html>');
+  fs.writeFileSync(path.join(directory, 'graph-editor/editor-ABC123.js'), 'self.graphEngine = true;');
   const result = await generateSW({ ...workboxOptions(), globDirectory: directory, swDest: path.join(directory, 'sw.js'), mode: 'production' });
   assert.equal(result.warnings.length, 0);
   for (const base of ['/', '/app/example/']) {
@@ -95,6 +98,8 @@ test('real Workbox fetch routes use the network for roots, index.html and guide,
       assert.equal(await response.text(), `NETWORK ${base}${route}`);
     }
     worker.setOffline(true);
+    assert.equal(await (await worker.navigate('graph-editor/index.html')).text(), '<html>offline graph editor</html>', 'graph navigation must retain its own document, never the SPA shell');
+    assert.equal(await worker.navigate('graph-editor/missing.html'), undefined, 'unknown graph documents must not become the SPA');
     for (const route of ['', 'index.html', 'guide']) assert.equal(await (await worker.navigate(route)).text(), '<html>current build</html>');
     await assert.rejects(worker.navigate('api/account'), /no-response|Network unavailable/);
     assert.equal([...worker.stores.keys()].some(name => /navigation|pages/.test(name)), false, 'no runtime page cache can pin old HTML');

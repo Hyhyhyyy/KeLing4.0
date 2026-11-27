@@ -1,8 +1,9 @@
-import { hostingCredentials, hostingHeaders } from './appPath';
+import { requestAI } from './aiJobs';
 import type { AssistantSession, ContextPreview, ContextRef, ModelProvider, Source, Turn } from './assistant';
 import { getGuestWorkspace, handleGuestData } from './guestData';
 import { getGuestSessionId, subscribeGuestSession } from './guestSession';
 import { modelAccess, useModelAccess } from './modelAccess';
+import { guestMaterialContext } from './learningMaterials';
 
 type GuestTurn = Turn & { sessionId:string; requestId:string; requestHash:string; noteId?:string };
 type PlanTask={title:string;description:string;date:string;minutes:number;sourceIds:string[]};
@@ -17,21 +18,16 @@ const now=()=>new Date().toISOString();
 const id=()=>crypto.randomUUID();
 function fail(message:string,code='VALIDATION',status=400):never{throw Object.assign(new Error(message),{response:{status,data:{error:message,code}}});}
 function failure(error:unknown){return (error as {response?:{data?:{error?:string;code?:string}}}).response?.data||{error:'请求未完成，问题仍保留；请检查配置后重试',code:'NETWORK'};}
-const base=(import.meta.env.VITE_API_BASE_URL||'/api').replace(/\/+$/,'');
-async function request<T>(path:string,body?:unknown,signal?:AbortSignal):Promise<T>{
-  const timeout=AbortSignal.timeout(90000);
-  const response=await fetch(`${base}/trial/workspace/${path}`,{method:body===undefined?'GET':'POST',credentials: hostingCredentials,cache:'no-store',redirect:'error',headers: { ...hostingHeaders(), 'Content-Type':'application/json'},signal:signal?AbortSignal.any([timeout,signal]):timeout,...(body===undefined?{}:{body:JSON.stringify(body)})});
-  const data=await response.json();if(!response.ok)fail(typeof data.error==='string'?data.error:'模型请求未完成',data.code,response.status);return data;
-}
+const request=<T,>(path:string,body?:unknown,signal?:AbortSignal)=>requestAI<T>('/trial/workspace/'+path,body,signal);
 function credentials(providerId:string){
-  if(providerId==='public')return undefined;
+  if((providerId==='public'||providerId==='miaoda'))return undefined;
   const access=useModelAccess.getState();
   if(access.providerId!==providerId||!access.apiKey)fail('请先在“输入 API Key”模块配置该厂商的密钥，再发送问题','NOT_CONFIGURED');
   return {providerId:access.providerId,apiKey:access.apiKey,baseUrl:access.baseUrl};
 }
 async function catalog(){
   let publicProviders:ModelProvider[]=[];
-  try {publicProviders=(await request<{providers:ModelProvider[]}>('catalog')).providers;}catch{/* BYOK can still be configured when public catalog is unreachable. */}
+  try {publicProviders=(await request<{providers:ModelProvider[]}>('catalog')).providers;}catch(error){if(!useModelAccess.getState().apiKey)throw error;}
   const access=useModelAccess.getState();
   if(access.apiKey&&access.providerId){
     publicProviders.push({id:access.providerId,name:`我的 Key · ${access.providerId}`,protocol:'服务商原生协议',configured:true,
@@ -94,7 +90,7 @@ async function send(s:AssistantSession,data:Record<string,unknown>){
   for(const t of turns.filter(t=>t.sessionId===s.id&&t.status==='SUCCEEDED').slice(-10).reverse()){const size=t.userText.length+t.assistantText.length;if(size>remaining)break;remaining-=size;history.unshift({role:'user',content:t.userText},{role:'assistant',content:t.assistantText});}
   const turn:GuestTurn={id:reservation,sessionId:s.id,requestId:String(data.clientRequestId),requestHash,status:'RUNNING',userText:message,assistantText:'',error:'',errorCode:'',providerId:s.providerId,modelId:s.modelId,sources,usage:{},createdAt:now()};
   turns.push(turn);s.updatedAt=now();
-  void request<{answer:string;usage:Turn['usage'];sources:Source[]}>('chat',{credentials:access,model:s.modelId,message,scenario:s.scenario,history,sources,retrievalMode:data.context?'selected':s.includeContext?s.retrievalMode:'selected',...(s.embeddingModelId?{embeddingModel:s.embeddingModelId}:{})},abort.signal).then(result=>{
+  void request<{answer:string;usage:Turn['usage'];sources:Source[]}>('chat',{credentials:access,providerId:s.providerId,model:s.modelId,message,scenario:s.scenario,history,sources,retrievalMode:data.context?'selected':s.includeContext?s.retrievalMode:'selected',...(s.embeddingModelId?{embeddingModel:s.embeddingModelId}:{})},abort.signal).then(result=>{
     if(abort.signal.aborted||sessionScope!==getGuestSessionId()||turn.status!=='RUNNING')return;turn.status='SUCCEEDED';turn.assistantText=result.answer;turn.usage=result.usage||{};turn.sources=result.sources;
   }).catch(error=>{if(abort.signal.aborted||sessionScope!==getGuestSessionId())return;turn.status='FAILED';turn.error=failure(error).error||'请求未完成';turn.errorCode=failure(error).code||'NETWORK';}).finally(()=>{controllers.delete(turn.id);if(s.activeRequestId===turn.id)s.activeRequestId='';});
   return {id:turn.id,status:turn.status};
@@ -107,16 +103,16 @@ async function send(s:AssistantSession,data:Record<string,unknown>){
 async function startRun(data:Record<string,unknown>){
   const scope=getGuestSessionId();
   const w=getGuestWorkspace(),course=w.courses.find(c=>c.id===data.courseId&&!c.isArchived);if(!course)fail('请先选择课程');
-  const available=[...w.nodes.filter(n=>n.courseId===course.id).map(n=>({id:'kg:'+n.id,title:n.name,text:n.description.slice(0,1800),kind:'knowledge',updatedAt:date(n)})),...w.notes.filter(n=>n.title.includes(course.name)||n.relatedNodeIds.some(id=>w.nodes.some(k=>k.id===id&&k.courseId===course.id))).map(n=>({id:'note:'+n.id,title:n.title,text:n.content.slice(0,1800),kind:'note',updatedAt:date(n)}))];
+  const available=[...w.nodes.filter(n=>n.courseId===course.id).map(n=>({id:'kg:'+n.id,title:n.name,text:n.description.slice(0,1800),kind:'knowledge',updatedAt:date(n)})),...w.notes.filter(n=>n.title.includes(course.name)||n.relatedNodeIds.some(id=>w.nodes.some(k=>k.id===id&&k.courseId===course.id))).map(n=>({id:'note:'+n.id,title:n.title,text:n.content.slice(0,1800),kind:'note',updatedAt:date(n)})),...guestMaterialContext(course.id).map(source=>({...source,id:'material:'+source.id}))];
   const terms=Array.from(new Set(String(data.goal).toLowerCase().match(/[a-z0-9]+|[\u4e00-\u9fff]/g)||[]));
-  const sources=available.map(s=>({s,score:terms.filter(t=>(s.title+s.text).toLowerCase().includes(t)).length})).sort((a,b)=>b.score-a.score).slice(0,8).map(x=>x.s);if(!sources.length)fail('请先为课程添加知识点或关联笔记');
+  const sources=available.map(s=>({s,score:terms.filter(t=>(s.title+s.text).toLowerCase().includes(t)).length})).sort((a,b)=>b.score-a.score).slice(0,8).map(x=>x.s);if(!sources.length)fail('请先为课程导入资料、添加知识点或关联笔记');
   const providers=(await catalog()).providers;
   if(scope!==getGuestSessionId())fail('游客空间已结束','CANCELLED',409);
   const c=providers.find(p=>p.configured&&p.chatModels.length&&p.id===useModelAccess.getState().providerId)||providers.find(p=>p.configured&&p.chatModels.length);if(!c)fail('请先填写 API Key 和聊天模型','NOT_CONFIGURED');
-  const access=credentials(c.id),model=c.id==='public'?c.chatModels[0]:useModelAccess.getState().model;
+  const access=credentials(c.id),model=['public','miaoda'].includes(c.id)?c.chatModels[0]:useModelAccess.getState().model;
   const run:Run={id:id(),courseId:course.id,goal:String(data.goal),mode:String(data.mode||'plan'),status:'RUNNING',createdAt:now(),error:'',sources,events:[{name:'课程资料检索',type:'knowledge',status:'sources_retrieved',at:now()}],result:null};runs.unshift(run);
   const abort=new AbortController();controllers.set(run.id,abort);
-  void request<{result:NonNullable<Run['result']>}>('plan',{credentials:access,model,request:data,courseName:course.name,sources,tasks:w.tasks.filter(t=>t.courseId===course.id).slice(0,100).map(t=>({title:t.title,status:t.status,estimatedMinutes:t.estimatedMinutes,actualMinutes:t.actualMinutes}))},abort.signal).then(result=>{if(scope!==getGuestSessionId()||abort.signal.aborted)return;run.result=result.result;run.status='SUCCEEDED';run.events.push({name:'计划约束校验',type:'validation',status:'node_finished',at:now()});}).catch(error=>{if(scope===getGuestSessionId()&&!abort.signal.aborted){run.status='FAILED';run.error=failure(error).error||'规划未完成';}}).finally(()=>controllers.delete(run.id));
+  void request<{result:NonNullable<Run['result']>}>('plan',{credentials:access,providerId:c.id,model,request:data,courseName:course.name,sources,tasks:w.tasks.filter(t=>t.courseId===course.id).slice(0,100).map(t=>({title:t.title,status:t.status,estimatedMinutes:t.estimatedMinutes,actualMinutes:t.actualMinutes}))},abort.signal).then(result=>{if(scope!==getGuestSessionId()||abort.signal.aborted)return;run.result=result.result;run.status='SUCCEEDED';run.events.push({name:'计划约束校验',type:'validation',status:'node_finished',at:now()});}).catch(error=>{if(scope===getGuestSessionId()&&!abort.signal.aborted){run.status='FAILED';run.error=failure(error).error||'规划未完成';}}).finally(()=>controllers.delete(run.id));
   return clone(run);
 }
 export async function handleGuestAI(method:string,path:string,data:Record<string,unknown>,_params:Record<string,unknown>):Promise<unknown>{
@@ -129,8 +125,8 @@ export async function handleGuestAI(method:string,path:string,data:Record<string
   const session=path.match(/^\/ai\/sessions\/([^/]+)(?:\/(turns|cancel))?$/);
   if(session){const s=sessionById(session[1]);if(method==='GET')return {session:clone(s),turns:clone(turns.filter(t=>t.sessionId===s.id).slice(-100))};if(method==='POST'&&session[2]==='turns')return send(s,data);if(method==='POST'&&session[2]==='cancel'){stop(s);return {ok:true};}if(method==='DELETE'){stop(s);sessions=sessions.filter(x=>x.id!==s.id);turns=turns.filter(t=>t.sessionId!==s.id);return {ok:true};}}
   const note=path.match(/^\/ai\/turns\/([^/]+)\/note$/);if(method==='POST'&&note){const t=turns.find(t=>t.id===note[1]&&t.status==='SUCCEEDED');if(!t)fail('没有可保存的回答','NOT_FOUND',404);const existing=getGuestWorkspace().notes.find(n=>n.id===t.noteId);if(existing)return {note:clone(existing)};if(noteSaves.has(t.id))return noteSaves.get(t.id);const saving=handleGuestData('POST','/notes',{title:t.userText.slice(0,80),content:t.assistantText+'\n\n引用资料快照\n'+t.sources.map((s,i)=>`[资料${i+1}] ${s.title}\n${s.text}`).join('\n\n'),sourceType:'AI_GENERATED',tags:['AI学习',t.modelId.slice(0,50)]},{}).then(result=>{t.noteId=(result as {note:{id:string}}).note.id;return result;}).finally(()=>noteSaves.delete(t.id));noteSaves.set(t.id,saving);return saving;}
-  const discover=path.match(/^\/ai\/providers\/([^/]+)\/models$/);if(method==='GET'&&discover){if(discover[1]==='public')return {models:(await catalog()).providers.find(p=>p.id==='public')?.chatModels.map(id=>({id}))||[],note:'公共模型由管理员明确开放。'};const result=await modelAccess.discover(credentials(discover[1])!);return {models:result.models,note:result.note};}
-  if(method==='GET'&&path==='/agent/status'){const p=(await catalog()).providers.find(p=>p.configured&&p.chatModels.length);return {configured:Boolean(p),provider:p?.name||''};}
+  const discover=path.match(/^\/ai\/providers\/([^/]+)\/models$/);if(method==='GET'&&discover){if(['public','miaoda'].includes(discover[1]))return {models:(await catalog()).providers.find(p=>p.id===discover[1])?.chatModels.map(id=>({id}))||[],note:'公共模型由管理员明确开放。'};const result=await modelAccess.discover(credentials(discover[1])!);return {models:result.models,note:result.note};}
+  if(method==='GET'&&path==='/agent/status'){const options=(await catalog()).providers;const p=options.find(p=>p.configured&&p.chatModels.length&&p.id===useModelAccess.getState().providerId)||options.find(p=>p.configured&&p.chatModels.length);return {configured:Boolean(p),provider:p?.name||''};}
   if(method==='GET'&&path==='/agent/runs')return {runs:clone(runs)};
   if(method==='POST'&&path==='/agent/runs/start')return startRun(data);
   const runPath=path.match(/^\/agent\/runs\/([^/]+)(?:\/(confirm))?$/);
@@ -141,6 +137,11 @@ export async function handleGuestAI(method:string,path:string,data:Record<string
       const w=getGuestWorkspace();if(!w.courses.some(c=>c.id===run.courseId&&!c.isArchived))fail('课程已删除或归档，请重新生成');
       for(const sourceId of new Set(run.result!.tasks.flatMap(t=>t.sourceIds))){
         const snapshot=run.sources.find(s=>s.id===sourceId);if(!snapshot)fail('计划引用无效，请重新生成','CONTEXT_CHANGED',409);
+        if(sourceId.startsWith('material:')){
+          const current=guestMaterialContext(run.courseId).find(source=>'material:'+source.id===sourceId);
+          if(!current||current.updatedAt!==snapshot.updatedAt||current.title!==snapshot.title||current.text!==snapshot.text)fail('计划引用的资料已修改或删除，请重新生成后确认','CONTEXT_CHANGED',409);
+          continue;
+        }
         const node=sourceId.startsWith('kg:')?w.nodes.find(n=>n.id===sourceId.slice(3)&&n.courseId===run.courseId):undefined;
         const note=sourceId.startsWith('note:')?w.notes.find(n=>n.id===sourceId.slice(5)):undefined;
         const item=node||note;

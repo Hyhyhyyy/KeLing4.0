@@ -7,11 +7,11 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "test:expedition": "node --test tests/expeditionStorage.test.cjs tests/guestExpedition.test.cjs tests/expeditionRepository.test.cjs tests/learningWorkspace.test.cjs tests/demoReadiness.test.cjs tests/planetWorkspace.test.cjs",
+    "test:expedition": "node --test tests/expeditionStorage.test.cjs tests/guestExpedition.test.cjs tests/expeditionRepository.test.cjs tests/learningWorkspace.test.cjs tests/demoReadiness.test.cjs tests/planetWorkspace.test.cjs tests/graphLayout.test.cjs tests/aiJobs.test.cjs tests/sampleCourse.test.cjs",
     "test:updates": "node --test tests/appUpdates.test.cjs tests/pwaNavigation.test.cjs",
     "preview": "vite preview",
-    "prebuild": "node ../../scripts/sync-stellar-assets.cjs",
-    "predev": "node ../../scripts/sync-stellar-assets.cjs"
+    "prebuild": "node ../../scripts/sync-stellar-assets.cjs && node ../../scripts/build-graph-editor.cjs",
+    "predev": "node ../../scripts/sync-stellar-assets.cjs && node ../../scripts/build-graph-editor.cjs"
   },
   "dependencies": {
     "@keling/shared": "^1.0.0",

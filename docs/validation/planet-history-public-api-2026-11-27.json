@@ -1,0 +1,448 @@
+{
+  "startedAt": "2026-11-27T01:53:04.425Z",
+  "target": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg",
+  "releaseId": "7712661652411370759",
+  "releaseCommit": "51f90aed6089cbcc6f583af5f8c04de521b013d2",
+  "subject": "初中历史",
+  "goal": "理解朝代先后",
+  "status": "PASSED",
+  "realModel": true,
+  "humanReviewChanged": false,
+  "steps": [
+    {
+      "label": "/learning/v1/planets/catalog",
+      "method": "GET",
+      "status": 200,
+      "ms": 738
+    },
+    {
+      "label": "register isolated 历史星球跨端验证",
+      "method": "POST",
+      "status": 201,
+      "ms": 1229
+    },
+    {
+      "label": "register isolated 星球访问隔离验证",
+      "method": "POST",
+      "status": 201,
+      "ms": 828
+    },
+    {
+      "label": "/learning/v1/planets",
+      "method": "GET",
+      "status": 200,
+      "ms": 1027
+    },
+    {
+      "label": "/courses",
+      "method": "GET",
+      "status": 200,
+      "ms": 387
+    },
+    {
+      "label": "native generation accepted",
+      "method": "POST",
+      "status": 202,
+      "ms": 475
+    },
+    {
+      "label": "other account cannot read generation job",
+      "method": "GET",
+      "status": 404,
+      "ms": 624,
+      "code": "NOT_FOUND"
+    },
+    {
+      "label": "poll generation",
+      "method": "GET",
+      "status": 200,
+      "ms": 590
+    },
+    {
+      "label": "poll generation",
+      "method": "GET",
+      "status": 200,
+      "ms": 656
+    },
+    {
+      "label": "poll generation",
+      "method": "GET",
+      "status": 200,
+      "ms": 611
+    },
+    {
+      "label": "poll generation",
+      "method": "GET",
+      "status": 200,
+      "ms": 627
+    },
+    {
+      "label": "poll generation",
+      "method": "GET",
+      "status": 200,
+      "ms": 641
+    },
+    {
+      "label": "poll generation",
+      "method": "GET",
+      "status": 200,
+      "ms": 578
+    },
+    {
+      "label": "poll generation",
+      "method": "GET",
+      "status": 200,
+      "ms": 639
+    },
+    {
+      "label": "poll generation",
+      "method": "GET",
+      "status": 200,
+      "ms": 626
+    },
+    {
+      "label": "poll generation",
+      "method": "GET",
+      "status": 200,
+      "ms": 1234
+    },
+    {
+      "label": "modified signed preview rejected",
+      "method": "POST",
+      "status": 409,
+      "ms": 223,
+      "code": "DRAFT_EXPIRED"
+    },
+    {
+      "label": "/learning/v1/planets/confirm",
+      "method": "POST",
+      "status": 200,
+      "ms": 1385
+    },
+    {
+      "label": "confirmation replay",
+      "method": "POST",
+      "status": 200,
+      "ms": 798
+    },
+    {
+      "label": "/courses/:resourceId",
+      "method": "GET",
+      "status": 200,
+      "ms": 431
+    },
+    {
+      "label": "/tasks",
+      "method": "GET",
+      "status": 200,
+      "ms": 342
+    },
+    {
+      "label": "/notes",
+      "method": "GET",
+      "status": 200,
+      "ms": 300
+    },
+    {
+      "label": "prerequisite gate before first area",
+      "method": "POST",
+      "status": 400,
+      "ms": 697,
+      "code": "INVALID_ANSWER"
+    },
+    {
+      "label": "/learning/v1/planets/:resourceId/answers",
+      "method": "POST",
+      "status": 200,
+      "ms": 878
+    },
+    {
+      "label": "answer replay",
+      "method": "POST",
+      "status": 200,
+      "ms": 924
+    },
+    {
+      "label": "invalid answer index rejected",
+      "method": "POST",
+      "status": 400,
+      "ms": 197,
+      "code": "VALIDATION"
+    },
+    {
+      "label": "/learning/v1/planets/:resourceId/answers",
+      "method": "POST",
+      "status": 200,
+      "ms": 919
+    },
+    {
+      "label": "second independent client login",
+      "method": "POST",
+      "status": 200,
+      "ms": 481
+    },
+    {
+      "label": "second client reads planet",
+      "method": "GET",
+      "status": 200,
+      "ms": 485
+    },
+    {
+      "label": "second client continues next area",
+      "method": "POST",
+      "status": 200,
+      "ms": 912
+    },
+    {
+      "label": "first client refreshes second client progress",
+      "method": "GET",
+      "status": 200,
+      "ms": 455
+    },
+    {
+      "label": "foreign planet read rejected",
+      "method": "GET",
+      "status": 404,
+      "ms": 362,
+      "code": "NOT_FOUND"
+    },
+    {
+      "label": "foreign answer rejected",
+      "method": "POST",
+      "status": 404,
+      "ms": 616,
+      "code": "NOT_FOUND"
+    },
+    {
+      "label": "/learning/v1/planets",
+      "method": "GET",
+      "status": 200,
+      "ms": 863
+    },
+    {
+      "label": "anonymous saved planet read rejected",
+      "method": "GET",
+      "status": 401,
+      "ms": 210
+    },
+    {
+      "label": "/user/profile",
+      "method": "GET",
+      "status": 200,
+      "ms": 610
+    }
+  ],
+  "checks": [
+    {
+      "name": "Native provider is exposed on actual public API",
+      "passed": true
+    },
+    {
+      "name": "Fresh account starts with no generated planets",
+      "passed": true
+    },
+    {
+      "name": "Fresh account starts with no course",
+      "passed": true
+    },
+    {
+      "name": "Generation returns RUNNING and jobId before model completion",
+      "passed": true
+    },
+    {
+      "name": "Real model output validates with requested subject and unreviewed provenance",
+      "passed": true
+    },
+    {
+      "name": "Confirmation retry keeps same course and planet",
+      "passed": true
+    },
+    {
+      "name": "Generated course is marked AI_PLANET and remains no mastery certification",
+      "passed": true
+    },
+    {
+      "name": "First exploration task is saved with course binding and zero rewards",
+      "passed": true
+    },
+    {
+      "name": "Internal planet record is absent from notebook",
+      "passed": true
+    },
+    {
+      "name": "Incorrect answer returns model-comparison feedback",
+      "passed": true
+    },
+    {
+      "name": "Same answer request is counted once",
+      "passed": true
+    },
+    {
+      "name": "Corrected answer persists first area progress",
+      "passed": true
+    },
+    {
+      "name": "Independent login restores first area and two answer attempts",
+      "passed": true
+    },
+    {
+      "name": "First client sees second client saved progression",
+      "passed": true
+    },
+    {
+      "name": "Foreign list cannot enumerate owner planet",
+      "passed": true
+    },
+    {
+      "name": "Practice does not mint mastery or game rewards",
+      "passed": true
+    }
+  ],
+  "generationMs": 19395,
+  "generationStatus": "SUCCEEDED",
+  "generatedDraft": {
+    "id": "redacted-generated-draft-id",
+    "subject": "初中历史",
+    "level": "入门",
+    "goal": "理解朝代先后",
+    "title": "初中历史朝代顺序入门星球",
+    "story": "欢迎来到历史朝代探索星球！我是星芽，接下来我们会一步步解锁中国古代主要朝代的先后顺序，从基础认知到顺序梳理，再到综合运用，慢慢搭建历史时间框架，现在就开始探索吧～",
+    "planetStyleIndex": 2,
+    "regions": [
+      {
+        "id": "r1",
+        "title": "朝代基本认知",
+        "description": "理解朝代的定义与基本特征，认识首批核心朝代",
+        "prerequisiteIds": [],
+        "estimatedMinutes": 15,
+        "lesson": "朝代是中国古代历史上建立国号的君主世代相传的统治时期，是划分中国古代历史阶段的核心单位。判断一个统治时期是否为朝代，需满足三个条件：有明确的国号、君主家族世袭传承、有相对稳定的统治区域与政权体系。比如秦朝，国号为“秦”，从秦始皇开始君主在嬴姓家族内传承，统治范围覆盖中原及周边广大区域，是中国古代第一个大一统朝代。再比如汉朝，国号为“汉”，分为西汉、东汉两个阶段，均由刘姓家族世袭统治，也是典型的大一统朝代。学习朝代顺序前，首先要明确朝代的基本属性，区分朝代与普通地方政权的差异。",
+        "objectives": [
+          "掌握朝代的定义与核心判定条件",
+          "能区分大一统朝代与地方政权"
+        ],
+        "questions": [
+          {
+            "id": "q1",
+            "prompt": "以下哪一项属于中国古代典型的大一统朝代？",
+            "options": [
+              "汉朝",
+              "三国时期的蜀国",
+              "春秋时期的晋国"
+            ],
+            "answerIndex": 0,
+            "explanation": "汉朝有明确国号“汉”，君主由刘姓家族世袭，统治范围覆盖全国大部分区域，符合大一统朝代的特征；蜀国、晋国都是地方割据政权，统治范围有限，不属于大一统朝代。"
+          }
+        ]
+      },
+      {
+        "id": "r2",
+        "title": "秦汉魏晋南北朝顺序",
+        "description": "梳理秦汉到南北朝的朝代先后脉络",
+        "prerequisiteIds": [
+          "r1"
+        ],
+        "estimatedMinutes": 20,
+        "lesson": "秦朝之后是汉朝，汉朝分为西汉和东汉，西汉由刘邦建立，定都长安；东汉由刘秀建立，定都洛阳。东汉末年天下大乱，进入三国时期，魏、蜀、吴三个政权并立，后来司马氏取代魏国建立西晋，短暂统一全国。西晋灭亡后，司马睿在南方建立东晋，北方则进入十六国混战阶段。东晋灭亡后，南方依次出现宋、齐、梁、陈四个朝代，合称南朝；北方则由北魏统一，之后分裂为东魏、西魏，又分别演变为北齐、北周，合称北朝，南朝与北朝长期对峙，这一阶段统称魏晋南北朝。梳理这一时期的朝代顺序，要抓住统一与分裂的交替规律，记住核心朝代的前后承接关系。",
+        "objectives": [
+          "掌握秦汉到南北朝的朝代先后顺序",
+          "理解这一时期统一与分裂的交替特征"
+        ],
+        "questions": [
+          {
+            "id": "q2",
+            "prompt": "以下朝代按时间先后排序正确的是？",
+            "options": [
+              "东汉—西晋—东晋—南朝宋",
+              "西晋—东汉—东晋—南朝宋",
+              "东晋—西晋—东汉—南朝宋"
+            ],
+            "answerIndex": 0,
+            "explanation": "根据课文内容，东汉灭亡后进入三国时期，之后西晋统一全国，西晋灭亡后东晋建立，东晋灭亡后南方进入南朝时期，第一个朝代是宋，因此正确顺序是东汉—西晋—东晋—南朝宋。"
+          }
+        ]
+      },
+      {
+        "id": "r3",
+        "title": "隋唐至宋元明清顺序",
+        "description": "掌握隋唐到明清的完整朝代顺序",
+        "prerequisiteIds": [
+          "r2"
+        ],
+        "estimatedMinutes": 25,
+        "lesson": "南北朝末期，北周外戚杨坚取代北周建立隋朝，随后灭掉南方的陈朝，统一全国，结束了长期分裂的局面。隋朝灭亡后，李渊建立唐朝，唐朝是中国古代最强盛的朝代之一。唐朝灭亡后进入五代十国的分裂时期，之后赵匡胤建立北宋，结束了中原和南方的分裂局面，同一时期北方还有契丹族建立的辽、党项族建立的西夏等政权。后来女真族建立的金灭掉辽和北宋，北宋皇室在南方建立南宋，宋金对峙。之后蒙古族建立的元朝灭掉金、西夏、南宋，再次实现全国大一统。元朝灭亡后朱元璋建立明朝，明朝灭亡后满族建立的清朝入主中原，清朝是中国古代最后一个封建王朝。从隋到清的朝代顺序可以简化记忆为：隋—唐—五代十国—宋（北宋、南宋）—元—明—清，同时要注意少数民族政权与中原王朝的并立情况。",
+        "objectives": [
+          "熟练掌握隋唐至明清的朝代先后顺序",
+          "能梳理中国古代从秦到清的完整朝代脉络"
+        ],
+        "questions": [
+          {
+            "id": "q3",
+            "prompt": "以下哪个朝代是在唐朝之后、宋朝之前出现的？",
+            "options": [
+              "隋朝",
+              "五代十国",
+              "元朝"
+            ],
+            "answerIndex": 1,
+            "explanation": "根据课文内容，唐朝灭亡后进入五代十国的分裂时期，之后才是赵匡胤建立的宋朝，隋朝在唐朝之前，元朝在宋朝之后，因此正确答案是五代十国。"
+          }
+        ]
+      }
+    ],
+    "reviewStatus": "UNREVIEWED",
+    "generatedBy": {
+      "providerId": "miaoda",
+      "model": "miaoda-learning",
+      "at": "2026-11-27T01:52:24.806Z"
+    }
+  },
+  "finalProgress": {
+    "answers": {
+      "q1": {
+        "selectedIndex": 0,
+        "correct": true,
+        "attempts": 2,
+        "updatedAt": "2026-11-27T01:52:32.669Z"
+      },
+      "q2": {
+        "selectedIndex": 0,
+        "correct": true,
+        "attempts": 1,
+        "updatedAt": "2026-11-27T01:52:34.544Z"
+      }
+    },
+    "completedRegionIds": [
+      "r1",
+      "r2"
+    ]
+  },
+  "retained": "Dedicated test accounts and history planet retained for cross-device UI verification; third area intentionally unanswered.",
+  "finishedAt": "2026-11-27T01:53:40.165Z",
+  "validationBoundary": {
+    "method": "Developer API smoke submitted an intentional wrong option, then the model-provided reference indices. This validates comparison, prerequisites, idempotency, persistence and access control; it does not validate learning attainment or certify generated teaching content.",
+    "independentSessions": "Two independent HTTP clients logged in through the public account API; this report does not by itself prove native Android UI behavior.",
+    "humanReviewStatus": "UNREVIEWED",
+    "contentReview": {
+      "status": "REQUIRES_REVIEW",
+      "issues": [
+        {
+          "regionId": "r3",
+          "kind": "chronology",
+          "finding": "Generated lesson attributes conquest of Western Xia and Jin to the Yuan dynasty without distinguishing the earlier Mongol state from the later Yuan name.",
+          "reference": "https://www.neac.gov.cn/seac/ztzl/mgz/lsyg.shtml"
+        },
+        {
+          "questionId": "q3",
+          "kind": "terminology",
+          "finding": "Question asks for one dynasty, but the intended option Five Dynasties and Ten Kingdoms is a historical period encompassing multiple regimes. The chronology comparison succeeds, but the stem needs correction.",
+          "reference": "https://www.chnmuseum.cn/portals/0/web/zt/gudai/detail6.html"
+        },
+        {
+          "regionId": "r1",
+          "kind": "unsupported_definition",
+          "finding": "The model presents three necessary criteria for a dynasty without a supplied source. This wording should not be treated as an authoritative definition."
+        }
+      ]
+    }
+  }
+}

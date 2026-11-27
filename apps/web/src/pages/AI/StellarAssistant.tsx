@@ -33,7 +33,7 @@ function AssistantModes({ personal, ...workspace }: { accountId?: string; launch
   const guest = isGuestSession();
   const [contextPreview, setContextPreview] = useState<ModelAccessContext[]>([]);
   return <div className="assistant-mode-shell"><nav className="assistant-mode-bar" aria-label="AI 使用方式"><button type="button" aria-pressed={mode === 'shared'} onClick={() => setMode('shared')}>{guest ? '本次会话' : '学习会话'}</button><button type="button" aria-pressed={mode === 'personal'} onClick={() => setMode('personal')}>临时问答</button></nav>
-    <div hidden={mode !== 'shared'}>{guest && <details className="assistant-personal-mode" open><summary>配置模型</summary><ModelAccessPanel variant="configuration" scopeKey={`account:${workspace.accountId}`} title="API Key 与模型"/></details>}<AssistantWorkspace {...workspace} onContextPreview={setContextPreview}/></div>
+    <div hidden={mode !== 'shared'}>{guest && <details className="assistant-personal-mode"><summary>使用自己的 API Key</summary><ModelAccessPanel variant="configuration" scopeKey={`account:${workspace.accountId}`} title="API Key 与模型"/></details>}<AssistantWorkspace {...workspace} onContextPreview={setContextPreview}/></div>
     {mode === 'personal' && <div className="assistant-personal-mode"><ModelAccessPanel title="API Key 与模型" scopeKey={`account:${workspace.accountId || 'signed-out'}`} initialMessage={workspace.launch?.prompt} context={contextPreview} onSaveAnswer={async result => {
       const content = formatModelAccessAnswer(result);
       if (content.length > 50000) throw new Error('Temporary answer is too long for one note');
@@ -78,7 +78,7 @@ function AssistantWorkspace({ accountId, launch, entryRequested, onContextPrevie
     const abort = new AbortController(); let alive = true;
     void Promise.all([assistant.catalog(abort.signal), assistant.sessions(abort.signal)]).then(([catalog, list]) => {
       if (!alive) return; setProviders(catalog.data.providers); setSessions(list.data.sessions);
-      setForm(f => { if (f.providerId && catalog.data.providers.some(p => p.id === f.providerId && p.chatModels.includes(f.modelId))) return f; const p = catalog.data.providers.find(x => x.configured && x.chatModels.length) || catalog.data.providers[0]; return { ...f, providerId: p?.id || '', modelId: p?.chatModels[0] || '' }; });
+      setForm(f => { if (f.providerId && catalog.data.providers.some(p => p.id === f.providerId && p.chatModels.includes(f.modelId))) return f; const p = catalog.data.providers.find(x => ['miaoda','public'].includes(x.id) && x.configured && x.chatModels.length) || catalog.data.providers.find(x => x.configured && x.chatModels.length) || catalog.data.providers[0]; return { ...f, providerId: p?.id || '', modelId: p?.chatModels[0] || '' }; });
     }).catch(e => { if (alive) setError(assistantError(e)); });
     return () => { alive = false; abort.abort(); };
   }, [accountId, refresh, accessRevision]);
@@ -165,7 +165,7 @@ function AssistantWorkspace({ accountId, launch, entryRequested, onContextPrevie
         <label>模型服务<SelectFrame><select disabled={busy} value={form.providerId} onChange={e => { const p = providers.find(x => x.id === e.target.value); setForm({ ...form, providerId: e.target.value, modelId: p?.chatModels[0] || '' }); }}>{providers.map(p => <option key={p.id} value={p.id}>{p.name}{p.configured ? ' · 已配置' : ' · 未配置'}</option>)}</select></SelectFrame></label>
         <label>聊天模型<SelectFrame><select disabled={busy} value={form.modelId} onChange={e => setForm({ ...form, modelId: e.target.value })}><option value="">选择已启用的模型</option>{provider?.chatModels.map(m => <option key={m}>{m}</option>)}</select></SelectFrame></label>
         <label>学习方式<SelectFrame><select disabled={busy} value={form.scenario} onChange={e => setForm({ ...form, scenario: e.target.value })}>{scenarios.map(([id, label]) => <option key={id} value={id}>{label}</option>)}</select></SelectFrame></label>
-      </div>{!provider?.configured && <p className="stellar-muted">{guest ? '请先配置 API Key 与聊天模型。' : '服务尚未配置。'}</p>}
+      </div>{!provider?.configured && <p className="stellar-muted">{'公共模型暂未就绪，可重试或使用自己的 API Key。'}</p>}
       <details><summary>模型与资料设置</summary>
         <button disabled={busy || !provider?.configured} onClick={() => void act(async () => { const { data } = await assistant.discover(form.providerId); setNotice('服务返回模型：' + data.models.map(m => m.id).join('、') + '。' + data.note); })}>查询模型</button>
         <label className="context-toggle"><input type="checkbox" disabled={busy || Boolean(contextRef)} checked={contextRef ? false : form.includeContext} onChange={e => setForm({ ...form, includeContext: e.target.checked })} />检索并发送课程与笔记摘录</label>

@@ -25,6 +25,9 @@ import { plannerRouter } from './learning/plannerRoutes';
 import { expeditionRouter } from './expedition/routes';
 import { planetRouter } from './learning/planetRoutes';
 export { registerLearningPlanetGenerator } from './learning/planets';
+export { registerNativeAiBridge } from './ai/native';
+export type { NativeAiBridge, NativeAiRequest, NativeAiMessage, NativeAiResult } from './ai/native';
+import { aiJobRouter } from './ai/jobs';
 
 requireJwtSecret();
 
@@ -46,7 +49,7 @@ app.use(cors({
   },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Planet-Job-Token']
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Planet-Job-Token', 'X-AI-Job-Token']
 }));
 app.use(express.json({ limit: '1mb' }));
 app.use(rateLimit({ windowMs: 15 * 60 * 1000, limit: 300, keyGenerator: req => ['/api/auth/login', '/api/auth/register'].includes(req.path) ? clientRateLimitKey(req) : accountRateLimitKey(req), standardHeaders: true, legacyHeaders: false }));
@@ -60,7 +63,8 @@ app.use('/api/tasks', taskRoutes);
 app.use('/api/knowledge', knowledgeRoutes);
 app.use('/api/ai', assistantRouter(prisma));
 app.use('/api/model-access', modelAccessRouter());
-app.use('/api/trial', trialRouter());
+app.use('/api/trial', trialRouter(prisma));
+app.use('/api/ai-jobs', aiJobRouter(prisma));
 app.use('/api/notes', noteRoutes);
 app.use('/api/achievements', achievementRoutes);
 app.use('/api/checkin', checkinRoutes);
@@ -75,7 +79,7 @@ app.get('/api/health', (req, res) => {
   res.json({
     status: 'ok',
     timestamp: new Date().toISOString(),
-    version: '4.1.0-planet-rc1'
+    version: '4.1.1-graph-rc2'
   });
 });
 

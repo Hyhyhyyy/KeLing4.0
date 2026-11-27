@@ -57,7 +57,7 @@ fun ExpeditionScreen(vm: ExpeditionViewModel, tab: String, guest: Boolean, onNav
                 TextButton(onClick = { takeover = true }, enabled = !state.busy) { Text("接管本次远征") }
             } } }
             item { Text("规则练习 · 待人工审核", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
-            if (tab != "profile" || course == null) item { OutlinedButton(onClick = { coursePicker = true }, modifier = Modifier.fillMaxWidth()) { Text(course?.let { "${it.name} · 切换课程" } ?: "选择课程") } }
+            if (tab != "profile" || course == null) item { OutlinedButton(onClick = { coursePicker = true }, modifier = Modifier.fillMaxWidth()) { Text(course?.let { "${it.name} · 切换示例" } ?: "二叉树示例") } }
             if (tab == "home") {
                 if (state.run != null && state.exercise != null) item { Challenge(state, vm, guest, { takeover = true }, onAsk) }
                 else {
@@ -192,12 +192,12 @@ fun ExpeditionScreen(vm: ExpeditionViewModel, tab: String, guest: Boolean, onNav
     memoryEdit?.let { memory -> AlertDialog(onDismissRequest = { memoryEdit = null }, title = { Text("编辑解释") }, text = { OutlinedTextField(memoryText, { memoryText = it.take(4000) }, modifier = Modifier.fillMaxWidth(), minLines = 4, label = { Text("我的解释") }) }, confirmButton = { TextButton(onClick = { vm.memory(memory.id, memoryText); memoryEdit = null }, enabled = !state.busy && memoryText.trim().length >= 2) { Text("确认修订") } }, dismissButton = { TextButton(onClick = { memoryEdit = null }) { Text("取消") } }) }
     memoryDelete?.let { memory -> AlertDialog(onDismissRequest = { memoryDelete = null }, title = { Text("删除这条伙伴档案？") }, text = { Text("删除此档案，历史作答保留。") }, confirmButton = { TextButton(onClick = { vm.memory(memory.id, null); memoryDelete = null }, enabled = !state.busy) { Text("确认删除") } }, dismissButton = { TextButton(onClick = { memoryDelete = null }) { Text("取消") } }) }
     if (showSchedule && course != null && state.chapter != null) ExpeditionScheduleDialog(vm.sessionToken, course.id, state.chapter!!) { showSchedule = false }
-    if (coursePicker) AlertDialog(onDismissRequest = { coursePicker = false }, title = { Text("选择课程") }, text = {
+    if (coursePicker) AlertDialog(onDismissRequest = { coursePicker = false }, title = { Text("二叉树示例与历史练习") }, text = {
         LazyColumn(Modifier.heightIn(max = 400.dp)) {
             items(state.courses, key = { it.id }) { course -> TextButton(onClick = { vm.selectCourse(course.id); coursePicker = false }) { Text(course.name) } }
-            item { OutlinedTextField(newCourse, { newCourse = it.take(100) }, label = { Text("新课程名称") }) }
+            item { OutlinedTextField(newCourse, { newCourse = it.take(100) }, label = { Text("示例名称") }) }
         }
-    }, confirmButton = { TextButton(onClick = { vm.createCourse(newCourse); newCourse = ""; coursePicker = false }, enabled = newCourse.isNotBlank() && !state.busy) { Text("创建课程") } }, dismissButton = { TextButton(onClick = { coursePicker = false }) { Text("关闭") } })
+    }, confirmButton = { TextButton(onClick = { vm.createCourse(newCourse); newCourse = ""; coursePicker = false }, enabled = newCourse.isNotBlank() && !state.busy) { Text("创建二叉树示例") } }, dismissButton = { TextButton(onClick = { coursePicker = false }) { Text("关闭") } })
     if (takeover) AlertDialog(onDismissRequest = { takeover = false }, title = { Text("由本设备接管？") }, text = { Text("接管后仅本设备可编辑，其他设备草稿保留。") }, confirmButton = { TextButton(onClick = { takeover = false; vm.takeOver() }) { Text("接管") } }, dismissButton = { TextButton(onClick = { takeover = false }) { Text("取消") } })
     if (keepRemote) AlertDialog(onDismissRequest = { keepRemote = false }, title = { Text("保留副本并采用远端？") }, text = { Text("保存当前草稿副本，并载入云端进度。") }, confirmButton = { TextButton(onClick = { keepRemote = false; vm.preserveAndUseRemote() }) { Text("确认载入") } }, dismissButton = { TextButton(onClick = { keepRemote = false }) { Text("取消") } })
 }

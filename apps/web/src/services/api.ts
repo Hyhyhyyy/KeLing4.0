@@ -171,11 +171,16 @@ export const knowledgeAPI = {
   batchCreateNodes: (courseId: string, data: { nodes: any[] }) =>
     api.post(`/knowledge/${courseId}/nodes/batch`, data),
 
+  saveLayout: (courseId: string, positions: { id: string; positionX: number; positionY: number; expectedUpdatedAt: string }[]) =>
+    api.put(`/knowledge/${courseId}/layout`, { positions }),
+
   updateNode: (id: string, data: Partial<{
     name: string;
     description: string;
     masteryLevel: number;
     isUnlocked: boolean;
+    parentIds: string[];
+    difficulty: number;
   }>) => api.put(`/knowledge/node/${id}`, data),
 
   deleteNode: (id: string) => api.delete(`/knowledge/node/${id}`),

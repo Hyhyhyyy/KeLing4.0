@@ -9,6 +9,8 @@ export * from './src/services/expedition'; export * from './src/services/expedit
 export * from './src/services/learningMaterials'; export * from './src/services/learningSchedule';
 export * from './src/pages/Expedition/treeOperations';
 export * from './src/services/focusClock';
+export * from './src/services/aiJobs';
+export * from './src/services/sampleCourse';
 export { planetAPI } from './src/services/planets';
 export { validatePlanetDraft, emptyPlanetProgress, answerPlanetQuestion } from '@keling/shared';
 export * from '@keling/shared/expedition';
@@ -19,7 +21,7 @@ module.exports = function harness() {
   const localStorage = { getItem: key => stored.get(key) || null, setItem: (key, value) => stored.set(key, value), removeItem: key => stored.delete(key) };
   let fetcher = () => { throw new Error('Unexpected external network request'); };
   const context = { module: {exports}, exports, require, process, crypto: globalThis.crypto, structuredClone, TextEncoder, TextDecoder, Date, URL,
-    URLSearchParams, Buffer, AbortController, AbortSignal, setTimeout, clearTimeout, setInterval, clearInterval, console,
+    URLSearchParams, Buffer, AbortController, AbortSignal, DOMException, setTimeout, clearTimeout, setInterval, clearInterval, console,
     localStorage, indexedDB: new IDBFactory(), fetch: (...args) => fetcher(...args), Response, Request, Headers };
   vm.runInNewContext(output, context);
   const api = context.module.exports;

@@ -1,4 +1,4 @@
-export interface RunEvent { name:string; type:string; status:string; at:string }
+export interface RunEvent { name:string; type:string; status:string; at:string; providerId?:string; modelId?:string; usage?:{inputTokens?:number;outputTokens?:number} }
 export async function readRuntimeStream(body: ReadableStream<Uint8Array>, onEvent:(e:RunEvent)=>void): Promise<string> {
   const reader=body.getReader(); const decoder=new TextDecoder(); let buffer='', result='', ended=false, bytes=0;
   const consume=(block:string)=>{

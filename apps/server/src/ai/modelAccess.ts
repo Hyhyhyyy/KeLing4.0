@@ -10,7 +10,7 @@ const extra = (id: string, name: string, base: string, documentation: string, em
   ({ id, name, protocol: 'openai', bases: [base], documentation, embedding });
 // Client keys never select an arbitrary network destination or inherit deployment credentials.
 export function accessSpecs(env: NodeJS.ProcessEnv = process.env): AccessSpec[] {
-  const fixed = providers({}).filter(p => !['ollama', 'custom'].includes(p.id)).map(p => ({
+  const fixed = providers({}).filter(p => p.protocol !== 'native' && !['ollama', 'custom'].includes(p.id)).map(p => ({
     id: p.id, name: p.name, protocol: p.protocol, bases: [p.baseUrl], documentation: p.documentation,
     embedding: !['deepseek', 'moonshot', 'anthropic'].includes(p.id),
   }));

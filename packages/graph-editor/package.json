@@ -1,0 +1,17 @@
+{
+  "name": "@keling/graph-editor",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node ../../scripts/build-graph-editor.cjs",
+    "test": "node --test tests/*.test.cjs"
+  },
+  "dependencies": {
+    "@antv/x6": "3.1.8",
+    "@dagrejs/dagre": "3.1.4"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.12"
+  }
+}

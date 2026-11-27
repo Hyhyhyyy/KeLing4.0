@@ -2,6 +2,7 @@ import { PrismaClient, Prisma } from '@prisma/client';
 import { createHash, randomBytes, randomUUID, timingSafeEqual } from 'node:crypto';
 import { CHAPTER, RULES, createProgress, createRun, emptyWorld, reduceCommand, settleRewards, applyDecoration, applySelfReport, selfReportCanonical, sessionTiming, ExpeditionError } from '@keling/shared/expedition';
 import type { AccountView, Command, Evidence, LeaseInput, ProgressState, ProgressView, Receipt, RunState, RunView, SelfReportInput, SourceRef, StartRunInput } from '@keling/shared/expedition';
+import { assertBinaryTreeCourse } from './courseAccess';
 
 type Tx = Prisma.TransactionClient;
 export const digest = (value: string) => createHash('sha256').update(value).digest('hex');
@@ -42,7 +43,8 @@ async function previousOperation(tx: Tx, userId: string, opId: string, scope: st
 }
 async function record(tx: Tx, userId: string, opId: string, scope: string, scopeId: string, input: any, hash: string, receipt: unknown) { await tx.expeditionOperation.create({ data: { userId, opId, scope, scopeId, requestHash: hash, payload: JSON.stringify(sanitized(input)), receipt: JSON.stringify(receipt) } }); }
 async function ensureProgress(tx: Tx, userId: string, courseId: string) {
-  await ownCourse(tx, userId, courseId);
+  const course = await ownCourse(tx, userId, courseId);
+  await assertBinaryTreeCourse(tx, userId, course);
   return tx.expeditionProgress.upsert({ where: { userId_courseId_chapterId: { userId, courseId, chapterId: CHAPTER.id } }, create: { userId, courseId, chapterId: CHAPTER.id, contentVersion: CHAPTER.version, state: JSON.stringify(createProgress()) }, update: {} });
 }
 async function seedSources(tx: Tx, userId: string, courseId: string): Promise<SourceRef[]> {

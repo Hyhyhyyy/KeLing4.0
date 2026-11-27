@@ -29,7 +29,7 @@ function sealPlanet(raw:unknown,input:GenerationInput,userId:string|undefined,pr
 }
 function publicProvider(env:NodeJS.ProcessEnv){return providers(env).find(p=>p.id===env.TRIAL_AI_PROVIDER&&p.configured&&p.chatModels.includes(env.TRIAL_AI_MODEL||'')&&env.TRIAL_AI_ENABLED==='true');}
 export function planetCatalog(userId?:string,env:NodeJS.ProcessEnv=process.env){
- const list: {id:string;name:string;configured:boolean;chatModels:string[]}[]=userId?providers(env).filter(p=>p.configured&&p.chatModels.length).map(p=>({id:p.id,name:p.name,configured:true,chatModels:p.chatModels})):[];
+ const list: {id:string;name:string;configured:boolean;chatModels:string[]}[]=userId?providers(env).filter(p=>p.protocol!=='native'&&p.configured&&p.chatModels.length).map(p=>({id:p.id,name:p.name,configured:true,chatModels:p.chatModels})):[];
  const p=publicProvider(env);if(p)list.unshift({id:'public',name:`公共模型 · ${p.name}`,configured:true,chatModels:[env.TRIAL_AI_MODEL!]});if(nativeGenerator)list.unshift({id:'miaoda',name:'课灵公共模型',configured:true,chatModels:['miaoda-learning']});return {providers:list};
 }
 function select(input:GenerationInput,userId:string|undefined,env:NodeJS.ProcessEnv):{provider:Provider;model:string}{

@@ -1,4 +1,5 @@
 import { RunEvent } from './runtime';
+import { nativeAiBridge } from '../ai/native';
 
 export async function invokeDeepSeek(input:unknown, context:unknown, onEvent:(event:RunEvent)=>void,
   config={url:process.env.DEEPSEEK_API_URL||'https://api.deepseek.com/v1/chat/completions',key:process.env.DEEPSEEK_API_KEY||''},
@@ -16,12 +17,14 @@ export async function invokeDeepSeek(input:unknown, context:unknown, onEvent:(ev
   onEvent({name:'DeepSeek 学习规划',type:'model',status:'node_finished',at:new Date().toISOString()});
   return choice.message.content;
 }
-export function planningProvider(): 'DeepSeek'|'AgentArts'|null {
+export function planningProvider(): 'DeepSeek'|'AgentArts'|'Miaoda'|null {
   const provider=process.env.PLANNING_PROVIDER?.trim().toLowerCase();
   const agentarts=process.env.AGENTARTS_RUNTIME_URL&&process.env.AGENTARTS_API_KEY&&(process.env.AGENTARTS_CONTEXT_MODE === "inline" || process.env.AGENTARTS_TOOL_SECRET)?'AgentArts':null;
   const deepseek=process.env.DEEPSEEK_API_KEY?'DeepSeek':null;
+  const native=nativeAiBridge()?'Miaoda':null;
   if(provider==='agentarts')return agentarts;
   if(provider==='deepseek')return deepseek;
+  if(provider==='miaoda')return native;
   if(provider && provider!=='auto')return null;
-  return agentarts||deepseek;
+  return native||agentarts||deepseek;
 }

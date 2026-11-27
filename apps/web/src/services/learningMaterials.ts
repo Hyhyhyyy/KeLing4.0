@@ -4,6 +4,9 @@ import { getGuestSessionId, subscribeGuestSession } from './guestSession';
 import { getGuestWorkspace } from './guestData';
 import { currentExpeditionScope } from './expedition';
 import type { ExpeditionScope } from './expeditionStorage';
+import { requestAI } from './aiJobs';
+import { modelAccess } from './modelAccess';
+import type { ModelCredentials } from './modelAccess';
 export interface MaterialInput { title: string; sourceName: string; format: 'TEXT' | 'MARKDOWN' | 'PDF'; text?: string; pdfBase64?: string }
 export interface MaterialSpan { id?: string; ordinal: number; startUtf16: number; endUtf16: number; page: number | null; paragraphIndex: number; heading: string; textHash: string }
 export interface ParsedMaterial extends Omit<MaterialInput, 'text' | 'pdfBase64'> { content: string; contentHash: string; spans: MaterialSpan[]; warnings: string[]; parserVersion: string; parseStatus: 'READY' }
@@ -88,6 +91,22 @@ export async function previewTutorSources(scope: ExpeditionScope, courseId: stri
 export async function assertTutorSourcesCurrent(scope: ExpeditionScope, courseId: string, sources: TutorSource[]) {
   const current = await listLearningMaterials(scope, courseId); checkLearningScope(scope);
   if (sources.some(source => !current.some(material => material.id === source.materialVersionId && material.contentHash === source.contentHash && !material.deletedAt))) throw new Error('模型生成期间或保存前资料已变化，请重新预览来源后提问。');
+}
+export async function askMaterialTutor(scope: ExpeditionScope, courseId: string, ids: string[], question: string, sources: TutorSource[], access?: { credentials: ModelCredentials; model: string }, signal?: AbortSignal) {
+  checkLearningScope(scope); await assertTutorSourcesCurrent(scope, courseId, sources);
+  let answer: string, used = sources;
+  if (scope.kind === 'account') {
+    const result = await requestAI<{ answer: string; sources: TutorSource[] }>(`/learning/v1/courses/${encodeURIComponent(courseId)}/tutor`, { ...(access || {}), message: question, query: question.slice(0, 1000), materialVersionIds: ids }, signal, true);
+    answer = result.answer; used = result.sources;
+  } else if (access) {
+    answer = (await modelAccess.complete(access.credentials, access.model, question, sources.map((source, index) => ({ title: `[S${index + 1}] ${source.title}`.slice(0, 120), text: source.text })), signal)).answer;
+  } else {
+    const result = await requestAI<{ answer: string }>('/trial/workspace/chat', { providerId: 'public', model: 'miaoda-chat', message: question, scenario: 'CONCEPT_EXPLAIN', history: [], retrievalMode: 'selected', sources: sources.map((source, index) => ({ id: source.spanId, kind: 'material', title: `[S${index + 1}] ${source.title}`, text: source.text, updatedAt: source.materialVersionId })) }, signal);
+    answer = result.answer;
+  }
+  checkLearningScope(scope); await assertTutorSourcesCurrent(scope, courseId, used);
+  if (typeof answer !== 'string' || !answer.trim()) throw new Error('模型未返回有效回答，请重试。');
+  return { answer: access?.credentials.apiKey ? answer.replaceAll(access.credentials.apiKey, '[API Key 已隐藏]') : answer, sources: used };
 }
 export function guestMaterialContext(courseId: string) {
   if (!getGuestSessionId()) return [];

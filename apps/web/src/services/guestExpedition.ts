@@ -2,6 +2,7 @@ import { CHAPTER, DECORATIONS, RULES, applyDecoration, createProgress, createRun
 import type { AccountView, Command, Evidence, LeaseInput, ProgressView, Receipt, RewardGrant, RunView, SourceRef, StartRunInput, Writer, SelfReportInput } from '@keling/shared/expedition';
 import { getGuestSessionId, subscribeGuestSession } from './guestSession';
 import { getGuestWorkspace, guestDataError } from './guestData';
+import { isBinaryTreeCourse } from './sampleCourse';
 
 type LedgerGrant = Omit<RewardGrant, 'kind'> & { kind: RewardGrant['kind'] | 'PURCHASE' };
 interface GuestExpedition {
@@ -25,7 +26,12 @@ function workspace() {
   return current;
 }
 function courseProgress(data: GuestExpedition, courseId: string) {
-  if (!getGuestWorkspace().courses.some(course => course.id === courseId && !course.isArchived)) return guestDataError(404, '课程不存在或已归档');
+  const course = getGuestWorkspace().courses.find(course => course.id === courseId && !course.isArchived);
+  if (!course) return guestDataError(404, '课程不存在或已归档');
+  const state = data.progress[courseId]?.state;
+  const history = Object.values(data.runs).some(run => run.courseId === courseId) || Boolean(state && (state.seenExerciseIds.length || state.companionMemories.length || state.objectives.some(objective => objective.state !== 'UNEXPLORED' || objective.evidenceIds.length)));
+  if (!isBinaryTreeCourse({ ...course, hasBinaryTreeHistory: history })) return guestDataError(409, '请从独立示例入口创建二叉树示例课程。', 'SAMPLE_REQUIRED');
+  course.hasBinaryTreeHistory = history;
   return data.progress[courseId] ||= { id: 'progress:' + courseId, courseId, chapterId: CHAPTER.id, contentVersion: CHAPTER.version, revision: 0, state: createProgress() };
 }
 function writeWallet(data: GuestExpedition) {
@@ -79,6 +85,7 @@ export async function guestExpeditionRequest<T>(method: 'GET' | 'POST', path: st
         const writer: Writer = { deviceId: input.deviceId, epoch: 1, token: crypto.randomUUID() };
         const run: RunView = { ...created.run, writerDeviceId: writer.deviceId, leaseEpoch: writer.epoch, leaseExpiresAt: new Date(Date.now() + RULES.leaseMs).toISOString() };
         progress.state = created.progress; progress.revision++; data.runs[run.id] = run; data.writers[run.id] = writer;
+        getGuestWorkspace().courses.find(course => course.id === input.courseId)!.hasBinaryTreeHistory = true;
         return { run, writer, progress, account: data.account };
       });
     } else if (/^\/runs\/[^/]+$/.test(path) && method === 'GET') {
@@ -176,6 +183,7 @@ export async function guestExpeditionRequest<T>(method: 'GET' | 'POST', path: st
 /** Explicit course attachment only; never expose writer tokens, unrelated courses or hidden drafts. */
 export function guestExpeditionContext(courseId: string): { id: string; kind: string; title: string; text: string; updatedAt: string; truncated: boolean }[] {
   if (!current || current.id !== getGuestSessionId()) return [];
+  if (!isBinaryTreeCourse(getGuestWorkspace().courses.find(course => course.id === courseId))) return [];
   const data = current, progress = data.progress[courseId], sources = [];
   if (progress) {
     sources.push({ id: progress.id, kind: 'evidence', title: '二叉树目标与已确认解释',

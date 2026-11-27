@@ -293,7 +293,7 @@ fun MainAppContent(authViewModel: AuthViewModel, viewModel: AppViewModel, onRetr
     // 主页面列表（显示底部导航栏）
     val mainScreens = listOf("home", "star_map", "base", "profile", "account_profile", "settings", "dashboard")
     val isMainScreen = currentScreen in mainScreens
-    val needsLocalData = currentScreen.startsWith("offline_") || currentScreen in listOf("local_ai", "greenhouse_course", "knowledge_graph", "task_detail")
+    val needsLocalData = currentScreen.startsWith("offline_") || currentScreen in listOf("greenhouse_course", "knowledge_graph", "task_detail")
 
     // 检查更新的函数
     fun checkForUpdate() {
@@ -490,9 +490,20 @@ fun MainAppContent(authViewModel: AuthViewModel, viewModel: AppViewModel, onRetr
             } else if (needsLocalData && (!syncState.isReady || syncState.isSyncing)) {
                 if (syncState.error == null) LoadingScreen()
                 else Text("数据读取失败，请重试。", Modifier.padding(24.dp))
+            } else if (currentScreen.startsWith("cloud_graph:")) {
+                assistantAccount?.let { session -> com.keling.app.graph.CloudGraphScreen(session.token, currentScreen.removePrefix("cloud_graph:")) { viewModel.navigateTo("greenhouse") } }
+            } else if (currentScreen.startsWith("course_materials:") || currentScreen.startsWith("planet_materials:")) {
+                assistantAccount?.let { session -> com.keling.app.expedition.LearningMaterialsScreen(session.token, currentScreen.substringAfter(':')) {
+                    viewModel.navigateTo(if (currentScreen.startsWith("planet_materials:")) "planet" else "greenhouse")
+                } }
             } else when (currentScreen) {
                 "home", "star_map", "planet" -> {
-                    planetVm?.let { model -> com.keling.app.planet.PlanetScreen(model, guest != null) { viewModel.navigateTo(it) } }
+                    planetVm?.let { model -> com.keling.app.planet.PlanetScreen(model, guest != null) { target ->
+                        if (target.startsWith("ask_course:")) {
+                            assistantLaunch = com.keling.app.ui.screens.ai.AssistantContextLaunch(com.keling.app.network.AssistantContextRef("course", target.substringAfter(':')), "请结合这颗星球的知识内容，帮我梳理学习重点。")
+                            assistantOrigin = "planet"; viewModel.navigateTo("ai")
+                        } else viewModel.navigateTo(target)
+                    } }
                 }
                 "legacy_expedition", "base", "profile" -> {
                     expeditionVm?.let { model -> com.keling.app.expedition.ExpeditionScreen(model, if (currentScreen == "legacy_expedition") "home" else currentScreen, guest != null,
@@ -526,7 +537,7 @@ fun MainAppContent(authViewModel: AuthViewModel, viewModel: AppViewModel, onRetr
                         }
                     }
                 )
-                "ai" -> {
+                "ai", "local_ai" -> {
                     assistantAccount?.let { session ->
                         com.keling.app.ui.screens.ai.StellarAssistantScreen(session.userId, session.token,
                             onBack = { viewModel.navigateTo(assistantOrigin) }, onPlanning = { viewModel.navigateTo("cloud_agent") },
@@ -534,11 +545,6 @@ fun MainAppContent(authViewModel: AuthViewModel, viewModel: AppViewModel, onRetr
                             contextLaunch = assistantLaunch, onLaunchConsumed = { assistantLaunch = null })
                     }
                 }
-                "local_ai" -> PastoralAIScreen(
-                    viewModel = viewModel,
-                    onOpenCloudAgent = { viewModel.navigateTo("cloud_agent") },
-                    onBack = { viewModel.navigateTo("home") }
-                )
                 "cloud_agent" -> {
                     assistantAccount?.let { session ->
                         com.keling.app.ui.screens.agent.CloudAgentScreen(session.userId, session.token) {

@@ -164,7 +164,8 @@ data class CourseData(
     val planetStyleIndex: Int = 0,
     val totalStudyMinutes: Int = 0,
     val isArchived: Boolean = false,
-    val studySessionCount: Int = 0
+    val studySessionCount: Int = 0,
+    val hasBinaryTreeHistory: Boolean = false
 )
 
 @Serializable

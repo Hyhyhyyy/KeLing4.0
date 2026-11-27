@@ -117,7 +117,7 @@ fun StellarAssistantScreen(accountId: String, token: String, onBack: () -> Unit,
                                 Text("输入 ${turn.usage.inputTokens ?: "未报告"} / 输出 ${turn.usage.outputTokens ?: "未报告"} tokens", style = MaterialTheme.typography.bodySmall)
                             }
                             if (turn.status == "SUCCEEDED") OutlinedButton(onClick = { vm.saveNote(turn.id) }, enabled = !state.busy) { Text("保存笔记") }
-                            if (turn.status == "FAILED") TextButton(onClick = { vm.editPrompt(turn.userText) }) { Text("重新编辑问题") }
+                            if (turn.status in setOf("FAILED", "CANCELLED")) TextButton(onClick = { vm.editPrompt(turn.userText) }) { Text("重新编辑问题") }
                         } }
                     }
                 }

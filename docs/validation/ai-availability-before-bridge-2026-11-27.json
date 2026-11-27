@@ -1,0 +1,187 @@
+{
+  "at": "2026-11-27T02:42:58.045Z",
+  "target": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg",
+  "kind": "READ_ONLY_AI_AVAILABILITY_BEFORE_GENERAL_NATIVE_BRIDGE",
+  "results": [
+    {
+      "route": "/ai/catalog",
+      "status": 200,
+      "providers": [
+        {
+          "id": "deepseek",
+          "configured": false,
+          "chatModels": [],
+          "embeddingModels": []
+        },
+        {
+          "id": "bailian",
+          "configured": false,
+          "chatModels": [],
+          "embeddingModels": []
+        },
+        {
+          "id": "moonshot",
+          "configured": false,
+          "chatModels": [],
+          "embeddingModels": []
+        },
+        {
+          "id": "zhipu",
+          "configured": false,
+          "chatModels": [],
+          "embeddingModels": []
+        },
+        {
+          "id": "siliconflow",
+          "configured": false,
+          "chatModels": [],
+          "embeddingModels": []
+        },
+        {
+          "id": "ark",
+          "configured": false,
+          "chatModels": [],
+          "embeddingModels": []
+        },
+        {
+          "id": "hunyuan",
+          "configured": false,
+          "chatModels": [],
+          "embeddingModels": []
+        },
+        {
+          "id": "huawei",
+          "configured": false,
+          "chatModels": [],
+          "embeddingModels": []
+        },
+        {
+          "id": "openai",
+          "configured": false,
+          "chatModels": [],
+          "embeddingModels": []
+        },
+        {
+          "id": "anthropic",
+          "configured": false,
+          "chatModels": [],
+          "embeddingModels": []
+        },
+        {
+          "id": "gemini",
+          "configured": false,
+          "chatModels": [],
+          "embeddingModels": []
+        },
+        {
+          "id": "openrouter",
+          "configured": false,
+          "chatModels": [],
+          "embeddingModels": []
+        },
+        {
+          "id": "ollama",
+          "configured": false,
+          "chatModels": [],
+          "embeddingModels": []
+        },
+        {
+          "id": "custom",
+          "configured": false,
+          "chatModels": [],
+          "embeddingModels": []
+        }
+      ]
+    },
+    {
+      "route": "/trial/config",
+      "status": 200,
+      "ai": {
+        "available": false,
+        "model": null,
+        "reason": "公共模型尚未启用。你可以填写自己的 API Key，或先体验课程、任务和笔记。"
+      }
+    },
+    {
+      "route": "/trial/workspace/catalog",
+      "status": 200,
+      "providers": []
+    },
+    {
+      "route": "/agent/status",
+      "status": 200,
+      "configured": true,
+      "provider": "AgentArts"
+    },
+    {
+      "route": "/learning/v1/planets/catalog",
+      "status": 200,
+      "providers": [
+        {
+          "id": "miaoda",
+          "configured": true,
+          "chatModels": [
+            "miaoda-learning"
+          ]
+        }
+      ]
+    },
+    {
+      "route": "/model-access/catalog",
+      "status": 200,
+      "providers": [
+        {
+          "id": "deepseek"
+        },
+        {
+          "id": "bailian"
+        },
+        {
+          "id": "moonshot"
+        },
+        {
+          "id": "zhipu"
+        },
+        {
+          "id": "siliconflow"
+        },
+        {
+          "id": "ark"
+        },
+        {
+          "id": "hunyuan"
+        },
+        {
+          "id": "huawei"
+        },
+        {
+          "id": "openai"
+        },
+        {
+          "id": "anthropic"
+        },
+        {
+          "id": "gemini"
+        },
+        {
+          "id": "openrouter"
+        },
+        {
+          "id": "baidu"
+        },
+        {
+          "id": "minimax"
+        },
+        {
+          "id": "xai"
+        },
+        {
+          "id": "mistral"
+        },
+        {
+          "id": "groq"
+        }
+      ]
+    }
+  ]
+}

@@ -22,7 +22,7 @@ import kotlinx.serialization.Serializable
     val events: List<AgentEvent> = emptyList(), val result: AgentPlan? = null
 )
 @Serializable data class AgentRuns(val runs: List<AgentRun> = emptyList())
-@Serializable private data class NewCourse(val name: String, val planetStyleIndex: Int)
+@Serializable private data class NewCourse(val name: String, val planetStyleIndex: Int, val code: String? = null)
 @Serializable private data class NewSource(val name: String, val description: String)
 @Serializable private data class CompleteCloudTask(val actualMinutes: Int)
 
@@ -31,10 +31,10 @@ class AgentApi(private val client: HttpClient = KelingHttpClient.client) {
     private fun url(path: String) = "${ApiConfig.actualBaseUrl}$path"
     suspend fun status(token: String): AgentStatus = GuestWorkspaces.find(token)?.let { it.status() } ?: client.get(url("/agent/status")) { bearerAuth(token) }.body()
     suspend fun courses(token: String): CloudCourses = GuestWorkspaces.find(token)?.let { it.cloudCourses() } ?: client.get(url("/courses")) { bearerAuth(token) }.body()
-    suspend fun createCourse(token: String, name: String, planetStyleIndex: Int = 0): CloudCourses {
+    suspend fun createCourse(token: String, name: String, planetStyleIndex: Int = 0, code: String? = null): CloudCourses {
         com.keling.app.data.PlanetStyles.requireIndex(planetStyleIndex)
-        return GuestWorkspaces.find(token)?.let { it.createCourse(name, planetStyleIndex) } ?: client.post(url("/courses")) {
-            bearerAuth(token); contentType(ContentType.Application.Json); setBody(NewCourse(name, planetStyleIndex))
+        return GuestWorkspaces.find(token)?.let { it.createCourse(name, planetStyleIndex, code.orEmpty()) } ?: client.post(url("/courses")) {
+            bearerAuth(token); contentType(ContentType.Application.Json); setBody(NewCourse(name, planetStyleIndex, code))
         }.body()
     }
     suspend fun sources(token: String, courseId: String): CloudNodes = GuestWorkspaces.find(token)?.let { it.sourceList(courseId) } ?: client.get(url("/knowledge/$courseId/nodes")) { bearerAuth(token) }.body()

@@ -21,7 +21,17 @@ require(apiBaseUrl.startsWith("https://") || apiBaseUrl.startsWith("http://")) {
 // Package the same canonical artwork used by the web app.
 val sharedExpeditionDirectory = rootProject.file("../../packages/shared/src/expedition")
 val packagedAssetDirectory = layout.buildDirectory.dir("generated/packaged-assets")
+val prepareGraphEditor by tasks.registering(Exec::class) {
+    workingDir(rootProject.file("../.."))
+    commandLine("node", "scripts/build-graph-editor.cjs")
+    inputs.dir(rootProject.file("../../packages/graph-editor/src"))
+    inputs.file(rootProject.file("../../packages/graph-editor/index.html"))
+    inputs.file(rootProject.file("../../scripts/build-graph-editor.cjs"))
+    inputs.file(rootProject.file("../../package-lock.json"))
+    outputs.dir(file("src/main/assets/graph-editor"))
+}
 val preparePackagedAssets by tasks.registering(Sync::class) {
+    dependsOn(prepareGraphEditor)
     from("src/main/assets") { exclude("stellar/**") }
     from(rootProject.file("../../assets/stellar")) {
         include("*.webp", "app_icon.png", "manifest.json", "subject-planets.json")
@@ -75,9 +85,9 @@ android {
         targetSdk = 34
 
         // 版本号，每次更新应用要+1
-        versionCode = 28
+        versionCode = 29
         // 版本名称，用户看到的版本
-        versionName = "4.1.0-planet-rc1"
+        versionName = "4.1.1-graph-rc2"
         buildConfigField("String", "API_BASE_URL", "\"${apiBaseUrl.replace("\\", "\\\\").replace("\"", "\\\"")}\"")
 
         // 启用矢量图支持，这样图标可以缩放不失真

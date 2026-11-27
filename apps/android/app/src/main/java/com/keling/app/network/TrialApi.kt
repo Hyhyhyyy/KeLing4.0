@@ -21,6 +21,8 @@ class TrialApi(private val client: HttpClient = KelingHttpClient.client) {
     suspend fun ask(question: TrialQuestion): TrialAnswer {
         require(question.message.trim().length in 1..4000)
         require(question.context.size <= 3 && question.context.all { it.title.length <= 120 && it.text.length <= 2000 })
-        return client.post(url("/ai")) { timeout { requestTimeoutMillis = 95_000 }; contentType(ContentType.Application.Json); setBody(question) }.body()
+        val origin = ApiConfig.actualBaseUrl
+        val response = client.post("$origin/trial/ai") { timeout { requestTimeoutMillis = 95_000 }; contentType(ContentType.Application.Json); setBody(question) }
+        return awaitAiResult(client, response, TrialAnswer.serializer(), origin = origin)
     }
 }

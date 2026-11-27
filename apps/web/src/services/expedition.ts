@@ -8,7 +8,7 @@ import { enqueueExpeditionOperation, expeditionScopeKey, readExpeditionLocal, up
 import type { ExpeditionLocalState, ExpeditionScope } from './expeditionStorage';
 
 export type LedgerGrant = Omit<RewardGrant, 'kind'> & { kind: RewardGrant['kind'] | 'PURCHASE' };
-export interface CourseSummary { id: string; name: string; planetStyleIndex: number; code?: string }
+export interface CourseSummary { id: string; name: string; planetStyleIndex: number; code?: string; hasBinaryTreeHistory?: boolean }
 export interface ChapterView { chapter: typeof CHAPTER; progress: ProgressView; account: AccountView; runs: RunView[]; serverTime: string }
 export interface RunSnapshot { run: RunView; progress: ProgressView; account: AccountView; serverTime?: string }
 export interface SelfReportRecord { id: string; courseId: string | null; type: 'SELF_REPORTED'; durationMinutes: number; notes: string; createdAt: string }

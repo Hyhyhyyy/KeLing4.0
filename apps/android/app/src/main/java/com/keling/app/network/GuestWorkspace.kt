@@ -1,6 +1,7 @@
 package com.keling.app.network
 
 import com.keling.app.ui.screens.ai.ModelAccessSession
+import com.keling.app.graph.*
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.timeout
@@ -48,6 +49,9 @@ class GuestWorkspace internal constructor(private val suppliedClient: HttpClient
     private val notes = mutableListOf<NoteData>()
     private val tasks = mutableListOf<TaskData>()
     private val sources = mutableMapOf<String, MutableList<AssistantSource>>()
+    private val graphMetadata = mutableMapOf<String, GraphNode>()
+    private val graphSavedPositions = mutableMapOf<String, Pair<Double, Double>>()
+    private val graphLayoutStamps = mutableMapOf<String, String>()
     private var checkedDate = ""
     private var experience = 0
     val learningMaterials = com.keling.app.expedition.GuestLearningStore(::ensureOpen)
@@ -57,7 +61,7 @@ class GuestWorkspace internal constructor(private val suppliedClient: HttpClient
     fun expedition(catalog: com.keling.app.expedition.CatalogResponse): com.keling.app.expedition.GuestExpedition {
         ensureOpen()
         return expeditionGame ?: com.keling.app.expedition.GuestExpedition(catalog, ::ensureOpen,
-            { id -> courses.any { it.id == id && !it.isArchived && it.code != "AI_PLANET" } },
+            { id -> com.keling.app.expedition.legacyExpeditionCourses(courses).any { it.id == id } },
             com.keling.app.expedition.LegacySnapshot(profile.level, experience, profile.crystals, profile.energy, now()),
             { account -> ensureOpen(); profile = profile.copy(level = account.level, crystals = account.crystals); experience = account.exp },
             { record -> ensureOpen(); profile = profile.copy(totalStudyMinutes = profile.totalStudyMinutes + record.durationMinutes)
@@ -89,9 +93,46 @@ class GuestWorkspace internal constructor(private val suppliedClient: HttpClient
         return CourseResponse(course = updated)
     }
     fun sourceList(courseId: String): CloudNodes { ensureOpen(); require(courses.any { it.id == courseId }); return CloudNodes(sources[courseId].orEmpty().map { CloudNode(it.id, it.title, it.text) }) }
-    fun addSource(courseId: String, name: String, text: String) {
+    fun addSource(courseId: String, name: String, text: String): String {
         ensureOpen(); require(courses.any { it.id == courseId } && name.isNotBlank() && text.isNotBlank())
-        sources.getOrPut(courseId) { mutableListOf() }.add(AssistantSource(id(), name.take(180), text.take(50000), "knowledge", now()))
+        val source = AssistantSource(id(), name.take(180), text.take(50000), "knowledge", now())
+        sources.getOrPut(courseId) { mutableListOf() }.add(source)
+        return source.id
+    }
+    fun graphDocument(courseId: String): GraphDocument {
+        ensureOpen(); require(courses.any { it.id == courseId }) { "课程不存在" }
+        val nodes = sources[courseId].orEmpty().map { source -> (graphMetadata[source.id] ?: GraphNode(source.id, courseId, source.title)).copy(name = source.title, description = source.text, updatedAt = source.updatedAt.orEmpty()) }
+        val validIds = nodes.map { it.id }.toSet()
+        val linked = nodes.map { n -> n.copy(parentIds = n.parentIds.filter { it in validIds }, childIds = nodes.filter { n.id in it.parentIds }.map { it.id }) }
+        val saved = linked.filter { graphSavedPositions[it.id] == (it.positionX to it.positionY) }.map { it.id }
+        return GraphDocument(linked, linked.isNotEmpty() && saved.size == linked.size, saved, graphLayoutStamps[courseId])
+    }
+    fun saveGraphLayout(courseId: String, input: GraphLayoutInput): GraphDocument {
+        val current = graphDocument(courseId); val byId = current.nodes.associateBy { it.id }
+        validateGraphPositions(input.positions.map { GraphPosition(it.id, it.positionX, it.positionY) }, byId.keys)
+        if (input.positions.any { byId.getValue(it.id).updatedAt != it.expectedUpdatedAt }) throw ApiException(409, "图谱已变化，请刷新后重试", "LAYOUT_CONFLICT")
+        val stamp = now()
+        input.positions.forEach { p -> graphMetadata[p.id] = byId.getValue(p.id).copy(positionX = p.positionX, positionY = p.positionY, updatedAt = stamp); graphSavedPositions[p.id] = p.positionX to p.positionY }
+        val changedIds = input.positions.map { it.id }.toSet()
+        sources[courseId]?.replaceAll { if (it.id in changedIds) it.copy(updatedAt = stamp) else it }
+        graphLayoutStamps[courseId] = stamp
+        return graphDocument(courseId)
+    }
+    fun saveGraphNode(courseId: String, nodeId: String?, input: GraphNodeInput): String {
+        val current = graphDocument(courseId); val old = nodeId?.let { key -> current.nodes.find { it.id == key } ?: throw ApiException(404, "知识点不存在") }
+        require(input.name.trim().length in 1..180 && input.description.length <= 50000 && input.difficulty in 1..5 && input.masteryLevel.isFinite() && input.masteryLevel in 0f..1f) { "知识点内容无效" }
+        val node = old ?: GraphNode(id(), courseId, input.name.trim())
+        validateGraphParents(node.id, input.parentIds, current.nodes)
+        val next = node.copy(name = input.name.trim(), description = input.description, parentIds = input.parentIds, difficulty = input.difficulty, masteryLevel = input.masteryLevel, updatedAt = now())
+        graphMetadata[next.id] = next
+        val list = sources.getOrPut(courseId) { mutableListOf() }
+        list.removeAll { it.id == next.id }; list.add(AssistantSource(next.id, next.name, next.description, "knowledge", next.updatedAt))
+        return next.id
+    }
+    fun deleteGraphNode(courseId: String, nodeId: String) {
+        val current = graphDocument(courseId); require(current.nodes.any { it.id == nodeId }) { "知识点不存在" }
+        sources[courseId]?.removeAll { it.id == nodeId }; graphMetadata.remove(nodeId); graphSavedPositions.remove(nodeId)
+        current.nodes.filter { nodeId in it.parentIds }.forEach { n -> saveGraphNode(courseId, n.id, GraphNodeInput(n.name, n.description, n.parentIds - nodeId, n.difficulty, n.masteryLevel)) }
     }
     fun noteList(): NoteResponse { ensureOpen(); return NoteResponse(notes = notes.toList()) }
     fun saveNote(noteId: String?, input: WorkspaceNoteInput): NoteData {
@@ -225,10 +266,12 @@ class GuestWorkspace internal constructor(private val suppliedClient: HttpClient
         val receipt = AssistantReceipt(turn.id, "RUNNING"); requests[requestKey] = receipt; requestSignatures[requestKey] = signature
         running[sessionId] = scope.launch {
             try {
-                val answer = client.post("${ApiConfig.actualBaseUrl}/trial/workspace/chat") { timeout { requestTimeoutMillis = 95_000 }; contentType(ContentType.Application.Json); setBody(payload) }.body<GuestChatResult>()
+                val origin = ApiConfig.actualBaseUrl
+                val response = client.post("$origin/trial/workspace/chat") { timeout { requestTimeoutMillis = 95_000 }; contentType(ContentType.Application.Json); setBody(payload) }
+                val answer = awaitAiResult(client, response, GuestChatResult.serializer(), origin = origin)
                 if (!closed && conversations[sessionId]?.session?.activeRequestId == requestId) finish(sessionId, turn.copy(status = "SUCCEEDED", assistantText = answer.answer, modelId = answer.model, sources = answer.sources, usage = answer.usage))
             } catch (e: CancellationException) { throw e }
-            catch (_: Exception) { if (!closed && conversations[sessionId]?.session?.activeRequestId == requestId) finish(sessionId, turn.copy(status = "FAILED", error = "模型请求失败，请检查 Key、模型权限与网络后重试。")) }
+            catch (_: Exception) { if (!closed && conversations[sessionId]?.session?.activeRequestId == requestId) finish(sessionId, turn.copy(status = "FAILED", error = "模型请求失败，请检查网络或所选模型后重试。")) }
         }
         return receipt
     }
@@ -248,8 +291,11 @@ class GuestWorkspace internal constructor(private val suppliedClient: HttpClient
     fun run(id: String): AgentRun { ensureOpen(); return runs[id] ?: throw ApiException(404, "计划不存在") }
     suspend fun start(request: AgentRequest): AgentRun {
         ensureOpen(); val course = courses.find { it.id == request.courseId } ?: throw ApiException(404, "课程不存在")
-        val materials = sources[course.id].orEmpty().take(8).map { it.copy(text = it.text.take(1800), truncated = it.text.length > 1800) }; require(materials.isNotEmpty()) { "请先添加课程资料" }
-        val sourceFingerprint = preview(AssistantContextRef("course", course.id)).fingerprint
+        val sourcePreview = preview(AssistantContextRef("course", course.id))
+        val materials = (sourcePreview.sources.filter { it.kind == "material" } + sources[course.id].orEmpty()).take(8)
+            .map { it.copy(text = it.text.take(1800), truncated = it.truncated || it.text.length > 1800) }
+        require(materials.isNotEmpty()) { "请先添加课程资料" }
+        val sourceFingerprint = sourcePreview.fingerprint
         val provider = catalog().providers.firstOrNull { it.configured && it.chatModels.isNotEmpty() } ?: throw ApiException(400, "请先配置 API Key 与模型")
         val model = modelAccess.state.value.model.takeIf { it in provider.chatModels } ?: provider.chatModels.first()
         val payload = buildJsonObject {
@@ -261,10 +307,13 @@ class GuestWorkspace internal constructor(private val suppliedClient: HttpClient
         runFingerprints[started.id] = sourceFingerprint
         running[started.id] = scope.launch {
             try {
-                val answer = client.post("${ApiConfig.actualBaseUrl}/trial/workspace/plan") { timeout { requestTimeoutMillis = 95_000 }; contentType(ContentType.Application.Json); setBody(payload) }.body<GuestPlanResult>()
+                val origin = ApiConfig.actualBaseUrl
+                val response = client.post("$origin/trial/workspace/plan") { timeout { requestTimeoutMillis = 95_000 }; contentType(ContentType.Application.Json); setBody(payload) }
+                val answer = awaitAiResult(client, response, GuestPlanResult.serializer(), origin = origin)
+                if (!closed && preview(AssistantContextRef("course", course.id)).fingerprint != sourceFingerprint) throw ApiException(409, "课程资料已变化，请重新生成计划")
                 if (!closed) runs[started.id] = started.copy(status = "SUCCEEDED", result = answer.result)
             } catch (e: CancellationException) { throw e }
-            catch (_: Exception) { if (!closed) runs[started.id] = started.copy(status = "FAILED", error = "规划失败，请检查模型配置和资料后重试。") }
+            catch (e: Exception) { if (!closed) runs[started.id] = started.copy(status = "FAILED", error = if (e is ApiException && e.statusCode == 409) e.message.orEmpty() else "规划失败，请检查模型配置和资料后重试。") }
         }
         return started
     }
@@ -278,8 +327,15 @@ class GuestWorkspace internal constructor(private val suppliedClient: HttpClient
         tasks.addAll(plan.tasks.map { TaskData(id(), it.title, it.description, courseId = runCourses[runId], estimatedMinutes = it.minutes, scheduledAt = it.date, createdAt = now()) })
         runs[runId] = selected.copy(status = "CONFIRMED")
     }
+    fun cancelPlanWait(runId: String) {
+        ensureOpen()
+        val current = runs[runId] ?: return
+        if (current.status != "RUNNING") return
+        running.remove(runId)?.cancel()
+        runs[runId] = current.copy(status = "CANCELLED", error = "已取消本次等待，目标已保留")
+    }
     fun close() {
-        expeditionGame?.close(); expeditionJournal.close(); learningMaterials.close(); learningPlanets.clear(); scheduleConfirmations.clear()
+        expeditionGame?.close(); expeditionJournal.close(); learningMaterials.close(); learningPlanets.clear(); graphMetadata.clear(); graphSavedPositions.clear(); graphLayoutStamps.clear(); scheduleConfirmations.clear()
         closed = true; scope.cancel(); modelAccess.close(); courses.clear(); sources.clear(); tasks.clear(); notes.clear(); conversations.clear(); settings.clear(); requests.clear(); requestSignatures.clear(); running.clear(); noteForTurn.clear(); runs.clear(); runCourses.clear(); runFingerprints.clear(); profile = WorkspaceProfile(accountId, ""); checkedDate = ""; experience = 0
     }
 }

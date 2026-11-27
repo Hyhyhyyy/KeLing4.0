@@ -3,6 +3,7 @@ import { prisma } from '../database';
 import { AuthRequest } from '../middleware/auth';
 import { randomUUID as uuidv4 } from 'node:crypto';
 import { z } from 'zod';
+import { INTERNAL_NOTE_TYPES } from '../services/internalNotes';
 const noteInput = z.object({ title: z.string().trim().min(1).max(180), content: z.string().min(1).max(50000),
   tags: z.array(z.string().max(50)).max(20).optional(), relatedNodeIds: z.array(z.string().max(100)).max(100).optional(),
   sourceType: z.enum(['USER_CREATED', 'AI_GENERATED', 'CLASS_CAPTURE', 'BOUNTY_REWARD']).optional(), aiExplanation: z.string().max(50000).optional() });
@@ -16,7 +17,7 @@ export const getNotes = async (req: AuthRequest, res: Response) => {
 
     const { tag, sourceType } = req.query;
 
-    const where: any = { userId: req.userId, sourceType: { not: 'LEARNING_PLANET_INTERNAL' } };
+    const where: any = { userId: req.userId, sourceType: { notIn: INTERNAL_NOTE_TYPES } };
     // SQLite 不支持 JSON 查询，这里简化处理
 
     const notes = await prisma.note.findMany({
@@ -95,7 +96,7 @@ export const updateNote = async (req: AuthRequest, res: Response) => {
     const { title, content, tags, reviewCount } = parsed.data;
 
     const existing = await prisma.note.findFirst({
-      where: { id: noteId, userId: req.userId, sourceType: { not: 'LEARNING_PLANET_INTERNAL' } }
+      where: { id: noteId, userId: req.userId, sourceType: { notIn: INTERNAL_NOTE_TYPES } }
     });
 
     if (!existing) {
@@ -143,7 +144,7 @@ export const deleteNote = async (req: AuthRequest, res: Response) => {
     const noteId = String(req.params.id);
 
     const existing = await prisma.note.findFirst({
-      where: { id: noteId, userId: req.userId, sourceType: { not: 'LEARNING_PLANET_INTERNAL' } }
+      where: { id: noteId, userId: req.userId, sourceType: { notIn: INTERNAL_NOTE_TYPES } }
     });
 
     if (!existing) {
@@ -165,7 +166,7 @@ export const deleteNote = async (req: AuthRequest, res: Response) => {
 async function updateNoteAchievement(userId: string) {
   try {
     const count = await prisma.note.count({
-      where: { userId, sourceType: { not: 'LEARNING_PLANET_INTERNAL' } }
+      where: { userId, sourceType: { notIn: INTERNAL_NOTE_TYPES } }
     });
 
     const ua = await prisma.userAchievement.findUnique({

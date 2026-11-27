@@ -1,6 +1,7 @@
 import { z } from 'zod';
+import { nativeAiBridge } from './native';
 
-export type Protocol = 'openai' | 'anthropic' | 'gemini';
+export type Protocol = 'openai' | 'anthropic' | 'gemini' | 'native';
 export type Provider = {
   id: string; name: string; protocol: Protocol; baseUrl: string; key: string;
   chatModels: string[]; embeddingModels: string[]; configured: boolean;
@@ -36,7 +37,8 @@ export function validBaseUrl(raw: string, local: boolean): string {
   return u.toString().replace(/\/+$/, '');
 }
 export function providers(env: NodeJS.ProcessEnv = process.env): Provider[] {
-  return presets.map(([id, name, protocol, defaultBase, documentation]) => {
+  const hosted: Provider[] = nativeAiBridge() ? [{ id: 'miaoda', name: '妙搭公共模型', protocol: 'native', baseUrl: '', key: '', chatModels: ['miaoda-chat'], embeddingModels: [], configured: true, documentation: '', tokenParameter: 'max_tokens' }] : [];
+  return [...hosted, ...presets.map(([id, name, protocol, defaultBase, documentation]): Provider => {
     const prefix = 'AI_' + id.toUpperCase();
     const key = env[prefix + '_API_KEY'] || (id === 'deepseek' ? env.DEEPSEEK_API_KEY : '') || '';
     const rawBase = env[prefix + '_BASE_URL'] || defaultBase;
@@ -49,7 +51,17 @@ export function providers(env: NodeJS.ProcessEnv = process.env): Provider[] {
     const configured = Boolean(baseUrl && (key || (id === 'ollama' && env.AI_OLLAMA_ENABLED === 'true')) && (chatModels.length || embeddingModels.length));
     return { id, name, protocol, baseUrl, key, chatModels, embeddingModels, configured, documentation,
       tokenParameter: env[prefix + '_TOKEN_PARAMETER'] === 'max_tokens' ? 'max_tokens' : env[prefix + '_TOKEN_PARAMETER'] === 'max_completion_tokens' || id === 'openai' ? 'max_completion_tokens' : 'max_tokens' };
-  });
+  })];
+}
+export function publicChatModel(env: NodeJS.ProcessEnv = process.env): { provider: Provider; model: string } | undefined {
+  if (env.TRIAL_AI_ENABLED === 'false') return undefined;
+  if (env.TRIAL_AI_PROVIDER || env.TRIAL_AI_MODEL) {
+    const provider = providers(env).find(p => p.id === env.TRIAL_AI_PROVIDER);
+    return env.TRIAL_AI_ENABLED === 'true' && provider?.configured && provider.chatModels.includes(env.TRIAL_AI_MODEL || '') ? { provider, model: env.TRIAL_AI_MODEL! } : undefined;
+  }
+  const native = nativeAiBridge();
+  if (native?.publicEnabled) return { provider: providers(env).find(p => p.id === native.providerId)!, model: native.modelId };
+  return undefined;
 }
 export function catalog() {
   return providers().map(({ key, baseUrl, tokenParameter, ...safe }) => safe);

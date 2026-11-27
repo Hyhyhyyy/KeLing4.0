@@ -541,9 +541,33 @@ class AppViewModel(application: Application, private val accountId: String, memo
             dataRepository.knowledgeGraph.saveNodes(currentNodes)
         }
 
-        recomputeKnowledgeGraphLayout(finalNode.courseId)
-
         return finalNode
+    }
+
+    suspend fun saveKnowledgeLayout(courseId: String, positions: List<com.keling.app.graph.GraphPosition>) {
+        val current = _knowledgeNodes.value
+        com.keling.app.graph.validateGraphPositions(positions, current.filter { it.courseId == courseId }.map { it.id }.toSet())
+        val byId = positions.associateBy { it.id }
+        val updated = current.map { node -> byId[node.id]?.let { node.copy(positionX = it.positionX.toFloat(), positionY = it.positionY.toFloat(), layoutSaved = true) } ?: node }
+        dataRepository.knowledgeGraph.saveNodes(updated)
+        _knowledgeNodes.value = updated
+    }
+
+    suspend fun replaceGraphNode(node: KnowledgeNode) {
+        require(node.name.isNotBlank() && node.difficulty in 1..5 && node.masteryLevel.isFinite() && node.masteryLevel in 0f..1f)
+        val current = _knowledgeNodes.value
+        val courseNodes = current.filter { it.courseId == node.courseId }
+        com.keling.app.graph.validateGraphParents(node.id, node.parentIds, courseNodes.map { com.keling.app.graph.GraphNode(it.id, it.courseId, it.name, parentIds = it.parentIds) })
+        val next = current.filterNot { it.id == node.id } + node
+        val linked = next.map { item -> if (item.courseId == node.courseId) item.copy(childIds = next.filter { it.courseId == item.courseId && item.id in it.parentIds }.map { it.id }) else item }
+        dataRepository.knowledgeGraph.saveNodes(linked)
+        _knowledgeNodes.value = linked
+    }
+
+    suspend fun deleteGraphNode(node: KnowledgeNode) {
+        val next = _knowledgeNodes.value.filterNot { it.id == node.id && it.courseId == node.courseId }.map { it.copy(parentIds = it.parentIds - node.id, childIds = it.childIds - node.id) }
+        dataRepository.knowledgeGraph.saveNodes(next)
+        _knowledgeNodes.value = next
     }
 
     /**
@@ -555,7 +579,9 @@ class AppViewModel(application: Application, private val accountId: String, memo
             it.courseId == courseId && it.name == name
         }.map { it.id }.toSet()
 
-        if (removedIds.isEmpty()) return false
+        if (removedIds.isEmpty()) {
+            return false
+        }
 
         // 同时从其他节点的 parentIds/childIds 中移除引用
         val after = before
@@ -569,13 +595,7 @@ class AppViewModel(application: Application, private val accountId: String, memo
 
         _knowledgeNodes.value = after
 
-        // 自动保存到本地
-        viewModelScope.launch {
-            dataRepository.knowledgeGraph.saveNodes(after)
-        }
-
-        recomputeKnowledgeGraphLayout(courseId)
-
+        viewModelScope.launch { dataRepository.knowledgeGraph.saveNodes(after) }
         return true
     }
 

@@ -79,7 +79,8 @@ data class KnowledgeNode(
     val masteryLevel: Float = 0f,
     val positionX: Float = 0.5f,
     val positionY: Float = 0.5f,
-    val isUnlocked: Boolean = false
+    val isUnlocked: Boolean = false,
+    val layoutSaved: Boolean = false
 )
 
 // ==================== 任务系统 ====================

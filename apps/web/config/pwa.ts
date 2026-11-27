@@ -4,7 +4,7 @@ export const OFFLINE_SHELL = 'offline-shell.html';
 
 export function workboxOptions(): Partial<GenerateSWOptions> {
   return {
-    globPatterns: ['**/*.{js,css,ico,svg}', OFFLINE_SHELL],
+    globPatterns: ['**/*.{js,css,ico,svg}', 'graph-editor/index.html', OFFLINE_SHELL],
     navigateFallback: undefined,
     directoryIndex: null,
     cleanupOutdatedCaches: true,
@@ -12,7 +12,7 @@ export function workboxOptions(): Partial<GenerateSWOptions> {
     clientsClaim: true,
     runtimeCaching: [
       {
-        urlPattern: ({ request, url, sameOrigin }) => sameOrigin && request.mode === 'navigate' && !/\/api(?:\/|$)/.test(url.pathname),
+        urlPattern: ({ request, url, sameOrigin }) => sameOrigin && request.mode === 'navigate' && !/\/(?:api|graph-editor)(?:\/|$)/.test(url.pathname),
         handler: 'NetworkOnly',
         options: { precacheFallback: { fallbackURL: OFFLINE_SHELL } }
       },

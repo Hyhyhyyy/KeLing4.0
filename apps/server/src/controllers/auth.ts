@@ -5,6 +5,7 @@ import { randomUUID as uuidv4 } from 'node:crypto';
 import { prisma } from '../database';
 import { AuthRequest } from '../middleware/auth';
 import { requireJwtSecret } from '../config/security';
+import { INTERNAL_NOTE_TYPES } from '../services/internalNotes';
 
 // JWT 过期时间
 const JWT_EXPIRES_IN = '7d';
@@ -205,7 +206,7 @@ export const getMe = async (req: AuthRequest, res: Response) => {
     // 单独统计
     const courseCount = await prisma.course.count({ where: { userId: req.userId } });
     const completedTaskCount = await prisma.task.count({ where: { userId: req.userId, status: 'COMPLETED' } });
-    const noteCount = await prisma.note.count({ where: { userId: req.userId, sourceType: { not: 'LEARNING_PLANET_INTERNAL' } } });
+    const noteCount = await prisma.note.count({ where: { userId: req.userId, sourceType: { notIn: INTERNAL_NOTE_TYPES } } });
 
     res.json({
       user: {

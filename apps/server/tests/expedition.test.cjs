@@ -6,7 +6,7 @@ const core=require('@keling/shared/expedition');
 const fixtures=require('../../../packages/shared/src/expedition/fixtures.json');
 const NOW=new Date(fixtures.now), fail=code=>error=>error.code===code;
 function account(crystals=0){return {revision:0,level:1,exp:0,crystals,legacy:{level:1,exp:0,crystals,energy:100,capturedAt:NOW.toISOString()},world:core.emptyWorld(),quota:{day:'',cycleCount:0,crystalsGranted:0}};}
-async function fixture(fn){const userId=randomUUID();await db.user.create({data:{id:userId,email:userId+'@expedition.test',passwordHash:'fixture',level:2,exp:13,crystals:8,energy:71}}); const course=await db.course.create({data:{userId,name:'原创树试验',code:'TEST',teacher:'fixture'}});try{return await fn(userId,course.id);}finally{for(const model of ['expeditionOperation','rewardGrant','questRun','expeditionProgress','expeditionAccount','materialVersion'])await db[model].deleteMany({where:{userId}});await db.user.delete({where:{id:userId}});}}
+async function fixture(fn){const userId=randomUUID();await db.user.create({data:{id:userId,email:userId+'@expedition.test',passwordHash:'fixture',level:2,exp:13,crystals:8,energy:71}}); const course=await db.course.create({data:{userId,name:'原创树试验',code:'SAMPLE',teacher:'fixture'}});try{return await fn(userId,course.id);}finally{for(const model of ['expeditionOperation','rewardGrant','questRun','expeditionProgress','expeditionAccount','materialVersion'])await db[model].deleteMany({where:{userId}});await db.user.delete({where:{id:userId}});}}
 const open=(userId,courseId,extra={})=>service.startRun(db,userId,{opId:randomUUID(),courseId,questKind:'EXPLORE',objectiveKey:'bt.bfs.queue',mode:'TRAINING',deviceId:'web-device',...extra},NOW);
 async function submit(userId,started,answer,extra={}){return service.commandRun(db,userId,started.run.id,{opId:randomUUID(),expectedRevision:started.run.revision,writer:started.writer,action:{type:'SUBMIT',answer},...extra},NOW);}
 const answerFor=run=>core.expectedAnswer(core.CHAPTER.exercises.find(e=>e.id===run.exerciseIds[run.exerciseIndex]));
@@ -72,7 +72,7 @@ test('two devices cannot overwrite; restart re-signing preserves queued operatio
  const won=await service.commandRun(db,userId,started.run.id,{opId:randomUUID(),expectedRevision:takeover.run.revision,writer:takeover.writer,action:{type:'ACK_FEEDBACK',nextStep:'保留解释下次继续'}},NOW);assert.equal(won.run.status,'SETTLED');
 }));
 test('copied courses and repeated runs share canonical reward keys; purchases charge once',()=>fixture(async(userId,courseId)=>{
- const copy=await db.course.create({data:{userId,name:'复制课程',code:'COPY',teacher:'test'}});
+ const copy=await db.course.create({data:{userId,name:'复制课程',code:'SAMPLE',teacher:'test'}});
  for(const target of [courseId,copy.id]){const started=await open(userId,target),submitted=await submit(userId,started,answerFor(started.run));await service.commandRun(db,userId,started.run.id,{opId:randomUUID(),expectedRevision:submitted.run.revision,writer:started.writer,action:{type:'ACK_FEEDBACK',nextStep:'复习此学习目标'}},NOW);}
  assert.equal(await db.rewardGrant.count({where:{userId,kind:'CYCLE'}}),1);
  const before=(await service.rewards(db,userId,NOW)).account;const input={opId:randomUUID(),expectedRevision:before.revision,action:'BUY',decorationId:'antenna'};const bought=await service.baseCommand(db,userId,input,NOW);assert.equal(bought.account.crystals,4);

@@ -2,6 +2,9 @@ import { Request, Response } from 'express';
 import { prisma } from '../database';
 import { AuthRequest } from '../middleware/auth';
 import { randomUUID as uuidv4 } from 'node:crypto';
+import { getKnowledgeLayoutMetadata, saveKnowledgeLayout, KnowledgeLayoutError } from '../services/knowledgeLayout';
+import { TaskCompletionError } from '../services/taskCompletion';
+import { deleteKnowledgeNode, editKnowledgeNode, KnowledgeNodeEditError } from '../services/knowledgeNodeEdits';
 
 // 获取课程的所有知识节点
 export const getNodes = async (req: AuthRequest, res: Response) => {
@@ -26,6 +29,7 @@ export const getNodes = async (req: AuthRequest, res: Response) => {
     });
 
     res.json({
+      ...await getKnowledgeLayoutMetadata(prisma, req.userId, courseId, nodes),
       nodes: nodes.map(n => ({
         ...n,
         parentIds: JSON.parse(n.parentIds),
@@ -35,6 +39,16 @@ export const getNodes = async (req: AuthRequest, res: Response) => {
   } catch (error) {
     console.error('Get nodes error:', error);
     res.status(500).json({ error: '获取知识节点失败' });
+  }
+};
+
+export const updateLayout = async (req: AuthRequest, res: Response) => {
+  if (!req.userId) return res.status(401).json({ error: '未认证' });
+  try { return res.json(await saveKnowledgeLayout(prisma, req.userId, String(req.params.courseId), req.body)); }
+  catch (error) {
+    if (error instanceof KnowledgeLayoutError) return res.status(error.status).json({ code: error.code, error: error.message });
+    if (error instanceof TaskCompletionError) return res.status(error.status).json({ code: 'NOT_FOUND', error: '课程或知识节点不存在' });
+    return res.status(500).json({ code: 'LAYOUT_SAVE_FAILED', error: '布局未保存，请保留当前画面后重试' });
   }
 };
 
@@ -84,49 +98,18 @@ export const createNode = async (req: AuthRequest, res: Response) => {
       return res.status(401).json({ error: '未认证' });
     }
 
-    const courseId = String(req.params.courseId);
-    const { name, description, parentIds, childIds, difficulty, positionX, positionY } = req.body;
-
-    if (!name) {
-      return res.status(400).json({ error: '知识点名称为必填项' });
-    }
-
-    // 验证课程归属
-    const course = await prisma.course.findFirst({
-      where: { id: courseId, userId: req.userId }
-    });
-
-    if (!course) {
-      return res.status(404).json({ error: '课程不存在' });
-    }
-
-    const node = await prisma.knowledgeNode.create({
-      data: {
-        id: uuidv4(),
-        courseId: courseId,
-        name,
-        description: description || '',
-        parentIds: JSON.stringify(parentIds || []),
-        childIds: JSON.stringify(childIds || []),
-        difficulty: difficulty || 3,
-        positionX: positionX || 0.5,
-        positionY: positionY || 0.5,
-        isUnlocked: false
-      }
-    });
+    const node = await editKnowledgeNode(prisma, req.userId, { courseId: String(req.params.courseId) }, req.body);
 
     // 更新成就
     await updateKnowledgeAchievement(req.userId);
 
     res.status(201).json({
       message: '创建成功',
-      node: {
-        ...node,
-        parentIds: JSON.parse(node.parentIds),
-        childIds: JSON.parse(node.childIds)
-      }
+      node
     });
   } catch (error) {
+    if (error instanceof KnowledgeNodeEditError) return res.status(error.status).json({ code: error.code, error: error.message });
+    if (error instanceof TaskCompletionError) return res.status(error.status).json({ code: 'NOT_FOUND', error: '课程或知识节点不存在' });
     console.error('Create node error:', error);
     res.status(500).json({ error: '创建知识节点失败' });
   }
@@ -237,48 +220,15 @@ export const updateNode = async (req: AuthRequest, res: Response) => {
       return res.status(401).json({ error: '未认证' });
     }
 
-    const nodeId = String(req.params.id);
-    const { name, description, masteryLevel, isUnlocked, positionX, positionY } = req.body;
-
-    const existing = await prisma.knowledgeNode.findUnique({
-      where: { id: nodeId }
-    });
-
-    if (!existing) {
-      return res.status(404).json({ error: '知识节点不存在' });
-    }
-
-    // 验证课程归属
-    const course = await prisma.course.findFirst({
-      where: { id: existing.courseId, userId: req.userId }
-    });
-
-    if (!course) {
-      return res.status(404).json({ error: '知识节点不存在' });
-    }
-
-    const updateData: any = {};
-    if (name) updateData.name = name;
-    if (description !== undefined) updateData.description = description;
-    if (masteryLevel !== undefined) updateData.masteryLevel = masteryLevel;
-    if (isUnlocked !== undefined) updateData.isUnlocked = isUnlocked;
-    if (positionX !== undefined) updateData.positionX = positionX;
-    if (positionY !== undefined) updateData.positionY = positionY;
-
-    const node = await prisma.knowledgeNode.update({
-      where: { id: nodeId },
-      data: updateData
-    });
+    const node = await editKnowledgeNode(prisma, req.userId, { nodeId: String(req.params.id) }, req.body);
 
     res.json({
       message: '更新成功',
-      node: {
-        ...node,
-        parentIds: JSON.parse(node.parentIds),
-        childIds: JSON.parse(node.childIds)
-      }
+      node
     });
   } catch (error) {
+    if (error instanceof KnowledgeNodeEditError) return res.status(error.status).json({ code: error.code, error: error.message });
+    if (error instanceof TaskCompletionError) return res.status(error.status).json({ code: 'NOT_FOUND', error: '课程或知识节点不存在' });
     console.error('Update node error:', error);
     res.status(500).json({ error: '更新知识节点失败' });
   }
@@ -291,31 +241,12 @@ export const deleteNode = async (req: AuthRequest, res: Response) => {
       return res.status(401).json({ error: '未认证' });
     }
 
-    const nodeId = String(req.params.id);
-
-    const existing = await prisma.knowledgeNode.findUnique({
-      where: { id: nodeId }
-    });
-
-    if (!existing) {
-      return res.status(404).json({ error: '知识节点不存在' });
-    }
-
-    // 验证课程归属
-    const course = await prisma.course.findFirst({
-      where: { id: existing.courseId, userId: req.userId }
-    });
-
-    if (!course) {
-      return res.status(404).json({ error: '知识节点不存在' });
-    }
-
-    await prisma.knowledgeNode.delete({
-      where: { id: nodeId }
-    });
+    await deleteKnowledgeNode(prisma, req.userId, String(req.params.id));
 
     res.json({ message: '删除成功' });
   } catch (error) {
+    if (error instanceof KnowledgeNodeEditError) return res.status(error.status).json({ code: error.code, error: error.message });
+    if (error instanceof TaskCompletionError) return res.status(error.status).json({ code: 'NOT_FOUND', error: '课程或知识节点不存在' });
     console.error('Delete node error:', error);
     res.status(500).json({ error: '删除知识节点失败' });
   }

@@ -89,3 +89,7 @@ apps/android/app/src/main/res/drawable-nodpi/stellar_app_icon.png
 releases/*.html
 releases/*.pdf
 releases/*.docx
+
+# Shared graph editor bundles are built from packages/graph-editor.
+apps/web/public/graph-editor/
+apps/android/app/src/main/assets/graph-editor/

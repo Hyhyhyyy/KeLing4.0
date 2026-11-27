@@ -20,11 +20,12 @@ export interface GuestWorkspace {
 
 type Input = Record<string, unknown>;
 let workspace: GuestWorkspace | undefined;
-subscribeGuestSession(() => { workspace = undefined; });
+const savedLayouts = new Map<string,{positions:Map<string,{positionX:number;positionY:number}>;updatedAt:string}>();
+subscribeGuestSession(() => { workspace = undefined; savedLayouts.clear(); });
 
 /** Match the API error shape without sending visitor records over the network. */
-export function guestDataError(status: number, error: string): never {
-  throw Object.assign(new Error(error), { response: { status, data: { error } } });
+export function guestDataError(status: number, error: string, code?: string): never {
+  throw Object.assign(new Error(error), { response: { status, data: { error, ...(code?{code}:{}) } } });
 }
 export function guestTimestamp(previous?: string) {
   return new Date(Math.max(Date.now(), previous ? Date.parse(previous) + 1 : 0)).toISOString();
@@ -147,6 +148,11 @@ function courseResponse(w: GuestWorkspace, course: GuestCourse) {
 function refreshChildren(w: GuestWorkspace) {
   for (const node of w.nodes) node.childIds = w.nodes.filter(child => child.parentIds.includes(node.id)).map(child => child.id);
 }
+function layoutMetadata(w:GuestWorkspace,courseId:string){
+  const nodes=w.nodes.filter(node=>node.courseId===courseId),saved=savedLayouts.get(courseId);
+  const savedNodeIds=nodes.filter(node=>{const position=saved?.positions.get(node.id);return position&&position.positionX===node.positionX&&position.positionY===node.positionY;}).map(node=>node.id);
+  return {layoutSaved:Boolean(saved)&&savedNodeIds.length===nodes.length,savedNodeIds,layoutUpdatedAt:saved?.updatedAt||null};
+}
 function validateParents(w: GuestWorkspace, node: GuestNode) {
   for (const parentId of node.parentIds) {
     const parent = requiredItem(w.nodes, parentId, '父知识点');
@@ -194,6 +200,7 @@ export async function handleGuestData(method: string, path: string, data: Input 
     const course = requiredItem(w.courses, path.split('/')[2], '课程');
     if (verb === 'GET' && !path.endsWith('/mastery')) result = { course: { ...courseResponse(w, course), knowledgeNodes: w.nodes.filter(n => n.courseId === course.id) } };
     if (verb === 'DELETE' && !path.endsWith('/mastery')) {
+      savedLayouts.delete(course.id);
       removeNodes(w, new Set(w.nodes.filter(n => n.courseId === course.id).map(n => n.id)));
       w.courses = w.courses.filter(c => c.id !== course.id);
       for (const task of w.tasks) if (task.courseId === course.id) { task.courseId = null; task.updatedAt = guestTimestamp(task.updatedAt); }
@@ -213,9 +220,28 @@ export async function handleGuestData(method: string, path: string, data: Input 
       if (has(data, 'studyMinutes')) { course.totalStudyMinutes += minutes; course.studySessionCount++; course.lastStudiedAt = guestTimestamp(); w.user.totalStudyMinutes += minutes; }
       course.updatedAt = guestTimestamp(course.updatedAt); result = { message: '更新成功', course };
     }
+  } else if (/^\/knowledge\/[^/]+\/layout$/.test(path) && verb === 'PUT') {
+    const course=requiredItem(w.courses,path.split('/')[2],'课程');
+    if(!Array.isArray(data.positions)||!data.positions.length||data.positions.length>500)return guestDataError(400,'布局节点数量无效','VALIDATION');
+    const seen=new Set<string>();
+    const changes=data.positions.map(raw=>{
+      if(!raw||typeof raw!=='object'||Array.isArray(raw))return guestDataError(400,'布局格式无效','VALIDATION');
+      const position=raw as Input,id=text(position,'id','',180,true);
+      if(seen.has(id))return guestDataError(400,'布局节点重复','VALIDATION');seen.add(id);
+      const node=w.nodes.find(item=>item.id===id&&item.courseId===course.id);
+      if(!node)return guestDataError(404,'知识点不存在','NOT_FOUND');
+      const expectedUpdatedAt=text(position,'expectedUpdatedAt','',80,true);
+      if(node.updatedAt!==expectedUpdatedAt)return guestDataError(409,'知识点已更新，请重新读取后再保存布局','LAYOUT_CONFLICT');
+      return {node,positionX:number(position,'positionX',NaN,0,1),positionY:number(position,'positionY',NaN,0,1)};
+    });
+    if(changes.some(change=>!Number.isFinite(change.positionX)||!Number.isFinite(change.positionY)))return guestDataError(400,'布局坐标无效','VALIDATION');
+    const saved=savedLayouts.get(course.id)||{positions:new Map(),updatedAt:''};
+    for(const change of changes){Object.assign(change.node,{positionX:change.positionX,positionY:change.positionY,updatedAt:guestTimestamp(change.node.updatedAt)});saved.positions.set(change.node.id,{positionX:change.positionX,positionY:change.positionY});}
+    saved.updatedAt=guestTimestamp(saved.updatedAt);savedLayouts.set(course.id,saved);
+    result={nodes:changes.map(change=>change.node),...layoutMetadata(w,course.id)};
   } else if (/^\/knowledge\/[^/]+\/nodes(?:\/batch)?$/.test(path)) {
     const course = requiredItem(w.courses, path.split('/')[2], '课程');
-    if (verb === 'GET') result = { nodes: w.nodes.filter(n => n.courseId === course.id) };
+    if (verb === 'GET') result = { nodes: w.nodes.filter(n => n.courseId === course.id), ...layoutMetadata(w,course.id) };
     if (verb === 'POST' && !path.endsWith('/batch')) {
       const node = newNode(data, course.id); validateParents(w, node); w.nodes.push(node); refreshChildren(w);
       course.updatedAt = guestTimestamp(course.updatedAt); result = { message: '创建成功', node };

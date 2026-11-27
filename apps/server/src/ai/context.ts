@@ -4,6 +4,8 @@ import { z } from 'zod';
 import { AIError } from './catalog';
 import type { Source } from './retrieval';
 import { CHAPTER } from '@keling/shared/expedition';
+import { INTERNAL_NOTE_TYPES } from '../services/internalNotes';
+import { binaryTreeCourseIds } from '../expedition/courseAccess';
 
 export const contextRefInput = z.object({
   kind: z.enum(['course', 'note', 'task']), id: z.string().trim().min(1).max(160),
@@ -27,7 +29,7 @@ export async function resolveContext(db: PrismaClient, userId: string, raw: unkn
   const warnings: string[] = [];
   let title: string;
   if (ref.kind === 'note') {
-    const note = await db.note.findFirst({ where: { id: ref.id, userId, sourceType: { not: 'LEARNING_PLANET_INTERNAL' } }, select: { id: true, title: true, content: true, updatedAt: true } });
+    const note = await db.note.findFirst({ where: { id: ref.id, userId, sourceType: { notIn: INTERNAL_NOTE_TYPES } }, select: { id: true, title: true, content: true, updatedAt: true } });
     if (!note) throw missing();
     title = note.title;
     const part = excerpt(note.content, 6000);
@@ -42,8 +44,9 @@ export async function resolveContext(db: PrismaClient, userId: string, raw: unkn
     sources.push({ id: task.id, kind: 'task', title, text: `任务类型：${task.type}\n当前状态：${task.status}\n预计时长：${task.estimatedMinutes} 分钟（不是实际完成时长）\n\n任务说明：\n${part.text}`, truncated: part.truncated, updatedAt: task.updatedAt.toISOString() });
     if (part.truncated) warnings.push('任务说明较长，本次仅附带前 4000 字符；未显示的后续内容不会发送。');
   } else {
-    const course = await db.course.findFirst({ where: { id: ref.id, userId, isArchived: false }, select: { id: true, name: true, updatedAt: true } });
+    const course = await db.course.findFirst({ where: { id: ref.id, userId, isArchived: false }, select: { id: true, code: true, name: true, updatedAt: true } });
     if (!course) throw missing();
+    const example = (await binaryTreeCourseIds(db, userId, [course])).has(course.id);
     title = course.name;
     const nodes = await db.knowledgeNode.findMany({
       where: { courseId: course.id, course: { userId, isArchived: false } },
@@ -55,10 +58,10 @@ export async function resolveContext(db: PrismaClient, userId: string, raw: unkn
     if (nodes.length > 6) warnings.push('本次仅附带该课程最近更新的 6 个知识点，不代表完整课程。');
     if (sources.some(source => source.truncated)) warnings.push('较长知识点仅附带前 1000 字符；具体内容以预览为准。');
     const [versions, progress, runs] = await Promise.all([
-      db.materialVersion.findMany({ where: { userId, courseId: course.id, deletedAt: null, parseStatus: 'READY' }, orderBy: [{ version: 'desc' }, { createdAt: 'desc' }], take: 24,
+      db.materialVersion.findMany({ where: { userId, courseId: course.id, deletedAt: null, parseStatus: 'READY', ...(!example?{format:{not:'SEED'}}:{}) }, orderBy: [{ version: 'desc' }, { createdAt: 'desc' }], take: 24,
         include: { spans: { orderBy: { ordinal: 'asc' }, take: 1 } } }),
-      db.expeditionProgress.findFirst({ where: { userId, courseId: course.id, chapterId: CHAPTER.id } }),
-      db.questRun.findMany({ where: { userId, courseId: course.id }, orderBy: { updatedAt: 'desc' }, take: 3 }),
+      example ? db.expeditionProgress.findFirst({ where: { userId, courseId: course.id, chapterId: CHAPTER.id } }) : Promise.resolve(null),
+      example ? db.questRun.findMany({ where: { userId, courseId: course.id }, orderBy: { updatedAt: 'desc' }, take: 3 }) : Promise.resolve([]),
     ]);
     const latest = versions.filter((m, i) => versions.findIndex(x => x.materialId === m.materialId) === i).slice(0, 3);
     for (const material of latest) {

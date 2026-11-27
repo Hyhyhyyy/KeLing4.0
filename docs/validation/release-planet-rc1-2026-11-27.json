@@ -1,0 +1,61 @@
+{
+  "version": "4.1.0-planet-rc1",
+  "date": "2026-11-27",
+  "sourceCommit": "a12aedf",
+  "githubRelease": "https://github.com/Hyhyhyyy/KeLing4.0/releases/tag/v4.1.0-planet-rc1",
+  "miaoda": {
+    "appId": "app_17h4dw5jwdg",
+    "releaseId": "7712665607753829669",
+    "status": "finished",
+    "templateCommit": "4a0f148",
+    "initialPlanetReleaseId": "7712661652411370759",
+    "initialPlanetTemplateCommit": "51f90aed6089cbcc6f583af5f8c04de521b013d2"
+  },
+  "android": {
+    "appId": "app_17h4dw5jwdg",
+    "route": "/download/android",
+    "versionName": "4.1.0-planet-rc1",
+    "versionCode": 28,
+    "fileName": "KeLing-ICT-4.1.0-planet-rc1-debug.apk",
+    "bytes": 77653430,
+    "sha256": "273d4895c3e78ae5f58d303b3d4884c2f1673d38141bf56d98e36b5108a5729d",
+    "contentType": "application/vnd.android.package-archive",
+    "storageBucket": "bucket_aadk4xawzf4xg",
+    "storagePath": "/1882973904512106.apk",
+    "sourcePath": "apps/android/app/build/outputs/apk/debug/app-debug.apk",
+    "certificateSha256": "e7b4d86c7a02fb6bb1d21215c393b347d2d67652e5e45dfbe3a3d6c66b7c67a3",
+    "signatureScheme": "v2",
+    "githubReleaseTag": "v4.1.0-planet-rc1",
+    "githubAssetUrl": "https://github.com/Hyhyhyyy/KeLing4.0/releases/download/v4.1.0-planet-rc1/KeLing-ICT-4.1.0-planet-rc1-debug.apk"
+  },
+  "verifiedAt": "2026-11-27T02:06:23.843555+00:00",
+  "generatedFilesVerified": 78,
+  "publicResourcesVerified": 5,
+  "onlineHealth": {
+    "status": "ok",
+    "timestamp": "2026-11-27T02:05:22.479Z",
+    "version": "4.1.0-planet-rc1"
+  },
+  "publicDomains": [
+    "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg",
+    "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg"
+  ],
+  "tests": {
+    "server": 95,
+    "web": 65,
+    "android": 101,
+    "hostAdapter": 16
+  },
+  "uiEvidence": {
+    "web": "Real English planet generation, preview, confirmation, response explanation, note/task save and reopen; guest session; 15 complete viewport captures.",
+    "android": "Real mathematics planet generation, answer/retry, 1/3 progress, journal and task; Android14 emulator; complete screen captures."
+  },
+  "accountApiEvidence": "planet-history-public-api-2026-11-27.json",
+  "boundaries": [
+    "No teacher content approval",
+    "No physical Android device verification",
+    "Huawei AgentArts workflow still awaits original account",
+    "Gitee push blocked by unavailable local credentials",
+    "Vercel automatic deployment disabled; old-site pause not verified"
+  ]
+}

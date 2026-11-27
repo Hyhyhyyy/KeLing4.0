@@ -51,7 +51,8 @@ class PlanetApi(private val token: String, private val client: HttpClient = Keli
         guest?.let { workspace -> return workspace.learningPlanets.add(generated.draft) {
             val d = generated.draft
             val course = workspace.createCourse(d.subject, d.planetStyleIndex, code = "AI_PLANET").course!!
-            d.regions.forEach { workspace.addSource(course.id, it.title, it.lesson) }
+            val regionNodes = mutableMapOf<String, String>()
+            d.regions.forEach { region -> regionNodes[region.id] = workspace.saveGraphNode(course.id, null, com.keling.app.graph.GraphNodeInput(region.title, region.lesson, region.prerequisiteIds.mapNotNull { regionNodes[it] }, 3, 0f)) }
             d.regions.firstOrNull()?.let { workspace.createTask(WorkspaceTaskInput("探索：${it.title}", it.description, course.id, it.estimatedMinutes)) }
             course.id
         } }

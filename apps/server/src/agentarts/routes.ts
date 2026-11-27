@@ -29,7 +29,7 @@ export function agentRouter(db:PrismaClient){
     try{return res.status(202).json(await service.start(req.userId!,req.body));}catch(error){return res.status(400).json({error:error instanceof z.ZodError?'请检查课程、目标、考试日期和每日时长':error instanceof Error?error.message:'创建运行失败'});}
   });
   router.post('/runs',async(req:AuthRequest,res:Response)=>{
-    if(!planningProvider())return res.status(503).json({error:'尚未配置学习规划服务，请配置DeepSeek API Key或AgentArts运行时'});
+    if(!planningProvider())return res.status(503).json({error:'尚未配置学习规划服务，请连接公共模型或配置服务端提供方'});
     try{return res.json(await service.run(req.userId!,req.body));}catch(error){return res.status(400).json({error:error instanceof z.ZodError?'请检查课程、目标、考试日期和每日时长':error instanceof Error?error.message:'创建运行失败'});}
   });
   router.post('/runs/:id/confirm',async(req:AuthRequest,res:Response)=>{

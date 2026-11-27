@@ -97,22 +97,31 @@ class LearningApi(private val token: String, private val client: HttpClient = Ke
             put("title", candidate.title); put("description", candidate.description); put("materialVersionId", candidate.source.materialVersionId); put("spanId", candidate.source.spanId); put("contentHash", candidate.source.contentHash)
         } })) })
     }
-    suspend fun tutor(courseId: String, ids: List<String>, credentials: AccessCredentials, model: String, message: String): MaterialTutorAnswer {
-        if (guest == null) return request("/courses/$courseId/tutor", HttpMethod.Post, buildJsonObject {
-            put("materialVersionIds", JsonArray(ids.map(::JsonPrimitive))); put("credentials", expeditionJson.encodeToJsonElement(credentials)); put("model", model); put("message", message)
-        })
-        val selected = guest.learningMaterials.draft(courseId, ids).candidates.take(8)
-        require(selected.isNotEmpty()) { "请选择有文字片段的资料" }
-        val response = client.post("$origin/trial/workspace/chat") {
-            timeout { requestTimeoutMillis = 95_000 }; expectSuccess = false; contentType(ContentType.Application.Json)
-            setBody(buildJsonObject { put("credentials", expeditionJson.encodeToJsonElement(credentials)); put("model", model); put("message", message); put("scenario", "CONCEPT_EXPLAIN"); put("history", JsonArray(emptyList())); put("retrievalMode", "selected")
-                put("sources", JsonArray(selected.map { candidate -> buildJsonObject { put("id", candidate.source.spanId); put("title", candidate.source.title); put("text", candidate.source.text.take(6000)); put("kind", "material") } })) }.toString())
+    suspend fun tutor(courseId: String, ids: List<String>, credentials: AccessCredentials?, model: String?, message: String, providerId: String? = null): MaterialTutorAnswer {
+        val selected = guest?.learningMaterials?.draft(courseId, ids)?.candidates?.take(8)
+        if (guest != null) require(!selected.isNullOrEmpty()) { "请选择有文字片段的资料" }
+        val payload = buildJsonObject {
+            credentials?.let { put("credentials", expeditionJson.encodeToJsonElement(it)) }
+            model?.takeIf { it.isNotBlank() }?.let { put("model", it) }
+            providerId?.takeIf { it.isNotBlank() }?.let { put("providerId", it) }
+            put("message", message)
+            if (guest == null) put("materialVersionIds", JsonArray(ids.map(::JsonPrimitive)))
+            else {
+                put("scenario", "CONCEPT_EXPLAIN"); put("history", JsonArray(emptyList())); put("retrievalMode", "selected")
+                put("sources", JsonArray(selected.orEmpty().map { candidate -> buildJsonObject { put("id", candidate.source.spanId); put("title", candidate.source.title); put("text", candidate.source.text.take(6000)); put("kind", "material") } }))
+            }
         }
-        guest.ensureOpen()
-        if (!response.status.isSuccess()) throw ExpeditionException(response.status.value, ExpeditionErrorBody("模型请求失败，请检查 Key 与模型配置。", "AI_REQUEST_FAILED"))
+        val endpoint = if (guest == null) "/learning/v1/courses/$courseId/tutor" else "/trial/workspace/chat"
+        val response = client.post("$origin$endpoint") {
+            timeout { requestTimeoutMillis = 95_000 }; expectSuccess = false; contentType(ContentType.Application.Json)
+            if (guest == null) bearerAuth(token)
+            setBody(payload.toString())
+        }
+        val answer = awaitAiResult(client, response, MaterialTutorAnswer.serializer(), if (guest == null) token else null, origin)
+        guest?.ensureOpen()
         // Recheck current versions after the response, before displaying a now-stale citation.
-        guest.learningMaterials.draft(courseId, ids)
-        return expeditionJson.decodeFromString(response.bodyAsText())
+        guest?.learningMaterials?.draft(courseId, ids)
+        return answer
     }
     private val guestPreviews = mutableMapOf<String, String>()
     suspend fun schedule(courseId: String, input: ScheduleRequest): SchedulePreview {

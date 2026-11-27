@@ -50,6 +50,11 @@ import com.keling.app.ui.screens.ai.ModelAccessPanel
                     val planet = state.current!!
                     item { PlanetHero(planet.draft) }
                     item { Text("探索记录 ${planet.progress.completedRegionIds.size} / ${planet.draft.regions.size}", style = MaterialTheme.typography.titleMedium) }
+                    item { OutlinedButton(onClick = { onNavigate("cloud_graph:${planet.courseId}") }) { Text("展开知识图谱") } }
+                    item { Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                        OutlinedButton(onClick = { onNavigate("ask_course:${planet.courseId}") }, modifier = Modifier.weight(1f)) { Text("问星芽") }
+                        OutlinedButton(onClick = { onNavigate("planet_materials:${planet.courseId}") }, modifier = Modifier.weight(1f)) { Text("资料问答") }
+                    } }
                     item { StellarSelect("探索区域", regionId.orEmpty(), planet.draft.regions.map { it.id to it.title }, !state.busy) { regionId = it; reflection = "" } }
                     val region = planet.draft.regions.find { it.id == regionId }
                     if (region != null) {

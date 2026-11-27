@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import { INTERNAL_NOTE_TYPES } from '../services/internalNotes';
 import { selectedProvider, AIError } from './catalog';
 import { embed } from './transport';
 import { currentMaterials, materialSources } from '../learning/currentMaterials';
@@ -17,7 +18,7 @@ export function cosine(a: number[], b: number[]) {
 export async function retrieve(db: PrismaClient, userId: string, query: string, mode: string, providerId?: string, model?: string, signal?: AbortSignal): Promise<Source[]> {
   const [nodes, notes, materials] = await Promise.all([
     db.knowledgeNode.findMany({ where: { course: { userId, isArchived: false } }, orderBy: { updatedAt: 'desc' }, take: 24 }),
-    db.note.findMany({ where: { userId, sourceType: { not: 'LEARNING_PLANET_INTERNAL' } }, orderBy: { updatedAt: 'desc' }, take: 12 }),
+    db.note.findMany({ where: { userId, sourceType: { notIn: INTERNAL_NOTE_TYPES } }, orderBy: { updatedAt: 'desc' }, take: 12 }),
     currentMaterials(db,userId),
   ]);
   const sources: Source[] = [...nodes.map(x => ({ id: x.id, title: x.name, ...sourceExcerpt(x.description), updatedAt: x.updatedAt.toISOString(), kind: 'knowledge' as const })),

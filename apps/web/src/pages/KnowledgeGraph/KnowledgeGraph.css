@@ -1,257 +1,6 @@
-/* 知识图谱思维导图页面样式 */
-
-.knowledge-graph-container {
-  position: relative;
-  padding-bottom: 110px;
-  min-height: 100vh;
-  background: var(--color-dawn-white);
-  display: flex;
-  flex-direction: column;
-}
-
-/* 顶部导航 */
-.graph-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px 20px;
-  background: white;
-  border-bottom: 1px solid #f0f0f0;
-  flex-shrink: 0;
-}
-
-.graph-header .back-btn {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 16px;
-  border: none;
-  border-radius: 12px;
-  background: var(--color-dawn-white);
-  color: var(--color-earth-brown);
-  font-size: 14px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.graph-header .back-btn:hover {
-  background: var(--color-stellar-orange);
-  color: white;
-}
-
-.header-info h1 {
-  font-size: 18px;
-  color: var(--color-earth-brown);
-  margin-bottom: 2px;
-}
-
-.header-info p {
-  font-size: 12px;
-  color: var(--color-earth-brown-light);
-}
-
-.zoom-controls {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.zoom-btn {
-  width: 36px;
-  height: 36px;
-  border: none;
-  border-radius: 50%;
-  background: var(--color-dawn-white);
-  color: var(--color-earth-brown);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease;
-}
-
-.zoom-btn:hover {
-  background: var(--color-stellar-orange);
-  color: white;
-}
-
-.zoom-percent {
-  font-size: 14px;
-  color: var(--color-earth-brown);
-  min-width: 50px;
-  text-align: center;
-}
-
-/* 画布区域 */
-.graph-canvas {
-  min-height: 480px;
-  touch-action: none;
-  flex: 1;
-  overflow: hidden;
-  position: relative;
-  cursor: grab;
-}
-
-.graph-canvas:active {
-  cursor: grabbing;
-}
-
-.connections-svg {
-  transform-origin: 0 0;
-  pointer-events: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-}
-
-.nodes-container {
-  transform-origin: 0 0;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-/* 思维导图节点 */
-.mind-map-node {
-  position: absolute;
-  width: 180px;
-  height: 74px;
-  text-align: left;
-  padding: 10px 12px;
-  border-radius: 12px;
-  border: 2px solid;
-  cursor: pointer;
-  transition: box-shadow 0.2s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.mind-map-node:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.node-name {
-  display: block;
-  font-size: 14px;
-  color: var(--color-earth-brown);
-  font-weight: 600;
-  margin-bottom: 6px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.node-progress {
-  height: 4px;
-  background: rgba(0, 0, 0, 0.1);
-  border-radius: 2px;
-  overflow: hidden;
-  margin-bottom: 4px;
-}
-
-.node-progress-fill {
-  height: 100%;
-  transition: width 0.3s ease;
-}
-
-.node-mastery {
-  font-size: 11px;
-  color: var(--color-earth-brown-light);
-}
-
-/* 空状态 */
-.empty-state {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 40px;
-}
-
-.empty-icon {
-  font-size: 64px;
-  margin-bottom: 16px;
-}
-
-.empty-state h2 {
-  font-size: 18px;
-  color: var(--color-earth-brown);
-  margin-bottom: 8px;
-}
-
-.empty-state p {
-  font-size: 14px;
-  color: var(--color-earth-brown-light);
-  margin-bottom: 16px;
-}
-
-/* 图例卡片 */
-.legend-card {
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-  background: white;
-  border-radius: 16px;
-  padding: 16px;
-  box-shadow: var(--shadow-md);
-}
-
-.legend-card h3 {
-  font-size: 14px;
-  color: var(--color-earth-brown);
-  margin-bottom: 12px;
-}
-
-.legend-list {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.legend-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.legend-dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-}
-
-.legend-label {
-  font-size: 12px;
-  color: var(--color-earth-brown-light);
-}
-
-/* 添加按钮 */
-.add-node-btn {
-  position: absolute;
-  bottom: 20px;
-  left: 20px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 14px 20px;
-  border: none;
-  border-radius: 16px;
-  background: var(--color-stellar-orange);
-  color: white;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(232, 168, 124, 0.3);
-}
-
+.knowledge-graph-container{position:relative;display:flex;flex-direction:column;gap:14px;min-width:0}.knowledge-graph-container .graph-header{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}.knowledge-graph-container .header-info{flex:1;min-width:200px}.knowledge-graph-container .module-title{margin:0}.graph-header-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.knowledge-graph-container .back-btn{border:1px solid #a3c1b1;padding:8px 12px;border-radius:7px;background:#f5f8ec;color:#285950;display:flex;align-items:center}.shared-graph-editor{border:0;width:100%;height:max(420px,calc(100dvh - 300px));min-height:420px;border-radius:12px;background:#fbfbf2}.knowledge-graph-container .graph-notice{margin:0;padding:10px 15px;background:#eaf3e4;border:1px solid #acc9b4;border-radius:7px}.knowledge-graph-container .graph-error{background:#fff1dd;border-color:#c49c62}.knowledge-graph-container .graph-loading{position:absolute;top:135px;left:30px;z-index:2;background:#fff8df;padding:12px}.knowledge-graph-container .btn{font:inherit;display:inline-flex;align-items:center;gap:8px}.knowledge-graph-container .dialog-overlay{z-index:1100}@media(max-width:700px){.knowledge-graph-container .header-info{order:-1;flex-basis:100%}.knowledge-graph-container .module-title{font-size:30px}.shared-graph-editor{height:560px;min-height:560px}.graph-header-actions{gap:6px}.knowledge-graph-container .graph-header{gap:10px}}
 /* 编辑对话框 */
-.dialog-overlay {
+.knowledge-graph-container .dialog-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -264,7 +13,7 @@
   z-index: 1000;
 }
 
-.node-edit-dialog {
+.knowledge-graph-container .node-edit-dialog {
   background: white;
   border-radius: 20px;
   width: 90%;
@@ -273,7 +22,7 @@
   overflow-y: auto;
 }
 
-.dialog-header {
+.knowledge-graph-container .dialog-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -281,12 +30,12 @@
   border-bottom: 1px solid #f0f0f0;
 }
 
-.dialog-header h2 {
+.knowledge-graph-container .dialog-header h2 {
   font-size: 18px;
   color: var(--color-earth-brown);
 }
 
-.close-btn {
+.knowledge-graph-container .close-btn {
   width: 32px;
   height: 32px;
   border: none;
@@ -299,22 +48,22 @@
   justify-content: center;
 }
 
-.dialog-content {
+.knowledge-graph-container .dialog-content {
   padding: 20px;
 }
 
-.form-group {
+.knowledge-graph-container .form-group {
   margin-bottom: 16px;
 }
 
-.form-group label {
+.knowledge-graph-container .form-group label {
   display: block;
   font-size: 14px;
   color: var(--color-earth-brown);
   margin-bottom: 8px;
 }
 
-.input {
+.knowledge-graph-container .input {
   width: 100%;
   padding: 12px;
   border: 1px solid #ddd;
@@ -324,17 +73,17 @@
   background: white;
 }
 
-.input:focus {
+.knowledge-graph-container .input:focus {
   outline: none;
   border-color: var(--color-stellar-orange);
 }
 
-.textarea {
+.knowledge-graph-container .textarea {
   min-height: 80px;
   resize: vertical;
 }
 
-.range-value {
+.knowledge-graph-container .range-value {
   display: inline-block;
   margin-left: 8px;
   font-size: 14px;
@@ -342,12 +91,12 @@
 }
 
 /* 难度选择器 */
-.difficulty-selector {
+.knowledge-graph-container .difficulty-selector {
   display: flex;
   gap: 8px;
 }
 
-.difficulty-option {
+.knowledge-graph-container .difficulty-option {
   width: 40px;
   height: 40px;
   border: 2px solid #ddd;
@@ -359,13 +108,13 @@
   transition: all 0.2s ease;
 }
 
-.difficulty-option.selected {
+.knowledge-graph-container .difficulty-option.selected {
   border-color: var(--color-stellar-orange);
   background: var(--color-stellar-orange);
   color: white;
 }
 
-.dialog-footer {
+.knowledge-graph-container .dialog-footer {
   display: flex;
   justify-content: flex-end;
   gap: 12px;
@@ -373,7 +122,7 @@
   border-top: 1px solid #f0f0f0;
 }
 
-.btn {
+.knowledge-graph-container .btn {
   padding: 12px 24px;
   border: none;
   border-radius: 12px;
@@ -382,37 +131,35 @@
   transition: all 0.2s ease;
 }
 
-.btn-primary {
+.knowledge-graph-container .btn-primary {
   background: var(--color-stellar-orange);
   color: white;
 }
 
-.btn-primary:hover {
+.knowledge-graph-container .btn-primary:hover {
   background: #d4996e;
 }
 
-.btn-primary:disabled {
+.knowledge-graph-container .btn-primary:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
 
-.btn-outline {
+.knowledge-graph-container .btn-outline {
   background: white;
   border: 1px solid #ddd;
   color: var(--color-earth-brown);
 }
 
-.btn-outline:hover {
+.knowledge-graph-container .btn-outline:hover {
   background: var(--color-dawn-white);
 }
 
-.btn-danger {
+.knowledge-graph-container .btn-danger {
   background: #F44336;
   color: white;
 }
 
-.btn-danger:hover {
+.knowledge-graph-container .btn-danger:hover {
   background: #d32f2f;
 }
-.knowledge-graph-container .mind-map-node:focus-visible { outline: 3px solid #285950; outline-offset: 3px; }
-@media(max-width: 600px) { .knowledge-graph-container .legend-card { position: static; margin: 16px; } .knowledge-graph-container .graph-canvas { min-height: 420px; } }

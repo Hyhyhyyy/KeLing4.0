@@ -12,6 +12,47 @@ import org.junit.Test
 @OptIn(ExperimentalCoroutinesApi::class)
 class FullGuestWorkspaceTest {
     private val headers = headersOf(HttpHeaders.ContentType, "application/json")
+    @Test fun publicPlannerUsesImportedMaterialWithoutNodesAndRejectsChangedSources() = runBlocking {
+        Dispatchers.setMain(Dispatchers.Unconfined)
+        lateinit var guest: GuestWorkspace
+        lateinit var material: com.keling.app.expedition.LearningDoc
+        val bodyText = "Introduce yourself with My name is and one personal interest."
+        val parsed = com.keling.app.expedition.ParsedMaterial("导入讲义", "fixture", "TEXT", bodyText, "fixture-hash", "fixture", "READY",
+            listOf(com.keling.app.expedition.MaterialSpan(ordinal = 0, startUtf16 = 0, endUtf16 = bodyText.length, textHash = "fixture")))
+        var courseId = ""; var reviseDuringRequest = false; var plans = 0
+        val client = createApiHttpClient(MockEngine) { engine { addHandler { request ->
+            assertNull(request.headers[HttpHeaders.Authorization])
+            if (request.url.encodedPath.endsWith("/catalog")) respond("""{"providers":[{"id":"public","name":"fixture","protocol":"native","configured":true,"chatModels":["miaoda-chat"]}]}""", HttpStatusCode.OK, headers)
+            else {
+                assertTrue(request.url.encodedPath.endsWith("/trial/workspace/plan"))
+                val payload = Json.parseToJsonElement((request.body as TextContent).text).jsonObject
+                val source = payload["sources"]!!.jsonArray.single().jsonObject
+                assertTrue(source["text"]!!.jsonPrimitive.content.contains(bodyText)); assertFalse(payload.containsKey("credentials")); plans++
+                if (reviseDuringRequest) guest.learningMaterials.save(courseId, parsed.copy(contentHash = "revised"), material, "revision")
+                respond(buildJsonObject {
+                    put("model", "miaoda-chat")
+                    put("result", buildJsonObject { put("summary", "Model protocol fixture"); put("tasks", buildJsonArray { add(buildJsonObject {
+                        put("title", "练习介绍"); put("description", "Based on imported material"); put("date", "2099-01-01"); put("minutes", 20); put("sourceIds", buildJsonArray { add(source["id"]!!) })
+                    }) }) })
+                }.toString(), HttpStatusCode.OK, headers)
+            }
+        } } }
+        guest = GuestWorkspaces.create(client)
+        try {
+            courseId = guest.createCourse("英语").course!!.id
+            material = guest.learningMaterials.save(courseId, parsed, null, "import")
+            assertTrue(guest.sourceList(courseId).nodes.isEmpty())
+            val first = guest.start(AgentRequest(courseId, "练习自我介绍", "2099-01-01", 20))
+            withTimeout(5000) { while (guest.run(first.id).status == "RUNNING") delay(5) }
+            assertEquals("SUCCEEDED", guest.run(first.id).status); assertTrue(guest.taskList().tasks!!.isEmpty())
+            guest.confirm(first.id); assertEquals(1, guest.taskList().tasks!!.size)
+            reviseDuringRequest = true
+            val second = guest.start(AgentRequest(courseId, "复盘自我介绍", "2099-01-01", 20))
+            withTimeout(5000) { while (guest.run(second.id).status == "RUNNING") delay(5) }
+            assertEquals("FAILED", guest.run(second.id).status); assertNull(guest.run(second.id).result)
+            assertTrue(guest.run(second.id).error.contains("资料已变化")); assertEquals(2, plans)
+        } finally { GuestWorkspaces.close(guest.token); client.close(); Dispatchers.resetMain() }
+    }
     @Test fun fullWorkspaceCrudIsIsolatedAndCannotFallThroughAfterExit() = runBlocking {
         var calls = 0
         val client = createApiHttpClient(MockEngine) { engine { addHandler { calls++; error("Account data must stay in memory") } } }

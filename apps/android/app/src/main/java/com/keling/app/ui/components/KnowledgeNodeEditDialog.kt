@@ -11,6 +11,7 @@ package com.keling.app.ui.components
 import androidx.compose.animation.*
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -157,7 +158,7 @@ fun KnowledgeNodeEditDialog(
 
                     // 掌握度滑块
                     Text(
-                        text = "掌握度：${(masteryLevel * 100).toInt()}%",
+                        text = "自评掌握度：${(masteryLevel * 100).toInt()}%",
                         style = MaterialTheme.typography.labelMedium,
                         color = EarthBrown
                     )
@@ -255,29 +256,26 @@ private fun DifficultySelector(
     onDifficultyChange: (Int) -> Unit
 ) {
     Row(
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(4.dp)
     ) {
         (1..5).forEach { level ->
             val isSelected = difficulty == level
-            val stars = "⭐".repeat(level)
-
             Surface(
                 onClick = { onDifficultyChange(level) },
                 shape = RoundedCornerShape(8.dp),
                 color = if (isSelected) WarmSunOrange.copy(alpha = 0.2f) else BeigeSurface,
-                modifier = Modifier.then(
+                modifier = Modifier.weight(1f).then(
                     if (isSelected) Modifier.border(1.dp, WarmSunOrange, RoundedCornerShape(8.dp))
                     else Modifier
                 )
             ) {
                 Column(
-                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
+                    modifier = Modifier.padding(horizontal = 2.dp, vertical = 8.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text(
-                        text = stars,
-                        fontSize = 12.sp
-                    )
+                    DifficultyGauge(level)
+                    Spacer(Modifier.height(4.dp))
                     Text(
                         text = when (level) {
                             1 -> "简单"
@@ -288,10 +286,26 @@ private fun DifficultySelector(
                             else -> ""
                         },
                         style = MaterialTheme.typography.labelSmall,
+                        maxLines = 1,
                         color = if (isSelected) WarmSunOrange else EarthBrownLight
                     )
                 }
             }
+        }
+    }
+}
+
+@Composable
+private fun DifficultyGauge(level: Int) {
+    Canvas(Modifier.size(width = 28.dp, height = 14.dp)) {
+        val slot = size.width / 5f
+        repeat(5) { index ->
+            val height = size.height * (.35f + .65f * (index + 1) / 5f)
+            drawRoundRect(
+                color = if (index < level) Color(0xFFB99B54) else Color(0xFFE1E9DC),
+                topLeft = Offset(index * slot, size.height - height),
+                size = Size(slot * .64f, height), cornerRadius = CornerRadius(1.dp.toPx()),
+            )
         }
     }
 }
@@ -444,10 +458,7 @@ private fun NodePreviewCard(
                 )
 
                 // 难度星星
-                Text(
-                    text = "⭐".repeat(difficulty),
-                    fontSize = 10.sp
-                )
+                DifficultyGauge(difficulty)
             }
 
             if (description.isNotBlank()) {
@@ -468,7 +479,7 @@ private fun NodePreviewCard(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "掌握度",
+                    text = "自评掌握度",
                     style = MaterialTheme.typography.labelSmall,
                     color = EarthBrownLight
                 )

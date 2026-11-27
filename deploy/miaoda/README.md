@@ -2,7 +2,7 @@
 
 这里保存课灵运行在妙搭上的自有适配代码，供审核和重建使用。它是覆盖到官方全栈模板的文件集合，不是独立 npm 项目；没有模板运行时、完整依赖锁文件、环境配置或部署凭据，不能在本目录直接 `npm install && npm start`。
 
-本次收录 11 个适配源文件，统一使用 LF 换行并去除尾部空行；未改变执行逻辑。来源提交、是否有待提交改动、文件 SHA-256、模板和依赖版本见 [provenance.json](provenance.json)。没有复制 SDK 库、`vendor/`、`node_modules/`、`.git/`、`.spark/` 或任何 `.env` 文件。
+自有适配文件统一使用 LF 换行并去除尾部空行。来源提交、是否有待提交改动、文件 SHA-256、模板和依赖版本见 [provenance.json](provenance.json)。没有复制 SDK 库、后端生成包、`node_modules/`、`.git/`、`.spark/` 或任何 `.env` 文件；`vendor/keling-server.d.cts` 仅为自有导出类型声明。
 
 ## 文件作用
 
@@ -12,6 +12,9 @@
 | `server/modules/gateway/gateway.controller.ts` | 接收应用入口请求 |
 | `server/modules/gateway/gateway.service.ts` | 校验路径，提供课灵网页，把 `/api/*` 交给课灵 Express 后端 |
 | `server/modules/gateway/download.controller.ts` | 仅为固定已发布 APK 签发短期下载链接，再重定向至文件存储 |
+| `server/modules/gateway/release.controller.ts` | 返回已经核验的 APK 版本、摘要与妙搭下载入口，避免运行时依赖 GitHub 网络 |
+| `server/modules/gateway/native-planet.service.ts` | 注册妙搭原生模型能力，生成结构化学习星球 |
+| `server/capabilities/keling-learning-planet.json` | 原生模型动作、参数和返回结构 |
 | `server/modules/gateway/artwork.controller.ts` | 为固定的标题吉祥物图集、导航箭头与指南卷轴签发短期资源链接 |
 | `server/modules/gateway/font.controller.ts` | 通过平台 SDK 下载并校验固定字体，以同源 WOFF2 响应提供缓存、ETag 与 CORS |
 | `server/modules/gateway/gateway.module.ts` | 注册上述服务与控制器 |
@@ -22,9 +25,9 @@
 
 网页和 API 继续使用课灵的账号令牌。平台 Cookie 的请求校验标记不能替代课灵身份认证。适配器不代理原 Vercel 服务，也不迁移数据库。
 
-公开 Android 下载对象记录在 [android-download.json](android-download.json)，包含真实 versionCode、字节数、SHA-256 和签名证书摘要。`/download/android` 对应应用存储内的固定 APK；`/api/app/version` 与 `/api/app/download` 读取 GitHub Release 目录，发布时须保持两份 APK 字节一致，先发布带真实 versionCode 标记的 GitHub Release，再发布托管应用。APK 二进制不进入模板 Git。
+公开 Android 下载对象记录在 [android-download.json](android-download.json)，包含真实 versionCode、字节数、SHA-256 和签名证书摘要。`/download/android` 对应应用存储内的固定 APK；托管 `/api/app/version` 和 `/api/app/download` 由 ReleaseController 提供经过校验的固定元数据及同站下载地址。独立课灵后端仍保留 GitHub Release 查询路径。发布时须保持 GitHub 与应用存储两份 APK 字节一致，先发布带真实 versionCode 标记的 GitHub Release，再更新托管元数据并发布应用。APK 二进制不进入模板 Git。
 
-网页导航与 `index.html`、`offline-shell.html`、`sw.js`、`registerSW.js`、`manifest.webmanifest` 使用 `no-store, no-cache, must-revalidate`，确保稳定入口每次重新获取；带哈希的静态资源保留原有一小时缓存。缓存头只约束 HTTP 缓存，旧页面是否采用新脚本还取决于浏览器中的 Service Worker 和更新确认流程，不能仅凭线上文件已更新判断用户页面已更新。
+网页导航与 `index.html`、`offline-shell.html`、`sw.js`、`registerSW.js`、`manifest.webmanifest`、`graph-editor/*` 使用 `no-store, no-cache, must-revalidate`，确保稳定入口每次重新获取；带哈希的静态资源保留原有一小时缓存。缓存头只约束 HTTP 缓存，旧页面是否采用新脚本还取决于浏览器中的 Service Worker 和更新确认流程，不能仅凭线上文件已更新判断用户页面已更新。
 
 ## 模板与依赖基线
 
@@ -72,13 +75,13 @@ VITE_HOSTING_PLATFORM=miaoda npm run build:web
 node scripts/prepare-miaoda.cjs .cache/miaoda-build/vendor
 ```
 
-`prepare-miaoda.cjs` 打包课灵后端与共享规则，复制已构建网页和 PostgreSQL schema，并记录源文件摘要。它不复制账号配置、不读取生产数据、不执行数据库迁移。先在缓存目录生成产物，再把后端文本产物及网页的 JS、CSS、HTML、Web Manifest 合入模板 `vendor/`。图片、字体等资源必须先上传到目标应用文件存储，不把新资源二进制提交到模板 Git，也不提交整份生成结果到本主仓库。
+`prepare-miaoda.cjs` 打包课灵后端与共享规则，复制已构建网页和 PostgreSQL schema，并记录包括绘图编辑器在内的源文件摘要。它不复制账号配置、不读取生产数据、不执行数据库迁移。先在缓存目录生成产物，再把后端文本产物及网页的 JS、CSS、HTML、Web Manifest 合入模板 `vendor/`。完整保留 `graph-editor/` 的 HTML、JS、CSS、许可和摘要 JSON；其字体复用同源 `fonts/STZHONGS.woff2`。图片、字体等资源必须先上传到目标应用文件存储，不把新资源二进制提交到模板 Git，也不提交整份生成结果到本主仓库。
 
-当前应用保留了先前已发布的 60 个 PNG 与 5 个 JPG。托管构建将 59 个旧 WebP 引用精确映射到同内容 PNG，标题吉祥物、导航箭头、指南卷轴和字体通过下方固定路由加载；主线源资源仍使用 WebP。不要把适配路径替换写回主线源码。
+当前应用保留了先前已发布的 60 个 PNG 与 5 个 JPG。托管构建将 59 个旧 WebP 引用精确映射到同内容 PNG，标题吉祥物、导航箭头、指南卷轴、学科星球图集和字体通过下方固定路由加载；主线源资源仍使用 WebP。不要把适配路径替换写回主线源码。
 
 ## 公开美术与字体路由
 
-[public-resources.json](public-resources.json) 记录当前应用的四个固定资源、来源文件、存储位置、字节数和 SHA-256，不包含凭据或临时签名链接。图集、箭头与卷轴的响应重定向缓存 5 分钟，每次重新签发 1 小时有效的存储 URL。字体通过 `FileService.download` 下载，校验 WOFF2 文件头、大小及完整 SHA-256 后在内存缓存；浏览器响应使用 `font/woff2`、一天缓存和 ETag，支持条件 GET 与 HEAD。字体不依赖存储下载域名的 CORS 或默认 MIME。
+[public-resources.json](public-resources.json) 记录当前应用的五个固定资源、来源文件、存储位置、字节数和 SHA-256，不包含凭据或临时签名链接。图集、箭头与卷轴的响应重定向缓存 5 分钟，每次重新签发 1 小时有效的存储 URL。字体通过 `FileService.download` 下载，校验 WOFF2 文件头、大小及完整 SHA-256 后在内存缓存；浏览器响应使用 `font/woff2`、一天缓存和 ETag，支持条件 GET 与 HEAD。字体不依赖存储下载域名的 CORS 或默认 MIME。
 
 这些存储路径仅属于记录中的应用。重建到新应用时，先上传主线对应资源，再替换控制器内的固定 bucket/path/摘要/大小，并更新来源记录；不能跨应用复用存储地址。字体使用授权记录见主线 `assets/fonts/manifest.json`。
 
@@ -93,6 +96,7 @@ KELING_FONT_SOURCE=/absolute/path/to/KeLing_ICT/assets/fonts/STZHONGS.woff2 \
 
 复制上述适配文件后，以下修改仍须核对并合入自己的模板：
 
+- `package.json` 增加 `actionPlugins: { "@official-plugins/ai-text-to-json": "1.0.26" }`，保留官方构建脚本中的 `fullstack-cli action-plugin init`。将 `server/capabilities/keling-learning-planet.json` 与 `NativePlanetService` 一同接入；仅复制服务类不能替代插件实例初始化。当前实例调用 `textToJson`，结构化输出经过课灵校验后才允许用户确认创建课程。
 - `package.json` 的 `build:server` 先运行 `node scripts/build-keling.cjs`，再执行原 Nest 构建。来源值为 `node scripts/build-keling.cjs && NODE_ENV=production nest build`，适用于平台的 Bash 构建环境。
 - 核对来源模板的功能标记，尤其是 `supportBusinessUser: true`；完整标记记录在 `provenance.json`。不要因为只复制业务模块而丢失平台初始化配置。
 - 在官方 `scripts/build.sh` 调用 `scripts/prune-smart.js` **之后**添加 `node "$ROOT_DIR/scripts/copy-prisma.cjs"`。只运行 `build:prod` 不能证明平台最终裁剪产物完整；应验证实际平台构建路径。

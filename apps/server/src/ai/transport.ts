@@ -1,4 +1,5 @@
 import { AIError, Provider } from './catalog';
+import { completeNativeAi } from './native';
 
 export type Message = { role: 'system' | 'user' | 'assistant'; content: string };
 type Transport = typeof fetch;
@@ -35,8 +36,9 @@ export async function requestJson(p: Provider, path: string, body: unknown, sign
   }
 }
 const count = (x: unknown) => typeof x === 'number' && Number.isSafeInteger(x) && x >= 0 ? x : undefined;
-export async function complete(p: Provider, model: string, messages: Message[], signal?: AbortSignal, transport: Transport = fetch, maxOutputTokens = 2048) {
+export async function complete(p: Provider, model: string, messages: Message[], signal?: AbortSignal, transport: Transport = fetch, maxOutputTokens = 2048, purpose?: 'study-plan') {
   if (!Number.isInteger(maxOutputTokens) || maxOutputTokens < 256 || maxOutputTokens > 8192) throw new AIError('VALIDATION', '输出长度配置无效', 400);
+  if (p.protocol === 'native') return completeNativeAi(model, messages, maxOutputTokens, signal, purpose);
   const system = messages.filter(x => x.role === 'system').map(x => x.content).join('\n');
   const turns = messages.filter(x => x.role !== 'system');
   let data: any, content: unknown, stop: unknown, usage: Usage;
@@ -63,6 +65,7 @@ export async function complete(p: Provider, model: string, messages: Message[], 
   return { content, usage };
 }
 export async function embed(p: Provider, model: string, texts: string[], signal?: AbortSignal, transport: Transport = fetch): Promise<number[][]> {
+  if (p.protocol === 'native') throw new AIError('UNSUPPORTED', '公共文本模型未提供向量检索能力，请选择已启用的向量模型', 400);
   if (p.protocol === 'anthropic') throw new AIError('UNSUPPORTED', 'Claude 原生协议不提供向量模型', 400);
   if (!texts.length || texts.length > 40 || texts.some(x => x.length > 8000)) throw new AIError('EMBEDDING_LIMIT', '向量请求超出批次限制', 400);
   const data = p.protocol === 'gemini'
@@ -81,6 +84,7 @@ export async function embed(p: Provider, model: string, texts: string[], signal?
   return vectors;
 }
 export async function discover(p: Provider) {
+  if (p.protocol === 'native') return p.chatModels.map(id => ({ id, methods: ['generateContent'] }));
   const data = await requestJson(p, '/models', undefined);
   const items = p.protocol === 'gemini' ? data.models : data.data;
   if (!Array.isArray(items)) throw new AIError('DISCOVERY_UNSUPPORTED', '该服务未提供模型发现接口，请管理员手动配置');

@@ -30,6 +30,7 @@ export interface Course {
   id: string;
   name: string;
   code: string;
+  hasBinaryTreeHistory?: boolean;
   teacher: string;
   schedule: ScheduleSlot[];
   location: string;
@@ -51,6 +52,8 @@ export interface Course {
 // ==================== 知识节点 ====================
 
 export interface KnowledgeNode {
+  createdAt?: string;
+  updatedAt: string;
   id: string;
   courseId: string;
   name: string;

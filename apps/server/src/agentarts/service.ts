@@ -3,8 +3,11 @@ import { randomBytes, createHash, timingSafeEqual } from 'node:crypto';
 import { requestSchema, today, validatePlan } from './contract';
 import { invokeRuntime, RunEvent } from './runtime';
 import { invokeDeepSeek, planningProvider } from './deepseek';
+import { invokeNativePlanning } from './native';
 import { retainBackground, RetainBackground } from '../services/background';
 import { currentMaterials, materialSources, assertCurrentMaterialSources } from '../learning/currentMaterials';
+import { INTERNAL_NOTE_TYPES } from '../services/internalNotes';
+import { AIError } from '../ai/catalog';
 
 type Source={id:string;title:string;text:string};
 const hash=(value:string)=>createHash('sha256').update(value).digest('hex');
@@ -40,7 +43,7 @@ export class AgentService {
     if(input.examDate<startDate||Date.parse(input.examDate)-Date.parse(startDate)>90*86400000)throw new Error('考试日期须在今天到90天内');
     const course=await this.db.course.findFirst({where:{id:input.courseId,userId,isArchived:false},include:{knowledgeNodes:true}});if(!course)throw new Error('课程不存在');
     const nodes=course.knowledgeNodes.slice(0,80);
-    const notes=await this.db.note.findMany({where:{userId,sourceType:{not:'LEARNING_PLANET_INTERNAL'}},orderBy:{updatedAt:'desc'},take:100});
+    const notes=await this.db.note.findMany({where:{userId,sourceType:{notIn:INTERNAL_NOTE_TYPES}},orderBy:{updatedAt:'desc'},take:100});
     const related=notes.filter(n=>JSON.parse(n.relatedNodeIds).some((id:string)=>nodes.some(k=>k.id===id)) || n.title.includes(course.name));
     const materials=await currentMaterials(this.db,userId,input.courseId);
     const matches=materialSources(materials,input.goal,12);
@@ -48,7 +51,7 @@ export class AgentService {
     const sources:Source[]=[...imported,...nodes.map(n=>({id:'kg:'+n.id,title:n.name,text:n.description.slice(0,1800)})),...related.slice(0,20).map(n=>({id:'note:'+n.id,title:n.title,text:n.content.slice(0,1800)}))];
     if(!sources.length)throw new Error('请先为课程导入资料、添加知识点或关联笔记，计划必须有真实资料依据');
     const token=randomBytes(32).toString('hex');
-    const run=await this.db.agentRun.create({data:{userId,...input,startDate,sources:JSON.stringify(sources.map(({id,title})=>({id,title}))),toolTokenHash:hash(token),expiresAt:new Date(Date.now()+120_000)}});
+    const run=await this.db.agentRun.create({data:{userId,...input,startDate,sources:JSON.stringify(sources.map(({id,title})=>({id,title}))),toolTokenHash:hash(token),expiresAt:new Date(Date.now()+(planningProvider()==='Miaoda'?180_000:120_000))}});
     return {run,token,input,startDate,courseName:course.name};
   }
   async start(userId:string,value:unknown){
@@ -72,6 +75,8 @@ export class AgentService {
     try{
       const raw=this.invoke
         ? await this.invoke({...input,startDate,courseName,runId:run.id,toolToken:token},run.id,onEvent)
+        : planningProvider()==='Miaoda'
+          ? await invokeNativePlanning({...input,startDate,courseName},await this.tool(run.id,token,input.goal),onEvent)
         : planningProvider()==='DeepSeek'
           ? await invokeDeepSeek({...input,startDate,courseName},await this.tool(run.id,token,input.goal),onEvent)
           : await invokeRuntime({
@@ -93,7 +98,7 @@ export class AgentService {
       await pending;
       const message=error instanceof Error?error.message:'运行失败';
       // Do not expose parser input, credentials or arbitrary provider payloads in client errors.
-      const safe=/^(AgentArts|DeepSeek|云端|运行|计划|任务|每日|来源|日期|输出|考试|尚未|未配置)/.test(message)&&message.length<500 ? message : '规划未通过校验或服务暂不可用，请调整目标后重试';
+      const safe=error instanceof AIError?error.message:/^(AgentArts|DeepSeek|云端|运行|计划|任务|每日|来源|日期|输出|考试|尚未|未配置)/.test(message)&&message.length<500 ? message : '规划未通过校验或服务暂不可用，请调整目标后重试';
       await this.db.agentRun.updateMany({where:{id:run.id,status:'RUNNING'},data:{status:'FAILED',error:safe}});
     }
   }
@@ -118,7 +123,7 @@ export class AgentService {
     if(!run||run.status!=='RUNNING'||run.expiresAt<new Date()||!timingSafeEqual(Buffer.from(run.toolTokenHash),Buffer.from(hash(token))))throw new Error('运行工具授权无效');
     const course=await this.db.course.findFirst({where:{id:run.courseId,userId:run.userId,isArchived:false},include:{knowledgeNodes:true}});if(!course)throw new Error('课程不存在');
     const available=JSON.parse(run.sources) as {id:string;title:string}[];
-    const notes=await this.db.note.findMany({where:{userId:run.userId,sourceType:{not:'LEARNING_PLANET_INTERNAL'},id:{in:available.filter(s=>s.id.startsWith('note:')).map(s=>s.id.slice(5))}}});
+    const notes=await this.db.note.findMany({where:{userId:run.userId,sourceType:{notIn:INTERNAL_NOTE_TYPES},id:{in:available.filter(s=>s.id.startsWith('note:')).map(s=>s.id.slice(5))}}});
     const imported=materialSources(await currentMaterials(this.db,run.userId,run.courseId),'',12,available.map(s=>s.id));
     const candidates:Source[]=[...imported,...course.knowledgeNodes.map(n=>({id:'kg:'+n.id,title:n.name,text:n.description.slice(0,1800)})),...notes.map(n=>({id:'note:'+n.id,title:n.title,text:n.content.slice(0,1800)}))].filter(s=>available.some(a=>a.id===s.id));
     if(!candidates.length)throw new Error('来源资料已更新或移除，请重新生成计划');

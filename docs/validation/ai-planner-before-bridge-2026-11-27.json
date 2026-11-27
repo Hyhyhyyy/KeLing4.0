@@ -1,0 +1,52 @@
+{
+  "at": "2026-11-27T02:45:33.735Z",
+  "kind": "ACTUAL_EXISTING_PLANNER_BEFORE_GENERAL_NATIVE_BRIDGE",
+  "target": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg",
+  "course": "dedicated history validation account course",
+  "tasksConfirmed": false,
+  "config": {
+    "configured": true,
+    "provider": "AgentArts"
+  },
+  "status": "SUCCEEDED",
+  "elapsedMs": 66995,
+  "error": "",
+  "events": [
+    {
+      "type": "knowledge",
+      "status": "sources_retrieved"
+    },
+    {
+      "type": "runtime",
+      "status": "workflow_started"
+    },
+    {
+      "type": "runtime",
+      "status": "workflow_finished"
+    },
+    {
+      "type": "runtime",
+      "status": "end"
+    }
+  ],
+  "returnedTaskCount": 1,
+  "observedResult": {
+    "status": "SUCCEEDED",
+    "summary": "根据课程现有资料，安排一次中国历史朝代先后顺序的复习任务。课程资料涵盖三部分内容：朝代基本概念、秦汉魏晋南北朝顺序、隋唐至宋元明清顺序。任务安排在11月27日，要求学生通读三份资料并默写完整朝代顺序来自检验收。",
+    "tasks": [
+      {
+        "title": "复习中国历史朝代先后顺序",
+        "description": "依次阅读三份课程资料：先读\"朝代基本认知\"理解朝代概念，再读\"秦汉魏晋南北朝顺序\"和\"隋唐至宋元明清顺序\"，梳理从秦到清的完整朝代先后脉络。读完后，不看资料，在纸上默写完整朝代顺序：秦→西汉→东汉→三国（魏蜀吴）→西晋→东晋→南朝（宋齐梁陈）与北朝（北魏→东魏/西魏→北齐/北周）→隋→唐→五代十国→北宋→南宋→元→明→清。检查标准：能正确默写出从秦到清的主要朝代先后顺序，分裂时期（三国、南北朝、五代十国）的政权也能正确排列，无遗漏或顺序错误。",
+        "date": "2026-11-27",
+        "minutes": 20,
+        "sourceIds": [
+          "redacted-source-1",
+          "redacted-source-2",
+          "redacted-source-3"
+        ]
+      }
+    ]
+  },
+  "modelEventEvidence": [],
+  "boundary": "Actual configured AgentArts workflow returned a plan accepted by source/date/budget validation; no explicit model-node event was exposed, so internal LLM invocation is not independently verified. Tasks were not confirmed. Source code invokes runtime and propagates failure; it contains no static-plan fallback."
+}

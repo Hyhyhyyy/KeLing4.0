@@ -5,13 +5,15 @@ import {
   createNode,
   updateNode,
   deleteNode,
-  batchCreateNodes
+  batchCreateNodes,
+  updateLayout
 } from '../controllers/knowledge';
 import { authMiddleware } from '../middleware/auth';
 
 const router = Router();
 
 router.get('/:courseId/nodes', authMiddleware, getNodes);
+router.put('/:courseId/layout', authMiddleware, updateLayout);
 router.get('/node/:id', authMiddleware, getNode);
 router.post('/:courseId/nodes', authMiddleware, createNode);
 router.post('/:courseId/nodes/batch', authMiddleware, batchCreateNodes);

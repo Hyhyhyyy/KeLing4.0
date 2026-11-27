@@ -85,6 +85,7 @@ test('context references reject caller-supplied data and accept only the defined
 });
 
 test('explicit course preview includes versioned material and learning evidence, changes with feedback and omits writer secrets', async () => fixtures(async ({ owner, stranger, course }) => {
+  await db.course.update({where:{id:course.id},data:{code:'SAMPLE'}});
   await getChapter(db, owner, course.id);
   const start = await startRun(db, owner, { opId: randomUUID(), courseId: course.id, questKind: 'TEACH', objectiveKey: 'bt.bfs.queue', mode: 'TRAINING', deviceId: 'context-device' });
   const before = await resolveContext(db, owner, { kind: 'course', id: course.id });

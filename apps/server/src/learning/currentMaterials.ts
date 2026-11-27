@@ -1,14 +1,17 @@
 import { Prisma, PrismaClient } from '@prisma/client';
 import { searchSpans } from './materials';
+import { binaryTreeCourseIds } from '../expedition/courseAccess';
 
 type Db = PrismaClient | Prisma.TransactionClient;
 
 /** Choose the latest version before filtering tombstones; never revive an older version. */
 export async function currentMaterials(db: Db, userId: string, courseId?: string, materialIds?: string[]) {
-  const courses = await db.course.findMany({ where: { userId, isArchived: false, ...(courseId ? { id: courseId } : {}) }, select: { id: true } });
+  const courses = await db.course.findMany({ where: { userId, isArchived: false, ...(courseId ? { id: courseId } : {}) }, select: { id: true, code: true } });
   if (!courses.length) return [];
   if (materialIds && !materialIds.length) return [];
-  const scope = { userId, courseId: { in: courses.map(c => c.id) }, ...(materialIds ? { materialId: { in: materialIds } } : {}) };
+  const examples = await binaryTreeCourseIds(db, userId, courses);
+  const scope = { userId, courseId: { in: courses.map(c => c.id) }, ...(materialIds ? { materialId: { in: materialIds } } : {}),
+    AND: [{ OR: [{ format: { not: 'SEED' } }, { courseId: { in: [...examples] } }] }] };
   const groups = await db.materialVersion.groupBy({ by: ['materialId'], where: scope,
     _max: { version: true, createdAt: true }, orderBy: { _max: { createdAt: 'desc' } }, take: 40 });
   if (!groups.length) return [];

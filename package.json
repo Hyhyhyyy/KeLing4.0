@@ -1,6 +1,6 @@
 {
   "name": "keling-monorepo",
-  "version": "4.1.0-planet-rc1",
+  "version": "4.1.1-graph-rc2",
   "private": true,
   "description": "课灵 - 多端知识管理应用",
   "workspaces": [
@@ -27,7 +27,9 @@
     "assets:sync": "node scripts/sync-stellar-assets.cjs",
     "assets:check": "node scripts/verify-stellar-assets.cjs",
     "test:web": "node --test scripts/test-guest-data.cjs scripts/test-guest-ai.cjs scripts/guest-workspace.test.cjs && npm run test:expedition --workspace=keling-web",
-    "repo:check": "node scripts/check-repository.cjs"
+    "repo:check": "node scripts/check-repository.cjs",
+    "graph:build": "node scripts/build-graph-editor.cjs",
+    "graph:test": "npm run test --workspace=@keling/graph-editor"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"

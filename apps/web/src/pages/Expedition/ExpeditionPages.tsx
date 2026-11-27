@@ -12,6 +12,7 @@ import MaterialsPanel from './MaterialsPanel';
 import SchedulePanel from './SchedulePanel';
 import './Expedition.css';
 import { statusLabel } from './expeditionLabels';
+import { isBinaryTreeCourse } from '../../services/sampleCourse';
 import { ExpeditionNotice } from './ExpeditionNotice';
 
 export function ExpeditionHome() {
@@ -19,7 +20,7 @@ export function ExpeditionHome() {
   const { scope, snapshot, local, busy, perform, setNotice } = workspace;
   const [courseId, setCourseId] = useState(''), [minutes, setMinutes] = useState(20);
   const createCourse = useAppStore(state => state.createCourse);
-  const courses = (snapshot?.courses || []).filter(course=>course.code!=='AI_PLANET'), selected = courses.find(course => course.id === courseId) || courses[0];
+  const courses = (snapshot?.courses || []).filter(isBinaryTreeCourse), selected = courses.find(course => course.id === courseId) || courses[0];
   useEffect(() => { if (scope && selected?.id) void refreshExpeditionChapter(scope, selected.id).catch(() => {}); }, [scope, selected?.id]);
   const chapter = selected ? snapshot?.chapters[selected.id] : undefined;
   const active = chapter?.runs.filter(run => ['ACTIVE', 'PAUSED', 'AWAITING_FEEDBACK'].includes(run.status)).sort((a, b) => b.startedAt.localeCompare(a.startedAt))[0];
@@ -45,12 +46,14 @@ export function ExpeditionChapter() {
   const { id } = useParams<{ id: string }>(), navigate = useNavigate(), workspace = useExpeditionWorkspace();
   const { scope, snapshot, perform, busy, setNotice, setError } = workspace; const [mode, setMode] = useState<RunMode>('TRAINING'), [list, setList] = useState(false), [clock, setClock] = useState(() => Date.now());
   useEffect(() => { const timer = setInterval(() => setClock(Date.now()), 30000); return () => clearInterval(timer); }, []);
-  useEffect(() => { if (scope && id) void refreshExpeditionChapter(scope, id).catch(error => setError(String(error.message || error))); }, [scope, id, setError]);
-  const chapter = id ? snapshot?.chapters[id] : undefined, course = snapshot?.courses.find(item => item.id === id);
+  const course = snapshot?.courses.find(item => item.id === id), allowed = isBinaryTreeCourse(course);
+  useEffect(() => { if (scope && id && allowed) void refreshExpeditionChapter(scope, id).catch(error => setError(String(error.message || error))); }, [scope, id, allowed, setError]);
+  const chapter = allowed && id ? snapshot?.chapters[id] : undefined;
   const start = (questKind: QuestKind, objectiveKey?: ObjectiveKey) => void perform(async () => {
-    if (!scope || !id) return; const result = await startExpedition(scope, { courseId: id, questKind, objectiveKey, mode });
+    if (!scope || !id || !allowed) return; const result = await startExpedition(scope, { courseId: id, questKind, objectiveKey, mode });
     if (result.data) navigate('/voyage/runs/' + result.data.run.id); else setNotice('请求待同步。');
   });
+  if (!allowed) return <div className="exp-page"><ModuleTitle kind="courses">{course?.name || '课程探索'}</ModuleTitle><div className="exp-link-row"><Link to={id?`/greenhouse/${id}`:'/greenhouse'}>课程资料</Link><Link to="/start">生成学习星球</Link><Link to="/voyage/sample">独立示例入口</Link></div></div>;
   return <div className="exp-page" data-motion={workspace.preferences.reducedMotion ? 'reduce' : undefined}><header className="exp-heading"><div><p className="exp-eyebrow">星图 · {course?.name || '课程'}</p><ModuleTitle kind="courses">{CHAPTER.title}</ModuleTitle></div><Link to={`/greenhouse/${id}`}>课程资料</Link></header><ExpeditionNotice error={workspace.error} notice={workspace.notice}/>
     <img className="exp-scene-image exp-chapter-scene" src={appPath("/stellar/expedition_starmap.webp")} alt="三条二叉树学习航线连接不同星球的独立星图场景" width="1536" height="1024"/><section className="exp-panel"><div className="exp-section-heading"><SectionTitle kind="voyage">章节路线</SectionTitle><button aria-pressed={list} onClick={() => setList(value => !value)}>{list ? '地图' : '列表'}</button></div><fieldset><legend>本轮方式</legend><div className="exp-choice-row"><button aria-pressed={mode === 'TRAINING'} onClick={() => setMode('TRAINING')}>训练</button><button aria-pressed={mode === 'INDEPENDENT'} onClick={() => setMode('INDEPENDENT')}>独立尝试</button></div></fieldset><ol className={list ? 'exp-objectives exp-objectives-list' : 'exp-objectives'}>{CHAPTER.objectives.map((objective, index) => {
       const progress = chapter?.progress.state.objectives.find(item => item.objectiveKey === objective.key);
@@ -65,7 +68,7 @@ export function ExpeditionBase() {
   const workspace = useExpeditionWorkspace(), { scope, snapshot, busy, perform } = workspace;
   const [editing, setEditing] = useState(''), [text, setText] = useState('');
   useEffect(() => { if (scope) void refreshExpeditionRewards(scope).catch(() => {}); }, [scope]);
-  const courseIds = (snapshot?.courses || []).filter(course=>snapshot?.chapters[course.id]||course.code==='SAMPLE'||/二叉树/.test(course.name)).map(course => course.id).join(',');
+  const courseIds = (snapshot?.courses || []).filter(isBinaryTreeCourse).map(course => course.id).join(',');
   useEffect(() => { if (scope) for (const courseId of courseIds.split(',').filter(Boolean)) void refreshExpeditionChapter(scope, courseId).catch(() => {}); }, [scope, courseIds]);
   const account = snapshot?.account, decoration = DECORATIONS.find(item => item.id === account?.world.slot.decorationId);
   return <div className="exp-page" data-motion={workspace.preferences.reducedMotion ? 'reduce' : undefined}><header className="exp-heading"><div><ModuleTitle kind="settings">我的基地</ModuleTitle></div><Link to="/voyage/evidence">学习证据</Link></header><ExpeditionNotice error={workspace.error} notice={workspace.notice}/>
@@ -77,7 +80,7 @@ export function ExpeditionBase() {
 export function ExpeditionEvidence() {
   const workspace = useExpeditionWorkspace(), { scope, snapshot } = workspace;
   const query = new URLSearchParams(location.search), courseId = query.get('course'), objective = query.get('objective');
-  const evidenceCourseIds = (snapshot?.courses || []).filter(course => courseId ? course.id===courseId : snapshot?.chapters[course.id]||course.code==='SAMPLE'||/二叉树/.test(course.name)).map(course => course.id).join(',');
+  const evidenceCourseIds = (snapshot?.courses || []).filter(course => isBinaryTreeCourse(course) && (!courseId || course.id===courseId)).map(course => course.id).join(',');
   useEffect(() => { if (scope) for (const id of evidenceCourseIds.split(',').filter(Boolean)) void refreshExpeditionChapter(scope, id).catch(() => {}); }, [scope, evidenceCourseIds]);
   useEffect(() => { if (scope) void refreshExpeditionRewards(scope).catch(() => {}); }, [scope]);
   const evidence = (snapshot?.evidence || []).filter(item => (!objective || item.objectiveKey === objective) && (!courseId || snapshot?.runs[item.runId]?.run.courseId === courseId));

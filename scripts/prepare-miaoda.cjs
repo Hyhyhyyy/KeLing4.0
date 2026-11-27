@@ -13,7 +13,8 @@ async function main(){
  fs.cpSync(path.join(root,'apps/web/dist'),path.join(output,'web'),{recursive:true});
  const files={};
  function hashTree(dir){for(const file of fs.readdirSync(dir,{withFileTypes:true})){const p=path.join(dir,file.name);if(file.isDirectory())hashTree(p);else files[path.relative(root,p).replaceAll('\\','/')]=crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex');}}
- for(const dir of ['apps/server/src','apps/web/src','packages/shared/src'])hashTree(path.join(root,dir));
+ for(const dir of ['apps/server/src','apps/web/src','packages/shared/src','packages/graph-editor/src'])hashTree(path.join(root,dir));
+ for(const file of ['packages/graph-editor/index.html','packages/graph-editor/package.json','scripts/build-graph-editor.cjs'])files[file]=crypto.createHash('sha256').update(fs.readFileSync(path.join(root,file))).digest('hex');
  fs.writeFileSync(path.join(output,'source-manifest.json'),JSON.stringify({source:'Hyhyhyyy/KeLing4.0',generatedAt:new Date().toISOString(),files},null,2)+'\n');
  console.log('Packaged existing server, shared rules and web; no migrations are run.');
 }

@@ -29,7 +29,7 @@ const modules: { id: string; title: string; kind: TitleKind; route: string; acti
   {
     id: 'assistant', title: '问星芽 · 带着资料提问', kind: 'ai', route: '/ai', action: '打开问星芽',
     steps: [
-      '先按下方「连接 AI」设置模型。也可从课程的「AI 辅导」、已保存笔记的「问 AI」或任务的「问 AI」进入。',
+      '默认使用课灵公共模型。也可从课程的「AI 辅导」、已保存笔记的「问 AI」或任务的「问 AI」进入。',
       '核对将要附带的资料与问题，按需要刷新或移除资料；使用临时问答时也可编辑摘录，再点「发送」。',
       '阅读回答并核查来源；有用的内容点「保存笔记」或「加入笔记」，再到笔记页整理。',
       '要追问导入原文，在课程详情的「课程资料」中勾选资料，展开「资料 AI 问答」，先预览引用片段，同意发送后再提问。',
@@ -40,7 +40,7 @@ const modules: { id: string; title: string; kind: TitleKind; route: string; acti
     id: 'planning', title: '智能编排 · 把目标变成任务', kind: 'voyage', route: '/agent', action: '打开智能编排',
     steps: [
       '选择课程，填写学习目标、目标日期与每日时长。缺少知识点时，展开「添加课程与资料」补充内容。',
-      '游客可在本页「配置模型」中设置 API Key 与聊天模型；账号模式需页面显示规划服务已配置。',
+      '公共模型就绪后即可规划；游客也可展开「使用自己的 API Key」选择已有模型。',
       '点「开始规划」，等待计划生成。核对任务内容、日期、时长与资料依据。',
       '满意后点「确认并加入任务」，再到「查看任务」开始执行。只有预览而未确认时，不会添加任务。',
     ],
@@ -96,8 +96,8 @@ const modules: { id: string; title: string; kind: TitleKind; route: string; acti
 
 const questions = [
   { question: '没有课程，或没有学习记录？', answer: '先进入远航，点「创建示例课程」；也可到星图创建自己的课程。完成练习、保存笔记或添加任务后，对应列表才会出现内容。新账号没有游客的试用记录。' },
-  { question: 'AI 无法发送，或一直没有回答？', answer: '检查服务商、密钥、模型 ID 和所属区域。需要资料时先完成预览；笔记有未保存修改时先保存。获取到模型目录不代表已获得模型调用权限，可用简短问题检查。停止等待后，已经发出的请求仍可能计费。' },
-  { question: '智能编排提示服务未配置？', answer: '游客在本页展开「配置模型」；账号模式依赖平台规划服务，个人问答的 API Key 不会自动开启该服务。暂时可到任务页手动创建，或用远航中的规则排程。' },
+  { question: 'AI 无法发送，或一直没有回答？', answer: '公共模型连接失败时可重试；自带 Key 请核对服务商、模型 ID 与所属区域。需要资料时先完成预览；笔记有未保存修改时先保存。获取到模型目录不代表已获得模型调用权限，可用简短问题检查。停止等待后，已经发出的请求仍可能计费。' },
+  { question: '智能编排提示服务未配置？', answer: '点击重试检查公共模型连接。游客也可使用自己的 API Key；模型失败时保留学习目标，重新生成后再确认。' },
   { question: '资料解析失败，或知识点不对？', answer: '确认文件未超过大小和页数限制，并能复制出文字；扫描图片 PDF 请先转成可选中文字的文档。编辑原文后重新预览，知识点候选需要自己核对，再确认加入图谱。' },
   { question: '出现离线、待同步或记录冲突？', answer: '打开「同步」，先导出重要草稿，联网后点「立即同步」。有冲突时进入对应作答核对最新记录；「停止重试」会保留草稿，不会撤销已提交的结果。游客请先导出，刷新会清空本次数据。' },
   { question: '网页与手机内容不同，怎么办？', answer: '先确认两端使用同一账号且网络正常，再检查是否保存成功、是否仍有待同步操作。游客空间和本机计时不会跨端延续；不要靠反复切换账号处理尚未保存的草稿。' },
@@ -137,7 +137,7 @@ export default function Guide() {
           <li><span className="guide-step-number" aria-hidden="true">02</span><h3>选一颗学习星球</h3><p>点「开始探索」，输入自己想学的学科，由大模型生成星球；核对后确认开启。</p><Link to="/voyage">打开远航<NavigationArrow/></Link></li>
           <li><span className="guide-step-number" aria-hidden="true">03</span><h3>做题，再教星芽</h3><p>选 10 分钟开始路线修复；想讲清理解时选 20 分钟教星芽。提交后读反馈，并保存下一步。</p><a href="#guide-modules">查看操作步骤<NavigationArrow direction="down"/></a></li>
         </ol>
-        <p className="guide-note">这些示例练习无需先配置 AI。游客数据会在刷新、关闭或退出后清空；重要笔记请先导出。</p>
+        <p className="guide-note">公共模型就绪后即可生成学习星球；二叉树示例无需模型。游客数据刷新或退出后清空，重要笔记请先导出。</p>
       </section>
 
       <section id="guide-modules" className="guide-section" aria-labelledby="guide-modules-title" tabIndex={-1}>
@@ -160,7 +160,7 @@ export default function Guide() {
         <ol className="guide-ai-steps"><li><strong>打开「问星芽」的「临时问答」。</strong>在同一面板选择服务商，粘贴 API Key；需要时填写服务地址与所属区域。</li>
           <li><strong>获取并选择聊天模型。</strong>点「获取模型」，再选模型；服务商未提供目录时，可填写已开通的模型 ID。</li>
           <li><strong>发一个简短问题。</strong>核对发送范围与可能产生的费用，点「发送」；真正收到回答后，再继续带资料提问。</li></ol>
-        <p>账号的「学习会话」也可使用平台已配置的模型。自己的 API Key 只保存在当前内存，离开配置面板、刷新或退出后可能需要重新填写。回答需自行核查；想保留时请点「保存笔记」。</p>
+        <p>星球生成、学习会话、资料辅导与智能编排默认使用公共模型。自己的 API Key 只保存在当前内存，离开配置面板、刷新或退出后可能需要重新填写。回答需自行核查；想保留时请点「保存笔记」。</p>
         <div className="guide-actions"><Link className="guide-primary" to="/ai?mode=personal">打开临时问答<NavigationArrow/></Link><a href="#guide-module-planning">查看计划说明<NavigationArrow direction="up"/></a></div>
       </section>
 

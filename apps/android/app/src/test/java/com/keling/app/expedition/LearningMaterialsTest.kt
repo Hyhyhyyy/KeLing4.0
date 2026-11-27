@@ -15,6 +15,32 @@ class LearningMaterialsTest {
     private fun parsed(text: String = "队列按先进先出访问节点。") = ParsedMaterial("队列原文", "教材", "TEXT", text, "hash-$text", "test-parser", "READY", listOf(MaterialSpan(ordinal = 0, startUtf16 = 0, endUtf16 = text.length, textHash = "span-$text")))
     private val headers = headersOf(HttpHeaders.ContentType, "application/json")
 
+    @Test fun publicTutorAllowsNoKeyButRejectsMaterialChangedWhileModelWasRunning() = runBlocking {
+        lateinit var guest: GuestWorkspace
+        lateinit var original: LearningDoc
+        var courseId = ""
+        val client = createApiHttpClient(MockEngine) { engine { addHandler { request ->
+            assertNull(request.headers[HttpHeaders.Authorization])
+            if (request.url.encodedPath.endsWith("/trial/workspace/chat")) {
+                val body = Json.parseToJsonElement((request.body as TextContent).text).jsonObject
+                assertFalse(body.containsKey("credentials")); assertEquals("selected", body["retrievalMode"]!!.jsonPrimitive.content)
+                assertTrue(body["sources"]!!.jsonArray.single().jsonObject["text"]!!.jsonPrimitive.content.contains("先进先出"))
+                respond("""{"jobId":"tutor-job","jobToken":"fixture","status":"RUNNING"}""", HttpStatusCode.Accepted, headers)
+            } else {
+                assertEquals("fixture", request.headers["X-AI-Job-Token"])
+                guest.learningMaterials.save(courseId, parsed("已修订的教材"), original, "revision")
+                respond("""{"jobId":"tutor-job","status":"SUCCEEDED","result":{"answer":"Obsolete fixture answer","model":"miaoda-chat","sources":[]}}""", HttpStatusCode.OK, headers)
+            }
+        } } }
+        guest = GuestWorkspaces.create(client)
+        try {
+            courseId = guest.createCourse("课程").course!!.id
+            original = guest.learningMaterials.save(courseId, parsed(), null, "original")
+            try { LearningApi(guest.token, client, "https://fixture.test/api").tutor(courseId, listOf(original.id), null, "miaoda-chat", "解释队列"); fail("Stale citation must not be shown") }
+            catch (e: ExpeditionException) { assertEquals("CONTENT_STALE", e.detail.code) }
+        } finally { GuestWorkspaces.close(guest.token); client.close() }
+    }
+
     @Test fun guestVersionsAreImmutableSaveIsIdempotentAndMapRejectsOldSources() {
         val store = GuestLearningStore({}); val p = parsed()
         val first = store.save("course", p, null, "one")
@@ -92,7 +118,7 @@ class LearningMaterialsTest {
         val client = createApiHttpClient(MockEngine) { engine { addHandler { calls++; error("No automatic model request") } } }
         val guest = GuestWorkspaces.create(client)
         try {
-            val course = guest.createCourse("课程").course!!
+            val course = guest.createCourse("课程", code = "SAMPLE").course!!
             val other = guest.createCourse("不能泄漏的课程").course!!
             guest.learningMaterials.save(other.id, parsed("另一门课的私人材料"), null, "private")
             val material = guest.learningMaterials.save(course.id, parsed(), null, "selected")

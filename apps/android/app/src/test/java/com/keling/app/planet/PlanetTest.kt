@@ -132,10 +132,13 @@ class PlanetTest {
         assertNull(atlas.find("天文学"))
     }
 
-    @Test fun legacyExpeditionSelectionPreservesExistingCoursesButExcludesAiPlanets() {
-        val old = CourseData("legacy-course", "旧课程")
-        val generated = CourseData("ai-course", "英语", code = "AI_PLANET")
+    @Test fun legacyExpeditionSelectionRequiresExplicitSampleOrRealHistoryAndNeverMatchesByName() {
+        val old = CourseData("legacy-course", "旧课程", hasBinaryTreeHistory = true)
+        val generated = CourseData("ai-course", "英语", code = "AI_PLANET", hasBinaryTreeHistory = true)
         val archived = CourseData("archived-course", "旧归档", isArchived = true)
-        assertEquals(listOf(old), com.keling.app.expedition.legacyExpeditionCourses(listOf(generated, old, archived)))
+        val sample = CourseData("sample", "旧版示例", code = "SAMPLE")
+        val normal = CourseData("ordinary", "二叉树")
+        val english = CourseData("english", "英语")
+        assertEquals(listOf(old, sample), com.keling.app.expedition.legacyExpeditionCourses(listOf(generated, old, archived, sample, normal, english)))
     }
 }

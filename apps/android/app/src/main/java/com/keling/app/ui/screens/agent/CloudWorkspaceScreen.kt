@@ -172,6 +172,8 @@ fun CloudWorkspaceScreen(accountId: String, token: String, initialTab: String = 
                             }
                         }
                         OutlinedButton(onClick = { planetCourseId = course.id; planetDraft = course.planetStyleIndex; planetPickerOpen = true }, enabled = !state.busy, modifier = Modifier.fillMaxWidth()) { Text("更换星球形象") }
+                        OutlinedButton(onClick = { onNavigate("cloud_graph:${course.id}") }, enabled = !state.busy, modifier = Modifier.fillMaxWidth()) { Text("知识图谱") }
+                        OutlinedButton(onClick = { onNavigate("course_materials:${course.id}") }, enabled = !state.busy, modifier = Modifier.fillMaxWidth()) { Text("资料问答") }
                         TextButton(onClick = { onAskAssistant(AssistantContextRef("course", course.id), "请根据这门课程当前可用的资料梳理核心概念，并用一个问题检查我的理解。") }, enabled = !state.busy, modifier = Modifier.fillMaxWidth()) { Text("问 AI") }
                     } } }
                     item { Button(onClick = { onNavigate("cloud_agent") }, modifier = Modifier.fillMaxWidth()) { Text("课程资料与计划") } }

@@ -1,503 +1,76 @@
 import { NavigationArrow, SelectFrame } from '../../components/NavigationArrow';
 import { ModuleTitle } from '../../components/ModuleTitle';
-import { StellarSceneBanner } from '../../components/StellarScene';
-import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import {
-  ZoomIn, ZoomOut, Plus, X} from 'lucide-react';
+import { Plus, X } from 'lucide-react';
 import { useAppStore } from '../../store/useAppStore';
 import { knowledgeAPI } from '../../services/api';
+import { appPath } from '../../services/appPath';
 import type { KnowledgeNode } from '../../types';
 import { assistantError } from '../../services/assistant';
+import { useCourseDialogFocus } from '../../components/useCourseDialogFocus';
 import './KnowledgeGraph.css';
 
-interface NodePosition {
-  node: KnowledgeNode;
-  x: number;
-  y: number;
-  level: number;
-  children: NodePosition[];
-}
-
 type NodeDraft = Pick<KnowledgeNode, 'name' | 'description' | 'parentIds' | 'masteryLevel' | 'difficulty'>;
-const blankDraft = (): NodeDraft => ({ name: '', description: '', parentIds: [], masteryLevel: 0, difficulty: 1 });
-
-// 层级颜色
-const LEVEL_COLORS = [
-  '#6B5B95', // 第0层 - 深紫色
-  '#88B04B', // 第1层 - 翠绿色
-  '#F7CAC9', // 第2层 - 粉红色
-  '#92A8D1', // 第3层 - 淡蓝色
-  '#FFB07C', // 第4层 - 橙色
-  '#B8E0D2', // 第5层 - 薄荷绿
-  '#D4A5FF', // 第6层 - 薰衣草紫
-  '#FFF3B0', // 第7层+ - 柠檬黄
-];
-
-const getLevelColor = (level: number) => {
-  return LEVEL_COLORS[Math.min(level, LEVEL_COLORS.length - 1)];
-};
-
-const getLevelColorLight = (level: number) => {
-  const color = getLevelColor(level);
-  return color + '26'; // 添加透明度
-};
-
-const KnowledgeGraph: React.FC = () => {
-  const navigate = useNavigate();
-  const { courseId } = useParams<{ courseId: string }>();
-  const { courses } = useAppStore();
-
-  const [nodes, setNodes] = useState<KnowledgeNode[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [scale, setScale] = useState(1);
-  const [offset, setOffset] = useState({ x: 0, y: 0 });
-  const [showEditDialog, setShowEditDialog] = useState(false);
-  const [editingNode, setEditingNode] = useState<KnowledgeNode | null>(null);
-  const [draft, setDraft] = useState<NodeDraft>(blankDraft);
-  const [saving, setSaving] = useState(false);
-  const [error, setError] = useState('');
-
-  const canvasRef = useRef<HTMLDivElement>(null);
-  const isDragging = useRef(false);
-  const lastMousePos = useRef({ x: 0, y: 0 });
-  const loadRequest = useRef<symbol | null>(null);
-
-  // 找到课程
-  const course = courses.find(c => c.id === courseId);
-
-  const loadNodes = useCallback(async () => {
-    if (!courseId) { setIsLoading(false); return; }
-    const request = Symbol();
-    loadRequest.current = request;
-    setIsLoading(true);
-    try {
-      const { data } = await knowledgeAPI.getNodes(courseId);
-      if (loadRequest.current !== request) return;
-      setNodes(data.nodes || []); setError('');
-    } catch (error) {
-      if (loadRequest.current === request) setError(assistantError(error));
-    } finally {
-      if (loadRequest.current === request) setIsLoading(false);
-    }
-  }, [courseId]);
-
-  useEffect(() => {
-    setNodes([]); setError(''); setShowEditDialog(false); setEditingNode(null);
-    void loadNodes();
-    return () => { loadRequest.current = null; };
-  }, [loadNodes]);
-
-  // 计算思维导图布局
-  const calculateLayout = useCallback((nodes: KnowledgeNode[]): NodePosition[] => {
-    if (nodes.length === 0) return [];
-
-    const nodeMap = nodes.reduce((map, node) => {
-      map[node.id] = node;
-      return map;
-    }, {} as Record<string, KnowledgeNode>);
-
-    const childMap: Record<string, string[]> = {};
-    const rootNodes: KnowledgeNode[] = [];
-
-    // 找出根节点和子节点关系
-    nodes.forEach(node => {
-      if (node.parentIds.length === 0) {
-        rootNodes.push(node);
-      } else {
-        const validParents = node.parentIds.filter(id => nodeMap[id]);
-        if (validParents.length === 0) {
-          rootNodes.push(node);
-        } else {
-          validParents.forEach(parentId => {
-            if (!childMap[parentId]) childMap[parentId] = [];
-            childMap[parentId].push(node.id);
-          });
-        }
-      }
-    });
-
-    if (rootNodes.length === 0 && nodes.length > 0) {
-      rootNodes.push(...nodes);
-    }
-
-    const positions: NodePosition[] = [];
-    let currentY = 0;
-
-    const visited = new Set<string>();
-    const calculateSubtree = (
-      node: KnowledgeNode,
-      level: number,
-      startY: number
-    ): [NodePosition, number] => {
-      visited.add(node.id);
-      const x = level * 280 + 50;
-      const childIds = childMap[node.id] || [];
-      const childNodes = childIds.map(id => nodeMap[id]).filter(child => child && !visited.has(child.id));
-
-      if (childNodes.length === 0) {
-        const pos = {
-          node,
-          x,
-          y: startY,
-          level,
-          children: [],
-        };
-        return [pos, startY + 80];
-      }
-
-      const childPositions: NodePosition[] = [];
-      let childY = startY;
-
-      childNodes.sort((a, b) => a.name.localeCompare(b.name)).forEach(child => {
-        if (visited.has(child.id)) return;
-        const [childPos, nextY] = calculateSubtree(child, level + 1, childY);
-        childPositions.push(childPos);
-        childY = nextY;
-      });
-
-      const parentY = childPositions.length > 0
-        ? (childPositions[0].y + childPositions[childPositions.length - 1].y) / 2
-        : startY;
-
-      return [{
-        node,
-        x,
-        y: parentY,
-        level,
-        children: childPositions,
-      }, childY];
-    };
-
-    // Draw each node once, including disconnected/cyclic legacy data.
-    [...rootNodes.sort((a, b) => a.name.localeCompare(b.name)), ...[...nodes].sort((a, b) => a.name.localeCompare(b.name))].forEach(rootNode => {
-      if (visited.has(rootNode.id)) return;
-      const [pos, nextY] = calculateSubtree(rootNode, 0, currentY);
-      positions.push(pos);
-      currentY = nextY + 40;
-    });
-
-    return positions;
-  }, []);
-
-  // 展平所有节点位置
-  const flattenPositions = useCallback((positions: NodePosition[]): NodePosition[] => {
-    const result: NodePosition[] = [];
-    const collect = (pos: NodePosition) => {
-      result.push(pos);
-      pos.children.forEach(collect);
-    };
-    positions.forEach(collect);
-    return result;
-  }, []);
-
-  const positions = useMemo(() => calculateLayout(nodes), [calculateLayout, nodes]);
-  const allPositions = useMemo(() => flattenPositions(positions), [flattenPositions, positions]);
-
-  // 计算内容边界用于初始居中
-  useEffect(() => {
-    if (allPositions.length > 0 && canvasRef.current) {
-      const canvas = canvasRef.current;
-      const canvasWidth = canvas.clientWidth;
-      const canvasHeight = canvas.clientHeight;
-
-      let minX = Infinity, maxX = -Infinity;
-      let minY = Infinity, maxY = -Infinity;
-
-      allPositions.forEach(pos => {
-        minX = Math.min(minX, pos.x);
-        maxX = Math.max(maxX, pos.x + 200);
-        minY = Math.min(minY, pos.y);
-        maxY = Math.max(maxY, pos.y + 74);
-      });
-
-      const contentWidth = maxX - minX;
-      const contentHeight = maxY - minY;
-
-      const initialScale = Math.min(
-        canvasWidth / contentWidth,
-        canvasHeight / contentHeight,
-        1.5
-      );
-
-      const clampedScale = Math.max(0.5, Math.min(2, initialScale));
-
-      setScale(clampedScale);
-      setOffset({
-        x: (canvasWidth - contentWidth * clampedScale) / 2 - minX * clampedScale,
-        y: (canvasHeight - contentHeight * clampedScale) / 2 - minY * clampedScale,
-      });
-    }
-  }, [allPositions]);
-
-  // 处理拖拽和缩放
-  const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (e.button !== 0 || (e.target as HTMLElement).closest('button')) return;
-    isDragging.current = true;
-    lastMousePos.current = { x: e.clientX, y: e.clientY };
-    e.currentTarget.setPointerCapture(e.pointerId);
-  };
-  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (!isDragging.current) return;
-    const dx = e.clientX - lastMousePos.current.x;
-    const dy = e.clientY - lastMousePos.current.y;
-    setOffset(prev => ({ x: prev.x + dx, y: prev.y + dy }));
-    lastMousePos.current = { x: e.clientX, y: e.clientY };
-  };
-  const handlePointerUp = () => { isDragging.current = false; };
-
-  const handleWheel = (e: React.WheelEvent) => {
-    const delta = e.deltaY > 0 ? 0.9 : 1.1;
-    setScale(prev => Math.max(0.3, Math.min(3, prev * delta)));
-  };
-
-  // 缩放控制
-  const handleZoomIn = () => {
-    setScale(prev => Math.min(3, prev * 1.25));
-  };
-
-  const handleZoomOut = () => {
-    setScale(prev => Math.max(0.3, prev * 0.8));
-  };
-
-  // 创建/编辑节点
-  const handleSaveNode = async () => {
-    if (saving || !draft.name.trim()) return;
-    setSaving(true);
-    setError('');
-    const nodeData = { ...draft, name: draft.name.trim() };
-    try {
-      if (editingNode) {
-        await knowledgeAPI.updateNode(editingNode.id, nodeData);
-      } else {
-        const { data } = await knowledgeAPI.createNode(courseId!, {
-          name: nodeData.name || '',
-          description: nodeData.description || '',
-          parentIds: nodeData.parentIds || [],
-          difficulty: nodeData.difficulty || 1,
-        });
-        // A retry after a mastery update failure must update this node, not create a duplicate.
-        setEditingNode(data.node);
-        if (nodeData.masteryLevel > 0) await knowledgeAPI.updateNode(data.node.id, { masteryLevel: nodeData.masteryLevel });
-      }
-      await loadNodes();
-      setShowEditDialog(false);
-      setEditingNode(null);
-    } catch (error) {
-      setError(assistantError(error));
-    } finally { setSaving(false); }
-  };
-
-  const handleDeleteNode = async () => {
-    if (saving) return;
-    if (editingNode && confirm('确定要删除这个知识点吗？')) {
-      setSaving(true);
-      setError('');
-      try {
-        await knowledgeAPI.deleteNode(editingNode.id);
-        await loadNodes();
-        setShowEditDialog(false);
-        setEditingNode(null);
-      } catch (error) {
-        setError(assistantError(error));
-      } finally { setSaving(false); }
-    }
-  };
-
-  if (isLoading) {
-    return (
-      <div className="loading-container">
-        <div className="loading-spinner"></div>
-        <p>加载知识图谱...</p>
-      </div>
-    );
-  }
-
-  return (
-    <div className="knowledge-graph-container">
-      {error && <p role="alert">{error} <button onClick={() => void loadNodes()}>重新读取</button></p>}
-      {/* 顶部导航 */}
-      <motion.div
-        className="graph-header"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-      >
-        <button className="back-btn" onClick={() => navigate(-1)}>
-          <NavigationArrow direction="left"/>
-          返回
-        </button>
-        <div className="header-info">
-          <ModuleTitle kind="courses">{course?.name || '知识图谱'}</ModuleTitle>
-          <p>共 {nodes.length} 个知识点</p>
-        </div>
-        <div className="zoom-controls">
-          <button className="zoom-btn" aria-label="缩小图谱" onClick={handleZoomOut}>
-            <ZoomOut size={18} />
-          </button>
-          <span className="zoom-percent">{Math.round(scale * 100)}%</span>
-          <button className="zoom-btn" aria-label="放大图谱" onClick={handleZoomIn}>
-            <ZoomIn size={18} />
-          </button>
-        </div>
-      </motion.div>
-
-      <StellarSceneBanner scene="graph" title="概念关系" compact/>
-
-      {/* 主画布区域 */}
-      {nodes.length === 0 ? (
-        <motion.div
-          className="empty-state"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-        >
-          <span className="empty-icon">📭</span>
-          <h2>{course ? `${course.name} 还没有知识点` : '请先选择一个课程'}</h2>
-          <p>
-            {course
-              ? '添加知识点'
-              : '请先选择课程'}
-          </p>
-          {course && (
-            <button className="btn btn-primary" onClick={() => navigate('/ai')}>
-              和 AI 聊聊
-            </button>
-          )}
-        </motion.div>
-      ) : (
-        <div
-          ref={canvasRef}
-          className="graph-canvas"
-          onPointerDown={handlePointerDown}
-          onPointerMove={handlePointerMove}
-          onPointerUp={handlePointerUp}
-          onPointerCancel={handlePointerUp}
-          onWheel={handleWheel}
-        >
-          {/* SVG 绘制连线 */}
-          <svg
-            className="connections-svg"
-            style={{
-              transform: `translate(${offset.x}px, ${offset.y}px) scale(${scale})`,
-            }}
-          >
-            {positions.map(rootPos => {
-              const drawConnections = (pos: NodePosition): React.ReactNode[] => {
-                const lines: React.ReactNode[] = [];
-                pos.children.forEach(child => {
-                  const startX = pos.x + 180;
-                  const startY = pos.y + 37;
-                  const endX = child.x;
-                  const endY = child.y + 37;
-                  const midX = (startX + endX) / 2;
-
-                  const path = `M ${startX} ${startY} C ${midX} ${startY}, ${midX} ${endY}, ${endX} ${endY}`;
-                  lines.push(
-                    <path
-                      key={`${pos.node.id}-${child.node.id}`}
-                      d={path}
-                      stroke={getLevelColor(pos.level)}
-                      strokeWidth="2"
-                      fill="none"
-                      opacity="0.4"
-                    />
-                  );
-                  lines.push(...drawConnections(child));
-                });
-                return lines;
-              };
-              return drawConnections(rootPos);
-            })}
-          </svg>
-
-          {/* 节点 */}
-          <div
-            className="nodes-container"
-            style={{
-              transform: `translate(${offset.x}px, ${offset.y}px) scale(${scale})`,
-            }}
-          >
-            {allPositions.map(pos => (
-              <button
-                key={pos.node.id}
-                type="button"
-                aria-label={`编辑知识点：${pos.node.name}`}
-                className="mind-map-node"
-                style={{
-                  left: pos.x,
-                  top: pos.y,
-                  backgroundColor: getLevelColorLight(pos.level),
-                  borderColor: getLevelColor(pos.level),
-                }}
-                onClick={() => {
-                  setEditingNode(pos.node);
-                  setDraft({ name: pos.node.name, description: pos.node.description, parentIds: [...pos.node.parentIds], masteryLevel: pos.node.masteryLevel, difficulty: pos.node.difficulty });
-                  setError('');
-                  setShowEditDialog(true);
-                }}
-              >
-                <span className="node-name">{pos.node.name}</span>
-                <div className="node-progress">
-                  <div
-                    className="node-progress-fill"
-                    style={{
-                      width: `${pos.node.masteryLevel * 100}%`,
-                      backgroundColor: getLevelColor(pos.level),
-                    }}
-                  />
-                </div>
-                <span className="node-mastery">
-                  {Math.round(pos.node.masteryLevel * 100)}%
-                </span>
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* 层级图例 */}
-      <motion.div
-        className="legend-card"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.3 }}
-      >
-        <h3>层级图例</h3>
-        <div className="legend-list">
-          {LEVEL_COLORS.slice(0, 5).map((color, index) => (
-            <div key={index} className="legend-item">
-              <span className="legend-dot" style={{ backgroundColor: color }} />
-              <span className="legend-label">第{index + 1}层</span>
-            </div>
-          ))}
-        </div>
-      </motion.div>
-
-      {/* 添加知识点按钮 */}
-      {courseId && (
-        <motion.button
-          className="add-node-btn"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={() => {
-            setEditingNode(null);
-            setDraft(blankDraft());
-            setError('');
-            setShowEditDialog(true);
-          }}
-        >
-          <Plus size={20} />
-          <span>添加知识点</span>
-        </motion.button>
-      )}
-
+type Position = {id:string;positionX:number;positionY:number};
+type GraphData = {nodes:KnowledgeNode[];layoutSaved:boolean;savedNodeIds:string[];layoutUpdatedAt:string|null;preserveLayout?:boolean};
+const blankDraft = (): NodeDraft => ({ name:'',description:'',parentIds:[],masteryLevel:0,difficulty:1 });
+export default function KnowledgeGraph() {
+ const navigate=useNavigate(),{courseId=''}=useParams<{courseId:string}>(),{courses,user,isGuest}=useAppStore();
+ const course=courses.find(c=>c.id===courseId);
+ const [nodes,setNodes]=useState<KnowledgeNode[]>([]),[payload,setPayload]=useState<GraphData|null>(null),[isLoading,setIsLoading]=useState(true),[ready,setReady]=useState(false),[dirty,setDirty]=useState(false),[layoutSaving,setLayoutSaving]=useState(false);
+ const [showEditDialog,setShowEditDialog]=useState(false),[editingNode,setEditingNode]=useState<KnowledgeNode|null>(null),[draft,setDraft]=useState<NodeDraft>(blankDraft),[saving,setSaving]=useState(false),[error,setError]=useState(''),[notice,setNotice]=useState('');
+ const iframeRef=useRef<HTMLIFrameElement>(null),dialogRef=useRef<HTMLDivElement>(null),loadRequest=useRef<symbol|null>(null),nodeRef=useRef(nodes),savingRef=useRef(false);
+ const sessionId=useMemo(()=>`${courseId}:${isGuest?'guest':user?.id||'account'}:${crypto.randomUUID()}`,[courseId,user?.id,isGuest]);
+ const identity=useRef(sessionId);identity.current=sessionId;nodeRef.current=nodes;
+ useCourseDialogFocus(dialogRef,showEditDialog);
+ const send=useCallback((type:string,data:Record<string,unknown>={})=>iframeRef.current?.contentWindow?.postMessage({protocol:1,type:'keling-graph:'+type,sessionId,courseId,...data},window.location.origin),[sessionId,courseId]);
+ const loadNodes=useCallback(async(preserveLayout=false)=>{
+  if(!courseId){setIsLoading(false);return false;}const request=Symbol(),scope=sessionId;loadRequest.current=request;setIsLoading(true);
+  try{const {data}=await knowledgeAPI.getNodes(courseId);if(loadRequest.current!==request||identity.current!==scope)return false;setNodes(data.nodes||[]);setPayload({...data,preserveLayout});setError('');return true;}
+  catch(e){if(loadRequest.current===request)setError(assistantError(e));return false;}finally{if(loadRequest.current===request)setIsLoading(false);}
+ },[courseId,sessionId]);
+ useEffect(()=>{setReady(false);setPayload(null);setNodes([]);setDirty(false);setNotice('');setShowEditDialog(false);void loadNodes();return()=>{loadRequest.current=null;};},[loadNodes]);
+ useEffect(()=>{if(ready&&payload)send('init',{nodes:payload.nodes.map(({id,name,description,parentIds,masteryLevel,difficulty,positionX,positionY})=>({id,name,description,parentIds,masteryLevel,difficulty,positionX,positionY})),layoutSaved:payload.layoutSaved,savedNodeIds:payload.savedNodeIds,preserveLayout:payload.preserveLayout});},[ready,payload,send]);
+ useEffect(()=>{const resize=()=>{const frame=iframeRef.current;if(frame&&window.innerWidth>700)frame.style.height=Math.max(360,window.innerHeight-frame.getBoundingClientRect().top-24)+'px';};const timer=requestAnimationFrame(resize);window.addEventListener('resize',resize);return()=>{cancelAnimationFrame(timer);window.removeEventListener('resize',resize);};},[notice,error,isLoading]);
+ const edit=useCallback((id:string)=>{const node=nodeRef.current.find(n=>n.id===id);if(!node)return;setEditingNode(node);setDraft({name:node.name,description:node.description,parentIds:[...node.parentIds],masteryLevel:node.masteryLevel,difficulty:node.difficulty});setShowEditDialog(true);setError('');},[]);
+ const saveLayout=useCallback(async(positions:Position[])=>{
+  if(savingRef.current)return;savingRef.current=true;setLayoutSaving(true);setError('');const scope=sessionId;
+  try{
+   const current=new Map(nodeRef.current.map(node=>[node.id,node]));
+   if(positions.length!==current.size||new Set(positions.map(p=>p.id)).size!==positions.length||positions.some(p=>!current.has(p.id)||!Number.isFinite(p.positionX)||!Number.isFinite(p.positionY)||p.positionX<0||p.positionX>1||p.positionY<0||p.positionY>1))throw new Error('布局数据已变化，请重新读取图谱。');
+   const {data}=await knowledgeAPI.saveLayout(courseId,positions.map(p=>({...p,expectedUpdatedAt:current.get(p.id)!.updatedAt})));
+   if(identity.current!==scope)return;const updated=new Map<string,KnowledgeNode>(data.nodes.map((node:KnowledgeNode)=>[node.id,node]));setNodes(old=>old.map(node=>updated.get(node.id)||node));
+   if(data.layoutSaved!==true){send('saveError',{message:'课程知识点已变化，请核对新节点后保存布局。'});await loadNodes(true);setNotice('新增或变更的知识点已载入，请核对布局。');return;}
+   send('saved',{positions:data.nodes.map(({id,positionX,positionY}:KnowledgeNode)=>({id,positionX,positionY}))});setNotice(isGuest?'布局已保存在本次会话':'布局已保存');
+  }catch(e){if(identity.current===scope){const message=assistantError(e);setError(message);send('saveError',{message});}}finally{savingRef.current=false;if(identity.current===scope)setLayoutSaving(false);}
+ },[sessionId,courseId,send,isGuest,loadNodes]);
+ useEffect(()=>{const receive=(event:MessageEvent)=>{if(event.origin!==window.location.origin||event.source!==iframeRef.current?.contentWindow)return;const data=event.data;if(!data||data.protocol!==1||typeof data.type!=='string')return;if(data.type==='keling-graph:ready'){setReady(true);return;}if(data.sessionId!==sessionId||data.courseId!==courseId)return;
+  if(['keling-graph:readyState','keling-graph:layoutChanged','keling-graph:saveState'].includes(data.type)){setDirty(data.dirty===true);if(data.dirty)setNotice('');}
+  if(data.type==='keling-graph:editRequested'&&typeof data.nodeId==='string')edit(data.nodeId);
+  if(data.type==='keling-graph:saveRequested'&&Array.isArray(data.positions))void saveLayout(data.positions);
+  if(data.type==='keling-graph:error')setError(typeof data.message==='string'?data.message:'图谱加载失败');
+ };window.addEventListener('message',receive);return()=>window.removeEventListener('message',receive);},[courseId,sessionId,edit,saveLayout]);
+ useEffect(()=>{if(!dirty)return;const warn=(event:BeforeUnloadEvent)=>{event.preventDefault();event.returnValue='';};window.addEventListener('beforeunload',warn);return()=>window.removeEventListener('beforeunload',warn);},[dirty]);
+ const reload=()=>{if(!dirty||confirm('重新读取会放弃未保存的布局，继续吗？'))void loadNodes(false);};
+ async function handleSaveNode(){
+  if(saving||!draft.name.trim())return;setSaving(true);setError('');const scope=sessionId,nodeData={...draft,name:draft.name.trim()};
+  try{if(editingNode)await knowledgeAPI.updateNode(editingNode.id,nodeData);else{const {data}=await knowledgeAPI.createNode(courseId,{name:nodeData.name,description:nodeData.description,parentIds:nodeData.parentIds,difficulty:nodeData.difficulty});if(identity.current!==scope)return;setEditingNode(data.node);if(nodeData.masteryLevel>0)await knowledgeAPI.updateNode(data.node.id,{masteryLevel:nodeData.masteryLevel});}if(identity.current!==scope)return;if(await loadNodes(true)){setShowEditDialog(false);setEditingNode(null);}}
+  catch(e){if(identity.current===scope)setError(assistantError(e));}finally{if(identity.current===scope)setSaving(false);}
+ }
+ async function handleDeleteNode(){if(saving||!editingNode||!confirm('确定要删除这个知识点吗？'))return;setSaving(true);const scope=sessionId;try{await knowledgeAPI.deleteNode(editingNode.id);if(identity.current===scope&&await loadNodes(true)){setShowEditDialog(false);setEditingNode(null);}}catch(e){if(identity.current===scope)setError(assistantError(e));}finally{if(identity.current===scope)setSaving(false);}}
+ return <div className="knowledge-graph-container">
+  <header className="graph-header"><button className="back-btn" onClick={()=>{if(!dirty||confirm('布局尚未保存，离开图谱吗？'))navigate(-1);}}><NavigationArrow direction="left"/>返回</button><div className="header-info"><ModuleTitle kind="courses">{course?.name||'知识图谱'}</ModuleTitle></div><div className="graph-header-actions"><button className="btn btn-secondary" disabled={layoutSaving||saving} onClick={reload}>重新读取</button><button className="btn btn-primary" disabled={layoutSaving||saving||isLoading} onClick={()=>{setEditingNode(null);setDraft(blankDraft());setShowEditDialog(true);setError('');}}><Plus size={18}/>添加知识点</button></div></header>
+  {error&&<p role="alert" className="graph-notice graph-error">{error}</p>}{notice&&<p role="status" className="graph-notice">{notice}</p>}
+  {isLoading&&<p role="status" className="graph-loading">正在读取知识点…</p>}
+  <iframe key={sessionId} ref={iframeRef} className="shared-graph-editor" title="课灵知识关系编辑器" src={appPath('/graph-editor/index.html')} referrerPolicy="no-referrer"/>
       {/* 编辑对话框 */}
       {showEditDialog && (
         <div className="dialog-overlay" onClick={() => { if (!saving) setShowEditDialog(false); }}>
           <motion.div
             className="node-edit-dialog"
+            ref={dialogRef}
             role="dialog"
             aria-modal="true"
             aria-labelledby="node-dialog-title"
@@ -607,8 +180,5 @@ const KnowledgeGraph: React.FC = () => {
           </motion.div>
         </div>
       )}
-    </div>
-  );
-};
-
-export default KnowledgeGraph;
+ </div>;
+}

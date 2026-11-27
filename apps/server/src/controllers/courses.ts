@@ -4,6 +4,8 @@ import { AuthRequest } from '../middleware/auth';
 import { randomUUID as uuidv4 } from 'node:crypto';
 import { mutateOwnedTask as mutateWorkspace } from '../services/taskMutations';
 import { TaskCompletionError } from '../services/taskCompletion';
+import { layoutNoteId, LAYOUT_NOTE_TYPE } from '../services/knowledgeLayout';
+import { binaryTreeHistoryCourseIds } from '../expedition/courseAccess';
 
 // 获取所有课程
 export const getCourses = async (req: AuthRequest, res: Response) => {
@@ -20,6 +22,7 @@ export const getCourses = async (req: AuthRequest, res: Response) => {
       orderBy: { updatedAt: 'desc' }
     });
 
+    const history = await binaryTreeHistoryCourseIds(prisma, req.userId, courses.map(c => c.id));
     // 单独获取知识节点数量
     const coursesWithCount = await Promise.all(
       courses.map(async (c) => {
@@ -28,6 +31,7 @@ export const getCourses = async (req: AuthRequest, res: Response) => {
         });
         return {
           ...c,
+          hasBinaryTreeHistory: c.code !== 'AI_PLANET' && history.has(c.id),
           schedule: JSON.parse(c.schedule),
           knowledgeNodeCount: nodeCount
         };
@@ -69,6 +73,7 @@ export const getCourse = async (req: AuthRequest, res: Response) => {
     res.json({
       course: {
         ...course,
+        hasBinaryTreeHistory: course.code !== 'AI_PLANET' && (await binaryTreeHistoryCourseIds(prisma, req.userId, [course.id])).has(course.id),
         schedule: JSON.parse(course.schedule),
         knowledgeNodes: nodes.map(n => ({
           ...n,
@@ -213,6 +218,7 @@ export const deleteCourse = async (req: AuthRequest, res: Response) => {
     await tx.questRun.updateMany({where:{userId:req.userId,courseId,status:{in:['ACTIVE','PAUSED','AWAITING_FEEDBACK']}},data:{status:'CONTENT_STALE',revision:{increment:1},leaseEpoch:{increment:1},leaseTokenHash:'',leaseExpiresAt:null}});
     await tx.materialVersion.updateMany({where:{userId:req.userId,courseId,deletedAt:null},data:{deletedAt:new Date()}});
     await tx.task.updateMany({where:{userId:req.userId,courseId},data:{courseId:null}});
+    await tx.note.deleteMany({ where: { id: layoutNoteId(courseId), userId: req.userId, sourceType: LAYOUT_NOTE_TYPE } });
     await tx.course.delete({
       where: { id: courseId }
     });

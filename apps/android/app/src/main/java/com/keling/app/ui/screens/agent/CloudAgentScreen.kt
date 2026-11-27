@@ -29,6 +29,7 @@ private fun statusLabel(status: String) = when (status) {
     "SUCCEEDED" -> "等待你确认"
     "CONFIRMED" -> "已加入云端任务"
     "FAILED" -> "未生成计划"
+    "CANCELLED" -> "已取消等待"
     "COMPLETED" -> "已完成"
     "IN_PROGRESS" -> "进行中"
     "SKIPPED" -> "已跳过"
@@ -123,7 +124,11 @@ fun CloudAgentScreen(accountId: String, token: String, onBack: () -> Unit) {
                     Text(if (guest != null && run.status == "CONFIRMED") "已添加任务" else statusLabel(run.status), style = MaterialTheme.typography.titleLarge)
                     Text(run.goal)
                     if (run.error.isNotBlank()) Text(run.error, color = MaterialTheme.colorScheme.error)
-                    if (run.status == "RUNNING") Text("正在规划…")
+                    if (run.status == "RUNNING") {
+                        Text(if (state.polling) "正在规划…" else "等待已停止")
+                        if (state.polling) TextButton(onClick = model::stopWaiting) { Text("取消等待") }
+                        else TextButton(onClick = model::refresh, enabled = !state.busy) { Text("继续等待") }
+                    }
                     run.result?.let { Text(it.summary) }
                 }
                 items(run.result?.tasks.orEmpty()) { task ->
