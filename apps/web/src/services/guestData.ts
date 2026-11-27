@@ -103,10 +103,7 @@ function newNode(data: Input, courseId: string): GuestNode {
 function createWorkspace(sessionId: string): GuestWorkspace {
   const user: User = { id: sessionId, name: '游客探索者', email: '', level: 1, exp: 0, energy: 0, crystals: 0,
     streakDays: 0, totalStudyMinutes: 0, lastCheckInDate: null, avatarUrl: 'stellar:avatar-0', bio: '', weeklyStudyGoal: 300, createdAt: guestTimestamp() };
-  const course = newCourse({ name: '示例：算法与思考', code: 'SAMPLE', teacher: '示例资料 · 可编辑或删除' }, sessionId);
-  const first = newNode({ name: '递归与终止条件', description: '示例资料：递归把问题缩小为同类子问题，必须有终止条件。例如 0! = 1，n! = n × (n−1)!。试着展开 3!，观察何时停止。', positionX: .3, positionY: .35 }, course.id);
-  const second = newNode({ name: '时间复杂度', description: '示例资料：时间复杂度描述输入规模增长时步骤数如何增长。扫描 n 个元素通常为 O(n)，有序数据的二分查找通常为 O(log n)。它不是实际运行秒数。', positionX: .7, positionY: .65 }, course.id);
-  return { sessionId, user, courses: [course], nodes: [first, second], tasks: [], notes: [], checkins: [], createdCourses: 0,
+  return { sessionId, user, courses: [], nodes: [], tasks: [], notes: [], checkins: [], createdCourses: 0,
     achievements: achievementDefinitions.map(achievement => ({ id: id(), achievementId: achievement.id, achievement: clone(achievement), isUnlocked: false, progress: 0, unlockedAt: null })) };
 }
 
@@ -116,6 +113,17 @@ export function getGuestWorkspace(): GuestWorkspace {
   if (!sessionId) return guestDataError(401, '游客试用已结束，请重新进入');
   if (!workspace || workspace.sessionId !== sessionId) workspace = createWorkspace(sessionId);
   return workspace;
+}
+/** Only an explicit sample action adds the bundled course. Never seed first entry. */
+export function seedGuestSample(): GuestCourse {
+  const w = getGuestWorkspace();
+  const existing = w.courses.find(course => course.code === 'SAMPLE' && !course.isArchived);
+  if (existing) return clone(existing);
+  const course = newCourse({ name: '示例：算法与思考', code: 'SAMPLE', teacher: '示例资料 · 可编辑或删除' }, w.sessionId);
+  const first = newNode({ name: '递归与终止条件', description: '示例资料：递归把问题缩小为同类子问题，必须有终止条件。例如 0! = 1，n! = n × (n−1)!。试着展开 3!，观察何时停止。', positionX: .3, positionY: .35 }, course.id);
+  const second = newNode({ name: '时间复杂度', description: '示例资料：时间复杂度描述输入规模增长时步骤数如何增长。扫描 n 个元素通常为 O(n)，有序数据的二分查找通常为 O(log n)。它不是实际运行秒数。', positionX: .7, positionY: .65 }, course.id);
+  w.courses.push(course); w.nodes.push(first, second);
+  return clone(course);
 }
 function updateAchievements(w: GuestWorkspace) {
   const done = w.tasks.filter(t => t.status === 'COMPLETED').length;

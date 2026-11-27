@@ -1,6 +1,6 @@
 # 游戏美术资源
 
-此目录是 Web 与 Android 共用运行素材的唯一版本控制来源：62 张 WebP，以及供浏览器和 Android 启动图标使用的 `app_icon.png`。`manifest.json` 集中记录当前文件、原始 PNG 来源摘要及既有编码记录；提示词与创作来源保留在本目录。
+此目录是 Web 与 Android 共用运行素材的唯一版本控制来源：63 张 WebP，以及供浏览器和 Android 启动图标使用的 `app_icon.png`。`manifest.json` 集中记录当前文件、原始 PNG 来源摘要及既有编码记录；提示词与创作来源保留在本目录。
 
 - `npm run assets:sync`：从本目录复制 Web 的 `apps/web/public/stellar`，该副本不提交；网页开发和构建会自动执行。同步操作不重建清单。
 - Android 由 Gradle 从本目录生成打包资源及启动图标，无需维护另一套 `optimizedAssets`，普通构建不依赖 Python。
@@ -37,3 +37,7 @@ python scripts/prepare-stellar-art.py ../keling-stellar-originals/assets/stellar
 ## 2026-11-26 使用指南卷轴
 
 `guide_scroll.webp` 为使用指南配图，采用内置 image_gen 绘制；原稿为 `sources/guide_scroll.png`，完整提示词与来源见[绘制记录](guide-scroll-provenance.json)。卷轴内没有说明文字，操作步骤保留为 HTML 文本。PNG 到 WebP 仅做无损编码；旧 RC4 APK 不因网页新增配图而重建。
+
+## 2026-11-27 学科星球
+
+12 学科共用 subject_planets.webp 透明图集（3 列 × 4 行），原稿 sources/subject_planets.png；subject-planets.json 保存学科别名与格位。Web 使用 CSS 图集定位，Android 按相同格位裁切。新图用内置 image_gen 绘制并无损编码，完整提示词见 subject-planets-provenance.json。

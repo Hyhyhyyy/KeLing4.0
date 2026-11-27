@@ -256,6 +256,10 @@ fun MainAppContent(authViewModel: AuthViewModel, viewModel: AppViewModel, onRetr
         com.keling.app.expedition.ExpeditionViewModel(context.applicationContext, session.token, session.userId)
     } }
     DisposableEffect(expeditionVm) { onDispose { expeditionVm?.shutdown() } }
+    val planetVm = assistantAccount?.let { session -> remember(session.userId, session.token) {
+        com.keling.app.planet.PlanetViewModel(session.token)
+    } }
+    DisposableEffect(planetVm) { onDispose { planetVm?.shutdown() } }
     val scope = rememberCoroutineScope()
 
     // 登出确认对话框
@@ -487,8 +491,11 @@ fun MainAppContent(authViewModel: AuthViewModel, viewModel: AppViewModel, onRetr
                 if (syncState.error == null) LoadingScreen()
                 else Text("数据读取失败，请重试。", Modifier.padding(24.dp))
             } else when (currentScreen) {
-                "home", "star_map", "base", "profile" -> {
-                    expeditionVm?.let { model -> com.keling.app.expedition.ExpeditionScreen(model, currentScreen, guest != null,
+                "home", "star_map", "planet" -> {
+                    planetVm?.let { model -> com.keling.app.planet.PlanetScreen(model, guest != null) { viewModel.navigateTo(it) } }
+                }
+                "legacy_expedition", "base", "profile" -> {
+                    expeditionVm?.let { model -> com.keling.app.expedition.ExpeditionScreen(model, if (currentScreen == "legacy_expedition") "home" else currentScreen, guest != null,
                         onNavigate = { target -> if (target == "ai") { assistantLaunch = null; assistantOrigin = currentScreen }; viewModel.navigateTo(target) },
                         onAsk = { courseId, prompt ->
                             assistantLaunch = com.keling.app.ui.screens.ai.AssistantContextLaunch(com.keling.app.network.AssistantContextRef("course", courseId), prompt)

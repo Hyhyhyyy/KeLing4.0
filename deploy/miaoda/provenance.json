@@ -1,7 +1,7 @@
 {
   "sourceProject": "keling-access-gateway",
   "sourceCommit": "be50cd315f0bd713e62a9819cac243da070963c8",
-  "observedDate": "2026-11-26",
+  "observedDate": "2026-11-27",
   "hashBasis": "sourceSha256/sourceBytes describe the template working-tree files at sourceCommit (pending changes are explicit); sha256/bytes describe the copied adapter after LF and trailing-blank-line normalization.",
   "files": [
     {
@@ -20,17 +20,17 @@
     },
     {
       "path": "server/modules/gateway/gateway.module.ts",
-      "bytes": 482,
-      "sha256": "74712ea9113647a9df67fbdddb644f213bb4fff80dcfe09c7fbf67c2cf107992",
-      "sourceSha256": "74712ea9113647a9df67fbdddb644f213bb4fff80dcfe09c7fbf67c2cf107992",
-      "sourceBytes": 482
+      "bytes": 566,
+      "sha256": "3b72ebbca2c69b2454a5f8d03bc21c3a66c890d1224b1afa9a0cbed41a784371",
+      "sourceSha256": "3b72ebbca2c69b2454a5f8d03bc21c3a66c890d1224b1afa9a0cbed41a784371",
+      "sourceBytes": 566
     },
     {
       "path": "server/modules/gateway/download.controller.ts",
       "bytes": 1550,
-      "sha256": "6dbb1aca19fcf022143c35d3ca06dbe93b03f632da8899651abef6fc5269725f",
-      "sourceSha256": "6dbb1aca19fcf022143c35d3ca06dbe93b03f632da8899651abef6fc5269725f",
-      "sourceBytes": 1550
+      "sha256": "f721308cc316ca7db5338ab2b2f746fd08fc9d62d2025c3d93145036fbc5bf21",
+      "sourceSha256": "d4a615cb42f201ba3c79f62714181833102234d52646d05b16be929109afcdb0",
+      "sourceBytes": 1586
     },
     {
       "path": "server/modules/gateway/gateway.spec.cjs",
@@ -62,10 +62,10 @@
     },
     {
       "path": "server/modules/gateway/artwork.controller.ts",
-      "bytes": 2577,
-      "sha256": "596835594ba19fa8f522406078322eadea9a20272f69669f22f042016d495f88",
-      "sourceSha256": "596835594ba19fa8f522406078322eadea9a20272f69669f22f042016d495f88",
-      "sourceBytes": 2577
+      "bytes": 2806,
+      "sha256": "255875b1aa00ca4c0c19e434cfb725cda487b637662032451a9d2db169848fda",
+      "sourceSha256": "0cf2404f5cf9eee49ba60b084a0b02ef9a906529e717cf3de52e3e4524cf5ebb",
+      "sourceBytes": 2869
     },
     {
       "path": "server/modules/gateway/font.controller.ts",
@@ -76,10 +76,31 @@
     },
     {
       "path": "server/modules/gateway/public-assets.spec.cjs",
-      "bytes": 8569,
-      "sha256": "c3f7391eaf9a64647f40c8c5c353ea6fde814a169a53195b43a2ee5f1704c31f",
-      "sourceSha256": "c3f7391eaf9a64647f40c8c5c353ea6fde814a169a53195b43a2ee5f1704c31f",
-      "sourceBytes": 8569
+      "bytes": 8576,
+      "sha256": "baa5cbe69301634f1bafc195271698dd940914683fc566e3857b767c5b9e4a21",
+      "sourceSha256": "2d44fc8c7b83a8202c0af7c5d8fcdc676b7f30d2214157dcf3e6aaf3f9d22053",
+      "sourceBytes": 8738
+    },
+    {
+      "path": "server/capabilities/keling-learning-planet.json",
+      "bytes": 2780,
+      "sha256": "afaf6e10d3e4e6ffbd9d878f859bbdb9fe2aba335e10c9696ba20cc5eeba9174",
+      "sourceSha256": "afaf6e10d3e4e6ffbd9d878f859bbdb9fe2aba335e10c9696ba20cc5eeba9174",
+      "sourceBytes": 2780
+    },
+    {
+      "path": "server/modules/gateway/native-planet.service.ts",
+      "bytes": 1950,
+      "sha256": "22faf5103952d8f0de16df47e6157455e0721e863e5fbd3a38ec0b0704361d12",
+      "sourceSha256": "22faf5103952d8f0de16df47e6157455e0721e863e5fbd3a38ec0b0704361d12",
+      "sourceBytes": 1950
+    },
+    {
+      "path": "vendor/keling-server.d.cts",
+      "bytes": 285,
+      "sha256": "3a623cf9bb217b081d6716862641a82969009be5bcbce628437df23e8712ddd7",
+      "sourceSha256": "3a623cf9bb217b081d6716862641a82969009be5bcbce628437df23e8712ddd7",
+      "sourceBytes": 285
     }
   ],
   "template": {
@@ -90,7 +111,7 @@
       "npm": ">=10.0.0"
     },
     "lockfileVersion": 3,
-    "packageJsonSha256": "c06aa2805cf238246031d7accfc1dd7904bb17ab3b87864c737097b9bc0fe977",
+    "packageJsonSha256": "d1fb003b6761c36c0eee0baa598f2f828810d3050461e6df7d0241e38a554cf7",
     "packageLockSha256": "2f29b60fff65c04bccb6ccdb2634578b89f181d7b10bec0a3560056429713160",
     "selectedDependencies": {
       "@lark-apaas/fullstack-nestjs-core": {
@@ -221,9 +242,9 @@
       "customToaster": true
     }
   },
-  "sourceWorkingTreeHasPendingChanges": false,
+  "sourceWorkingTreeHasPendingChanges": true,
   "publicResourcesFile": "public-resources.json",
-  "publicResourcesSha256": "e8925894409bae196a2a771ad31966591ab77fe255a6dd91d298159cd2c69b32",
+  "publicResourcesSha256": "359b8755f94b6eb43c7089a42c65ec21cf459c6d59c8c73c883fb080f9103cd9",
   "androidDownloadFile": "android-download.json",
-  "androidDownloadSha256": "1ca33fbc4da2306d605995f2420a2a316a767c0a4777b36c24f65d1f158e407c"
+  "androidDownloadSha256": "653e2b2c53708b929a6ffba43eacd3525137bc19c4010f79be6d9a7c1e9e3f0c"
 }

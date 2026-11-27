@@ -2,7 +2,7 @@ import { NavigationArrow } from '../../components/NavigationArrow';
 import { ModuleTitle, SectionTitle } from '../../components/ModuleTitle';
 import { StellarSceneBanner } from '../../components/StellarScene';
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
   BookOpen, Clock, MapPin, User, Trash2,
@@ -13,7 +13,11 @@ import { courseAPI, knowledgeAPI } from '../../services/api';
 import type { Course, KnowledgeNode } from '../../types';
 import AskAssistantButton from '../../components/AskAssistantButton';
 import { useCourseDialogFocus } from '../../components/useCourseDialogFocus';
-import { CoursePlanet, CoursePlanetPicker } from '../../components/CoursePlanet';
+import { CoursePlanetPicker } from '../../components/CoursePlanet';
+import { SubjectPlanet } from '../../components/SubjectPlanet';
+import { PlanetCourseEntry } from '../../components/PlanetCourseEntry';
+import MaterialsPanel from '../Expedition/MaterialsPanel';
+import SchedulePanel from '../Expedition/SchedulePanel';
 import { coursePlanet, coursePlanetIndex } from '../../components/planetCatalog';
 import { assistantError } from '../../services/assistant';
 import './CourseDetail.css';
@@ -176,7 +180,7 @@ const CourseDetail: React.FC = () => {
 
         <div className="header-content">
           <div className="course-icon">
-            <CoursePlanet index={course.planetStyleIndex} size={176} />
+            <SubjectPlanet subject={course.name} index={course.planetStyleIndex} size={176} />
           </div>
           <p className="course-appearance-name">{coursePlanet(course.planetStyleIndex).name}</p>
           <ModuleTitle kind="courses">{course.name}</ModuleTitle>
@@ -195,7 +199,9 @@ const CourseDetail: React.FC = () => {
 
       <StellarSceneBanner scene="courseDetail" title="课程资料" compact/>
 
-      <section className="exp-panel"><SectionTitle kind="courses">二叉树练习</SectionTitle><Link className="btn btn-primary" to={`/greenhouse/${course.id}/chapter`}>进入二叉树示例章节</Link></section>
+      <PlanetCourseEntry courseId={course.id} subject={course.name}/>
+      <MaterialsPanel key={course.id+'materials'} courseId={course.id}/>
+      <SchedulePanel key={course.id+'schedule'} courseId={course.id}/>
 
       {/* 掌握度卡片 */}
       <motion.div

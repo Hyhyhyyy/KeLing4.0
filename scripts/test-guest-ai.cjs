@@ -2,7 +2,7 @@
 const assert=require('node:assert/strict');const fs=require('node:fs');const os=require('node:os');const path=require('node:path');const {test,after}=require('node:test');
 const root=path.resolve(__dirname,'..'),temporary=fs.mkdtempSync(path.join(os.tmpdir(),'keling-guest-ai-')),bundle=path.join(temporary,'guest-ai.cjs');
 require('esbuild').buildSync({stdin:{contents:"export * from './apps/web/src/services/guestAI';export * from './apps/web/src/services/guestData';export * from './apps/web/src/services/guestSession';export {useModelAccess} from './apps/web/src/services/modelAccess';",resolveDir:root},bundle:true,platform:'node',format:'cjs',target:'node22',define:require('./lib/vite-test-env.cjs'),outfile:bundle});
-const {handleGuestAI:request,handleGuestData:crud,getGuestWorkspace,startGuestSession,endGuestSession,useModelAccess}=require(bundle);
+const {handleGuestAI:request,handleGuestData:crud,getGuestWorkspace,seedGuestSample,startGuestSession,endGuestSession,useModelAccess}=require(bundle);
 const originalFetch=global.fetch;after(()=>{global.fetch=originalFetch;fs.rmSync(temporary,{recursive:true,force:true});});
 const tick=()=>new Promise(resolve=>setImmediate(resolve));
 const fresh=()=>{endGuestSession();startGuestSession();useModelAccess.setState({providerId:'openai',apiKey:'synthetic-guest-test-key',model:'test-chat',models:[],baseUrl:''});};
@@ -37,7 +37,7 @@ test('cancel and ending a guest workspace reject late responses and clear sessio
  assert.equal((await request('GET','/ai/sessions',{},{})).sessions.length,0);assert.equal(getGuestWorkspace().notes.length,0);
 });
 test('validated plan remains a preview until confirmation and duplicate confirmation adds no tasks',async()=>{
- fresh();const w=getGuestWorkspace(),course=w.courses[0];const date=new Date().toLocaleDateString('en-CA',{timeZone:'Asia/Shanghai'});
+ fresh();seedGuestSample();const w=getGuestWorkspace(),course=w.courses[0];const date=new Date().toLocaleDateString('en-CA',{timeZone:'Asia/Shanghai'});
  global.fetch=async(url,options)=>url.endsWith('/catalog')?response({providers:[]}):response({result:{summary:'合成测试计划',tasks:[{title:'练习',description:'完成例题',date,minutes:25,sourceIds:[`kg:${w.nodes[0].id}`]}]},model:'test-chat'});
  const run=await request('POST','/agent/runs/start',{courseId:course.id,goal:'复习递归',examDate:date,dailyMinutes:30,mode:'plan'},{});await tick();
  assert.equal((await request('GET',`/agent/runs/${run.id}`,{},{})).status,'SUCCEEDED');assert.equal(w.tasks.length,0);
@@ -78,7 +78,7 @@ test('cancel or delete during fingerprinting never submits the pending question 
 
 test('plan confirmation refuses deleted or changed sources without creating tasks',async()=>{
  for(const action of ['delete','change']){
-  fresh();const w=getGuestWorkspace(),course=w.courses[0],node=w.nodes[0],date=new Date().toLocaleDateString('en-CA',{timeZone:'Asia/Shanghai'});
+  fresh();seedGuestSample();const w=getGuestWorkspace(),course=w.courses[0],node=w.nodes[0],date=new Date().toLocaleDateString('en-CA',{timeZone:'Asia/Shanghai'});
   global.fetch=async url=>url.endsWith('/catalog')?response({providers:[]}):response({result:{summary:'合成计划',tasks:[{title:'练习',description:'具体步骤',date,minutes:25,sourceIds:[`kg:${node.id}`]}]}});
   const run=await request('POST','/agent/runs/start',{courseId:course.id,goal:'递归练习',examDate:date,dailyMinutes:30,mode:'plan'},{});await tick();
   await crud(action==='delete'?'DELETE':'PUT',`/knowledge/node/${node.id}`,action==='delete'?{}:{description:'资料已更新'});
@@ -88,12 +88,12 @@ test('plan confirmation refuses deleted or changed sources without creating task
 });
 
 test('failed plan writes roll back and switching workspaces during confirmation preserves new records',async()=>{
- fresh();let w=getGuestWorkspace(),course=w.courses[0];const date=new Date().toLocaleDateString('en-CA',{timeZone:'Asia/Shanghai'});
+ fresh();seedGuestSample();let w=getGuestWorkspace(),course=w.courses[0];const date=new Date().toLocaleDateString('en-CA',{timeZone:'Asia/Shanghai'});
  // Synthetic malformed second task proves partial writes are rolled back even if transport is invalid.
  global.fetch=async url=>url.endsWith('/catalog')?response({providers:[]}):response({result:{summary:'合成计划',tasks:[25,-1].map((minutes,i)=>({title:`练习${i}`,description:'步骤',date,minutes,sourceIds:[`kg:${w.nodes[0].id}`]}))}});
  let run=await request('POST','/agent/runs/start',{courseId:course.id,goal:'练习',examDate:date,dailyMinutes:60,mode:'plan'},{});await tick();
  await assert.rejects(request('POST',`/agent/runs/${run.id}/confirm`,{},{}));assert.equal(w.tasks.length,0);
- fresh();w=getGuestWorkspace();course=w.courses[0];
+ fresh();seedGuestSample();w=getGuestWorkspace();course=w.courses[0];
  global.fetch=async url=>url.endsWith('/catalog')?response({providers:[]}):response({result:{summary:'合成计划',tasks:[1,2].map(i=>({title:`练习${i}`,description:'步骤',date,minutes:25,sourceIds:[`kg:${w.nodes[0].id}`]}))}});
  run=await request('POST','/agent/runs/start',{courseId:course.id,goal:'练习',examDate:date,dailyMinutes:60,mode:'plan'},{});await tick();
  const confirming=request('POST',`/agent/runs/${run.id}/confirm`,{},{}),rejected=assert.rejects(confirming,e=>e.response.data.code==='CANCELLED');

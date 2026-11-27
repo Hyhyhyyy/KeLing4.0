@@ -7,24 +7,24 @@ import './Guide.css';
 
 const modules: { id: string; title: string; kind: TitleKind; route: string; action: string; steps: string[]; result: string }[] = [
   {
-    id: 'voyage', title: '远航 · 做一次练习', kind: 'voyage', route: '/voyage', action: '打开远航',
+    id: 'voyage', title: '远航 · 生成学习星球', kind: 'voyage', route: '/start', action: '开始远航',
     steps: [
-      '在「学习星球」选择课程。没有课程时，点「创建示例课程」。当前远航使用二叉树示例章节。',
-      '选 10 分钟做路线修复，20 分钟教星芽，或 25 分钟综合试炼。有未结束的远征时，先点「继续」。',
-      '阅读题目与来源，操作队列、栈或输入访问顺序；教星芽时写下自己的解释并自核，然后点「提交作答」。',
-      '阅读反馈，填写「下一步」并保存。需要保留自己的解释时，勾选「保存到星芽自述档案」。',
+      '看完序章，输入想探索的学科，选择基础，可补充本次学习目标。',
+      '选择平台模型，或用自己的 API Key 与聊天模型生成星球。未连接模型时先完成配置。',
+      '核对区域、路线和练习，点「确认星球，开始探索」。确认前不会添加课程。',
+      '阅读区域内容、完成练习并查看解析；将发现保存为航行日志，把后续学习加入任务。返回星图可继续探索。',
     ],
-    result: '作答留在本轮记录中；学习证据可回看来源与结果。使用提示后不计独立证据，自述不等于知识已验证。',
+    result: '生成内容与参考答案需结合课程资料核对。二叉树操作示例保留在星图的独立入口。',
   },
   {
     id: 'courses', title: '星图 · 整理课程资料', kind: 'courses', route: '/greenhouse', action: '打开星图',
     steps: [
       '打开「星图」，创建或选择课程。在课程详情可添加知识节点、打开知识图谱或带着课程问 AI。',
-      '点「进入二叉树示例章节」，找到「课程资料」，展开「导入资料」。填写标题，选择 TXT、Markdown、文字 PDF，或直接粘贴原文。',
+      '在课程详情找到「课程资料」，展开「导入资料」。填写标题，选择 TXT、Markdown、文字 PDF，或直接粘贴原文。',
       '点「上传到课灵并预览」，核对解析内容后点「保存资料」。文件上限 512 KiB，PDF 最多 50 页，原文最多 10 万字符。',
       '勾选已保存的资料，点「提取知识点」。核对名称、内容与来源，再点「确认加入」；随后可打开知识图谱查看。',
     ],
-    result: '原文与知识点分别保存。导入其他课程资料不会自动生成对应的新练习章节。',
+    result: '原文与知识点分别保存。点「为这门学科生成星球」可另外生成探索练习。',
   },
   {
     id: 'assistant', title: '问星芽 · 带着资料提问', kind: 'ai', route: '/ai', action: '打开问星芽',
@@ -32,7 +32,7 @@ const modules: { id: string; title: string; kind: TitleKind; route: string; acti
       '先按下方「连接 AI」设置模型。也可从课程的「AI 辅导」、已保存笔记的「问 AI」或任务的「问 AI」进入。',
       '核对将要附带的资料与问题，按需要刷新或移除资料；使用临时问答时也可编辑摘录，再点「发送」。',
       '阅读回答并核查来源；有用的内容点「保存笔记」或「加入笔记」，再到笔记页整理。',
-      '要追问导入原文，在示例章节的「课程资料」中勾选资料，展开「资料 AI 问答」，先预览引用片段，同意发送后再提问。',
+      '要追问导入原文，在课程详情的「课程资料」中勾选资料，展开「资料 AI 问答」，先预览引用片段，同意发送后再提问。',
     ],
     result: 'AI 回答需要核查。临时问答的回答不会自动成为笔记，发送前请确认所选服务商与资料范围。',
   },
@@ -44,12 +44,12 @@ const modules: { id: string; title: string; kind: TitleKind; route: string; acti
       '点「开始规划」，等待计划生成。核对任务内容、日期、时长与资料依据。',
       '满意后点「确认并加入任务」，再到「查看任务」开始执行。只有预览而未确认时，不会添加任务。',
     ],
-    result: '服务未配置时，可手动创建任务；也可在远航展开「安排学习目标 · 规则排程」，计算预览后点「添加任务」。',
+    result: '服务未配置时，可手动创建任务；也可在课程详情展开「安排学习目标 · 规则排程」，计算预览后点「添加任务」。',
   },
   {
-    id: 'schedule', title: '规则排程 · 安排学习时间', kind: 'tasks', route: '/voyage', action: '到远航安排时间',
+    id: 'schedule', title: '规则排程 · 安排学习时间', kind: 'tasks', route: '/greenhouse', action: '到课程安排时间',
     steps: [
-      '在远航展开「安排学习目标 · 规则排程」，填写开始与截止日期、每日时长、可用时段和休息时间。',
+      '在课程详情展开「安排学习目标 · 规则排程」，填写开始与截止日期、每日时长、可用时段和休息时间。',
       '游客先勾选同意向课灵排程服务发送时段与任务信息，再点「计算预览」。此步骤不需要 AI 模型。',
       '检查新增任务、已有任务与尚未安排的内容。排不下时，增加可用时间或延后截止；修改条件后重新预览。',
       '确认时间合适后点「添加任务」，再进入「任务与计时」执行。',
@@ -134,7 +134,7 @@ export default function Guide() {
         <SectionTitle kind="voyage" id="guide-start-title">第一次，先走这三步</SectionTitle>
         <ol className="guide-first-steps">
           <li><span className="guide-step-number" aria-hidden="true">01</span><h3>进入学习空间</h3><p>点「游客试用」即可体验。已登录或正在试用时，点「返回学习空间」继续当前内容。</p><Link to={entry}>{entryLabel}<NavigationArrow/></Link></li>
-          <li><span className="guide-step-number" aria-hidden="true">02</span><h3>选一颗学习星球</h3><p>点顶部「远航」，选择课程。没有课程时点「创建示例课程」，从二叉树练习开始。</p><Link to="/voyage">打开远航<NavigationArrow/></Link></li>
+          <li><span className="guide-step-number" aria-hidden="true">02</span><h3>选一颗学习星球</h3><p>点「开始探索」，输入自己想学的学科，由大模型生成星球；核对后确认开启。</p><Link to="/voyage">打开远航<NavigationArrow/></Link></li>
           <li><span className="guide-step-number" aria-hidden="true">03</span><h3>做题，再教星芽</h3><p>选 10 分钟开始路线修复；想讲清理解时选 20 分钟教星芽。提交后读反馈，并保存下一步。</p><a href="#guide-modules">查看操作步骤<NavigationArrow direction="down"/></a></li>
         </ol>
         <p className="guide-note">这些示例练习无需先配置 AI。游客数据会在刷新、关闭或退出后清空；重要笔记请先导出。</p>

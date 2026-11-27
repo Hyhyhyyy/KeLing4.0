@@ -10,15 +10,15 @@ export const publicPreview = import.meta.env.VITE_PUBLIC_PREVIEW === 'true';
 const features = [
   { scene: 'introAi' as StellarSceneName, title: '把问题，变成理解', text: '提问、查阅资料、保存笔记。' },
   { scene: 'introSync' as StellarSceneName, title: '换个屏幕，接着学', text: '课程、任务与笔记跨端同步。' },
-  { scene: 'introPlan' as StellarSceneName, title: '让计划有据可循', text: '用课程资料生成计划，确认后开始学习。' },
+  { scene: 'introPlan' as StellarSceneName, title: '让学科，成为你的星球', text: '输入学科，生成学习星球，确认后开始探索。' },
 ];
 
 export default function Explore() {
   const token = useAppStore(state => state.token);
   const isGuest = useAppStore(state => state.isGuest);
   const hasWorkspace = Boolean(token) || isGuest;
-  const entry = hasWorkspace ? '/workspace' : '/trial';
-  const entryLabel = hasWorkspace ? '返回学习空间' : '游客试用';
+  const entry = hasWorkspace ? '/workspace' : '/start';
+  const entryLabel = hasWorkspace ? '返回学习空间' : '开始探索';
   return <div className="explore-page">
     <a href="#explore-content" className="explore-skip">跳到主要内容</a>
     <header className="explore-nav">
@@ -27,7 +27,7 @@ export default function Explore() {
     </header>
     <main id="explore-content">
       <section className="explore-hero">
-        <div><ModuleTitle kind="home">让每一次理解，<br/>点亮一颗星。</ModuleTitle><p>整理知识、制定计划、专注学习。</p>
+        <div><ModuleTitle kind="home">让每一次理解，<br/>点亮一颗星。</ModuleTitle><p>选择学科，与星芽一起探索知识星球。</p>
           <div className="explore-actions"><Link className="explore-action" to={entry}>{entryLabel} <NavigationArrow direction="up-right"/></Link><Link className="explore-guide" to="/guide">使用指南 <NavigationArrow/></Link></div>
           {!token && <p className="explore-trial-note">游客数据在刷新或退出后清空。</p>}
         </div><figure><StellarScene scene="arrival" eager/><figcaption><span>01 · 轨道观测站</span><span>观察 · 理解 · 生长</span></figcaption></figure>

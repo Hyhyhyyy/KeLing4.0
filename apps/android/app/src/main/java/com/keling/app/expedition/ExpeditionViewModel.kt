@@ -13,6 +13,9 @@ import kotlinx.coroutines.sync.withLock
 import java.time.Instant
 import java.util.UUID
 
+/** Generated subject planets have their own practice records, never binary-tree progress. */
+internal fun legacyExpeditionCourses(courses: List<CourseData>) = courses.filter { !it.isArchived && it.code != "AI_PLANET" }
+
 data class ExpeditionUiState(val saved: ExpeditionJournalState = ExpeditionJournalState(), val courses: List<CourseData> = emptyList(),
     val loading: Boolean = true, val busy: Boolean = false, val error: String? = null, val notice: String? = null,
     val conflict: String? = null, val offline: Boolean = false) {
@@ -62,16 +65,17 @@ class ExpeditionViewModel(context: Context, private val token: String, private v
     }
     fun refresh() = act {
         val catalog = api.catalog(); checkOpen(); persist { it.copy(catalog = catalog) }
-        val courses = WorkspaceApi().courses(token).courses.orEmpty().filter { !it.isArchived }; checkOpen()
+        val courses = legacyExpeditionCourses(WorkspaceApi().courses(token).courses.orEmpty()); checkOpen()
         persist { it.copy(courses = courses) }
         val selected = journal.state.selectedCourseId?.takeIf { key -> courses.any { it.id == key } } ?: courses.firstOrNull()?.id
-        persist { it.copy(selectedCourseId = selected) }
+        persist { saved -> saved.copy(selectedCourseId = selected, currentRunId = saved.currentRunId?.takeIf { id -> saved.runs[id]?.run?.courseId in courses.map { it.id } }) }
         if (selected != null) loadChapter(selected)
         journal.state.currentRunId?.let { loadRun(it) }
         val rewards = api.rewards(); persist { it.copy(account = rewards.account, grants = rewards.grants) }
         val reports = api.selfReports(); persist { it.copy(selfReports = reports.records, selfReportsCursor = reports.nextCursor) }
     }
     private suspend fun loadChapter(id: String) {
+        require(journal.state.courses.any { it.id == id && it.code != "AI_PLANET" }) { "请选择二叉树示例课程" }
         val response = api.chapter(id); persist { it.copy(chapters = it.chapters + (id to response), account = response.account,
             runs = it.runs + response.runs.associate { run -> run.id to RunResponse(run, response.progress, response.account, response.serverTime) }) }
         val evidence = api.evidence(id); persist { it.copy(evidence = it.evidence + (id to evidence.evidence)) }
@@ -86,11 +90,11 @@ class ExpeditionViewModel(context: Context, private val token: String, private v
         if (journal.state.drafts[run.id]?.exerciseId == exerciseId) return
         persist { it.copy(drafts = it.drafts + (run.id to ExpeditionDraft(run.id, exerciseId, run.revision))) }
     }
-    fun selectCourse(id: String) = act { persist { it.copy(selectedCourseId = id, currentRunId = null) }; loadChapter(id) }
+    fun selectCourse(id: String) = act { require(journal.state.courses.any { it.id == id && it.code != "AI_PLANET" }) { "请选择二叉树示例课程" }; persist { it.copy(selectedCourseId = id, currentRunId = null) }; loadChapter(id) }
     fun createCourse(name: String) = act {
         require(name.trim().length in 1..100) { "请填写课程名称" }
         val created = AgentApi().createCourse(token, name.trim(), 0).course ?: error("课程返回为空")
-        val courses = WorkspaceApi().courses(token).courses.orEmpty(); persist { it.copy(courses = courses) }; mutable.update { it.copy(notice = "课程已创建") }
+        val courses = legacyExpeditionCourses(WorkspaceApi().courses(token).courses.orEmpty()); persist { it.copy(courses = courses) }; mutable.update { it.copy(notice = "课程已创建") }
         persist { it.copy(selectedCourseId = created.id, currentRunId = null) }; loadChapter(created.id)
     }
     fun openRun(id: String) = act { persist { it.copy(currentRunId = id) }; loadRun(id) }

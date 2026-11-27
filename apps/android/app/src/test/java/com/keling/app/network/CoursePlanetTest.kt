@@ -65,7 +65,7 @@ class CoursePlanetTest {
                 try { api.updatePlanet(first.token, created.id, bad); fail("Reject invalid style") } catch (_: IllegalArgumentException) { }
                 try { agent.createCourse(first.token, "无效", bad); fail("Reject invalid new style") } catch (_: IllegalArgumentException) { }
             }
-            assertEquals(2, api.courses(first.token).courses!!.size)
+            assertEquals(1, api.courses(first.token).courses!!.size)
             GuestWorkspaces.close(first.token)
             try { api.updatePlanet(first.token, created.id, 0); fail("Closed guest must fail closed") } catch (e: ApiException) { assertEquals(410, e.statusCode) }
         } finally { GuestWorkspaces.close(first.token); GuestWorkspaces.close(second.token); client.close() }

@@ -11,18 +11,19 @@ require('esbuild').buildSync({
   stdin: { contents: "export * from './apps/web/src/services/guestData'; export * from './apps/web/src/services/guestSession';", resolveDir: root },
   bundle: true, platform: 'node', format: 'cjs', target: 'node22', outfile: bundle,
 });
-const { handleGuestData: request, getGuestWorkspace, startGuestSession, endGuestSession } = require(bundle);
+const { handleGuestData: request, getGuestWorkspace, seedGuestSample, startGuestSession, endGuestSession } = require(bundle);
 after(() => fs.rmSync(temporary, { recursive: true, force: true }));
 const fresh = () => { endGuestSession(); return startGuestSession(); };
 const failure = status => error => error.response?.status === status;
 
-test('new visitor identity contains explicit samples, zero learning records, and no prior session data', async () => {
+test('new visitor identity starts empty and discards all prior session data', async () => {
   const previous = fresh();
   const { user } = await request('GET', '/auth/me');
   assert.equal(user.totalStudyMinutes, 0); assert.equal(user.energy, 0);
   assert.equal((await request('GET', '/tasks')).tasks.length, 0);
   assert.equal((await request('GET', '/notes')).notes.length, 0);
-  assert.match((await request('GET', '/courses')).courses[0].name, /^示例/);
+  assert.equal((await request('GET', '/courses')).courses.length, 0);
+  assert.equal(getGuestWorkspace().nodes.length, 0);
   await request('POST', '/notes', { title: 'temporary', content: 'must disappear' });
   endGuestSession();
   assert.throws(() => getGuestWorkspace(), failure(401));
@@ -33,6 +34,7 @@ test('new visitor identity contains explicit samples, zero learning records, and
 
 test('API results are detached copies; profile updates cannot forge reward fields', async () => {
   fresh();
+  seedGuestSample();
   const response = await request('GET', '/courses'); response.courses[0].name = 'changed externally';
   assert.notEqual((await request('GET', '/courses')).courses[0].name, 'changed externally');
   await assert.rejects(request('PUT', '/user/profile', { energy: 99999 }), failure(400));
@@ -45,6 +47,7 @@ test('API results are detached copies; profile updates cannot forge reward field
 
 test('task completion records actual minutes once, balances once, and rejects reopening', async () => {
   fresh();
+  seedGuestSample();
   const course = (await request('GET', '/courses')).courses[0];
   const { task } = await request('POST', '/tasks', { title: '练习', courseId: course.id, estimatedMinutes: 25, rewards: { energy: 999999 } });
   const responses = await Promise.all([request('POST', `/tasks/${task.id}/complete`, { actualMinutes: 7 }), request('POST', `/tasks/${task.id}/complete`, { actualMinutes: 9 })]);

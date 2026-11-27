@@ -32,6 +32,9 @@ const VisualLibrary = lazy(() => import('./pages/VisualLibrary/VisualLibrary'));
 const Agent = lazy(() => import('./pages/Agent/Agent'));
 const Explore = lazy(() => import('./pages/Explore/Explore'));
 const Guide = lazy(() => import('./pages/Guide/Guide'));
+const PlanetStart = lazy(() => import('./pages/Planets/Planets').then(module => ({ default: module.PlanetStart })));
+const PlanetHub = lazy(() => import('./pages/Planets/Planets').then(module => ({ default: module.PlanetHub })));
+const PlanetExplore = lazy(() => import('./pages/Planets/Planets').then(module => ({ default: module.PlanetExplore })));
 
 // 图标资源
 import crystalsIcon from './assets/icons/crystals.jpg';
@@ -94,7 +97,7 @@ const TopNav: React.FC = () => {
   const activeGroup = location.pathname === '/base' || location.pathname.startsWith('/visual-library') ? '/base'
     : ['/greenhouse', '/knowledge-graph', '/notes'].some(path => location.pathname.startsWith(path)) ? '/greenhouse'
     : ['/me', '/profile', '/settings', '/study-report', '/achievements', '/voyage/evidence', '/voyage/sync'].some(path => location.pathname.startsWith(path)) ? '/me'
-    : ['/voyage', '/tasks', '/agent'].some(path => location.pathname.startsWith(path)) ? '/voyage' : '/';
+    : ['/voyage', '/planets', '/start', '/tasks', '/agent'].some(path => location.pathname.startsWith(path)) ? '/voyage' : '/';
   const isActive = (path: string) => activeGroup === path;
 
   return (
@@ -175,7 +178,7 @@ function GuestEntry() {
   const [error, setError] = React.useState('');
   useEffect(() => {
     let alive = true;
-    void startGuest().then(() => { if (alive) navigate('/', { replace: true }); })
+    void startGuest().then(() => { if (alive) navigate('/start', { replace: true }); })
       .catch(() => { if (alive) setError('试用空间未能打开，请刷新后重试。'); });
     return () => { alive = false; };
   }, [startGuest, navigate]);
@@ -201,7 +204,11 @@ function App() {
         <Suspense fallback={<div className="loading-screen" role="status">正在加载页面…</div>}>
         <Routes>
           <Route path="/workspace" element={<ProtectedRoute><MainLayout><Home/></MainLayout></ProtectedRoute>}/>
-          <Route path="/voyage" element={<ProtectedRoute><MainLayout><ExpeditionHome/></MainLayout></ProtectedRoute>}/>
+          <Route path="/start" element={<ProtectedRoute><MainLayout><PlanetStart/></MainLayout></ProtectedRoute>}/>
+          <Route path="/planets" element={<ProtectedRoute><MainLayout><PlanetHub/></MainLayout></ProtectedRoute>}/>
+          <Route path="/planets/:id" element={<ProtectedRoute><MainLayout><PlanetExplore/></MainLayout></ProtectedRoute>}/>
+          <Route path="/voyage" element={<ProtectedRoute><MainLayout><PlanetHub/></MainLayout></ProtectedRoute>}/>
+          <Route path="/voyage/sample" element={<ProtectedRoute><MainLayout><ExpeditionHome/></MainLayout></ProtectedRoute>}/>
           <Route path="/greenhouse/:id/chapter" element={<ProtectedRoute><MainLayout><ExpeditionChapter/></MainLayout></ProtectedRoute>}/>
           <Route path="/voyage/runs/:id" element={<ProtectedRoute><MainLayout><ExpeditionRun/></MainLayout></ProtectedRoute>}/>
           <Route path="/voyage/evidence" element={<ProtectedRoute><MainLayout><ExpeditionEvidence/></MainLayout></ProtectedRoute>}/>

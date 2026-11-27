@@ -46,6 +46,8 @@ test('guest uses complete CRUD through the normal API without account traffic or
   const before = calls.length;
   await useAppStore.getState().startGuest();
   assert.equal(useAppStore.getState().isGuest, true);
+  assert.equal(useAppStore.getState().courses.length, 0);
+  assert.equal(useAppStore.getState().tasks.length, 0);
   assert.notEqual(useAppStore.getState().user.id, account.id);
   const { data } = await api.post('/notes', { title: 'Only this visit', content: 'Never persist my guest content', tags: ['guest'] });
   await useAppStore.getState().loadNotes();

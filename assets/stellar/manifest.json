@@ -646,6 +646,17 @@
       "height": 1254,
       "encoding": "WebP lossless, exact alpha",
       "rgbRms": 0
+    },
+    {
+      "name": "subject_planets.webp",
+      "source": "sources/subject_planets.png",
+      "sourceSha256": "9e963a70dc460cfc16af65b1c4c12c85bd40e7b01d934360e881befc582ed15c",
+      "sha256": "ff467a16d12e48b6ccfd6e6314bc8ad85520ab8e12e3591baa158eb78cedac09",
+      "bytes": 1998758,
+      "width": 1086,
+      "height": 1448,
+      "rgbRms": 0,
+      "encoding": "WebP lossless; source RGBA preserved"
     }
   ]
 }

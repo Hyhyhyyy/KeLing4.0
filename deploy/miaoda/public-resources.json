@@ -51,6 +51,19 @@
       "provenancePath": "assets/stellar/guide-scroll-provenance.json",
       "delivery": "signed-redirect",
       "provenanceSha256": "0c45bd482f5a6e42d67cfda9a92dfbbb8fceeeb3a8ad0efb902fe223ba4295aa"
+    },
+    {
+      "sourcePath": "assets/stellar/subject_planets.webp",
+      "route": "/stellar/subject_planets.webp",
+      "storageBucket": "bucket_aadk4xawzf4xg",
+      "storagePath": "/1882973251214384.webp",
+      "sha256": "ff467a16d12e48b6ccfd6e6314bc8ad85520ab8e12e3591baa158eb78cedac09",
+      "bytes": 1998758,
+      "contentType": "image/webp",
+      "uploadedContentType": "image/webp",
+      "provenancePath": "assets/stellar/subject-planets-provenance.json",
+      "delivery": "signed-redirect",
+      "provenanceSha256": "c317bc4f39dbb353eb836ce79ad1293fbe267fba5018c67fd765077c94baa9cd"
     }
   ]
 }

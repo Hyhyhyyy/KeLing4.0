@@ -14,7 +14,8 @@ class WorkspaceTaskTest {
         val guest = GuestWorkspaces.create(client); val other = GuestWorkspaces.create(client)
         try {
             val api = WorkspaceApi(client)
-            val task = api.createTask(guest.token, WorkspaceTaskInput("  复习队列  ", courseId = guest.courseList().courses!!.first().id, estimatedMinutes = 10)).task!!
+            val course = guest.createCourse("队列").course!!
+            val task = api.createTask(guest.token, WorkspaceTaskInput("  复习队列  ", courseId = course.id, estimatedMinutes = 10)).task!!
             assertEquals("复习队列", task.title)
             assertEquals(0, task.rewardsEnergy + task.rewardsExp + task.rewardsCrystals)
             assertTrue(other.taskList().tasks!!.isEmpty())

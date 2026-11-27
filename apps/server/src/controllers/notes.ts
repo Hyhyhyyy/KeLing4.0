@@ -16,7 +16,7 @@ export const getNotes = async (req: AuthRequest, res: Response) => {
 
     const { tag, sourceType } = req.query;
 
-    const where: any = { userId: req.userId };
+    const where: any = { userId: req.userId, sourceType: { not: 'LEARNING_PLANET_INTERNAL' } };
     // SQLite 不支持 JSON 查询，这里简化处理
 
     const notes = await prisma.note.findMany({
@@ -95,7 +95,7 @@ export const updateNote = async (req: AuthRequest, res: Response) => {
     const { title, content, tags, reviewCount } = parsed.data;
 
     const existing = await prisma.note.findFirst({
-      where: { id: noteId, userId: req.userId }
+      where: { id: noteId, userId: req.userId, sourceType: { not: 'LEARNING_PLANET_INTERNAL' } }
     });
 
     if (!existing) {
@@ -143,7 +143,7 @@ export const deleteNote = async (req: AuthRequest, res: Response) => {
     const noteId = String(req.params.id);
 
     const existing = await prisma.note.findFirst({
-      where: { id: noteId, userId: req.userId }
+      where: { id: noteId, userId: req.userId, sourceType: { not: 'LEARNING_PLANET_INTERNAL' } }
     });
 
     if (!existing) {
@@ -165,7 +165,7 @@ export const deleteNote = async (req: AuthRequest, res: Response) => {
 async function updateNoteAchievement(userId: string) {
   try {
     const count = await prisma.note.count({
-      where: { userId }
+      where: { userId, sourceType: { not: 'LEARNING_PLANET_INTERNAL' } }
     });
 
     const ua = await prisma.userAchievement.findUnique({

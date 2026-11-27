@@ -9,7 +9,8 @@ import { Plus, X, BookOpen, Clock, MapPin, User} from 'lucide-react';
 import { useAppStore } from '../../store/useAppStore';
 import './Greenhouse.css';
 import { useCourseDialogFocus } from '../../components/useCourseDialogFocus';
-import { CoursePlanet, CoursePlanetPicker } from '../../components/CoursePlanet';
+import { CoursePlanetPicker } from '../../components/CoursePlanet';
+import { SubjectPlanet } from '../../components/SubjectPlanet';
 import { coursePlanet } from '../../components/planetCatalog';
 
 const THEME_COLORS = [
@@ -80,7 +81,8 @@ const Greenhouse: React.FC = () => {
           <ModuleTitle kind="courses">知识星球</ModuleTitle>
 
         </div>
-        <button className="btn btn-primary" onClick={() => { setCreateError(''); setShowCreateDialog(true); }}>
+        <button className="btn btn-primary" onClick={() => navigate('/start')}>生成学习星球 <NavigationArrow/></button>
+        <button className="btn btn-secondary" onClick={() => { setCreateError(''); setShowCreateDialog(true); }}>
           <Plus size={18} />
           添加课程
         </button>
@@ -98,8 +100,8 @@ const Greenhouse: React.FC = () => {
           <img src={appPath("/stellar/mascot_welcome.webp")} alt="星芽等待第一门课程" width="160" />
           <h3>还没有知识星球</h3>
 
-          <button className="btn btn-primary" onClick={() => { setCreateError(''); setShowCreateDialog(true); }}>
-            创建课程
+          <button className="btn btn-primary" onClick={() => navigate('/start')}>
+            选择学科，开启远航
           </button>
         </motion.div>
       ) : (
@@ -117,7 +119,7 @@ const Greenhouse: React.FC = () => {
               >
                 <div className="course-header" style={{ background: course.themeColor }}>
                   <span className="course-emoji">
-                    <CoursePlanet index={course.planetStyleIndex} size={120} />
+                    <SubjectPlanet subject={course.name} index={course.planetStyleIndex} size={120} />
                   </span>
                   <button
                     className="delete-btn"

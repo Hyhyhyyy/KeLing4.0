@@ -40,7 +40,7 @@ export const getProfile = async (req: AuthRequest, res: Response) => {
         _count: {
           select: {
             tasks: { where: { status: 'COMPLETED' } },
-            notes: true
+            notes: { where: { sourceType: { not: 'LEARNING_PLANET_INTERNAL' } } }
           }
         }
       }

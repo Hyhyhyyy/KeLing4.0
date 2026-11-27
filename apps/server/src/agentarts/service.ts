@@ -40,7 +40,7 @@ export class AgentService {
     if(input.examDate<startDate||Date.parse(input.examDate)-Date.parse(startDate)>90*86400000)throw new Error('考试日期须在今天到90天内');
     const course=await this.db.course.findFirst({where:{id:input.courseId,userId,isArchived:false},include:{knowledgeNodes:true}});if(!course)throw new Error('课程不存在');
     const nodes=course.knowledgeNodes.slice(0,80);
-    const notes=await this.db.note.findMany({where:{userId},orderBy:{updatedAt:'desc'},take:100});
+    const notes=await this.db.note.findMany({where:{userId,sourceType:{not:'LEARNING_PLANET_INTERNAL'}},orderBy:{updatedAt:'desc'},take:100});
     const related=notes.filter(n=>JSON.parse(n.relatedNodeIds).some((id:string)=>nodes.some(k=>k.id===id)) || n.title.includes(course.name));
     const materials=await currentMaterials(this.db,userId,input.courseId);
     const matches=materialSources(materials,input.goal,12);
@@ -118,7 +118,7 @@ export class AgentService {
     if(!run||run.status!=='RUNNING'||run.expiresAt<new Date()||!timingSafeEqual(Buffer.from(run.toolTokenHash),Buffer.from(hash(token))))throw new Error('运行工具授权无效');
     const course=await this.db.course.findFirst({where:{id:run.courseId,userId:run.userId,isArchived:false},include:{knowledgeNodes:true}});if(!course)throw new Error('课程不存在');
     const available=JSON.parse(run.sources) as {id:string;title:string}[];
-    const notes=await this.db.note.findMany({where:{userId:run.userId,id:{in:available.filter(s=>s.id.startsWith('note:')).map(s=>s.id.slice(5))}}});
+    const notes=await this.db.note.findMany({where:{userId:run.userId,sourceType:{not:'LEARNING_PLANET_INTERNAL'},id:{in:available.filter(s=>s.id.startsWith('note:')).map(s=>s.id.slice(5))}}});
     const imported=materialSources(await currentMaterials(this.db,run.userId,run.courseId),'',12,available.map(s=>s.id));
     const candidates:Source[]=[...imported,...course.knowledgeNodes.map(n=>({id:'kg:'+n.id,title:n.name,text:n.description.slice(0,1800)})),...notes.map(n=>({id:'note:'+n.id,title:n.title,text:n.content.slice(0,1800)}))].filter(s=>available.some(a=>a.id===s.id));
     if(!candidates.length)throw new Error('来源资料已更新或移除，请重新生成计划');

@@ -1,6 +1,6 @@
 {
   "name": "keling-monorepo",
-  "version": "4.0.6-defense-rc7",
+  "version": "4.1.0-planet-rc1",
   "private": true,
   "description": "课灵 - 多端知识管理应用",
   "workspaces": [

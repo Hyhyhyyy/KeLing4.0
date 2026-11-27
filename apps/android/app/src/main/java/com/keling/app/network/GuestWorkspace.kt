@@ -51,12 +51,13 @@ class GuestWorkspace internal constructor(private val suppliedClient: HttpClient
     private var checkedDate = ""
     private var experience = 0
     val learningMaterials = com.keling.app.expedition.GuestLearningStore(::ensureOpen)
+    val learningPlanets = com.keling.app.planet.GuestPlanetStore(::ensureOpen)
     val expeditionJournal = com.keling.app.expedition.ExpeditionJournal.memory()
     private var expeditionGame: com.keling.app.expedition.GuestExpedition? = null
     fun expedition(catalog: com.keling.app.expedition.CatalogResponse): com.keling.app.expedition.GuestExpedition {
         ensureOpen()
         return expeditionGame ?: com.keling.app.expedition.GuestExpedition(catalog, ::ensureOpen,
-            { id -> courses.any { it.id == id && !it.isArchived } },
+            { id -> courses.any { it.id == id && !it.isArchived && it.code != "AI_PLANET" } },
             com.keling.app.expedition.LegacySnapshot(profile.level, experience, profile.crystals, profile.energy, now()),
             { account -> ensureOpen(); profile = profile.copy(level = account.level, crystals = account.crystals); experience = account.exp },
             { record -> ensureOpen(); profile = profile.copy(totalStudyMinutes = profile.totalStudyMinutes + record.durationMinutes)
@@ -72,15 +73,11 @@ class GuestWorkspace internal constructor(private val suppliedClient: HttpClient
     private val runs = mutableMapOf<String, AgentRun>()
     private val runCourses = mutableMapOf<String, String>()
     private val runFingerprints = mutableMapOf<String, String>()
-    init {
-        val course = createCourse("算法与思考（示例）").course!!
-        addSource(course.id, "递归与终止条件", "递归把问题缩小为同类子问题，需要终止条件，以及每一步接近终止条件的变化。例：0! = 1，n! = n × (n−1)!。")
-    }
     fun courseList(): CourseResponse { ensureOpen(); return CourseResponse(courses = courses.toList()) }
     fun cloudCourses() = CloudCourses(courses.map { CloudCourse(it.id, it.name, sources[it.id]?.size ?: 0, it.planetStyleIndex) })
-    fun createCourse(name: String, planetStyleIndex: Int = 0): CloudCourses {
+    fun createCourse(name: String, planetStyleIndex: Int = 0, code: String = ""): CloudCourses {
         ensureOpen(); require(name.trim().length in 1..100); com.keling.app.data.PlanetStyles.requireIndex(planetStyleIndex)
-        val course = CourseData(id(), name.trim(), planetStyleIndex = planetStyleIndex); courses.add(course)
+        val course = CourseData(id(), name.trim(), code = code, planetStyleIndex = planetStyleIndex); courses.add(course)
         return CloudCourses(course = CloudCourse(course.id, course.name, planetStyleIndex = planetStyleIndex))
     }
     fun updatePlanet(courseId: String, planetStyleIndex: Int): CourseResponse {
@@ -282,7 +279,7 @@ class GuestWorkspace internal constructor(private val suppliedClient: HttpClient
         runs[runId] = selected.copy(status = "CONFIRMED")
     }
     fun close() {
-        expeditionGame?.close(); expeditionJournal.close(); learningMaterials.close(); scheduleConfirmations.clear()
+        expeditionGame?.close(); expeditionJournal.close(); learningMaterials.close(); learningPlanets.clear(); scheduleConfirmations.clear()
         closed = true; scope.cancel(); modelAccess.close(); courses.clear(); sources.clear(); tasks.clear(); notes.clear(); conversations.clear(); settings.clear(); requests.clear(); requestSignatures.clear(); running.clear(); noteForTurn.clear(); runs.clear(); runCourses.clear(); runFingerprints.clear(); profile = WorkspaceProfile(accountId, ""); checkedDate = ""; experience = 0
     }
 }

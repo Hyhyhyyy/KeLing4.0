@@ -24,7 +24,7 @@ val packagedAssetDirectory = layout.buildDirectory.dir("generated/packaged-asset
 val preparePackagedAssets by tasks.registering(Sync::class) {
     from("src/main/assets") { exclude("stellar/**") }
     from(rootProject.file("../../assets/stellar")) {
-        include("*.webp", "app_icon.png", "manifest.json")
+        include("*.webp", "app_icon.png", "manifest.json", "subject-planets.json")
         into("stellar")
     }
     from(sharedExpeditionDirectory) { include("chapter.json"); into("expedition") }
@@ -75,9 +75,9 @@ android {
         targetSdk = 34
 
         // 版本号，每次更新应用要+1
-        versionCode = 27
+        versionCode = 28
         // 版本名称，用户看到的版本
-        versionName = "4.0.6-defense-rc7"
+        versionName = "4.1.0-planet-rc1"
         buildConfigField("String", "API_BASE_URL", "\"${apiBaseUrl.replace("\\", "\\\\").replace("\"", "\\\"")}\"")
 
         // 启用矢量图支持，这样图标可以缩放不失真

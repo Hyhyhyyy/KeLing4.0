@@ -23,6 +23,8 @@ import { agentRouter } from './agentarts/routes';
 import { learningRouter } from './learning/routes';
 import { plannerRouter } from './learning/plannerRoutes';
 import { expeditionRouter } from './expedition/routes';
+import { planetRouter } from './learning/planetRoutes';
+export { registerLearningPlanetGenerator } from './learning/planets';
 
 requireJwtSecret();
 
@@ -44,7 +46,7 @@ app.use(cors({
   },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Planet-Job-Token']
 }));
 app.use(express.json({ limit: '1mb' }));
 app.use(rateLimit({ windowMs: 15 * 60 * 1000, limit: 300, keyGenerator: req => ['/api/auth/login', '/api/auth/register'].includes(req.path) ? clientRateLimitKey(req) : accountRateLimitKey(req), standardHeaders: true, legacyHeaders: false }));
@@ -64,6 +66,7 @@ app.use('/api/achievements', achievementRoutes);
 app.use('/api/checkin', checkinRoutes);
 app.use('/api/agent', agentRouter(prisma));
 app.use('/api/learning/v1', plannerRouter(prisma));
+app.use('/api/learning/v1/planets', planetRouter(prisma));
 app.use('/api/learning/v1', learningRouter(prisma));
 app.use('/api/expedition/v1', expeditionRouter(prisma));
 
@@ -72,7 +75,7 @@ app.get('/api/health', (req, res) => {
   res.json({
     status: 'ok',
     timestamp: new Date().toISOString(),
-    version: '4.0.6-defense-rc7'
+    version: '4.1.0-planet-rc1'
   });
 });
 

@@ -32,6 +32,11 @@ export class ArtworkController {
     await this.redirectArtwork(res, GUIDE_PATH, GUIDE_SHA256);
   }
 
+  @Get('subject_planets.webp')
+  async subjectPlanets(@Res() res: Response): Promise<void> {
+    await this.redirectArtwork(res, '/1882973251214384.webp', 'ff467a16d12e48b6ccfd6e6314bc8ad85520ab8e12e3591baa158eb78cedac09');
+  }
+
   private async redirectArtwork(res: Response, path: string, sha256: string): Promise<void> {
     let timer: ReturnType<typeof setTimeout> | undefined;
     try {

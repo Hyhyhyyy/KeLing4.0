@@ -205,7 +205,7 @@ export const getMe = async (req: AuthRequest, res: Response) => {
     // 单独统计
     const courseCount = await prisma.course.count({ where: { userId: req.userId } });
     const completedTaskCount = await prisma.task.count({ where: { userId: req.userId, status: 'COMPLETED' } });
-    const noteCount = await prisma.note.count({ where: { userId: req.userId } });
+    const noteCount = await prisma.note.count({ where: { userId: req.userId, sourceType: { not: 'LEARNING_PLANET_INTERNAL' } } });
 
     res.json({
       user: {

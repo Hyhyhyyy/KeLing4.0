@@ -99,7 +99,8 @@ class FullGuestWorkspaceTest {
         } } }
         val guest = GuestWorkspaces.create(client)
         try {
-            val course = guest.courseList().courses!!.first()
+            val course = guest.createCourse("递归测试").course!!
+            guest.addSource(course.id, "递归与终止条件", "递归每一步接近终止条件。")
             val run = guest.start(AgentRequest(course.id, "理解递归", today, 60))
             withTimeout(5000) { while (guest.run(run.id).status == "RUNNING") delay(5) }
             guest.confirm(run.id); guest.confirm(run.id)

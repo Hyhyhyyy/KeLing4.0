@@ -1,0 +1,23 @@
+{
+  "file": "subject_planets.webp",
+  "width": 1086,
+  "height": 1448,
+  "columns": 3,
+  "rows": 4,
+  "cellWidth": 362,
+  "cellHeight": 362,
+  "subjects": [
+    {"id":"math","name":"数学","column":0,"row":0,"aliases":["数学","高数","微积分","代数","几何","概率","统计","mathematics","calculus","algebra","geometry","statistics"]},
+    {"id":"english","name":"英语","column":1,"row":0,"aliases":["英语","英文","雅思","托福","english","ielts","toefl"]},
+    {"id":"history","name":"历史","column":2,"row":0,"aliases":["历史","史学","history"]},
+    {"id":"computer","name":"计算机","column":0,"row":1,"aliases":["计算机","数据结构","算法","编程","程序设计","操作系统","人工智能","机器学习","数据库","计算机网络","computer","programming","python","java","javascript","c++","algorithm"]},
+    {"id":"economics","name":"经济","column":1,"row":1,"aliases":["经济","金融","会计","财务","economics","finance","accounting"]},
+    {"id":"politics","name":"政治","column":2,"row":1,"aliases":["政治","思政","公民","法治","马克思","politics","civics"]},
+    {"id":"chinese","name":"语文","column":0,"row":2,"aliases":["语文","汉语","文学","写作","古诗","chinese","literature"]},
+    {"id":"physics","name":"物理","column":1,"row":2,"aliases":["物理","力学","电磁学","光学","physics"]},
+    {"id":"chemistry","name":"化学","column":2,"row":2,"aliases":["化学","chemistry"]},
+    {"id":"biology","name":"生物","column":0,"row":3,"aliases":["生物","生命科学","遗传","biology"]},
+    {"id":"geography","name":"地理","column":1,"row":3,"aliases":["地理","地球科学","geography"]},
+    {"id":"arts","name":"艺术","column":2,"row":3,"aliases":["艺术","美术","音乐","绘画","设计","art","music"]}
+  ]
+}

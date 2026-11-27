@@ -50,16 +50,19 @@ private object StellarBitmaps {
     }
 }
 
-@Composable fun StellarSprite(atlas: String, index: Int, description: String?, modifier: Modifier = Modifier) {
+@Composable fun StellarSprite(atlas: String, index: Int, description: String?, modifier: Modifier = Modifier, columns: Int = 3, rows: Int = 3) {
     val context = LocalContext.current
     val bitmap by produceState<ImageBitmap?>(null, atlas) {
         value = withContext(Dispatchers.IO) { StellarBitmaps.load(context.applicationContext, atlas, 2) }
     }
     Canvas(if (description == null) modifier else modifier.semantics { contentDescription = description }) {
         bitmap?.let { image ->
-            val tile = IntSize(image.width / 3, image.height / 3); val cell = index.coerceIn(0, 8)
-            drawImage(image, srcOffset = IntOffset((cell % 3) * tile.width, (cell / 3) * tile.height), srcSize = tile,
-                dstSize = IntSize(size.width.toInt(), size.height.toInt()), filterQuality = androidx.compose.ui.graphics.FilterQuality.None)
+            val tile = IntSize(image.width / columns, image.height / rows); val cell = index.coerceIn(0, columns * rows - 1)
+            val ratio = minOf(size.width / tile.width, size.height / tile.height)
+            val target = IntSize((tile.width * ratio).toInt(), (tile.height * ratio).toInt())
+            drawImage(image, srcOffset = IntOffset((cell % columns) * tile.width, (cell / columns) * tile.height), srcSize = tile,
+                dstOffset = IntOffset(((size.width - target.width) / 2).toInt(), ((size.height - target.height) / 2).toInt()),
+                dstSize = target, filterQuality = androidx.compose.ui.graphics.FilterQuality.None)
         }
     }
 }

@@ -77,14 +77,14 @@ test('unlisted artwork and fonts never request storage', async () => {
   });
 });
 
-test('Android download signs only the frozen RC7 package and does not cache its redirect', async () => {
+test('Android download signs only the frozen planet RC1 package and does not cache its redirect', async () => {
   await fixture(async (origin, calls) => {
     const response = await fetch(origin + '/download/android?path=/private-file', { redirect: 'manual' });
     assert.equal(response.status, 302);
     assert.equal(response.headers.get('cache-control'), 'no-store');
-    assert.equal(response.headers.get('x-content-sha256'), '30b21d551c915e8dc2fddcda39f52a97dcf80c38d19230d976d87a59993bf9e9');
+    assert.equal(response.headers.get('x-content-sha256'), '273d4895c3e78ae5f58d303b3d4884c2f1673d38141bf56d98e36b5108a5729d');
     assert.equal(response.headers.get('location'), 'https://example.invalid/public-art.webp');
-    assert.deepEqual(calls, [{ method: 'sign', bucket: 'bucket_aadk4xawzf4xg', asset: '/1882921847399499.apk', seconds: 3600 }]);
+    assert.deepEqual(calls, [{ method: 'sign', bucket: 'bucket_aadk4xawzf4xg', asset: '/1882973904512106.apk', seconds: 3600 }]);
   });
 });
 

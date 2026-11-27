@@ -27,7 +27,7 @@ export async function resolveContext(db: PrismaClient, userId: string, raw: unkn
   const warnings: string[] = [];
   let title: string;
   if (ref.kind === 'note') {
-    const note = await db.note.findFirst({ where: { id: ref.id, userId }, select: { id: true, title: true, content: true, updatedAt: true } });
+    const note = await db.note.findFirst({ where: { id: ref.id, userId, sourceType: { not: 'LEARNING_PLANET_INTERNAL' } }, select: { id: true, title: true, content: true, updatedAt: true } });
     if (!note) throw missing();
     title = note.title;
     const part = excerpt(note.content, 6000);

@@ -35,25 +35,26 @@ export async function requestJson(p: Provider, path: string, body: unknown, sign
   }
 }
 const count = (x: unknown) => typeof x === 'number' && Number.isSafeInteger(x) && x >= 0 ? x : undefined;
-export async function complete(p: Provider, model: string, messages: Message[], signal?: AbortSignal, transport: Transport = fetch) {
+export async function complete(p: Provider, model: string, messages: Message[], signal?: AbortSignal, transport: Transport = fetch, maxOutputTokens = 2048) {
+  if (!Number.isInteger(maxOutputTokens) || maxOutputTokens < 256 || maxOutputTokens > 8192) throw new AIError('VALIDATION', '输出长度配置无效', 400);
   const system = messages.filter(x => x.role === 'system').map(x => x.content).join('\n');
   const turns = messages.filter(x => x.role !== 'system');
   let data: any, content: unknown, stop: unknown, usage: Usage;
   if (p.protocol === 'anthropic') {
-    data = await requestJson(p, '/messages', { model, system, messages: turns, max_tokens: 2048 }, signal, transport);
+    data = await requestJson(p, '/messages', { model, system, messages: turns, max_tokens: maxOutputTokens }, signal, transport);
     content = data.content?.filter((x: any) => x.type === 'text').map((x: any) => x.text).join('\n');
     stop = data.stop_reason === 'end_turn' || data.stop_reason === 'stop_sequence';
     usage = { inputTokens: count(data.usage?.input_tokens), outputTokens: count(data.usage?.output_tokens) };
   } else if (p.protocol === 'gemini') {
     data = await requestJson(p, '/models/' + encodeURIComponent(model) + ':generateContent', {
       systemInstruction: { parts: [{ text: system }] }, contents: turns.map(x => ({ role: x.role === 'assistant' ? 'model' : 'user', parts: [{ text: x.content }] })),
-      generationConfig: { maxOutputTokens: 2048 },
+      generationConfig: { maxOutputTokens },
     }, signal, transport);
     content = data.candidates?.[0]?.content?.parts?.filter((x: any) => !x.thought && typeof x.text === 'string').map((x: any) => x.text).join('\n');
     stop = data.candidates?.[0]?.finishReason === 'STOP';
     usage = { inputTokens: count(data.usageMetadata?.promptTokenCount), outputTokens: count(data.usageMetadata?.candidatesTokenCount) };
   } else {
-    data = await requestJson(p, '/chat/completions', { model, messages, stream: false, [p.tokenParameter]: 2048 }, signal, transport);
+    data = await requestJson(p, '/chat/completions', { model, messages, stream: false, [p.tokenParameter]: maxOutputTokens }, signal, transport);
     content = data.choices?.[0]?.message?.content; stop = data.choices?.[0]?.finish_reason === 'stop';
     usage = { inputTokens: count(data.usage?.prompt_tokens), outputTokens: count(data.usage?.completion_tokens) };
   }
