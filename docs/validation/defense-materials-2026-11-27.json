@@ -1,7 +1,7 @@
 {
   "date": "2026-11-27",
   "artifactRef": "artifact_hmXKowr5zFA1DHZdCkQ4T2KrvcPMmY35",
-  "stateVersion": 45,
+  "stateVersion": 46,
   "slideCount": 12,
   "visuallyReviewedSlides": [
     1,
@@ -154,15 +154,20 @@
   "exactEnding": "感谢倾听！请各位老师批评指正！",
   "speech": {
     "pages": 2,
-    "spokenHanCharacters": 1020,
-    "docxSha256": "f3e4beb8f1164e7eee0a9b5e69acd37bdf138c89a788e31c24da1fb80e6bbdb6",
-    "pdfSha256": "ec135533d5a3bbf3caab17322aa8e05cbab902fc60efdf465fe389bba7376965",
-    "visualInspection": "All 2 pages inspected visually after Word PDF export and bundled Poppler rendering; no clipping or overflow",
+    "spokenHanCharacters": 991,
+    "docxSha256": "789c7b0739c13e7c27d1011c0571425e51d0df14db36b48877fee0456f63cd55",
+    "pdfSha256": "9d54d79f2759991700b77894efba256402f0d5d4817701c60242a787ff68469d",
+    "visualInspection": "All 2 pages visually inspected after deleting requested sentence, Word PDF export and bundled Poppler rendering; no clipping or overflow",
     "actualSpokenTiming": "not measured"
   },
   "limits": [
     "No physical Android device claim",
     "Model content remains unreviewed by teachers",
     "This verifies live presentation; exported PPTX and projector display not independently tested"
-  ]
+  ],
+  "lastNotesOnlyChange": {
+    "slide": 10,
+    "change": "Removed the user-specified opening sentence; visible slide layout unchanged",
+    "matchingSentenceInAllSlideTextAndNotes": 0
+  }
 }
