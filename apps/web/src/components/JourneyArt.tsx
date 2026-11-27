@@ -2,6 +2,7 @@ import type { CSSProperties } from 'react';
 import { appPath } from '../services/appPath';
 import { StellarSprite } from './StellarArt';
 import { avatarIndex } from './stellarCatalog';
+import './Journey.css';
 export function JourneyArt({kind,index,size=80,label,className=''}:{kind:'avatars'|'frames'|'titles'|'furniture';index:number;size?:number;label?:string;className?:string}){
  const n=Math.max(0,Math.min(9,index));const style:CSSProperties={width:size,height:size,backgroundImage:`url(${appPath('/stellar/journey_'+kind+'.webp')})`,backgroundSize:'500% 200%',backgroundPosition:`${n%5*25}% ${Math.floor(n/5)*100}%`};
  return <span className={'journey-art '+className} style={style} role={label?'img':undefined} aria-label={label} aria-hidden={!label}/>;
