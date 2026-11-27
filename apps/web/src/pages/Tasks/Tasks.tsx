@@ -14,6 +14,7 @@ import type { TaskType, TaskStatus } from '../../types';
 import AskAssistantButton from '../../components/AskAssistantButton';
 import { FocusClock } from '../../services/focusClock';
 import './Tasks.css';
+import '../../components/Journey.css';
 
 const TASK_TYPES: { value: TaskType; label: string; icon: number; color: string }[] = [
   { value: 'DAILY_CARE', label: '日常照料', icon: 4, color: '#85CDA9' },
