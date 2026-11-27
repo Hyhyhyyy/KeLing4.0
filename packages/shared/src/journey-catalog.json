@@ -1,0 +1,372 @@
+{
+  "version": 1,
+  "avatars": [
+    {
+      "id": "avatar-0",
+      "name": "星芽领航员",
+      "index": 0,
+      "achievementId": null
+    },
+    {
+      "id": "avatar-1",
+      "name": "赤狐探索者",
+      "index": 1,
+      "achievementId": null
+    },
+    {
+      "id": "avatar-2",
+      "name": "星猫档案员",
+      "index": 2,
+      "achievementId": null
+    },
+    {
+      "id": "avatar-3",
+      "name": "月兔观察员",
+      "index": 3,
+      "achievementId": null
+    },
+    {
+      "id": "avatar-4",
+      "name": "星光伙伴",
+      "index": 4,
+      "achievementId": null
+    },
+    {
+      "id": "avatar-5",
+      "name": "星海音乐家",
+      "index": 5,
+      "achievementId": null
+    },
+    {
+      "id": "avatar-6",
+      "name": "薄荷宇航员",
+      "index": 6,
+      "achievementId": null
+    },
+    {
+      "id": "avatar-7",
+      "name": "珊瑚宇航员",
+      "index": 7,
+      "achievementId": null
+    },
+    {
+      "id": "avatar-8",
+      "name": "行星园丁",
+      "index": 8,
+      "achievementId": null
+    },
+    {
+      "id": "avatar-9",
+      "name": "银河绘图师",
+      "index": 9,
+      "achievementId": null
+    }
+  ],
+  "frames": [
+    {
+      "id": "frame-0",
+      "name": "萌芽舷窗",
+      "index": 0,
+      "achievementId": "first_planet"
+    },
+    {
+      "id": "frame-1",
+      "name": "羽翼罗盘",
+      "index": 1,
+      "achievementId": "first_task"
+    },
+    {
+      "id": "frame-2",
+      "name": "书卷羽笔",
+      "index": 2,
+      "achievementId": "first_note"
+    },
+    {
+      "id": "frame-3",
+      "name": "星座仪表",
+      "index": 3,
+      "achievementId": "ten_nodes"
+    },
+    {
+      "id": "frame-4",
+      "name": "轨道时钟",
+      "index": 4,
+      "achievementId": "first_hour"
+    },
+    {
+      "id": "frame-5",
+      "name": "三星枝叶",
+      "index": 5,
+      "achievementId": "three_checkins"
+    },
+    {
+      "id": "frame-6",
+      "name": "领航桂冠",
+      "index": 6,
+      "achievementId": "ten_tasks"
+    },
+    {
+      "id": "frame-7",
+      "name": "晶体档案",
+      "index": 7,
+      "achievementId": "five_notes"
+    },
+    {
+      "id": "frame-8",
+      "name": "月亮天文",
+      "index": 8,
+      "achievementId": "ten_hours"
+    },
+    {
+      "id": "frame-9",
+      "name": "百时远航",
+      "index": 9,
+      "achievementId": "hundred_hours"
+    }
+  ],
+  "titles": [
+    {
+      "id": "title-0",
+      "name": "启航探索者",
+      "index": 0,
+      "achievementId": "first_planet"
+    },
+    {
+      "id": "title-1",
+      "name": "行动新星",
+      "index": 1,
+      "achievementId": "first_task"
+    },
+    {
+      "id": "title-2",
+      "name": "航行记录员",
+      "index": 2,
+      "achievementId": "first_note"
+    },
+    {
+      "id": "title-3",
+      "name": "星图绘制师",
+      "index": 3,
+      "achievementId": "ten_nodes"
+    },
+    {
+      "id": "title-4",
+      "name": "专注新秀",
+      "index": 4,
+      "achievementId": "first_hour"
+    },
+    {
+      "id": "title-5",
+      "name": "归航伙伴",
+      "index": 5,
+      "achievementId": "three_checkins"
+    },
+    {
+      "id": "title-6",
+      "name": "航线领航员",
+      "index": 6,
+      "achievementId": "ten_tasks"
+    },
+    {
+      "id": "title-7",
+      "name": "知识收藏家",
+      "index": 7,
+      "achievementId": "five_notes"
+    },
+    {
+      "id": "title-8",
+      "name": "星际研习者",
+      "index": 8,
+      "achievementId": "ten_hours"
+    },
+    {
+      "id": "title-9",
+      "name": "百时远航家",
+      "index": 9,
+      "achievementId": "hundred_hours"
+    }
+  ],
+  "furniture": [
+    {
+      "id": "furniture-0",
+      "name": "萌芽台灯",
+      "index": 0,
+      "achievementId": "first_planet"
+    },
+    {
+      "id": "furniture-1",
+      "name": "领航座椅",
+      "index": 1,
+      "achievementId": "first_task"
+    },
+    {
+      "id": "furniture-2",
+      "name": "书页书桌",
+      "index": 2,
+      "achievementId": "first_note"
+    },
+    {
+      "id": "furniture-3",
+      "name": "星座全息台",
+      "index": 3,
+      "achievementId": "ten_nodes"
+    },
+    {
+      "id": "furniture-4",
+      "name": "沙漏计时器",
+      "index": 4,
+      "achievementId": "first_hour"
+    },
+    {
+      "id": "furniture-5",
+      "name": "发光盆栽",
+      "index": 5,
+      "achievementId": "three_checkins"
+    },
+    {
+      "id": "furniture-6",
+      "name": "星图书柜",
+      "index": 6,
+      "achievementId": "ten_tasks"
+    },
+    {
+      "id": "furniture-7",
+      "name": "晶体档案柜",
+      "index": 7,
+      "achievementId": "five_notes"
+    },
+    {
+      "id": "furniture-8",
+      "name": "天文望远镜",
+      "index": 8,
+      "achievementId": "ten_hours"
+    },
+    {
+      "id": "furniture-9",
+      "name": "星环天体仪",
+      "index": 9,
+      "achievementId": "hundred_hours"
+    }
+  ],
+  "achievements": [
+    {
+      "id": "first_planet",
+      "name": "启航探索者",
+      "description": "创建第一颗知识星球",
+      "metric": "planetsCreated",
+      "target": 1,
+      "index": 0,
+      "frameId": "frame-0",
+      "titleId": "title-0",
+      "furnitureId": "furniture-0"
+    },
+    {
+      "id": "first_task",
+      "name": "行动新星",
+      "description": "完成第一个学习任务",
+      "metric": "tasksCompleted",
+      "target": 1,
+      "index": 1,
+      "frameId": "frame-1",
+      "titleId": "title-1",
+      "furnitureId": "furniture-1"
+    },
+    {
+      "id": "first_note",
+      "name": "航行记录员",
+      "description": "保存第一篇学习笔记",
+      "metric": "notesCreated",
+      "target": 1,
+      "index": 2,
+      "frameId": "frame-2",
+      "titleId": "title-2",
+      "furnitureId": "furniture-2"
+    },
+    {
+      "id": "ten_nodes",
+      "name": "星图绘制师",
+      "description": "整理10个知识点",
+      "metric": "knowledgeNodes",
+      "target": 10,
+      "index": 3,
+      "frameId": "frame-3",
+      "titleId": "title-3",
+      "furnitureId": "furniture-3"
+    },
+    {
+      "id": "first_hour",
+      "name": "专注新秀",
+      "description": "累计记录学习1小时",
+      "metric": "studyMinutes",
+      "target": 60,
+      "index": 4,
+      "frameId": "frame-4",
+      "titleId": "title-4",
+      "furnitureId": "furniture-4"
+    },
+    {
+      "id": "three_checkins",
+      "name": "归航伙伴",
+      "description": "累计打卡3天",
+      "metric": "checkinDays",
+      "target": 3,
+      "index": 5,
+      "frameId": "frame-5",
+      "titleId": "title-5",
+      "furnitureId": "furniture-5"
+    },
+    {
+      "id": "ten_tasks",
+      "name": "航线领航员",
+      "description": "累计完成10个学习任务",
+      "metric": "tasksCompleted",
+      "target": 10,
+      "index": 6,
+      "frameId": "frame-6",
+      "titleId": "title-6",
+      "furnitureId": "furniture-6"
+    },
+    {
+      "id": "five_notes",
+      "name": "知识收藏家",
+      "description": "保存5篇学习笔记",
+      "metric": "notesCreated",
+      "target": 5,
+      "index": 7,
+      "frameId": "frame-7",
+      "titleId": "title-7",
+      "furnitureId": "furniture-7"
+    },
+    {
+      "id": "ten_hours",
+      "name": "星际研习者",
+      "description": "累计记录学习10小时",
+      "metric": "studyMinutes",
+      "target": 600,
+      "index": 8,
+      "frameId": "frame-8",
+      "titleId": "title-8",
+      "furnitureId": "furniture-8"
+    },
+    {
+      "id": "hundred_hours",
+      "name": "百时远航家",
+      "description": "累计记录6000分钟（100小时）",
+      "metric": "studyMinutes",
+      "target": 6000,
+      "index": 9,
+      "frameId": "frame-9",
+      "titleId": "title-9",
+      "furnitureId": "furniture-9"
+    }
+  ],
+  "slots": 10,
+  "atlases": {
+    "avatars": "journey_avatars",
+    "frames": "journey_frames",
+    "titles": "journey_titles",
+    "furniture": "journey_furniture",
+    "columns": 5,
+    "rows": 2
+  }
+}

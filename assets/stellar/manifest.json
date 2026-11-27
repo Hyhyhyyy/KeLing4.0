@@ -657,6 +657,72 @@
       "height": 1448,
       "rgbRms": 0,
       "encoding": "WebP lossless; source RGBA preserved"
+    },
+    {
+      "name": "journey_frames.webp",
+      "source": "sources/journey_frames.png",
+      "sourceSha256": "5985b93bdde2f55950ba9de02b89b1f3b3d9276ee3de4365b36ed91402c903a5",
+      "sha256": "f0ae2a4f2574c131a01515af50dcdde2b2d9f3e4cdae08d3096c5a806ab2943e",
+      "bytes": 1340832,
+      "width": 1983,
+      "height": 793,
+      "rgbRms": 0,
+      "encoding": "WebP lossless; source RGBA preserved"
+    },
+    {
+      "name": "journey_furniture.webp",
+      "source": "sources/journey_furniture.png",
+      "sourceSha256": "881c939cdda84c361b922f69073e25a52fb8cae60bcd4bfca14a0372d1df532a",
+      "sha256": "9f866b5797ddbda31f3181b453c8fd16745133f07bd4b80a52756d6ca76de4fc",
+      "bytes": 1548228,
+      "width": 1983,
+      "height": 793,
+      "rgbRms": 0,
+      "encoding": "WebP lossless; source RGBA preserved"
+    },
+    {
+      "name": "journey_avatars.webp",
+      "source": "sources/journey_avatars.png",
+      "sourceSha256": "3cd0f4b308f4dd7a0b74ab441fce8d74af6668b00a639cc8f902f77e43d462e3",
+      "sha256": "821b7a19866a4e6bcaf78d30e4eb53a23d7f943890c955d188a7025ac750f6ae",
+      "bytes": 1496312,
+      "width": 1983,
+      "height": 793,
+      "rgbRms": 0,
+      "encoding": "WebP lossless; source RGBA preserved"
+    },
+    {
+      "name": "journey_titles.webp",
+      "source": "sources/journey_titles.png",
+      "sourceSha256": "a0edb05c6f9367fe105820636ef9d8c06984e703fe5d59a96b9717b250e99796",
+      "sha256": "12edcd4d4b264ef854038f46893b41fa6bf07223ea4d6e7c831deed3e568e20b",
+      "bytes": 1048684,
+      "width": 1983,
+      "height": 793,
+      "rgbRms": 0,
+      "encoding": "WebP lossless; source RGBA preserved"
+    },
+    {
+      "name": "story_cockpit_mobile.webp",
+      "source": "sources/story_cockpit_mobile.png",
+      "sourceSha256": "e24b01f3694073ba5a040a1c27d5f3d3f11273a2392bd538009555addb30991f",
+      "sha256": "e01dd858df3e83d7c7e5e455140f5464d83e25c525a35e0b684097d504c221f3",
+      "bytes": 981362,
+      "width": 1122,
+      "height": 1402,
+      "rgbRms": 0,
+      "encoding": "WebP lossless; source RGBA preserved"
+    },
+    {
+      "name": "story_cockpit.webp",
+      "source": "sources/story_cockpit.png",
+      "sourceSha256": "83f279769b31449cca4ccfb95a52c75d43c1a69284e1ee83820f2e54f24d571d",
+      "sha256": "aaf6a997fe6ecbfee9e69f509c8e002ee2e5fbc0ceeb55b379bb070a89d8a375",
+      "bytes": 1060676,
+      "width": 1672,
+      "height": 941,
+      "rgbRms": 0,
+      "encoding": "WebP lossless; source RGBA preserved"
     }
   ]
 }

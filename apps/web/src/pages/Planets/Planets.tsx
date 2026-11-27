@@ -1,3 +1,4 @@
+import { openStory } from '../../services/story';
 import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { SubjectPlanet } from '../../components/SubjectPlanet';
@@ -13,16 +14,9 @@ import type { PlanetFeedback, PlanetGeneration, PlanetProvider, PlanetRecord } f
 import { noteAPI, taskAPI } from '../../services/api';
 import './Planets.css';
 
-const scenes = [
-  { title: '欢迎登舰，探索者', text: '我是星芽。这里是课灵。每一门学科，都有一片值得探索的天地。那些暂时没弄懂的问题，就是我们接下来要去的地方。', art: 'hero_web' },
-  { title: '星图，等你添上下一笔', text: '远处，是数学的几何群山、英语的书页城堡、历史的文明遗迹……', art: 'expedition_starmap' },
-  { title: '第一站，想去哪里', text: '写下你想学的学科，再告诉我你的起点和目标。新的知识星球上，学习区域逐一点亮，第一条航线等待启程。', art: 'expedition_voyage' },
-  { title: '第一颗星球，由你选择', text: '让我们一起一步一步探索这个知识星球的每一方寸文明！', art: 'scene_arrival' },
-];
-
 export function PlanetStart() {
   const navigate=useNavigate(), [query]=useSearchParams(), {user,loadCourses,loadTasks}=useAppStore();
-  const [scene,setScene]=useState(query.has('subject')?4:0),[subject,setSubject]=useState(query.get('subject')||''),[level,setLevel]=useState('初学者'),[goal,setGoal]=useState('');
+  const [subject,setSubject]=useState(query.get('subject')||''),[level,setLevel]=useState('初学者'),[goal,setGoal]=useState('');
   const [providers,setProviders]=useState<PlanetProvider[]>([]),[selection,setSelection]=useState(''),[error,setError]=useState(''),[busy,setBusy]=useState(false),[draft,setDraft]=useState<PlanetGeneration|null>(null);
   const access=useModelAccess(), abort=useRef<AbortController|null>(null), confirmation=useRef('');
   useEffect(()=>{const a=new AbortController();void planetAPI.catalog(a.signal).then(r=>setProviders(r.providers.filter(p=>p.configured))).catch(e=>{if(!a.signal.aborted)setError(planetError(e));});return()=>{a.abort();abort.current?.abort();};},[]);
@@ -32,8 +26,7 @@ export function PlanetStart() {
     if(a.signal.aborted)return;setDraft(result);confirmation.current=crypto.randomUUID();
   }catch(e){if(!a.signal.aborted)setError(planetError(e));}finally{if(abort.current===a){setBusy(false);abort.current=null;}}}
   async function confirm(){if(!draft||busy)return;setBusy(true);setError('');try{const p=await planetAPI.confirm(draft,confirmation.current);await Promise.all([loadCourses(),loadTasks()]);navigate('/planets/'+encodeURIComponent(p.id));}catch(e){setError(planetError(e));}finally{setBusy(false);}}
-  if(scene<scenes.length){const s=scenes[scene];return <section className="planet-prologue"><img className="planet-prologue-scene" src={appPath('/stellar/'+s.art+'.webp')} alt="课灵星际探索场景"/><div className="planet-prologue-copy"><span className="planet-step">序章 {scene+1} / {scenes.length}</span><ModuleTitle kind="home">{s.title}</ModuleTitle><p>{s.text}</p><div className="planet-actions">{scene>0&&<button onClick={()=>setScene(scene-1)}>上一幕</button>}<button className="planet-primary" onClick={()=>setScene(scene+1)}>{scene===3?'选择第一颗星球':'继续'} <NavigationArrow/></button><button onClick={()=>setScene(4)}>跳过故事</button></div><Link to="/planets">我的星图</Link></div></section>;}
-  return <div className="planet-page"><header className="planet-heading"><ModuleTitle kind="courses">{draft?'你的学习星球，准备启航':'第一颗星球，由你选择'}</ModuleTitle><div className="planet-actions"><button onClick={()=>setScene(0)} disabled={busy}>回看序章</button><Link to="/planets">我的星图</Link></div></header>
+  return <div className="planet-page"><header className="planet-heading"><ModuleTitle kind="courses">{draft?'你的学习星球，准备启航':'第一颗星球，由你选择'}</ModuleTitle><div className="planet-actions"><button onClick={openStory} disabled={busy}>回看序章</button><Link to="/planets">我的星图</Link></div></header>
     {error&&<p role="alert" className="planet-error">{error}</p>}
     {!draft?<div className="planet-create-layout"><form className="planet-panel planet-create-form" onSubmit={e=>{e.preventDefault();void generate();}}><label>想探索的学科<input autoComplete="off" autoFocus value={subject} maxLength={80} onChange={e=>setSubject(e.target.value)} placeholder="例如：天文学、英语、微积分" disabled={busy} required/></label><div className="planet-subjects">{['天文学','英语','微积分','中国古代史'].map(s=><button type="button" key={s} disabled={busy} onClick={()=>setSubject(s)}>{s}</button>)}</div><label>目前基础<SelectFrame><select value={level} onChange={e=>setLevel(e.target.value)} disabled={busy}><option>初学者</option><option>有一些基础</option><option>希望深入学习</option></select></SelectFrame></label><label>这次想学到什么<input value={goal} onChange={e=>setGoal(e.target.value)} placeholder="可选，例如：理解恒星的一生" maxLength={300} disabled={busy}/></label><label>生成模型<SelectFrame><select value={selection} onChange={e=>setSelection(e.target.value)} disabled={busy}><option value="">平台默认模型</option>{providers.flatMap(p=>p.chatModels.map(m=><option key={p.id+m} value={p.id+'\n'+m}>{p.name} · {m}</option>))}<option value="byok">使用我的 API Key</option></select></SelectFrame></label>
     {selection==='byok'&&<ModelAccessPanel variant="configuration" scopeKey={user?.id||'guest'} title="连接生成模型"/>}

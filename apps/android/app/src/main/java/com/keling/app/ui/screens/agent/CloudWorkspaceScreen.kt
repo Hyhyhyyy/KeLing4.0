@@ -26,7 +26,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.Dispatchers
 
-private val avatarNames = listOf("星芽导师", "赤狐探索者", "星猫领航员", "月兔园丁", "星光伙伴", "音乐机器人", "薄荷宇航员", "珊瑚宇航员", "行星芽芽")
 @Composable
 fun CloudWorkspaceScreen(accountId: String, token: String, initialTab: String = "home", onNavigate: (String) -> Unit,
     onAskAssistant: (AssistantContextRef, String) -> Unit) {
@@ -150,7 +149,7 @@ fun CloudWorkspaceScreen(accountId: String, token: String, initialTab: String = 
                     item { OutlinedButton(onClick = { onNavigate("cloud_agent") }, modifier = Modifier.fillMaxWidth()) { Text("智能编排") } }
                     item { StellarSectionTitle("继续一项学习", motif = 3) }
                     if (state.tasks.none { it.status == "PENDING" || it.status == "IN_PROGRESS" }) item { Card { Column(Modifier.fillMaxWidth().padding(16.dp)) { Text("暂无待办", style = MaterialTheme.typography.titleMedium) } } }
-                    items(state.tasks.filter { it.status == "PENDING" || it.status == "IN_PROGRESS" }.take(3), key = { it.id }) { task -> WorkspaceTaskCard(task, state.busy, { focus = task }, { complete = task; minutes = task.estimatedMinutes.toString() }, { onAskAssistant(AssistantContextRef("task", task.id), "请基于这项任务解释目标，拆解可执行步骤，并提醒我需要先掌握的知识。") }) }
+                    items(state.tasks.filter { it.status == "PENDING" || it.status == "IN_PROGRESS" }.take(3), key = { it.id }) { task -> WorkspaceTaskCard(task, state.busy, { focus = task }, { complete = task; minutes = "0" }, { onAskAssistant(AssistantContextRef("task", task.id), "请基于这项任务解释目标，拆解可执行步骤，并提醒我需要先掌握的知识。") }) }
                 }
                 if (tab == "greenhouse") {
                     item { StellarSceneCard("scene_garden", "课程", "") }
@@ -181,7 +180,7 @@ fun CloudWorkspaceScreen(accountId: String, token: String, initialTab: String = 
                 if (tab == "tasks") {
                     item { StellarSceneCard("scene_focus", "任务与专注", "") }
                     item { Button(onClick = { createTask = true }, enabled = !state.busy, modifier = Modifier.fillMaxWidth()) { Text("新建任务") } }
-                    items(state.tasks, key = { it.id }) { task -> WorkspaceTaskCard(task, state.busy, { focus = task }, { complete = task; minutes = task.estimatedMinutes.toString() }, { onAskAssistant(AssistantContextRef("task", task.id), "请基于这项任务解释目标，拆解可执行步骤，并提醒我需要先掌握的知识。") }, { deletingTask = task }) }
+                    items(state.tasks, key = { it.id }) { task -> WorkspaceTaskCard(task, state.busy, { focus = task }, { complete = task; minutes = "0" }, { onAskAssistant(AssistantContextRef("task", task.id), "请基于这项任务解释目标，拆解可执行步骤，并提醒我需要先掌握的知识。") }, { deletingTask = task }) }
                     if (state.tasks.isEmpty()) item { Text("暂无任务") }
                 }
                 if (tab == "report") {
@@ -232,9 +231,8 @@ fun CloudWorkspaceScreen(accountId: String, token: String, initialTab: String = 
                 }
                 if (tab == "profile") {
                     item { StellarSceneCard("scene_profile", "个人资料", "") }
-                    item { Row(verticalAlignment = Alignment.CenterVertically) { StellarSprite("avatars", state.profile?.avatarUrl?.substringAfterLast('-')?.toIntOrNull() ?: 0, "当前头像", Modifier.size(80.dp)); Column(Modifier.padding(start = 16.dp)) { Text(state.profile?.name.orEmpty(), style = MaterialTheme.typography.titleLarge); Text("Lv.${state.profile?.level ?: 1} · 累计 ${state.profile?.totalStudyMinutes ?: 0} 分钟"); Text("历史能量 ${state.profile?.energy ?: 0} · 结晶 ${state.profile?.crystals ?: 0}") } } }
-                    item { StellarSectionTitle("选择头像", motif = 1) }
-                    items((0..2).toList()) { row -> Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) { (0..2).forEach { col -> val index = row * 3 + col; TextButton(onClick = { vm.avatar(index) }, enabled = !state.busy) { Column(horizontalAlignment = Alignment.CenterHorizontally) { StellarSprite("avatars", index, avatarNames[index], Modifier.size(70.dp)); Text(avatarNames[index], style = MaterialTheme.typography.labelSmall) } } } } }
+                    item { Row(verticalAlignment = Alignment.CenterVertically) { if(state.profile?.avatarUrl?.startsWith("journey:avatar-")==true) com.keling.app.journey.JourneyArt("journey_avatars",state.profile?.avatarUrl?.substringAfterLast('-')?.toIntOrNull()?:0,"当前头像",Modifier.size(80.dp)) else StellarSprite("avatars", state.profile?.avatarUrl?.substringAfterLast('-')?.toIntOrNull() ?: 0, "当前头像", Modifier.size(80.dp)); Column(Modifier.padding(start = 16.dp)) { Text(state.profile?.name.orEmpty(), style = MaterialTheme.typography.titleLarge); Text("Lv.${state.profile?.level ?: 1} · 累计 ${state.profile?.totalStudyMinutes ?: 0} 分钟"); Text("历史能量 ${state.profile?.energy ?: 0} · 结晶 ${state.profile?.crystals ?: 0}") } } }
+                    item { OutlinedButton(onClick = { onNavigate("profile") }, modifier = Modifier.fillMaxWidth()) { Text("更换形象与装扮") } }
                     item { OutlinedButton(onClick = { onNavigate("settings") }, modifier = Modifier.fillMaxWidth()) { Text("设置") } }
                     if (legacyPreview && guest == null) item { com.keling.app.expedition.LegacyPreviewCard(accountId, state.profile) { legacyPreview = false } }
                     if (guest == null) item { OutlinedButton(onClick = { legacyPreview = !legacyPreview }, modifier = Modifier.fillMaxWidth()) { Text("历史资料") } }
@@ -294,6 +292,7 @@ fun CloudWorkspaceScreen(accountId: String, token: String, initialTab: String = 
     DisposableEffect(view, active) { val previous = view.keepScreenOn; view.keepScreenOn = active; onDispose { view.keepScreenOn = previous } }
     LaunchedEffect(active, deadline) { while (active && remaining > 0) { remaining = (deadline - android.os.SystemClock.elapsedRealtime()).coerceAtLeast(0); delay(500) }; if (remaining == 0L) active = false }
     Card { Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth().padding(16.dp)) {
+        StellarSectionTitle("轨道计时器",motif=5)
         Text(task.title, style = MaterialTheme.typography.titleLarge)
         Box(Modifier.size(230.dp), contentAlignment = Alignment.Center) { StellarArt("timer_frame", null, Modifier.fillMaxSize()); Text("%02d:%02d".format(remaining / 60000, remaining / 1000 % 60), modifier = Modifier.padding(top = 18.dp), style = MaterialTheme.typography.displaySmall) }
         TextButton(onClick = { if (active) { remaining = (deadline - android.os.SystemClock.elapsedRealtime()).coerceAtLeast(0); active = false } else { deadline = android.os.SystemClock.elapsedRealtime() + remaining; active = true } }, enabled = remaining > 0) { Text(if (active) "暂停" else "继续") }

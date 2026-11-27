@@ -1,6 +1,6 @@
 # 游戏美术资源
 
-此目录是 Web 与 Android 共用运行素材的唯一版本控制来源：63 张 WebP，以及供浏览器和 Android 启动图标使用的 `app_icon.png`。`manifest.json` 集中记录当前文件、原始 PNG 来源摘要及既有编码记录；提示词与创作来源保留在本目录。
+此目录是 Web 与 Android 共用运行素材的唯一版本控制来源：69 张 WebP，以及供浏览器和 Android 启动图标使用的 `app_icon.png`。`manifest.json` 集中记录当前文件、原始 PNG 来源摘要及既有编码记录；提示词与创作来源保留在本目录。
 
 - `npm run assets:sync`：从本目录复制 Web 的 `apps/web/public/stellar`，该副本不提交；网页开发和构建会自动执行。同步操作不重建清单。
 - Android 由 Gradle 从本目录生成打包资源及启动图标，无需维护另一套 `optimizedAssets`，普通构建不依赖 Python。
@@ -41,3 +41,8 @@ python scripts/prepare-stellar-art.py ../keling-stellar-originals/assets/stellar
 ## 2026-11-27 学科星球
 
 12 学科共用 subject_planets.webp 透明图集（3 列 × 4 行），原稿 sources/subject_planets.png；subject-planets.json 保存学科别名与格位。Web 使用 CSS 图集定位，Android 按相同格位裁切。新图用内置 image_gen 绘制并无损编码，完整提示词见 subject-planets-provenance.json。
+
+
+## 2026-11-27 个人空间与故事座舱
+
+journey_avatars、journey_frames、journey_titles、journey_furniture 各为 5×2 透明图集，分别包含 10 项。桌面故事直接复用当前演示稿座舱背景，手机使用独立纵向适配。原稿位于 sources，完整提示词与摘要见 [创作记录](journey-art-provenance.json)。全部六幅运行 WebP 与原稿 RGBA 像素逐一一致。共享成就与格位定义在 packages/shared/src/journey-catalog.json，奖励依据实际记录解锁，100h 对应累计记录 6000 分钟。

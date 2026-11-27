@@ -270,6 +270,7 @@ export const updateMastery = async (req: AuthRequest, res: Response) => {
 
     // 更新用户总学习时长
     if (studyMinutes) {
+      await tx.studyRecord.create({data:{userId:req.userId!,courseId,type:'SELF_REPORTED_COURSE',durationMinutes:studyMinutes,notes:'课程学习时长记录'}});
       await tx.user.update({
         where: { id: req.userId },
         data: {

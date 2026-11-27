@@ -10,6 +10,7 @@ import java.util.UUID
 
 data class PlanetUiState(val planets: List<PlanetRecord> = emptyList(), val providers: List<PlanetProvider> = emptyList(), val current: PlanetRecord? = null, val generated: GeneratedPlanet? = null, val busy: Boolean = false, val loading: Boolean = true, val error: String? = null, val notice: String? = null, val feedback: Map<String, PlanetFeedback> = emptyMap(), val catalogError: String? = null)
 class PlanetViewModel(val token: String, private val api: PlanetApi = PlanetApi(token)) : ViewModel() {
+    var prologueSeen = false
     private val mutable = MutableStateFlow(PlanetUiState()); val state = mutable.asStateFlow()
     private val guestWorkspace = GuestWorkspaces.find(token)
     val access = guestWorkspace?.modelAccess ?: ModelAccessSession()

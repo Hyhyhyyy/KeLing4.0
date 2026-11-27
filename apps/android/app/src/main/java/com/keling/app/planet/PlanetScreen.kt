@@ -18,7 +18,7 @@ import com.keling.app.ui.screens.ai.ModelAccessPanel
 @Composable fun PlanetScreen(vm: PlanetViewModel, guest: Boolean, onNavigate: (String) -> Unit) {
     val state by vm.state.collectAsStateWithLifecycle()
     val access by vm.access.state.collectAsStateWithLifecycle()
-    var story by remember(vm) { mutableStateOf(true) }
+    var story by remember(vm) { mutableStateOf(!vm.prologueSeen) }
     var subject by remember(vm) { mutableStateOf("") }
     var level by remember(vm) { mutableStateOf("") }
     var goal by remember(vm) { mutableStateOf("") }
@@ -106,13 +106,9 @@ import com.keling.app.ui.screens.ai.ModelAccessPanel
                     item { TextButton(onClick = vm::discardPreview, enabled = !state.busy) { Text("调整目标，重新生成") } }
                 }
                 else -> {
-                    if (story) {
-                        item { StellarSceneCard("hero_web", "星图，等你添上下一笔", "舷窗外，星河缓缓流动。操作台亮起，星芽向你挥了挥手。欢迎登舰，探索者！") }
-                        item { Text("每一门学科，都有一片值得探索的天地。那些暂时没弄懂的问题，就是我们接下来要去的地方。", style = MaterialTheme.typography.bodyLarge) }
-                        item { Text("数学的几何群山、英语的书页城堡、历史的文明遗迹……第一站，想去哪里？写下你想学的学科，再告诉我你的起点和目标。", style = MaterialTheme.typography.bodyLarge) }
-                        item { Text("让我们一起一步一步探索这个知识星球的每一方寸文明！", style = MaterialTheme.typography.titleLarge, color = MaterialTheme.colorScheme.primary) }
-                        item { StellarActionButton("选择第一颗星球", { story = false }, Modifier.fillMaxWidth()) }
-                    } else item { StellarHeading("我的知识星图", mascot = 3) }
+                    item { StellarHeading("我的知识星图",mascot=3,modifier=Modifier.fillMaxWidth()) }
+                    item { Row(verticalAlignment=Alignment.CenterVertically) { TextButton(onClick={story=true}) { Text("回看启航故事") }; Spacer(Modifier.weight(1f));UsageGuideButton() } }
+                    item { com.keling.app.journey.JourneyDailyCard(vm.token) }
                     if (!state.loading) item { Card { Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                         StellarSectionTitle(if (state.planets.isEmpty()) "命名你的第一颗星球" else "探索新的学科", motif = 2)
                         LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -158,6 +154,7 @@ import com.keling.app.ui.screens.ai.ModelAccessPanel
             }
         }
     } } }
+    if (story && !state.loading && state.current == null && state.generated == null) com.keling.app.journey.StoryDialog { story=false;vm.prologueSeen=true }
     if (configure) ModelAccessPanel(sharedSession = vm.access, onClose = { configure = false })
 }
 

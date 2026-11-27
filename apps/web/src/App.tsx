@@ -1,3 +1,5 @@
+import { ExplorerAvatar } from './components/JourneyArt';
+import StoryDialog from './components/StoryDialog';
 import { NavigationArrow } from './components/NavigationArrow';
 import AppUpdateNotice from './components/AppUpdateNotice';
 import React, { lazy, Suspense, useEffect } from 'react';
@@ -13,7 +15,7 @@ const Register = lazy(() => import('./pages/Auth/Register'));
 const Home = lazy(() => import('./pages/Home/StellarHome'));
 const ExpeditionHome = lazy(() => import('./pages/Expedition/ExpeditionPages').then(module => ({ default: module.ExpeditionHome })));
 const ExpeditionChapter = lazy(() => import('./pages/Expedition/ExpeditionPages').then(module => ({ default: module.ExpeditionChapter })));
-const ExpeditionBase = lazy(() => import('./pages/Expedition/ExpeditionPages').then(module => ({ default: module.ExpeditionBase })));
+
 const ExpeditionMine = lazy(() => import('./pages/Expedition/ExpeditionPages').then(module => ({ default: module.ExpeditionMine })));
 const ExpeditionEvidence = lazy(() => import('./pages/Expedition/ExpeditionPages').then(module => ({ default: module.ExpeditionEvidence })));
 const ExpeditionSync = lazy(() => import('./pages/Expedition/ExpeditionPages').then(module => ({ default: module.ExpeditionSync })));
@@ -22,9 +24,11 @@ const AIAssistant = lazy(() => import('./pages/AI/StellarAssistant'));
 const Greenhouse = lazy(() => import('./pages/Greenhouse/Greenhouse'));
 const CourseDetail = lazy(() => import('./pages/Greenhouse/CourseDetail'));
 const Tasks = lazy(() => import('./pages/Tasks/Tasks'));
-const Profile = lazy(() => import('./pages/Profile/Profile'));
+const Profile = lazy(() => import('./pages/Profile/JourneyStudio'));
+const JourneyHome = lazy(() => import('./pages/Profile/JourneyStudio').then(m=>({default:()=> <m.default mode="home"/>})));
+const JourneyAchievements = lazy(() => import('./pages/Profile/JourneyStudio').then(m=>({default:()=> <m.default mode="achievements"/>})));
 const Notes = lazy(() => import('./pages/Notes/SharedNotebook'));
-const Achievements = lazy(() => import('./pages/Achievements/Achievements'));
+
 const Settings = lazy(() => import('./pages/Settings/StellarSettings'));
 const StudyReport = lazy(() => import('./pages/StudyReport/StudyReport'));
 const KnowledgeGraph = lazy(() => import('./pages/KnowledgeGraph/KnowledgeGraph'));
@@ -44,7 +48,7 @@ import './styles/globals.css';
 import './styles/stellar.css';
 import './styles/typography.css';
 import { StellarSprite } from './components/StellarArt';
-import { avatarIndex } from './components/stellarCatalog';
+
 
 class AppErrorBoundary extends React.Component<{ children: React.ReactNode }, { failed: boolean }> {
   state = { failed: false };
@@ -135,7 +139,7 @@ const TopNav: React.FC = () => {
             <StellarSprite atlas="modules" index={7} size={26} />
           </button>
           <button className="user-avatar" aria-label="我的资料" onClick={() => navigate('/profile')}>
-            <StellarSprite atlas="avatars" index={avatarIndex(user?.avatarUrl)} size={42} label="我的头像" />
+            <ExplorerAvatar url={user?.avatarUrl} size={42}/>
           </button>
         </div>
       </div>
@@ -213,7 +217,7 @@ function App() {
           <Route path="/voyage/runs/:id" element={<ProtectedRoute><MainLayout><ExpeditionRun/></MainLayout></ProtectedRoute>}/>
           <Route path="/voyage/evidence" element={<ProtectedRoute><MainLayout><ExpeditionEvidence/></MainLayout></ProtectedRoute>}/>
           <Route path="/voyage/sync" element={<ProtectedRoute><MainLayout><ExpeditionSync/></MainLayout></ProtectedRoute>}/>
-          <Route path="/base" element={<ProtectedRoute><MainLayout><ExpeditionBase/></MainLayout></ProtectedRoute>}/>
+          <Route path="/base" element={<ProtectedRoute><MainLayout><JourneyHome/></MainLayout></ProtectedRoute>}/>
           <Route path="/me" element={<ProtectedRoute><MainLayout><ExpeditionMine/></MainLayout></ProtectedRoute>}/>
           <Route path="/trial" element={<GuestEntry/>}/>
           <Route path="/explore" element={<Explore/>}/>
@@ -285,7 +289,7 @@ function App() {
             element={
               <ProtectedRoute>
                 <MainLayout>
-                  <Achievements />
+                  <JourneyAchievements />
                 </MainLayout>
               </ProtectedRoute>
             }
@@ -335,6 +339,7 @@ function App() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
         </Suspense>
+      <StoryDialog/>
       </Router>
     </AppErrorBoundary>
   );

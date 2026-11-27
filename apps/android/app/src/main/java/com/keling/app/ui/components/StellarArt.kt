@@ -50,7 +50,7 @@ private object StellarBitmaps {
     }
 }
 
-@Composable fun StellarSprite(atlas: String, index: Int, description: String?, modifier: Modifier = Modifier, columns: Int = 3, rows: Int = 3) {
+@Composable fun StellarSprite(atlas: String, index: Int, description: String?, modifier: Modifier = Modifier, columns: Int = 3, rows: Int = 3, cropTop: Float = 0f, cropBottom: Float = 1f) {
     val context = LocalContext.current
     val bitmap by produceState<ImageBitmap?>(null, atlas) {
         value = withContext(Dispatchers.IO) { StellarBitmaps.load(context.applicationContext, atlas, 2) }
@@ -58,9 +58,10 @@ private object StellarBitmaps {
     Canvas(if (description == null) modifier else modifier.semantics { contentDescription = description }) {
         bitmap?.let { image ->
             val tile = IntSize(image.width / columns, image.height / rows); val cell = index.coerceIn(0, columns * rows - 1)
-            val ratio = minOf(size.width / tile.width, size.height / tile.height)
-            val target = IntSize((tile.width * ratio).toInt(), (tile.height * ratio).toInt())
-            drawImage(image, srcOffset = IntOffset((cell % columns) * tile.width, (cell / columns) * tile.height), srcSize = tile,
+            val cropHeight = ((cropBottom - cropTop) * tile.height).toInt().coerceAtLeast(1)
+            val ratio = minOf(size.width / tile.width, size.height / cropHeight)
+            val target = IntSize((tile.width * ratio).toInt(), (cropHeight * ratio).toInt())
+            drawImage(image, srcOffset = IntOffset((cell % columns) * tile.width, (cell / columns) * tile.height + (cropTop * tile.height).toInt()), srcSize = IntSize(tile.width, cropHeight),
                 dstOffset = IntOffset(((size.width - target.width) / 2).toInt(), ((size.height - target.height) / 2).toInt()),
                 dstSize = target, filterQuality = androidx.compose.ui.graphics.FilterQuality.None)
         }

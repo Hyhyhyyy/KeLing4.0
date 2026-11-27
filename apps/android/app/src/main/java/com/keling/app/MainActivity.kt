@@ -505,7 +505,10 @@ fun MainAppContent(authViewModel: AuthViewModel, viewModel: AppViewModel, onRetr
                         } else viewModel.navigateTo(target)
                     } }
                 }
-                "legacy_expedition", "base", "profile" -> {
+                "base", "profile", "achievements" -> assistantAccount?.let { session ->
+                    com.keling.app.journey.JourneyScreen(session.token,currentScreen) { viewModel.navigateTo(it) }
+                }
+                "legacy_expedition" -> {
                     expeditionVm?.let { model -> com.keling.app.expedition.ExpeditionScreen(model, if (currentScreen == "legacy_expedition") "home" else currentScreen, guest != null,
                         onNavigate = { target -> if (target == "ai") { assistantLaunch = null; assistantOrigin = currentScreen }; viewModel.navigateTo(target) },
                         onAsk = { courseId, prompt ->
@@ -516,7 +519,7 @@ fun MainAppContent(authViewModel: AuthViewModel, viewModel: AppViewModel, onRetr
                 "expedition_materials" -> assistantAccount?.let { session ->
                     com.keling.app.expedition.LearningMaterialsScreen(session.token, expeditionVm?.state?.value?.saved?.selectedCourseId, onNotebook = { viewModel.navigateTo("notes") }) { viewModel.navigateTo("star_map") }
                 }
-                "greenhouse", "tasks", "notes", "account_profile", "dashboard", "cloud_workspace", "report", "achievements" -> {
+                "greenhouse", "tasks", "notes", "account_profile", "dashboard", "cloud_workspace", "report" -> {
                     assistantAccount?.let { session ->
                         com.keling.app.ui.screens.agent.CloudWorkspaceScreen(session.userId, session.token,
                             initialTab = when (currentScreen) { "cloud_workspace" -> "notes"; "account_profile" -> "profile"; "dashboard" -> "home"; else -> currentScreen },

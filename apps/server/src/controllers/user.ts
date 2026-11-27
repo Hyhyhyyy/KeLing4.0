@@ -66,7 +66,7 @@ export const updateProfile = async (req: AuthRequest, res: Response) => {
     }
 
     const parsed = z.object({ name: z.string().trim().min(1).max(60).optional(), bio: z.string().max(1000).optional(),
-      avatarUrl: z.string().regex(/^stellar:avatar-[0-8]$/).optional(), weeklyStudyGoal: z.number().int().min(10).max(10080).optional() }).strict().safeParse(req.body);
+      avatarUrl: z.string().regex(/^(?:stellar:avatar-[0-8]|journey:avatar-[0-9])$/).optional(), weeklyStudyGoal: z.number().int().min(10).max(10080).optional() }).strict().safeParse(req.body);
     if (!parsed.success) return res.status(400).json({ error: '资料格式不正确，头像请从星际头像库选择' });
     const { name, bio, avatarUrl, weeklyStudyGoal } = parsed.data;
 

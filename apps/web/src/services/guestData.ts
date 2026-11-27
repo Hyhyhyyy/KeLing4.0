@@ -16,6 +16,7 @@ export interface GuestWorkspace {
   checkins: CheckInRecord[];
   achievements: UserAchievement[];
   createdCourses: number;
+  studyRecords: {date:string;minutes:number}[];
 }
 
 type Input = Record<string, unknown>;
@@ -104,7 +105,7 @@ function newNode(data: Input, courseId: string): GuestNode {
 function createWorkspace(sessionId: string): GuestWorkspace {
   const user: User = { id: sessionId, name: '游客探索者', email: '', level: 1, exp: 0, energy: 0, crystals: 0,
     streakDays: 0, totalStudyMinutes: 0, lastCheckInDate: null, avatarUrl: 'stellar:avatar-0', bio: '', weeklyStudyGoal: 300, createdAt: guestTimestamp() };
-  return { sessionId, user, courses: [], nodes: [], tasks: [], notes: [], checkins: [], createdCourses: 0,
+  return { sessionId, user, courses: [], nodes: [], tasks: [], notes: [], checkins: [], createdCourses: 0, studyRecords: [],
     achievements: achievementDefinitions.map(achievement => ({ id: id(), achievementId: achievement.id, achievement: clone(achievement), isUnlocked: false, progress: 0, unlockedAt: null })) };
 }
 
@@ -185,7 +186,7 @@ export async function handleGuestData(method: string, path: string, data: Input 
   } else if (verb === 'PUT' && path === '/user/profile') {
     if (Object.keys(data).some(key => !['name', 'bio', 'avatarUrl', 'weeklyStudyGoal'].includes(key))) return guestDataError(400, '资料字段无效');
     const avatarUrl = text(data, 'avatarUrl', w.user.avatarUrl, 40);
-    if (!/^stellar:avatar-[0-8]$/.test(avatarUrl)) return guestDataError(400, '请从星际头像库选择头像');
+    if (!/^(stellar:avatar-[0-8]|journey:avatar-[0-9])$/.test(avatarUrl)) return guestDataError(400, '请从星际头像库选择头像');
     const next = { name: text(data, 'name', w.user.name, 60, has(data, 'name')).trim(), bio: text(data, 'bio', w.user.bio, 1000),
       avatarUrl, weeklyStudyGoal: number(data, 'weeklyStudyGoal', w.user.weeklyStudyGoal, 10, 10080, true) };
     Object.assign(w.user, next);
@@ -217,7 +218,7 @@ export async function handleGuestData(method: string, path: string, data: Input 
       const masteryLevel = number(data, 'masteryLevel', course.masteryLevel, 0, 1);
       const minutes = number(data, 'studyMinutes', 0, 0, 1440, true);
       course.masteryLevel = masteryLevel;
-      if (has(data, 'studyMinutes')) { course.totalStudyMinutes += minutes; course.studySessionCount++; course.lastStudiedAt = guestTimestamp(); w.user.totalStudyMinutes += minutes; }
+      if (has(data, 'studyMinutes')) { course.totalStudyMinutes += minutes; course.studySessionCount++; course.lastStudiedAt = guestTimestamp(); w.user.totalStudyMinutes += minutes; w.studyRecords.push({date:studyDate().replace(/^(....)(..)(..)$/,'$1-$2-$3'),minutes}); }
       course.updatedAt = guestTimestamp(course.updatedAt); result = { message: '更新成功', course };
     }
   } else if (/^\/knowledge\/[^/]+\/layout$/.test(path) && verb === 'PUT') {
@@ -299,12 +300,12 @@ export async function handleGuestData(method: string, path: string, data: Input 
       Object.assign(task, next); result = { message: '更新成功', task };
     }
     if (verb === 'POST' && path.endsWith('/complete')) {
-      const minutes = number(data, 'actualMinutes', task.estimatedMinutes, 0, 1440, true);
+      const minutes = number(data, 'actualMinutes', 0, 0, 1440, true);
       if (task.status === 'COMPLETED') result = { task, rewards: { energy: 0, crystals: 0, exp: 0 }, alreadyCompleted: true, message: '任务已完成，未重复发放奖励' };
       else {
         if (task.status === 'ABANDONED') return guestDataError(409, '当前任务状态无法完成');
         task.status = 'COMPLETED'; task.actualMinutes = minutes; task.completedAt = guestTimestamp(); task.updatedAt = guestTimestamp(task.updatedAt);
-        w.user.totalStudyMinutes += minutes;
+        w.user.totalStudyMinutes += minutes; w.studyRecords.push({date:studyDate().replace(/^(....)(..)(..)$/,'$1-$2-$3'),minutes});
         const course = w.courses.find(c => c.id === task.courseId);
         if (course) { course.totalStudyMinutes += minutes; course.studySessionCount++; course.lastStudiedAt = task.completedAt; course.updatedAt = guestTimestamp(course.updatedAt); }
         result = { task, rewards: { energy: 0, crystals: 0, exp: 0 }, alreadyCompleted: false, message: '已记录学习；证据与建设奖励由远征结算。' };

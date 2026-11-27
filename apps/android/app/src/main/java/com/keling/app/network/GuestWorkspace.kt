@@ -54,6 +54,25 @@ class GuestWorkspace internal constructor(private val suppliedClient: HttpClient
     private val graphSavedPositions = mutableMapOf<String, Pair<Double, Double>>()
     private val graphLayoutStamps = mutableMapOf<String, String>()
     private var checkedDate = ""
+    private val journeyCheckins = mutableSetOf<String>()
+    private val journeyStudyMinutes = mutableMapOf<String,Int>()
+    private var journeyState = com.keling.app.journey.JourneyState()
+    private fun recordJourneyMinutes(minutes:Int) { val day=LocalDate.now(ZoneId.of("Asia/Shanghai")).toString(); journeyStudyMinutes[day]=(journeyStudyMinutes[day]?:0)+minutes }
+    fun journeyProfile(catalog:com.keling.app.journey.JourneyCatalog):com.keling.app.journey.JourneyProfile {
+        ensureOpen()
+        val facts=mapOf("planetsCreated" to learningPlanets.list().size,"tasksCompleted" to tasks.count{it.status=="COMPLETED"},"notesCreated" to notes.size,"knowledgeNodes" to graphMetadata.size,"studyMinutes" to profile.totalStudyMinutes,"checkinDays" to journeyCheckins.size)
+        val result=com.keling.app.journey.JourneyRules.profile(catalog,journeyState,facts);journeyState=result.state;return result
+    }
+    fun saveJourney(catalog:com.keling.app.journey.JourneyCatalog,next:com.keling.app.journey.JourneyState,avatarChanged:Boolean=false):com.keling.app.journey.JourneyProfile {
+        ensureOpen();journeyState=com.keling.app.journey.JourneyRules.apply(catalog,journeyProfile(catalog),next)
+        if(avatarChanged)profile=profile.copy(avatarUrl="journey:${journeyState.avatarId}");return journeyProfile(catalog)
+    }
+    fun journeyCalendar(month:String):com.keling.app.journey.JourneyCalendar {
+        ensureOpen();val m=java.time.YearMonth.parse(month)
+        fun day(stamp:String?)=runCatching{Instant.parse(stamp.orEmpty()).atZone(ZoneId.of("Asia/Shanghai")).toLocalDate().toString()}.getOrDefault("")
+        val days=(1..m.lengthOfMonth()).map { n -> val date=m.atDay(n).toString();com.keling.app.journey.JourneyDay(date,date in journeyCheckins,journeyStudyMinutes[date]?:0,tasks.count{it.status=="COMPLETED"&&day(it.completedAt.orEmpty())==date},notes.count{day(it.createdAt)==date}) }
+        return com.keling.app.journey.JourneyCalendar(month,days=days,totals=com.keling.app.journey.JourneyTotals(days.sumOf{it.studyMinutes},days.sumOf{it.completedTasks},days.count{it.checkedIn},days.sumOf{it.notesCreated}))
+    }
     private var experience = 0
     val learningMaterials = com.keling.app.expedition.GuestLearningStore(::ensureOpen)
     val learningPlanets = com.keling.app.planet.GuestPlanetStore(::ensureOpen)
@@ -65,7 +84,7 @@ class GuestWorkspace internal constructor(private val suppliedClient: HttpClient
             { id -> com.keling.app.expedition.legacyExpeditionCourses(courses).any { it.id == id } },
             com.keling.app.expedition.LegacySnapshot(profile.level, experience, profile.crystals, profile.energy, now()),
             { account -> ensureOpen(); profile = profile.copy(level = account.level, crystals = account.crystals); experience = account.exp },
-            { record -> ensureOpen(); profile = profile.copy(totalStudyMinutes = profile.totalStudyMinutes + record.durationMinutes)
+            { record -> ensureOpen(); recordJourneyMinutes(record.durationMinutes); profile = profile.copy(totalStudyMinutes = profile.totalStudyMinutes + record.durationMinutes)
                 courses.replaceAll { if (it.id == record.courseId) it.copy(totalStudyMinutes = it.totalStudyMinutes + record.durationMinutes, studySessionCount = it.studySessionCount + 1) else it } }
         ).also { expeditionGame = it }
     }
@@ -154,7 +173,7 @@ class GuestWorkspace internal constructor(private val suppliedClient: HttpClient
         ensureOpen(); if (checkinStatus().hasCheckedInToday) return
         val date = LocalDate.now(ZoneId.of("Asia/Shanghai"))
         val streak = if (checkedDate == date.minusDays(1).toString()) profile.streakDays + 1 else 1
-        checkedDate = date.toString(); profile = profile.copy(streakDays = streak)
+        checkedDate = date.toString(); journeyCheckins.add(checkedDate); profile = profile.copy(streakDays = streak)
     }
     private val scheduleConfirmations = mutableMapOf<String, com.keling.app.expedition.ScheduleConfirmation>()
     fun scheduleFingerprint(): String {
@@ -193,7 +212,7 @@ class GuestWorkspace internal constructor(private val suppliedClient: HttpClient
         val index = tasks.indexOfFirst { it.id == id }; if (index < 0) throw ApiException(404, "任务不存在")
         val old = tasks[index]; if (old.status == "COMPLETED") return TaskResponse(task = old, rewards = RewardsData())
         val task = old.copy(status = "COMPLETED", actualMinutes = minutes, completedAt = now()); tasks[index] = task
-        profile = profile.copy(totalStudyMinutes = profile.totalStudyMinutes + minutes)
+        recordJourneyMinutes(minutes); profile = profile.copy(totalStudyMinutes = profile.totalStudyMinutes + minutes)
         courses.replaceAll { if (it.id == task.courseId) it.copy(totalStudyMinutes = it.totalStudyMinutes + minutes, studySessionCount = it.studySessionCount + 1) else it }
         return TaskResponse(task = task, rewards = RewardsData())
     }
@@ -340,6 +359,7 @@ class GuestWorkspace internal constructor(private val suppliedClient: HttpClient
     }
     fun close() {
         expeditionGame?.close(); expeditionJournal.close(); learningMaterials.close(); learningPlanets.clear(); graphMetadata.clear(); graphSavedPositions.clear(); graphLayoutStamps.clear(); scheduleConfirmations.clear()
+        journeyCheckins.clear(); journeyStudyMinutes.clear(); journeyState=com.keling.app.journey.JourneyState()
         closed = true; scope.cancel(); modelAccess.close(); courses.clear(); sources.clear(); tasks.clear(); notes.clear(); conversations.clear(); settings.clear(); requests.clear(); requestSignatures.clear(); running.clear(); noteForTurn.clear(); runs.clear(); runCourses.clear(); runFingerprints.clear(); profile = WorkspaceProfile(accountId, ""); checkedDate = ""; experience = 0
     }
 }

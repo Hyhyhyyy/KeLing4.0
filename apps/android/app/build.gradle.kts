@@ -38,12 +38,14 @@ val preparePackagedAssets by tasks.registering(Sync::class) {
         into("stellar")
     }
     from(sharedExpeditionDirectory) { include("chapter.json"); into("expedition") }
+    from(rootProject.file("../../packages/shared/src/journey-catalog.json")) { rename { "catalog.json" }; into("journey") }
     into(packagedAssetDirectory)
 }
 
 val expeditionTestResourceDirectory = layout.buildDirectory.dir("generated/expedition-test-resources")
 val prepareExpeditionTestResources by tasks.registering(Sync::class) {
     from(sharedExpeditionDirectory) { include("chapter.json", "fixtures.json"); into("expedition") }
+    from(rootProject.file("../../packages/shared/src/journey-catalog.json")) { rename { "catalog.json" }; into("journey") }
     into(expeditionTestResourceDirectory)
 }
 
@@ -85,9 +87,9 @@ android {
         targetSdk = 34
 
         // 版本号，每次更新应用要+1
-        versionCode = 30
+        versionCode = 31
         // 版本名称，用户看到的版本
-        versionName = "4.1.2-ai-rc3"
+        versionName = "4.2.0-journey-rc1"
         buildConfigField("String", "API_BASE_URL", "\"${apiBaseUrl.replace("\\", "\\\\").replace("\"", "\\\"")}\"")
 
         // 启用矢量图支持，这样图标可以缩放不失真

@@ -106,7 +106,7 @@ const Tasks: React.FC = () => {
   const handleCompleteTask = async (taskId: string) => {
     await perform(async () => {
       if (activeTimer === taskId) handlePause();
-      await completeTask(taskId, clock.current.minutes(taskId, performance.now()));
+      await completeTask(taskId, clock.current.minutes(taskId, performance.now()) ?? 0);
       clock.current.remove(taskId);
       if (activeTimer === taskId) { setActiveTimer(null); setRunning(false); setTimerSeconds(0); }
     });

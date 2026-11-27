@@ -28,6 +28,7 @@ export { registerLearningPlanetGenerator } from './learning/planets';
 export { registerNativeAiBridge } from './ai/native';
 export type { NativeAiBridge, NativeAiRequest, NativeAiMessage, NativeAiResult } from './ai/native';
 import { aiJobRouter } from './ai/jobs';
+import { journeyRouter } from './routes/journey';
 
 requireJwtSecret();
 
@@ -73,13 +74,14 @@ app.use('/api/learning/v1', plannerRouter(prisma));
 app.use('/api/learning/v1/planets', planetRouter(prisma));
 app.use('/api/learning/v1', learningRouter(prisma));
 app.use('/api/expedition/v1', expeditionRouter(prisma));
+app.use('/api/journey', journeyRouter(prisma));
 
 // 健康检查
 app.get('/api/health', (req, res) => {
   res.json({
     status: 'ok',
     timestamp: new Date().toISOString(),
-    version: '4.1.2-ai-rc3'
+    version: '4.2.0-journey-rc1'
   });
 });
 

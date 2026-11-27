@@ -1,3 +1,4 @@
+import { openStory } from '../../services/story';
 import { NavigationArrow } from '../../components/NavigationArrow';
 import { ModuleTitle, SectionTitle } from '../../components/ModuleTitle';
 import { appPath, ANDROID_DOWNLOAD_URL } from '../../services/appPath';
@@ -28,7 +29,7 @@ export default function Explore() {
     <main id="explore-content">
       <section className="explore-hero">
         <div><ModuleTitle kind="home">让每一次理解，<br/>点亮一颗星。</ModuleTitle><p>选择学科，与星芽一起探索知识星球。</p>
-          <div className="explore-actions"><Link className="explore-action" to={entry}>{entryLabel} <NavigationArrow direction="up-right"/></Link><Link className="explore-guide" to="/guide">使用指南 <NavigationArrow/></Link></div>
+          <div className="explore-actions"><button className="btn" onClick={openStory}>启航故事</button><Link className="explore-action" to={entry}>{entryLabel} <NavigationArrow direction="up-right"/></Link><Link className="explore-guide" to="/guide">使用指南 <NavigationArrow/></Link></div>
           {!token && <p className="explore-trial-note">游客数据在刷新或退出后清空。</p>}
         </div><figure><StellarScene scene="arrival" eager/><figcaption><span>01 · 轨道观测站</span><span>观察 · 理解 · 生长</span></figcaption></figure>
       </section>

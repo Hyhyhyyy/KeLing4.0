@@ -20,7 +20,8 @@ export async function completeOwnedTask(db:PrismaClient,userId:string,id:string,
       if(existing.status!=='COMPLETED')throw new TaskCompletionError('当前任务状态无法完成',409);
       return {task:existing,rewards:{energy:0,crystals:0,exp:0},alreadyCompleted:true};
     }
-    const actualMinutes=minutes ?? existing.estimatedMinutes;
+    // A plan is not a record of elapsed time. Untimed completion records zero minutes.
+    const actualMinutes=minutes ?? 0;
     const task=await tx.task.update({where:{id},data:{actualMinutes}});
     // Manual completion records time, not independently verified learning.
     // Historical task reward fields remain for provenance but are never paid again.

@@ -1,0 +1,181 @@
+{
+  "date": "2026-11-27",
+  "reference": "sources/story_cockpit.png",
+  "method": "Generated five images using built-in image_gen; reused exact approved PPT background; lossless conversion only, no crop/drawing/pixel edits",
+  "assets": [
+    {
+      "name": "journey_frames.webp",
+      "source": "sources/journey_frames.png",
+      "sourceSha256": "5985b93bdde2f55950ba9de02b89b1f3b3d9276ee3de4365b36ed91402c903a5",
+      "sha256": "f0ae2a4f2574c131a01515af50dcdde2b2d9f3e4cdae08d3096c5a806ab2943e",
+      "bytes": 1340832,
+      "width": 1983,
+      "height": 793,
+      "rgbRms": 0,
+      "encoding": "WebP lossless; source RGBA preserved",
+      "tool": "Built-in image_gen",
+      "originalGeneratedPath": "C:\\Users\\lenovo\\.codex\\generated_images\\01a192a2-da67-7541-821a-f8f00d05a76b\\exec-ce855028-d88e-48fe-87cf-d9ed57fddbff.png",
+      "prompt": "Create one production game sprite-atlas asset for KeLing. Reference is style/color reference only: exquisite flat handmade pixel-art, deep navy outline, mint/teal and warm ivory/gold, small coral accents, restrained saturation. Not 3D render, not emoji, not vector. EXACTLY TEN sprites in regular FIVE-column TWO-row grid (5:2 landscape aspect; equal square cells). Each stays entirely within its own cell with 10% transparent padding. True transparent background, no letters, no digits, no labels, no grid, no watermark. Readable at small mobile sizes. The sprites are TEN distinct empty avatar portrait FRAMES. All centers must remain genuinely transparent and EMPTY for an avatar underneath. Frames are front-facing near-circular/badge-shaped metal rings, inner circular aperture occupying 64% cell width. Keep decoration on outer rim. Ordered left-right top-bottom: 1 sprout starship porthole;2 small winged compass ring;3 book and quill brass ring;4 constellation circuit instrument ring;5 orbit clock ring;6 leaf and three tiny star ring;7 navigator laurel ring;8 crystal archive ring;9 lunar observatory ring;10 magnificent restrained gold century voyager ring. Consistent diameter and inner aperture, visibly different handcrafted silhouettes. No characters inside.",
+      "atlas": {
+        "columns": 5,
+        "rows": 2,
+        "count": 10
+      },
+      "alphaZeroPixels": 875377,
+      "alphaPartialPixels": 696084,
+      "alphaOpaquePixels": 1058,
+      "alphaSampleCellEdges": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "journey_furniture.webp",
+      "source": "sources/journey_furniture.png",
+      "sourceSha256": "881c939cdda84c361b922f69073e25a52fb8cae60bcd4bfca14a0372d1df532a",
+      "sha256": "9f866b5797ddbda31f3181b453c8fd16745133f07bd4b80a52756d6ca76de4fc",
+      "bytes": 1548228,
+      "width": 1983,
+      "height": 793,
+      "rgbRms": 0,
+      "encoding": "WebP lossless; source RGBA preserved",
+      "tool": "Built-in image_gen",
+      "originalGeneratedPath": "C:\\Users\\lenovo\\.codex\\generated_images\\01a192a2-da67-7541-821a-f8f00d05a76b\\exec-ba87a636-49cc-4674-a648-3c0c040b9ad9.png",
+      "prompt": "Create one production game sprite-atlas asset for KeLing. Reference is style/color reference only: exquisite flat handmade pixel-art, deep navy outline, mint/teal and warm ivory/gold, small coral accents, restrained saturation. Not 3D render, not emoji, not vector. EXACTLY TEN sprites in regular FIVE-column TWO-row grid (5:2 landscape aspect; equal square cells). Each stays entirely within its own cell with 10% transparent padding. True transparent background, no letters, no digits, no labels, no grid, no watermark. Readable at small mobile sizes. The sprites are TEN distinct cozy starship study-home furnishings, viewed gentle isometric 3/4 angle, each a complete isolated furniture object with flat pixel shading. All have coherent navy/mintcreamgold appearance, no circular platform or outside scenery. Ordered left-right top-bottom:1 small glowing sprout desk lamp;2 navigator study chair;3 ivory open-book writing desk;4 miniature constellation hologram table;5 mint hourglass timer pedestal;6 potted luminous sprout garden;7 tall star-map bookcase;8 crystal archive cabinet;9 compact observatory telescope on tripod;10 magnificent ringed-planet orrery instrument. Rich but clear construction, expressive silhouettes, different furniture scales normalized to fit cells. No character, no words, no labels.",
+      "atlas": {
+        "columns": 5,
+        "rows": 2,
+        "count": 10
+      },
+      "alphaZeroPixels": 684964,
+      "alphaPartialPixels": 887188,
+      "alphaOpaquePixels": 367,
+      "alphaSampleCellEdges": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "journey_avatars.webp",
+      "source": "sources/journey_avatars.png",
+      "sourceSha256": "3cd0f4b308f4dd7a0b74ab441fce8d74af6668b00a639cc8f902f77e43d462e3",
+      "sha256": "821b7a19866a4e6bcaf78d30e4eb53a23d7f943890c955d188a7025ac750f6ae",
+      "bytes": 1496312,
+      "width": 1983,
+      "height": 793,
+      "rgbRms": 0,
+      "encoding": "WebP lossless; source RGBA preserved",
+      "tool": "Built-in image_gen",
+      "originalGeneratedPath": "C:\\Users\\lenovo\\.codex\\generated_images\\01a192a2-da67-7541-821a-f8f00d05a76b\\exec-7bdc9e87-c3cf-4d06-b99b-50da53c9b6e1.png",
+      "prompt": "Create a production sprite atlas for KeLing gamified learning: EXACTLY TEN charming full bust portrait characters, in a regular FIVE column TWO row grid (5:2 landscape, equal square cells), on genuinely transparent background. Reference image STYLE and mascot identity: fine handmade PIXEL ART, ivory, mint teal, navy, warm gold with small coral accents, lively expressive faces, no 3D, no emoji. Each bust centered inside own cell with 12% padding, visible from chest up, no frames or labels/text. Order left-right top-bottom: 1 exact reference sprout-headed owl-like starship robot with oval navy face, glowing cyan eyes and little gold beak, ivory helmet pointed ear pieces; 2 friendly red-fox navigator in cream-teal spacesuit;3 navy star-cat with round golden goggles;4 ivory moon-rabbit with teal bow and leafy handheld book;5 little golden star-shaped companion with navy scarf;6 rounded teal music-robot with antenna and smiling screen;7 curious dark-skinned young girl astronaut in cream/mint helmet;8 smiling East Asian boy astronaut with coral-edged cream helmet;9 tiny sprout alien hovering with mint orbit collar;10 silver-haired astronomer otter with gold monocle and ivory-teal cloak. Coherent stylized companion family, every sprite whole and independent, balanced scale, no backgrounds, no text, no watermark.",
+      "atlas": {
+        "columns": 5,
+        "rows": 2,
+        "count": 10
+      },
+      "alphaZeroPixels": 670920,
+      "alphaPartialPixels": 899639,
+      "alphaOpaquePixels": 1960,
+      "alphaSampleCellEdges": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "editPrompt": "Edit this exact 5-column 2-row sprite atlas. Preserve ALL ten existing character designs, same order, sizes and exact 5:2 grid placement; change only background extraction. Remove ALL gray-white cloudy haze, colored background speckles, seams, and rectangular backgrounds between and around characters. Make every empty area completely transparent alpha zero, including all outer borders and separation gaps. Keep characters opaque with crisp fine pixel-art outlines; no gray halos. Keep each entire bust and decorative stars/headphones within its own grid cell. Do not add scenery, frames, labels or text. Same 10 portraits: robot,fox,cat,rabbit,star, musicrobot,girl,boy,sprout,otter. Actual transparent PNG atlas usable over a dark navy background with no haze.",
+      "finalGeneratedPath": "C:\\Users\\lenovo\\.codex\\generated_images\\01a192a2-da67-7541-821a-f8f00d05a76b\\exec-d5389eff-cba5-47c6-b069-807ffb6c0684.png"
+    },
+    {
+      "name": "journey_titles.webp",
+      "source": "sources/journey_titles.png",
+      "sourceSha256": "a0edb05c6f9367fe105820636ef9d8c06984e703fe5d59a96b9717b250e99796",
+      "sha256": "12edcd4d4b264ef854038f46893b41fa6bf07223ea4d6e7c831deed3e568e20b",
+      "bytes": 1048684,
+      "width": 1983,
+      "height": 793,
+      "rgbRms": 0,
+      "encoding": "WebP lossless; source RGBA preserved",
+      "tool": "Built-in image_gen",
+      "originalGeneratedPath": "C:\\Users\\lenovo\\.codex\\generated_images\\01a192a2-da67-7541-821a-f8f00d05a76b\\exec-0bf00f33-fbf9-4211-98ee-360d5f0d6d40.png",
+      "prompt": "Create one production sprite-atlas of EXACTLY TEN achievement TITLE NAMEPLATES for the KeLing learning app. Reference is STYLE AND COLORS only, exquisite flat hand-crafted pixel-art metal decorations in navy, mint teal, ivory and warm gold. Arrange FIVE columns and TWO rows, equal square cells, wide landscape 5:2 aspect. Each cell contains one horizontal nameplate roughly 3:1 width-height, centrally positioned, with generous transparent padding. True transparent background. Every plaque has a flat dark navy center fully EMPTY, covering at least 65% plaque width for real Chinese text overlaid by the app; NO LETTERS NO DIGITS NO WORDS. Ornate but legible mechanical trim and distinct symbolic ornaments confined to edges. Ordered themes:1 little sprout/star porthole;2 winged compass;3 book and feather quill;4 constellation circuit;5 hourglass orbital timer;6 leafy three stars;7 navigator laurel;8 crystal archive;9 lunar observatory;10 magnificent restrained gold ringed-planet voyager. No avatars, no scene, no shadows outside own cell, no grid, no watermark. Each plaque visibly distinct but same usable center proportions and baseline.",
+      "atlas": {
+        "columns": 5,
+        "rows": 2,
+        "count": 10
+      },
+      "alphaZeroPixels": 725496,
+      "alphaPartialPixels": 846807,
+      "alphaOpaquePixels": 216,
+      "alphaSampleCellEdges": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "story_cockpit_mobile.webp",
+      "source": "sources/story_cockpit_mobile.png",
+      "sourceSha256": "e24b01f3694073ba5a040a1c27d5f3d3f11273a2392bd538009555addb30991f",
+      "sha256": "e01dd858df3e83d7c7e5e455140f5464d83e25c525a35e0b684097d504c221f3",
+      "bytes": 981362,
+      "width": 1122,
+      "height": 1402,
+      "rgbRms": 0,
+      "encoding": "WebP lossless; source RGBA preserved",
+      "tool": "Built-in image_gen",
+      "originalGeneratedPath": "C:\\Users\\lenovo\\.codex\\generated_images\\01a192a2-da67-7541-821a-f8f00d05a76b\\exec-47435ce1-ae8c-44df-87c5-a809bc2e5486.png",
+      "prompt": "Adapt this KeLing pixel-art story cockpit background into a portrait 4:5 mobile dialog background, intended for a390px-wide phone. Preserve exact visual identity, flat handmade pixel shading and navy/mint/ivory/gold palette, the delicate mechanical border style and exact little sprout-helmet robot identity. Frame on ALL FOUR edges, only5%wide borders, compact fine instrument panel along bottom, dark navy peaceful starfield center occupying75%width and70%height as very clean unobstructed space for real ivory story typography to be overlaid by code. Small ringedmintplanet near upperright confined to outer20% and small lively same robot peeking over lower-right console confined to bottom20%. Remove blank page-number plaque for this app story version. No letters, no text, no numbers, no icons in center. Same deep quiet space atmosphere as reference, NOT black, NOT photorealistic or3D. Full opaque artwork. Border highly detailed but subtle enough around reading area. Use clean central navy reading area, not a cream card.",
+      "atlas": null,
+      "alphaZeroPixels": 0,
+      "alphaPartialPixels": 0,
+      "alphaOpaquePixels": 1573044,
+      "alphaSampleCellEdges": [
+        255,
+        255,
+        255,
+        255,
+        255,
+        255
+      ]
+    },
+    {
+      "name": "story_cockpit.webp",
+      "source": "sources/story_cockpit.png",
+      "sourceSha256": "83f279769b31449cca4ccfb95a52c75d43c1a69284e1ee83820f2e54f24d571d",
+      "sha256": "aaf6a997fe6ecbfee9e69f509c8e002ee2e5fbc0ceeb55b379bb070a89d8a375",
+      "bytes": 1060676,
+      "width": 1672,
+      "height": 941,
+      "rgbRms": 0,
+      "encoding": "WebP lossless; source RGBA preserved",
+      "tool": "Original PPT image_gen asset reused unchanged",
+      "originalGeneratedPath": "C:\\Users\\lenovo\\Documents\\ChatGPT\\KeLing_ICT\\.cache\\defense-ppt-20261126\\assets\\product-cockpit-background.png",
+      "prompt": "Reuse the exact reviewed PPT cockpit background unchanged for the application story dialog; lossless format conversion only.",
+      "atlas": null,
+      "alphaZeroPixels": 0,
+      "alphaPartialPixels": 0,
+      "alphaOpaquePixels": 1573352,
+      "alphaSampleCellEdges": [
+        255,
+        255,
+        255,
+        255,
+        255,
+        255
+      ]
+    }
+  ]
+}

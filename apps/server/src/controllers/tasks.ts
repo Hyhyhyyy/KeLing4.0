@@ -205,7 +205,7 @@ export const completeTask = async (req: AuthRequest, res: Response) => {
       return res.status(401).json({ error: '未认证' });
     }
 
-    const result = await completeOwnedTask(prisma, req.userId, String(req.params.id), req.body.actualMinutes ?? undefined);
+    const result = await completeOwnedTask(prisma, req.userId, String(req.params.id), req.body?.actualMinutes ?? undefined);
     res.json({...result, message:result.alreadyCompleted?'任务已完成，未重复发放奖励':'任务完成！',task:{...result.task,knowledgeNodeIds:JSON.parse(result.task.knowledgeNodeIds)}});
   } catch (error) {
     if(error instanceof TaskCompletionError)return res.status(error.status).json({error:error.message});

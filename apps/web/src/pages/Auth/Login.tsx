@@ -1,3 +1,4 @@
+import { openStory } from '../../services/story';
 import { NavigationArrow } from '../../components/NavigationArrow';
 import { ModuleTitle } from '../../components/ModuleTitle';
 import { appPath } from '../../services/appPath';
@@ -55,7 +56,7 @@ const Login: React.FC = () => {
 
         </div>
 
-        <GuestTrialEntry />
+        <GuestTrialEntry /><button className="btn" onClick={openStory}>启航故事</button>
 
         {/* 表单 */}
         <form onSubmit={handleSubmit} className="auth-form">

@@ -12,6 +12,7 @@ export * from './src/services/focusClock';
 export * from './src/services/aiJobs';
 export * from './src/services/sampleCourse';
 export { planetAPI } from './src/services/planets';
+export { journeyAPI } from './src/services/journey';
 export { validatePlanetDraft, emptyPlanetProgress, answerPlanetQuestion } from '@keling/shared';
 export * from '@keling/shared/expedition';
 export { useAppStore } from './src/store/useAppStore'; export {default as transport} from './src/services/api';
@@ -22,7 +23,7 @@ module.exports = function harness() {
   let fetcher = () => { throw new Error('Unexpected external network request'); };
   const context = { module: {exports}, exports, require, process, crypto: globalThis.crypto, structuredClone, TextEncoder, TextDecoder, Date, URL,
     URLSearchParams, Buffer, AbortController, AbortSignal, DOMException, setTimeout, clearTimeout, setInterval, clearInterval, console,
-    localStorage, indexedDB: new IDBFactory(), fetch: (...args) => fetcher(...args), Response, Request, Headers };
+    window: { localStorage, dispatchEvent() {} }, CustomEvent: class { constructor(type,init){this.type=type;this.detail=init?.detail;} }, localStorage, indexedDB: new IDBFactory(), fetch: (...args) => fetcher(...args), Response, Request, Headers };
   vm.runInNewContext(output, context);
   const api = context.module.exports;
   return { ...api, context, setFetch: fn => { fetcher = fn; },
