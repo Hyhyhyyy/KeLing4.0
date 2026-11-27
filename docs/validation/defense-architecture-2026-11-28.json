@@ -1,0 +1,59 @@
+{
+  "date": "2026-11-28",
+  "artifactRef": "artifact_hmXKowr5zFA1DHZdCkQ4T2KrvcPMmY35",
+  "artifactStateVersion": 51,
+  "slides": 16,
+  "changedSlides": [
+    15
+  ],
+  "unchangedSlideRenderHashesMatched": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    16
+  ],
+  "changedSlideRenderedAndVisuallyInspected": true,
+  "priorCompleteReview": "journey-materials-2026-11-27.json",
+  "textFont": "华文中宋",
+  "nativeEditableTextElements": 261,
+  "offCanvasElements": [],
+  "formalSlideAndNotesProgressPhrases": [],
+  "architecturePreview": {
+    "path": "docs/defense/evidence/architecture-20261128.png",
+    "sha256": "2e642d1c0325333750e4efde5161115f9167a2ea68e20d3ed69db410d2e677a8"
+  },
+  "speech": {
+    "pages": 3,
+    "sections": 16,
+    "spokenHanCharacters": 1182,
+    "plannedSeconds": 300,
+    "actualHumanTiming": "not measured",
+    "docxSha256": "d390f5b5cd625013a1086157b43fbed2328d4b09eac3eb1d1bd8a22e373ac3ad",
+    "pdfSha256": "0e8cd484b9dba049888a02dba7ff325221ebe356e83b9fa22bcb11c82bfeb931",
+    "allPagesVisuallyInspected": true,
+    "technologySectionMatchesSlideNotes": true
+  },
+  "scope": "Replaced slide 15 with editable function-to-architecture overview. Formal speech and slide notes describe composition and behavior, with implementation status retained only in validation/handover documentation. No runtime code or deployment changed.",
+  "architectureEvidence": [
+    "apps/web/package.json",
+    "apps/server/src/index.ts",
+    "apps/server/src/routes/journey.ts",
+    "apps/server/src/services/journey.ts",
+    "apps/server/src/agentarts/routes.ts",
+    "deploy/miaoda/README.md",
+    "docs/DEPLOYMENT.md"
+  ],
+  "huaweiLabelScope": "Huawei workflow API is an integration interface in the architecture; no claim about verified internal model nodes is added.",
+  "screenshots": "Opening and guide full viewports remain on slides 1–2. New account appearance, home and calendar remain on slides 11–13; unchanged core feature evidence retains its original captures."
+}
