@@ -1,0 +1,115 @@
+{
+  "date": "2026-11-27",
+  "scope": "Android journey implementation, actual native UI persistence and final HTTPS APK readback",
+  "versionName": "4.2.0-journey-rc1",
+  "versionCode": 31,
+  "apk": {
+    "path": "apps/android/app/build/journey-proof/keling-4.2.0-journey-rc1.apk",
+    "bytes": 85638827,
+    "sha256": "57eb2f8c189ed7d237ca83dff0191b07811f078dfd623a186610cd8c32a22d62",
+    "installedApkPulledAndHashMatched": true,
+    "minSdk": 26,
+    "targetSdk": 34,
+    "apiBaseUrl": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg/api",
+    "signingCertificateSha256": "e7b4d86c7a02fb6bb1d21215c393b347d2d67652e5e45dfbe3a3d6c66b7c67a3",
+    "signingNote": "Existing Android Debug certificate retained; this is the published HTTPS candidate APK."
+  },
+  "unitTests": {
+    "tests": 118,
+    "failures": 0,
+    "errors": 0,
+    "newJourneyTests": 7,
+    "resultDirectory": "apps/android/app/build/test-results/testDebugUnitTest",
+    "coverage": ["catalog contract", "6000 minute boundary", "locked selections", "unique furniture slots", "revision conflicts and idempotence", "real guest study time", "legacy avatar preservation and explicit avatar PATCH"]
+  },
+  "lint": {
+    "errors": 0,
+    "warnings": 40,
+    "completedReport": "apps/android/app/build/journey-proof/lint-results-completed.xml",
+    "completedLog": ".cache/journey-android-local-build.log",
+    "scope": "Same production Kotlin source using local API BuildConfig. Final HTTPS assemble and 118 unit tests completed. Duplicate final lint was cancelled under prolonged host CPU load; it is not claimed complete."
+  },
+  "assets": {
+    "images": 70,
+    "font": "res/font/stzhongs.ttf",
+    "journeyArtMatchesCanonicalSource": true,
+    "avatars": 10,
+    "frames": 10,
+    "titlePlaques": 10,
+    "furniture": 10,
+    "achievements": 10
+  },
+  "localBidirectionalUi": {
+    "completed": true,
+    "environment": "Dedicated local test database, shared validation account, native Android UI and independent Web logins",
+    "webToAndroid": {
+      "revision": 6,
+      "avatarId": "avatar-9",
+      "frameId": "frame-2",
+      "titleId": "title-2",
+      "furnitureSlots": ["furniture-1", "furniture-2", null, null, null, null, null, null, null, null]
+    },
+    "androidUiChange": "Selected avatar-8 in native appearance selector and observed saved confirmation",
+    "androidToWebReadback": {
+      "revision": 7,
+      "avatarId": "avatar-8",
+      "frameId": "frame-2",
+      "titleId": "title-2",
+      "furnitureSlots": ["furniture-1", "furniture-2", null, null, null, null, null, null, null, null],
+      "facts": {"planetsCreated": 0, "tasksCompleted": 1, "notesCreated": 1, "knowledgeNodes": 0, "checkinDays": 1, "studyMinutes": 1}
+    },
+    "hundredHoursUi": {"progress": 1, "target": 6000, "unlocked": false},
+    "sanitizedReadbackEvidence": ".cache/journey-20261127/android-to-web-readback.json"
+  },
+  "finalHttpsNativeUi": {
+    "completed": true,
+    "releaseId": "7712831621329914818",
+    "releaseStatusReportedByDeploymentAgent": "finished",
+    "localAccountLoggedOutBeforeFinalApkInstall": true,
+    "onlineAccountIndependentlyLoggedIn": true,
+    "journeyMutationsPerformed": false,
+    "versionBanner": "当前无需更新",
+    "observedProfile": {"avatarId": "avatar-9", "avatarName": "银河绘图师", "frameId": "frame-1", "frameName": "羽翼罗盘", "titleId": "title-2", "titleName": "航行记录员"},
+    "observedFurnitureSlots": ["furniture-1", "furniture-2", null, null, null, null, null, null, null, null],
+    "observedCalendar": {"month": "2026-11", "studyMinutes": 1, "completedTasks": 2, "notesCreated": 1, "todayCheckedIn": true},
+    "openingStoryObserved": true,
+    "screenshots": [
+      {"path": "docs/defense/evidence/journey-20261127/android-profile-cloud.png", "width": 720, "height": 1560, "uncropped": true},
+      {"path": "docs/defense/evidence/journey-20261127/android-home-cloud.png", "width": 720, "height": 1560, "uncropped": true},
+      {"path": "docs/defense/evidence/journey-20261127/android-calendar-cloud.png", "width": 720, "height": 1560, "uncropped": true}
+    ]
+  },
+  "guide": {
+    "nativeButtonIntentVerified": true,
+    "url": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/guide",
+    "androidExternalBrowserPageVisuallyVerified": false,
+    "limitation": "Fresh emulator Chrome first-run screen intercepted navigation. Independent Web guide validation is separate."
+  },
+  "emulator": {
+    "successfulAvd": "keling_journey_20261127",
+    "serial": "emulator-5584",
+    "androidApi": 34,
+    "display": "720x1560",
+    "memoryMiB": 2560,
+    "virtualCores": 1,
+    "gpu": "software",
+    "vulkanEnabled": false,
+    "priorFailure": "Original task AVD 5582 experienced system ANR and input/UiAutomation stalls before complete new-component navigation. Its data was preserved.",
+    "hostAcceleration": "WHPX installed and usable, exit 0",
+    "hostCpuPercentWithoutEmulator": 52,
+    "hostFreeMemoryMiBAtDiagnostic": 12887,
+    "diskFreeGiB": {"C": 152.99, "D": 188.43},
+    "hostDiagnostic": ".cache/journey-20261127/android-host-diagnostic.json",
+    "diskDiagnostic": ".cache/journey-20261127/android-disk-diagnostic.json",
+    "shutdownRequestedAfterValidation": true,
+    "shutdownVerifiedAdbEmptyAndNoQemu": true,
+    "avdDataPreserved": true,
+    "performanceBenchmarkClaimed": false
+  },
+  "boundaries": [
+    "Physical Android phone installation, upgrade, IME, screen ratios and background recovery still require device validation.",
+    "Android emulator evidence is not native HarmonyOS or Huawei physical-device proof.",
+    "No AI generation was called in this Android validation. Backend real-AI evidence is separate.",
+    "No fabricated study duration, achievements or planets were used."
+  ]
+}

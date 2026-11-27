@@ -1,0 +1,152 @@
+{
+  "releaseId": "7712831621329914818",
+  "version": "4.2.0-journey-rc1",
+  "attempts": [
+    {
+      "version": "4.2.0-journey-rc1",
+      "releaseId": "7712831621329914818",
+      "startedAt": "2026-11-27T12:57:35.354074+00:00",
+      "request": {
+        "subject": "英语",
+        "level": "入门",
+        "goal": "学习一般现在时的肯定句、否定句和一般疑问句，先掌握主语与动词的一致关系。",
+        "providerId": "miaoda",
+        "model": "miaoda-learning"
+      },
+      "status": "FAILED",
+      "realModelAttempted": true,
+      "realModelVerified": false,
+      "previewOnly": true,
+      "humanReviewed": false,
+      "checks": [],
+      "acceptedStatus": 202,
+      "jobFingerprint": "88a1f397d5fc",
+      "elapsedSeconds": 5.08,
+      "modelFailureCode": "MODEL_FAILED",
+      "failure": "Real model generation did not succeed",
+      "finishedAt": "2026-11-27T12:57:47.055415+00:00"
+    },
+    {
+      "version": "4.2.0-journey-rc1",
+      "releaseId": "7712831621329914818",
+      "startedAt": "2026-11-27T13:02:31.703520+00:00",
+      "request": {
+        "subject": "英语",
+        "level": "入门",
+        "goal": "学习一般现在时的肯定句、否定句和一般疑问句，先掌握主语与动词的一致关系。",
+        "providerId": "miaoda",
+        "model": "miaoda-learning"
+      },
+      "status": "PASSED",
+      "realModelAttempted": true,
+      "realModelVerified": true,
+      "previewOnly": true,
+      "humanReviewed": false,
+      "checks": [
+        "Current release version confirmed",
+        "Native Miaoda response persisted in job",
+        "Requested subject preserved",
+        "Generated regions and questions returned",
+        "Unreviewed provenance retained",
+        "Preview not confirmed; no course or first-planet achievement created"
+      ],
+      "acceptedStatus": 202,
+      "jobFingerprint": "b39449f28e09",
+      "elapsedSeconds": 21.07,
+      "response": {
+        "title": "英语语法入门星球",
+        "subject": "英语",
+        "generatedBy": {
+          "providerId": "miaoda",
+          "model": "miaoda-learning",
+          "at": "2026-11-27T13:01:52.016Z"
+        },
+        "reviewStatus": "UNREVIEWED",
+        "regions": [
+          {
+            "title": "主语与动词一致基础",
+            "questionCount": 1,
+            "firstQuestion": {
+              "prompt": "下列句子中，动词形式正确的是？",
+              "options": [
+                "She go to school every day.",
+                "They plays football on weekends.",
+                "He likes reading books."
+              ],
+              "answerIndex": 2,
+              "explanation": "主语he是第三人称单数，一般现在时中动词要加-s，like变为likes，所以第三句正确。第一句主语she是三单，go应该变为goes；第二句主语they是复数，动词用原形play即可。"
+            }
+          },
+          {
+            "title": "一般现在时肯定句与否定句",
+            "questionCount": 1,
+            "firstQuestion": {
+              "prompt": "下列一般现在时否定句正确的是？",
+              "options": [
+                "Tom doesn't plays basketball.",
+                "We don't eat meat.",
+                "She not like singing."
+              ],
+              "answerIndex": 1,
+              "explanation": "否定句中助动词doesn't/don't后面要接动词原形，第一句plays应该是play；第三句缺少助动词，应该是She doesn't like singing。只有第二句主语we是复数，用don't+动词原形eat，结构正确。"
+            }
+          },
+          {
+            "title": "一般现在时一般疑问句",
+            "questionCount": 1,
+            "firstQuestion": {
+              "prompt": "下列一般现在时一般疑问句正确的是？",
+              "options": [
+                "Does she goes to work by bus?",
+                "Do they live in Beijing?",
+                "Is he like math?"
+              ],
+              "answerIndex": 1,
+              "explanation": "一般疑问句中助动词Does/Do后面要接动词原形，第一句goes应该是go；第三句like是实义动词，要用Does引导问句，即Does he like math?。第二句主语they是复数，用Do+主语+动词原形live，结构正确。"
+            }
+          }
+        ]
+      },
+      "finishedAt": "2026-11-27T13:03:00.490607+00:00"
+    }
+  ],
+  "platformObservations": [
+    {
+      "operation": "platform published application metadata GET",
+      "errorType": "HttpError",
+      "timeoutMs": 5000,
+      "responsePresent": false,
+      "timestampUtc": "2026-11-27T12:58:55.075000+00:00"
+    },
+    {
+      "operation": "platform published application metadata GET",
+      "errorType": "HttpError",
+      "timeoutMs": 5000,
+      "responsePresent": false,
+      "timestampUtc": "2026-11-27T12:58:53.184000+00:00"
+    },
+    {
+      "operation": "platform published application metadata GET",
+      "errorType": "HttpError",
+      "timeoutMs": 5000,
+      "responsePresent": false,
+      "timestampUtc": "2026-11-27T12:57:44.485000+00:00"
+    },
+    {
+      "operation": "platform published application metadata GET",
+      "errorType": "HttpError",
+      "timeoutMs": 5000,
+      "responsePresent": false,
+      "timestampUtc": "2026-11-27T12:52:24.596000+00:00"
+    },
+    {
+      "operation": "platform published application metadata GET",
+      "errorType": "HttpError",
+      "timeoutMs": 5000,
+      "responsePresent": false,
+      "timestampUtc": "2026-11-27T12:51:39.646000+00:00"
+    }
+  ],
+  "interpretation": "First native call failed; same request succeeded on normal retry without source or environment changes. SDK metadata GET timeouts were observed in the same window; the log does not establish a unique cause for the job failure.",
+  "limits": "One current-release English planet preview succeeded. This is not an all-model availability guarantee or teacher review. No preview confirmation, course creation, or first-planet reward was claimed for the new verification account."
+}

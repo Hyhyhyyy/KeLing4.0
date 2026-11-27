@@ -3,12 +3,12 @@ import type { Response } from 'express';
 
 // Frozen only after the same APK is uploaded and its SHA-256 is verified on GitHub.
 export const currentAndroidRelease = {
-  versionCode: 30,
-  versionName: '4.1.2-ai-rc3',
+  versionCode: 31,
+  versionName: '4.2.0-journey-rc1',
   updateUrl: 'https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/download/android',
-  updateLog: '公共模型问答、计划与复盘；Android资料导师保存笔记与来源重开；网页资料样式与跨端图谱。',
-  fileSize: 77490365,
-  sha256: '9e7efe473df8f2f8b8b39d86ffa09fc582ea51c25e2966958dbcafe5bd529cd2',
+  updateLog: '课灵启航故事；十套个人形象、头像框与称号；十项成就家具；打卡、计时与学习日历跨端同步。',
+  fileSize: 85638827,
+  sha256: '57eb2f8c189ed7d237ca83dff0191b07811f078dfd623a186610cd8c32a22d62',
 };
 
 @Controller('api/app')

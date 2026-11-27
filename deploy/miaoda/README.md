@@ -15,7 +15,7 @@
 | `server/modules/gateway/release.controller.ts` | 返回已经核验的 APK 版本、摘要与妙搭下载入口，避免运行时依赖 GitHub 网络 |
 | `server/modules/gateway/native-planet.service.ts` | 注册妙搭原生模型能力，生成结构化学习星球 |
 | `server/capabilities/keling-learning-planet.json` | 原生模型动作、参数和返回结构 |
-| `server/modules/gateway/artwork.controller.ts` | 为固定的标题吉祥物图集、导航箭头与指南卷轴签发短期资源链接 |
+| `server/modules/gateway/artwork.controller.ts` | 为十幅固定图片签发短期资源链接，涵盖标题吉祥物、箭头、指南、学科星球、航程装扮与开篇驾驶舱 |
 | `server/modules/gateway/font.controller.ts` | 通过平台 SDK 下载并校验固定字体，以同源 WOFF2 响应提供缓存、ETag 与 CORS |
 | `server/modules/gateway/gateway.module.ts` | 注册上述服务与控制器 |
 | `server/modules/gateway/gateway.spec.cjs` | 检查前缀处理与路径穿越拒绝行为 |
@@ -24,6 +24,8 @@
 | `scripts/copy-prisma.cjs` | 在平台依赖裁剪后保留生成的 Prisma 运行时客户端 |
 
 网页和 API 继续使用课灵的账号令牌。平台 Cookie 的请求校验标记不能替代课灵身份认证。适配器不代理原 Vercel 服务，也不迁移数据库。
+
+`4.2.0-journey-rc1` 使用主仓库 `cc9f0eee0f1f71e513ccaef7741afb48a8c5dbcb` 的源码，Android 为 code31。六幅新WebP和APK均上传至应用文件存储；新增二进制没有进入模板Git。共享装扮组件自身导入样式，使直接访问笔记、任务、首页与个人页时也能显示新头像、计时器和家园。发布与线上复核结果见 [本轮记录](../../docs/validation/journey-release-2026-11-27.md)。
 
 公开 Android 下载对象记录在 [android-download.json](android-download.json)，包含真实 versionCode、字节数、SHA-256 和签名证书摘要。`/download/android` 对应应用存储内的固定 APK；托管 `/api/app/version` 和 `/api/app/download` 由 ReleaseController 提供经过校验的固定元数据及同站下载地址。独立课灵后端仍保留 GitHub Release 查询路径。发布时须保持 GitHub 与应用存储两份 APK 字节一致，先发布带真实 versionCode 标记的 GitHub Release，再更新托管元数据并发布应用。APK 二进制不进入模板 Git。
 

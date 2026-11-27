@@ -64,6 +64,84 @@
       "provenancePath": "assets/stellar/subject-planets-provenance.json",
       "delivery": "signed-redirect",
       "provenanceSha256": "c317bc4f39dbb353eb836ce79ad1293fbe267fba5018c67fd765077c94baa9cd"
+    },
+    {
+      "sourcePath": "assets/stellar/journey_avatars.webp",
+      "route": "/stellar/journey_avatars.webp",
+      "storageBucket": "bucket_aadk4xawzf4xg",
+      "storagePath": "/1883006906073152.webp",
+      "sha256": "821b7a19866a4e6bcaf78d30e4eb53a23d7f943890c955d188a7025ac750f6ae",
+      "bytes": 1496312,
+      "contentType": "image/webp",
+      "uploadedContentType": "image/webp",
+      "provenancePath": "assets/stellar/journey-art-provenance.json",
+      "delivery": "signed-redirect",
+      "provenanceSha256": "9b0f74484b8e30787c2cd1803ebdfd51073b73bd1cdeb5b8a08c2cb113d59392"
+    },
+    {
+      "sourcePath": "assets/stellar/journey_frames.webp",
+      "route": "/stellar/journey_frames.webp",
+      "storageBucket": "bucket_aadk4xawzf4xg",
+      "storagePath": "/1883006937943079.webp",
+      "sha256": "f0ae2a4f2574c131a01515af50dcdde2b2d9f3e4cdae08d3096c5a806ab2943e",
+      "bytes": 1340832,
+      "contentType": "image/webp",
+      "uploadedContentType": "image/webp",
+      "provenancePath": "assets/stellar/journey-art-provenance.json",
+      "delivery": "signed-redirect",
+      "provenanceSha256": "9b0f74484b8e30787c2cd1803ebdfd51073b73bd1cdeb5b8a08c2cb113d59392"
+    },
+    {
+      "sourcePath": "assets/stellar/journey_titles.webp",
+      "route": "/stellar/journey_titles.webp",
+      "storageBucket": "bucket_aadk4xawzf4xg",
+      "storagePath": "/1883006990377047.webp",
+      "sha256": "12edcd4d4b264ef854038f46893b41fa6bf07223ea4d6e7c831deed3e568e20b",
+      "bytes": 1048684,
+      "contentType": "image/webp",
+      "uploadedContentType": "image/webp",
+      "provenancePath": "assets/stellar/journey-art-provenance.json",
+      "delivery": "signed-redirect",
+      "provenanceSha256": "9b0f74484b8e30787c2cd1803ebdfd51073b73bd1cdeb5b8a08c2cb113d59392"
+    },
+    {
+      "sourcePath": "assets/stellar/journey_furniture.webp",
+      "route": "/stellar/journey_furniture.webp",
+      "storageBucket": "bucket_aadk4xawzf4xg",
+      "storagePath": "/1883007013951496.webp",
+      "sha256": "9f866b5797ddbda31f3181b453c8fd16745133f07bd4b80a52756d6ca76de4fc",
+      "bytes": 1548228,
+      "contentType": "image/webp",
+      "uploadedContentType": "image/webp",
+      "provenancePath": "assets/stellar/journey-art-provenance.json",
+      "delivery": "signed-redirect",
+      "provenanceSha256": "9b0f74484b8e30787c2cd1803ebdfd51073b73bd1cdeb5b8a08c2cb113d59392"
+    },
+    {
+      "sourcePath": "assets/stellar/story_cockpit.webp",
+      "route": "/stellar/story_cockpit.webp",
+      "storageBucket": "bucket_aadk4xawzf4xg",
+      "storagePath": "/1883007023176708.webp",
+      "sha256": "aaf6a997fe6ecbfee9e69f509c8e002ee2e5fbc0ceeb55b379bb070a89d8a375",
+      "bytes": 1060676,
+      "contentType": "image/webp",
+      "uploadedContentType": "image/webp",
+      "provenancePath": "assets/stellar/journey-art-provenance.json",
+      "delivery": "signed-redirect",
+      "provenanceSha256": "9b0f74484b8e30787c2cd1803ebdfd51073b73bd1cdeb5b8a08c2cb113d59392"
+    },
+    {
+      "sourcePath": "assets/stellar/story_cockpit_mobile.webp",
+      "route": "/stellar/story_cockpit_mobile.webp",
+      "storageBucket": "bucket_aadk4xawzf4xg",
+      "storagePath": "/1883007023178804.webp",
+      "sha256": "e01dd858df3e83d7c7e5e455140f5464d83e25c525a35e0b684097d504c221f3",
+      "bytes": 981362,
+      "contentType": "image/webp",
+      "uploadedContentType": "image/webp",
+      "provenancePath": "assets/stellar/journey-art-provenance.json",
+      "delivery": "signed-redirect",
+      "provenanceSha256": "9b0f74484b8e30787c2cd1803ebdfd51073b73bd1cdeb5b8a08c2cb113d59392"
     }
   ]
 }

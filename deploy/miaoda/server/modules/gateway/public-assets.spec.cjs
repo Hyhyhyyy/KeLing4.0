@@ -58,6 +58,13 @@ test('artwork routes sign only the reviewed objects and ignore caller paths', as
       ['title_mascots', '/1882830203673659.webp', 'cb7465ec80df7de393563fe1dc7933fd2867acda31cd8152eb609493b327fd78'],
       ['navigation_arrow', '/1882832922057850.webp', 'b722445a6f11afa60081ef6c92cb3a907acd288df5832e839212c65d398b6107'],
       ['guide_scroll', '/1882902547070985.webp', 'ddb5f0afe6b4545cc062cd18abc0bce73b18fd2b9ec3094209e290bf56a0f695'],
+      ['subject_planets', '/1882973251214384.webp', 'ff467a16d12e48b6ccfd6e6314bc8ad85520ab8e12e3591baa158eb78cedac09'],
+      ['journey_avatars', '/1883006906073152.webp', '821b7a19866a4e6bcaf78d30e4eb53a23d7f943890c955d188a7025ac750f6ae'],
+      ['journey_frames', '/1883006937943079.webp', 'f0ae2a4f2574c131a01515af50dcdde2b2d9f3e4cdae08d3096c5a806ab2943e'],
+      ['journey_titles', '/1883006990377047.webp', '12edcd4d4b264ef854038f46893b41fa6bf07223ea4d6e7c831deed3e568e20b'],
+      ['journey_furniture', '/1883007013951496.webp', '9f866b5797ddbda31f3181b453c8fd16745133f07bd4b80a52756d6ca76de4fc'],
+      ['story_cockpit', '/1883007023176708.webp', 'aaf6a997fe6ecbfee9e69f509c8e002ee2e5fbc0ceeb55b379bb070a89d8a375'],
+      ['story_cockpit_mobile', '/1883007023178804.webp', 'e01dd858df3e83d7c7e5e455140f5464d83e25c525a35e0b684097d504c221f3'],
     ]) {
       const response = await fetch(`${origin}/stellar/${name}.webp?path=/private-file`, { redirect: 'manual' });
       assert.equal(response.status, 302);
@@ -78,14 +85,14 @@ test('unlisted artwork and fonts never request storage', async () => {
   });
 });
 
-test('Android download signs only the frozen AI closure RC3 package and does not cache its redirect', async () => {
+test('Android download signs only the frozen journey RC1 package and does not cache its redirect', async () => {
   await fixture(async (origin, calls) => {
     const response = await fetch(origin + '/download/android?path=/private-file', { redirect: 'manual' });
     assert.equal(response.status, 302);
     assert.equal(response.headers.get('cache-control'), 'no-store');
-    assert.equal(response.headers.get('x-content-sha256'), '9e7efe473df8f2f8b8b39d86ffa09fc582ea51c25e2966958dbcafe5bd529cd2');
+    assert.equal(response.headers.get('x-content-sha256'), '57eb2f8c189ed7d237ca83dff0191b07811f078dfd623a186610cd8c32a22d62');
     assert.equal(response.headers.get('location'), 'https://example.invalid/public-art.webp');
-    assert.deepEqual(calls, [{ method: 'sign', bucket: 'bucket_aadk4xawzf4xg', asset: '/1882982391923819.apk', seconds: 3600 }]);
+    assert.deepEqual(calls, [{ method: 'sign', bucket: 'bucket_aadk4xawzf4xg', asset: '/1883007034146820.apk', seconds: 3600 }]);
   });
 });
 
@@ -164,14 +171,14 @@ test('a failed font download does not prevent a successful retry', async () => {
 
 test('version checks use the verified published APK without a GitHub network dependency', async () => {
   await fixture(async (origin, calls) => {
-    for (const code of [29,30]) {
+    for (const code of [30,31]) {
       const r=await fetch(origin+'/api/app/version?versionCode='+code);
       const value=await r.json();
       assert.equal(r.status,200); assert.equal(value.success,true);
-      assert.equal(value.latestVersion.versionCode,30);
-      assert.equal(value.latestVersion.fileSize,77490365);
-      assert.equal(value.latestVersion.sha256,'9e7efe473df8f2f8b8b39d86ffa09fc582ea51c25e2966958dbcafe5bd529cd2');
-      assert.equal(value.needUpdate,code<30); assert.equal(value.forceUpdate,false);
+      assert.equal(value.latestVersion.versionCode,31);
+      assert.equal(value.latestVersion.fileSize,85638827);
+      assert.equal(value.latestVersion.sha256,'57eb2f8c189ed7d237ca83dff0191b07811f078dfd623a186610cd8c32a22d62');
+      assert.equal(value.needUpdate,code<31); assert.equal(value.forceUpdate,false);
       assert.equal(r.headers.get('cache-control'),'no-store');
     }
     assert.equal(calls.length,0);

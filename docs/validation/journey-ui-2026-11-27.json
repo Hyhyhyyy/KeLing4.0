@@ -1,0 +1,147 @@
+{
+  "date": "2026-11-27",
+  "sourceCommit": "cc9f0eee0f1f71e513ccaef7741afb48a8c5dbcb",
+  "webTests": 95,
+  "webLint": {
+    "errors": 0,
+    "existingWarnings": 26
+  },
+  "environment": "isolated local SQLite account API; actual Web and Android UI, not seeded progress; production Neon API checked separately",
+  "webSaved": {
+    "checkedAt": "2026-11-27T11:05:07.828Z",
+    "state": {
+      "version": 1,
+      "revision": 6,
+      "avatarId": "avatar-9",
+      "frameId": "frame-2",
+      "titleId": "title-2",
+      "furnitureSlots": [
+        "furniture-1",
+        "furniture-2",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "unlockedAchievementIds": [
+        "first_task",
+        "first_note"
+      ]
+    },
+    "facts": {
+      "planetsCreated": 0,
+      "tasksCompleted": 1,
+      "notesCreated": 1,
+      "knowledgeNodes": 0,
+      "checkinDays": 1,
+      "studyMinutes": 1
+    }
+  },
+  "androidChangedThenIndependentWebLogin": {
+    "checkedAt": "2026-11-27T12:55:31.726Z",
+    "scope": "Independent authenticated read after Android UI change",
+    "state": {
+      "version": 1,
+      "revision": 7,
+      "avatarId": "avatar-8",
+      "frameId": "frame-2",
+      "titleId": "title-2",
+      "furnitureSlots": [
+        "furniture-1",
+        "furniture-2",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "unlockedAchievementIds": [
+        "first_task",
+        "first_note"
+      ]
+    },
+    "facts": {
+      "planetsCreated": 0,
+      "tasksCompleted": 1,
+      "notesCreated": 1,
+      "knowledgeNodes": 0,
+      "checkinDays": 1,
+      "studyMinutes": 1
+    }
+  },
+  "directProductionEntries": {
+    "checkedAt": "2026-11-27T12:40:44.191Z",
+    "builtProduction": true,
+    "notes": "Four full document navigations after actual UI login. Timer CSS checked by a transient hidden style probe removed immediately, not represented as actual task activity.",
+    "checks": [
+      {
+        "path": "/",
+        "avatarDisplay": "block",
+        "avatarWidth": 42,
+        "avatarHeight": 42,
+        "timerBackground": "rgb(21, 61, 74)",
+        "stylesheets": [
+          "http://127.0.0.1:4173/assets/index-CFrg4Xm8.css",
+          "http://127.0.0.1:4173/assets/ModuleTitle-Cil6LhSK.css",
+          "http://127.0.0.1:4173/assets/SubjectPlanet-Cs3hLOVA.css",
+          "http://127.0.0.1:4173/assets/StellarScene-DMdcK0w2.css",
+          "http://127.0.0.1:4173/assets/StellarHome-CckphiUk.css"
+        ]
+      },
+      {
+        "path": "/tasks",
+        "avatarDisplay": "block",
+        "avatarWidth": 42,
+        "avatarHeight": 42,
+        "timerBackground": "rgb(21, 61, 74)",
+        "stylesheets": [
+          "http://127.0.0.1:4173/assets/index-CFrg4Xm8.css",
+          "http://127.0.0.1:4173/assets/ModuleTitle-Cil6LhSK.css",
+          "http://127.0.0.1:4173/assets/StellarScene-DMdcK0w2.css",
+          "http://127.0.0.1:4173/assets/AssistantContextPanel-DTh6f1or.css",
+          "http://127.0.0.1:4173/assets/Tasks-DEmHPbg6.css"
+        ]
+      },
+      {
+        "path": "/notes",
+        "avatarDisplay": "block",
+        "avatarWidth": 42,
+        "avatarHeight": 42,
+        "timerBackground": "rgb(21, 61, 74)",
+        "stylesheets": [
+          "http://127.0.0.1:4173/assets/index-CFrg4Xm8.css",
+          "http://127.0.0.1:4173/assets/ModuleTitle-Cil6LhSK.css",
+          "http://127.0.0.1:4173/assets/StellarScene-DMdcK0w2.css",
+          "http://127.0.0.1:4173/assets/AssistantContextPanel-DTh6f1or.css",
+          "http://127.0.0.1:4173/assets/SharedNotebook-DN5kK0OW.css"
+        ]
+      },
+      {
+        "path": "/profile",
+        "avatarDisplay": "block",
+        "avatarWidth": 42,
+        "avatarHeight": 42,
+        "timerBackground": "rgb(21, 61, 74)",
+        "stylesheets": [
+          "http://127.0.0.1:4173/assets/index-CFrg4Xm8.css",
+          "http://127.0.0.1:4173/assets/ModuleTitle-Cil6LhSK.css"
+        ]
+      }
+    ]
+  },
+  "storyKeyboardAndMotion": {
+    "keyboardEscape": true,
+    "focusContained": true,
+    "reducedMotionImmediate": true,
+    "cursorAnimation": "story-blink"
+  },
+  "cloudVisual": "Official release story/guide/font and direct routes were checked by the web agent; images were awaited with decode before visual acceptance. Browser console and failed requests empty.",
+  "limits": "Emulator evidence does not substitute for physical phone acceptance; recorded time does not prove human focus."
+}

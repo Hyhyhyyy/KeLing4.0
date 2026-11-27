@@ -1,0 +1,104 @@
+{
+  "date": "2026-11-27",
+  "artifactRef": "artifact_hmXKowr5zFA1DHZdCkQ4T2KrvcPMmY35",
+  "artifactStateVersion": 50,
+  "slides": 16,
+  "allSlidesRenderedAndVisuallyInspected": true,
+  "allEditableTextFont": "华文中宋",
+  "nativeEditableTextElements": 254,
+  "offCanvasElements": [],
+  "speech": {
+    "pages": 3,
+    "sections": 16,
+    "spokenHanCharacters": 1174,
+    "plannedSeconds": 300,
+    "actualHumanTiming": "not yet measured",
+    "docxSha256": "cfc64656db67e93b0835e2b0f260dc1641510f5370dbd89c08fbd5907a476d96",
+    "pdfSha256": "f2ce5ba2d1e1c66fcafb6aa9c84bdbde27b24079d663d347bf759d75000a599e",
+    "renderer": "Independent Word instance and bundled Poppler",
+    "threePagesVisuallyInspected": true
+  },
+  "captures": [
+    {
+      "path": "docs/defense/evidence/journey-20261127/opening-story.png",
+      "sha256": "cca434113a91de44acbc493c8c6f39c144dd7175b45adcabafa5a0c9f5a1884e",
+      "dimensions": [
+        1272,
+        716
+      ],
+      "cropped": false,
+      "state": "actual guest UI"
+    },
+    {
+      "path": "docs/defense/evidence/journey-20261127/usage-guide.png",
+      "sha256": "a0f42b2fc70fc24b2b375f416ae010356900a0c5df1c8508b46489b84a3b3f1b",
+      "dimensions": [
+        1272,
+        716
+      ],
+      "cropped": false,
+      "state": "actual guest UI"
+    },
+    {
+      "path": "docs/defense/evidence/journey-20261127/account-profile-equipped.png",
+      "sha256": "f9a60131148ceec6a5f19eb9bf9c3962fb2b62cb03d985360684c248c3bdc8a3",
+      "dimensions": [
+        1272,
+        716
+      ],
+      "cropped": false,
+      "state": "actual account"
+    },
+    {
+      "path": "docs/defense/evidence/journey-20261127/account-home-furnished.png",
+      "sha256": "3bc7f6f05a3ac59ec29b857c08963108d122ea306cf045c1c3d6ddb0eb0ea8bb",
+      "dimensions": [
+        1272,
+        716
+      ],
+      "cropped": false,
+      "state": "actual account"
+    },
+    {
+      "path": "docs/defense/evidence/journey-20261127/timer-one-minute.png",
+      "sha256": "626c5bab84468d50115a002a1bb60f52649948cc295d7a49f2b707a3ad7c3698",
+      "dimensions": [
+        1272,
+        716
+      ],
+      "cropped": false,
+      "state": "actual guest UI"
+    },
+    {
+      "path": "docs/defense/evidence/journey-20261127/mobile-account-calendar.png",
+      "sha256": "05934bd4e598da5b2644eedf868973b3e82186b6ecf26d38266a24a08ecb6a51",
+      "dimensions": [
+        390,
+        844
+      ],
+      "cropped": false,
+      "state": "actual account"
+    }
+  ],
+  "renderHashes": {
+    "slide-1.png": "9906c0adbc623beb807b66588fb61a36fcde79993b4b8faab4e2352313323b11",
+    "slide-2.png": "b7143348b8accfe81f2f608dce62f732cae63afffada11d6e6070eef9c2246c5",
+    "slide-3.png": "6b1427273eb2c833352b67617b92ade987b1a22825fa677897498029fb5be419",
+    "slide-4.png": "420c5816afc7f711ab23f8849d6ec3026ab923e8e3cc33996fd36c17bba167d4",
+    "slide-5.png": "3732b49f6c60a0e2ccf52ebc687262ccf2e5f461f086530d3a2fbe74f70e7a95",
+    "slide-6.png": "db7c7de0dec36b4adb7136efc482c135feaf97faea9bf5c715dabf34c0534c60",
+    "slide-7.png": "a7cf9e169e1e03a76968c44bd653ce8cd0d9c26153d96d49c0a9db92b87d8316",
+    "slide-8.png": "5c9b215c2ae069c879e221935c90addda170c48c18465f4a342b50c950624584",
+    "slide-9.png": "ad054db6691872c0cdb1aabfe59f2690baa8e8dfc2c1818bee9b5fc5ad5d853d",
+    "slide-10.png": "dc22a69353480e78ada560ae8bc1595e4e373d3db673db1c898a155e286b322e",
+    "slide-11.png": "457833d5b0ecf082b3e7987a1cc995bd920b39e1e337c8c9a8af13b0c6857d34",
+    "slide-12.png": "fe24bb212aaf178c185df6a7b1d0790eb4bb15a9848599581b9e19ad1cc3f37c",
+    "slide-13.png": "24592b564735e20bb8b1bd69ad01f2073bfbcb5c0e3bad2c2159d18f1d5b04da",
+    "slide-14.png": "4e18b4e369c44fec5160f81c13255743b0ffd0f8a06961cf4d9ad651c0955fcb",
+    "slide-15.png": "0f1b486634a0238d6bc1674b5b1124ac3d5e072fd29f89d957402225697a9a71",
+    "slide-16.png": "6f69abb7dea5e69e6cb1db64afde214ad2c0635891f1a8ea3d9bb57db3674c44"
+  },
+  "scope": "Opening/guide are first two pages. Personal appearance, achievement home and timer/calendar precede technology. Prior verified core AI screenshots retained. Android core screenshots are emulator evidence; current journey UI verification is recorded separately.",
+  "story": "App dialog uses same desktop cockpit as PPT; ivory typewriter text and blinking cursor, four acts, skip/replay/guide. PPT uses static complete runtime captures.",
+  "achievementTarget": "100h is 6000 recorded minutes, not reached by the one-minute acceptance account."
+}

@@ -1,0 +1,267 @@
+{
+  "base": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/api",
+  "version": "4.2.0-journey-rc1",
+  "catalogCounts": {
+    "avatars": 10,
+    "frames": 10,
+    "titles": 10,
+    "furniture": 10,
+    "achievements": 10
+  },
+  "historicalFirstAIPlanetRecognized": true,
+  "freshAccountFacts": {
+    "planetsCreated": 0,
+    "tasksCompleted": 0,
+    "notesCreated": 0,
+    "knowledgeNodes": 0,
+    "checkinDays": 0,
+    "studyMinutes": 0
+  },
+  "lockedHundredHourRewardStatus": 403,
+  "untimedEstimated120RecordsZero": true,
+  "testAccountFingerprint": "42bb24841731",
+  "timerStartedAt": "2026-11-27T12:51:53.353701+00:00",
+  "status": "passed",
+  "checkedAt": "2026-11-27T12:56:09.747429+00:00",
+  "actualTimerElapsedSeconds": 231.4,
+  "recordedMinutes": 1,
+  "facts": {
+    "planetsCreated": 0,
+    "tasksCompleted": 2,
+    "notesCreated": 1,
+    "knowledgeNodes": 0,
+    "checkinDays": 1,
+    "studyMinutes": 1
+  },
+  "calendar": {
+    "month": "2026-11",
+    "timezone": "Asia/Shanghai",
+    "days": [
+      {
+        "date": "2026-11-01",
+        "checkedIn": false,
+        "studyMinutes": 0,
+        "completedTasks": 0,
+        "notesCreated": 0
+      },
+      {
+        "date": "2026-11-02",
+        "checkedIn": false,
+        "studyMinutes": 0,
+        "completedTasks": 0,
+        "notesCreated": 0
+      },
+      {
+        "date": "2026-11-03",
+        "checkedIn": false,
+        "studyMinutes": 0,
+        "completedTasks": 0,
+        "notesCreated": 0
+      },
+      {
+        "date": "2026-11-04",
+        "checkedIn": false,
+        "studyMinutes": 0,
+        "completedTasks": 0,
+        "notesCreated": 0
+      },
+      {
+        "date": "2026-11-05",
+        "checkedIn": false,
+        "studyMinutes": 0,
+        "completedTasks": 0,
+        "notesCreated": 0
+      },
+      {
+        "date": "2026-11-06",
+        "checkedIn": false,
+        "studyMinutes": 0,
+        "completedTasks": 0,
+        "notesCreated": 0
+      },
+      {
+        "date": "2026-11-07",
+        "checkedIn": false,
+        "studyMinutes": 0,
+        "completedTasks": 0,
+        "notesCreated": 0
+      },
+      {
+        "date": "2026-11-08",
+        "checkedIn": false,
+        "studyMinutes": 0,
+        "completedTasks": 0,
+        "notesCreated": 0
+      },
+      {
+        "date": "2026-11-09",
+        "checkedIn": false,
+        "studyMinutes": 0,
+        "completedTasks": 0,
+        "notesCreated": 0
+      },
+      {
+        "date": "2026-11-10",
+        "checkedIn": false,
+        "studyMinutes": 0,
+        "completedTasks": 0,
+        "notesCreated": 0
+      },
+      {
+        "date": "2026-11-11",
+        "checkedIn": false,
+        "studyMinutes": 0,
+        "completedTasks": 0,
+        "notesCreated": 0
+      },
+      {
+        "date": "2026-11-12",
+        "checkedIn": false,
+        "studyMinutes": 0,
+        "completedTasks": 0,
+        "notesCreated": 0
+      },
+      {
+        "date": "2026-11-13",
+        "checkedIn": false,
+        "studyMinutes": 0,
+        "completedTasks": 0,
+        "notesCreated": 0
+      },
+      {
+        "date": "2026-11-14",
+        "checkedIn": false,
+        "studyMinutes": 0,
+        "completedTasks": 0,
+        "notesCreated": 0
+      },
+      {
+        "date": "2026-11-15",
+        "checkedIn": false,
+        "studyMinutes": 0,
+        "completedTasks": 0,
+        "notesCreated": 0
+      },
+      {
+        "date": "2026-11-16",
+        "checkedIn": false,
+        "studyMinutes": 0,
+        "completedTasks": 0,
+        "notesCreated": 0
+      },
+      {
+        "date": "2026-11-17",
+        "checkedIn": false,
+        "studyMinutes": 0,
+        "completedTasks": 0,
+        "notesCreated": 0
+      },
+      {
+        "date": "2026-11-18",
+        "checkedIn": false,
+        "studyMinutes": 0,
+        "completedTasks": 0,
+        "notesCreated": 0
+      },
+      {
+        "date": "2026-11-19",
+        "checkedIn": false,
+        "studyMinutes": 0,
+        "completedTasks": 0,
+        "notesCreated": 0
+      },
+      {
+        "date": "2026-11-20",
+        "checkedIn": false,
+        "studyMinutes": 0,
+        "completedTasks": 0,
+        "notesCreated": 0
+      },
+      {
+        "date": "2026-11-21",
+        "checkedIn": false,
+        "studyMinutes": 0,
+        "completedTasks": 0,
+        "notesCreated": 0
+      },
+      {
+        "date": "2026-11-22",
+        "checkedIn": false,
+        "studyMinutes": 0,
+        "completedTasks": 0,
+        "notesCreated": 0
+      },
+      {
+        "date": "2026-11-23",
+        "checkedIn": false,
+        "studyMinutes": 0,
+        "completedTasks": 0,
+        "notesCreated": 0
+      },
+      {
+        "date": "2026-11-24",
+        "checkedIn": false,
+        "studyMinutes": 0,
+        "completedTasks": 0,
+        "notesCreated": 0
+      },
+      {
+        "date": "2026-11-25",
+        "checkedIn": false,
+        "studyMinutes": 0,
+        "completedTasks": 0,
+        "notesCreated": 0
+      },
+      {
+        "date": "2026-11-26",
+        "checkedIn": false,
+        "studyMinutes": 0,
+        "completedTasks": 0,
+        "notesCreated": 0
+      },
+      {
+        "date": "2026-11-27",
+        "checkedIn": true,
+        "studyMinutes": 1,
+        "completedTasks": 2,
+        "notesCreated": 1
+      },
+      {
+        "date": "2026-11-28",
+        "checkedIn": false,
+        "studyMinutes": 0,
+        "completedTasks": 0,
+        "notesCreated": 0
+      },
+      {
+        "date": "2026-11-29",
+        "checkedIn": false,
+        "studyMinutes": 0,
+        "completedTasks": 0,
+        "notesCreated": 0
+      },
+      {
+        "date": "2026-11-30",
+        "checkedIn": false,
+        "studyMinutes": 0,
+        "completedTasks": 0,
+        "notesCreated": 0
+      }
+    ],
+    "totals": {
+      "studyMinutes": 1,
+      "completedTasks": 2,
+      "checkinDays": 1,
+      "notesCreated": 1
+    }
+  },
+  "repeatedCompletionDoesNotAddMinutes": true,
+  "repeatedCheckinDoesNotAddDay": true,
+  "repeatedEquipmentSaveIsIdempotent": true,
+  "staleEquipmentWriteStatus": 409,
+  "secondSessionReadsSameEquipment": true,
+  "crossOwnerUnchanged": true,
+  "internalStateExcludedFromNotes": true,
+  "newAccountNoGeneratedPlanetClaim": true,
+  "untouchedProductionSchema": true
+}

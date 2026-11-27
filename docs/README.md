@@ -1,6 +1,6 @@
 # 项目文档
 
-当前网页、API与公开Android包：**4.1.2-ai-rc3 / versionCode 30**。先读[RC3交付与演示核验](validation/demo-ai-rc3-2026-11-27.md)、[AI入口审计](validation/ai-entry-audit-2026-11-27.md)、[实际模型调用证据](validation/native-ai-live-evidence-2026-11-27.md)和[发布元数据](validation/release-ai-rc3-2026-11-27.json)。Web、Android、学科生成、图谱与人工操作清单由交付记录统一索引。RC2、RC7及更早记录保留为对应日期的历史证据。
+当前网页、API与公开Android包：**4.2.0-journey-rc1 / versionCode 31**。先读[故事与个人空间发布验收](validation/journey-release-2026-11-27.md)、[成就规则](defense/个人空间与成就规则.md)和[五分钟答辩材料](defense/README.md)。自选学科、知识图谱及此前模型样本见[RC3记录](validation/demo-ai-rc3-2026-11-27.md)，不能把历史成功样本冒充当前版本的新调用。原账号与实体条件见[人工事项](validation/manual-followups-2026-11-27.md)。
 
 11 月 25 日已重新运行 Web、服务端测试和构建，并独立验证本机演示库。最终 Android、部署与分支记录见本轮交付；去冗余时没有运行测试的历史范围不再代表当前验收状态。
 
@@ -29,7 +29,7 @@
 ## 资源与验证
 
 - [仓库整理验证](validation/repository-cleanup-2026-10-31.json)：删减前的资源、构建与测试历史结果，只适用于记录中的提交。
-- [共享素材与提示词](../assets/stellar/README.md)：63 张 WebP 和一张 PNG 启动图标同时供 Web、Android 使用；两端打包副本均生成，不再提交 Android 独立副本。
+- [共享素材与提示词](../assets/stellar/README.md)：69 张 WebP 和一张 PNG 启动图标同时供 Web、Android 使用；两端打包副本均生成，不再提交 Android 独立副本。
 - [共享字体](../assets/fonts/README.md)：华文中宋 TTF 与 WOFF2 的来源、授权确认及构建方式。
 - [统一素材清单](../assets/stellar/manifest.json)：集中保留当前素材与原 PNG 来源摘要、既有编码记录。既有 WebP 使用有损编码，新增标题与箭头明确使用无损编码；以各条目记录为准。普通 Android 构建不依赖 Python。
 - 原 PNG 及旧 Android 编码清单可从 [Git 提交 9583827](https://github.com/Hyhyhyyy/KeLing4.0/tree/9583827/assets/stellar)追溯；导出和 `prepare-stellar-art.py` 再制作方法见共享素材说明。当前文件体积限制不要求删除 Git 来源历史。
