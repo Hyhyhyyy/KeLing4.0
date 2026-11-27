@@ -1,6 +1,6 @@
 {
   "sourceProject": "keling-access-gateway",
-  "sourceCommit": "6c6f371c6b5651865eb918af8c44113cc796f79b",
+  "sourceCommit": "992c72289e73d3d2543eacf88005c378b43e6ee3",
   "observedDate": "2026-11-27",
   "hashBasis": "sourceSha256/sourceBytes describe the template working-tree files at sourceCommit (pending changes are explicit); sha256/bytes describe the copied adapter after LF and trailing-blank-line normalization.",
   "files": [
@@ -28,8 +28,8 @@
     {
       "path": "server/modules/gateway/download.controller.ts",
       "bytes": 1550,
-      "sha256": "7fddb370b1f3c6c7256ea2a0af99b466ef90d690a15c3a3eaad4c1ae9390bb84",
-      "sourceSha256": "fe70f4dd30fb2aea4c6e1271a37fecbc81764f79e45086a34a50e354d20880e5",
+      "sha256": "900c72794367086780acc98298f353a93f6f4ae352f33d477d81ab24913de0dd",
+      "sourceSha256": "f448df8449bf6d8c2f65dcf5480393ff80e4e0e2d46345000a2f0bed0c6b7c5f",
       "sourceBytes": 1586
     },
     {
@@ -76,10 +76,10 @@
     },
     {
       "path": "server/modules/gateway/public-assets.spec.cjs",
-      "bytes": 9473,
-      "sha256": "3ad7d623ef1229a72a247ae2c32a57979d0b30911665e6293c4b1ff527a53734",
-      "sourceSha256": "bd2bcaefa3438a1c01a16ac7a224f9bd0a06d609f0c2f133725c36fe101e3cf9",
-      "sourceBytes": 9650
+      "bytes": 9471,
+      "sha256": "23c1a4a1fadcb8e8a5a8b5949f93f08530be821e28d63d888b9ac481efbcbd82",
+      "sourceSha256": "6371b1bf6435f22df3e15572d7303900c4d6dac85d0226488b2828dd517c7095",
+      "sourceBytes": 9648
     },
     {
       "path": "server/capabilities/keling-learning-planet.json",
@@ -104,17 +104,17 @@
     },
     {
       "path": "server/modules/gateway/release.controller.ts",
-      "bytes": 1395,
-      "sha256": "55a9604f33a7f4fe18c8033d20abe925093b6577e60d1e75871b86e1b39a9843",
-      "sourceSha256": "e6d42fe319379edca068b4c1a3637edd1717d331ac02ce730199b388d6f350a3",
-      "sourceBytes": 1425
+      "bytes": 1381,
+      "sha256": "33a12acc968f45e369e60e470638c99dbaf4caa9191369473ed7f7737a59be93",
+      "sourceSha256": "b88a77ba2b2ea9af5ea03f01973937fe919f1869dedd19c9a3ec2109db12c02c",
+      "sourceBytes": 1411
     },
     {
       "path": "server/modules/gateway/native-ai.service.ts",
-      "bytes": 4681,
-      "sha256": "9bb68016a65fd97d2cf7e6426245f814b70e30b0b633bde13a19ed2d9b3b0bc8",
-      "sourceSha256": "9bb68016a65fd97d2cf7e6426245f814b70e30b0b633bde13a19ed2d9b3b0bc8",
-      "sourceBytes": 4681
+      "bytes": 5042,
+      "sha256": "2e8746b83ccea15790ed497aa01506e376b0c259ff2b51316f530725c41dce77",
+      "sourceSha256": "7cb0451dea30a39994ff7f68507d8d05c28402a3358d55598e302123eacbf4d7",
+      "sourceBytes": 5141
     },
     {
       "path": "server/modules/gateway/native-ai.spec.cjs",
@@ -132,10 +132,10 @@
     },
     {
       "path": "server/capabilities/keling-study-plan.json",
-      "bytes": 2296,
-      "sha256": "baaa744af82f1e7c48bd54f9d9beda6cbd5150560080a443f8d9eb70cb3ed048",
-      "sourceSha256": "32f5101eca38ae6efdd6dbcec2cbfbde99b3a4285343bed3a892e4ad1be4324f",
-      "sourceBytes": 2342
+      "bytes": 2348,
+      "sha256": "5c5fc346a3345031bafa2b58e557adf2f1e3caa7f1f59802aa6e7a7632932761",
+      "sourceSha256": "00118612567b3a640d24bca20c4fe562ca76057d53695695a25575c32bf2e06f",
+      "sourceBytes": 2394
     }
   ],
   "template": {
@@ -281,5 +281,5 @@
   "publicResourcesFile": "public-resources.json",
   "publicResourcesSha256": "359b8755f94b6eb43c7089a42c65ec21cf459c6d59c8c73c883fb080f9103cd9",
   "androidDownloadFile": "android-download.json",
-  "androidDownloadSha256": "5b24d21c95b69fb625227fbf4d2e8be4a2cf500d1bf43f6453a94c8e17cea545"
+  "androidDownloadSha256": "00ddfd8ea3ffb2b536098702b420ad96f2e83ceef0cc8be2b3d99039531192e2"
 }

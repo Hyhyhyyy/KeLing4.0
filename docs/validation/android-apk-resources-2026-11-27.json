@@ -1,0 +1,42 @@
+{
+  "apk": "C:\\Users\\lenovo\\Documents\\ChatGPT\\KeLing_ICT\\apps\\android\\app\\build\\graph-proof\\keling-4.1.2-ai-rc3.apk",
+  "graphFiles": [
+    {
+      "name": "editor-QCXBTGFT.js",
+      "present": true,
+      "identical": true
+    },
+    {
+      "name": "editor-TCEGDHY6.css",
+      "present": true,
+      "identical": true
+    },
+    {
+      "name": "index.html",
+      "present": true,
+      "identical": true
+    },
+    {
+      "name": "licenses.json",
+      "present": true,
+      "identical": true
+    },
+    {
+      "name": "manifest.json",
+      "present": true,
+      "identical": true
+    }
+  ],
+  "stellarSourceFiles": 66,
+  "stellarApkFiles": 66,
+  "missing": [],
+  "different": [],
+  "fonts": [
+    {
+      "entry": "res/font/stzhongs.ttf",
+      "bytes": 12135284
+    }
+  ],
+  "fontMatchesCanonical": true,
+  "runtimeImages": 64
+}

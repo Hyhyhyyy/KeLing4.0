@@ -1,17 +1,17 @@
 {
   "appId": "app_17h4dw5jwdg",
   "route": "/download/android",
-  "versionName": "4.1.1-graph-rc2",
-  "versionCode": 29,
-  "fileName": "KeLing-ICT-4.1.1-graph-rc2-debug.apk",
-  "bytes": 78331402,
-  "sha256": "ad3569e2fb5e930e9827ba30a9163da1c01c1cdf2d14359809a20f68dfc0ba48",
+  "versionName": "4.1.2-ai-rc3",
+  "versionCode": 30,
+  "fileName": "KeLing-ICT-4.1.2-ai-rc3-debug.apk",
+  "bytes": 77490365,
+  "sha256": "9e7efe473df8f2f8b8b39d86ffa09fc582ea51c25e2966958dbcafe5bd529cd2",
   "contentType": "application/vnd.android.package-archive",
   "storageBucket": "bucket_aadk4xawzf4xg",
-  "storagePath": "/1882980283768928.apk",
-  "sourcePath": "apps/android/app/build/graph-proof/keling-4.1.1-graph-ai-rc2.apk",
+  "storagePath": "/1882982391923819.apk",
+  "sourcePath": "apps/android/app/build/graph-proof/keling-4.1.2-ai-rc3.apk",
   "certificateSha256": "e7b4d86c7a02fb6bb1d21215c393b347d2d67652e5e45dfbe3a3d6c66b7c67a3",
   "signatureScheme": "v2",
-  "githubReleaseTag": "v4.1.1-graph-rc2",
-  "githubAssetUrl": "https://github.com/Hyhyhyyy/KeLing4.0/releases/download/v4.1.1-graph-rc2/KeLing-ICT-4.1.1-graph-rc2-debug.apk"
+  "githubReleaseTag": "v4.1.2-ai-rc3",
+  "githubAssetUrl": "https://github.com/Hyhyhyyy/KeLing4.0/releases/download/v4.1.2-ai-rc3/KeLing-ICT-4.1.2-ai-rc3-debug.apk"
 }

@@ -2,15 +2,15 @@
 
 发布目标只使用 `Hyhyhyyy/KeLing4.0`，不推送原上游 `CurryHeng/KeLing_ICT`。历史发布脚本已移出当前源码树，不能从归档复制旧命令直接运行。
 
-当前公开候选为 **4.0.5-defense-rc6 / versionCode 26**，使用妙搭 HTTPS 入口，保留原 Neon 数据库。当前发布与验证见 [RC6 记录](competition/update-recovery-2026-11-26.md)；4.0.4 的连接历史证据见 [直连修复记录](auth/DIRECT_ACCESS_2026-10-31.md)。
+当前公开候选为 **4.1.2-ai-rc3 / versionCode 30**，使用妙搭 HTTPS 入口，保留原 Neon 数据库。当前发布与验证见 [RC3 记录](validation/release-ai-rc3-2026-11-27.json)和[功能验收](validation/demo-ai-rc3-2026-11-27.md)；此前版本保留各自历史记录。
 
 发布顺序：
 
 1. 运行 `npm run check`、`npm test`、`npm run test:web`、`npm run test:updates --workspace=keling-web`、`npm run assets:check` 和 `scripts/android-check.ps1 -Lint`，并完成无代理网页与 Android 账号流程。未能完成的真实设备检查须单列，不以自动测试代替。
-2. 检查 APK 的 versionCode、versionName、SHA-256 和签名。RC6 的 versionCode 为 26，与此前 code 20 和 RC4 使用同一包名和证书；此结论不等于已经完成真机安装。
+2. 检查 APK 的 versionCode、versionName、SHA-256 和签名。RC3 的 versionCode 为 30，与此前公开包使用同一包名和证书；此结论不等于已经完成真机安装。
 3. 仅将相关源代码提交并推送至 `Hyhyhyyy/KeLing4.0`。保留其他未提交改动，不提交 `.env`、密钥或测试账号凭据。
 4. 使用 `gh release create` 发布 prerelease，附真实 APK 和 `.sha256` 文件，并以 `--notes-file` 读取发布说明。
-5. 正文必须包含实际整数标记，例如本次 `<!-- keling-version-code: 26 -->`。服务器以有效 APK 和该标记识别更新，不能从版本字符串推算。GitHub 发行发布后，再发布使用相同 APK 的妙搭下载路由，验证 `/api/app/version` 的版本号。
+5. 正文必须包含实际整数标记，例如本次 `<!-- keling-version-code: 30 -->`。通用 GitHub 更新回退逻辑以有效 APK 和该标记识别更新，不能从版本字符串推算。当前妙搭部署使用随发布冻结的 `android-download.json`，不让运行时 GitHub 请求覆盖已审核的发布元数据。GitHub 发行发布后，再发布使用相同 APK 的妙搭下载路由，验证 `/api/app/version` 的版本号。
 6. 公布直连下载入口前，下载完整文件并比对 SHA-256；下载路由只能提供固定、已审核的公开安装包。
 
 `releases/` 只维护说明、索引和校验摘要；APK 放 GitHub Releases。离线产品介绍 HTML 是由 `docs/product-document/build_introduction.py` 生成的本地产物，当前内容入口为[产品介绍](PRODUCT_INTRODUCTION.md)。

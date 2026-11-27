@@ -1,0 +1,174 @@
+{
+  "version": "4.1.2-ai-rc3",
+  "date": "2026-11-27",
+  "sourceCommit": "eee96d7",
+  "githubRelease": "https://github.com/Hyhyhyyy/KeLing4.0/releases/tag/v4.1.2-ai-rc3",
+  "miaoda": {
+    "appId": "app_17h4dw5jwdg",
+    "releaseId": "7712697456491809979",
+    "status": "finished",
+    "templateCommit": "992c72289e73d3d2543eacf88005c378b43e6ee3",
+    "onlineUrl": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg",
+    "planningProviderConfiguration": "auto",
+    "observedPlanningProvider": "Miaoda"
+  },
+  "android": {
+    "appId": "app_17h4dw5jwdg",
+    "route": "/download/android",
+    "versionName": "4.1.2-ai-rc3",
+    "versionCode": 30,
+    "fileName": "KeLing-ICT-4.1.2-ai-rc3-debug.apk",
+    "bytes": 77490365,
+    "sha256": "9e7efe473df8f2f8b8b39d86ffa09fc582ea51c25e2966958dbcafe5bd529cd2",
+    "contentType": "application/vnd.android.package-archive",
+    "storageBucket": "bucket_aadk4xawzf4xg",
+    "storagePath": "/1882982391923819.apk",
+    "sourcePath": "apps/android/app/build/graph-proof/keling-4.1.2-ai-rc3.apk",
+    "certificateSha256": "e7b4d86c7a02fb6bb1d21215c393b347d2d67652e5e45dfbe3a3d6c66b7c67a3",
+    "signatureScheme": "v2",
+    "githubReleaseTag": "v4.1.2-ai-rc3",
+    "githubAssetUrl": "https://github.com/Hyhyhyyy/KeLing4.0/releases/download/v4.1.2-ai-rc3/KeLing-ICT-4.1.2-ai-rc3-debug.apk"
+  },
+  "generatedFilesVerified": 81,
+  "publicResourcesVerified": 5,
+  "graphFilesVerified": [
+    {
+      "file": "editor-QCXBTGFT.js",
+      "bytes": 656347,
+      "sha256": "c2b5489f4974c5a78afcd0b7fb8df40e7777583ef1c918e90621c7d053a34c73"
+    },
+    {
+      "file": "editor-TCEGDHY6.css",
+      "bytes": 2756,
+      "sha256": "21a5704955b38c0d806fca26b45b92b319b779aaf3f1445a8c5f7b0a7f813fcf"
+    },
+    {
+      "file": "index.html",
+      "bytes": 1598,
+      "sha256": "74697bbadad38444299d013cbeb28ecc14760681293b3bdf5e5017d2070f3f09"
+    },
+    {
+      "file": "licenses.json",
+      "bytes": 19058,
+      "sha256": "f8bd2bdeca1a91a826783473ddf853a3ad581404810403c544e13f4e7e822a6a"
+    },
+    {
+      "file": "manifest.json",
+      "bytes": 619,
+      "sha256": "8f1704d7c704ad5d75fece7110775dfd96f25bdf9b77f8f7576d45363233d0a9"
+    }
+  ],
+  "onlineHealth": {
+    "status": "ok",
+    "timestamp": "2026-11-27T04:08:05.742Z",
+    "version": "4.1.2-ai-rc3"
+  },
+  "publicDomains": [
+    "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg",
+    "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg"
+  ],
+  "onlineHttpCheckedAt": "2026-11-27T04:09:07.675173+00:00",
+  "onlineHttpResult": "passed",
+  "androidEntrypoints": [
+    {
+      "base": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg",
+      "versionChecks": [
+        {
+          "clientVersionCode": 29,
+          "latestVersionCode": 30,
+          "latestVersionName": "4.1.2-ai-rc3",
+          "needUpdate": true,
+          "forceUpdate": false,
+          "fileSize": 77490365,
+          "updateUrl": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/download/android"
+        },
+        {
+          "clientVersionCode": 30,
+          "latestVersionCode": 30,
+          "latestVersionName": "4.1.2-ai-rc3",
+          "needUpdate": false,
+          "forceUpdate": false,
+          "fileSize": 77490365,
+          "updateUrl": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/download/android"
+        }
+      ],
+      "directDownload": {
+        "status": 200,
+        "bytes": 77490365,
+        "sha256": "9e7efe473df8f2f8b8b39d86ffa09fc582ea51c25e2966958dbcafe5bd529cd2",
+        "contentType": "application/vnd.android.package-archive",
+        "redirectCacheControl": "no-store"
+      },
+      "legacyApiDownload": {
+        "status": 302,
+        "location": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/download/android"
+      }
+    },
+    {
+      "base": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg",
+      "versionChecks": [
+        {
+          "clientVersionCode": 29,
+          "latestVersionCode": 30,
+          "latestVersionName": "4.1.2-ai-rc3",
+          "needUpdate": true,
+          "forceUpdate": false,
+          "fileSize": 77490365,
+          "updateUrl": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/download/android"
+        },
+        {
+          "clientVersionCode": 30,
+          "latestVersionCode": 30,
+          "latestVersionName": "4.1.2-ai-rc3",
+          "needUpdate": false,
+          "forceUpdate": false,
+          "fileSize": 77490365,
+          "updateUrl": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/download/android"
+        }
+      ],
+      "directDownload": {
+        "status": 200,
+        "bytes": 77490365,
+        "sha256": "9e7efe473df8f2f8b8b39d86ffa09fc582ea51c25e2966958dbcafe5bd529cd2",
+        "contentType": "application/vnd.android.package-archive",
+        "redirectCacheControl": "no-store"
+      },
+      "legacyApiDownload": {
+        "status": 302,
+        "location": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/download/android"
+      }
+    }
+  ],
+  "tests": {
+    "server": 108,
+    "webAndGraphAndUpdate": 90,
+    "android": 111,
+    "hostAdapter": 21
+  },
+  "completeApkHashesVerified": [
+    "GitHub release",
+    "Miaoda storage",
+    "Miaoda canonical public download",
+    "Miaoda legacy public download"
+  ],
+  "functionalValidation": {
+    "livePublicAi": "native-ai-live-evidence-2026-11-27.md",
+    "planAndReview": "native-ai-plan-public-api-2026-11-27.json",
+    "guestAi": "native-ai-guest-public-api-2026-11-27.json",
+    "webUi": "web-ai-rc3-2026-11-27.md",
+    "androidUi": "android-ai-rc3-2026-11-27.json",
+    "graphUi": "web-graph-editor-2026-11-27.md",
+    "knowledgeLayoutApi": "knowledge-layout-public-api-2026-11-27.json",
+    "subjectPlanet": "planet-upgrade-2026-11-27.md"
+  },
+  "boundaries": [
+    "Individual records separate RC1/RC2 and RC3 sample provenance; no universal model guarantee",
+    "First actual native-model failure retained; cause not independently established",
+    "AI content requires teacher review; no learning-gain study",
+    "Android 14 emulator tested; no physical Android device tested",
+    "AgentArts workflow returned an actual plan; internal model node not independently audited",
+    "Default vector embedding model disabled; personal-key provider catalog not exhaustively tested",
+    "Gitee credentials unavailable; Vercel auto deployment disabled but old site pause not verified",
+    "Sensitive server configuration rotation is pending; see manual-followups-2026-11-27.md"
+  ]
+}

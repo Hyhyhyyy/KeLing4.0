@@ -29,4 +29,6 @@ RC2（`4.1.1-graph-rc2`，妙搭发布 `7712689212100906275`）已通过正式�
 
 跨端读写接续已通过：Android 读取 Web 布局、拖动“初次见面”并保存后，Web 重新打开和硬刷新获得的 9 个节点坐标及更新时间与 Android 保存快照完全一致；iframe 的实际初始化坐标也逐项一致，保存状态保持正确。证据为 `.cache/graph-validation/cross-device-result.json`，完整画面为 `graph-05-android-reopened.png`，复现脚本为 `.cache/graph-cross-device.cjs`。
 
+最终 RC3 (`4.1.2-ai-rc3`) 已再通过只读页面回读，图谱仍呈现相同已保存文档。PPT 应优先使用 `graph-06-rc3-current.png`；证据位于同目录 `ai-native-rc3-readback.json`。该版本不改变共享图谱引擎文件。
+
 游客数据仍只存于当前会话；浏览器刷新或退出会清空，不应将游客重开误写为跨会话持久化。

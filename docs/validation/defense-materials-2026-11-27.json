@@ -1,0 +1,168 @@
+{
+  "date": "2026-11-27",
+  "artifactRef": "artifact_hmXKowr5zFA1DHZdCkQ4T2KrvcPMmY35",
+  "stateVersion": 45,
+  "slideCount": 12,
+  "visuallyReviewedSlides": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+  ],
+  "lastChangedSlide": 8,
+  "lastChangedSlideVisuallyReviewed": true,
+  "design": "User reference: deep navy pixel starship, mint and cream/gold, lower-right mascot holding drawn pixel page numbers",
+  "screenshotPolicy": "11 full viewport/full Android screen captures, native annotation shapes; no screenshot crop",
+  "screenshotProvenance": {
+    "webHomeAndRules": "Earlier actual in-use captures; unchanged flows, not claimed as newly captured RC3",
+    "planet": "Actual public-model English generation",
+    "graph": "RC3 Web readback after Android save, 9 manually organized nodes/11 relationships",
+    "android": "RC1 actual model-generated math planet, practice and saved journal on emulator",
+    "aiPlan": "RC3 actual public model English plan, 2x10-minute tasks before explicit confirmation"
+  },
+  "editableDiagrams": true,
+  "checks": [
+    {
+      "slide": 1,
+      "textCount": 11,
+      "unexpectedFonts": [],
+      "outOfCanvas": [],
+      "fullScreens": 1,
+      "croppedScreens": [],
+      "pageNumberCorrect": true,
+      "renderSha256": "1cb8f68c6535ac6c68310abbc76989a97e9b81e054d7b7d4d6d5356708e6cde1"
+    },
+    {
+      "slide": 2,
+      "textCount": 25,
+      "unexpectedFonts": [],
+      "outOfCanvas": [],
+      "fullScreens": 1,
+      "croppedScreens": [],
+      "pageNumberCorrect": true,
+      "renderSha256": "aee3360a4186c37e27a8ab93ba1302416041f10aca0d0c30119b0cf3be98f7eb"
+    },
+    {
+      "slide": 3,
+      "textCount": 16,
+      "unexpectedFonts": [],
+      "outOfCanvas": [],
+      "fullScreens": 1,
+      "croppedScreens": [],
+      "pageNumberCorrect": true,
+      "renderSha256": "b66380e5687e9b0b7cec3ea0100dcb05363356aab00204ae3c05acf84dff8b72"
+    },
+    {
+      "slide": 4,
+      "textCount": 16,
+      "unexpectedFonts": [],
+      "outOfCanvas": [],
+      "fullScreens": 1,
+      "croppedScreens": [],
+      "pageNumberCorrect": true,
+      "renderSha256": "8d8d318e2fd3d11a1a0c907876ec8d0a2d4939d8cc338ffba3e6b8f12d7e70fc"
+    },
+    {
+      "slide": 5,
+      "textCount": 16,
+      "unexpectedFonts": [],
+      "outOfCanvas": [],
+      "fullScreens": 1,
+      "croppedScreens": [],
+      "pageNumberCorrect": true,
+      "renderSha256": "332c2c62e47871cd262263ee6720b6e18beb02e40826d02fb72f5be73992d2e6"
+    },
+    {
+      "slide": 6,
+      "textCount": 16,
+      "unexpectedFonts": [],
+      "outOfCanvas": [],
+      "fullScreens": 1,
+      "croppedScreens": [],
+      "pageNumberCorrect": true,
+      "renderSha256": "a7e00109966f79c7b2e27c19609268d394d4db0c92f063259c833fe34f002b22"
+    },
+    {
+      "slide": 7,
+      "textCount": 16,
+      "unexpectedFonts": [],
+      "outOfCanvas": [],
+      "fullScreens": 1,
+      "croppedScreens": [],
+      "pageNumberCorrect": true,
+      "renderSha256": "07682a1cd7bedbd2502ec7beb7011182a3a903517d20ee33395a543bd247d738"
+    },
+    {
+      "slide": 8,
+      "textCount": 19,
+      "unexpectedFonts": [],
+      "outOfCanvas": [],
+      "fullScreens": 3,
+      "croppedScreens": [],
+      "pageNumberCorrect": true,
+      "renderSha256": "08cbb7f7ef51f10b0df7d3225d7a046b8c9f91a8816b3010bbe25db55c81f224"
+    },
+    {
+      "slide": 9,
+      "textCount": 21,
+      "unexpectedFonts": [],
+      "outOfCanvas": [],
+      "fullScreens": 1,
+      "croppedScreens": [],
+      "pageNumberCorrect": true,
+      "renderSha256": "771abbabed42c82eeb6221d15db41a2e3578a3d6434f5864dfd10d065b5ba9cc"
+    },
+    {
+      "slide": 10,
+      "textCount": 12,
+      "unexpectedFonts": [],
+      "outOfCanvas": [],
+      "fullScreens": 0,
+      "croppedScreens": [],
+      "pageNumberCorrect": true,
+      "renderSha256": "6ba330d54ab6a40785b0b19d4d95981ba423e9c04272149074bc6b57f64561dc"
+    },
+    {
+      "slide": 11,
+      "textCount": 19,
+      "unexpectedFonts": [],
+      "outOfCanvas": [],
+      "fullScreens": 0,
+      "croppedScreens": [],
+      "pageNumberCorrect": true,
+      "renderSha256": "509b674b0d341b5772de4bab8a83c91df45dabaec9eda286fedd76f4306d79a6"
+    },
+    {
+      "slide": 12,
+      "textCount": 2,
+      "unexpectedFonts": [],
+      "outOfCanvas": [],
+      "fullScreens": 0,
+      "croppedScreens": [],
+      "pageNumberCorrect": true,
+      "renderSha256": "f97d86ce98a621384316f22e17100d0c04f3557a987d6c1359e0c02a053326d0"
+    }
+  ],
+  "exactEnding": "感谢倾听！请各位老师批评指正！",
+  "speech": {
+    "pages": 2,
+    "spokenHanCharacters": 1020,
+    "docxSha256": "f3e4beb8f1164e7eee0a9b5e69acd37bdf138c89a788e31c24da1fb80e6bbdb6",
+    "pdfSha256": "ec135533d5a3bbf3caab17322aa8e05cbab902fc60efdf465fe389bba7376965",
+    "visualInspection": "All 2 pages inspected visually after Word PDF export and bundled Poppler rendering; no clipping or overflow",
+    "actualSpokenTiming": "not measured"
+  },
+  "limits": [
+    "No physical Android device claim",
+    "Model content remains unreviewed by teachers",
+    "This verifies live presentation; exported PPTX and projector display not independently tested"
+  ]
+}

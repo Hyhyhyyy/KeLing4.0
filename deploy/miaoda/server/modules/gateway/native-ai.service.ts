@@ -87,7 +87,12 @@ export class NativeAiService implements OnModuleInit {
       return { content };
     } catch (error) {
       this.logger.warn({ pluginInstanceId, actionKey, outputMode: structured ? 'unary' : 'stream',
-        inputKeys: Object.keys(input), error: error instanceof Error ? error.name : 'UnknownError' });
+        inputKeys: Object.keys(input), error: error instanceof Error ? error.name : 'UnknownError',
+        reason: error instanceof Error && [
+          'Unexpected event after completion', 'Native stream failed', 'Invalid native text chunk',
+          'Native response exceeded limit', 'Incomplete native response',
+          'Invalid native plan', 'Invalid native plan task',
+        ].includes(error.message) ? error.message : 'External capability failed' });
       throw new Error('Native learning model failed');
     }
   }

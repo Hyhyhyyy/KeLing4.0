@@ -1,0 +1,64 @@
+{
+  "version": "4.1.2-ai-rc3",
+  "versionCode": 30,
+  "apk": "keling-4.1.2-ai-rc3.apk",
+  "sha256": "9E7EFE473DF8F2F8B8B39D86FFA09FC582EA51C25E2966958DBCAFE5BD529CD2",
+  "bytes": 77490365,
+  "testedAt": "2026-11-27T12:00:27.4606893+08:00",
+  "device": "Android 14 emulator-5582",
+  "physicalDeviceTested": false,
+  "unitTests": 111,
+  "failures": 0,
+  "lintErrors": 0,
+  "lintWarnings": 40,
+  "realAI": {
+    "provider": "Miaoda public native model",
+    "model": "miaoda-chat",
+    "personalKeyUsed": false,
+    "course": "英语基础知识星图",
+    "material": "Android English Lesson v1",
+    "question": "Using only this lesson, what are the two key parts of a polite introduction?",
+    "result": "Actual model response, explicit native save, notebook navigation and authenticated API readback",
+    "matchingSavedNotes": 1,
+    "sourceType": "AI_GENERATED",
+    "noteContains": [
+      "original question",
+      "answer",
+      "model",
+      "source title",
+      "source version",
+      "material version ID",
+      "span ID",
+      "original excerpt"
+    ]
+  },
+  "graph": {
+    "nodes": 9,
+    "edges": 11,
+    "flow": "Web save -> Android load -> native touch drag -> native save -> native reopen -> Web reload and exact position/version comparison",
+    "evidence": "C:/Users/lenovo/Documents/ChatGPT/KeLing_ICT/.cache/graph-validation/cross-device-result.json"
+  },
+  "resources": {
+    "graphFilesMatchWeb": true,
+    "runtimeImages": 64,
+    "metadataFiles": 2,
+    "fontMatchesCanonical": true,
+    "fontBytes": 12135284,
+    "apkEntries": 279,
+    "missingEntries": 0,
+    "detail": "android-apk-resources-2026-11-27.json"
+  },
+  "screenshots": [
+    "android-public-tutor-answer-rc3.png",
+    "android-public-tutor-saved-rc3.png",
+    "android-public-tutor-note-reopened-rc3.png",
+    "android-x6-layout-saved-live-rc2.png",
+    "android-x6-layout-reopened-live-rc2.png"
+  ],
+  "limits": [
+    "No physical Android device tested",
+    "Native general chat and planning protocol are unit-tested; this final live native run specifically validates material tutor and graph; Web/backend owners validate their additional AI flows",
+    "AI text is a model suggestion, not a mastery certificate"
+  ],
+  "screenshotRoot": "apps/android/app/build/graph-proof"
+}

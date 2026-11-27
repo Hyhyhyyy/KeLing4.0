@@ -1,0 +1,349 @@
+{
+  "startedAt": "2026-11-27T04:08:40.781Z",
+  "target": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg",
+  "releaseId": "7712697456491809979",
+  "status": "PASSED",
+  "realModel": true,
+  "realModelAttempted": true,
+  "realModelVerified": true,
+  "providerId": "miaoda",
+  "modelId": "miaoda-chat",
+  "humanReviewChanged": false,
+  "steps": [
+    {
+      "label": "owner login",
+      "method": "POST",
+      "status": 200,
+      "ms": 1710
+    },
+    {
+      "label": "second independent login",
+      "method": "POST",
+      "status": 200,
+      "ms": 418
+    },
+    {
+      "label": "other account login",
+      "method": "POST",
+      "status": 200,
+      "ms": 403
+    },
+    {
+      "label": "actual assistant catalog",
+      "method": "GET",
+      "status": 200,
+      "ms": 338
+    },
+    {
+      "label": "actual planning provider",
+      "method": "GET",
+      "status": 200,
+      "ms": 690
+    },
+    {
+      "label": "history planet baseline",
+      "method": "GET",
+      "status": 200,
+      "ms": 419
+    },
+    {
+      "label": "create dedicated AI course",
+      "method": "POST",
+      "status": 201,
+      "ms": 697
+    },
+    {
+      "label": "ordinary subject metadata",
+      "method": "GET",
+      "status": 200,
+      "ms": 641
+    },
+    {
+      "label": "ordinary subject refuses automatic binary-tree chapter",
+      "method": "GET",
+      "status": 409,
+      "ms": 866,
+      "code": "SAMPLE_REQUIRED"
+    },
+    {
+      "label": "ordinary subject remains empty before import",
+      "method": "GET",
+      "status": 200,
+      "ms": 620
+    },
+    {
+      "label": "save actual source material",
+      "method": "POST",
+      "status": 200,
+      "ms": 1336
+    },
+    {
+      "label": "read dedicated course task state",
+      "method": "GET",
+      "status": 200,
+      "ms": 292
+    },
+    {
+      "label": "start native structured plan",
+      "method": "POST",
+      "status": 202,
+      "ms": 1765
+    },
+    {
+      "label": "native structured plan poll",
+      "method": "GET",
+      "status": 200,
+      "ms": 1183
+    },
+    {
+      "label": "native structured plan poll",
+      "method": "GET",
+      "status": 200,
+      "ms": 753
+    },
+    {
+      "label": "native structured plan poll",
+      "method": "GET",
+      "status": 200,
+      "ms": 670
+    },
+    {
+      "label": "native structured plan poll",
+      "method": "GET",
+      "status": 200,
+      "ms": 611
+    },
+    {
+      "label": "read dedicated course task state",
+      "method": "GET",
+      "status": 200,
+      "ms": 407
+    },
+    {
+      "label": "other account cannot read plan",
+      "method": "GET",
+      "status": 404,
+      "ms": 587
+    },
+    {
+      "label": "confirm actual generated plan",
+      "method": "POST",
+      "status": 200,
+      "ms": 1390
+    },
+    {
+      "label": "repeat plan confirmation safely",
+      "method": "POST",
+      "status": 200,
+      "ms": 550
+    },
+    {
+      "label": "read dedicated course task state",
+      "method": "GET",
+      "status": 200,
+      "ms": 342
+    },
+    {
+      "label": "mark synthetic test task complete with zero study minutes",
+      "method": "POST",
+      "status": 200,
+      "ms": 1426
+    },
+    {
+      "label": "start native structured review",
+      "method": "POST",
+      "status": 202,
+      "ms": 1708
+    },
+    {
+      "label": "native structured review poll",
+      "method": "GET",
+      "status": 200,
+      "ms": 670
+    },
+    {
+      "label": "native structured review poll",
+      "method": "GET",
+      "status": 200,
+      "ms": 696
+    },
+    {
+      "label": "native structured review poll",
+      "method": "GET",
+      "status": 200,
+      "ms": 1642
+    },
+    {
+      "label": "read dedicated course task state",
+      "method": "GET",
+      "status": 200,
+      "ms": 306
+    },
+    {
+      "label": "history planet after AI acceptance",
+      "method": "GET",
+      "status": 200,
+      "ms": 428
+    },
+    {
+      "label": "verify test course identity before cleanup",
+      "method": "GET",
+      "status": 200,
+      "ms": 471
+    },
+    {
+      "label": "read dedicated course task state",
+      "method": "GET",
+      "status": 200,
+      "ms": 268
+    },
+    {
+      "label": "remove only dedicated test course task",
+      "method": "DELETE",
+      "status": 200,
+      "ms": 687
+    },
+    {
+      "label": "remove only dedicated test course",
+      "method": "DELETE",
+      "status": 200,
+      "ms": 1189
+    },
+    {
+      "label": "dedicated test course deleted",
+      "method": "GET",
+      "status": 404,
+      "ms": 402
+    }
+  ],
+  "checks": [
+    {
+      "name": "owner login establishes session",
+      "passed": true
+    },
+    {
+      "name": "second independent login establishes session",
+      "passed": true
+    },
+    {
+      "name": "other account login establishes session",
+      "passed": true
+    },
+    {
+      "name": "Miaoda chat is configured and has no invented embedding model",
+      "passed": true
+    },
+    {
+      "name": "New ordinary subject has no binary-tree history",
+      "passed": true
+    },
+    {
+      "name": "Rejected example request creates no source material",
+      "passed": true
+    },
+    {
+      "name": "Chat scenarios never create tasks automatically",
+      "passed": true
+    },
+    {
+      "name": "Default planner explicitly selects Miaoda",
+      "passed": true
+    },
+    {
+      "name": "Structured plan includes completed native model event",
+      "passed": true
+    },
+    {
+      "name": "Plan remains preview before confirmation",
+      "passed": true
+    },
+    {
+      "name": "Confirm creates exactly model task count once",
+      "passed": true
+    },
+    {
+      "name": "Review uses actual native structured generation",
+      "passed": true
+    },
+    {
+      "name": "Review preview does not create unconfirmed tasks",
+      "passed": true
+    },
+    {
+      "name": "Existing history planet remains unchanged",
+      "passed": true
+    }
+  ],
+  "answers": [],
+  "plans": [
+    {
+      "mode": "plan",
+      "result": {
+        "summary": "本次学习安排依据用户提出的20分钟分数入门学习目标，结合提供的《分数基础验收讲义 · 第 1 段》资料内容设计，聚焦比较分数和等值分数两个核心知识点。由于仅提供了单份基础讲义资料，学习内容仅覆盖讲义内的同分母、同分子分数比较规则及等值分数基本性质，暂未涉及异分母分数通分比较等拓展内容，后续若有进阶需求可补充对应资料后再调整计划。本次计划日期为2026-11-27，当日任务总时长20分钟，符合每日20分钟的时间预算要求。",
+        "tasks": [
+          {
+            "title": "学习分数比较与等值分数核心知识点",
+            "description": "1. 通读分数基础验收讲义第1段内容，梳理核心知识点：① 分数的基本定义与分母不为0的规则；② 同分母分数比较方法（分子越大分数越大）；③ 同分子正分数比较方法（分母越大分数越小）；④ 等值分数的基本性质（分子分母同乘或同除以非零数，分数值不变）。2. 结合讲义中的示例（3/4的含义、1/4与1/3比较、1/2=2/4）验证知识点理解。3. 产出：手写或电子记录3条分数比较规则、1条等值分数性质，各搭配1个讲义中的示例，完成后自行对照讲义检查记录是否准确。",
+            "date": "2026-11-27",
+            "minutes": 20,
+            "sourceIds": [
+              "material:redacted-id:redacted-id"
+            ]
+          }
+        ]
+      },
+      "modelEvents": [
+        {
+          "name": "妙搭公共模型学习规划",
+          "status": "node_started",
+          "providerId": "miaoda",
+          "modelId": "miaoda-chat"
+        },
+        {
+          "name": "妙搭公共模型学习规划",
+          "status": "node_finished",
+          "providerId": "miaoda",
+          "modelId": "miaoda-chat",
+          "usage": {}
+        }
+      ]
+    },
+    {
+      "mode": "review",
+      "completedTaskTitle": "学习分数比较与等值分数核心知识点",
+      "result": {
+        "summary": "本次为复盘模式，已确认用户完成了分数比较与等值分数核心知识点的学习任务。为验证学习效果，结合提供的分数基础验收讲义来源，安排知识点检测任务，确保掌握情况可量化检查。本次仅基于现有1份资料设计检测，若需更全面评估需补充更多习题类资料。日期与每日时长均符合给定限制。",
+        "tasks": [
+          {
+            "title": "完成分数基础知识点自测检测",
+            "description": "结合《分数基础验收讲义 · 第 1 段》内容，自行梳理3类检测题并作答：1. 2道同分母分数比较题（如比较5/7和3/7大小并说明理由）；2. 2道分子相同的正分数比较题（如比较1/5和1/6大小并说明理由）；3. 2道等值分数判断题（如判断2/3和4/6是否相等并说明依据）。最终产出一份包含题目、答案及对应知识点依据的自测记录，确保每道题都能对应讲义中的规则。",
+            "date": "2026-11-27",
+            "minutes": 20,
+            "sourceIds": [
+              "material:redacted-id:redacted-id"
+            ]
+          }
+        ]
+      },
+      "modelEvents": [
+        {
+          "name": "妙搭公共模型学习规划",
+          "status": "node_started",
+          "providerId": "miaoda",
+          "modelId": "miaoda-chat"
+        },
+        {
+          "name": "妙搭公共模型学习规划",
+          "status": "node_finished",
+          "providerId": "miaoda",
+          "modelId": "miaoda-chat",
+          "usage": {}
+        }
+      ]
+    }
+  ],
+  "cleanup": "COMPLETED",
+  "limits": "Synthetic educational material and dedicated accounts; successful output and provenance are not evidence of teaching efficacy or human-reviewed content.",
+  "planningProvider": "Miaoda",
+  "finishedAt": "2026-11-27T04:09:24.962Z"
+}

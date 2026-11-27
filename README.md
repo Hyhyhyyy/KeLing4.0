@@ -1,23 +1,23 @@
 # 课灵 · KeLing
 
-当前网页、API 与 Android：**4.0.6-defense-rc7**，Android **versionCode 27**。本轮完成任务计时与点击、资料参与规划检索、读取与冲突恢复、图谱缩放、Android导入导出及统计修复；章节更新为1.0.1。实际操作、自动检查和未完成项见[RC7验收记录](docs/validation/demo-upgrade-2026-11-26.md)。双击`demo.bat`或运行`npm run demo`可启动独立本机演示库。真实华为Runtime当前403，模型功能仍需账号配置与实际调用验收。
+当前网页、API 与 Android：**4.1.2-ai-rc3**，Android **versionCode 30**。新工作区由探索者输入学科和目标，真实模型生成学习星球；资料问答、计划与复盘已接入妙搭公共模型。知识星图使用本地嵌入的 AntV X6 与 Dagre，已核对两端保存和回读。实际调用、演示与未完成项见[RC3交付记录](docs/validation/demo-ai-rc3-2026-11-27.md)。双击 `demo.bat` 或运行 `npm run demo` 可启动独立本机演示库。
 
-原华为工作流已确认位于另一账号。给账号持有人的[恢复与联调交接](docs/handovers/huawei/README.md)包含具体操作、计划与复盘请求样例、验收条件和回传信息；[Word 文档](docs/handovers/huawei/课灵华为云工作流恢复与联调交接.docx)可直接转交。
+原华为工作流位于另一账号，目前 API 已真实返回计划，但内部模型节点尚未独立核验。给账号持有人的[最新交接说明](docs/handovers/huawei/README.md)和[模型核验 Word 文档](docs/handovers/huawei/课灵华为云工作流模型核验补充交接20261127.docx)可直接转交；不能把妙搭模型的验证结果称为华为模型已验证。
 
 以游戏化学习为核心的 Web 与 Android 应用。课程资料、动手练习、AI 辅导、任务与笔记使用共享账号服务；学习过程围绕「远航、星图、基地、我的」组织，手机另提供资料与设置入口。
 
 [打开网页](https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg) · [使用指南](https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/guide) · [游客试用](https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/trial) · [下载 Android](https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/download/android) · [GitHub Releases](https://github.com/Hyhyhyyy/KeLing4.0/releases)
 
-当前公开 Android 下载为 **4.0.6-defense-rc7 / 27**，最低 Android 8.0。预览包使用调试签名，与公开 code 20、RC4 包名和证书相同。当前网页与 API 运行于妙搭，连接原 Neon PostgreSQL 数据库。`vercel.json` 已用 `git.deploymentEnabled: false` 关闭 Git 自动部署；旧 Vercel 入口暂停仍待账号持有人在终端完成确认，关闭自动部署不等于旧站已经下线。当前有效入口以上述妙搭地址为准。
+当前公开 Android 下载为 **4.1.2-ai-rc3 / 30**，最低 Android 8.0。预览包使用调试签名，与此前公开包保持同一包名和证书。当前网页与 API 运行于妙搭，连接原 Neon PostgreSQL 数据库。`vercel.json` 已用 `git.deploymentEnabled: false` 关闭 Git 自动部署；旧 Vercel 入口暂停仍待账号持有人确认，关闭自动部署不等于旧站已经下线。当前有效入口以上述妙搭地址为准。
 
 ## 功能
 
-- **游戏化学习：** 二叉树首章的操作练习、反馈回放、知识证据和学习装饰。装饰奖励与知识掌握状态分开记录。
+- **游戏化学习：** 自选学科、生成星球、学习讲解、作答核对、记录发现与安排后续任务。二叉树保留为显式选择的规则练习示例；装饰奖励与知识掌握状态分开记录。
 - **学习工作区：** 课程、资料、笔记、任务、专注与学习报告，已提交的账号数据可跨端接续。
 - **可控 AI：** 先预览资料范围，再明确发送；回答和计划由用户核对、确认后保存。支持配置个人模型 Key。
 - **游客体验：** 使用本次内存工作区；退出、刷新或进程结束后清空，不自动迁入账号。
 
-本轮已验证线上RC7页面与指南、全部构建文件与APK字节，以及线上实际API闭环16项检查。Android14模拟器已实装当前包并操作任务、报告、远航及笔记导入导出。网页56项、服务端86项、页面更新8项、Android94项自动测试通过；范围见[验证索引](docs/validation/demo-upgrade-2026-11-26.md)。这些结果不替代真实模型、实体手机、真人审题或学习效果证据。
+本轮服务端108项、Web及图谱更新90项、Android111项、妙搭适配21项测试通过。公开接口取得十二个通用 AI 成功样本，并保留首次失败和内容问题；学科生成另有证据。RC3 实装 Android 14 模拟器，资料导师回答已保存并重开，图谱完成跨端位置与版本核对。线上构建文件与四个来源的完整 APK 摘要一致。范围见[验证索引](docs/validation/demo-ai-rc3-2026-11-27.md)，这些结果不代表全学科正确、所有模型厂商可用、实体设备通过或学习效果得到证明。
 
 ## 项目结构
 
@@ -33,7 +33,7 @@ deploy/               部署配置
 docs/                 当前文档、设计依据与历史归档
 ```
 
-`assets/stellar` 统一维护两端共用的 62 张 WebP 和一张 PNG 启动图标，网页与 Android 打包副本由构建生成。原 PNG 可从 Git 提交 `9583827` 追溯，不再重复保留于当前源码树。详见[资源维护说明](assets/stellar/README.md)。
+`assets/stellar` 统一维护两端共用的 63 张 WebP 和一张 PNG 启动图标，网页与 Android 打包副本由构建生成。原 PNG 可从 Git 提交 `9583827` 追溯，不再重复保留于当前源码树。详见[资源维护说明](assets/stellar/README.md)。
 
 ## 本地运行
 
@@ -49,7 +49,7 @@ npm run dev
 
 网页访问 `http://localhost:5173`，API 为 `http://localhost:3001/api`。本地初始化创建被 Git 忽略的环境配置和随机 JWT 密钥，使用 SQLite；已有库会保留并执行适用的增量升级。升级前先阅读[数据迁移与恢复](docs/design/DATA_MIGRATION_AND_RECOVERY.md)。
 
-没有模型配置时，可使用课程、任务和内置规则练习；真实 AI 调用需要在界面或服务端配置有效的模型服务。不要把密钥写入客户端包或提交到 Git。
+公开妙搭部署已注册公共模型能力，无需个人 Key 即可使用已接入的 AI 入口。独立本地部署仍需配置模型服务；没有配置时，可使用课程、任务和内置规则练习，模型失败不会以示例答案冒充。不要把密钥写入客户端包或提交到 Git。
 
 Android 在 Android Studio 中打开 `apps/android`。默认连接当前线上服务；连接本机开发 API 时，可使用模拟器地址：
 

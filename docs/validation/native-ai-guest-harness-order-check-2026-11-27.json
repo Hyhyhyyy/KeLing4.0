@@ -1,0 +1,115 @@
+{
+  "startedAt": "2026-11-27T04:09:32.007Z",
+  "target": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg",
+  "releaseId": "7712697456491809979",
+  "status": "FAILED",
+  "realModelVerified": true,
+  "steps": [
+    {
+      "label": "public native catalog",
+      "method": "GET",
+      "status": 200,
+      "ms": 361
+    },
+    {
+      "label": "quick public question start",
+      "method": "POST",
+      "status": 202,
+      "ms": 1473
+    },
+    {
+      "label": "quick public question without token denied",
+      "method": "GET",
+      "status": 404,
+      "ms": 357,
+      "code": "NOT_FOUND"
+    },
+    {
+      "label": "quick public question wrong token denied",
+      "method": "GET",
+      "status": 404,
+      "ms": 1290,
+      "code": "NOT_FOUND"
+    },
+    {
+      "label": "quick public question poll",
+      "method": "GET",
+      "status": 200,
+      "ms": 582
+    },
+    {
+      "label": "quick public question poll",
+      "method": "GET",
+      "status": 200,
+      "ms": 553
+    },
+    {
+      "label": "guest material chat start",
+      "method": "POST",
+      "status": 202,
+      "ms": 660
+    },
+    {
+      "label": "guest material chat without token denied",
+      "method": "GET",
+      "status": 404,
+      "ms": 585,
+      "code": "NOT_FOUND"
+    },
+    {
+      "label": "guest material chat wrong token denied",
+      "method": "GET",
+      "status": 404,
+      "ms": 578,
+      "code": "NOT_FOUND"
+    },
+    {
+      "label": "guest material chat poll",
+      "method": "GET",
+      "status": 200,
+      "ms": 565
+    },
+    {
+      "label": "guest material chat poll",
+      "method": "GET",
+      "status": 200,
+      "ms": 548
+    }
+  ],
+  "checks": [
+    {
+      "name": "Public catalog maps miaoda-chat to native service",
+      "passed": true
+    },
+    {
+      "name": "quick public question yields private async token",
+      "passed": true
+    },
+    {
+      "name": "Quick public response returns actual model and nonempty content",
+      "passed": true
+    },
+    {
+      "name": "guest material chat yields private async token",
+      "passed": true
+    }
+  ],
+  "outputs": [
+    {
+      "route": "/trial/ai",
+      "result": {
+        "answer": "等边三角形是三条边长度相等，且三个内角都为60度的三角形，其内角和符合三角形内角和为180度的规律[资料1]。\n\n### 解释说明\n1. **边的特征**：等边三角形的三条边长度完全相等，不存在边长差异。\n2. **角的特征**：因为三角形内角和为180度，等边三角形三个内角相等，所以每个角的度数为180°÷3=60°。\n\n### 例子\n比如一个等边三角形的边长是5厘米，那么它的另外两条边也都是5厘米，三个内角分别都是60度。\n\n### 理解检查\n如果一个三角形的三条边都长8厘米，你能说出它每个内角的度数吗？",
+        "model": "miaoda-chat",
+        "usage": {}
+      },
+      "elapsedMs": 7767,
+      "startedAt": "2026-11-27T04:09:32.371Z",
+      "finishedAt": "2026-11-27T04:09:40.138Z",
+      "providerIdReturned": false,
+      "providerEvidence": "model id plus public native catalog; capability completion log is recorded separately"
+    }
+  ],
+  "limits": "Only three controlled public requests; imported material is synthetic and no account data is sent. Quick trial response has no providerId field; its source must be linked by catalog, model id and capability completion logs.",
+  "failure": "Check failed: Guest chat returns actual provider and exact imported source",
+  "finishedAt": "2026-11-27T04:09:46.587Z"
+}

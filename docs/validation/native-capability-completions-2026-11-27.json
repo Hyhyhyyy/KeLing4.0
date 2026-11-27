@@ -1,0 +1,29 @@
+[
+  {
+    "timestamp_ns": "1795752664165000000",
+    "pluginInstanceId": "keling-study-plan",
+    "actionKey": "textToJson",
+    "outputMode": "unary",
+    "completed": true,
+    "outputCharacters": 468,
+    "durationMs": 5891
+  },
+  {
+    "timestamp_ns": "1795752522134000000",
+    "pluginInstanceId": "keling-study-assistant",
+    "actionKey": "textGenerate",
+    "outputMode": "stream",
+    "completed": true,
+    "outputCharacters": 408,
+    "durationMs": 3744
+  },
+  {
+    "timestamp_ns": "1795752477126000000",
+    "pluginInstanceId": "keling-study-plan",
+    "actionKey": "textToJson",
+    "outputMode": "unary",
+    "completed": true,
+    "outputCharacters": 643,
+    "durationMs": 7172
+  }
+]

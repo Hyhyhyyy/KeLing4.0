@@ -1,0 +1,235 @@
+{
+  "startedAt": "2026-11-27T04:09:32.007Z",
+  "target": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg",
+  "releaseId": "7712697456491809979",
+  "status": "PASSED",
+  "realModelVerified": true,
+  "steps": [
+    {
+      "label": "public native catalog",
+      "method": "GET",
+      "status": 200,
+      "ms": 361
+    },
+    {
+      "label": "quick public question start",
+      "method": "POST",
+      "status": 202,
+      "ms": 1473
+    },
+    {
+      "label": "quick public question without token denied",
+      "method": "GET",
+      "status": 404,
+      "ms": 357,
+      "code": "NOT_FOUND"
+    },
+    {
+      "label": "quick public question wrong token denied",
+      "method": "GET",
+      "status": 404,
+      "ms": 1290,
+      "code": "NOT_FOUND"
+    },
+    {
+      "label": "quick public question poll",
+      "method": "GET",
+      "status": 200,
+      "ms": 582
+    },
+    {
+      "label": "quick public question poll",
+      "method": "GET",
+      "status": 200,
+      "ms": 553
+    },
+    {
+      "label": "guest material chat start",
+      "method": "POST",
+      "status": 202,
+      "ms": 660
+    },
+    {
+      "label": "guest material chat without token denied",
+      "method": "GET",
+      "status": 404,
+      "ms": 585,
+      "code": "NOT_FOUND"
+    },
+    {
+      "label": "guest material chat wrong token denied",
+      "method": "GET",
+      "status": 404,
+      "ms": 578,
+      "code": "NOT_FOUND"
+    },
+    {
+      "label": "guest material chat poll",
+      "method": "GET",
+      "status": 200,
+      "ms": 565
+    },
+    {
+      "label": "guest material chat poll",
+      "method": "GET",
+      "status": 200,
+      "ms": 548
+    },
+    {
+      "label": "public native catalog",
+      "method": "GET",
+      "status": 200,
+      "ms": 593
+    },
+    {
+      "label": "guest material chat recover existing outcome",
+      "method": "GET",
+      "status": 200,
+      "ms": 1119
+    },
+    {
+      "label": "guest material-only plan start",
+      "method": "POST",
+      "status": 202,
+      "ms": 569
+    },
+    {
+      "label": "guest material-only plan without token denied",
+      "method": "GET",
+      "status": 404,
+      "ms": 365,
+      "code": "NOT_FOUND"
+    },
+    {
+      "label": "guest material-only plan wrong token denied",
+      "method": "GET",
+      "status": 404,
+      "ms": 595,
+      "code": "NOT_FOUND"
+    },
+    {
+      "label": "guest material-only plan poll",
+      "method": "GET",
+      "status": 200,
+      "ms": 631
+    },
+    {
+      "label": "guest material-only plan poll",
+      "method": "GET",
+      "status": 200,
+      "ms": 609
+    },
+    {
+      "label": "guest material-only plan poll",
+      "method": "GET",
+      "status": 200,
+      "ms": 657
+    }
+  ],
+  "checks": [
+    {
+      "name": "Public catalog maps miaoda-chat to native service",
+      "passed": true
+    },
+    {
+      "name": "quick public question yields private async token",
+      "passed": true
+    },
+    {
+      "name": "Quick public response returns actual model and nonempty content",
+      "passed": true
+    },
+    {
+      "name": "guest material chat yields private async token",
+      "passed": true
+    },
+    {
+      "name": "Public catalog maps miaoda-chat to native service",
+      "passed": true
+    },
+    {
+      "name": "Quick public response returns actual model and nonempty content",
+      "passed": true
+    },
+    {
+      "name": "Guest chat returns actual provider and exact imported source",
+      "passed": true
+    },
+    {
+      "name": "guest material-only plan yields private async token",
+      "passed": true
+    },
+    {
+      "name": "Material-only guest plan returns actual provider",
+      "passed": true
+    },
+    {
+      "name": "Material-only guest plan respects source date and budget",
+      "passed": true
+    }
+  ],
+  "outputs": [
+    {
+      "route": "/trial/ai",
+      "result": {
+        "answer": "等边三角形是三条边长度相等，且三个内角都为60度的三角形，其内角和符合三角形内角和为180度的规律[资料1]。\n\n### 解释说明\n1. **边的特征**：等边三角形的三条边长度完全相等，不存在边长差异。\n2. **角的特征**：因为三角形内角和为180度，等边三角形三个内角相等，所以每个角的度数为180°÷3=60°。\n\n### 例子\n比如一个等边三角形的边长是5厘米，那么它的另外两条边也都是5厘米，三个内角分别都是60度。\n\n### 理解检查\n如果一个三角形的三条边都长8厘米，你能说出它每个内角的度数吗？",
+        "model": "miaoda-chat",
+        "usage": {}
+      },
+      "elapsedMs": 7767,
+      "startedAt": "2026-11-27T04:09:32.371Z",
+      "finishedAt": "2026-11-27T04:09:40.138Z",
+      "providerIdReturned": false,
+      "providerEvidence": "Inferred from model id miaoda-chat, public native catalog, and controlled native registration path; response has no providerId and independent matching platform completion log is unavailable.",
+      "providerAttribution": "INFERRED_FROM_CONTROLLED_PATH",
+      "independentCapabilityLogMatched": false
+    },
+    {
+      "route": "/trial/workspace/chat",
+      "result": {
+        "answer": "### 直接回答\n第三个内角是70度。\n\n---\n\n### 思考步骤\n1. **回忆核心定理**：根据三角形内角和的基础结论，任意三角形的三个内角加起来的总和是180度[资料1]。\n2. **明确已知条件**：题目里已经给出两个内角的度数，分别是50度和60度。\n3. **计算第三个角**：用内角和180度，依次减去已知的两个角的度数，也就是 `180° - 50° - 60° = 70°`。\n4. **验证结果**：把三个角的度数加起来核对：`50° + 60° + 70° = 180°`，符合三角形内角和的规律，结果正确。\n\n---\n\n### 补充例子\n如果一个三角形的两个内角是30度和90度，第三个角的计算过程是：`180° - 30° - 90° = 60°`，所以第三个角是60度。\n\n---\n\n### 理解检查\n你可以试着算一下：如果一个三角形的两个内角分别是45度和45度，第三个角是多少度呢？",
+        "model": "miaoda-chat",
+        "providerId": "miaoda",
+        "usage": {},
+        "sources": [
+          {
+            "id": "material:guest-geometry-span-v1",
+            "title": "三角形基础导入讲义",
+            "text": "三角形三个内角的和为180度。等边三角形三条边相等，三个内角都为60度。如果三角形两个内角分别为50度和60度，则第三个内角为70度。",
+            "kind": "material",
+            "updatedAt": "guest-geometry-version-v1"
+          }
+        ]
+      },
+      "recoveredAt": "2026-11-27T04:12:00.070Z",
+      "reusedExistingJob": true
+    },
+    {
+      "route": "/trial/workspace/plan",
+      "result": {
+        "result": {
+          "summary": "本次学习计划围绕三角形内角和与等边三角形的核心知识点展开，依据导入的三角形基础讲义内容安排，总时长严格控制在每日20分钟的预算内，学习日期设定在2026-11-27当天，确保在指定的起止日期范围内完成基础内容的学习与初步巩固。由于仅提供了一份基础讲义资料，计划聚焦核心概念理解与简单应用练习，若后续有更多拓展资料可补充进阶内容。",
+          "tasks": [
+            {
+              "title": "学习三角形内角和与等边三角形核心概念",
+              "description": "1. 通读导入讲义内容，标记三角形内角和为180度、等边三角形三边相等且三个内角均为60度的核心知识点；2. 结合讲义中“两个内角为50度和60度时第三个内角为70度”的示例，自行推导验证内角和定理；3. 整理1条核心知识点笔记，明确内角和公式与等边三角形的角、边特征，确保能准确复述两个知识点的定义。",
+              "date": "2026-11-27",
+              "minutes": 20,
+              "sourceIds": [
+                "material:guest-geometry-span-v1"
+              ]
+            }
+          ]
+        },
+        "model": "miaoda-chat",
+        "providerId": "miaoda"
+      },
+      "elapsedMs": 10456,
+      "startedAt": "2026-11-27T04:12:00.081Z",
+      "finishedAt": "2026-11-27T04:12:10.537Z"
+    }
+  ],
+  "limits": "Three controlled public calls. Quick trial has no providerId in its response; provider attribution is inferred from model id, native catalog and controlled registration path. No independent capability completion log matching that quick request was found. This is not evidence of teaching efficacy.",
+  "finishedAt": "2026-11-27T04:12:10.539Z",
+  "harnessCorrection": "Initial source comparison used JSON string equality and rejected equal objects with different key order. Fixed semantic field comparison and reused the already SUCCEEDED job without invoking those models again. Original harness failure retained separately."
+}
