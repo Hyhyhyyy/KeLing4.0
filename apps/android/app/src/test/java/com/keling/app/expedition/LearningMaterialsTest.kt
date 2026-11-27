@@ -15,6 +15,61 @@ class LearningMaterialsTest {
     private fun parsed(text: String = "队列按先进先出访问节点。") = ParsedMaterial("队列原文", "教材", "TEXT", text, "hash-$text", "test-parser", "READY", listOf(MaterialSpan(ordinal = 0, startUtf16 = 0, endUtf16 = text.length, textHash = "span-$text")))
     private val headers = headersOf(HttpHeaders.ContentType, "application/json")
 
+    @Test fun guestTutorNoteKeepsSourceAndModelAndRejectsRevisedOrForgedReferences() = runBlocking {
+        val client = createApiHttpClient(MockEngine) { engine { addHandler { error("Guest notes must remain in memory") } } }
+        val guest = GuestWorkspaces.create(client)
+        try {
+            val course = guest.createCourse("队列课程").course!!
+            val doc = guest.learningMaterials.save(course.id, parsed(), null, "doc")
+            val source = guest.learningMaterials.draft(course.id, listOf(doc.id)).candidates.single().source
+            val answer = MaterialTutorAnswer("先想一想最先进入的元素何时离开。", "miaoda-chat", sources = listOf(expeditionJson.encodeToJsonElement(MaterialSource.serializer(), source).jsonObject))
+            val api = LearningApi(guest.token, client, "https://fixture.test/api")
+            api.saveTutorNote(course.id, "队列如何工作？", answer)
+            val note = WorkspaceApi(client).notes(guest.token).notes!!.single()
+            assertEquals("AI_GENERATED", note.sourceType); assertTrue(note.tags.contains("资料辅导"))
+            assertTrue(note.content.contains("miaoda-chat")); assertTrue(note.content.contains(doc.id))
+            assertTrue(note.content.contains(source.spanId)); assertTrue(note.content.contains(source.text))
+            guest.saveNote(note.id, WorkspaceNoteInput(note.title, note.content + "\n我的思考", note.updatedAt))
+            assertEquals("AI_GENERATED", guest.noteList().notes!!.single().sourceType)
+            val forged = answer.copy(sources = listOf(expeditionJson.encodeToJsonElement(MaterialSource.serializer(), source.copy(text = "不存在的原文")).jsonObject))
+            try { api.saveTutorNote(course.id, "队列如何工作？", forged); fail("Forged quote must not be saved") }
+            catch (e: ExpeditionException) { assertEquals("SOURCE_INVALID", e.detail.code) }
+            guest.learningMaterials.save(course.id, parsed("修订后的教材"), doc, "revision")
+            try { api.saveTutorNote(course.id, "队列如何工作？", answer); fail("Old versions must not be saved as current") }
+            catch (e: ExpeditionException) { assertEquals("CONTENT_STALE", e.detail.code) }
+            assertEquals(1, guest.noteList().notes!!.size)
+        } finally { GuestWorkspaces.close(guest.token); client.close() }
+    }
+
+    @Test fun accountTutorNoteVerifiesLiveSourceBeforeSendingAuthenticatedNoteToCapturedOrigin() = runBlocking {
+        val store = GuestLearningStore({}); val doc = store.save("course", parsed(), null, "doc")
+        val source = store.draft("course", listOf(doc.id)).candidates.single().source
+        var current = true; var saved = 0
+        val client = createApiHttpClient(MockEngine) { engine { addHandler { request ->
+            assertEquals("fixture.test", request.url.host); assertEquals("Bearer session", request.headers[HttpHeaders.Authorization])
+            when {
+                request.url.encodedPath.endsWith("/courses/course/materials") -> respond(buildJsonObject { put("materials", if (current) JsonArray(listOf(expeditionJson.encodeToJsonElement(doc))) else JsonArray(emptyList())) }.toString(), HttpStatusCode.OK, headers)
+                request.url.encodedPath.endsWith("/materials/${doc.id}") -> respond(buildJsonObject { put("material", expeditionJson.encodeToJsonElement(doc)) }.toString(), HttpStatusCode.OK, headers)
+                request.url.encodedPath.endsWith("/notes") -> {
+                    val body = Json.parseToJsonElement((request.body as TextContent).text).jsonObject
+                    assertEquals("AI_GENERATED", body["sourceType"]!!.jsonPrimitive.content)
+                    assertTrue(body["content"]!!.jsonPrimitive.content.contains(source.spanId)); saved++
+                    respond("{}", HttpStatusCode.Created, headers)
+                }
+                else -> error("Unexpected endpoint")
+            }
+        } } }
+        try {
+            val api = LearningApi("session", client, "https://fixture.test/api")
+            val answer = MaterialTutorAnswer("fixture answer", "miaoda-chat", sources = listOf(expeditionJson.encodeToJsonElement(MaterialSource.serializer(), source).jsonObject))
+            api.saveTutorNote("course", "提问", answer); assertEquals(1, saved)
+            current = false
+            try { api.saveTutorNote("course", "提问", answer); fail("Stale source must stop the POST") }
+            catch (e: ExpeditionException) { assertEquals("CONTENT_STALE", e.detail.code) }
+            assertEquals(1, saved)
+        } finally { client.close() }
+    }
+
     @Test fun publicTutorAllowsNoKeyButRejectsMaterialChangedWhileModelWasRunning() = runBlocking {
         lateinit var guest: GuestWorkspace
         lateinit var original: LearningDoc

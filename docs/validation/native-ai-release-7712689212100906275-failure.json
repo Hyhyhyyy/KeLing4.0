@@ -1,0 +1,174 @@
+{
+  "startedAt": "2026-11-27T03:41:28.763Z",
+  "target": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg",
+  "releaseId": "7712689212100906275",
+  "status": "FAILED",
+  "realModel": false,
+  "providerId": "miaoda",
+  "modelId": "miaoda-chat",
+  "humanReviewChanged": false,
+  "steps": [
+    {
+      "label": "owner login",
+      "method": "POST",
+      "status": 200,
+      "ms": 1329
+    },
+    {
+      "label": "second independent login",
+      "method": "POST",
+      "status": 200,
+      "ms": 482
+    },
+    {
+      "label": "other account login",
+      "method": "POST",
+      "status": 200,
+      "ms": 400
+    },
+    {
+      "label": "actual assistant catalog",
+      "method": "GET",
+      "status": 200,
+      "ms": 201
+    },
+    {
+      "label": "actual planning provider",
+      "method": "GET",
+      "status": 200,
+      "ms": 258
+    },
+    {
+      "label": "history planet baseline",
+      "method": "GET",
+      "status": 200,
+      "ms": 460
+    },
+    {
+      "label": "create dedicated AI course",
+      "method": "POST",
+      "status": 201,
+      "ms": 759
+    },
+    {
+      "label": "ordinary subject metadata",
+      "method": "GET",
+      "status": 200,
+      "ms": 765
+    },
+    {
+      "label": "ordinary subject refuses automatic binary-tree chapter",
+      "method": "GET",
+      "status": 409,
+      "ms": 1207,
+      "code": "SAMPLE_REQUIRED"
+    },
+    {
+      "label": "ordinary subject remains empty before import",
+      "method": "GET",
+      "status": 200,
+      "ms": 688
+    },
+    {
+      "label": "save actual source material",
+      "method": "POST",
+      "status": 200,
+      "ms": 1346
+    },
+    {
+      "label": "preview sources CONCEPT_EXPLAIN",
+      "method": "POST",
+      "status": 200,
+      "ms": 771
+    },
+    {
+      "label": "create session CONCEPT_EXPLAIN",
+      "method": "POST",
+      "status": 201,
+      "ms": 347
+    },
+    {
+      "label": "start model CONCEPT_EXPLAIN",
+      "method": "POST",
+      "status": 202,
+      "ms": 1414
+    },
+    {
+      "label": "independent session poll CONCEPT_EXPLAIN",
+      "method": "GET",
+      "status": 200,
+      "ms": 1098
+    },
+    {
+      "label": "independent session poll CONCEPT_EXPLAIN",
+      "method": "GET",
+      "status": 200,
+      "ms": 539
+    },
+    {
+      "label": "remove only dedicated test session",
+      "method": "DELETE",
+      "status": 200,
+      "ms": 668
+    },
+    {
+      "label": "verify test course identity before cleanup",
+      "method": "GET",
+      "status": 200,
+      "ms": 578
+    },
+    {
+      "label": "read dedicated course task state",
+      "method": "GET",
+      "status": 200,
+      "ms": 332
+    },
+    {
+      "label": "remove only dedicated test course",
+      "method": "DELETE",
+      "status": 200,
+      "ms": 1102
+    },
+    {
+      "label": "dedicated test course deleted",
+      "method": "GET",
+      "status": 404,
+      "ms": 343
+    }
+  ],
+  "checks": [
+    {
+      "name": "owner login establishes session",
+      "passed": true
+    },
+    {
+      "name": "second independent login establishes session",
+      "passed": true
+    },
+    {
+      "name": "other account login establishes session",
+      "passed": true
+    },
+    {
+      "name": "Miaoda chat is configured and has no invented embedding model",
+      "passed": true
+    },
+    {
+      "name": "New ordinary subject has no binary-tree history",
+      "passed": true
+    },
+    {
+      "name": "Rejected example request creates no source material",
+      "passed": true
+    }
+  ],
+  "answers": [],
+  "plans": [],
+  "cleanup": "COMPLETED",
+  "limits": "Synthetic educational material and dedicated accounts; successful output and provenance are not evidence of teaching efficacy or human-reviewed content.",
+  "planningProvider": "AgentArts",
+  "failure": "CONCEPT_EXPLAIN failed: NATIVE_MODEL_FAILED",
+  "finishedAt": "2026-11-27T03:41:46.381Z",
+  "realModelAttempted": true,
+  "realModelVerified": false
+}

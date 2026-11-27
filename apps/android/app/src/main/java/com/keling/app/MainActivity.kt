@@ -493,7 +493,7 @@ fun MainAppContent(authViewModel: AuthViewModel, viewModel: AppViewModel, onRetr
             } else if (currentScreen.startsWith("cloud_graph:")) {
                 assistantAccount?.let { session -> com.keling.app.graph.CloudGraphScreen(session.token, currentScreen.removePrefix("cloud_graph:")) { viewModel.navigateTo("greenhouse") } }
             } else if (currentScreen.startsWith("course_materials:") || currentScreen.startsWith("planet_materials:")) {
-                assistantAccount?.let { session -> com.keling.app.expedition.LearningMaterialsScreen(session.token, currentScreen.substringAfter(':')) {
+                assistantAccount?.let { session -> com.keling.app.expedition.LearningMaterialsScreen(session.token, currentScreen.substringAfter(':'), onNotebook = { viewModel.navigateTo("notes") }) {
                     viewModel.navigateTo(if (currentScreen.startsWith("planet_materials:")) "planet" else "greenhouse")
                 } }
             } else when (currentScreen) {
@@ -514,7 +514,7 @@ fun MainAppContent(authViewModel: AuthViewModel, viewModel: AppViewModel, onRetr
                         }) }
                 }
                 "expedition_materials" -> assistantAccount?.let { session ->
-                    com.keling.app.expedition.LearningMaterialsScreen(session.token, expeditionVm?.state?.value?.saved?.selectedCourseId) { viewModel.navigateTo("star_map") }
+                    com.keling.app.expedition.LearningMaterialsScreen(session.token, expeditionVm?.state?.value?.saved?.selectedCourseId, onNotebook = { viewModel.navigateTo("notes") }) { viewModel.navigateTo("star_map") }
                 }
                 "greenhouse", "tasks", "notes", "account_profile", "dashboard", "cloud_workspace", "report", "achievements" -> {
                     assistantAccount?.let { session ->

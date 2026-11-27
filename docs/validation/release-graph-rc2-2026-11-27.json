@@ -1,0 +1,89 @@
+{
+  "version": "4.1.1-graph-rc2",
+  "date": "2026-11-27",
+  "sourceCommit": "eebebe0",
+  "githubRelease": "https://github.com/Hyhyhyyy/KeLing4.0/releases/tag/v4.1.1-graph-rc2",
+  "miaoda": {
+    "appId": "app_17h4dw5jwdg",
+    "releaseId": "7712689212100906275",
+    "status": "finished",
+    "templateCommit": "6c6f371c6b5651865eb918af8c44113cc796f79b",
+    "onlineUrl": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg"
+  },
+  "android": {
+    "appId": "app_17h4dw5jwdg",
+    "route": "/download/android",
+    "versionName": "4.1.1-graph-rc2",
+    "versionCode": 29,
+    "fileName": "KeLing-ICT-4.1.1-graph-rc2-debug.apk",
+    "bytes": 78331402,
+    "sha256": "ad3569e2fb5e930e9827ba30a9163da1c01c1cdf2d14359809a20f68dfc0ba48",
+    "contentType": "application/vnd.android.package-archive",
+    "storageBucket": "bucket_aadk4xawzf4xg",
+    "storagePath": "/1882980283768928.apk",
+    "sourcePath": "apps/android/app/build/graph-proof/keling-4.1.1-graph-ai-rc2.apk",
+    "certificateSha256": "e7b4d86c7a02fb6bb1d21215c393b347d2d67652e5e45dfbe3a3d6c66b7c67a3",
+    "signatureScheme": "v2",
+    "githubReleaseTag": "v4.1.1-graph-rc2",
+    "githubAssetUrl": "https://github.com/Hyhyhyyy/KeLing4.0/releases/download/v4.1.1-graph-rc2/KeLing-ICT-4.1.1-graph-rc2-debug.apk"
+  },
+  "generatedFilesVerified": 81,
+  "publicResourcesVerified": 5,
+  "graphFilesVerified": [
+    {
+      "file": "editor-QCXBTGFT.js",
+      "bytes": 656347,
+      "sha256": "c2b5489f4974c5a78afcd0b7fb8df40e7777583ef1c918e90621c7d053a34c73"
+    },
+    {
+      "file": "editor-TCEGDHY6.css",
+      "bytes": 2756,
+      "sha256": "21a5704955b38c0d806fca26b45b92b319b779aaf3f1445a8c5f7b0a7f813fcf"
+    },
+    {
+      "file": "index.html",
+      "bytes": 1598,
+      "sha256": "74697bbadad38444299d013cbeb28ecc14760681293b3bdf5e5017d2070f3f09"
+    },
+    {
+      "file": "licenses.json",
+      "bytes": 19058,
+      "sha256": "f8bd2bdeca1a91a826783473ddf853a3ad581404810403c544e13f4e7e822a6a"
+    },
+    {
+      "file": "manifest.json",
+      "bytes": 619,
+      "sha256": "8f1704d7c704ad5d75fece7110775dfd96f25bdf9b77f8f7576d45363233d0a9"
+    }
+  ],
+  "onlineHealth": {
+    "status": "ok",
+    "timestamp": "2026-11-27T03:38:31.242Z",
+    "version": "4.1.1-graph-rc2"
+  },
+  "publicDomains": [
+    "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg",
+    "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg"
+  ],
+  "tests": {
+    "server": 108,
+    "webAndGraphAndUpdate": 90,
+    "android": 109,
+    "hostAdapter": 21
+  },
+  "completeApkHashesVerified": [
+    "GitHub release",
+    "Miaoda storage",
+    "Miaoda canonical public download",
+    "Miaoda legacy public download"
+  ],
+  "functionalValidation": "in progress; see separate AI and UI evidence",
+  "boundaries": [
+    "AI generated content requires teacher review",
+    "No physical Android device verification",
+    "AgentArts workflow returned an actual plan; internal model node has not been independently audited",
+    "No default vector embedding model",
+    "Gitee credentials unavailable",
+    "Vercel automatic deployment disabled; old site pause not independently verified"
+  ]
+}

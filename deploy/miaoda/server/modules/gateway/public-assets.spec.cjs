@@ -29,6 +29,7 @@ function loadController(filename, exported) {
 }
 const ArtworkController = loadController('artwork.controller.ts', 'ArtworkController');
 const FontController = loadController('font.controller.ts', 'FontController');
+const ReleaseController = loadController('release.controller.ts', 'ReleaseController');
 const DownloadController = loadController('download.controller.ts', 'DownloadController');
 
 async function fixture(run, overrides = {}) {
@@ -45,7 +46,7 @@ async function fixture(run, overrides = {}) {
     },
   }; } };
   class TestModule {}
-  NestModule({ controllers: [ArtworkController, FontController, DownloadController], providers: [{ provide: FileService, useValue: fake }] })(TestModule);
+  NestModule({ controllers: [ReleaseController, ArtworkController, FontController, DownloadController], providers: [{ provide: FileService, useValue: fake }] })(TestModule);
   const app = await NestFactory.create(TestModule, { logger: false });
   await app.listen(0, '127.0.0.1');
   try { await run(await app.getUrl(), calls); } finally { await app.close(); }
@@ -77,14 +78,14 @@ test('unlisted artwork and fonts never request storage', async () => {
   });
 });
 
-test('Android download signs only the frozen planet RC1 package and does not cache its redirect', async () => {
+test('Android download signs only the frozen graph and AI RC2 package and does not cache its redirect', async () => {
   await fixture(async (origin, calls) => {
     const response = await fetch(origin + '/download/android?path=/private-file', { redirect: 'manual' });
     assert.equal(response.status, 302);
     assert.equal(response.headers.get('cache-control'), 'no-store');
-    assert.equal(response.headers.get('x-content-sha256'), '273d4895c3e78ae5f58d303b3d4884c2f1673d38141bf56d98e36b5108a5729d');
+    assert.equal(response.headers.get('x-content-sha256'), 'ad3569e2fb5e930e9827ba30a9163da1c01c1cdf2d14359809a20f68dfc0ba48');
     assert.equal(response.headers.get('location'), 'https://example.invalid/public-art.webp');
-    assert.deepEqual(calls, [{ method: 'sign', bucket: 'bucket_aadk4xawzf4xg', asset: '/1882973904512106.apk', seconds: 3600 }]);
+    assert.deepEqual(calls, [{ method: 'sign', bucket: 'bucket_aadk4xawzf4xg', asset: '/1882980283768928.apk', seconds: 3600 }]);
   });
 });
 
@@ -159,4 +160,20 @@ test('a failed font download does not prevent a successful retry', async () => {
     assert.deepEqual(Buffer.from(await response.arrayBuffer()), font);
     assert.equal(calls.length, 2);
   }, { download() { if (++attempts === 1) throw new Error('Storage temporarily unavailable'); return font; } });
+});
+
+test('version checks use the verified published APK without a GitHub network dependency', async () => {
+  await fixture(async (origin, calls) => {
+    for (const code of [28,29]) {
+      const r=await fetch(origin+'/api/app/version?versionCode='+code);
+      const value=await r.json();
+      assert.equal(r.status,200); assert.equal(value.success,true);
+      assert.equal(value.latestVersion.versionCode,29);
+      assert.equal(value.latestVersion.fileSize,78331402);
+      assert.equal(value.latestVersion.sha256,'ad3569e2fb5e930e9827ba30a9163da1c01c1cdf2d14359809a20f68dfc0ba48');
+      assert.equal(value.needUpdate,code<29); assert.equal(value.forceUpdate,false);
+      assert.equal(r.headers.get('cache-control'),'no-store');
+    }
+    assert.equal(calls.length,0);
+  });
 });

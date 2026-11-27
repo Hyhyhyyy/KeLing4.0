@@ -121,7 +121,40 @@ class LearningApi(private val token: String, private val client: HttpClient = Ke
         guest?.ensureOpen()
         // Recheck current versions after the response, before displaying a now-stale citation.
         guest?.learningMaterials?.draft(courseId, ids)
-        return answer
+        return if (guest == null) answer else answer.copy(sources = selected.orEmpty().map {
+            expeditionJson.encodeToJsonElement(MaterialSource.serializer(), it.source).jsonObject
+        })
+    }
+    suspend fun saveTutorNote(courseId: String, question: String, answer: MaterialTutorAnswer) {
+        require(question.isNotBlank() && answer.answer.isNotBlank()) { "请先完成资料问答" }
+        val sources = answer.sources.map { expeditionJson.decodeFromJsonElement(MaterialSource.serializer(), it) }
+        require(sources.isNotEmpty()) { "回答缺少可核查的来源，请重新提问" }
+        val current = list(courseId).associateBy { it.id }
+        val full = mutableMapOf<String, LearningDoc>()
+        for (source in sources) {
+            val live = current[source.materialVersionId]
+            ExpeditionRules.check(live != null && live.contentHash == source.contentHash, "CONTENT_STALE", "引用资料已变化，请重新提问后保存")
+            val doc = full[source.materialVersionId] ?: get(source.materialVersionId).also { full[it.id] = it }
+            val span = doc.spans.firstOrNull { it.id == source.spanId }
+            ExpeditionRules.check(doc.courseId == courseId && doc.deletedAt == null && doc.contentHash == source.contentHash && span != null &&
+                span.startUtf16 == source.startUtf16 && span.endUtf16 == source.endUtf16 &&
+                source.startUtf16 >= 0 && source.endUtf16 <= doc.content.length && source.endUtf16 >= source.startUtf16 &&
+                doc.content.substring(source.startUtf16, source.endUtf16) == source.text,
+                "SOURCE_INVALID", "回答的引用片段已变化，请重新提问后保存")
+        }
+        val content = buildString {
+            append("问题：").append(question.trim()).append("\n\nAI 建议（需核查）：\n").append(answer.answer)
+            append("\n\n模型：").append(answer.model).append("\n来源：\n")
+            sources.forEachIndexed { index, source ->
+                append("[S").append(index + 1).append("] ").append(source.title).append(" · v")
+                    .append(full.getValue(source.materialVersionId).version).append("\n")
+                    .append(source.materialVersionId).append('#').append(source.spanId).append("\n")
+                    .append(source.text).append("\n\n")
+            }
+        }
+        require(content.length <= 50000) { "回答与来源超过笔记长度限制，请缩小提问范围" }
+        WorkspaceApi(client, origin).saveNote(token, null, WorkspaceNoteInput("资料辅导 · ${question.trim()}".take(180), content,
+            sourceType = "AI_GENERATED", tags = listOf("资料辅导", "AI建议")))
     }
     private val guestPreviews = mutableMapOf<String, String>()
     suspend fun schedule(courseId: String, input: ScheduleRequest): SchedulePreview {

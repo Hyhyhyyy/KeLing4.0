@@ -8,12 +8,13 @@ import kotlinx.serialization.Serializable
 
 @Serializable data class WorkspaceProfile(val id: String, val name: String, val avatarUrl: String? = null, val bio: String = "", val level: Int = 1, val energy: Int = 0, val crystals: Int = 0, val totalStudyMinutes: Int = 0, val streakDays: Int = 0)
 @Serializable data class WorkspaceUser(val user: WorkspaceProfile)
-@Serializable data class WorkspaceNoteInput(val title: String, val content: String, val expectedUpdatedAt: String? = null)
+@Serializable data class WorkspaceNoteInput(val title: String, val content: String, val expectedUpdatedAt: String? = null,
+    val sourceType: String? = null, val tags: List<String>? = null)
 @Serializable data class WorkspaceTaskInput(val title: String, val description: String = "", val courseId: String? = null, val estimatedMinutes: Int = 25)
 @Serializable private data class CoursePlanetInput(val planetStyleIndex: Int)
 @Serializable private data class AvatarInput(val avatarUrl: String)
-class WorkspaceApi(private val client: HttpClient = KelingHttpClient.client) {
-    private fun url(path: String) = "${ApiConfig.actualBaseUrl}$path"
+class WorkspaceApi(private val client: HttpClient = KelingHttpClient.client, private val origin: String = ApiConfig.actualBaseUrl) {
+    private fun url(path: String) = "$origin$path"
     suspend fun profile(token: String): WorkspaceUser = GuestWorkspaces.find(token)?.let { WorkspaceUser(it.profile) } ?: client.get(url("/user/profile")) { bearerAuth(token) }.body()
     suspend fun notes(token: String): NoteResponse = GuestWorkspaces.find(token)?.let { it.noteList() } ?: client.get(url("/notes")) { bearerAuth(token) }.body()
     suspend fun courses(token: String): CourseResponse = GuestWorkspaces.find(token)?.let { it.courseList() } ?: client.get(url("/courses")) { bearerAuth(token) }.body()

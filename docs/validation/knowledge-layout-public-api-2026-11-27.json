@@ -1,0 +1,342 @@
+{
+  "startedAt": "2026-11-27T03:39:05.764Z",
+  "target": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg",
+  "releaseId": "7712689212100906275",
+  "status": "PASSED",
+  "realModelCalled": false,
+  "database": "Published Miaoda PostgreSQL API",
+  "limits": "Public API verifies marker hiding and course deletion; direct marker row cleanup is proven by isolated server integration tests, not public row access.",
+  "steps": [
+    {
+      "label": "first independent login",
+      "method": "POST",
+      "status": 200,
+      "ms": 2187
+    },
+    {
+      "label": "second independent login",
+      "method": "POST",
+      "status": 200,
+      "ms": 497
+    },
+    {
+      "label": "foreign account login",
+      "method": "POST",
+      "status": 200,
+      "ms": 448
+    },
+    {
+      "label": "existing history planet baseline",
+      "method": "GET",
+      "status": 200,
+      "ms": 438
+    },
+    {
+      "label": "create dedicated test course",
+      "method": "POST",
+      "status": 201,
+      "ms": 743
+    },
+    {
+      "label": "ordinary graph course refuses sample initialization",
+      "method": "GET",
+      "status": 409,
+      "ms": 1087,
+      "code": "SAMPLE_REQUIRED"
+    },
+    {
+      "label": "ordinary graph course material state",
+      "method": "GET",
+      "status": 200,
+      "ms": 666
+    },
+    {
+      "label": "create linked test node 0",
+      "method": "POST",
+      "status": 201,
+      "ms": 1154
+    },
+    {
+      "label": "create linked test node 1",
+      "method": "POST",
+      "status": 201,
+      "ms": 1224
+    },
+    {
+      "label": "create linked test node 2",
+      "method": "POST",
+      "status": 201,
+      "ms": 1205
+    },
+    {
+      "label": "edit prerequisite and difficulty",
+      "method": "PUT",
+      "status": 200,
+      "ms": 1196
+    },
+    {
+      "label": "second client reloads node edit",
+      "method": "GET",
+      "status": 200,
+      "ms": 431
+    },
+    {
+      "label": "read current node versions",
+      "method": "GET",
+      "status": 200,
+      "ms": 537
+    },
+    {
+      "label": "anonymous layout rejected",
+      "method": "PUT",
+      "status": 401,
+      "ms": 184
+    },
+    {
+      "label": "foreign layout rejected",
+      "method": "PUT",
+      "status": 404,
+      "ms": 653,
+      "code": "NOT_FOUND"
+    },
+    {
+      "label": "save full graph layout",
+      "method": "PUT",
+      "status": 200,
+      "ms": 995
+    },
+    {
+      "label": "second client reopens saved graph",
+      "method": "GET",
+      "status": 200,
+      "ms": 490
+    },
+    {
+      "label": "mixed stale version rolls back full request",
+      "method": "PUT",
+      "status": 409,
+      "ms": 661,
+      "code": "LAYOUT_CONFLICT"
+    },
+    {
+      "label": "read after stale request",
+      "method": "GET",
+      "status": 200,
+      "ms": 542
+    },
+    {
+      "label": "read other course ids without mutation",
+      "method": "GET",
+      "status": 200,
+      "ms": 477
+    },
+    {
+      "label": "different course node rejects full request",
+      "method": "PUT",
+      "status": 404,
+      "ms": 681,
+      "code": "NOT_FOUND"
+    },
+    {
+      "label": "duplicate node rejected",
+      "method": "PUT",
+      "status": 400,
+      "ms": 791,
+      "code": "VALIDATION"
+    },
+    {
+      "label": "out of range coordinate rejected",
+      "method": "PUT",
+      "status": 400,
+      "ms": 540,
+      "code": "VALIDATION"
+    },
+    {
+      "label": "read after malformed request",
+      "method": "GET",
+      "status": 200,
+      "ms": 483
+    },
+    {
+      "label": "other device adds a node",
+      "method": "POST",
+      "status": 201,
+      "ms": 1062
+    },
+    {
+      "label": "old device saves known subset",
+      "method": "PUT",
+      "status": 200,
+      "ms": 1058
+    },
+    {
+      "label": "reload complete graph",
+      "method": "GET",
+      "status": 200,
+      "ms": 495
+    },
+    {
+      "label": "save refreshed complete layout",
+      "method": "PUT",
+      "status": 200,
+      "ms": 1068
+    },
+    {
+      "label": "normal notebook list",
+      "method": "GET",
+      "status": 200,
+      "ms": 442
+    },
+    {
+      "label": "normal note PUT cannot touch marker",
+      "method": "PUT",
+      "status": 404,
+      "ms": 900
+    },
+    {
+      "label": "normal note DELETE cannot touch marker",
+      "method": "DELETE",
+      "status": 404,
+      "ms": 320
+    },
+    {
+      "label": "cyclic edit is rejected",
+      "method": "PUT",
+      "status": 400,
+      "ms": 751,
+      "code": "VALIDATION"
+    },
+    {
+      "label": "read after cyclic edit",
+      "method": "GET",
+      "status": 200,
+      "ms": 549
+    },
+    {
+      "label": "delete prerequisite node",
+      "method": "DELETE",
+      "status": 200,
+      "ms": 920
+    },
+    {
+      "label": "reload graph after prerequisite deletion",
+      "method": "GET",
+      "status": 200,
+      "ms": 511
+    },
+    {
+      "label": "edit surviving node after prerequisite deletion",
+      "method": "PUT",
+      "status": 200,
+      "ms": 4495
+    },
+    {
+      "label": "reload surviving edited node",
+      "method": "GET",
+      "status": 200,
+      "ms": 429
+    },
+    {
+      "label": "history planet remains intact",
+      "method": "GET",
+      "status": 200,
+      "ms": 360
+    },
+    {
+      "label": "verify exact test course before cleanup",
+      "method": "GET",
+      "status": 200,
+      "ms": 511
+    },
+    {
+      "label": "delete only dedicated test course",
+      "method": "DELETE",
+      "status": 200,
+      "ms": 1020
+    },
+    {
+      "label": "deleted course inaccessible",
+      "method": "GET",
+      "status": 404,
+      "ms": 332
+    },
+    {
+      "label": "deleted course graph inaccessible",
+      "method": "GET",
+      "status": 404,
+      "ms": 313
+    }
+  ],
+  "checks": [
+    {
+      "name": "first independent login established session",
+      "passed": true
+    },
+    {
+      "name": "second independent login established session",
+      "passed": true
+    },
+    {
+      "name": "foreign account login established session",
+      "passed": true
+    },
+    {
+      "name": "Ordinary graph course remains free of example material",
+      "passed": true
+    },
+    {
+      "name": "All edited fields survive independent read",
+      "passed": true
+    },
+    {
+      "name": "Fresh graph has no saved layout",
+      "passed": true
+    },
+    {
+      "name": "Explicit full save marks all nodes saved",
+      "passed": true
+    },
+    {
+      "name": "Second client reads identical coordinates and saved markers",
+      "passed": true
+    },
+    {
+      "name": "Stale batch does not partially move nodes",
+      "passed": true
+    },
+    {
+      "name": "Invalid batches preserve all nodes",
+      "passed": true
+    },
+    {
+      "name": "Unseen new node prevents false whole graph saved state",
+      "passed": true
+    },
+    {
+      "name": "Refreshed whole graph can be saved",
+      "passed": true
+    },
+    {
+      "name": "Internal saved marker does not appear in notebook",
+      "passed": true
+    },
+    {
+      "name": "Cyclic edit causes no partial content change",
+      "passed": true
+    },
+    {
+      "name": "Deleted prerequisite is removed from all remaining references",
+      "passed": true
+    },
+    {
+      "name": "Surviving node remains editable",
+      "passed": true
+    },
+    {
+      "name": "Existing history planet remains unchanged",
+      "passed": true
+    }
+  ],
+  "cleanup": "COMPLETED",
+  "finishedAt": "2026-11-27T03:39:39.665Z"
+}

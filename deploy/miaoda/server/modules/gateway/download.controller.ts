@@ -3,8 +3,8 @@ import { FileService } from '@lark-apaas/fullstack-nestjs-core';
 import type { Response } from 'express';
 
 const APK_BUCKET: string = 'bucket_aadk4xawzf4xg';
-const APK_PATH: string = '/1882973904512106.apk';
-const APK_SHA256: string = '273d4895c3e78ae5f58d303b3d4884c2f1673d38141bf56d98e36b5108a5729d';
+const APK_PATH: string = '/1882980283768928.apk';
+const APK_SHA256: string = 'ad3569e2fb5e930e9827ba30a9163da1c01c1cdf2d14359809a20f68dfc0ba48';
 
 @Controller('download')
 export class DownloadController {

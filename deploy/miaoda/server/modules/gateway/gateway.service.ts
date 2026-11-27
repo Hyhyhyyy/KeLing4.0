@@ -10,7 +10,7 @@ const ENTRY_FILES: ReadonlySet<string> = new Set([
 ]);
 
 export function staticCacheControl(pathname: string): string {
-  return ENTRY_FILES.has(pathname) ? ENTRY_CACHE_CONTROL : 'public, max-age=3600';
+  return ENTRY_FILES.has(pathname) || pathname.startsWith('/graph-editor/') ? ENTRY_CACHE_CONTROL : 'public, max-age=3600';
 }
 
 export function hostedPath(path: string, base: string): string {

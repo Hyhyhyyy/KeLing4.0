@@ -52,6 +52,20 @@ test('SPA navigation uses the same non-cacheable entry policy',async()=>{
  });
 });
 
+test('local graph editor stable files are served intact without stale caching',async()=>{
+ const path=require('node:path');
+ const root=path.resolve(__dirname,'../../../vendor/web/graph-editor');
+ await withGateway(async base=>{
+  const manifest=JSON.parse(fs.readFileSync(path.join(root,'manifest.json'),'utf8'));
+  for(const name of [...manifest.files.map(file=>file.name),'manifest.json']){
+   const response=await fetch(base+'/graph-editor/'+name);
+   assert.equal(response.status,200,name);
+   assert.equal(response.headers.get('cache-control'),'no-store, no-cache, must-revalidate',name);
+   assert.deepEqual(Buffer.from(await response.arrayBuffer()),fs.readFileSync(path.join(root,name)),name);
+  }
+ });
+});
+
 test('hashed assets keep their cache policy and absent files remain 404',async()=>{
  const path=require('node:path');
  const root=path.resolve(__dirname,'../../../vendor/web');

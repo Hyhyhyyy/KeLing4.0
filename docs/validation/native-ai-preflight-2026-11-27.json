@@ -1,0 +1,68 @@
+{
+  "startedAt": "2026-11-27T03:40:27.759Z",
+  "target": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg",
+  "releaseId": "7712689212100906275",
+  "status": "FAILED",
+  "realModel": false,
+  "providerId": "miaoda",
+  "modelId": "miaoda-chat",
+  "humanReviewChanged": false,
+  "steps": [
+    {
+      "label": "owner login",
+      "method": "POST",
+      "status": 200,
+      "ms": 1413
+    },
+    {
+      "label": "second independent login",
+      "method": "POST",
+      "status": 200,
+      "ms": 447
+    },
+    {
+      "label": "other account login",
+      "method": "POST",
+      "status": 200,
+      "ms": 444
+    },
+    {
+      "label": "actual assistant catalog",
+      "method": "GET",
+      "status": 200,
+      "ms": 190
+    },
+    {
+      "label": "actual planning provider",
+      "method": "GET",
+      "status": 200,
+      "ms": 278
+    }
+  ],
+  "checks": [
+    {
+      "name": "owner login establishes session",
+      "passed": true
+    },
+    {
+      "name": "second independent login establishes session",
+      "passed": true
+    },
+    {
+      "name": "other account login establishes session",
+      "passed": true
+    },
+    {
+      "name": "Miaoda chat is configured and has no invented embedding model",
+      "passed": true
+    }
+  ],
+  "answers": [],
+  "plans": [],
+  "cleanup": "COMPLETED",
+  "limits": "Synthetic educational material and dedicated accounts; successful output and provenance are not evidence of teaching efficacy or human-reviewed content.",
+  "failure": "Check failed: Default planner explicitly selects Miaoda",
+  "finishedAt": "2026-11-27T03:40:30.539Z",
+  "realModelAttempted": false,
+  "realModelVerified": false
+}

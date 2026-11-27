@@ -20,6 +20,7 @@ import MaterialsPanel from '../Expedition/MaterialsPanel';
 import SchedulePanel from '../Expedition/SchedulePanel';
 import { coursePlanet, coursePlanetIndex } from '../../components/planetCatalog';
 import { assistantError } from '../../services/assistant';
+import '../Expedition/Expedition.css';
 import './CourseDetail.css';
 
 const CourseDetail: React.FC = () => {
@@ -200,8 +201,10 @@ const CourseDetail: React.FC = () => {
       <StellarSceneBanner scene="courseDetail" title="课程资料" compact/>
 
       <PlanetCourseEntry courseId={course.id} subject={course.name}/>
-      <MaterialsPanel key={course.id+'materials'} courseId={course.id}/>
-      <SchedulePanel key={course.id+'schedule'} courseId={course.id}/>
+      <div className="exp-page">
+        <MaterialsPanel key={course.id+'materials'} courseId={course.id}/>
+        <SchedulePanel key={course.id+'schedule'} courseId={course.id}/>
+      </div>
 
       {/* 掌握度卡片 */}
       <motion.div

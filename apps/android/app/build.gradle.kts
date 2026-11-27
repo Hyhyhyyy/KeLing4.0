@@ -85,9 +85,9 @@ android {
         targetSdk = 34
 
         // 版本号，每次更新应用要+1
-        versionCode = 29
+        versionCode = 30
         // 版本名称，用户看到的版本
-        versionName = "4.1.1-graph-rc2"
+        versionName = "4.1.2-ai-rc3"
         buildConfigField("String", "API_BASE_URL", "\"${apiBaseUrl.replace("\\", "\\\\").replace("\"", "\\\"")}\"")
 
         // 启用矢量图支持，这样图标可以缩放不失真

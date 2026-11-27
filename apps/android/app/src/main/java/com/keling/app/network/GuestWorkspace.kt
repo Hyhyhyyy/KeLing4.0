@@ -10,6 +10,7 @@ import io.ktor.http.*
 import kotlinx.coroutines.*
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.*
+import kotlinx.serialization.encodeToString
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
@@ -139,7 +140,10 @@ class GuestWorkspace internal constructor(private val suppliedClient: HttpClient
         ensureOpen(); require(input.title.trim().length in 1..180 && input.content.isNotBlank() && input.content.length <= 50000)
         val old = noteId?.let { findNote(it) }
         if (old != null && input.expectedUpdatedAt != old.updatedAt) throw ApiException(409, "笔记已变化，请重新打开最新内容")
-        val stamp = now(); val note = NoteData(noteId ?: id(), input.title.trim(), input.content, createdAt = old?.createdAt ?: stamp, updatedAt = stamp)
+        val stamp = now(); val note = NoteData(noteId ?: id(), input.title.trim(), input.content,
+            sourceType = input.sourceType ?: old?.sourceType ?: "USER_CREATED",
+            tags = input.tags?.let { json.encodeToString(it) } ?: old?.tags ?: "[]",
+            createdAt = old?.createdAt ?: stamp, updatedAt = stamp)
         notes.removeAll { it.id == note.id }; notes.add(0, note); return note
     }
     private fun findNote(id: String) = notes.find { it.id == id } ?: throw ApiException(404, "笔记不存在")

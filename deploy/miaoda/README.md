@@ -96,7 +96,7 @@ KELING_FONT_SOURCE=/absolute/path/to/KeLing_ICT/assets/fonts/STZHONGS.woff2 \
 
 复制上述适配文件后，以下修改仍须核对并合入自己的模板：
 
-- `package.json` 增加 `actionPlugins: { "@official-plugins/ai-text-to-json": "1.0.26" }`，保留官方构建脚本中的 `fullstack-cli action-plugin init`。将 `server/capabilities/keling-learning-planet.json` 与 `NativePlanetService` 一同接入；仅复制服务类不能替代插件实例初始化。当前实例调用 `textToJson`，结构化输出经过课灵校验后才允许用户确认创建课程。
+- `package.json` 增加 `actionPlugins: { "@official-plugins/ai-text-to-json": "1.0.26", "@official-plugins/ai-text-generate": "1.0.21" }`，保留官方构建脚本中的 `fullstack-cli action-plugin init`。将 `server/capabilities/keling-learning-planet.json` 、`keling-study-assistant.json`、`keling-study-plan.json` 与 `NativePlanetService`、`NativeAiService` 一同接入；仅复制服务类不能替代插件实例初始化。学习星球和计划使用 `textToJson` 的结构化输出；对话使用 `textGenerate` 的增量 `data.content`，收齐正常完成事件后返回。计划的来源、日期和预算还须通过课灵校验。Web 和 Android 共同调用课灵账号接口，长生成通过任务状态查询，避免平台请求超时。该公共服务标识为妙搭，不冒充华为模型；不提供向量嵌入。
 - `package.json` 的 `build:server` 先运行 `node scripts/build-keling.cjs`，再执行原 Nest 构建。来源值为 `node scripts/build-keling.cjs && NODE_ENV=production nest build`，适用于平台的 Bash 构建环境。
 - 核对来源模板的功能标记，尤其是 `supportBusinessUser: true`；完整标记记录在 `provenance.json`。不要因为只复制业务模块而丢失平台初始化配置。
 - 在官方 `scripts/build.sh` 调用 `scripts/prune-smart.js` **之后**添加 `node "$ROOT_DIR/scripts/copy-prisma.cjs"`。只运行 `build:prod` 不能证明平台最终裁剪产物完整；应验证实际平台构建路径。

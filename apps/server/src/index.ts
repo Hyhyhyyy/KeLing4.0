@@ -79,7 +79,7 @@ app.get('/api/health', (req, res) => {
   res.json({
     status: 'ok',
     timestamp: new Date().toISOString(),
-    version: '4.1.1-graph-rc2'
+    version: '4.1.2-ai-rc3'
   });
 });
 

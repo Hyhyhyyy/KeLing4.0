@@ -26,7 +26,7 @@ import java.util.Base64
 import java.util.UUID
 import kotlinx.serialization.json.*
 
-@Composable fun LearningMaterialsScreen(token: String, courseId: String?, onBack: () -> Unit) {
+@Composable fun LearningMaterialsScreen(token: String, courseId: String?, onNotebook: (() -> Unit)? = null, onBack: () -> Unit) {
     val guest = GuestWorkspaces.find(token); val api = remember(token) { LearningApi(token) }
     val context = LocalContext.current; val scope = rememberCoroutineScope()
     var documents by remember { mutableStateOf<List<LearningDoc>>(emptyList()) }; var selected by remember { mutableStateOf<Set<String>>(emptySet()) }
@@ -39,6 +39,8 @@ import kotlinx.serialization.json.*
     var candidateSelection by remember { mutableStateOf<Set<Int>>(emptySet()) }; var opId by remember { mutableStateOf(UUID.randomUUID().toString()) }
     var modelPanel by remember { mutableStateOf(false) }; var question by rememberSaveable { mutableStateOf("") }
     var aiAnswer by remember { mutableStateOf<MaterialTutorAnswer?>(null) }
+    var answeredQuestion by remember { mutableStateOf("") }
+    var answerSaved by remember { mutableStateOf(false) }
     var useOwnModel by remember { mutableStateOf(false) }
     var publicProvider by remember { mutableStateOf<ModelProvider?>(null) }
     var modelLoading by remember { mutableStateOf(true) }
@@ -121,13 +123,16 @@ import kotlinx.serialization.json.*
                 else if (publicProvider != null) Text(publicProvider!!.name, style = MaterialTheme.typography.bodySmall)
                 else TextButton(onClick = { modelReload++ }, enabled = !busy) { Text("公共模型暂不可用 · 重试") }
                 OutlinedTextField(question, { question = it.take(4000) }, label = { Text("你的问题") }, modifier = Modifier.fillMaxWidth(), minLines = 2, enabled = !busy)
-                Button(onClick = { asking = true; action { aiAnswer = null; aiAnswer = api.tutor(requireNotNull(courseId), selected.toList(),
+                Button(onClick = { asking = true; action { aiAnswer = null; answerSaved = false; answeredQuestion = question.trim(); aiAnswer = api.tutor(requireNotNull(courseId), selected.toList(),
                     if (useOwnModel) AccessCredentials(accessState.providerId, accessState.apiKey, accessState.baseUrl.ifBlank { null }) else null,
-                    if (useOwnModel) accessState.model else publicProvider?.chatModels?.firstOrNull(), question.trim(), if (useOwnModel) null else publicProvider?.id) } },
+                    if (useOwnModel) accessState.model else publicProvider?.chatModels?.firstOrNull(), answeredQuestion, if (useOwnModel) null else publicProvider?.id) } },
                     enabled = !busy && courseId != null && selected.isNotEmpty() && question.isNotBlank() && (if (useOwnModel) accessState.canDiscover && accessState.model.isNotBlank() else publicProvider != null), modifier = Modifier.fillMaxWidth()) { Text(if (asking) "正在生成" else "发送问题") }
                 if (asking) TextButton(onClick = { operation?.cancel(); notice = "已取消等待，问题已保留" }) { Text("取消等待") }
                 aiAnswer?.let { answer -> SelectionContainer { Text(answer.answer) }
                     answer.sources.forEach { source -> Text("来源：${source["title"]?.jsonPrimitive?.content.orEmpty()} · ${source["text"]?.jsonPrimitive?.content.orEmpty().take(350)}", style = MaterialTheme.typography.bodySmall) }
+                    Button(onClick = { action { api.saveTutorNote(requireNotNull(courseId), answeredQuestion, answer); answerSaved = true } },
+                        enabled = !busy && !answerSaved, modifier = Modifier.fillMaxWidth()) { Text(if (answerSaved) "已保存为笔记" else "保存为课程笔记") }
+                    if (answerSaved && onNotebook != null) OutlinedButton(onClick = onNotebook, modifier = Modifier.fillMaxWidth()) { Text("查看笔记") }
                 }
             } } }
         }

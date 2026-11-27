@@ -1,0 +1,581 @@
+{
+  "startedAt": "2026-11-27T03:45:02.954Z",
+  "target": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg",
+  "releaseId": "7712689212100906275",
+  "status": "FAILED",
+  "realModel": true,
+  "realModelAttempted": true,
+  "realModelVerified": true,
+  "providerId": "miaoda",
+  "modelId": "miaoda-chat",
+  "humanReviewChanged": false,
+  "steps": [
+    {
+      "label": "owner login",
+      "method": "POST",
+      "status": 200,
+      "ms": 1346
+    },
+    {
+      "label": "second independent login",
+      "method": "POST",
+      "status": 200,
+      "ms": 471
+    },
+    {
+      "label": "other account login",
+      "method": "POST",
+      "status": 200,
+      "ms": 442
+    },
+    {
+      "label": "actual assistant catalog",
+      "method": "GET",
+      "status": 200,
+      "ms": 212
+    },
+    {
+      "label": "actual planning provider",
+      "method": "GET",
+      "status": 200,
+      "ms": 230
+    },
+    {
+      "label": "history planet baseline",
+      "method": "GET",
+      "status": 200,
+      "ms": 585
+    },
+    {
+      "label": "create dedicated AI course",
+      "method": "POST",
+      "status": 201,
+      "ms": 684
+    },
+    {
+      "label": "ordinary subject metadata",
+      "method": "GET",
+      "status": 200,
+      "ms": 614
+    },
+    {
+      "label": "ordinary subject refuses automatic binary-tree chapter",
+      "method": "GET",
+      "status": 409,
+      "ms": 845,
+      "code": "SAMPLE_REQUIRED"
+    },
+    {
+      "label": "ordinary subject remains empty before import",
+      "method": "GET",
+      "status": 200,
+      "ms": 581
+    },
+    {
+      "label": "save actual source material",
+      "method": "POST",
+      "status": 200,
+      "ms": 1249
+    },
+    {
+      "label": "preview sources CONCEPT_EXPLAIN",
+      "method": "POST",
+      "status": 200,
+      "ms": 674
+    },
+    {
+      "label": "create session CONCEPT_EXPLAIN",
+      "method": "POST",
+      "status": 201,
+      "ms": 374
+    },
+    {
+      "label": "start model CONCEPT_EXPLAIN",
+      "method": "POST",
+      "status": 202,
+      "ms": 1411
+    },
+    {
+      "label": "independent session poll CONCEPT_EXPLAIN",
+      "method": "GET",
+      "status": 200,
+      "ms": 1023
+    },
+    {
+      "label": "independent session poll CONCEPT_EXPLAIN",
+      "method": "GET",
+      "status": 200,
+      "ms": 575
+    },
+    {
+      "label": "independent session poll CONCEPT_EXPLAIN",
+      "method": "GET",
+      "status": 200,
+      "ms": 533
+    },
+    {
+      "label": "other account cannot read answer",
+      "method": "GET",
+      "status": 404,
+      "ms": 402,
+      "code": "NOT_FOUND"
+    },
+    {
+      "label": "explicitly save generated answer as note",
+      "method": "POST",
+      "status": 200,
+      "ms": 854
+    },
+    {
+      "label": "independent client reads saved AI note",
+      "method": "GET",
+      "status": 200,
+      "ms": 336
+    },
+    {
+      "label": "preview sources QUICK_PLAN",
+      "method": "POST",
+      "status": 200,
+      "ms": 644
+    },
+    {
+      "label": "create session QUICK_PLAN",
+      "method": "POST",
+      "status": 201,
+      "ms": 317
+    },
+    {
+      "label": "start model QUICK_PLAN",
+      "method": "POST",
+      "status": 202,
+      "ms": 1457
+    },
+    {
+      "label": "independent session poll QUICK_PLAN",
+      "method": "GET",
+      "status": 200,
+      "ms": 1106
+    },
+    {
+      "label": "independent session poll QUICK_PLAN",
+      "method": "GET",
+      "status": 200,
+      "ms": 553
+    },
+    {
+      "label": "independent session poll QUICK_PLAN",
+      "method": "GET",
+      "status": 200,
+      "ms": 628
+    },
+    {
+      "label": "independent session poll QUICK_PLAN",
+      "method": "GET",
+      "status": 200,
+      "ms": 606
+    },
+    {
+      "label": "independent session poll QUICK_PLAN",
+      "method": "GET",
+      "status": 200,
+      "ms": 558
+    },
+    {
+      "label": "preview sources WEAKNESS_DIAGNOSE",
+      "method": "POST",
+      "status": 200,
+      "ms": 711
+    },
+    {
+      "label": "create session WEAKNESS_DIAGNOSE",
+      "method": "POST",
+      "status": 201,
+      "ms": 367
+    },
+    {
+      "label": "start model WEAKNESS_DIAGNOSE",
+      "method": "POST",
+      "status": 202,
+      "ms": 1729
+    },
+    {
+      "label": "independent session poll WEAKNESS_DIAGNOSE",
+      "method": "GET",
+      "status": 200,
+      "ms": 1028
+    },
+    {
+      "label": "independent session poll WEAKNESS_DIAGNOSE",
+      "method": "GET",
+      "status": 200,
+      "ms": 582
+    },
+    {
+      "label": "independent session poll WEAKNESS_DIAGNOSE",
+      "method": "GET",
+      "status": 200,
+      "ms": 529
+    },
+    {
+      "label": "preview sources PRACTICE_SESSION",
+      "method": "POST",
+      "status": 200,
+      "ms": 732
+    },
+    {
+      "label": "create session PRACTICE_SESSION",
+      "method": "POST",
+      "status": 201,
+      "ms": 351
+    },
+    {
+      "label": "start model PRACTICE_SESSION",
+      "method": "POST",
+      "status": 202,
+      "ms": 1532
+    },
+    {
+      "label": "independent session poll PRACTICE_SESSION",
+      "method": "GET",
+      "status": 200,
+      "ms": 515
+    },
+    {
+      "label": "independent session poll PRACTICE_SESSION",
+      "method": "GET",
+      "status": 200,
+      "ms": 486
+    },
+    {
+      "label": "independent session poll PRACTICE_SESSION",
+      "method": "GET",
+      "status": 200,
+      "ms": 562
+    },
+    {
+      "label": "preview sources REVIEW_SESSION",
+      "method": "POST",
+      "status": 200,
+      "ms": 836
+    },
+    {
+      "label": "create session REVIEW_SESSION",
+      "method": "POST",
+      "status": 201,
+      "ms": 312
+    },
+    {
+      "label": "start model REVIEW_SESSION",
+      "method": "POST",
+      "status": 202,
+      "ms": 1559
+    },
+    {
+      "label": "independent session poll REVIEW_SESSION",
+      "method": "GET",
+      "status": 200,
+      "ms": 1218
+    },
+    {
+      "label": "independent session poll REVIEW_SESSION",
+      "method": "GET",
+      "status": 200,
+      "ms": 871
+    },
+    {
+      "label": "preview sources CASUAL_CHAT",
+      "method": "POST",
+      "status": 200,
+      "ms": 1139
+    },
+    {
+      "label": "create session CASUAL_CHAT",
+      "method": "POST",
+      "status": 201,
+      "ms": 293
+    },
+    {
+      "label": "start model CASUAL_CHAT",
+      "method": "POST",
+      "status": 202,
+      "ms": 1338
+    },
+    {
+      "label": "independent session poll CASUAL_CHAT",
+      "method": "GET",
+      "status": 200,
+      "ms": 1154
+    },
+    {
+      "label": "independent session poll CASUAL_CHAT",
+      "method": "GET",
+      "status": 200,
+      "ms": 590
+    },
+    {
+      "label": "independent session poll CASUAL_CHAT",
+      "method": "GET",
+      "status": 200,
+      "ms": 549
+    },
+    {
+      "label": "read dedicated course task state",
+      "method": "GET",
+      "status": 200,
+      "ms": 323
+    },
+    {
+      "label": "start public material tutor without personal key",
+      "method": "POST",
+      "status": 202,
+      "ms": 869
+    },
+    {
+      "label": "other account cannot read tutor job",
+      "method": "GET",
+      "status": 404,
+      "ms": 685,
+      "code": "NOT_FOUND"
+    },
+    {
+      "label": "material tutor poll",
+      "method": "GET",
+      "status": 200,
+      "ms": 563
+    },
+    {
+      "label": "material tutor poll",
+      "method": "GET",
+      "status": 200,
+      "ms": 1134
+    },
+    {
+      "label": "remove only dedicated test session",
+      "method": "DELETE",
+      "status": 200,
+      "ms": 678
+    },
+    {
+      "label": "remove only dedicated test session",
+      "method": "DELETE",
+      "status": 200,
+      "ms": 688
+    },
+    {
+      "label": "remove only dedicated test session",
+      "method": "DELETE",
+      "status": 200,
+      "ms": 685
+    },
+    {
+      "label": "remove only dedicated test session",
+      "method": "DELETE",
+      "status": 200,
+      "ms": 711
+    },
+    {
+      "label": "remove only dedicated test session",
+      "method": "DELETE",
+      "status": 200,
+      "ms": 671
+    },
+    {
+      "label": "remove only dedicated test session",
+      "method": "DELETE",
+      "status": 200,
+      "ms": 674
+    },
+    {
+      "label": "remove only explicitly saved test note",
+      "method": "DELETE",
+      "status": 200,
+      "ms": 391
+    },
+    {
+      "label": "verify test course identity before cleanup",
+      "method": "GET",
+      "status": 200,
+      "ms": 483
+    },
+    {
+      "label": "read dedicated course task state",
+      "method": "GET",
+      "status": 200,
+      "ms": 429
+    },
+    {
+      "label": "remove only dedicated test course",
+      "method": "DELETE",
+      "status": 200,
+      "ms": 1056
+    },
+    {
+      "label": "dedicated test course deleted",
+      "method": "GET",
+      "status": 404,
+      "ms": 337
+    }
+  ],
+  "checks": [
+    {
+      "name": "owner login establishes session",
+      "passed": true
+    },
+    {
+      "name": "second independent login establishes session",
+      "passed": true
+    },
+    {
+      "name": "other account login establishes session",
+      "passed": true
+    },
+    {
+      "name": "Miaoda chat is configured and has no invented embedding model",
+      "passed": true
+    },
+    {
+      "name": "New ordinary subject has no binary-tree history",
+      "passed": true
+    },
+    {
+      "name": "Rejected example request creates no source material",
+      "passed": true
+    },
+    {
+      "name": "CONCEPT_EXPLAIN returns a persisted real model answer",
+      "passed": true
+    },
+    {
+      "name": "CONCEPT_EXPLAIN preserves explicitly previewed sources",
+      "passed": true
+    },
+    {
+      "name": "Explicit AI note save persists across logins",
+      "passed": true
+    },
+    {
+      "name": "QUICK_PLAN returns a persisted real model answer",
+      "passed": true
+    },
+    {
+      "name": "QUICK_PLAN preserves explicitly previewed sources",
+      "passed": true
+    },
+    {
+      "name": "WEAKNESS_DIAGNOSE returns a persisted real model answer",
+      "passed": true
+    },
+    {
+      "name": "WEAKNESS_DIAGNOSE preserves explicitly previewed sources",
+      "passed": true
+    },
+    {
+      "name": "PRACTICE_SESSION returns a persisted real model answer",
+      "passed": true
+    },
+    {
+      "name": "PRACTICE_SESSION preserves explicitly previewed sources",
+      "passed": true
+    },
+    {
+      "name": "REVIEW_SESSION returns a persisted real model answer",
+      "passed": true
+    },
+    {
+      "name": "REVIEW_SESSION preserves explicitly previewed sources",
+      "passed": true
+    },
+    {
+      "name": "CASUAL_CHAT returns a persisted real model answer",
+      "passed": true
+    },
+    {
+      "name": "CASUAL_CHAT preserves explicitly previewed sources",
+      "passed": true
+    },
+    {
+      "name": "Chat scenarios never create tasks automatically",
+      "passed": true
+    },
+    {
+      "name": "Tutor returns actual provider and current material source",
+      "passed": true
+    }
+  ],
+  "answers": [
+    {
+      "scenario": "CONCEPT_EXPLAIN",
+      "elapsedMs": 8563,
+      "answer": "### 直接回答\n3/4是一个分数，它的意义是：把单位“1”平均分成4份，取其中的3份 [资料2]。\n\n### 详细解释\n1. **概念拆解**\n分数的核心是“平均分”，其中分母（分数线下方的数，这里是4）表示把单位“1”平均分成的总份数，分子（分数线上方的数，这里是3）表示取的份数 [资料2]。\n需要注意的是，分母不能为0，因为“平均分成0份”是没有意义的 [资料2]。\n\n2. **例子**\n把一块完整的月饼当作单位“1”，将它平均切成4块大小一样的小月饼，你吃了其中3块，你吃掉的月饼占整块月饼的比例就是3/4。\n\n### 理解检查问题\n如果把一根1米长的绳子当作单位“1”，平均分成4段，其中3段的总长度是多少米？请用分数表示并简单说明理由。",
+      "sourceTitles": [
+        "AI真实性验收·分数",
+        "分数基础验收讲义 v1"
+      ],
+      "usage": {}
+    },
+    {
+      "scenario": "QUICK_PLAN",
+      "elapsedMs": 14951,
+      "answer": "### 20分钟分数学习建议（适配AI真实性验收·分数课程）\n整体围绕「基础概念理解→核心规则验证→即时练习复盘」展开，时间可根据你的掌握情况灵活调整。\n\n---\n\n#### 第1-5分钟：梳理核心概念，搭建基础框架\n1. 先通读资料2里的分数定义，重点记2个关键点：\n   - 分数的本质：把**单位1**平均分成若干份，取其中的几份（比如3/4就是把单位1平分成4份，取3份）[资料2]\n   - 分母的禁忌：分母不能为0（因为“平均分成0份”没有意义）[资料2]\n2. 自己举2个生活例子对应概念，比如“把1个蛋糕平分成8块，拿3块就是3/8个蛋糕”，确认自己能把抽象定义和实际场景对应。\n\n#### 第6-12分钟：逐个验证3个核心规则，结合例子吃透\n这部分是分数基础的重点，每个规则都要结合资料里的例子+自己举的例子理解：\n1. 同分母分数比较规则：分子越大，分数越大（比如同是分成4份，取3份的3/4 > 取2份的2/4）[资料2]——可以自己编2组同分母分数比大小验证。\n2. 同分子正分数比较规则：分母越大，分数越小（因为分的份数越多，每1份就越小，比如1/4 < 1/3）[资料2]——可以用“同样大的饼，分4份的1份比分3份的1份小”来辅助理解。\n3. 分数的基本性质：分子和分母同时乘/除以同一个**非零数**，分数值不变（比如1/2 = 2/4，是分子分母同时乘2）[资料2]——注意必须是“非零数”，自己试着把2/5的分子分母同时乘3，验证结果是否相等。\n\n#### 第13-18分钟：针对性练习，即时检验掌握度\n可以自己出5道基础题练习，做完对照规则批改：\n- 概念题：判断“分母可以是0”这句话对不对\n- 比较大小：2/7和5/7、1/5和1/8\n- 性质应用：把3/4变成分母是12的分数，把6/9变成分子是2的分数\n如果有做错的题，回到对应规则部分再理一遍逻辑，不要只记答案。\n\n#### 第19-20分钟：快速复盘，标记待确认点\n1. 用1分钟回忆今天学的3个核心规则，能不看资料说出来就算初步掌握；\n2. 把做题时卡壳的点记下来（比如总是搞混同分子分数的大小关系），后续学习可以重点关注。\n\n如果需要更适配你基础的个性化练习，建议打开智能编排功能确认调整方向。",
+      "sourceTitles": [
+        "AI真实性验收·分数",
+        "分数基础验收讲义 v1"
+      ],
+      "usage": {}
+    },
+    {
+      "scenario": "WEAKNESS_DIAGNOSE",
+      "elapsedMs": 8889,
+      "answer": "你的理解是错误的，1/4是小于1/3的，你混淆了分母大小和分数大小的关系。\n\n### 证据（来自资料2的明确内容）\n1. 分数的定义：分数表示把单位1平均分成若干份后取其中一些份，分母代表平均分的总份数[资料2]。\n2. 分子相同的正分数比较规则：分子相同的正分数比较时，分母越大，每份越小，因此1/4小于1/3[资料2]。\n\n### 你的理解问题\n你默认“分母越大，分数越大”，但这个逻辑不符合分数的意义：\n- 1/4是把1个整体平均分成4份，取其中1份；\n- 1/3是把1个同样的整体平均分成3份，取其中1份。\n分的份数越多，每1份的大小就越小，所以4份里的1份，比3份里的1份要小。\n\n### 举个例子辅助理解\n把两个一样大的蛋糕分别平均分：\n- 第一个蛋糕分成4块，每块是1/4个蛋糕；\n- 第二个蛋糕分成3块，每块是1/3个蛋糕。\n很明显，分成3块的每一块更大，所以1/3 > 1/4。\n\n### 小练习\n你可以试着比较一下1/5和1/2的大小，看看能不能用刚才的逻辑推导出来~",
+      "sourceTitles": [
+        "AI真实性验收·分数",
+        "分数基础验收讲义 v1"
+      ],
+      "usage": {}
+    },
+    {
+      "scenario": "PRACTICE_SESSION",
+      "elapsedMs": 8115,
+      "answer": "### 分数比较单选题\n下列关于分数大小比较的说法，正确的是？\nA. 对于正分数，分子相同时，分母越大，分数越大\nB. 同分母正分数比较时，分子越小，分数越大\nC. 因为$\\frac{1}{2}$的分子分母同时乘2得到$\\frac{2}{4}$，所以$\\frac{1}{2}=\\frac{2}{4}$\nD. 分数的分母可以为0\n\n你可以先说说你的答案~",
+      "sourceTitles": [
+        "AI真实性验收·分数",
+        "分数基础验收讲义 v1"
+      ],
+      "usage": {}
+    },
+    {
+      "scenario": "REVIEW_SESSION",
+      "elapsedMs": 6155,
+      "answer": "请问：要让分数$\\frac{2}{5}$的大小不变，分子变成8的话，分母应该变成多少？",
+      "sourceTitles": [
+        "AI真实性验收·分数",
+        "分数基础验收讲义 v1"
+      ],
+      "usage": {}
+    },
+    {
+      "scenario": "CASUAL_CHAT",
+      "elapsedMs": 8659,
+      "answer": "学习分数是很有意义的数学探索，你今天愿意开启这个知识点的学习已经很棒啦，慢慢来一定能逐步摸清它的规律。\n分数的基础概念其实和生活联系很紧密，跟着例子一步步琢磨，很快就能找到上手的感觉~\n\n### 分数基础概念说明（来自[资料2]）\n1. **核心定义**：分数表示把单位1平均分成若干份后取其中一些份。比如把1个蛋糕平均分成4份，拿走3份，拿走的部分就可以用3/4表示，这里分母4是平均分的总份数，分子3是取的份数，而且分母不能为0。\n2. **大小比较规律**\n   - 同分母分数比较：分子越大分数越大，比如3/5 > 2/5，因为都是平均分成5份，取的份数越多，对应的量就越多。\n   - 分子相同的正分数比较：分母越大分数越小，比如1/5 < 1/3，因为同样取1份，平均分的总份数越多，每一份的量就越小。\n3. **基本性质**：分数的分子和分母同时乘以或除以同一个非零数，分数的值不变。比如1/3的分子分母都乘2，就变成2/6，这两个分数大小是相等的。\n\n### 小练习\n你可以试着回答这两个小问题，检验一下刚学的内容哦：\n1. 把1个苹果平均分成8份，取其中5份，用分数怎么表示？\n2. 比较大小：2/7和4/7，1/6和1/8",
+      "sourceTitles": [
+        "AI真实性验收·分数",
+        "分数基础验收讲义 v1"
+      ],
+      "usage": {}
+    },
+    {
+      "scenario": "MATERIAL_TUTOR",
+      "answer": "思考提示：你可以先回忆分数的定义，想想1/4和1/3分别表示把单位“1”平均分成多少份、取几份，再对比“每份”的大小。\n理解检查问题：如果用同样大的圆形蛋糕分别表示1/4和1/3，你能描述出两种分法下每一块蛋糕的大小区别吗？\n\n### 补充说明（供你核对思路）\n1.  核心依据：分子相同的正分数比较时，分母越大，说明把单位1平均分的份数越多，每一份的大小就越小，因此分数值越小[S1]。\n2.  具体对应：1/4是把单位1平均分成4份取1份，1/3是把单位1平均分成3份取1份；分4份时的每1份，比分成3份时的每1份要小，所以1/4＜1/3[S1]。",
+      "sourceTitles": [
+        "分数基础验收讲义"
+      ],
+      "usage": {}
+    }
+  ],
+  "plans": [],
+  "cleanup": "COMPLETED",
+  "limits": "Synthetic educational material and dedicated accounts; successful output and provenance are not evidence of teaching efficacy or human-reviewed content.",
+  "planningProvider": "AgentArts",
+  "failure": "Check failed: Default planner explicitly selects Miaoda",
+  "finishedAt": "2026-11-27T03:46:26.831Z"
+}
