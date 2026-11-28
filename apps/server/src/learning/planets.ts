@@ -16,6 +16,13 @@ export const planetConfirmationInput=z.object({draft:z.unknown(),draftToken:z.st
 export const planetAnswerInput=z.object({questionId:z.string().min(1).max(100),selectedIndex:z.number().int().min(0).max(7).optional(),selectedIndices:z.array(z.number().int().min(0).max(7)).min(1).max(8).optional(),orderedIndices:z.array(z.number().int().min(0).max(7)).min(2).max(8).optional(),text:z.string().trim().min(1).max(4000).optional(),selfReview:z.boolean().optional(),clientRequestId:requestId}).strict();
 const digest=(v:unknown)=>createHash('sha256').update(JSON.stringify(v)).digest('hex');
 const audience='keling-planet-draft';
+// Only fixed validator messages and numeric shapes enter logs; never raw prompts, sources, answers or tokens.
+const validationReasons=new Set(['星球对象格式无效','星球文字长度无效','星球标识无效','星球内容数量无效','星球数值无效','选项序号不能重复','引用必须指向本次检索资料','生成时间无效','参考网址无效','检索状态无效','检索资料重复','题型无效','题目标识或选项重复','填空参考答案重复','区域先修关系必须指向前面的有效区域','生成内容只能是待核验练习','星球图像状态无效','星球图像网址必须是公网 HTTPS 地址','默认图像不能附带生成网址','图谱节点标识重复','图谱关系节点无效','图谱关系类型无效','图谱关系重复','图谱层级关系不能循环','星球内容过大']);
+function reportRejectedPlanet(raw:unknown,error:unknown){
+ const value=raw&&typeof raw==='object'?raw as Record<string,unknown>:{},graph=value.knowledgeGraph&&typeof value.knowledgeGraph==='object'?value.knowledgeGraph as Record<string,unknown>:{};
+ const count=(v:unknown)=>Array.isArray(v)?v.length:null;
+ console.warn('PLANET_STRUCTURE_REJECTED',{reason:error instanceof Error&&validationReasons.has(error.message)?error.message:'unknown',regions:count(value.regions),questions:Array.isArray(value.regions)?value.regions.slice(0,6).map(r=>r&&typeof r==='object'?count(r.questions):null):[],graphNodes:count(graph.nodes),graphEdges:count(graph.edges)});
+}
 type GenerationInput=z.infer<typeof planetGenerationInput>;
 export type NativePlanetInput=EnhancedPlanetInput;
 export type NativePlanetGenerator=(input:NativePlanetInput,signal:AbortSignal)=>Promise<unknown>;
@@ -31,7 +38,7 @@ async function finishGeneration(raw:unknown,input:GenerationInput,enriched:Enhan
  return sealPlanet(sealed.draft,input,userId,providerId,model);
 }
 function sealPlanet(raw:unknown,input:GenerationInput,userId:string|undefined,providerId:string,model:string){
- let draft:PlanetDraft;try{if(!raw||typeof raw!=='object'||Array.isArray(raw))throw new Error();draft=validatePlanetDraft({...raw,id:randomUUID(),subject:input.subject,level:input.level,goal:input.goal,reviewStatus:'UNREVIEWED',generatedBy:{providerId,model,at:new Date().toISOString()}});}catch{throw new AIError('INVALID_PLANET','模型生成的区域、题目或先修关系未通过校验，未创建星球。请重试或缩小学科范围',422);}
+ let draft:PlanetDraft;try{if(!raw||typeof raw!=='object'||Array.isArray(raw))throw new Error();draft=validatePlanetDraft({...raw,id:randomUUID(),subject:input.subject,level:input.level,goal:input.goal,reviewStatus:'UNREVIEWED',generatedBy:{providerId,model,at:new Date().toISOString()}});}catch(error){reportRejectedPlanet(raw,error);throw new AIError('INVALID_PLANET','模型生成的区域、题目或先修关系未通过校验，未创建星球。请重试或缩小学科范围',422);}
  const draftToken=jwt.sign({hash:digest(draft),owner:userId||null},requireJwtSecret(),{algorithm:'HS256',audience,issuer:'keling-server',expiresIn:'2h'});return {draft,draftToken};
 }
 function publicProvider(env:NodeJS.ProcessEnv){return providers(env).find(p=>p.id===env.TRIAL_AI_PROVIDER&&p.configured&&p.chatModels.includes(env.TRIAL_AI_MODEL||'')&&env.TRIAL_AI_ENABLED==='true');}
