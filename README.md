@@ -56,6 +56,8 @@ npm run dev
 
 Android 在 Android Studio 中打开 `apps/android`。默认连接当前线上服务；连接本机开发 API 时，可使用模拟器地址：
 
+Android 的 `prepareGraphEditor` 会通过 Node.js 构建两端共用的 X6 图谱。即使只构建 Android，也须先在仓库根目录执行 `npm ci --ignore-scripts`，安装锁定的 `esbuild` 等依赖；不需要启动网页或 API 服务。CI 和手动预览构建会自动完成此步骤。
+
 ```sh
 cd apps/android
 ./gradlew assembleDebug -PKELING_API_BASE_URL=http://10.0.2.2:3001/api
