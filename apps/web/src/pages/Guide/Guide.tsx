@@ -9,12 +9,12 @@ const modules: { id: string; title: string; kind: TitleKind; route: string; acti
   {
     id: 'voyage', title: '远航 · 生成学习星球', kind: 'voyage', route: '/start', action: '开始远航',
     steps: [
-      '看完序章，输入想探索的学科，选择基础，可补充本次学习目标。',
-      '选择平台模型，或用自己的 API Key 与聊天模型生成星球。未连接模型时先完成配置。',
-      '核对区域、路线和练习，点「确认星球，开始探索」。确认前不会添加课程。',
-      '阅读区域内容、完成练习并查看解析；将发现保存为航行日志，把后续学习加入任务。返回星图可继续探索。',
+      '输入主题，选择探索语境、目前基础与 6、12 或 18 题；学习目标可留空。',
+      '点「生成我的学习星球」，等待联网检索。创建前查看语义辨析、资料来源与知识星图，点击知识点查看内容。',
+      '核对区域和练习，点「确认星球，开始探索」。练习支持单选、多选、判断、填空、排序与简答；简答提交后对照参考答案完成自核。',
+      '题目需调整时，展开「调整这道练习」，输入反馈并重新生成。外观需调整时，展开「调整星球外观」，追加提示并重新绘制。',
     ],
-    result: '生成内容与参考答案需结合课程资料核对。二叉树操作示例保留在星图的独立入口。',
+    result: '完成练习后，把理解保存为航行日志，把下一步加入学习任务。',
   },
   {
     id: 'courses', title: '星图 · 整理课程资料', kind: 'courses', route: '/greenhouse', action: '打开星图',
@@ -95,7 +95,7 @@ const modules: { id: string; title: string; kind: TitleKind; route: string; acti
 ];
 
 const questions = [
-  { question: '没有课程，或没有学习记录？', answer: '先进入远航，输入想学的学科并生成第一颗知识星球；也可到星图创建自己的课程。完成练习、保存笔记或添加任务后，对应列表才会出现内容。新账号没有游客的试用记录。' },
+  { question: '没有课程，或没有学习记录？', answer: '先进入远航，输入想探索的主题并生成第一颗知识星球；也可到星图创建自己的课程。完成练习、保存笔记或添加任务后，对应列表才会出现内容。新账号没有游客的试用记录。' },
   { question: 'AI 无法发送，或一直没有回答？', answer: '公共模型连接失败时可重试；自带 Key 请核对服务商、模型 ID 与所属区域。需要资料时先完成预览；笔记有未保存修改时先保存。获取到模型目录不代表已获得模型调用权限，可用简短问题检查。停止等待后，已经发出的请求仍可能计费。' },
   { question: '智能编排提示服务未配置？', answer: '点击重试检查公共模型连接。游客也可使用自己的 API Key；模型失败时保留学习目标，重新生成后再确认。' },
   { question: '资料解析失败，或知识点不对？', answer: '确认文件未超过大小和页数限制，并能复制出文字；扫描图片 PDF 请先转成可选中文字的文档。编辑原文后重新预览，知识点候选需要自己核对，再确认加入图谱。' },
@@ -134,8 +134,8 @@ export default function Guide() {
         <SectionTitle kind="voyage" id="guide-start-title">第一次，先走这三步</SectionTitle>
         <ol className="guide-first-steps">
           <li><span className="guide-step-number" aria-hidden="true">01</span><h3>进入学习空间</h3><p>点「游客试用」即可体验。已登录或正在试用时，点「返回学习空间」继续当前内容。</p><Link to={entry}>{entryLabel}<NavigationArrow/></Link></li>
-          <li><span className="guide-step-number" aria-hidden="true">02</span><h3>选一颗学习星球</h3><p>点「开始探索」，输入自己想学的学科，由大模型生成星球；核对后确认开启。</p><Link to="/voyage">打开远航<NavigationArrow/></Link></li>
-          <li><span className="guide-step-number" aria-hidden="true">03</span><h3>做题，再教星芽</h3><p>选 10 分钟开始路线修复；想讲清理解时选 20 分钟教星芽。提交后读反馈，并保存下一步。</p><a href="#guide-modules">查看操作步骤<NavigationArrow direction="down"/></a></li>
+          <li><span className="guide-step-number" aria-hidden="true">02</span><h3>生成自己的知识星球</h3><p>输入主题，选择语境与题量。联网检索后，先查看知识星图和来源，再确认开启。</p><Link to="/voyage">打开远航<NavigationArrow/></Link></li>
+          <li><span className="guide-step-number" aria-hidden="true">03</span><h3>探索、练习、留下理解</h3><p>阅读区域内容，完成练习并查看解析。需要调整时可重生单题或重绘形象，再把理解保存为航行日志。</p><a href="#guide-modules">查看操作步骤<NavigationArrow direction="down"/></a></li>
         </ol>
         <p className="guide-note">公共模型就绪后即可生成学习星球；二叉树示例无需模型。游客数据刷新或退出后清空，重要笔记请先导出。</p>
       </section>
