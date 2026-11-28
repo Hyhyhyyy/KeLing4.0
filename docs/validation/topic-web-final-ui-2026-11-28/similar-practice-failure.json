@@ -1,0 +1,12 @@
+{
+  "date": "2026-11-28T10:40:17.316Z",
+  "phase": "similar",
+  "error": "内容核对暂时不可用，原内容已保留，请稍后重试。",
+  "planetId": "3c11a247-6ceb-4fb3-a19b-e87b2d373c80",
+  "jobId": "02dd7112-4ed5-45dc-8f2e-f748dcaf6cc1",
+  "generateRequests": 0,
+  "similarRequests": 1,
+  "hintRequests": 0,
+  "pageErrors": [],
+  "elapsedMs": 78571
+}

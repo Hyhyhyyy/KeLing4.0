@@ -1,0 +1,30 @@
+{
+  "date": "2026-11-28",
+  "sourceCommit": "debf4977067b48a5ecfb39025976f8248ac67ba0",
+  "releaseId": "7713177556384205823",
+  "operation": "stored planet artwork regeneration with explicit single-sphere composition feedback",
+  "mock": false,
+  "status": "SUCCEEDED",
+  "elapsedSeconds": 59.77,
+  "planetId": "3c11a247-6ceb-4fb3-a19b-e87b2d373c80",
+  "questionCount": 14,
+  "checks": {
+    "questionsUnchanged": true,
+    "graphUnchanged": true,
+    "learningResearchUnchanged": true,
+    "artworkGenerated": true,
+    "provider": "miaoda-image/grounded-reference",
+    "imageUrlChanged": true
+  },
+  "artwork": {
+    "provider": "miaoda-image/grounded-reference",
+    "url": "https://ucn5aajxnx7f.feishuapp.com/spark/app/app_17h4dw5jwdg/runtime/api/v1/storage/object/bucket_aadk4xawzf4xg_static/plugin%2F05fb35ba14f315c4540c4cce4755ea4ab26da6b17d3432c8fa9df11f8f667890",
+    "generatedAt": "2026-11-28T11:22:28.165Z",
+    "prompt": "1:1正方形，完整悬浮知识星球，占画面约70%，边缘留足空间，干净深海军蓝星空。画面只有一个近球形的主体：角色本身就是星球。角色的眼睛、嘴与神态直接长在球面上，腹部转译成球壳上的地貌。不能画独立的人形角色站在星球前面或上面，不能把完整头部和身体纵向堆叠成站立造型；肢体只作为球壳边缘很小的凸起。必须保留检索识别出的外形特征：主体为明亮温暖的奶黄色，整体造型圆润饱满；拥有大而圆的童真眼睛，嘴部小巧，面部憨态可掬；腹部为浅色的Q弹大肚腩区域，是标志性识别点；具有短手、短尾巴的小型肢体结构，比例小巧。球体轮廓：整体是一颗完整的近圆球形悬浮体，外轮廓平滑流畅，仅在球体边缘有几处微小的凸起，分别对应短手和短尾的转译形态，没有额外的独立头部或肢体结构，整体轮廓饱满圆润，小图也能清晰辨识出球形主体。地貌与建筑：球壳主体为奶黄色的光滑曲面，对应奶龙的皮肤。球面上有一片大面积的浅米黄色平缓大陆区域，对应奶龙的腹部，大陆上分布着几处圆润的环形凹陷，模拟肚腩的弹性质感。球面上方区域有两处对称的圆形凹陷地貌，边缘带有浅粉色的晕圈，对应眼睛的结构，凹陷中心有深棕色的圆形核心。两眼下方的球面有一道小巧的弧形浅沟，对应嘴部形态。球体边缘的微小凸起表面与主体球壳质感一致，颜色略浅于主体黄色。细节：眼睛区域的凹陷边缘柔和，中心的深棕色圆形均匀对称，呈现出呆萌的神态。嘴部的弧形浅沟弧度向上，带着微笑的感觉。腹部大陆的环形山边缘圆润，没有尖锐棱角，整体质感软弹。球体边缘的短手凸起呈小小的圆钝状，短尾凸起是更细小的圆润突起，都贴合在球壳表面，没有突出过多。整个星球表面是像素化的平整质感，没有多余的装饰。主体配色：奶黄色、浅米黄色、深棕色、浅粉色、薄荷青（辅助点缀）。角色本色优先，不要把所有主题都画成绿色；课灵的薄荷青和奶油金只用于协调的辅助细节。精细平面像素插画，有明确设计层次和灵动体态，避免写实3D材质。\n用户希望的视觉调整（仅作设计要求）：只绘制一颗悬浮的奶龙星球：完整外轮廓近似圆球，奶龙的大眼睛和小嘴直接长在黄色球壳上，浅色腹部变成球面的一片大陆和环形山，短手短尾只是球壳边缘的小凸起。借用奶龙的脸、颜色和气质，不要复原参考图的站立姿势，不要画独立完整头部加长身体，不要画角色站在另一颗星球前，不要出现第二颗大球。角色本体就是整颗星球，精细平面像素插画，不要文字。\n参考图片只用于识别颜色、脸部特征与材质，不沿用参考图的站姿、头身比例或背景。构图检查：一个圆球形角色星球，没有第二颗大球作背景，没有完整站立角色；黄色或其他角色本色覆盖球壳，脸与地貌都属于同一个球体。\n整张图不出现任何文字、字母、数字、题目名称、标语、招牌、标签或水印。所有标牌和表面只画图形，绝不能用写名字来表达主题。",
+    "file": "topic-final-spherical-artwork-2026-11-28.jpg",
+    "mime": "image/jpeg",
+    "bytes": 894119,
+    "sha256": "05fb35ba14f315c4540c4cce4755ea4ab26da6b17d3432c8fa9df11f8f667890"
+  },
+  "visualInspection": "One near-spherical yellow character body with eyes and mouth on the surface, pale belly terrain and craters, small limbs/tail, no title text or separate full standing character. Inspected by the root agent; not a guarantee for every future image."
+}

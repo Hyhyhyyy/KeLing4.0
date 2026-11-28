@@ -1,0 +1,278 @@
+{
+  "date": "2026-11-28",
+  "apkSha256": "889ac6559f1398037a67013de1f80c15e0ec1f18412194119804672dbfc198c2",
+  "versionName": "4.3.1-research-rc2",
+  "versionCode": 33,
+  "device": "emulator-5584 Android 14 API 34 720x1560 density320",
+  "deviceShutdownConfirmed": true,
+  "scenario": "Published Android APK reads an existing real cloud planet; learning/practice state and one real tutor response",
+  "existingCloudPlanet": {
+    "observedAt": "2026-11-28T18:49:25.3684002+08:00",
+    "planetId": "3c11a247-6ceb-4fb3-a19b-e87b2d373c80",
+    "subject": "奶龙学",
+    "questions": 12,
+    "similarQuestions": 0,
+    "graphNodes": 12,
+    "graphEdges": 14,
+    "artworkStatus": "generated",
+    "artworkProvider": "miaoda-image/grounded-reference",
+    "artworkGeneratedAt": "2026-11-28T10:27:22.059Z"
+  },
+  "observedChecks": {
+    "loginPreserved": true,
+    "learningStageVisible": true,
+    "practiceStageHidesLearningMaterials": true,
+    "questionTutorDialogOpened": true,
+    "unsavedMultipleChoicePersistsAfterTutorClose": true,
+    "unsavedMultipleChoicePersistsAfterLearningReturn": true,
+    "twoActualSimilarQuestionsVisible": true,
+    "similarQuestionsAreMultipleChoiceWithFiveOptions": true,
+    "similarSourcesVisibleInLearningStageOnly": true,
+    "questionTutorAndMorePracticeButtonsVisible": true,
+    "newSimilarAnswersRemainUnsubmitted": true,
+    "finalSphericalArtworkVisible": true,
+    "completedRegionsStillThree": true
+  },
+  "nativeOperations": {
+    "tutorModelRequests": 1,
+    "similarRequests": 0,
+    "planetGenerationRequests": 0,
+    "artworkGenerationRequests": 0,
+    "answerSubmissions": 0,
+    "changedChoiceRestoredWithoutSubmission": true
+  },
+  "actualTutor": {
+    "provider": "public",
+    "model": "miaoda-chat",
+    "request": "Please give me one first-step hint in Chinese. Do not reveal the answer.",
+    "response": "第一步提示：你可以先回忆“官方原作设定”的定义——它是IP出品方正式确定、对外公布的基础内容，不是网友自发二次创作或玩梗产生的内容，你可以先带着这个区分标准，逐个对应选项去初步判断~",
+    "directAnswerInObservedResponse": false,
+    "source": "Native dialog rendered response; no canned reply or mocked endpoint"
+  },
+  "ci": {
+    "commit": "84951581e90472b5cab875914991229e1062645c",
+    "url": "https://github.com/Hyhyhyyy/KeLing4.0/actions/runs/46133815092",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "name": "android-debug",
+        "conclusion": "success"
+      },
+      {
+        "name": "web-and-server",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "screenshots": [
+    {
+      "file": "docs/validation/topic-android-final-ui-2026-11-28/final-learning-stage.png",
+      "sha256": "7fa4498393a2eff7ef589d2dd573b02fa518ea6710cc611da1fec9a5272da7f7",
+      "dimensions": [
+        720,
+        1560
+      ]
+    },
+    {
+      "file": "docs/validation/topic-android-final-ui-2026-11-28/final-practice-stage.png",
+      "sha256": "6ee2ba900658d37584a61ae5dfead826201c41717977825f71e08f35d0ec51c3",
+      "dimensions": [
+        720,
+        1560
+      ]
+    },
+    {
+      "file": "docs/validation/topic-android-final-ui-2026-11-28/final-unsaved-choice.png",
+      "sha256": "3a048decf29bf5d9707f79ef3c49bc389d4b10e81903aa77fad7f42c844e2454",
+      "dimensions": [
+        720,
+        1560
+      ]
+    },
+    {
+      "file": "docs/validation/topic-android-final-ui-2026-11-28/final-choice-after-dialog.png",
+      "sha256": "8f4fab405afb41515f11ce27465c8e31cd52b00454764030d9d7604805cb0d12",
+      "dimensions": [
+        720,
+        1560
+      ]
+    },
+    {
+      "file": "docs/validation/topic-android-final-ui-2026-11-28/final-choice-after-learning.png",
+      "sha256": "25b04b39114a87dc619ecfc3830a0fc34aa0a817ac31069f57013b2985fe2673",
+      "dimensions": [
+        720,
+        1560
+      ]
+    },
+    {
+      "file": "docs/validation/topic-android-final-ui-2026-11-28/final-tutor-request.png",
+      "sha256": "9d3b30c45890d8120e77d6fd0c0f9b77b7b7e64341e35bd1b0e33178d92ae453",
+      "dimensions": [
+        720,
+        1560
+      ]
+    },
+    {
+      "file": "docs/validation/topic-android-final-ui-2026-11-28/final-tutor-real-response.png",
+      "sha256": "a2d5c600a103161e914bbfead7b6b8661ca1e2a719acede3e1f7edc023ea42d2",
+      "dimensions": [
+        720,
+        1560
+      ]
+    },
+    {
+      "file": "docs/validation/topic-android-final-ui-2026-11-28/final-grounded-reference-image.png",
+      "sha256": "4a597e9375e377c400e6118f9b0461b3ca7d3155cf88f9413a7c534388de4253",
+      "dimensions": [
+        720,
+        1560
+      ]
+    },
+    {
+      "file": "docs/validation/topic-android-final-ui-2026-11-28/final-tutor-keyboard.png",
+      "sha256": "abc1b8dd8ed142ee01e966052d641299bb91b2fcfd27d27e37a8fe5f26aff89f",
+      "dimensions": [
+        720,
+        1560
+      ]
+    },
+    {
+      "file": "docs/validation/topic-android-final-ui-2026-11-28/final-similar-learning-sources.png",
+      "sha256": "ae27368e9280ae8673e824423e504fc5a434dcbb89e0602397a913d8fb36662f",
+      "dimensions": [
+        720,
+        1560
+      ]
+    },
+    {
+      "file": "docs/validation/topic-android-final-ui-2026-11-28/final-similar-learning-second.png",
+      "sha256": "0c0c3ca245d7c9deadd648c7d64bd61620e24fa08aefc26c418a3775078ecb9f",
+      "dimensions": [
+        720,
+        1560
+      ]
+    },
+    {
+      "file": "docs/validation/topic-android-final-ui-2026-11-28/final-similar-first-heading.png",
+      "sha256": "fad0867428aeac020a55c14d35fecab377aef790e0ca81e9a9a459c257017757",
+      "dimensions": [
+        720,
+        1560
+      ]
+    },
+    {
+      "file": "docs/validation/topic-android-final-ui-2026-11-28/final-similar-first-options.png",
+      "sha256": "e7a2f685433d4d862511b0a30a03fc49479884f6f4c5a25409e809fdd7abb595",
+      "dimensions": [
+        720,
+        1560
+      ]
+    },
+    {
+      "file": "docs/validation/topic-android-final-ui-2026-11-28/final-similar-second-heading.png",
+      "sha256": "4343ddd8bdf81b33060c5c79eb689aa87ed4a768b22dccf901e52ca930beb95a",
+      "dimensions": [
+        720,
+        1560
+      ]
+    },
+    {
+      "file": "docs/validation/topic-android-final-ui-2026-11-28/final-similar-second-options.png",
+      "sha256": "3c293e1b75e1dcac9d979a9af92ce8e668192c58635ca994f7a671208f10a425",
+      "dimensions": [
+        720,
+        1560
+      ]
+    },
+    {
+      "file": "docs/validation/topic-android-final-ui-2026-11-28/final-spherical-reference-image.png",
+      "sha256": "ef96e86a6a4f33de2f9308fc28df8191fcc5b570424718912c43a89af08cd784",
+      "dimensions": [
+        720,
+        1560
+      ]
+    }
+  ],
+  "limitations": [
+    "Emulator Android 14, not a physical-device or broad-device compatibility test",
+    "The latest initial generation still failed CONTENT_REVIEW_FAILED after 99.029 seconds; no new planet/draft was produced, so the default new-generation path is not verified successful",
+    "Earlier similar generation failed CONTENT_REVIEW_UNAVAILABLE; a subsequent independent real similar request succeeded after 28.526 seconds and appended two questions to the old planet, which Android read back without invoking generation",
+    "One tutor response demonstrates one real call, not universal accuracy or guaranteed answer withholding",
+    "Keyboard can cover the dialog send button; dismiss keyboard with Back before sending",
+    "Long material-based questions require vertical scrolling; captures preserve the complete viewport rather than combining or cropping parts",
+    "No new similar answers were submitted in this native session; no-live-model unit tests separately cover completion rules"
+  ],
+  "latestServerCommitCi": {
+    "commit": "debf4977067b48a5ecfb39025976f8248ac67ba0",
+    "url": "https://github.com/Hyhyhyyy/KeLing4.0/actions/runs/46137764405",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "name": "web-and-server",
+        "conclusion": "success",
+        "startedAt": "2026-11-28T11:00:09Z",
+        "completedAt": "2026-11-28T11:02:51Z"
+      },
+      {
+        "name": "android-debug",
+        "conclusion": "success",
+        "startedAt": "2026-11-28T11:00:09Z",
+        "completedAt": "2026-11-28T11:04:01Z"
+      }
+    ]
+  },
+  "finalCloudReadback": {
+    "observedAt": "2026-11-28T19:40:12.4737231+08:00",
+    "planetId": "3c11a247-6ceb-4fb3-a19b-e87b2d373c80",
+    "questions": 14,
+    "similarQuestions": [
+      {
+        "id": "q_16f276bbc72f40c888e79b98b1cf1eec",
+        "kind": "multiple_choice",
+        "similarTo": "q_9719a8dc68b44ed6b529dcc555eebdf1",
+        "sourceIds": [
+          "s4",
+          "s6"
+        ],
+        "localSourceCount": 10,
+        "researchStatus": "grounded",
+        "hasAnswer": false
+      },
+      {
+        "id": "q_8df4cc4a09624b7690252bbf13051006",
+        "kind": "multiple_choice",
+        "similarTo": "q_9719a8dc68b44ed6b529dcc555eebdf1",
+        "sourceIds": [
+          "s9",
+          "s7",
+          "s1"
+        ],
+        "localSourceCount": 10,
+        "researchStatus": "grounded",
+        "hasAnswer": false
+      }
+    ],
+    "graphNodes": 12,
+    "graphEdges": 14,
+    "completedRegionIds": [
+      "r1",
+      "r2",
+      "r3"
+    ],
+    "artworkStatus": "generated",
+    "artworkProvider": "miaoda-image/grounded-reference",
+    "artworkGeneratedAt": "2026-11-28T11:22:28.165Z"
+  },
+  "deviceShutdown": {
+    "device": "emulator-5584",
+    "command": "adb -s emulator-5584 emu kill",
+    "verifiedAt": "2026-11-28T11:44:00.146438+00:00",
+    "adbDevices": [],
+    "launcherPid": 87548,
+    "launcherExited": true,
+    "avdDataPreserved": true
+  },
+  "finalVisualDescription": "Yellow near-spherical planet itself has eyes and mouth, pale belly-like terrain, ring craters and a small tail; no text or separate standing character in front of a globe.",
+  "historicalArtworkScreenshot": "final-grounded-reference-image.png predates the final spherical image; retain for traceability only."
+}

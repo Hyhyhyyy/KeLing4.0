@@ -1,0 +1,120 @@
+{
+  "releaseIds": [
+    "7713165665041107981",
+    "7713177556384205823"
+  ],
+  "finalSource": "debf497",
+  "finalProductionRun": "initial generation failed; separate old-planet similar, hint and artwork succeeded with manual content limitations",
+  "files": [
+    {
+      "file": "final-initial-failure.json",
+      "bytes": 457,
+      "sha256": "002bf107a02c5cf90df8a588b42fa4d340a61887c0b0ae3660f666559095b63b"
+    },
+    {
+      "file": "final-initial-failure.png",
+      "bytes": 408411,
+      "sha256": "34a1d9b21444d2e7e54147072fe54f57640c393e0c60d52540a99309abfb0d5b"
+    },
+    {
+      "file": "final-initial-input.png",
+      "bytes": 133319,
+      "sha256": "f2acee5e39dcccb1b8982d096b7bab5325fac03307018a86d8665c981e482c6e"
+    },
+    {
+      "file": "final-initial-jobs.json",
+      "bytes": 368,
+      "sha256": "23c4eae355902c1d1cbb4ad8ad43531794acc86de0d21b8d70d67b3e92f33392"
+    },
+    {
+      "file": "final-similar-evidence.json",
+      "bytes": 983,
+      "sha256": "8c52d9a522efb2b2959d5e389d00a90906fd953b84b0bcb65d5014ddc7acb3c5"
+    },
+    {
+      "file": "final-similar-learning-sources.png",
+      "bytes": 474843,
+      "sha256": "6812ffcf833ae96444566d64a7907316fcf90084479d96b4620a94ef9848024e"
+    },
+    {
+      "file": "final-similar-question-1.png",
+      "bytes": 331099,
+      "sha256": "a14970f77d5bce1ab54a6202630c0d326b1aa769745913c397512e3a3a1ff3c6"
+    },
+    {
+      "file": "final-similar-question-2.png",
+      "bytes": 286665,
+      "sha256": "4b74047c67957d3277b1971838c1d31391c05b198df350c0cccf4ab1cf47787b"
+    },
+    {
+      "file": "final-similar-success.png",
+      "bytes": 119186,
+      "sha256": "408647c629196bee7fffbed8028cfa866937070595a7c10670d8a5c1233f9bff"
+    },
+    {
+      "file": "final-spherical-web-detail.png",
+      "bytes": 269900,
+      "sha256": "f98ddfd5439060d0b15373d50e5a700bb8d5028cbbdebf22d1578f0adbd2d004"
+    },
+    {
+      "file": "final-spherical-web-evidence.json",
+      "bytes": 4404,
+      "sha256": "c18394a91e7ff0f3926d0de38714a29101757ac8a6a917a203c3697645aa5d76"
+    },
+    {
+      "file": "final-spherical-web-home.png",
+      "bytes": 832236,
+      "sha256": "0370457ce8cc2d6c1866ed57a56e260a498d1011e2269f89e13326e4a672b73b"
+    },
+    {
+      "file": "initial-generation-failure.json",
+      "bytes": 329,
+      "sha256": "5eaf61e04318158ff3560643a2a8bbdb0458d23570636c809ad0bb6bb8d2430c"
+    },
+    {
+      "file": "initial-generation-failure.png",
+      "bytes": 406091,
+      "sha256": "7bd4b13facf3ec9cfaba4fb36cb3f73872cd55a330277b9b2da28b43a7f1350a"
+    },
+    {
+      "file": "initial-generation-input.png",
+      "bytes": 127535,
+      "sha256": "5abcf18afcff5a6c67b681bcfe84b7cbf8a5a786aee5d51e2c0cfe1d0dee1d27"
+    },
+    {
+      "file": "inline-hint-desktop.png",
+      "bytes": 111802,
+      "sha256": "e39140a1ff16f02c498ce18745db3680ea61d818931bd8188788cf2c56ef80bc"
+    },
+    {
+      "file": "inline-hint-evidence.json",
+      "bytes": 1090,
+      "sha256": "81e80694b10edb4c926c45e5a454f4d1af4e7abbd10f7fac9d14e1dc221e8cab"
+    },
+    {
+      "file": "inline-hint-mobile.png",
+      "bytes": 58854,
+      "sha256": "2c2ac086a38777247e0f1dbc18ff116550144ae70067be9fb1ceb8b4cccdb997"
+    },
+    {
+      "file": "README.md",
+      "bytes": 3538,
+      "sha256": "b0002c512715a98c32466d3cfaf42775982dc534dfca4597036d00958f9a46e3"
+    },
+    {
+      "file": "similar-content-review.md",
+      "bytes": 2187,
+      "sha256": "63352da0d31da5b3f8f765dac0e27e1f7425536d23a9bf346e0e57af7cb38c01"
+    },
+    {
+      "file": "similar-practice-failure.json",
+      "bytes": 363,
+      "sha256": "aab79c1ba3aaaad334ec323f8ef71e847ef9ccdca1abbaa7bc00b6a55c5bc55b"
+    },
+    {
+      "file": "similar-practice-failure.png",
+      "bytes": 116348,
+      "sha256": "2551c3782fda3e18b89336dd99f41307fbaa4c32efe000806ec4db9914a7b43f"
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "date": "2026-11-28",
+  "release": {
+    "id": "7713165665041107981",
+    "status": "finished",
+    "templateCommit": "d603260bba76917954a3eb71231f34efd55b3c72",
+    "onlineUrl": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg",
+    "errorLogs": []
+  },
+  "sourceCommit": "84951581e90472b5cab875914991229e1062645c",
+  "businessSourceCommit": "1fe9d7c2781e4469d42f6582106c1129be553311",
+  "version": "4.3.1-research-rc2",
+  "android": {
+    "appId": "app_17h4dw5jwdg",
+    "route": "/download/android",
+    "versionName": "4.3.1-research-rc2",
+    "versionCode": 33,
+    "fileName": "KeLing-ICT-4.3.1-research-rc2-debug.apk",
+    "bytes": 85758314,
+    "sha256": "889ac6559f1398037a67013de1f80c15e0ec1f18412194119804672dbfc198c2",
+    "contentType": "application/vnd.android.package-archive",
+    "storageBucket": "bucket_aadk4xawzf4xg",
+    "storagePath": "/1883094348066903.apk",
+    "sourcePath": "apps/android/app/build/research-proof/keling-4.3.1-research-rc2.apk",
+    "certificateSha256": "e7b4d86c7a02fb6bb1d21215c393b347d2d67652e5e45dfbe3a3d6c66b7c67a3",
+    "signatureScheme": "v2",
+    "githubReleaseTag": "v4.3.1-research-rc2",
+    "githubAssetUrl": "https://github.com/Hyhyhyyy/KeLing4.0/releases/download/v4.3.1-research-rc2/KeLing-ICT-4.3.1-research-rc2-debug.apk"
+  },
+  "githubRelease": "https://github.com/Hyhyhyyy/KeLing4.0/releases/tag/v4.3.1-research-rc2",
+  "http": {
+    "result": "passed",
+    "entry": "/app/app_17h4dw5jwdg/assets/index-VRFomfVr.js",
+    "generatedFiles": 79,
+    "publicResourcesPerOrigin": 11,
+    "androidFullHashOrigins": 2
+  },
+  "contentValidation": {
+    "localSimilar": "accepted with documented missed content issue; not fact certification",
+    "localVisual": "grounded reference output reviewed as character body transformed into planet",
+    "publicUnknown": "RESEARCH_INSUFFICIENT",
+    "publicInvolution": "CONTENT_REVIEW_FAILED after content repair",
+    "publicDefaultNailong": "INVALID_PLANET; exact field not available in returned logs",
+    "publicStoredArtwork": "actual grounded-reference generation succeeded; inspected output still places character before planet rather than integrating body with terrain"
+  },
+  "claim": "Published and matching binaries/assets; content and visual limitations are not hidden by deployment success."
+}

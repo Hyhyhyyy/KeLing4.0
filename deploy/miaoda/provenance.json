@@ -1,6 +1,6 @@
 {
   "sourceProject": "keling-access-gateway",
-  "sourceCommit": "09e979c61ec51f0a9908a95fe3fe47d6a754b32d",
+  "sourceCommit": "91c5aa98cc11711063090bc3ae1f49dd9dd0fbc2",
   "observedDate": "2026-11-28",
   "hashBasis": "sourceSha256/sourceBytes describe the actual template working-tree files based on sourceCommit; sourceWorkingTreeHasPendingChanges distinguishes an uncommitted snapshot from a committed release. sha256/bytes describe the corresponding copied adapter files.",
   "files": [
@@ -69,10 +69,10 @@
     },
     {
       "path": "server/capabilities/keling-planet-visual-design.json",
-      "bytes": 6219,
-      "sha256": "eb9ec06b4b575434285b5a1b6bf7fa58f1d3516b6b3b639a373d44b413dad6cb",
-      "sourceSha256": "eb9ec06b4b575434285b5a1b6bf7fa58f1d3516b6b3b639a373d44b413dad6cb",
-      "sourceBytes": 6219
+      "bytes": 6830,
+      "sha256": "f6c3702a83fa87cd19678b390c0a3efcd6e35b15064d1f0cbce405de73b07e4d",
+      "sourceSha256": "f6c3702a83fa87cd19678b390c0a3efcd6e35b15064d1f0cbce405de73b07e4d",
+      "sourceBytes": 6830
     },
     {
       "path": "server/capabilities/keling-study-assistant.json",
@@ -209,8 +209,8 @@
       "npm": ">=10.0.0"
     },
     "lockfileVersion": 3,
-    "packageJsonSha256": "0e4e443083a4feb031a13e32ee332cb5ec776b6aeec05a78061720067a725fb3",
-    "packageLockSha256": "36e71608aa34279a424630c8dcbf0f77fc0b966de3d99a2ab7775170c1e2ba1d",
+    "packageJsonSha256": "d40b209727a195af479cfacc7d1436a0501d77695c4bc2f20e34ffba34920f4e",
+    "packageLockSha256": "e92e841c2f4b7df68ed527eb9f706edcfb35aba2763bd0872cff6b70e85cb8f2",
     "selectedDependencies": {
       "@lark-apaas/fullstack-nestjs-core": {
         "section": "dependencies",
@@ -341,6 +341,11 @@
         "section": "dependencies",
         "declared": "3.15.0",
         "locked": "3.15.0"
+      },
+      "@lark-apaas/fullstack-cli": {
+        "section": "devDependencies",
+        "declared": "1.1.72",
+        "locked": "1.1.72"
       }
     },
     "nestjsNestedExpress": "4.22.1",
@@ -357,7 +362,7 @@
       "@official-plugins/ai-text-to-json": "1.0.26"
     }
   },
-  "sourceWorkingTreeHasPendingChanges": true,
+  "sourceWorkingTreeHasPendingChanges": false,
   "publicResourcesFile": "public-resources.json",
   "publicResourcesSha256": "3bfb6add6298952b4f601861757838de6f0b059008806d1b4d672f2e65d253c9",
   "androidDownloadFile": "android-download.json",

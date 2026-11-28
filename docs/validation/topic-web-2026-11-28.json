@@ -74,5 +74,126 @@
     "syntheticBrowserEvidence": ".cache/topic-web-20261128/similar-ui-evidence.json",
     "modelRequestsThisPhase": 0,
     "productionVerification": "awaiting coordinated deployment"
+  },
+  "rc2ProductionInitialGeneration": {
+    "releaseId": "7713165665041107981",
+    "input": {
+      "subject": "奶龙学",
+      "contextMode": "auto",
+      "goal": "",
+      "questionCount": 6,
+      "generateArtwork": true
+    },
+    "generateRequests": 1,
+    "elapsedMs": 82958,
+    "status": "FAILED",
+    "code": "INVALID_PLANET",
+    "draftReceived": false,
+    "confirmed": false,
+    "pageErrors": [],
+    "errorEvidence": ".cache/topic-research-20261128/nailong-journey-rc2-ui-error.json"
+  },
+  "rc2ProductionSimilar": {
+    "planetId": "3c11a247-6ceb-4fb3-a19b-e87b2d373c80",
+    "jobId": "02dd7112-4ed5-45dc-8f2e-f748dcaf6cc1",
+    "status": "FAILED",
+    "code": "CONTENT_REVIEW_UNAVAILABLE",
+    "elapsedMs": 78571,
+    "requests": 1,
+    "newQuestionsSaved": false
+  },
+  "rc2ProductionInlineHint": {
+    "date": "2026-11-28T10:41:56.143Z",
+    "mode": "Existing real saved content + new production UI/API; no initial generation or image request",
+    "planetId": "3c11a247-6ceb-4fb3-a19b-e87b2d373c80",
+    "title": "奶龙梗与二创探索星球",
+    "parentQuestionId": "q_9719a8dc68b44ed6b529dcc555eebdf1",
+    "originalProgressUnchanged": true,
+    "hintElapsedMs": 7660,
+    "hintAnswer": "你可以先回忆一下“官方原作设定”和“网络二创/玩梗”的核心区别：官方设定是IP出品方明确公布、属于原作基础内容的信息，二创或玩梗则是网友基于原作进行的二次加工、衍生创作的内容。\n\n接下来你可以带着这个区分标准，逐个看这6个描述，先试着判断每个描述更符合“官方明确给出的基础信息”，还是“网友后续衍生创作/玩梗出来的内容”。",
+    "hintAnswerFieldsSent": false,
+    "sourcesHiddenDuringPractice": true,
+    "learningSourcesVisible": true,
+    "unsubmittedInputPreserved": true,
+    "generateRequests": 0,
+    "similarRequests": 0,
+    "hintRequests": 1,
+    "pageErrors": []
+  },
+  "reviewDiagnosticsReadiness": {
+    "reviewerTestsPassed": 22,
+    "serverTypecheck": "passed",
+    "timeoutBudgetMs": 120000,
+    "maximumFormatRepairs": 1,
+    "qualityGateUnchanged": true,
+    "rawProviderOrModelTextRecorded": false,
+    "productionFailureCause": "Production similar review SDK reported JSON SyntaxError / EXECUTION_ERROR after 89312 ms, beyond the former 60000 ms review budget; total shared budget raised to 120000 ms without changing validation or retry count."
+  },
+  "trackedProductionScreenshots": {
+    "directory": "docs/validation/topic-web-final-ui-2026-11-28",
+    "manifest": "docs/validation/topic-web-final-ui-2026-11-28/manifest.json",
+    "hintDesktop": "inline-hint-desktop.png",
+    "hintMobile": "inline-hint-mobile.png",
+    "initialFailure": "initial-generation-failure.png",
+    "similarFailure": "similar-practice-failure.png"
+  },
+  "finalProductionJourney": {
+    "source": "debf497",
+    "script": ".cache/topic-research-20261128/nailong-final-journey-rc2-ui.cjs",
+    "syntaxCheck": "passed",
+    "status": "FAILED at generation; later phases not started",
+    "modelCalls": 1,
+    "releaseId": "7713177556384205823",
+    "jobId": "51fcd3fb-0d36-471c-8f44-c5da1ac73d1f",
+    "code": "CONTENT_REVIEW_FAILED",
+    "elapsedMs": 99029,
+    "diagnosticReturned": false,
+    "draftReceived": false,
+    "confirmed": false,
+    "evidenceDirectory": "docs/validation/topic-web-final-ui-2026-11-28"
+  },
+  "finalTargetedSimilar": {
+    "date": "2026-11-28T11:20:07.197Z",
+    "mode": "Targeted production similar-only retest after shared review budget changed to 120 seconds; existing saved planet",
+    "planetId": "3c11a247-6ceb-4fb3-a19b-e87b2d373c80",
+    "title": "奶龙梗与二创探索星球",
+    "parentQuestionId": "q_9719a8dc68b44ed6b529dcc555eebdf1",
+    "newQuestionIds": [
+      "q_16f276bbc72f40c888e79b98b1cf1eec",
+      "q_8df4cc4a09624b7690252bbf13051006"
+    ],
+    "sameKind": true,
+    "originalQuestionsAndProgressUnchanged": true,
+    "similarElapsedMs": 28526,
+    "sourcesHiddenDuringPractice": true,
+    "localSourcesVisibleInLearning": true,
+    "unsubmittedInputPreserved": true,
+    "generateRequests": 0,
+    "similarRequests": 1,
+    "hintRequests": 0,
+    "pageErrors": [],
+    "jobId": "9d0ae827-5c8b-4c06-93c9-6a9c845f3c89",
+    "releaseId": "7713177556384205823",
+    "source": "debf497",
+    "contentReview": "Interaction passed; manual provenance review found the limitations documented in similar-content-review.md.",
+    "trackedEvidence": "docs/validation/topic-web-final-ui-2026-11-28/final-similar-evidence.json",
+    "manualReview": "docs/validation/topic-web-final-ui-2026-11-28/similar-content-review.md"
+  },
+  "finalSphericalArtworkReadback": {
+    "date": "2026-11-28T11:31:38.593Z",
+    "planetId": "3c11a247-6ceb-4fb3-a19b-e87b2d373c80",
+    "dimensions": {
+      "width": 2048,
+      "height": 2048,
+      "loaded": true
+    },
+    "detailMatchesSavedUrl": true,
+    "homeShowsSameSavedImage": true,
+    "modelRequests": 0,
+    "pageErrors": [],
+    "visualInspection": "One yellow rounded planet body with the facial features and crater-like markings on its surface; small side protrusions and tail remain, with no separate standing figure or name label.",
+    "generatedAt": "2026-11-28T11:22:28.165Z",
+    "provider": "miaoda-image/grounded-reference",
+    "trackedEvidence": "docs/validation/topic-web-final-ui-2026-11-28/final-spherical-web-evidence.json"
   }
 }

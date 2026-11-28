@@ -1,0 +1,147 @@
+{
+  "date": "2026-11-28",
+  "sourceCommit": "debf4977067b48a5ecfb39025976f8248ac67ba0",
+  "release": {
+    "id": "7713177556384205823",
+    "status": "finished",
+    "templateCommit": "91c5aa98cc11711063090bc3ae1f49dd9dd0fbc2",
+    "onlineUrl": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg",
+    "errorLogs": [],
+    "createdAt": "1795864118000",
+    "updatedAt": "1795864248000"
+  },
+  "scope": [
+    "Safe structural reason/path and content-review phase diagnostics",
+    "One shared 120 second content-review budget; repair count and strict validation unchanged",
+    "One connected spherical character body; no standing full body in front of a separate planet"
+  ],
+  "build": {
+    "officialScript": "scripts/build.sh (unmodified)",
+    "exitCode": 0,
+    "coreSeconds": 130.858,
+    "precommitExitCode": 0,
+    "nativeAndReferenceTests": 20,
+    "serverTests": 174,
+    "sourceManifestSha256": "e2692f288c9291a873a2d8c5a09a204a77764fc8e2795889264b61bbaa5b0290",
+    "sourceManifestBytes": 59695,
+    "webGeneratedFiles": 79,
+    "templateChangedFiles": [
+      "server/capabilities/keling-planet-visual-design.json",
+      "vendor/keling-server.cjs",
+      "vendor/source-manifest.json"
+    ],
+    "windowsCompatibility": "Same local-only file URL/tar/npm Bash adjustments as topic-build-rc2-2026-11-28.json; no SDK or build script changes"
+  },
+  "http": {
+    "checkedAt": "2026-11-28T11:13:17.413221+00:00",
+    "base": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg",
+    "browserValidation": {
+      "status": "not-run",
+      "reason": "This script checks HTTP artifacts only; browser interaction evidence is recorded separately."
+    },
+    "deploymentScope": {
+      "miaodaCanonicalAndLegacyDomains": true,
+      "vercelPreview": "excluded; user paused this deployment"
+    },
+    "scope": "Server/prompt patch: unchanged entry, manifests, health, readiness and APK metadata only; previous full asset and APK hashes retained.",
+    "origins": [
+      {
+        "base": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg",
+        "health": {
+          "status": "ok",
+          "timestamp": "2026-11-28T11:12:15.353Z",
+          "version": "4.3.1-research-rc2"
+        },
+        "ready": {
+          "status": "ready"
+        },
+        "files": [
+          {
+            "path": "index.html",
+            "status": 200,
+            "bytes": 2245,
+            "sha256": "df70eb87984c160fcec264c4ebf3dfef83ce9085cb86457681cf5a51fe5ce0f1",
+            "cacheControl": "no-store, no-cache, must-revalidate"
+          },
+          {
+            "path": "manifest.webmanifest",
+            "status": 200,
+            "bytes": 889,
+            "sha256": "6258c2f25a84390c47ddce324a37a6b84e1727e544ec6264b15551e02e1d1839",
+            "cacheControl": "no-store, no-cache, must-revalidate"
+          },
+          {
+            "path": "graph-editor/manifest.json",
+            "status": 200,
+            "bytes": 619,
+            "sha256": "0e4fbc339dc2a71191aaaa0d2b8d76afe7a29db1c9d1c7def98085b6995c39e5",
+            "cacheControl": "no-store, no-cache, must-revalidate"
+          }
+        ],
+        "entryScript": "/app/app_17h4dw5jwdg/assets/index-VRFomfVr.js",
+        "android": {
+          "versionCode": 33,
+          "versionName": "4.3.1-research-rc2",
+          "updateUrl": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/download/android",
+          "updateLog": "联网材料驱动学习；逐题相似碎片与星芽提示；内容复核；角色参考图塑造星球；移动图谱适配。",
+          "fileSize": 85758314,
+          "sha256": "889ac6559f1398037a67013de1f80c15e0ec1f18412194119804672dbfc198c2"
+        }
+      },
+      {
+        "base": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg",
+        "health": {
+          "status": "ok",
+          "timestamp": "2026-11-28T11:12:19.377Z",
+          "version": "4.3.1-research-rc2"
+        },
+        "ready": {
+          "status": "ready"
+        },
+        "files": [
+          {
+            "path": "index.html",
+            "status": 200,
+            "bytes": 2245,
+            "sha256": "df70eb87984c160fcec264c4ebf3dfef83ce9085cb86457681cf5a51fe5ce0f1",
+            "cacheControl": "no-store, no-cache, must-revalidate"
+          },
+          {
+            "path": "manifest.webmanifest",
+            "status": 200,
+            "bytes": 889,
+            "sha256": "6258c2f25a84390c47ddce324a37a6b84e1727e544ec6264b15551e02e1d1839",
+            "cacheControl": "no-store, no-cache, must-revalidate"
+          },
+          {
+            "path": "graph-editor/manifest.json",
+            "status": 200,
+            "bytes": 619,
+            "sha256": "0e4fbc339dc2a71191aaaa0d2b8d76afe7a29db1c9d1c7def98085b6995c39e5",
+            "cacheControl": "no-store, no-cache, must-revalidate"
+          }
+        ],
+        "entryScript": "/app/app_17h4dw5jwdg/assets/index-VRFomfVr.js",
+        "android": {
+          "versionCode": 33,
+          "versionName": "4.3.1-research-rc2",
+          "updateUrl": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/download/android",
+          "updateLog": "联网材料驱动学习；逐题相似碎片与星芽提示；内容复核；角色参考图塑造星球；移动图谱适配。",
+          "fileSize": 85758314,
+          "sha256": "889ac6559f1398037a67013de1f80c15e0ec1f18412194119804672dbfc198c2"
+        }
+      }
+    ],
+    "result": "passed"
+  },
+  "unchangedArtifactEvidence": "topic-http-rc2-2026-11-28.json",
+  "previousDeploymentEvidence": "topic-release-rc2-2026-11-28.json",
+  "previousFailureEvidence": "topic-online-diagnostics-2026-11-28.json",
+  "aiValidation": {
+    "status": "Initial production UI request failed CONTENT_REVIEW_FAILED after bounded repair",
+    "callsFromThisDeploymentAgent": 0,
+    "initialProductionEvidence": "topic-final-default-content-2026-11-28.json",
+    "additionalStoredPlanetValidation": "Recorded separately by parent; no retry of initial generation"
+  },
+  "claim": "Deployment and HTTP consistency verified. Previous generation failures and visual limitations remain recorded; they are not overwritten by local successes or publication status."
+}

@@ -1,0 +1,63 @@
+{
+  "date": "2026-11-28",
+  "sourceCommit": "debf4977067b48a5ecfb39025976f8248ac67ba0",
+  "templateCommit": "91c5aa98cc11711063090bc3ae1f49dd9dd0fbc2",
+  "releaseId": "7713177556384205823",
+  "jobId": "51fcd3fb-0d36-471c-8f44-c5da1ac73d1f",
+  "input": {
+    "subject": "奶龙学",
+    "contextMode": "auto",
+    "goal": "",
+    "questionCount": 6,
+    "generateArtwork": true
+  },
+  "result": {
+    "status": "FAILED",
+    "code": "CONTENT_REVIEW_FAILED",
+    "elapsedMs": 99029,
+    "requests": 1,
+    "confirmableDraft": false
+  },
+  "diagnostic": {
+    "source": "Official SDK final content-review output was complete JSON (607 characters); no standalone PLANET_CONTENT_REVIEW_REJECTED marker observed in returned records",
+    "issueCodes": [
+      "ANSWER_EXPLANATION_CONFLICT"
+    ],
+    "issueCount": 1,
+    "targets": [
+      {
+        "type": "question",
+        "id": "q3",
+        "code": "ANSWER_EXPLANATION_CONFLICT"
+      }
+    ],
+    "finalReviewMs": 3887,
+    "previousReviewMs": 5875,
+    "generationCallsMs": [
+      39849,
+      38511
+    ],
+    "conclusion": "After bounded content repair, final reviewer still reports answer/explanation conflict. The final review was not an audit timeout.",
+    "limitation": "Generated drafts in SDK logs are truncated; this proves the reported issue class, not independent adjudication of the underlying answer. The first audit SDK attempt also logged an error before a later accepted-format audit; its error text is not classified here."
+  },
+  "logQueries": [
+    {
+      "since": "2026-11-28T11:14:00Z",
+      "until": "2026-11-28T11:16:00Z",
+      "returned": 61,
+      "hasMore": false
+    },
+    {
+      "since": "2026-11-28T11:12:45Z",
+      "until": "2026-11-28T11:14:00Z",
+      "returned": 100,
+      "hasMore": true
+    }
+  ],
+  "logCoverage": "The earlier page was sufficient to identify matching generation timing, not claimed as exhaustive. No raw log text, headers, model quotes or credentials are published.",
+  "followUp": {
+    "newModelCalls": 0,
+    "deploymentChanged": false,
+    "initialGenerationRetried": false
+  }
+}

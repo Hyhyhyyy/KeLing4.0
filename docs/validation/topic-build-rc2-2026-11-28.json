@@ -1,0 +1,50 @@
+{
+  "date": "2026-11-28",
+  "sourceCommit": "84951581e90472b5cab875914991229e1062645c",
+  "templateCommit": "d603260bba76917954a3eb71231f34efd55b3c72",
+  "officialBuildScript": "scripts/build.sh (unmodified)",
+  "exitCode": 0,
+  "coreBuildSeconds": 166.334,
+  "outputBytesApprox": "527M",
+  "precommitExitCode": 0,
+  "hostedWeb": {
+    "entry": "/app/app_17h4dw5jwdg/assets/index-VRFomfVr.js",
+    "generatedFiles": 79
+  },
+  "sourceWorkingTreePending": false,
+  "adapterTests": {
+    "nativeAndReference": 20,
+    "publicAssets": 9
+  },
+  "dependencies": {
+    "runtimeJsonRepair": "3.15.0",
+    "officialBuildCli": {
+      "name": "@lark-apaas/fullstack-cli",
+      "version": "1.1.72",
+      "section": "devDependencies"
+    },
+    "actionPlugins": 5
+  },
+  "localWindowsCompatibility": {
+    "nodeImport": "Only official fullstack-cli/dist/index.js absolute path is converted to file URL using a local Node resolve hook; SDK files unchanged",
+    "archiveTool": "Local PATH shim selects Windows System32 tar for native Windows paths",
+    "npmScriptShell": "D:/MyDownloads/Git/bin/bash.exe",
+    "deployedCompatibilityShims": false
+  },
+  "warnings": [
+    {
+      "code": "optional-route-generators-unavailable",
+      "detail": "Original build script treats generate-api-routes/generate-page-routes npm E404 as nonblocking; explicit Nest gateway routes and public HTTP routes verified."
+    },
+    {
+      "code": "nested-dependency-count",
+      "detail": "Pruner reports 485 of 486 top-level packages; camelcase is nested under openapi-typescript-codegen and resolves correctly in dist. All 31 declared output dependencies are present."
+    }
+  ],
+  "runtimePrisma": {
+    "generated": true,
+    "migrationsRun": false
+  },
+  "localLog": ".cache/miaoda-research-20261128-rc2-final/official-build.log",
+  "claim": "Build and artifact checks only; AI content quality is evaluated separately."
+}

@@ -1,0 +1,36 @@
+{
+  "date": "2026-11-28",
+  "repository": "https://github.com/Hyhyhyyy/KeLing4.0",
+  "applicationSourceCommit": "1fe9d7c2781e4469d42f6582106c1129be553311",
+  "releaseTargetCommit": "84951581e90472b5cab875914991229e1062645c",
+  "targetDifference": "CI workflows install the shared graph editor Node dependencies; README documents the prerequisite. Application source and APK unchanged.",
+  "release": "https://github.com/Hyhyhyyy/KeLing4.0/releases/tag/v4.3.1-research-rc2",
+  "draft": false,
+  "prerelease": true,
+  "apk": {
+    "filename": "KeLing-ICT-4.3.1-research-rc2-debug.apk",
+    "size": 85758314,
+    "sha256": "889ac6559f1398037a67013de1f80c15e0ec1f18412194119804672dbfc198c2",
+    "githubAssetId": 804082855,
+    "githubComputedDigestMatches": true,
+    "independentGhDownloadHashMatches": true,
+    "localDeliveryCopyHashMatches": true
+  },
+  "qualityGates": {
+    "url": "https://github.com/Hyhyhyyy/KeLing4.0/actions/runs/46133815092",
+    "webAndServer": "success",
+    "androidDebug": "success",
+    "previousRun": "https://github.com/Hyhyhyyy/KeLing4.0/actions/runs/46132742455",
+    "previousFailure": "Android prepareGraphEditor could not load esbuild because its job did not install npm dependencies. Fixed in both CI and manual release workflows."
+  },
+  "serverFollowup": {
+    "commit": "debf4977067b48a5ecfb39025976f8248ac67ba0",
+    "changes": "120-second shared review budget after observed slow SDK call; safe failure diagnostics; single spherical character planet composition. APK unchanged.",
+    "qualityGates": {
+      "url": "https://github.com/Hyhyhyyy/KeLing4.0/actions/runs/46137764405",
+      "webAndServer": "success",
+      "androidDebug": "success"
+    },
+    "isolatedServerTestsPassed": 174
+  }
+}

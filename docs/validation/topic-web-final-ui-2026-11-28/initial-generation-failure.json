@@ -1,0 +1,15 @@
+{
+  "message": "模型返回的星球不完整，请重新生成。",
+  "phase": "generation",
+  "input": {
+    "subject": "奶龙学",
+    "contextMode": "auto",
+    "goal": "",
+    "questionCount": 6,
+    "generateArtwork": true
+  },
+  "elapsedMs": 83239,
+  "generateRequests": 1,
+  "lastStatus": "FAILED",
+  "pageErrors": []
+}

@@ -1,0 +1,18 @@
+[
+  {
+    "event": "job",
+    "phase": "generation",
+    "status": "RUNNING",
+    "jobId": "51fcd3fb-0d36-471c-8f44-c5da1ac73d1f",
+    "code": null,
+    "elapsedMs": 945
+  },
+  {
+    "event": "job",
+    "phase": "generation",
+    "status": "FAILED",
+    "jobId": "51fcd3fb-0d36-471c-8f44-c5da1ac73d1f",
+    "code": "CONTENT_REVIEW_FAILED",
+    "elapsedMs": 99029
+  }
+]

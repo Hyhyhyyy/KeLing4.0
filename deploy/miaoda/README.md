@@ -36,13 +36,17 @@
 
 已发布基线 `4.3.0-research-rc1` 对应主仓源码 `854223bbfbc8ddb8bc490e0abe258cee43cb3705`、Android code32；模板提交 `09e979c61ec51f0a9908a95fe3fe47d6a754b32d`，发布 `7713122867898993697` 已 finished。联网检索、语境辨析、六题型、知识图谱和按反馈再生已接入真实原生能力；发布状态与内容质量分开核验，首轮真实失败及修复记录见 [主题检索合同](../../docs/validation/topic-research-contract-2026-11-28.md)。
 
-本轮待发布版本为 `4.3.1-research-rc2` / Android code33。最终含相似练习的APK为85758314字节、SHA-256 `889ac6559f1398037a67013de1f80c15e0ec1f18412194119804672dbfc198c2`，已上传应用存储；旧85717175字节的预发布包不作为发布目标。此次源码和元数据已准备，具体上线状态须以最终发布记录为准。
+此前首轮发布版本为 `4.3.1-research-rc2` / Android code33。最终含相似练习的APK为85758314字节、SHA-256 `889ac6559f1398037a67013de1f80c15e0ec1f18412194119804672dbfc198c2`，已上传应用存储；旧85717175字节的预发布包不作为发布目标。模板 `d603260bba76917954a3eb71231f34efd55b3c72`，发布 `7713165665041107981` 已 finished；79项构建文件、两域各11项固定资源和完整APK摘要已验证。部署成功不代表生成内容或视觉要求全部通过，具体证据与边界见[rc2记录](../../docs/validation/topic-release-rc2-2026-11-28.md)。
+
+当前服务端修复使用主仓源码 `debf4977067b48a5ecfb39025976f8248ac67ba0`；模板 `91c5aa98cc11711063090bc3ae1f49dd9dd0fbc2`，发布 `7713177556384205823` 已 finished。依据实际89.312秒审核调用，将共享审核预算改为120秒，保留严格校验和一次格式修复；增加安全失败分类与精确结构反馈，并将绘图限定为一个相连的球形角色主体。Web、图谱、APK33字节均未改变，两域健康、入口、清单及APK元数据已回读一致。[本次部署与边界](../../docs/validation/topic-diagnostic-release-2026-11-28.md)保留之前线上失败，不把发布通过当作内容通过。
 
 公开 Android 下载对象记录在 [android-download.json](android-download.json)，包含真实 versionCode、字节数、SHA-256 和签名证书摘要。`/download/android` 对应应用存储内的固定 APK；托管 `/api/app/version` 和 `/api/app/download` 由 ReleaseController 提供经过校验的固定元数据及同站下载地址。独立课灵后端仍保留 GitHub Release 查询路径。发布时须保持 GitHub 与应用存储两份 APK 字节一致，先发布带真实 versionCode 标记的 GitHub Release，再更新托管元数据并发布应用。APK 二进制不进入模板 Git。
 
 网页导航与 `index.html`、`offline-shell.html`、`sw.js`、`registerSW.js`、`manifest.webmanifest`、`graph-editor/*` 使用 `no-store, no-cache, must-revalidate`，确保稳定入口每次重新获取；带哈希的静态资源保留原有一小时缓存。缓存头只约束 HTTP 缓存，旧页面是否采用新脚本还取决于浏览器中的 Service Worker 和更新确认流程，不能仅凭线上文件已更新判断用户页面已更新。
 
 ## 模板与依赖基线
+
+官方构建CLI固定为 `@lark-apaas/fullstack-cli@1.1.72`（模板devDependencies），避免缺失时误解析同名非官方npm工具。本机Windows路径兼容仅作用于构建启动环境，不进入发布源码，见[构建证据](../../docs/validation/topic-build-rc2-2026-11-28.json)。
 
 内容审核适配器直接依赖 `jsonrepair@3.15.0`（模板 `dependencies`，主仓仅开发测试依赖）。它只修复具有明确解析失败证据的模型JSON语法；数据仍须经过课灵完整审核合同校验，不能将格式修复当作内容可信或审核通过。
 

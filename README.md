@@ -1,6 +1,6 @@
 # 课灵 · KeLing
 
-当前候选版本：**4.3.1-research-rc2**，Android **versionCode 33**。主题探索新增真实联网资料、语境辨析、六种可选题型、单题追加要求和定制星球形象；绘图也先检索形象资料，再将角色外形或主题结构融入星球。知识图谱在首次生成预览中即可查看，分支与层级按内容组织。使用方法见[主题知识星球](docs/design/TOPIC_PLANETS.md)，当前验证见[本轮记录](docs/validation/topic-research-release-2026-11-28.md)。此前[五分钟讲稿与16页PPT](docs/defense/README.md)保留上一轮版本，本轮没有替换材料截图。双击 `demo.bat` 或运行 `npm run demo` 可启动独立本机演示库。
+当前公开版本：**4.3.1-research-rc2**，Android **versionCode 33**。主题探索新增真实联网资料、语境辨析、六种可选题型、单题追加要求和定制星球形象；绘图也先检索形象资料，再将角色外形或主题结构融入星球。知识图谱在首次生成预览中即可查看，分支与层级按内容组织。使用方法见[主题知识星球](docs/design/TOPIC_PLANETS.md)，当前验证见[本轮记录](docs/validation/topic-research-release-2026-11-28.md)。此前[五分钟讲稿与16页PPT](docs/defense/README.md)保留上一轮版本，本轮没有替换材料截图。双击 `demo.bat` 或运行 `npm run demo` 可启动独立本机演示库。
 
 原华为工作流位于另一账号，目前 API 已真实返回计划，但内部模型节点尚未独立核验。给账号持有人的[最新交接说明](docs/handovers/huawei/README.md)和[模型核验 Word 文档](docs/handovers/huawei/课灵华为云工作流模型核验补充交接20261127.docx)可直接转交；不能把妙搭模型的验证结果称为华为模型已验证。
 
@@ -8,19 +8,22 @@
 
 [打开网页](https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg) · [使用指南](https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/guide) · [游客试用](https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/trial) · [下载 Android](https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/download/android) · [GitHub Releases](https://github.com/Hyhyhyyy/KeLing4.0/releases)
 
-当前公开 Android 下载为 **4.3.0-research-rc1 / 32**，最低 Android 8.0。预览包使用调试签名，与此前公开包保持同一包名和证书。当前网页与 API 运行于妙搭，连接原 Neon PostgreSQL 数据库。`vercel.json` 已用 `git.deploymentEnabled: false` 关闭 Git 自动部署；旧 Vercel 入口暂停仍待账号持有人确认，关闭自动部署不等于旧站已经下线。当前有效入口以上述妙搭地址为准。
+当前公开 Android 下载为 **4.3.1-research-rc2 / 33**，最低 Android 8.0。预览包使用调试签名，与此前公开包保持同一包名和证书。当前网页与 API 运行于妙搭，连接原 Neon PostgreSQL 数据库。`vercel.json` 已用 `git.deploymentEnabled: false` 关闭 Git 自动部署；旧 Vercel 入口暂停仍待账号持有人确认，关闭自动部署不等于旧站已经下线。当前有效入口以上述妙搭地址为准。
 
 ## 功能
 
 - **主题探索：** 输入学科、多义词或网络用语，先检索、再辨析语境，预览有来源的讲解与知识图谱后确认创建星球；资料不足时停止生成。
 - **多样练习：** 可选6、12、18题，包括单选、多选、判断、填空、排序与简答自核。对单题追加要求重生，或单独重绘星球形象，保留其他内容。
+- **相似碎片与星芽：** 单题可重新检索并追加两道同题型练习。学习阶段看讲解、图谱和资料，答题阶段隐藏这些内容，但随时可问星芽或回看学习；切换时保留未提交的输入。
 - **游戏化学习：** 学习讲解、作答核对、记录发现与安排后续任务。二叉树保留为显式选择的规则练习示例；装饰奖励与知识掌握状态分开记录。
 - **学习工作区：** 课程、资料、笔记、任务、专注与学习报告，已提交的账号数据可跨端接续。
 - **个人空间：** 选择头像，按真实学习记录解锁框、称号和家具，布置十个家园位置，按日历回看分钟、任务与打卡；详见[成就规则](docs/defense/个人空间与成就规则.md)。
 - **可控 AI：** 先预览资料范围，再明确发送；回答和计划由用户核对、确认后保存。支持配置个人模型 Key。
 - **游客体验：** 使用本次内存工作区；退出、刷新或进程结束后清空，不自动迁入账号。
 
-本轮服务端170项、Web96项、共享图谱6项、Android135项测试通过；测试替身只验证代码行为，真实模型、公开入口与设备证据分别记录在[本轮验收](docs/validation/topic-research-release-2026-11-28.md)。此前计时、打卡、装扮与跨端读回见[航程成长记录](docs/validation/journey-release-2026-11-27.md)，通用AI历史样本见[RC3记录](docs/validation/demo-ai-rc3-2026-11-27.md)。检索摘要不是全文事实核查，简答自核不是AI评分；这些结果不代表全学科正确、所有模型厂商可用、实体设备通过或学习效果得到证明。
+本轮服务端174项、Web96项、共享图谱6项、Android135项测试通过；测试替身只验证代码行为，真实模型、公开入口与设备证据分别记录在[本轮验收](docs/validation/topic-research-release-2026-11-28.md)。此前计时、打卡、装扮与跨端读回见[航程成长记录](docs/validation/journey-release-2026-11-27.md)，通用AI历史样本见[RC3记录](docs/validation/demo-ai-rc3-2026-11-27.md)。检索摘要不是全文事实核查，简答自核不是AI评分；这些结果不代表全学科正确、所有模型厂商可用、实体设备通过或学习效果得到证明。
+
+最新公开实测中，两端题内星芽、相似题追加、资料隐藏与输入保留、反馈重绘已运行成功；默认“奶龙学”首次生成仍被内容复核拒绝，新增题的人工审读仍发现来源身份与截断摘录补写问题。此版本为公开测试版，不能称为任意主题稳定生成或免审阅教材。
 
 ## 项目结构
 

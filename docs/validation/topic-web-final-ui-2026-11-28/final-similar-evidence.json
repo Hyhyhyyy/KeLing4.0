@@ -1,0 +1,25 @@
+{
+  "date": "2026-11-28T11:20:07.197Z",
+  "mode": "Targeted production similar-only retest after shared review budget changed to 120 seconds; existing saved planet",
+  "planetId": "3c11a247-6ceb-4fb3-a19b-e87b2d373c80",
+  "title": "奶龙梗与二创探索星球",
+  "parentQuestionId": "q_9719a8dc68b44ed6b529dcc555eebdf1",
+  "newQuestionIds": [
+    "q_16f276bbc72f40c888e79b98b1cf1eec",
+    "q_8df4cc4a09624b7690252bbf13051006"
+  ],
+  "sameKind": true,
+  "originalQuestionsAndProgressUnchanged": true,
+  "similarElapsedMs": 28526,
+  "sourcesHiddenDuringPractice": true,
+  "localSourcesVisibleInLearning": true,
+  "unsubmittedInputPreserved": true,
+  "generateRequests": 0,
+  "similarRequests": 1,
+  "hintRequests": 0,
+  "pageErrors": [],
+  "jobId": "9d0ae827-5c8b-4c06-93c9-6a9c845f3c89",
+  "releaseId": "7713177556384205823",
+  "source": "debf497",
+  "contentReview": "Interaction passed; manual provenance review found the limitations documented in similar-content-review.md."
+}

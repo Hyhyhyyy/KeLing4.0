@@ -1,0 +1,314 @@
+{
+  "recordedAt": "2026-11-28T11:31:35.841295+00:00",
+  "mock": false,
+  "samples": [
+    {
+      "status": "FAILED",
+      "code": "MODEL_FAILED",
+      "error": "公共模型暂时未能生成星球，请重试",
+      "elapsedSeconds": 6.2,
+      "request": {
+        "subject": "奶龙学",
+        "level": "入门，我看过一些网友二创但不了解来龙去脉",
+        "goal": "重点理解网络流行语、抽象二创、社群用法，区分原作设定与网友玩梗，并比较不同解释的依据。",
+        "contextMode": "auto",
+        "questionCount": 12,
+        "generateArtwork": true,
+        "providerId": "miaoda",
+        "model": "miaoda-learning"
+      },
+      "evidenceName": "nailong-real"
+    },
+    {
+      "status": "FAILED",
+      "code": "MODEL_FAILED",
+      "error": "公共模型暂时未能生成星球，请重试",
+      "elapsedSeconds": 5.53,
+      "request": {
+        "subject": "奶龙学",
+        "level": "入门，我看过一些网友二创但不了解来龙去脉",
+        "goal": "重点理解网络流行语、抽象二创、社群用法，区分原作设定与网友玩梗，并比较不同解释的依据。",
+        "contextMode": "auto",
+        "questionCount": 12,
+        "generateArtwork": true,
+        "providerId": "miaoda",
+        "model": "miaoda-learning"
+      },
+      "evidenceName": "nailong-retry-real"
+    },
+    {
+      "status": "FAILED",
+      "code": "INVALID_PLANET",
+      "error": "模型生成的区域、题目或先修关系未通过校验，未创建星球。请重试或缩小学科范围",
+      "elapsedSeconds": 70.88,
+      "request": {
+        "subject": "奶龙学",
+        "level": "入门，我看过一些网友二创但不了解来龙去脉",
+        "goal": "重点理解网络流行语、抽象二创、社群用法，区分原作设定与网友玩梗，并比较不同解释的依据。",
+        "contextMode": "auto",
+        "questionCount": 12,
+        "generateArtwork": true,
+        "providerId": "miaoda",
+        "model": "miaoda-learning"
+      },
+      "evidenceName": "nailong-fixed-real"
+    },
+    {
+      "status": "SUCCEEDED",
+      "code": null,
+      "error": null,
+      "elapsedSeconds": 77.05,
+      "request": {
+        "subject": "奶龙学",
+        "level": "入门，我看过一些网友二创但不了解来龙去脉",
+        "goal": "重点理解网络流行语、抽象二创、社群用法，区分原作设定与网友玩梗，并比较不同解释的依据。",
+        "contextMode": "auto",
+        "questionCount": 12,
+        "generateArtwork": true,
+        "providerId": "miaoda",
+        "model": "miaoda-learning"
+      },
+      "evidenceName": "nailong-final-real",
+      "subject": "奶龙学",
+      "title": "奶龙梗与二创探索星球",
+      "sourceCount": 10,
+      "questionCount": 12,
+      "questionKinds": {
+        "single_choice": 3,
+        "true_false": 2,
+        "fill_blank": 2,
+        "short_answer": 2,
+        "multiple_choice": 2,
+        "ordering": 1
+      },
+      "graph": {
+        "nodes": 12,
+        "edges": 14,
+        "hierarchyEdges": 9,
+        "relatedEdges": 5,
+        "maximumHierarchyDepth": 3,
+        "maximumChildren": 4
+      },
+      "artworkStatus": "fallback",
+      "draftSha256": "a63cecf00aa8da0372623a71ddab6993ce6ba59db62620f543d0e0a0ecae2365"
+    },
+    {
+      "status": "SUCCEEDED",
+      "code": null,
+      "error": null,
+      "elapsedSeconds": 12.42,
+      "checks": {
+        "changedQuestions": 1,
+        "graphUnchanged": true,
+        "researchUnchanged": true,
+        "artworkChanged": false,
+        "targetIdChanged": true,
+        "newKind": "multiple_choice",
+        "optionCount": 6
+      },
+      "evidenceName": "nailong-question-real",
+      "subject": "奶龙学",
+      "title": "奶龙梗与二创探索星球",
+      "sourceCount": 10,
+      "questionCount": 12,
+      "questionKinds": {
+        "multiple_choice": 3,
+        "true_false": 2,
+        "fill_blank": 2,
+        "short_answer": 2,
+        "single_choice": 2,
+        "ordering": 1
+      },
+      "graph": {
+        "nodes": 12,
+        "edges": 14,
+        "hierarchyEdges": 9,
+        "relatedEdges": 5,
+        "maximumHierarchyDepth": 3,
+        "maximumChildren": 4
+      },
+      "artworkStatus": "fallback",
+      "draftSha256": "308c86698564edb9a62c2f58b1685683727aa8a8cdc565e7cade7a9c20b571af"
+    },
+    {
+      "status": "SUCCEEDED",
+      "code": null,
+      "error": null,
+      "elapsedSeconds": 25.97,
+      "checks": {
+        "questionsUnchanged": true,
+        "graphUnchanged": true,
+        "artworkGenerated": true,
+        "imageUrlChanged": true
+      },
+      "evidenceName": "nailong-image-real",
+      "subject": "奶龙学",
+      "title": "奶龙梗与二创探索星球",
+      "sourceCount": 10,
+      "questionCount": 12,
+      "questionKinds": {
+        "multiple_choice": 3,
+        "true_false": 2,
+        "fill_blank": 2,
+        "short_answer": 2,
+        "single_choice": 2,
+        "ordering": 1
+      },
+      "graph": {
+        "nodes": 12,
+        "edges": 14,
+        "hierarchyEdges": 9,
+        "relatedEdges": 5,
+        "maximumHierarchyDepth": 3,
+        "maximumChildren": 4
+      },
+      "artworkStatus": "generated",
+      "draftSha256": "f01f58ed2034a0c9f2a1bd7ff69537673e4dadffdb8adc6560c8058c4219b33c"
+    },
+    {
+      "status": "SUCCEEDED",
+      "code": null,
+      "error": null,
+      "elapsedSeconds": 77.78,
+      "request": {
+        "subject": "熵",
+        "level": "高中数学基础，没有学过大学物理",
+        "goal": "比较热力学、信息论和日常网络比喻中的含义，用具体例子说明相似与差异，不将比喻当物理定律。",
+        "contextMode": "auto",
+        "questionCount": 18,
+        "generateArtwork": false,
+        "providerId": "miaoda",
+        "model": "miaoda-learning"
+      },
+      "evidenceName": "entropy-real",
+      "subject": "熵",
+      "title": "熵的多语境探索星球",
+      "sourceCount": 10,
+      "questionCount": 18,
+      "questionKinds": {
+        "single_choice": 3,
+        "true_false": 3,
+        "fill_blank": 3,
+        "multiple_choice": 3,
+        "short_answer": 3,
+        "ordering": 3
+      },
+      "graph": {
+        "nodes": 12,
+        "edges": 14,
+        "hierarchyEdges": 5,
+        "relatedEdges": 9,
+        "maximumHierarchyDepth": 3,
+        "maximumChildren": 3
+      },
+      "artworkStatus": "not-requested",
+      "draftSha256": "f99516a651b29f743e341e70369968231aa5d5258e40e09a1546e8f1c1029fe4"
+    },
+    {
+      "status": "FAILED",
+      "code": "CONTENT_REVIEW_FAILED",
+      "error": "修复后内容仍有矛盾或依据缺口，未创建星球，请补充资料或重试",
+      "elapsedSeconds": 104.7,
+      "request": {
+        "subject": "内卷",
+        "level": "第一次接触",
+        "goal": "比较学术概念和日常网络用语，分析竞争、努力和内卷的区别，呈现不同条件下的解释。",
+        "contextMode": "auto",
+        "questionCount": 6,
+        "generateArtwork": false,
+        "providerId": "miaoda",
+        "model": "miaoda-learning"
+      },
+      "evidenceName": "involution-rc2-real"
+    },
+    {
+      "status": "FAILED",
+      "code": "RESEARCH_INSUFFICIENT",
+      "error": "检索资料尚不能支持这个主题的可靠解释，请补充具体用法、别称或背景；未创建星球",
+      "elapsedSeconds": 9.19,
+      "request": {
+        "subject": "绒蓝星际折叠糖学QZ791",
+        "level": "完全不了解这个词",
+        "goal": "核实这个名称有没有可查证的定义和来源，找不到就说明找不到，不能捏造历史、人物和定理。",
+        "contextMode": "auto",
+        "questionCount": 6,
+        "generateArtwork": false
+      },
+      "evidenceName": "unknown-rc2-real"
+    },
+    {
+      "status": "SUCCEEDED",
+      "code": null,
+      "error": null,
+      "elapsedSeconds": 53.58,
+      "checks": {
+        "questionsUnchanged": true,
+        "graphUnchanged": true,
+        "learningResearchUnchanged": true,
+        "artworkGenerated": true,
+        "provider": "miaoda-image/grounded-reference",
+        "imageUrlChanged": true
+      },
+      "evidenceName": "nailong-grounded-reference-final",
+      "subject": "奶龙学",
+      "title": "奶龙梗与二创探索星球",
+      "sourceCount": 10,
+      "questionCount": 12,
+      "questionKinds": {
+        "multiple_choice": 3,
+        "true_false": 2,
+        "fill_blank": 2,
+        "short_answer": 2,
+        "single_choice": 2,
+        "ordering": 1
+      },
+      "graph": {
+        "nodes": 12,
+        "edges": 14,
+        "hierarchyEdges": 9,
+        "relatedEdges": 5,
+        "maximumHierarchyDepth": 3,
+        "maximumChildren": 4
+      },
+      "artworkStatus": "generated",
+      "draftSha256": "eb288be22bd387d8f1785f0fa42bf5386a975f6f96b6c38ea6a9f84ba0003859"
+    },
+    {
+      "status": "SUCCEEDED",
+      "code": null,
+      "error": null,
+      "elapsedSeconds": 59.77,
+      "checks": {
+        "questionsUnchanged": true,
+        "graphUnchanged": true,
+        "learningResearchUnchanged": true,
+        "artworkGenerated": true,
+        "provider": "miaoda-image/grounded-reference",
+        "imageUrlChanged": true
+      },
+      "evidenceName": "nailong-spherical-final",
+      "subject": "奶龙学",
+      "title": "奶龙梗与二创探索星球",
+      "sourceCount": 10,
+      "questionCount": 14,
+      "questionKinds": {
+        "multiple_choice": 5,
+        "true_false": 2,
+        "fill_blank": 2,
+        "short_answer": 2,
+        "single_choice": 2,
+        "ordering": 1
+      },
+      "graph": {
+        "nodes": 12,
+        "edges": 14,
+        "hierarchyEdges": 9,
+        "relatedEdges": 5,
+        "maximumHierarchyDepth": 3,
+        "maximumChildren": 4
+      },
+      "artworkStatus": "generated",
+      "draftSha256": "2920f9fd3cf8fde825beef259bc15b7b81e53e25decbcf26d667e11be007b89d"
+    }
+  ]
+}

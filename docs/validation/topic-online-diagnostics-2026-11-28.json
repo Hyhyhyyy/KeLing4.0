@@ -1,0 +1,271 @@
+{
+  "date": "2026-11-28",
+  "publicDefaultSix": {
+    "input": {
+      "subject": "奶龙学",
+      "contextMode": "auto",
+      "goal": "",
+      "questionCount": 6,
+      "generateArtwork": true
+    },
+    "result": "INVALID_PLANET",
+    "observedCapabilityDurationsMs": [
+      41585,
+      38170
+    ],
+    "capabilityReturnsSucceeded": true,
+    "loggedInputOutputLength": 1033,
+    "loggedInputOutputTruncated": true,
+    "exactRejectedFieldRecovered": false,
+    "notes": "Exact-time unfiltered logs were available; filtered keyword/WARN searches had returned no rows. SDK input/output was truncated and no structure marker was returned. Do not guess a field."
+  },
+  "publicSimilar": {
+    "jobId": "02dd7112-4ed5-45dc-8f2e-f748dcaf6cc1",
+    "jobElapsedMs": 78571,
+    "result": "CONTENT_REVIEW_UNAVAILABLE",
+    "reviewCapabilityDurationMs": 89312,
+    "reviewEndedAt": "2026-11-28T10:39:42.797Z",
+    "pluginCode": "EXECUTION_ERROR",
+    "pluginClass": "PluginError",
+    "underlyingClass": "SyntaxError",
+    "parsePosition": 3807,
+    "line": 14,
+    "column": 3516,
+    "configuredReviewBudgetMs": 60000,
+    "interpretation": "The actual capability exceeded the shared review deadline and subsequently failed JSON parsing; this is concrete latency/format evidence, not evidence that the generated content was correct."
+  },
+  "localDefaultSix": {
+    "mock": false,
+    "result": "one-actual-output-structure-valid",
+    "attempts": [
+      {
+        "capability": "keling-learning-planet",
+        "startedAt": "2026-11-28T10:48:25.605Z",
+        "durationMs": 37700
+      }
+    ],
+    "sourceCount": 10,
+    "sharedValidation": "passed",
+    "quality": "passed",
+    "shape": {
+      "regions": 3,
+      "regionQuestionCounts": [
+        2,
+        2,
+        2
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "kind": "single_choice",
+          "optionsCount": 4,
+          "fieldTypes": {
+            "id": "string",
+            "kind": "string",
+            "prompt": "string",
+            "options": "array",
+            "answerIndex": "number",
+            "explanation": "string",
+            "sourceIds": "array"
+          }
+        },
+        {
+          "id": "q2",
+          "kind": "true_false",
+          "optionsCount": 2,
+          "fieldTypes": {
+            "id": "string",
+            "kind": "string",
+            "prompt": "string",
+            "options": "array",
+            "answerIndex": "number",
+            "explanation": "string",
+            "sourceIds": "array"
+          }
+        },
+        {
+          "id": "q3",
+          "kind": "multiple_choice",
+          "optionsCount": 4,
+          "fieldTypes": {
+            "id": "string",
+            "kind": "string",
+            "prompt": "string",
+            "options": "array",
+            "answerIndices": "array",
+            "answerIndex": "number",
+            "explanation": "string",
+            "sourceIds": "array"
+          }
+        },
+        {
+          "id": "q4",
+          "kind": "fill_blank",
+          "optionsCount": 0,
+          "fieldTypes": {
+            "id": "string",
+            "kind": "string",
+            "prompt": "string",
+            "options": "array",
+            "answerIndex": "number",
+            "acceptedAnswers": "array",
+            "explanation": "string",
+            "sourceIds": "array"
+          }
+        },
+        {
+          "id": "q5",
+          "kind": "short_answer",
+          "optionsCount": 0,
+          "fieldTypes": {
+            "id": "string",
+            "kind": "string",
+            "prompt": "string",
+            "options": "array",
+            "answerIndex": "number",
+            "referenceAnswer": "string",
+            "rubric": "array",
+            "explanation": "string",
+            "sourceIds": "array"
+          }
+        },
+        {
+          "id": "q6",
+          "kind": "true_false",
+          "optionsCount": 2,
+          "fieldTypes": {
+            "id": "string",
+            "kind": "string",
+            "prompt": "string",
+            "options": "array",
+            "answerIndex": "number",
+            "explanation": "string",
+            "sourceIds": "array"
+          }
+        }
+      ],
+      "graphNodes": 10,
+      "graphEdges": 11
+    },
+    "modelRequests": 1,
+    "repairOrImageRequests": 0,
+    "reproducedPublicFailure": false
+  },
+  "localSimilar": {
+    "mock": false,
+    "result": "actual-similar-chain-accepted",
+    "elapsedMs": 40477,
+    "attempts": [
+      {
+        "number": 1,
+        "capability": "keling-learning-similar-questions",
+        "hasFormatRepair": false,
+        "inputBytes": 8065,
+        "durationMs": 13693,
+        "outputKeys": [
+          "questions",
+          "error"
+        ]
+      },
+      {
+        "number": 2,
+        "capability": "keling-planet-content-review",
+        "scopeQuestionId": "q_c3d78ea378c6475eb79c9f3ece08511f",
+        "hasFormatRepair": false,
+        "inputBytes": 23004,
+        "scopeQuestionCount": 1,
+        "durationMs": 2387,
+        "outputKeys": [
+          "reviewedQuestionIds",
+          "reviewedRegionIds",
+          "reviewedNodeIds",
+          "issues",
+          "orderingChecks"
+        ]
+      },
+      {
+        "number": 3,
+        "capability": "keling-planet-content-review",
+        "scopeQuestionId": "q_e07022455b1d4ed8b1724c8c5c5df2b6",
+        "hasFormatRepair": false,
+        "inputBytes": 22990,
+        "scopeQuestionCount": 1,
+        "durationMs": 5407,
+        "outputKeys": [
+          "reviewedQuestionIds",
+          "reviewedRegionIds",
+          "reviewedNodeIds",
+          "issues",
+          "orderingChecks"
+        ]
+      },
+      {
+        "number": 4,
+        "capability": "keling-learning-similar-questions",
+        "hasFormatRepair": false,
+        "inputBytes": 9262,
+        "durationMs": 11978,
+        "outputKeys": [
+          "questions",
+          "error"
+        ]
+      },
+      {
+        "number": 5,
+        "capability": "keling-planet-content-review",
+        "scopeQuestionId": "q_140bd300f668459eb70e74326d7c0560",
+        "hasFormatRepair": false,
+        "inputBytes": 22476,
+        "scopeQuestionCount": 1,
+        "durationMs": 2558,
+        "outputKeys": [
+          "reviewedQuestionIds",
+          "reviewedRegionIds",
+          "reviewedNodeIds",
+          "issues",
+          "orderingChecks"
+        ]
+      },
+      {
+        "number": 6,
+        "capability": "keling-planet-content-review",
+        "scopeQuestionId": "q_f428614cb9d943c1bcdf8537146317b4",
+        "hasFormatRepair": false,
+        "inputBytes": 22441,
+        "scopeQuestionCount": 1,
+        "durationMs": 3203,
+        "outputKeys": [
+          "reviewedQuestionIds",
+          "reviewedRegionIds",
+          "reviewedNodeIds",
+          "issues",
+          "orderingChecks"
+        ]
+      }
+    ],
+    "sourceCount": 10,
+    "questionCount": 14,
+    "originalQuestionsUnchanged": true,
+    "graphUnchanged": true,
+    "originalResearchUnchanged": true,
+    "localResearchUsed": true,
+    "addedKinds": [
+      "multiple_choice",
+      "multiple_choice"
+    ],
+    "addedOptionCounts": [
+      5,
+      5
+    ],
+    "humanRead": "题面附短材料；改问哪些得到材料支持；对无依据选项称材料未支持，没有再由缺失推出不存在。仍不视为来源事实认证。",
+    "reproducedPublicTimeout": false
+  },
+  "nextChanges": {
+    "reviewSharedBudgetMs": 120000,
+    "maxFormatRepairs": 1,
+    "qualityRulesRelaxed": false,
+    "safeDiagnosticPersisted": true,
+    "visualComposition": "one connected spherical body; features and face are terrain, no standing character before a second sphere"
+  },
+  "credentialsIncluded": false
+}

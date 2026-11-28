@@ -1,0 +1,17 @@
+{
+  "message": "新内容的答案或依据未通过核对，原内容已保留，请调整要求后重试。",
+  "phase": "generation",
+  "input": {
+    "subject": "奶龙学",
+    "contextMode": "auto",
+    "goal": "",
+    "questionCount": 6,
+    "generateArtwork": true
+  },
+  "jobId": "51fcd3fb-0d36-471c-8f44-c5da1ac73d1f",
+  "code": "CONTENT_REVIEW_FAILED",
+  "elapsedMs": 99600,
+  "generateRequests": 1,
+  "lastStatus": "FAILED",
+  "pageErrors": []
+}
