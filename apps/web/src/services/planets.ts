@@ -21,6 +21,7 @@ const scope = () => getGuestSessionId() || `account:${localStorage.getItem('toke
 function assertScope(expected: string) { if (scope() !== expected) throw new Error('学习空间已切换，请重新打开星球。'); }
 const messages: Record<string, string> = { NOT_CONFIGURED: '尚未连接可用的大模型，请配置 API Key 和模型后重试。', INVALID_PLANET: '模型返回的星球不完整，请重新生成。', INSUFFICIENT_RESEARCH: '可靠资料不足，请补充具体语境或换一个更明确的主题。', RESEARCH_UNAVAILABLE: '联网检索暂时不可用，主题与目标已保留，请稍后重试。', TIMEOUT: '生成超时，主题与目标已保留，请重试。', PROVIDER_ERROR: '模型服务暂时不可用，请检查配置后重试。', RATE_LIMITED: '请求过于频繁，请稍后重试。', CANCELLED: '已停止等待。', UNAUTHORIZED: '登录已失效，请重新登录。', DRAFT_EXPIRED: '星球预览已过期，请重新生成。' };
 Object.assign(messages,{RESEARCH_INSUFFICIENT:messages.INSUFFICIENT_RESEARCH,ARTWORK_FAILED:'定制形象暂未生成，原形象已保留，请重试。',INVALID_QUESTION:'新题目的答案或引用未通过校验，原题已保留，请调整要求后重试。',REVISION_CONFLICT:'星球已在另一处更新，请重新打开后再调整。',REGENERATION_LIMIT:'这颗星球的修改次数已达上限。'});
+Object.assign(messages,{PRACTICE_LIMIT:'本区练习已达上限，可以探索其他区域。',CONTENT_REVIEW_FAILED:'新内容的答案或依据未通过核对，原内容已保留，请调整要求后重试。',CONTENT_REVIEW_INVALID:'内容核对未完成，原内容已保留，请稍后重试。',CONTENT_REVIEW_UNAVAILABLE:'内容核对暂时不可用，原内容已保留，请稍后重试。'});
 export function planetError(error: unknown): string { return error instanceof Error ? error.message : '操作未完成，请重试。'; }
 async function request<T>(path: string, body?: unknown, signal?: AbortSignal, extraHeaders: Record<string,string> = {}): Promise<T> {
   const identity = scope(), guest = getGuestSessionId(), token = guest ? null : localStorage.getItem('token');
@@ -69,11 +70,11 @@ export const planetAPI = {
       catch { throw new Error(messages.INVALID_PLANET); }
     }catch(error){if(deadline.aborted&&!signal?.aborted)throw new Error(messages.TIMEOUT);throw error;}
   },
-  async regeneratePreview(generation:PlanetGeneration,kind:'question'|'artwork',instruction:string,clientRequestId:string,questionId?:string,signal?:AbortSignal):Promise<PlanetGeneration>{
+  async regeneratePreview(generation:PlanetGeneration,kind:'question'|'artwork'|'similar',instruction:string,clientRequestId:string,questionId?:string,signal?:AbortSignal):Promise<PlanetGeneration>{
     const result=await regeneration('/regenerate-preview',{...generation,kind,instruction,clientRequestId,...(questionId?{questionId}:{})},signal);
     const draft=validatePlanetDraft(result.draft);if(typeof result.draftToken!=='string'||!result.draftToken)throw new Error('调整结果无法校验，原内容已保留。');return {draft,draftToken:result.draftToken};
   },
-  async regenerate(id:string,kind:'question'|'artwork',instruction:string,clientRequestId:string,questionId?:string,signal?:AbortSignal):Promise<PlanetRecord>{
+  async regenerate(id:string,kind:'question'|'artwork'|'similar',instruction:string,clientRequestId:string,questionId?:string,signal?:AbortSignal):Promise<PlanetRecord>{
     if(!getGuestSessionId()){
       const result=await regeneration('/'+encodeURIComponent(id)+'/regenerate',{kind,instruction,clientRequestId,...(questionId?{questionId}:{})},signal);
       if(!result.planet)throw new Error('调整结果无法读取，原内容已保留。');validatePlanetDraft(result.planet.draft);return result.planet;

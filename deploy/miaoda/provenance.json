@@ -1,51 +1,9 @@
 {
   "sourceProject": "keling-access-gateway",
-  "sourceCommit": "aa4d1ec13f2d14cc66a783a4b56853a8e7d7ec93",
-  "observedDate": "2026-11-27",
-  "hashBasis": "sourceSha256/sourceBytes describe the template working-tree files at sourceCommit (pending changes are explicit); sha256/bytes describe the copied adapter after LF and trailing-blank-line normalization.",
+  "sourceCommit": "09e979c61ec51f0a9908a95fe3fe47d6a754b32d",
+  "observedDate": "2026-11-28",
+  "hashBasis": "sourceSha256/sourceBytes describe the actual template working-tree files based on sourceCommit; sourceWorkingTreeHasPendingChanges distinguishes an uncommitted snapshot from a committed release. sha256/bytes describe the corresponding copied adapter files.",
   "files": [
-    {
-      "path": "server/modules/gateway/gateway.controller.ts",
-      "bytes": 513,
-      "sha256": "1f133f75d784f37927bbf5ef3caaf7ff257fea4ef27a5686712b6c2aec8250bc",
-      "sourceSha256": "1f133f75d784f37927bbf5ef3caaf7ff257fea4ef27a5686712b6c2aec8250bc",
-      "sourceBytes": 513
-    },
-    {
-      "path": "server/modules/gateway/gateway.service.ts",
-      "bytes": 3105,
-      "sha256": "3b2e2e6d725bc53d26f576dc07fc95a0a32c6cc82dc2777f9ef2b3816f276c14",
-      "sourceSha256": "b132eb803bf1fc0e8a68af0a9d32f5f474a49d344ed0371d40445f86ede3120d",
-      "sourceBytes": 3107
-    },
-    {
-      "path": "server/modules/gateway/gateway.module.ts",
-      "bytes": 715,
-      "sha256": "11db026a749e5ea69888afa2f7ca3881e458a97bacb14ce9651a8950e01ac37c",
-      "sourceSha256": "11db026a749e5ea69888afa2f7ca3881e458a97bacb14ce9651a8950e01ac37c",
-      "sourceBytes": 715
-    },
-    {
-      "path": "server/modules/gateway/download.controller.ts",
-      "bytes": 1550,
-      "sha256": "7c9e851dff672f44315b5eb4bba3bf2d3b9b88e0cbd99212a7e266b857d2e438",
-      "sourceSha256": "b3837a99f9be6befe9ff52ff483967f60329e9611179bc212e5eda3afdf3d0bf",
-      "sourceBytes": 1586
-    },
-    {
-      "path": "server/modules/gateway/gateway.spec.cjs",
-      "bytes": 4393,
-      "sha256": "65219f83c124341728dd9b4abb95bb5ae951cfb4c1d9042c17807a3c60dffd98",
-      "sourceSha256": "6925314d329c5a222fe4c59284708fa7f968966d78e10680808452ad6bac1e1c",
-      "sourceBytes": 4395
-    },
-    {
-      "path": "server/app.module.ts",
-      "bytes": 913,
-      "sha256": "831b53115a005bee68b8bbb11ed33737d61708e0d39fba8a5037d22beb995f53",
-      "sourceSha256": "831b53115a005bee68b8bbb11ed33737d61708e0d39fba8a5037d22beb995f53",
-      "sourceBytes": 913
-    },
     {
       "path": "scripts/build-keling.cjs",
       "bytes": 448,
@@ -55,66 +13,136 @@
     },
     {
       "path": "scripts/copy-prisma.cjs",
-      "bytes": 356,
-      "sha256": "a3165fd729a12f710c097388e179dfbe93ab26958b8dab64857b2a7e9efc251c",
-      "sourceSha256": "a3165fd729a12f710c097388e179dfbe93ab26958b8dab64857b2a7e9efc251c",
-      "sourceBytes": 356
+      "bytes": 825,
+      "sha256": "98c71c98012f756b11ac82935f8a6d3288f6fa29946f59fff57c3a89c57f7fff",
+      "sourceSha256": "98c71c98012f756b11ac82935f8a6d3288f6fa29946f59fff57c3a89c57f7fff",
+      "sourceBytes": 825
+    },
+    {
+      "path": "server/app.module.ts",
+      "bytes": 913,
+      "sha256": "831b53115a005bee68b8bbb11ed33737d61708e0d39fba8a5037d22beb995f53",
+      "sourceSha256": "831b53115a005bee68b8bbb11ed33737d61708e0d39fba8a5037d22beb995f53",
+      "sourceBytes": 913
+    },
+    {
+      "path": "server/capabilities/keling-learning-planet.json",
+      "bytes": 11493,
+      "sha256": "9da67060e258bd0020a21bd2d3c84f8db89d430cf81bf5e879fe53805ef574a9",
+      "sourceSha256": "9da67060e258bd0020a21bd2d3c84f8db89d430cf81bf5e879fe53805ef574a9",
+      "sourceBytes": 11493
+    },
+    {
+      "path": "server/capabilities/keling-learning-question.json",
+      "bytes": 5599,
+      "sha256": "cbadfaca844bc1b3d295094d8105f3a512aeb78d730376cf2a022a6574128a12",
+      "sourceSha256": "cbadfaca844bc1b3d295094d8105f3a512aeb78d730376cf2a022a6574128a12",
+      "sourceBytes": 5599
+    },
+    {
+      "path": "server/capabilities/keling-learning-similar-questions.json",
+      "bytes": 8001,
+      "sha256": "6b356beb9ba614453c02c496b44161322eed50f76ec56223c9e55180c87b0e33",
+      "sourceSha256": "6b356beb9ba614453c02c496b44161322eed50f76ec56223c9e55180c87b0e33",
+      "sourceBytes": 8001
+    },
+    {
+      "path": "server/capabilities/keling-planet-artwork-reference.json",
+      "bytes": 1723,
+      "sha256": "1dd1dea882160087a0887e7405147aa158a26f3b24423c3771f2e7cba414e693",
+      "sourceSha256": "1dd1dea882160087a0887e7405147aa158a26f3b24423c3771f2e7cba414e693",
+      "sourceBytes": 1723
+    },
+    {
+      "path": "server/capabilities/keling-planet-artwork.json",
+      "bytes": 1127,
+      "sha256": "abbc61752c1901c9fb11747017e872dd190e56f67376e1b6d41aac9bb107298f",
+      "sourceSha256": "abbc61752c1901c9fb11747017e872dd190e56f67376e1b6d41aac9bb107298f",
+      "sourceBytes": 1127
+    },
+    {
+      "path": "server/capabilities/keling-planet-content-review.json",
+      "bytes": 11463,
+      "sha256": "fb427e8c953f5517b9d2284e4993121259d0b0cf2c6615b3417e47e9874a6b9a",
+      "sourceSha256": "fb427e8c953f5517b9d2284e4993121259d0b0cf2c6615b3417e47e9874a6b9a",
+      "sourceBytes": 11463
+    },
+    {
+      "path": "server/capabilities/keling-planet-visual-design.json",
+      "bytes": 6219,
+      "sha256": "eb9ec06b4b575434285b5a1b6bf7fa58f1d3516b6b3b639a373d44b413dad6cb",
+      "sourceSha256": "eb9ec06b4b575434285b5a1b6bf7fa58f1d3516b6b3b639a373d44b413dad6cb",
+      "sourceBytes": 6219
+    },
+    {
+      "path": "server/capabilities/keling-study-assistant.json",
+      "bytes": 1688,
+      "sha256": "b555946a232af9654e1b3d0b350794a14c37bc46d32b7331210c545e6cbb08dc",
+      "sourceSha256": "b555946a232af9654e1b3d0b350794a14c37bc46d32b7331210c545e6cbb08dc",
+      "sourceBytes": 1688
+    },
+    {
+      "path": "server/capabilities/keling-study-plan.json",
+      "bytes": 2348,
+      "sha256": "5c5fc346a3345031bafa2b58e557adf2f1e3caa7f1f59802aa6e7a7632932761",
+      "sourceSha256": "5c5fc346a3345031bafa2b58e557adf2f1e3caa7f1f59802aa6e7a7632932761",
+      "sourceBytes": 2348
     },
     {
       "path": "server/modules/gateway/artwork.controller.ts",
       "bytes": 4221,
       "sha256": "5b62ccfec7f84a6ab74a39bc1466b42827502ac66bdb4887ec0e57cb7d4432bc",
-      "sourceSha256": "328fe4bfd200dd382f9ef1407e079d5ce05ad7fbf10bd44217ad918a296b928d",
-      "sourceBytes": 4320
+      "sourceSha256": "5b62ccfec7f84a6ab74a39bc1466b42827502ac66bdb4887ec0e57cb7d4432bc",
+      "sourceBytes": 4221
+    },
+    {
+      "path": "server/modules/gateway/download.controller.ts",
+      "bytes": 1550,
+      "sha256": "974b5b34a2475d0098ad707fe31a4709557e4767a8f45c2e79405caff05d644d",
+      "sourceSha256": "974b5b34a2475d0098ad707fe31a4709557e4767a8f45c2e79405caff05d644d",
+      "sourceBytes": 1550
     },
     {
       "path": "server/modules/gateway/font.controller.ts",
       "bytes": 3256,
       "sha256": "2426d88e0960e7e3be111315aa5e46b685d58df34ba88a1591bd474329abee27",
-      "sourceSha256": "538b84bab623a52342ec43a1526d0309a62259be428dbdf4688e313a84a36b35",
-      "sourceBytes": 3334
+      "sourceSha256": "2426d88e0960e7e3be111315aa5e46b685d58df34ba88a1591bd474329abee27",
+      "sourceBytes": 3256
     },
     {
-      "path": "server/modules/gateway/public-assets.spec.cjs",
-      "bytes": 10318,
-      "sha256": "0b4fd3b9d01c908ba4c62f5481529da2ed9a0d10a6e5a73798c52be220d332af",
-      "sourceSha256": "3501bc077d1267c9661dca3cf0abca01fe1bde8cb7b8216bac6d29735bf405a7",
-      "sourceBytes": 10502
+      "path": "server/modules/gateway/gateway.controller.ts",
+      "bytes": 513,
+      "sha256": "1f133f75d784f37927bbf5ef3caaf7ff257fea4ef27a5686712b6c2aec8250bc",
+      "sourceSha256": "1f133f75d784f37927bbf5ef3caaf7ff257fea4ef27a5686712b6c2aec8250bc",
+      "sourceBytes": 513
     },
     {
-      "path": "server/capabilities/keling-learning-planet.json",
-      "bytes": 2780,
-      "sha256": "afaf6e10d3e4e6ffbd9d878f859bbdb9fe2aba335e10c9696ba20cc5eeba9174",
-      "sourceSha256": "afaf6e10d3e4e6ffbd9d878f859bbdb9fe2aba335e10c9696ba20cc5eeba9174",
-      "sourceBytes": 2780
+      "path": "server/modules/gateway/gateway.module.ts",
+      "bytes": 802,
+      "sha256": "eb8b8ea29469403a49ece3540a2cb310c6f1519087d118c2c3e15df5059537e2",
+      "sourceSha256": "eb8b8ea29469403a49ece3540a2cb310c6f1519087d118c2c3e15df5059537e2",
+      "sourceBytes": 802
     },
     {
-      "path": "server/modules/gateway/native-planet.service.ts",
-      "bytes": 1950,
-      "sha256": "22faf5103952d8f0de16df47e6157455e0721e863e5fbd3a38ec0b0704361d12",
-      "sourceSha256": "22faf5103952d8f0de16df47e6157455e0721e863e5fbd3a38ec0b0704361d12",
-      "sourceBytes": 1950
+      "path": "server/modules/gateway/gateway.service.ts",
+      "bytes": 3105,
+      "sha256": "3b2e2e6d725bc53d26f576dc07fc95a0a32c6cc82dc2777f9ef2b3816f276c14",
+      "sourceSha256": "3b2e2e6d725bc53d26f576dc07fc95a0a32c6cc82dc2777f9ef2b3816f276c14",
+      "sourceBytes": 3105
     },
     {
-      "path": "vendor/keling-server.d.cts",
-      "bytes": 837,
-      "sha256": "af7a348c91c753c0c8103bf68c53e173e4099560b1d5731e613be5064bbc3a47",
-      "sourceSha256": "af7a348c91c753c0c8103bf68c53e173e4099560b1d5731e613be5064bbc3a47",
-      "sourceBytes": 837
-    },
-    {
-      "path": "server/modules/gateway/release.controller.ts",
-      "bytes": 1391,
-      "sha256": "1a58d98d6f1dca5b83503ea262b46797260aa67c6ddb3a584842d2f4e0e5fdd1",
-      "sourceSha256": "ac0b7c26b7ab79588c851578614d00bce83677561f397066bc8c806d22a1e460",
-      "sourceBytes": 1421
+      "path": "server/modules/gateway/gateway.spec.cjs",
+      "bytes": 4393,
+      "sha256": "65219f83c124341728dd9b4abb95bb5ae951cfb4c1d9042c17807a3c60dffd98",
+      "sourceSha256": "65219f83c124341728dd9b4abb95bb5ae951cfb4c1d9042c17807a3c60dffd98",
+      "sourceBytes": 4393
     },
     {
       "path": "server/modules/gateway/native-ai.service.ts",
       "bytes": 5042,
       "sha256": "2e8746b83ccea15790ed497aa01506e376b0c259ff2b51316f530725c41dce77",
-      "sourceSha256": "7cb0451dea30a39994ff7f68507d8d05c28402a3358d55598e302123eacbf4d7",
-      "sourceBytes": 5141
+      "sourceSha256": "2e8746b83ccea15790ed497aa01506e376b0c259ff2b51316f530725c41dce77",
+      "sourceBytes": 5042
     },
     {
       "path": "server/modules/gateway/native-ai.spec.cjs",
@@ -124,18 +152,53 @@
       "sourceBytes": 3369
     },
     {
-      "path": "server/capabilities/keling-study-assistant.json",
-      "bytes": 1688,
-      "sha256": "b555946a232af9654e1b3d0b350794a14c37bc46d32b7331210c545e6cbb08dc",
-      "sourceSha256": "570e15f78d892a052a00a402769533c38f5d73eeac70677e942ac2555b70debc",
-      "sourceBytes": 1722
+      "path": "server/modules/gateway/native-artwork.service.ts",
+      "bytes": 3936,
+      "sha256": "5f75c3ad0d3997610fa0f00b78a971de59c164cb5bfe87862e9b977afef7deb1",
+      "sourceSha256": "5f75c3ad0d3997610fa0f00b78a971de59c164cb5bfe87862e9b977afef7deb1",
+      "sourceBytes": 3936
     },
     {
-      "path": "server/capabilities/keling-study-plan.json",
-      "bytes": 2348,
-      "sha256": "5c5fc346a3345031bafa2b58e557adf2f1e3caa7f1f59802aa6e7a7632932761",
-      "sourceSha256": "00118612567b3a640d24bca20c4fe562ca76057d53695695a25575c32bf2e06f",
-      "sourceBytes": 2394
+      "path": "server/modules/gateway/native-artwork.spec.cjs",
+      "bytes": 4308,
+      "sha256": "6221daccebf93d8c0d670437e1bbf60c49d17918a6706bf894edc6383dba2a9a",
+      "sourceSha256": "6221daccebf93d8c0d670437e1bbf60c49d17918a6706bf894edc6383dba2a9a",
+      "sourceBytes": 4308
+    },
+    {
+      "path": "server/modules/gateway/native-planet.service.ts",
+      "bytes": 9686,
+      "sha256": "fe78c9d7aab14b3db71919f135a4bca4cf70ee5fce0450e875ab6aee9b9a4df7",
+      "sourceSha256": "fe78c9d7aab14b3db71919f135a4bca4cf70ee5fce0450e875ab6aee9b9a4df7",
+      "sourceBytes": 9686
+    },
+    {
+      "path": "server/modules/gateway/native-planet.spec.cjs",
+      "bytes": 10087,
+      "sha256": "ff4fdfafc2a89174a507b28071fba38c9dc2f5a338be5bbd189b72e62f0ef817",
+      "sourceSha256": "ff4fdfafc2a89174a507b28071fba38c9dc2f5a338be5bbd189b72e62f0ef817",
+      "sourceBytes": 10087
+    },
+    {
+      "path": "server/modules/gateway/public-assets.spec.cjs",
+      "bytes": 10319,
+      "sha256": "dc8558d625174d967795e35c2ed0d032e683c6d21be3347d2b14b9e8b06da7f5",
+      "sourceSha256": "dc8558d625174d967795e35c2ed0d032e683c6d21be3347d2b14b9e8b06da7f5",
+      "sourceBytes": 10319
+    },
+    {
+      "path": "server/modules/gateway/release.controller.ts",
+      "bytes": 1392,
+      "sha256": "55b3e32bf6e00390051f706b24bb9b165fdcbdb406e599fd6af441ff3ddda0e9",
+      "sourceSha256": "55b3e32bf6e00390051f706b24bb9b165fdcbdb406e599fd6af441ff3ddda0e9",
+      "sourceBytes": 1392
+    },
+    {
+      "path": "vendor/keling-server.d.cts",
+      "bytes": 2732,
+      "sha256": "94585724a1811386a60f949992393094483ce62a1e74d24e1a8af17cf582ce3d",
+      "sourceSha256": "94585724a1811386a60f949992393094483ce62a1e74d24e1a8af17cf582ce3d",
+      "sourceBytes": 2732
     }
   ],
   "template": {
@@ -146,8 +209,8 @@
       "npm": ">=10.0.0"
     },
     "lockfileVersion": 3,
-    "packageJsonSha256": "c52ec2135481a7537164d4f17b45c07b12d253211118b0b30c1f16593e4efe6e",
-    "packageLockSha256": "2f29b60fff65c04bccb6ccdb2634578b89f181d7b10bec0a3560056429713160",
+    "packageJsonSha256": "0e4e443083a4feb031a13e32ee332cb5ec776b6aeec05a78061720067a725fb3",
+    "packageLockSha256": "36e71608aa34279a424630c8dcbf0f77fc0b966de3d99a2ab7775170c1e2ba1d",
     "selectedDependencies": {
       "@lark-apaas/fullstack-nestjs-core": {
         "section": "dependencies",
@@ -268,6 +331,16 @@
         "section": "devDependencies",
         "declared": "^8",
         "locked": "8.2.2"
+      },
+      "@lark-apaas/nestjs-common": {
+        "section": "dependencies",
+        "declared": "0.1.9",
+        "locked": "0.1.9"
+      },
+      "jsonrepair": {
+        "section": "dependencies",
+        "declared": "3.15.0",
+        "locked": "3.15.0"
       }
     },
     "nestjsNestedExpress": "4.22.1",
@@ -275,11 +348,18 @@
       "supportBusinessUser": true,
       "supportScrollReveal": true,
       "customToaster": true
+    },
+    "actionPlugins": {
+      "@official-plugins/ai-image-to-image": "1.0.23",
+      "@official-plugins/ai-search-summary": "1.0.14",
+      "@official-plugins/ai-text-generate": "1.0.21",
+      "@official-plugins/ai-text-to-image": "1.0.21",
+      "@official-plugins/ai-text-to-json": "1.0.26"
     }
   },
-  "sourceWorkingTreeHasPendingChanges": false,
+  "sourceWorkingTreeHasPendingChanges": true,
   "publicResourcesFile": "public-resources.json",
   "publicResourcesSha256": "3bfb6add6298952b4f601861757838de6f0b059008806d1b4d672f2e65d253c9",
   "androidDownloadFile": "android-download.json",
-  "androidDownloadSha256": "5612de7c148895175820bf677a42b3176b2f9a788bc3aa319f356ab48ad159e4"
+  "androidDownloadSha256": "be1e82bb221f9093f84043fb8036a10d8b3983131d53401b1b4e1838bfe0844d"
 }

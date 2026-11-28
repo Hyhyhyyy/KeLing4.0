@@ -1,0 +1,149 @@
+{
+  "at": "2026-11-28T09:31:33.293Z",
+  "mock": false,
+  "environment": "Normal existing PlatformModule app identity; current root appendSimilarQuestions/prepareSimilarQuestions/reviewPlanetContent source; no storage writes",
+  "result": "failed",
+  "code": "CONTENT_REVIEW_FAILED",
+  "searchCalls": 2,
+  "sourceCount": 10,
+  "search": {
+    "intent": "辨析网络流行语、社群用法与原作含义；区分可查事实、解释和争议，不把戏谑当学术定义。",
+    "queries": [
+      "奶龙学 网络流行语 梗 二创 含义 用法",
+      "奶龙学 原作 二创 语境 出处 争议 误区 相似练习的知识依据：下列关于奶龙IP的描述中，哪些属于原作官方设定的事实，哪些属于网络二创或玩梗的内容？请选出所有属于原作官方设定事实的选项。"
+    ],
+    "searchedAt": "2026-11-28T09:31:46.187Z",
+    "status": "grounded",
+    "sources": [
+      {
+        "title": "从“国民萌宠ip”到“抽象顶流”奶龙—奶蛙的赛博进化-千龙网·中国首都网",
+        "url": "https://ent.qianlong.com/2026/1113/8750750.shtml",
+        "snippet": "# 从“国民萌宠ip”到“抽象顶流”奶龙—奶蛙的赛博进化 相比于“奶蛙”可“奶”万物的现状，这个家伙更让人惊奇的点在于：它是从有3900万+粉丝的原创IP“奶龙”演化来的——这大概解释了为什么它的名字里也带个“奶”字。 据粉丝考证，“奶蛙”的诞生，本质上...",
+        "id": "s1"
+      },
+      {
+        "title": "关于我们 - 第七印象官方网站-奶龙Nailoong",
+        "url": "https://www.nailoong.com/aboutUs/",
+        "snippet": "# 公司介绍 第七印象已成功开发了“奶龙”、“暴暴龙”等多个知名原创动漫IP，目前正在构建从IP孵化到商业授权的管理运作体系，打造原创型动漫运营平台。 一直以来，第七印象深耕影视动漫制作行业，凭借多年的经验积累，逐步构建了IP孵化、品牌代理、创意服务、制作技术四大业务板块，以IP为核心，逐渐形成了短视频、动画剧集、图书出版物...",
+        "id": "s2"
+      },
+      {
+        "title": "《捧腹大笑思想与奶龙学概论》第一版前言",
+        "url": "https://xn--psszg58c9c2281ajit.lol/files/history.pdf",
+        "snippet": "## 第五章 捧腹大笑思想理论体系 捧腹大笑对年轻人有什么魔力？关于这个问题，我们可以通过深入的思考，建立奶蛙捧腹大笑思想理论体系（逼真）。 --- ## 第六章 奶蛙的衍生语与衍生动作 奶蛙产生了许多奇妙的衍生语（绝大多数来源于王者荣耀中不知火舞语音的变速变调）和衍生动作。我们将会一一说明并提及有关的著名奶蛙二创...",
+        "id": "s3"
+      },
+      {
+        "title": "奶龙 - IP大明星 - 第七印象官方网站-奶龙Nailoong",
+        "url": "https://www.nailoong.com/ipStar/Nailong/",
+        "snippet": "# 奶龙 - IP大明星 ## IP大明星 奶龙是第七印象打造的首个原创3D动漫系列IP，拥有软萌讨喜的形象与乐观向上的性格，传递正能量、温暖人心。他用自己的方式，教会了我们如何以乐观的心态面对生活，如何用纯真的心去关爱他人。 --- ## 品牌故事 诞生于2019年的奶龙，是“...",
+        "id": "s4"
+      },
+      {
+        "title": "从“国民萌宠ip”到“抽象顶流”奶龙—奶蛙的赛博进化|小红书|抖音|粉丝|本质|狂欢_手机新浪网",
+        "url": "https://news.sina.cn/sx/2026-11-17/detail-iniyzswf7636444.d.html",
+        "snippet": "# 从“国民萌宠ip”到“抽象顶流”奶龙—奶蛙的赛博进化 相比于“奶蛙”可“奶”万物的现状,这个家伙更让人惊奇的点在于:它是从有3900万+粉丝的原创IP“奶龙”演化来的——这大概解释了为什么它的名字里也带个“奶”字。 据粉丝考证,“奶蛙”的诞生,本质上是...",
+        "id": "s5"
+      },
+      {
+        "title": "奶龙[动画短片《小七和奶龙》中的主角]_百科",
+        "url": "https://m.baike.com/wiki/%E5%A5%B6%E9%BE%99/7270402341705957413",
+        "snippet": "## 形象设定 奶龙是第七印象文化传媒(深圳)有限公司旗下的原创IP品牌，为3D动画片《奶龙》(又名《小七和奶龙》)的主角。团队创作该IP的初衷是打造一个温暖治愈、能为观众带来欢乐的可爱伙伴，因此将其设定为一只3岁的流落地球会喷火的异星幼龙，遇到地球少年小七，两人成为好朋友并开启了搞笑冒险之旅，拥有变色、变大...",
+        "id": "s6"
+      },
+      {
+        "title": "“风评被害”的奶龙，做错了什么?",
+        "url": "https://www.nfnews.com/content/0oXX4WNJo9.html",
+        "snippet": "## 奶龙为什么被暴打？ 在讨厌奶龙的人们看来，奶龙的形象既低智又尴尬，为了强化这样的标签，奶龙“吐舌头跳土耳其舞”的表情包动图也被制作出来，并开始在互联网迅速传播。 随后则是大量的二创视频，内容是奶龙和奥特曼、胖猫、贝利亚（《奥特曼》中的反派角色）等抽象角色一起“群魔乱舞”。",
+        "id": "s7"
+      },
+      {
+        "title": "从“国民萌宠ip”到“抽象顶流”奶龙—奶蛙的赛博进化_即时新闻_大众网",
+        "url": "http://www.dzwww.com/xinwen/jishixinwen/202611/t20261113_18299164.htm",
+        "snippet": "# 从“国民萌宠ip”到“抽象顶流”奶龙—奶蛙的赛博进化 相比于“奶蛙”可“奶”万物的现状，这个家伙更让人惊奇的点在于：它是从有3900万+粉丝的原创IP“奶龙”演化来的——这大概解释了为什么它的名字里也带个“奶”字。 据粉丝考证，“奶蛙”的诞生，本质上...",
+        "id": "s8"
+      },
+      {
+        "title": "2026第一猎奇梗“大笑奶龙”，让奶龙官方账号关闭了评论区_3DM专栏",
+        "url": "http://www.3dmgame.com/original/3745893.html",
+        "snippet": "# 2026第一猎奇梗“大笑奶龙”，让奶龙官方账号关闭了评论区 而就在最近，与“牢大”、贝利亚并称“抽象三巨头”的奶龙，也在AI的帮助下，迎来了自己的进化形态——大笑奶龙。 你可能会问我，奶龙之前火遍大江南北，在座的各位都知道奶龙长什么样子——这个鬼玩意和奶龙相似的...",
+        "id": "s9"
+      },
+      {
+        "title": "超萌奶龙直播跳舞，萌翻全场!😍💃🏻_旋风补给站",
+        "url": "http://m.toutiao.com/group/7663973502366335494/",
+        "snippet": "很多朋友最近刷视频刷到各种各样奶龙，分不清哪个才是正版，今天一次性跟大家讲明白。 大家眼前这个圆滚滚、胖乎乎的黄色小龙才是正版奶龙，原版动画名字叫《奶龙和小七》。小男孩小七加上呆萌小龙奶龙，两个小伙伴搭伴上演一个个轻松搞笑小故事。 正版奶龙身材短短的，肚子圆鼓鼓，表情俏皮可爱，每一集短短几分钟，没有复杂剧情，轻松幽默，不管小朋友还是...",
+        "id": "s10"
+      }
+    ]
+  },
+  "modelAttempts": [
+    {
+      "number": 1,
+      "capability": "keling-learning-similar-questions",
+      "hasFormatRepair": false,
+      "durationMs": 9704,
+      "outputKeys": [
+        "questions",
+        "error"
+      ]
+    },
+    {
+      "number": 2,
+      "capability": "keling-learning-similar-questions",
+      "hasFormatRepair": false,
+      "durationMs": 9145,
+      "outputKeys": [
+        "questions",
+        "error"
+      ]
+    },
+    {
+      "number": 3,
+      "capability": "keling-planet-content-review",
+      "scopeQuestionId": "q_3dea256746a54c439cb9a0c9481a54b0",
+      "hasFormatRepair": false,
+      "durationMs": 8672,
+      "outputKeys": [
+        "reviewedQuestionIds",
+        "reviewedRegionIds",
+        "reviewedNodeIds",
+        "issues",
+        "orderingChecks"
+      ]
+    },
+    {
+      "number": 4,
+      "capability": "keling-planet-content-review",
+      "scopeQuestionId": "q_11e4c3b7f58d4c5eb74f47aa7f4c5fef",
+      "hasFormatRepair": false,
+      "durationMs": 3326,
+      "outputKeys": [
+        "reviewedQuestionIds",
+        "reviewedRegionIds",
+        "reviewedNodeIds",
+        "issues",
+        "orderingChecks"
+      ]
+    }
+  ],
+  "firstAttempt": {
+    "rejected": true,
+    "reason": "第一题题干与母题逐字相同；两题本身都是6选项多选题",
+    "boundedContentRepairUsed": true
+  },
+  "secondAttempt": {
+    "structureAccepted": true,
+    "question1Review": {
+      "code": "LESSON_SUPPORT_MISSING",
+      "reason": "审核要求新来源事实也必须出现在旧课文；相似题允许新检索补充材料的边界需明确"
+    },
+    "question2Review": {
+      "issues": []
+    }
+  },
+  "storageWrites": false,
+  "originalDataTouched": false,
+  "patch": "已加强独立新情境题干、新材料在题干展示、第三方设定不自动视为官方确认；审核 canonical 的相似题材料范围由主流程同步",
+  "claim": "此次失败不是完整功能通过；未通过内容审核的新题没有保存或发布"
+}

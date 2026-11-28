@@ -4,6 +4,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
@@ -43,11 +44,14 @@ fun planetArtworkLink(url: String): String? = planetSourceLink(url)?.takeIf {
     }
 }
 
-@Composable internal fun PlanetQuestionCard(question: PlanetQuestion, answer: PlanetAnswer?, feedback: PlanetFeedback?, research: PlanetResearch?, enabled: Boolean, onRegenerate: (String) -> Unit, onAnswer: (PlanetResponse) -> Unit) {
-    var selected by remember(question.id) { mutableStateOf(answer?.selectedIndex?.takeIf { it in question.options.indices }) }
-    var multiple by remember(question.id) { mutableStateOf(answer?.selectedIndices.orEmpty().toSet()) }
-    var ordering by remember(question.id) { mutableStateOf(answer?.orderedIndices ?: question.options.indices.toList()) }
-    var value by remember(question.id) { mutableStateOf(answer?.text.orEmpty()) }
+fun planetSimilarButtonLabel(question: PlanetQuestion, questions: List<PlanetQuestion>): String =
+    if (!question.similarTo.isNullOrBlank() || questions.any { it.similarTo == question.id }) "再做两道" else "相似碎片搜索"
+
+@Composable internal fun PlanetQuestionCard(question: PlanetQuestion, answer: PlanetAnswer?, feedback: PlanetFeedback?, enabled: Boolean, similarLabel: String, onSimilar: () -> Unit, onTutor: () -> Unit, onRegenerate: (String) -> Unit, onAnswer: (PlanetResponse) -> Unit) {
+    var selected by rememberSaveable(question.id) { mutableStateOf(answer?.selectedIndex?.takeIf { it in question.options.indices }) }
+    var multiple by rememberSaveable(question.id) { mutableStateOf(answer?.selectedIndices.orEmpty()) }
+    var ordering by rememberSaveable(question.id) { mutableStateOf(answer?.orderedIndices ?: question.options.indices.toList()) }
+    var value by rememberSaveable(question.id) { mutableStateOf(answer?.text.orEmpty()) }
     val supported = question.kind in listOf("single_choice", "multiple_choice", "true_false", "fill_blank", "ordering", "short_answer")
     val canSubmit = when (question.kind) {
         "multiple_choice" -> multiple.isNotEmpty()
@@ -62,8 +66,9 @@ fun planetArtworkLink(url: String): String? = planetSourceLink(url)?.takeIf {
         else -> PlanetResponse(selectedIndex = selected)
     }
     Card { Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        Text(planetQuestionLabel(question.kind), style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.secondary)
+        Text((if (question.similarTo.isNullOrBlank()) "" else "相似碎片 · ") + planetQuestionLabel(question.kind), style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.secondary)
         Text(question.prompt, style = MaterialTheme.typography.titleMedium)
+        TextButton(onClick = onTutor) { Text("问星芽") }
         when (question.kind) {
             "single_choice", "true_false", "multiple_choice" -> question.options.forEachIndexed { index, option ->
                 val checked = if (question.kind == "multiple_choice") index in multiple else selected == index
@@ -108,7 +113,7 @@ fun planetArtworkLink(url: String): String? = planetSourceLink(url)?.takeIf {
             }
             Text(feedback?.explanation ?: question.explanation)
         }
-        PlanetSources(research, question.sourceIds)
+        OutlinedButton(onClick = onSimilar, enabled = enabled) { Text(similarLabel) }
         PlanetRegenerationControl("调整这道题", "例如：换成情境题，比较两种不同语境", enabled, onRegenerate)
     } }
 }

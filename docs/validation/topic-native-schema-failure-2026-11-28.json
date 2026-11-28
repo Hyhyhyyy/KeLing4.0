@@ -1,0 +1,33 @@
+{
+  "attemptedAt": "2026-11-28T06:58:22.859Z",
+  "operation": "keling-learning-planet/textToJson",
+  "stage": "capability",
+  "httpStatus": 200,
+  "sourceCount": 10,
+  "result": "sdk-failure",
+  "errorType": "PluginError",
+  "errorMessage": "「[object Object]」插件输入校验失败: 「jsonStructure.6.paramDescription」字段长度不能超过 500 个字符",
+  "code": "INVALID_INPUT",
+  "observedCloudFailures": 2,
+  "cloudSearchResultCounts": [
+    [
+      10,
+      10
+    ],
+    [
+      10,
+      10
+    ]
+  ],
+  "cause": "regions paramDescription exceeded official 500-character plugin-input limit",
+  "beforeCharacters": 564,
+  "afterCharacters": 425,
+  "fixTemplateCommit": "0aafa05bb1d9ece8b2be102d60a140526f3c5eb8",
+  "fixReleaseId": "7713113983228464142",
+  "regressionTest": "native JSON instance descriptions satisfy the official 500-character input limit",
+  "tests": {
+    "passed": 4,
+    "failed": 0
+  },
+  "contentGenerationVerified": false
+}

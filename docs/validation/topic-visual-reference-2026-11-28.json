@@ -1,0 +1,53 @@
+{
+  "at": "2026-11-28T08:17:14.879Z",
+  "scope": "Actual public official page and images only; no model invocation",
+  "references": [
+    {
+      "sourceId": "official-character-page",
+      "pageUrl": "https://www.nailoong.com/ipStar/Nailong/",
+      "imageUrl": "https://www.nailoong.com/_ipx/q_85/img/ipStar/image_nailoong.png",
+      "alt": ""
+    },
+    {
+      "sourceId": "official-character-page",
+      "pageUrl": "https://www.nailoong.com/ipStar/Nailong/",
+      "imageUrl": "https://www.nailoong.com/_ipx/q_85/img/ipStar/brand_image.png",
+      "alt": ""
+    }
+  ],
+  "observations": [
+    {
+      "kind": "page",
+      "url": "https://www.nailoong.com/ipStar/Nailong/",
+      "mime": "text/html",
+      "bytes": 40242,
+      "sha256": "7f47bfc325bdd68703553198279420d662f8b89d6cfa9f519da6f232c210b5c9"
+    },
+    {
+      "kind": "image",
+      "url": "https://www.nailoong.com/_ipx/q_85/img/ipStar/image_nailoong.png",
+      "mime": "image/png",
+      "bytes": 51669,
+      "sha256": "acc6c84e4bfd5d507feca0228050e18a5734323a3cfd3a8b1d7f6c531ceca6c5"
+    },
+    {
+      "kind": "image",
+      "error": "Decorative visual reference image"
+    },
+    {
+      "kind": "image",
+      "url": "https://www.nailoong.com/_ipx/q_85/img/ipStar/brand_image.png",
+      "mime": "image/png",
+      "bytes": 529488,
+      "sha256": "aa241eb58c609139cd32695ed0bfde6ee84fa2040037d088f946a0576af60fd7"
+    }
+  ],
+  "status": "Actual public page/image HTTP reads verified; model image-to-image not invoked in this check",
+  "constraints": [
+    "HTTPS only, all DNS records public and connection pinned",
+    "Every redirect revalidated, at most 3 redirects",
+    "20 second total deadline, at most 2 pages and 2 verified images",
+    "HTML <= 512 KiB, images <= 4 MiB, raster MIME and magic checked",
+    "Decorative text/logo assets excluded by metadata and PNG dimensions"
+  ]
+}

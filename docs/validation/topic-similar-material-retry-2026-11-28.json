@@ -1,0 +1,185 @@
+{
+  "at": "2026-11-28T09:35:08.857Z",
+  "mock": false,
+  "context": "Normal existing PlatformModule app identity; current root appendSimilarQuestions/prepareSimilarQuestions/reviewPlanetContent source; no storage writes",
+  "result": "failed",
+  "code": "CONTENT_REVIEW_FAILED",
+  "searchCalls": 2,
+  "sourceCount": 10,
+  "attempts": [
+    {
+      "number": 1,
+      "capability": "keling-learning-similar-questions",
+      "hasFormatRepair": false,
+      "durationMs": 11410,
+      "outputKeys": [
+        "questions",
+        "error"
+      ]
+    },
+    {
+      "number": 2,
+      "capability": "keling-planet-content-review",
+      "scopeQuestionId": "q_8410e31ddbd64ef0b1942a90f24dad69",
+      "hasFormatRepair": false,
+      "durationMs": 8677,
+      "outputKeys": [
+        "reviewedQuestionIds",
+        "reviewedRegionIds",
+        "reviewedNodeIds",
+        "issues",
+        "orderingChecks"
+      ]
+    },
+    {
+      "number": 3,
+      "capability": "keling-planet-content-review",
+      "scopeQuestionId": "q_a90a6b24e2624e9cb8b3bfd9a13d3256",
+      "hasFormatRepair": false,
+      "durationMs": 18322,
+      "outputKeys": [
+        "reviewedQuestionIds",
+        "reviewedRegionIds",
+        "reviewedNodeIds",
+        "issues",
+        "orderingChecks"
+      ]
+    },
+    {
+      "number": 4,
+      "capability": "keling-learning-similar-questions",
+      "hasFormatRepair": false,
+      "durationMs": 12726,
+      "outputKeys": [
+        "questions",
+        "error"
+      ]
+    },
+    {
+      "number": 5,
+      "capability": "keling-planet-content-review",
+      "scopeQuestionId": "q_f7de92a0c7b644fe817968a7da14309b",
+      "hasFormatRepair": false,
+      "durationMs": 6327,
+      "outputKeys": [
+        "reviewedQuestionIds",
+        "reviewedRegionIds",
+        "reviewedNodeIds",
+        "issues",
+        "orderingChecks"
+      ]
+    },
+    {
+      "number": 6,
+      "capability": "keling-planet-content-review",
+      "scopeQuestionId": "q_f7de92a0c7b644fe817968a7da14309b",
+      "hasFormatRepair": true,
+      "durationMs": 7307,
+      "outputKeys": [
+        "reviewedQuestionIds",
+        "reviewedRegionIds",
+        "reviewedNodeIds",
+        "issues",
+        "orderingChecks"
+      ]
+    },
+    {
+      "number": 7,
+      "capability": "keling-planet-content-review",
+      "scopeQuestionId": "q_01e617bcef4c4b33b3c9039bfcc8a876",
+      "hasFormatRepair": false,
+      "durationMs": 21647,
+      "outputKeys": [
+        "reviewedQuestionIds",
+        "reviewedRegionIds",
+        "reviewedNodeIds",
+        "issues",
+        "orderingChecks"
+      ]
+    }
+  ],
+  "reviews": [
+    {
+      "attempt": 2,
+      "reviewedQuestionIds": [
+        "q_8410e31ddbd64ef0b1942a90f24dad69"
+      ],
+      "issues": [
+        {
+          "targetType": "question",
+          "targetId": "q_8410e31ddbd64ef0b1942a90f24dad69",
+          "code": "SOURCE_SUPPORT_MISSING",
+          "reason": "题干明确说明仅依据第七印象官方网站（来源s2、s6）及百科资料（来源s4）作答，但解析中判断选项3错误时引用了来源s1、s5，超出题干指定的材料范围，不符合题目给定的作答依据要求。"
+        }
+      ]
+    },
+    {
+      "attempt": 3,
+      "reviewedQuestionIds": [
+        "q_a90a6b24e2624e9cb8b3bfd9a13d3256"
+      ],
+      "issues": [
+        {
+          "targetType": "question",
+          "targetId": "q_a90a6b24e2624e9cb8b3bfd9a13d3256",
+          "code": "ANSWER_EXPLANATION_CONFLICT",
+          "reason": "解析中对选项序号的表述与实际选项下标不匹配：解析称“选项1属于网络二创内容”“选项2属于玩梗内容”“选项3属于二创内容”，但实际正确选项为下标1、2、3，解析的序号表述易混淆，且未明确对应选项下标，存在表述矛盾。"
+        },
+        {
+          "targetType": "question",
+          "targetId": "q_a90a6b24e2624e9cb8b3bfd9a13d3256",
+          "code": "SOURCE_SUPPORT_MISSING",
+          "reason": "题目要求结合千龙网（s1）、新浪新闻（s5）、3DM专栏（s9）及南方财经报道（s7）的材料作答，但选项5“奶龙和小七是动画《小七和奶龙》的主角”的依据来自来源s4（百科），不在题目指定的材料范围内，题目未提供该选项的判断依据，无法仅凭指定材料作答。"
+        }
+      ]
+    },
+    {
+      "attempt": 5,
+      "reviewedQuestionIds": [
+        "q_f7de92a0c7b644fe817968a7da14309b"
+      ],
+      "issues": [
+        {
+          "targetType": "question",
+          "targetId": "q_f7de92a0c7b644fe817968a7da14309b",
+          "code": "ANSWER_EXPLANATION_CONFLICT",
+          "reason": "解析中提及“下标6的选项”，但该题仅有6个选项（下标0-5），存在选项下标描述错误，与题目实际选项数量不符。"
+        }
+      ]
+    },
+    {
+      "attempt": 6,
+      "reviewedQuestionIds": [
+        "q_f7de92a0c7b644fe817968a7da14309b"
+      ],
+      "issues": [
+        {
+          "targetType": "question",
+          "targetId": "q_f7de92a0c7b644fe817968a7da14309b",
+          "code": "ANSWER_EXPLANATION_CONFLICT",
+          "reason": "解析中提及“下标6的选项”，但该题仅有6个选项（下标0-5），存在选项下标描述错误，与题目实际选项数量不符。"
+        }
+      ]
+    },
+    {
+      "attempt": 7,
+      "reviewedQuestionIds": [
+        "q_01e617bcef4c4b33b3c9039bfcc8a876"
+      ],
+      "issues": [
+        {
+          "targetType": "question",
+          "targetId": "q_01e617bcef4c4b33b3c9039bfcc8a876",
+          "code": "ANSWER_EXPLANATION_CONFLICT",
+          "reason": "解析中提到“下标6的选项”，但题目选项仅有6个（下标0-5），存在下标越界错误；且该选项对应下标5的内容是官方定位，解析描述与实际选项下标不匹配。"
+        }
+      ]
+    }
+  ],
+  "firstGroupStructurePassed": true,
+  "boundedContentRepairUsedFor": "审查发现题干指定来源与解析依据不同；并有选项数字指代混淆",
+  "finalGroupRejectedFor": "第二题解析写下标6但只有0至5；第一题scope审核误读同组第二题，严格引文核对要求修复，随后错误归属仍保留",
+  "storageWrites": false,
+  "changesAfterFailure": "母题只传kind/prompt/options；题干必须附材料正文，隐藏sourceIds不能替代材料；解释按选项短语定位；等待根审核scope物理裁剪",
+  "claim": "本次未通过，不把合法结构或有检索当成完整相似练习成功"
+}

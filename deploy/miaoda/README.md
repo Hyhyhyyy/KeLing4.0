@@ -17,7 +17,11 @@
 | `server/modules/gateway/native-artwork.service.ts` | 注册主题星球图片生成，供初次生成与追加描述再生复用 |
 | `server/capabilities/keling-learning-planet.json` | 星球、六题型练习、多义分析与完整知识图谱的结构化输出 |
 | `server/capabilities/keling-learning-question.json` | 带追加要求的单题结构化输出 |
+| `server/capabilities/keling-learning-similar-questions.json` | 当前题新联网检索后生成两道同题型补充练习 |
 | `server/capabilities/keling-planet-artwork.json` | 按主题描述生成1:1星球图片 |
+| `server/capabilities/keling-planet-artwork-reference.json` | 用真实联网参考图把角色或主题本体转译为星球 |
+| `server/capabilities/keling-planet-visual-design.json` | 依据检索来源规划外观特征、轮廓、地貌与原色 |
+| `server/capabilities/keling-planet-content-review.json` | 对答案解释、课文来源支撑与排序依据作结构化复核 |
 | `server/modules/gateway/artwork.controller.ts` | 为十幅固定图片签发短期资源链接，涵盖标题吉祥物、箭头、指南、学科星球、航程装扮与开篇驾驶舱 |
 | `server/modules/gateway/font.controller.ts` | 通过平台 SDK 下载并校验固定字体，以同源 WOFF2 响应提供缓存、ETag 与 CORS |
 | `server/modules/gateway/gateway.module.ts` | 注册上述服务与控制器 |
@@ -30,11 +34,17 @@
 
 `4.2.0-journey-rc1` 使用主仓库 `cc9f0eee0f1f71e513ccaef7741afb48a8c5dbcb` 的源码，Android 为 code31。六幅新WebP和APK均上传至应用文件存储；新增二进制没有进入模板Git。共享装扮组件自身导入样式，使直接访问笔记、任务、首页与个人页时也能显示新头像、计时器和家园。发布与线上复核结果见 [本轮记录](../../docs/validation/journey-release-2026-11-27.md)。
 
+已发布基线 `4.3.0-research-rc1` 对应主仓源码 `854223bbfbc8ddb8bc490e0abe258cee43cb3705`、Android code32；模板提交 `09e979c61ec51f0a9908a95fe3fe47d6a754b32d`，发布 `7713122867898993697` 已 finished。联网检索、语境辨析、六题型、知识图谱和按反馈再生已接入真实原生能力；发布状态与内容质量分开核验，首轮真实失败及修复记录见 [主题检索合同](../../docs/validation/topic-research-contract-2026-11-28.md)。
+
+本轮待发布版本为 `4.3.1-research-rc2` / Android code33。最终含相似练习的APK为85758314字节、SHA-256 `889ac6559f1398037a67013de1f80c15e0ec1f18412194119804672dbfc198c2`，已上传应用存储；旧85717175字节的预发布包不作为发布目标。此次源码和元数据已准备，具体上线状态须以最终发布记录为准。
+
 公开 Android 下载对象记录在 [android-download.json](android-download.json)，包含真实 versionCode、字节数、SHA-256 和签名证书摘要。`/download/android` 对应应用存储内的固定 APK；托管 `/api/app/version` 和 `/api/app/download` 由 ReleaseController 提供经过校验的固定元数据及同站下载地址。独立课灵后端仍保留 GitHub Release 查询路径。发布时须保持 GitHub 与应用存储两份 APK 字节一致，先发布带真实 versionCode 标记的 GitHub Release，再更新托管元数据并发布应用。APK 二进制不进入模板 Git。
 
 网页导航与 `index.html`、`offline-shell.html`、`sw.js`、`registerSW.js`、`manifest.webmanifest`、`graph-editor/*` 使用 `no-store, no-cache, must-revalidate`，确保稳定入口每次重新获取；带哈希的静态资源保留原有一小时缓存。缓存头只约束 HTTP 缓存，旧页面是否采用新脚本还取决于浏览器中的 Service Worker 和更新确认流程，不能仅凭线上文件已更新判断用户页面已更新。
 
 ## 模板与依赖基线
+
+内容审核适配器直接依赖 `jsonrepair@3.15.0`（模板 `dependencies`，主仓仅开发测试依赖）。它只修复具有明确解析失败证据的模型JSON语法；数据仍须经过课灵完整审核合同校验，不能将格式修复当作内容可信或审核通过。
 
 来源工程的 `package.json` 标识为 `fullstack-nestjs-template@2.3.0`；锁文件实际解析到以下版本。这是本次已核实基线，不是对未来官方模板的兼容性承诺。
 
@@ -102,7 +112,7 @@ KELING_FONT_SOURCE=/absolute/path/to/KeLing_ICT/assets/fonts/STZHONGS.woff2 \
 
 复制上述适配文件后，以下修改仍须核对并合入自己的模板：
 
-- 通过官方 `lark-cli apps +plugin-install --name <插件包名> --as user` 安装插件，保留 `package.json` 中 `actionPlugins: { "@official-plugins/ai-text-to-json": "1.0.26", "@official-plugins/ai-text-generate": "1.0.21", "@official-plugins/ai-search-summary": "1.0.14", "@official-plugins/ai-text-to-image": "1.0.21" }`，保留官方构建脚本中的 `fullstack-cli action-plugin init`。将 `server/capabilities/` 下五个实例 `keling-learning-planet.json`、`keling-learning-question.json`、`keling-planet-artwork.json`、`keling-study-assistant.json`、`keling-study-plan.json` 与 `NativePlanetService`、`NativeArtworkService`、`NativeAiService` 一同接入；仅复制服务类不能替代插件实例初始化。学习星球和计划使用 `textToJson` 的结构化输出；对话使用 `textGenerate` 的增量 `data.content`，收齐正常完成事件后返回。计划的来源、日期和预算还须通过课灵校验。Web 和 Android 共同调用课灵账号接口，长生成通过任务状态查询，避免平台请求超时。该公共服务标识为妙搭，不冒充华为模型；不提供向量嵌入。
+- 通过官方 `lark-cli apps +plugin-install --name <插件包名> --as user` 安装插件，保留 `package.json` 中 `actionPlugins: { "@official-plugins/ai-text-to-json": "1.0.26", "@official-plugins/ai-text-generate": "1.0.21", "@official-plugins/ai-search-summary": "1.0.14", "@official-plugins/ai-text-to-image": "1.0.21", "@official-plugins/ai-image-to-image": "1.0.23" }`，保留官方构建脚本中的 `fullstack-cli action-plugin init`。将 `server/capabilities/` 下九个实例 `keling-learning-planet.json`、`keling-learning-question.json`、`keling-learning-similar-questions.json`、`keling-planet-artwork.json`、`keling-planet-artwork-reference.json`、`keling-planet-visual-design.json`、`keling-planet-content-review.json`、`keling-study-assistant.json`、`keling-study-plan.json` 与 `NativePlanetService`、`NativeArtworkService`、`NativeAiService` 一同接入；仅复制服务类不能替代插件实例初始化。学习星球和计划使用 `textToJson` 的结构化输出；对话使用 `textGenerate` 的增量 `data.content`，收齐正常完成事件后返回。计划的来源、日期和预算还须通过课灵校验。Web 和 Android 共同调用课灵账号接口，长生成通过任务状态查询，避免平台请求超时。该公共服务标识为妙搭，不冒充华为模型；不提供向量嵌入。
 - `package.json` 的 `build:server` 先运行 `node scripts/build-keling.cjs`，再执行原 Nest 构建。来源值为 `node scripts/build-keling.cjs && NODE_ENV=production nest build`，适用于平台的 Bash 构建环境。
 - 核对来源模板的功能标记，尤其是 `supportBusinessUser: true`；完整标记记录在 `provenance.json`。不要因为只复制业务模块而丢失平台初始化配置。
 - 在官方 `scripts/build.sh` 调用 `scripts/prune-smart.js` **之后**添加 `node "$ROOT_DIR/scripts/copy-prisma.cjs"`。只运行 `build:prod` 不能证明平台最终裁剪产物完整；应验证实际平台构建路径。
@@ -117,9 +127,9 @@ KELING_FONT_SOURCE=/absolute/path/to/KeLing_ICT/assets/fonts/STZHONGS.woff2 \
 
 `researchTopic` 合并两组语境查询、过滤危险 URL、去重并赋予稳定 `s1…s10` 引用。`grounded` 只表示检索返回至少两个不同 URL，不代表事实已经交叉核查；模型须进一步辨析摘要的直接性、同源转载、争议与适用边界。检索不可用、来源不足或未返回合法结构时终止生成，不能伪装为联网成功。
 
-星球按用户选择生成 6、12 或 18 题，三块区域均分，覆盖单选、多选、判断、填空、排序、简答六型；简答采用逐项自核，不宣称机器批改。初始知识图谱包含 4–48 个节点，层级关系无环、跨分支关系单独标记；区域、题目及图谱节点均必须引用实际来源。单题再生只替换指定题目，图片再生只替换图片。图片生成失败保留可用的原图或预设图，不把预设图标为 AI 生成。
+星球按用户选择生成 6、12 或 18 题，按区域内容分配，每区 1–6 题，覆盖单选、多选、判断、填空、排序、简答六型；简答采用逐项自核，不宣称机器批改。初始知识图谱包含 4–48 个节点，层级关系无环、跨分支关系单独标记；区域、题目及图谱节点均必须引用实际来源。单题再生只替换指定题目，图片再生只替换图片。图片生成失败保留可用的原图或预设图，不把预设图标为 AI 生成。官方绘图若返回当前应用公开静态桶的相对路径，NativeArtworkService 仅在固定 app、_static 桶和 plugin 安全key允许列表通过后规范化为当前公开HTTPS origin；迁移应用时须同步修改这三个固定标识，不能跨应用复用。
 
-原始检索权限、模型 16384 token 参数和图片 URL 的实际可用性，需要在目标应用用真实请求核验；本地合同测试不能替代云端验收。契约和定向测试记录见 [主题检索验证](../../docs/validation/topic-research-contract-2026-11-28.md)。
+当前应用原始检索与模型输出已有真实请求证据，图像公开路径双域匿名读取已验证；具体课程质量和公开端到端交互仍须独立核验，本地合同测试不能替代云端验收。契约和定向测试记录见 [主题检索验证](../../docs/validation/topic-research-contract-2026-11-28.md)。
 
 ## 应用与环境配置
 

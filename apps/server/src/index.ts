@@ -26,7 +26,9 @@ import { expeditionRouter } from './expedition/routes';
 import { planetRouter } from './learning/planetRoutes';
 export { registerLearningPlanetGenerator } from './learning/planets';
 export { registerTopicResearchProvider } from './learning/topicResearch';
-export { registerLearningQuestionGenerator, registerPlanetArtworkGenerator } from './learning/planetEnhancement';
+export { registerLearningQuestionGenerator, registerLearningSimilarQuestionsGenerator, registerPlanetArtworkGenerator } from './learning/planetEnhancement';
+export { registerPlanetVisualDesigner } from './learning/planetVisual';
+export { registerPlanetContentReviewer } from './learning/planetReview';
 export { registerNativeAiBridge } from './ai/native';
 export type { NativeAiBridge, NativeAiRequest, NativeAiMessage, NativeAiResult } from './ai/native';
 import { aiJobRouter } from './ai/jobs';
@@ -83,7 +85,7 @@ app.get('/api/health', (req, res) => {
   res.json({
     status: 'ok',
     timestamp: new Date().toISOString(),
-    version: '4.3.0-research-rc1'
+    version: '4.3.1-research-rc2'
   });
 });
 

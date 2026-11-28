@@ -3,12 +3,12 @@ import type { Response } from 'express';
 
 // Frozen only after the same APK is uploaded and its SHA-256 is verified on GitHub.
 export const currentAndroidRelease = {
-  versionCode: 31,
-  versionName: '4.2.0-journey-rc1',
+  versionCode: 33,
+  versionName: '4.3.1-research-rc2',
   updateUrl: 'https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/download/android',
-  updateLog: '课灵启航故事；十套个人形象、头像框与称号；十项成就家具；打卡、计时与学习日历跨端同步。',
-  fileSize: 85638827,
-  sha256: '57eb2f8c189ed7d237ca83dff0191b07811f078dfd623a186610cd8c32a22d62',
+  updateLog: '联网材料驱动学习；逐题相似碎片与星芽提示；内容复核；角色参考图塑造星球；移动图谱适配。',
+  fileSize: 85758314,
+  sha256: '889ac6559f1398037a67013de1f80c15e0ec1f18412194119804672dbfc198c2',
 };
 
 @Controller('api/app')

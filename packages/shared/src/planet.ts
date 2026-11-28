@@ -5,7 +5,7 @@ export type PlanetResearch = {status:'grounded'|'insufficient'|'unavailable';int
 export type PlanetMeaningAnalysis = {overview:string;interpretations:{label:string;description:string;context:string}[];contrasts:string[];caveats:string[]};
 export type PlanetArtwork = {status:'generated'|'fallback';url?:string;prompt:string;provider?:string;generatedAt?:string};
 export type PlanetKnowledgeGraph = {nodes:{id:string;title:string;summary:string;sourceIds:string[]}[];edges:{source:string;target:string;label:string;kind:'hierarchy'|'related'}[]};
-export type PlanetQuestion = {id:string;prompt:string;options:string[];answerIndex:number;explanation:string;kind?:PlanetQuestionKind;answerIndices?:number[];acceptedAnswers?:string[];referenceAnswer?:string;rubric?:string[];sourceIds?:string[]};
+export type PlanetQuestion = {id:string;prompt:string;options:string[];answerIndex:number;explanation:string;kind?:PlanetQuestionKind;answerIndices?:number[];acceptedAnswers?:string[];referenceAnswer?:string;rubric?:string[];sourceIds?:string[];similarTo?:string;practiceResearch?:PlanetResearch};
 export type PlanetRegion = {id:string;title:string;description:string;prerequisiteIds:string[];estimatedMinutes:number;lesson:string;objectives:string[];questions:PlanetQuestion[];sourceIds?:string[]};
 export type PlanetDraft = {id:string;subject:string;level:string;goal:string;title:string;story:string;planetStyleIndex:number;regions:PlanetRegion[];reviewStatus:'UNREVIEWED';generatedBy:{providerId:string;model:string;at:string};research?:PlanetResearch;meaningAnalysis?:PlanetMeaningAnalysis;artwork?:PlanetArtwork;knowledgeGraph?:PlanetKnowledgeGraph};
 export type PlanetResponse = {selectedIndex?:number;selectedIndices?:number[];text?:string;orderedIndices?:number[];selfReview?:boolean};
@@ -35,7 +35,7 @@ function research(raw:unknown):PlanetResearch{
 export function validatePlanetDraft(raw:unknown):PlanetDraft{
  const p=object(raw),meta=object(p.generatedBy),allQuestions=new Set<string>(),evidence=p.research===undefined?undefined:research(p.research),knownSources=new Set(evidence?.sources.map(s=>s.id)||[]);
  const regions=array(p.regions,3,6).map(v=>{
-  const r=object(v);const result:PlanetRegion={id:identifier(r.id),title:string(r.title,70),description:string(r.description,240),prerequisiteIds:array(r.prerequisiteIds,0,5).map(identifier),estimatedMinutes:integer(r.estimatedMinutes,5,60),lesson:string(r.lesson,5000),objectives:array(r.objectives,1,4).map(v=>string(v,150)),questions:array(r.questions,1,6).map(v=>{
+  const r=object(v);const result:PlanetRegion={id:identifier(r.id),title:string(r.title,70),description:string(r.description,240),prerequisiteIds:array(r.prerequisiteIds,0,5).map(identifier),estimatedMinutes:integer(r.estimatedMinutes,5,60),lesson:string(r.lesson,5000),objectives:array(r.objectives,1,4).map(v=>string(v,150)),questions:array(r.questions,1,30).map(v=>{
    const q=object(v),id=identifier(q.id),kind=q.kind===undefined?'single_choice':q.kind;
    if(!['single_choice','multiple_choice','true_false','fill_blank','ordering','short_answer'].includes(kind as string))throw new Error('题型无效');
    const free=kind==='fill_blank'||kind==='short_answer',options=array(q.options??(free?[]:undefined),free?0:2,free?0:kind==='true_false'?2:8).map(v=>string(v,500));
@@ -48,9 +48,20 @@ export function validatePlanetDraft(raw:unknown):PlanetDraft{
    if(kind==='ordering')result.answerIndices=indices(q.answerIndices,options.length,options.length,options.length);
    if(kind==='fill_blank'){result.acceptedAnswers=array(q.acceptedAnswers,1,12).map(v=>string(v,500));if(new Set(result.acceptedAnswers.map(normalizePlanetText)).size!==result.acceptedAnswers.length)throw new Error('填空参考答案重复');}
    if(kind==='short_answer'){result.referenceAnswer=string(q.referenceAnswer,3000);result.rubric=array(q.rubric,1,6).map(v=>string(v,500));}
-   if(q.sourceIds!==undefined)result.sourceIds=sourceIds(q.sourceIds,knownSources);
+   const practice=q.practiceResearch===undefined?undefined:research(q.practiceResearch);
+   if((q.similarTo!==undefined)!==(practice!==undefined)||practice&&practice.status!=='grounded')throw new Error('相似碎片必须附带本次有效检索资料和原题标识');
+   if(q.sourceIds!==undefined)result.sourceIds=sourceIds(q.sourceIds,practice?new Set(practice.sources.map(s=>s.id)):knownSources);
+   if(q.similarTo!==undefined){result.similarTo=identifier(q.similarTo);if(!result.sourceIds?.length)throw new Error('相似碎片必须引用本次检索资料');}
+   if(practice)result.practiceResearch=practice;
    return result;
-  })};if(r.sourceIds!==undefined)result.sourceIds=sourceIds(r.sourceIds,knownSources);return result;
+  })};
+  const baseCount=result.questions.filter(q=>!q.similarTo).length;if(baseCount<1||baseCount>6)throw new Error('每区基础练习数量须为 1 至 6 道');
+  const local=new Map(result.questions.map(q=>[q.id,q]));
+  for(const q of result.questions){
+   const seen=new Set<string>([q.id]);let current=q;
+   while(current.similarTo){const parent=local.get(current.similarTo);if(!parent)throw new Error('相似碎片必须关联本区域的练习');if(seen.has(parent.id))throw new Error('相似碎片关联不能循环');seen.add(parent.id);current=parent;}
+  }
+  if(r.sourceIds!==undefined)result.sourceIds=sourceIds(r.sourceIds,knownSources);return result;
  });
  const ids=new Set<string>();for(const r of regions){if(ids.has(r.id)||new Set(r.prerequisiteIds).size!==r.prerequisiteIds.length||r.prerequisiteIds.some(id=>!ids.has(id)))throw new Error('区域先修关系必须指向前面的有效区域');ids.add(r.id);}
  if(p.reviewStatus!=='UNREVIEWED')throw new Error('生成内容只能是待核验练习');
@@ -70,7 +81,7 @@ export function validatePlanetDraft(raw:unknown):PlanetDraft{
 }
 export function emptyPlanetProgress():PlanetProgress{return {answers:{},completedRegionIds:[]};}
 export function planetQuestionComplete(question:PlanetQuestion,answer:PlanetAnswer|undefined){return question.kind==='short_answer'?answer?.evaluation==='self_review'&&answer.reviewed===true:answer?.correct===true;}
-export function completedPlanetRegionIds(draft:PlanetDraft,answers:PlanetProgress['answers']){const done=new Set<string>();for(const region of draft.regions)if(region.prerequisiteIds.every(id=>done.has(id))&&region.questions.every(q=>planetQuestionComplete(q,answers[q.id])))done.add(region.id);return [...done];}
+export function completedPlanetRegionIds(draft:PlanetDraft,answers:PlanetProgress['answers']){const done=new Set<string>();for(const region of draft.regions)if(region.prerequisiteIds.every(id=>done.has(id))&&region.questions.filter(q=>!q.similarTo).every(q=>planetQuestionComplete(q,answers[q.id])))done.add(region.id);return [...done];}
 /** Objective comparisons use generated references. Short answers record explicit self-review only. */
 export function answerPlanetQuestion(draft:PlanetDraft,progress:PlanetProgress,questionId:string,value:number|PlanetResponse,at=new Date().toISOString()):{progress:PlanetProgress;feedback:PlanetFeedback}{
  const region=draft.regions.find(r=>r.questions.some(q=>q.id===questionId)),q=region?.questions.find(q=>q.id===questionId);

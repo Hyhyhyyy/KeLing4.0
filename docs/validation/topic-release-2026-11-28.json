@@ -1,0 +1,40 @@
+{
+  "status": "finished",
+  "releaseId": "7713122867898993697",
+  "templateCommit": "09e979c61ec51f0a9908a95fe3fe47d6a754b32d",
+  "sourceCommit": "854223bbfbc8ddb8bc490e0abe258cee43cb3705",
+  "onlineUrl": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg",
+  "version": "4.3.0-research-rc1",
+  "webEntry": "/app/app_17h4dw5jwdg/assets/index-8jVJv7lY.js",
+  "sourceTests": {
+    "passed": 128,
+    "failed": 0,
+    "isolatedDatabase": true
+  },
+  "nativeAdapterTests": {
+    "passed": 7,
+    "failed": 0
+  },
+  "android": {
+    "versionCode": 32,
+    "versionName": "4.3.0-research-rc1",
+    "bytes": 85166975,
+    "sha256": "08a67eb170045355fa53913425eb48145aab0ff4beaff59d2c926e81855adbf0",
+    "storagePath": "/1883082580628636.apk"
+  },
+  "actualModelContentValidation": "Recorded separately by root end-to-end verification; no content-quality success inferred from release status",
+  "buildNotes": [
+    "Normal precommit/type/lint checks passed",
+    "Cloud release used official build.sh unchanged",
+    "Local Windows-only plugin init used official lark-cli; nft came from official fullstack-cli cache",
+    "Prisma retention skips identical hard links; 123 runtime files verified by SHA256"
+  ],
+  "httpVerification": {
+    "latestGeneratedFiles": 79,
+    "bothOriginEntryCachePolicy": "passed",
+    "currentApkMetadataAndRedirects": "passed",
+    "newWebProof": "topic-http-final-2026-11-28.json",
+    "unchangedFullResourceProof": "topic-http-resources-2026-11-28.json",
+    "unchangedResourceBodiesNotRedownloadedAfterLastRelease": true
+  }
+}

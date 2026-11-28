@@ -1,0 +1,186 @@
+{
+  "date": "2026-11-28",
+  "versionName": "4.3.1-research-rc2",
+  "versionCode": 33,
+  "apk": {
+    "bytes": 85717175,
+    "minSdk": 26,
+    "graphBundle": "editor-5Z5EDZT7.js",
+    "targetSdk": 34,
+    "path": "apps/android/app/build/research-proof/keling-4.3.1-research-rc2-pre-similar.apk",
+    "signatureVerified": true,
+    "sha256": "def152008491ae0c9e3ffaf0428433fdfd932b12bb864b4ff7197ab005fb2c51",
+    "certificateSha256": "e7b4d86c7a02fb6bb1d21215c393b347d2d67652e5e45dfbe3a3d6c66b7c67a3",
+    "graphBundleSha256": "31fac6b7230d7aaa55b6de18f74fa5e1b3fdee8a31674def476519d35b23c26c"
+  },
+  "checks": {
+    "upgradePreservedLogin": true,
+    "installedVersionVerified": true,
+    "failures": 0,
+    "lintWarnings": 40,
+    "androidTests": 128,
+    "graphTests": 6,
+    "lintErrors": 0,
+    "errors": 0
+  },
+  "actualCloud": {
+    "sources": 10,
+    "planetId": "3c11a247-6ceb-4fb3-a19b-e87b2d373c80",
+    "newModelRequestsByThisCheck": 0,
+    "graphEdges": 14,
+    "selectedNodeSummaryAndSourcesDisplayed": true,
+    "questionCount": 12,
+    "graphNodes": 12,
+    "answerSubmissionsByThisCheck": 0,
+    "courseId": "50b7e27d-a792-4737-85c1-5e749bc0bf8d",
+    "questionKinds": [
+      "single_choice",
+      "multiple_choice",
+      "true_false",
+      "fill_blank",
+      "ordering",
+      "short_answer"
+    ],
+    "generatedImageDisplayed": true,
+    "title": "奶龙梗与二创探索星球",
+    "readonly": true
+  },
+  "device": {
+    "ramMiB": 2560,
+    "width": 720,
+    "cores": 1,
+    "density": 320,
+    "height": 1560,
+    "platform": "Android 14 API 34 emulator"
+  },
+  "viewport": {
+    "afterRecreationScale": "17%",
+    "beforeInitialScale": "10%",
+    "afterInitialScale": "17%",
+    "zoomPreservedOnOuterScroll": true,
+    "afterVersion": 33,
+    "manualZoom": "32%",
+    "beforeProblem": "Initial graph clipped toward top left until manual fit",
+    "fixedDataBrowserRegression": {
+      "fixture": true,
+      "hiddenInitialHeight": 0,
+      "shownHeight": 380,
+      "initialFit": "15%",
+      "all12NodesWithinViewport": true,
+      "userZoom": "30%",
+      "userPanVerified": true,
+      "resizePreservedUserTransform": true
+    },
+    "beforeVersion": 32
+  },
+  "screenshots": [
+    {
+      "versionCode": 33,
+      "fullDeviceScreenshot": true,
+      "sha256": "28f8a3c6e5d392804ab24d85b0da27f1e46a3efde062e4a639934c393bf4c8c7",
+      "file": "topic-android-cloud-2026-11-28/rc2-cloud-planet-hero.png"
+    },
+    {
+      "versionCode": 33,
+      "fullDeviceScreenshot": true,
+      "sha256": "974fb9b8d8721c26f41d2be7229a4cbd4820b682d253bea74af44bd1881b32d6",
+      "file": "topic-android-cloud-2026-11-28/rc2-cloud-graph-first-visible.png"
+    },
+    {
+      "versionCode": 33,
+      "fullDeviceScreenshot": true,
+      "sha256": "35903784dfdf4232e98159159f5db32dccacf9579510a4e3d25ca8682fa0b839",
+      "file": "topic-android-cloud-2026-11-28/rc2-cloud-graph-recreated.png"
+    },
+    {
+      "versionCode": 33,
+      "fullDeviceScreenshot": true,
+      "sha256": "68ec4a5aaebe89d1aa4304a3d5b3fa81ac60cccd095a94a52b99091fe79e8ffa",
+      "file": "topic-android-cloud-2026-11-28/rc2-cloud-graph-selected.png"
+    },
+    {
+      "versionCode": 33,
+      "fullDeviceScreenshot": true,
+      "sha256": "87093eb5ccf953f6a2e443f364e58664ad0bdbe00c6b89d5e308c5e95468021b",
+      "file": "topic-android-cloud-2026-11-28/rc2-cloud-graph-node-sources.png"
+    },
+    {
+      "versionCode": 32,
+      "fullDeviceScreenshot": true,
+      "sha256": "7573624f4c3a0fa6861348592df46591202121c0f17c6489947ddffa12f49a8a",
+      "file": "topic-android-cloud-2026-11-28/cloud-planet-sources.png"
+    },
+    {
+      "versionCode": 32,
+      "fullDeviceScreenshot": true,
+      "sha256": "464f89e6cf53c7a331a96e2f743e3b562304f864fc9d26a4e84e1f5312102222",
+      "file": "topic-android-cloud-2026-11-28/cloud-question-multiple-heading.png"
+    },
+    {
+      "versionCode": 32,
+      "fullDeviceScreenshot": true,
+      "sha256": "1db49418163eb173b84633514c6d22d804393c3fc9cd7f0dd709c67419a6f80a",
+      "file": "topic-android-cloud-2026-11-28/cloud-question-multiple-options.png"
+    },
+    {
+      "versionCode": 32,
+      "fullDeviceScreenshot": true,
+      "sha256": "feee5ec3f61d61e74d2888ea409174c141bb591362dda97c6a94a423ae34734c",
+      "file": "topic-android-cloud-2026-11-28/cloud-question-true-false.png"
+    },
+    {
+      "versionCode": 32,
+      "fullDeviceScreenshot": true,
+      "sha256": "9119e6e0ad94d6e63327446ec48a8f91063d18622eee224dff53df3035418cbd",
+      "file": "topic-android-cloud-2026-11-28/cloud-question-fill-blank.png"
+    },
+    {
+      "versionCode": 32,
+      "fullDeviceScreenshot": true,
+      "sha256": "c17c9118834985e3dbba480b8590d93b57f11514dfad969f424993ee5f240efc",
+      "file": "topic-android-cloud-2026-11-28/cloud-question-single-choice.png"
+    },
+    {
+      "versionCode": 32,
+      "fullDeviceScreenshot": true,
+      "sha256": "aeae27e1bccd07737b9f17abbda5343d922bd091bbbbbadebe2e766bbebf3495",
+      "file": "topic-android-cloud-2026-11-28/cloud-question-ordering.png"
+    },
+    {
+      "versionCode": 32,
+      "fullDeviceScreenshot": true,
+      "sha256": "512c9fd2a4f870931e2309c6077edbd4b6642897db512b260b00fdc0a283773e",
+      "file": "topic-android-cloud-2026-11-28/cloud-question-ordering-answer.png"
+    },
+    {
+      "versionCode": 32,
+      "fullDeviceScreenshot": true,
+      "sha256": "a29a30da66ccf306b3a478cc6e4141f1f5cef599755d00d148f1cd4847e21831",
+      "file": "topic-android-cloud-2026-11-28/cloud-question-short-self-review.png"
+    },
+    {
+      "versionCode": 32,
+      "fullDeviceScreenshot": true,
+      "sha256": "c4740e403a2430ad9b55d75da6031948358a1d0cc00b4945c28f578a42e3af39",
+      "file": "topic-android-cloud-2026-11-28/cloud-question-short-rubric.png"
+    }
+  ],
+  "boundaries": [
+    "Readback only: no new native AI generation or answer submission was performed.",
+    "Existing answers were created in the separate cloud acceptance step.",
+    "The generated image predates the subsequent visual-research image prompt enhancement.",
+    "Not physical-device, offline or multi-OS coverage.",
+    "Model content quality is distinct from successful UI rendering.",
+    "No upload or publication performed by this Android verification step."
+  ],
+  "finalTextAdjustment": {
+    "field": "PlanetScreen shared busy label",
+    "uiScreenshotsBeforeTextAdjustment": true,
+    "codeOnlyTextChange": true,
+    "emulatorRerun": false,
+    "newTestsAdded": 0,
+    "text": "请稍候…",
+    "existingTestsRerun": true
+  },
+  "supersededBy": "topic-android-similar-2026-11-28.json"
+}

@@ -1,0 +1,29 @@
+{
+  "scope": "Actual public UI auto-context 6-question failure diagnosis only",
+  "input": {
+    "subject": "奶龙学",
+    "contextMode": "auto",
+    "goal": "",
+    "questionCount": 6,
+    "generateArtwork": true
+  },
+  "window": {
+    "since": "2026-11-28T15:45:30+08:00",
+    "until": "2026-11-28T15:47:00+08:00"
+  },
+  "observed": {
+    "jobError": "INVALID_PLANET",
+    "uiElapsedMs": 48221,
+    "sdkCapability": "keling-learning-planet",
+    "sdkAction": "textToJson",
+    "sdkStatus": "executed successfully",
+    "sdkDurationMs": 46367,
+    "sdkOutputLoggedChars": 1034,
+    "sdkOutputTruncated": true,
+    "windowLogCount": 15,
+    "structureDiagnosticCount": 0,
+    "warnLogCount": 0
+  },
+  "cause": "Exact rejected field cannot be recovered from this event; no speculative cause asserted. Both list/get return truncated plugin output and trace only contains HTTP spans.",
+  "nextImplementation": "Quantity/kind/source diagnostic, bounded single repair from the same original evidence, and content consistency review; these need a new release and real verification."
+}

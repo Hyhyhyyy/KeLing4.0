@@ -1,6 +1,6 @@
 import type { PlanetResearch, PlanetSource } from '@keling/shared';
 
-export type TopicResearchInput = { subject:string; level:string; goal:string; contextMode?:'auto'|'general'|'internet_culture' };
+export type TopicResearchInput = { subject:string; level:string; goal:string; contextMode?:'auto'|'general'|'internet_culture';purpose?:'learning'|'artwork' };
 export type TopicSearchProvider = (query:string, signal:AbortSignal)=>Promise<unknown>;
 let provider:TopicSearchProvider|undefined;
 /** Registration is restricted to the trusted deployment adapter, never an HTTP input. */
@@ -28,6 +28,7 @@ export function normalizeSearchResults(raw:unknown):Omit<PlanetSource,'id'>[]{
 
 export function topicQueries(input:TopicResearchInput):{intent:string;queries:string[]}{
  const subject=clean(input.subject,80),goal=clean(input.goal,180);
+ if(input.purpose==='artwork')return {intent:'检索主题真实的视觉身份、角色外观或学科形态。优先原作者、官网和原始资料，区分原角色与二创；资料用于造型设计而不是写主题文字。',queries:[`${subject} 官方 形象 外观 特征 角色 设定 ${goal}`,`${subject} 原型 视觉 造型 标志性特征 官方 图片`].map(q=>q.slice(0,300))};
  const internet=input.contextMode==='internet_culture'||(input.contextMode!=='general'&&/网梗|流行语|二创|抽象文化|抽象梗|网络抽象|互联网抽象|网络文化|互联网文化|网络用语|整活|meme|梗学/i.test(subject+' '+goal));
  const intent=internet?'辨析网络流行语、社群用法与原作含义；区分可查事实、解释和争议，不把戏谑当学术定义。':input.contextMode==='general'?'依据标准概念和可靠资料解释主题，同时说明相邻概念与适用边界。':'先辨析主题的常见含义、专业用法与网络语境；不要未经辨析就把抽象主题当作唯一原作或正式学科。';
  const queries=internet?[`${subject} 网络流行语 梗 二创 含义 用法`,`${subject} 原作 二创 语境 出处 争议 误区 ${goal}`]:input.contextMode==='general'?[`${subject} 定义 原理 可靠资料 ${goal}`,`${subject} 概念辨析 事实 应用 适用条件 争议 常见误区`]:[`${subject} 含义 不同语境 用法 ${goal}`,`${subject} 网络讨论 概念辨析 事实 出处 争议 应用 误区`];

@@ -1,17 +1,17 @@
 {
   "appId": "app_17h4dw5jwdg",
   "route": "/download/android",
-  "versionName": "4.2.0-journey-rc1",
-  "versionCode": 31,
-  "fileName": "KeLing-ICT-4.2.0-journey-rc1-debug.apk",
-  "bytes": 85638827,
-  "sha256": "57eb2f8c189ed7d237ca83dff0191b07811f078dfd623a186610cd8c32a22d62",
+  "versionName": "4.3.1-research-rc2",
+  "versionCode": 33,
+  "fileName": "KeLing-ICT-4.3.1-research-rc2-debug.apk",
+  "bytes": 85758314,
+  "sha256": "889ac6559f1398037a67013de1f80c15e0ec1f18412194119804672dbfc198c2",
   "contentType": "application/vnd.android.package-archive",
   "storageBucket": "bucket_aadk4xawzf4xg",
-  "storagePath": "/1883007034146820.apk",
-  "sourcePath": "apps/android/app/build/journey-proof/keling-4.2.0-journey-rc1.apk",
+  "storagePath": "/1883094348066903.apk",
+  "sourcePath": "apps/android/app/build/research-proof/keling-4.3.1-research-rc2.apk",
   "certificateSha256": "e7b4d86c7a02fb6bb1d21215c393b347d2d67652e5e45dfbe3a3d6c66b7c67a3",
   "signatureScheme": "v2",
-  "githubReleaseTag": "v4.2.0-journey-rc1",
-  "githubAssetUrl": "https://github.com/Hyhyhyyy/KeLing4.0/releases/download/v4.2.0-journey-rc1/KeLing-ICT-4.2.0-journey-rc1-debug.apk"
+  "githubReleaseTag": "v4.3.1-research-rc2",
+  "githubAssetUrl": "https://github.com/Hyhyhyyy/KeLing4.0/releases/download/v4.3.1-research-rc2/KeLing-ICT-4.3.1-research-rc2-debug.apk"
 }

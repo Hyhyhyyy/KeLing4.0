@@ -85,14 +85,14 @@ test('unlisted artwork and fonts never request storage', async () => {
   });
 });
 
-test('Android download signs only the frozen journey RC1 package and does not cache its redirect', async () => {
+test('Android download signs only the frozen research RC2 package and does not cache its redirect', async () => {
   await fixture(async (origin, calls) => {
     const response = await fetch(origin + '/download/android?path=/private-file', { redirect: 'manual' });
     assert.equal(response.status, 302);
     assert.equal(response.headers.get('cache-control'), 'no-store');
-    assert.equal(response.headers.get('x-content-sha256'), '57eb2f8c189ed7d237ca83dff0191b07811f078dfd623a186610cd8c32a22d62');
+    assert.equal(response.headers.get('x-content-sha256'), '889ac6559f1398037a67013de1f80c15e0ec1f18412194119804672dbfc198c2');
     assert.equal(response.headers.get('location'), 'https://example.invalid/public-art.webp');
-    assert.deepEqual(calls, [{ method: 'sign', bucket: 'bucket_aadk4xawzf4xg', asset: '/1883007034146820.apk', seconds: 3600 }]);
+    assert.deepEqual(calls, [{ method: 'sign', bucket: 'bucket_aadk4xawzf4xg', asset: '/1883094348066903.apk', seconds: 3600 }]);
   });
 });
 
@@ -171,14 +171,14 @@ test('a failed font download does not prevent a successful retry', async () => {
 
 test('version checks use the verified published APK without a GitHub network dependency', async () => {
   await fixture(async (origin, calls) => {
-    for (const code of [30,31]) {
+    for (const code of [32,33]) {
       const r=await fetch(origin+'/api/app/version?versionCode='+code);
       const value=await r.json();
       assert.equal(r.status,200); assert.equal(value.success,true);
-      assert.equal(value.latestVersion.versionCode,31);
-      assert.equal(value.latestVersion.fileSize,85638827);
-      assert.equal(value.latestVersion.sha256,'57eb2f8c189ed7d237ca83dff0191b07811f078dfd623a186610cd8c32a22d62');
-      assert.equal(value.needUpdate,code<31); assert.equal(value.forceUpdate,false);
+      assert.equal(value.latestVersion.versionCode,33);
+      assert.equal(value.latestVersion.fileSize,85758314);
+      assert.equal(value.latestVersion.sha256,'889ac6559f1398037a67013de1f80c15e0ec1f18412194119804672dbfc198c2');
+      assert.equal(value.needUpdate,code<33); assert.equal(value.forceUpdate,false);
       assert.equal(r.headers.get('cache-control'),'no-store');
     }
     assert.equal(calls.length,0);

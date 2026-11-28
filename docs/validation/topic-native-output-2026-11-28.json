@@ -1,0 +1,38 @@
+{
+  "actualModelOutput": true,
+  "platform": "miaoda",
+  "localContext": "official PlatformModule without substituted user identity",
+  "outputSha256": "47bd37e8145750fb84f6eb8b54b94576e14716926156b8956804cf01e5130b8b",
+  "sharedValidationPassed": true,
+  "questionCountsByRegion": [
+    2,
+    4,
+    6
+  ],
+  "totalQuestions": 12,
+  "kinds": [
+    "fill_blank",
+    "multiple_choice",
+    "ordering",
+    "short_answer",
+    "single_choice",
+    "true_false"
+  ],
+  "graphNodes": 10,
+  "graphEdges": 12,
+  "retrievedSourceCount": 10,
+  "topicSupported": true,
+  "fullHttpFlowVerified": false,
+  "sourceUrls": [
+    "https://ent.qianlong.com/2026/1113/8750750.shtml",
+    "https://xn--psszg58c9c2281ajit.lol/files/history.pdf",
+    "https://news.sina.cn/sx/2026-11-17/detail-iniyzswf7636444.d.html",
+    "https://news.ifeng.com/c/8fb6V3yjZTT",
+    "https://m.sohu.com/a/1104189473_121897417/",
+    "https://news.southcn.com/node_08203b6b14/5c38574ae9.shtml",
+    "https://gengtu.net/memes/work/nai-long/",
+    "http://www.3dmgame.com/original/3745893.html",
+    "https://view.inews.qq.com/a/20251015A08DCU00",
+    "https://finance.sina.com.cn/roll/2026-11-12/doc-iniynppc3872413.shtml.md"
+  ]
+}

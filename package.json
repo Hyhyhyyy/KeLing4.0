@@ -1,6 +1,6 @@
 {
   "name": "keling-monorepo",
-  "version": "4.3.0-research-rc1",
+  "version": "4.3.1-research-rc2",
   "private": true,
   "description": "课灵 - 多端知识管理应用",
   "workspaces": [
@@ -32,7 +32,8 @@
     "graph:test": "npm run test --workspace=@keling/graph-editor"
   },
   "devDependencies": {
-    "concurrently": "^8.2.2"
+    "concurrently": "^8.2.2",
+    "jsonrepair": "3.15.0"
   },
   "engines": {
     "node": ">=22.13"

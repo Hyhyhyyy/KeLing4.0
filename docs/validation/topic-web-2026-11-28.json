@@ -1,0 +1,78 @@
+{
+  "date": "2026-11-28",
+  "scope": "web-shared-contract-graph-editor",
+  "modelEvidence": false,
+  "browser": {
+    "mode": "isolated Chrome, mocked model transport and controlled image response",
+    "sixQuestionTypesOperated": true,
+    "shortAnswerTwoStageSelfReview": true,
+    "questionRegenerationReplacedOnlyTarget": true,
+    "customArtworkVisibleInPreviewDetailHomeAndHub": true,
+    "graphNodes": 7,
+    "graphEdges": 7,
+    "graphReadOnly": true,
+    "selectedNodeSourceVisible": true,
+    "graphTimeoutAndRetry": true,
+    "graphTimeoutMilliseconds": 15000,
+    "mobileViewportWidth": 390,
+    "horizontalOverflow": false,
+    "pageErrors": []
+  },
+  "checks": {
+    "guestAndWebTests": {
+      "passed": 92,
+      "failed": 0
+    },
+    "updateAndPwaTests": {
+      "passed": 8,
+      "failed": 0
+    },
+    "graphTests": {
+      "passed": 6,
+      "failed": 0
+    },
+    "graphTypescript": "passed",
+    "sharedBuild": "passed",
+    "webBuild": "passed",
+    "eslint": {
+      "errors": 0,
+      "warnings": 26
+    }
+  },
+  "legacyDraftCanonicalBytesPreserved": true,
+  "sourceFrozenForCoordinatedRelease": true,
+  "limitations": [
+    "Browser fixtures are not evidence of real model generation or learning effectiveness.",
+    "Guest course nodes persist hierarchy; related edges remain in the planet draft and preview.",
+    "Artwork URL validation is syntactic and does not resolve DNS."
+  ],
+  "rc2Readiness": {
+    "version": "4.3.1-research-rc2",
+    "webBuild": "passed",
+    "guestAndWebTestsPassed": 92,
+    "eslintErrors": 0,
+    "eslintWarnings": 26,
+    "settingsChunk": "StellarSettings-Hgx0_dTx.js",
+    "planetsChunk": "Planets-B6F7zA0r.js",
+    "indexChunk": "index-D1-V7Gm6.js",
+    "graphBundle": "editor-5Z5EDZT7.js",
+    "productionVerification": "awaiting deployment and explicit start",
+    "modelRequestsThisPhase": 0
+  },
+  "similarPracticeAndHints": {
+    "guestTestsPassed": 24,
+    "webTestsPassed": 72,
+    "reviewerTestsPassed": 19,
+    "webBuild": "passed",
+    "serverTypecheck": "passed",
+    "eslintErrors": 0,
+    "eslintWarnings": 26,
+    "legacyDraftCanonicalBytesPreserved": true,
+    "scopeLocalSourcesChecked": true,
+    "learningAndPracticeSeparated": true,
+    "inlineHintAnswerFieldsExcluded": true,
+    "syntheticBrowserEvidence": ".cache/topic-web-20261128/similar-ui-evidence.json",
+    "modelRequestsThisPhase": 0,
+    "productionVerification": "awaiting coordinated deployment"
+  }
+}

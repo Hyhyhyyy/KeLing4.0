@@ -6,8 +6,10 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveableStateHolder
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -30,10 +32,15 @@ import com.keling.app.ui.screens.ai.ModelAccessPanel
     var ownModel by remember(vm) { mutableStateOf(false) }
     var configure by remember(vm) { mutableStateOf(false) }
     var regionId by remember(vm) { mutableStateOf<String?>(null) }
+    var practicing by remember(vm) { mutableStateOf(false) }
+    var tutorQuestionId by remember(vm) { mutableStateOf<String?>(null) }
+    val answerStateHolder = rememberSaveableStateHolder()
+    val planetListState = rememberLazyListState()
     var reflection by remember(vm) { mutableStateOf("") }
     LaunchedEffect(state.loading) { if (!state.loading && state.planets.isNotEmpty()) story = false }
     LaunchedEffect(state.providers) { if (state.providers.none { it.id == providerId }) { providerId = state.providers.firstOrNull()?.id.orEmpty(); model = state.providers.firstOrNull()?.chatModels?.firstOrNull().orEmpty() } }
-    LaunchedEffect(state.current?.id) { regionId = state.current?.draft?.regions?.firstOrNull()?.id; reflection = "" }
+    LaunchedEffect(state.current?.id) { regionId = state.current?.draft?.regions?.firstOrNull()?.id; reflection = ""; practicing = false; tutorQuestionId = null }
+    LaunchedEffect(practicing, regionId, state.current?.id) { planetListState.scrollToItem(0) }
     BackHandler(enabled = state.current != null || state.generated != null) { if (!state.busy) vm.overview() }
     StellarTheme { Surface(Modifier.fillMaxSize()) { Column(Modifier.fillMaxSize()) {
         Row(Modifier.fillMaxWidth().padding(horizontal = 12.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -44,12 +51,13 @@ import com.keling.app.ui.screens.ai.ModelAccessPanel
             TextButton(onClick = vm::refresh, enabled = !state.busy) { Text("刷新") }
         }
         if (state.loading || state.busy) LinearProgressIndicator(Modifier.fillMaxWidth())
-        LazyColumn(Modifier.weight(1f).padding(horizontal = 16.dp), contentPadding = PaddingValues(vertical = 12.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
+        LazyColumn(Modifier.weight(1f).padding(horizontal = 16.dp), state = planetListState, contentPadding = PaddingValues(vertical = 12.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
             state.error?.let { item { Text(it, color = MaterialTheme.colorScheme.error) } }
             state.notice?.let { item { Text(it, color = MaterialTheme.colorScheme.primary) } }
             when {
                 state.current != null -> {
                     val planet = state.current!!
+                    if (!practicing) {
                     item { PlanetHero(planet.draft, !state.busy) { vm.regenerate("artwork", null, it) } }
                     item { PlanetGraphPreview(planet.draft) }
                     item { Text("探索记录 ${planet.progress.completedRegionIds.size} / ${planet.draft.regions.size}", style = MaterialTheme.typography.titleMedium) }
@@ -58,11 +66,16 @@ import com.keling.app.ui.screens.ai.ModelAccessPanel
                         OutlinedButton(onClick = { onNavigate("ask_course:${planet.courseId}") }, modifier = Modifier.weight(1f)) { Text("问星芽") }
                         OutlinedButton(onClick = { onNavigate("planet_materials:${planet.courseId}") }, modifier = Modifier.weight(1f)) { Text("资料问答") }
                     } }
-                    item { StellarSelect("探索区域", regionId.orEmpty(), planet.draft.regions.map { it.id to it.title }, !state.busy) { regionId = it; reflection = "" } }
+                    } else item { Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                        Text("探索练习", Modifier.weight(1f), style = MaterialTheme.typography.titleMedium)
+                        TextButton(onClick = { practicing = false }) { Text("回看学习") }
+                    } }
+                    item { StellarSelect("探索区域", regionId.orEmpty(), planet.draft.regions.map { it.id to it.title }, !state.busy) { regionId = it; reflection = ""; practicing = false } }
                     val region = planet.draft.regions.find { it.id == regionId }
                     if (region != null) {
                         val unlocked = region.prerequisiteIds.all { it in planet.progress.completedRegionIds }
                         if (!unlocked) item { Text("先完成：${region.prerequisiteIds.filterNot { it in planet.progress.completedRegionIds }.mapNotNull { id -> planet.draft.regions.find { it.id == id }?.title }.joinToString("、")}", color = MaterialTheme.colorScheme.secondary) }
+                        if (!practicing) {
                         item { Card { Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
                             StellarSectionTitle(region.title, motif = 3)
                             Text(region.description)
@@ -70,10 +83,21 @@ import com.keling.app.ui.screens.ai.ModelAccessPanel
                             Text(region.lesson, style = MaterialTheme.typography.bodyLarge)
                             PlanetSources(planet.draft.research, region.sourceIds)
                         } } }
+                        items(region.questions.filter { !it.similarTo.isNullOrBlank() }, key = { "practice-source:${it.id}" }) { question ->
+                            Card { Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                                Text("相似碎片", style = MaterialTheme.typography.titleMedium)
+                                Text(question.prompt)
+                                PlanetSources(question.practiceResearch ?: planet.draft.research, question.sourceIds)
+                            } }
+                        }
+                        item { StellarActionButton("开始本区练习", { practicing = true }, Modifier.fillMaxWidth(), !state.busy && unlocked) }
+                        } else {
                         items(region.questions, key = { "${planet.id}:${it.id}" }) { question ->
                             val answer = planet.progress.answers[question.id]
                             val feedback = state.feedback[question.id]
-                            PlanetQuestionCard(question, answer, feedback, planet.draft.research, !state.busy && unlocked, { vm.regenerate("question", question.id, it) }) { vm.answer(question.id, it) }
+                            answerStateHolder.SaveableStateProvider("${planet.id}:${question.id}") {
+                                PlanetQuestionCard(question, answer, feedback, !state.busy && unlocked, planetSimilarButtonLabel(question, region.questions), { vm.similar(question.id) }, { tutorQuestionId = question.id }, { vm.regenerate("question", question.id, it) }) { vm.answer(question.id, it) }
+                            }
                         }
                         item { Card { Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
                             StellarSectionTitle("航行日志", motif = 4)
@@ -82,6 +106,7 @@ import com.keling.app.ui.screens.ai.ModelAccessPanel
                             OutlinedButton(onClick = { vm.schedule(region) }, enabled = !state.busy) { Text("安排下一次探索") }
                             TextButton(onClick = { onNavigate("tasks") }) { Text("查看学习任务") }
                         } } }
+                        }
                     }
                     item { TextButton(onClick = vm::overview, enabled = !state.busy) { Text("返回星图") } }
                 }
@@ -95,7 +120,10 @@ import com.keling.app.ui.screens.ai.ModelAccessPanel
                         Text(region.description)
                         Text("${region.questions.size} 道探索题 · 约 ${region.estimatedMinutes} 分钟", style = MaterialTheme.typography.bodySmall)
                         region.questions.forEach { question -> key(question.id) {
-                            Text("${planetQuestionLabel(question.kind)}：${question.prompt}", style = MaterialTheme.typography.bodyMedium)
+                            Text("${if (question.similarTo.isNullOrBlank()) "" else "相似碎片 · "}${planetQuestionLabel(question.kind)}：${question.prompt}", style = MaterialTheme.typography.bodyMedium)
+                            PlanetSources(question.practiceResearch ?: draft.research, question.sourceIds)
+                            TextButton(onClick = { tutorQuestionId = question.id }) { Text("问星芽") }
+                            OutlinedButton(onClick = { vm.similar(question.id) }, enabled = !state.busy) { Text(planetSimilarButtonLabel(question, region.questions)) }
                             PlanetRegenerationControl("调整这道题", "例如：换成生活情境题，增加辨析深度", !state.busy) { vm.regenerate("question", question.id, it) }
                         } }
                     } } }
@@ -134,7 +162,7 @@ import com.keling.app.ui.screens.ai.ModelAccessPanel
                                 if (models.isNotEmpty()) StellarSelect("模型", model, models.map { it to it }, !state.busy) { model = it }
                             }
                         }
-                        StellarActionButton(if (state.busy) "星芽正在检索与绘制…" else "生成我的学习星球", { vm.generate(subject, level, goal, ownModel, providerId, model, contextMode, questionCount, generateArtwork) }, Modifier.fillMaxWidth(), !state.busy && subject.isNotBlank())
+                        StellarActionButton(if (state.busy) "请稍候…" else "生成我的学习星球", { vm.generate(subject, level, goal, ownModel, providerId, model, contextMode, questionCount, generateArtwork) }, Modifier.fillMaxWidth(), !state.busy && subject.isNotBlank())
                         if (state.busy) TextButton(onClick = vm::cancelGeneration) { Text("停止等待") }
                         Text(if (guest) "游客星球退出即清空" else "确认后保存到账号", style = MaterialTheme.typography.bodySmall)
                     } } }
@@ -155,6 +183,11 @@ import com.keling.app.ui.screens.ai.ModelAccessPanel
         }
     } } }
     if (story && !state.loading && state.current == null && state.generated == null) com.keling.app.journey.StoryDialog { story=false;vm.prologueSeen=true }
+    tutorQuestionId?.let { questionId ->
+        val draft = state.current?.draft ?: state.generated?.draft
+        val question = draft?.regions?.flatMap { it.questions }?.find { it.id == questionId }
+        if (question != null) PlanetTutorDialog(question, vm.tutor, vm.access, onConfigure = { configure = true }, onClose = { vm.tutor.cancel(questionId); tutorQuestionId = null })
+    }
     if (configure) ModelAccessPanel(sharedSession = vm.access, onClose = { configure = false })
 }
 

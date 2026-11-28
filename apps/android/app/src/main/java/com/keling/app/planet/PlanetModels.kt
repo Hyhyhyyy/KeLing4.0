@@ -6,7 +6,7 @@ import java.time.Instant
 import java.text.Normalizer
 import java.util.Locale
 
-@Serializable data class PlanetQuestion(val id: String, val prompt: String, val options: List<String> = emptyList(), val answerIndex: Int = 0, val explanation: String, val kind: String = "single_choice", val answerIndices: List<Int>? = null, val acceptedAnswers: List<String>? = null, val referenceAnswer: String? = null, val rubric: List<String>? = null, val sourceIds: List<String>? = null)
+@Serializable data class PlanetQuestion(val id: String, val prompt: String, val options: List<String> = emptyList(), val answerIndex: Int = 0, val explanation: String, val kind: String = "single_choice", val answerIndices: List<Int>? = null, val acceptedAnswers: List<String>? = null, val referenceAnswer: String? = null, val rubric: List<String>? = null, val sourceIds: List<String>? = null, val similarTo: String? = null, val practiceResearch: PlanetResearch? = null)
 @Serializable data class PlanetRegion(val id: String, val title: String, val description: String, val prerequisiteIds: List<String> = emptyList(), val estimatedMinutes: Int, val lesson: String, val objectives: List<String>, val questions: List<PlanetQuestion>, val sourceIds: List<String>? = null)
 @Serializable data class PlanetGenerator(val providerId: String, val model: String, val at: String)
 @Serializable data class PlanetSource(val id: String, val title: String, val url: String, val snippet: String, val publishedAt: String? = null)
@@ -33,7 +33,10 @@ fun planetAnswerComplete(question: PlanetQuestion, answer: PlanetAnswer?): Boole
     if (question.kind == "short_answer") answer?.reviewed == true else answer?.correct == true
 fun completedPlanetRegions(draft: PlanetDraft, answers: Map<String, PlanetAnswer>): List<String> {
     val done = linkedSetOf<String>()
-    draft.regions.forEach { region -> if (region.prerequisiteIds.all { it in done } && region.questions.isNotEmpty() && region.questions.all { planetAnswerComplete(it, answers[it.id]) }) done.add(region.id) }
+    draft.regions.forEach { region ->
+        val coreQuestions = region.questions.filter { it.similarTo.isNullOrBlank() }
+        if (region.prerequisiteIds.all { it in done } && coreQuestions.isNotEmpty() && coreQuestions.all { planetAnswerComplete(it, answers[it.id]) }) done.add(region.id)
+    }
     return done.toList()
 }
 

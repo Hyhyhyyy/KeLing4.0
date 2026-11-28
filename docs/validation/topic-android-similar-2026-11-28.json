@@ -1,0 +1,62 @@
+{
+  "date": "2026-11-28",
+  "versionName": "4.3.1-research-rc2",
+  "versionCode": 33,
+  "apk": {
+    "sha256": "889ac6559f1398037a67013de1f80c15e0ec1f18412194119804672dbfc198c2",
+    "graphBundle": "editor-5Z5EDZT7.js",
+    "certificateSha256": "e7b4d86c7a02fb6bb1d21215c393b347d2d67652e5e45dfbe3a3d6c66b7c67a3",
+    "signatureVerified": true,
+    "targetSdk": 34,
+    "path": "apps/android/app/build/research-proof/keling-4.3.1-research-rc2.apk",
+    "graphBundleSha256": "31fac6b7230d7aaa55b6de18f74fa5e1b3fdee8a31674def476519d35b23c26c",
+    "bytes": 85758314,
+    "minSdk": 26,
+    "apiBaseUrl": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg/api"
+  },
+  "checks": {
+    "exitCode": 0,
+    "unitTests": 135,
+    "newTests": 7,
+    "testFailures": 0,
+    "lintWarnings": 40,
+    "testErrors": 0,
+    "gradleTasks": [
+      "testDebugUnitTest",
+      "assembleDebug",
+      "lintDebug"
+    ],
+    "lintReport": "apps/android/app/build/research-proof/lint-results-similar.xml",
+    "lintErrors": 0,
+    "log": "apps/android/app/build/research-proof/build-similar.log"
+  },
+  "features": {
+    "practiceResearchSupported": true,
+    "tutorFailureKeepsInput": true,
+    "originalAnswersPreserved": true,
+    "tutorSupportsAsyncJobs": true,
+    "practiceStageHidesLearningMaterials": true,
+    "tutorContext": "subject, question, options, region lesson, last five conversation turns",
+    "answerDraftStateSavedAcrossStageSwitch": true,
+    "similarRequestKind": "similar",
+    "baseQuestionsAloneCompleteRegion": true,
+    "tutorSendsAnswerMetadata": false,
+    "questionTutorEndpoint": "/trial/workspace/chat"
+  },
+  "coverage": [
+    "Supplementary wrong or unreviewed answers do not relock completed regions; core changes still do",
+    "Guest append preserves raw signed draft unknown fields, original questions and completed answers",
+    "Stored endpoint and required question ID validation",
+    "Failed similar search leaves original guest data unchanged",
+    "Tutor input omits answer indexes, reference answers, explanations, rubric and practice sources",
+    "Anonymous tutor 202 job protocol sends job token and never guest bearer credentials",
+    "Tutor failure keeps input and retry appends only a returned response"
+  ],
+  "boundaries": [
+    "New UI and real similar/tutor operations not yet exercised in emulator or physical device after this implementation",
+    "Mock HTTP tests are protocol/state evidence, not real model or retrieval success",
+    "Earlier cloud screenshots predate the new practice stages",
+    "No upload or publication by this implementation step"
+  ],
+  "supersedesSha256": "def152008491ae0c9e3ffaf0428433fdfd932b12bb864b4ff7197ab005fb2c51"
+}

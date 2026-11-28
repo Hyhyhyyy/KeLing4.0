@@ -213,3 +213,41 @@ test('guest question regeneration preserves other questions, clears replaced ans
  h.setFetch(async()=>response({code:'ARTWORK_FAILED'},502));await assert.rejects(()=>h.planetAPI.regenerate(p.id,'artwork','像素风','image-regenerate'),/原形象已保留/);
  assert.equal((await h.planetAPI.get(p.id)).draft.regions[0].questions[0].id,'new-question');
 });
+
+function fragmentResearch(){return {status:'grounded',intent:'本次相似练习检索',sources:[{id:'local1',title:'相似知识资料',url:'https://example.org/similar',snippet:'恒星发光，月球反射太阳光。'}],queries:['恒星和卫星的区别'],searchedAt:'2026-11-28T00:00:00Z'};}
+function addFragments(d){const q=d.regions[0].questions[0];d.regions[0].questions.push(...[1,2].map(i=>({...q,id:'fragment-'+i,prompt:'相似题 '+i,similarTo:q.id,sourceIds:['local1'],practiceResearch:fragmentResearch()})));return d;}
+
+test('similar fragments require their own grounded sources, same-region parents and acyclic lineage',()=>{
+ const h=harness(),d=addFragments(fixture().draft);assert.equal(h.validatePlanetDraft(d).regions[0].questions.length,3);
+ for(const change of [q=>delete q.practiceResearch,q=>delete q.similarTo,q=>q.practiceResearch.status='insufficient',q=>q.sourceIds=['global-only'],q=>q.sourceIds=[],q=>q.similarTo='question-1',q=>q.similarTo=q.id]){
+  const bad=structuredClone(d);change(bad.regions[0].questions[1]);assert.throws(()=>h.validatePlanetDraft(bad));
+ }
+ const cycle=structuredClone(d);cycle.regions[0].questions[1].similarTo='fragment-2';cycle.regions[0].questions[2].similarTo='fragment-1';assert.throws(()=>h.validatePlanetDraft(cycle),/循环/);
+ // A later explicit rewrite may change a parent's kind without rewriting existing drills.
+ d.regions[0].questions[0]={...d.regions[0].questions[0],kind:'multiple_choice',answerIndices:[0]};assert.equal(h.validatePlanetDraft(d).regions[0].questions[1].kind,undefined);
+ const many=fixture().draft;const base=many.regions[0].questions[0];many.regions[0].questions=Array.from({length:30},(_,i)=>i?{...base,id:'extra-'+i,similarTo:base.id,sourceIds:['local1'],practiceResearch:fragmentResearch()}:base);assert.equal(h.validatePlanetDraft(many).regions[0].questions.length,30);
+ many.regions[0].questions.push({...many.regions[0].questions[1],id:'extra-30'});assert.throws(()=>h.validatePlanetDraft(many),/数量/);
+ const tooManyBase=fixture().draft;tooManyBase.regions[0].questions=Array.from({length:7},(_,i)=>({...base,id:'base-'+i}));assert.throws(()=>h.validatePlanetDraft(tooManyBase),/基础练习/);
+});
+
+test('guest similar search retains original answers, completed regions and the refreshed confirmation token',async()=>{
+ const h=harness();h.guest(false);const generation=fixture(),p=await h.planetAPI.confirm(generation,'fragments-confirm');
+ await h.planetAPI.answer(p.id,'question-0',0,'original-answer');await h.planetAPI.answer(p.id,'question-1',0,'next-answer');
+ h.setFetch(async(url,options)=>{const body=JSON.parse(options.body);assert.match(url,/regenerate-preview$/);assert.equal(body.kind,'similar');assert.equal(body.questionId,'question-0');assert.equal(body.draftToken,'signed-fixture');return response({draft:addFragments(body.draft),draftToken:'signed-with-fragments'});});
+ const result=await h.planetAPI.regenerate(p.id,'similar','同题型再做两道','similar-request','question-0');assert.equal(result.progress.answers['question-0'].attempts,1);assert.equal(result.progress.answers['question-1'].correct,true);assert.equal(result.progress.completedRegionIds.length,2);
+ const wrong=await h.planetAPI.answer(p.id,'fragment-1',1,'fragment-wrong');assert.equal(wrong.feedback.correct,false);assert.equal(wrong.planet.progress.completedRegionIds.length,2);
+ const right=await h.planetAPI.answer(p.id,'fragment-1',0,'fragment-right');assert.equal(right.feedback.correct,true);assert.equal(right.planet.progress.completedRegionIds.length,2);
+ h.setFetch(async(_url,options)=>{const body=JSON.parse(options.body);assert.equal(body.draftToken,'signed-with-fragments');return response({draft:body.draft,draftToken:'signed-again'});});
+ await h.planetAPI.regenerate(p.id,'artwork','保持主题','after-similar');
+});
+
+test('preview similar search returns a newly signed draft without creating guest data',async()=>{
+ const h=harness();h.guest(false);const d=fixture();h.setFetch(async(_url,options)=>{const body=JSON.parse(options.body);assert.equal(body.kind,'similar');return response({draft:addFragments(body.draft),draftToken:'new-preview-signature'});});
+ const result=await h.planetAPI.regeneratePreview(d,'similar','再做两道','preview-fragments','question-0');assert.equal(result.draftToken,'new-preview-signature');assert.equal(result.draft.regions[0].questions.length,3);assert.equal((await h.planetAPI.list()).length,0);
+});
+
+test('hint requests include lesson and visible question but omit grading and answer fields',()=>{
+ const esbuild=require('esbuild'),vm=require('node:vm'),path=require('node:path');const code=esbuild.buildSync({entryPoints:[path.resolve(__dirname,'../src/services/planetHints.ts')],bundle:true,platform:'node',format:'cjs',write:false}).outputFiles[0].text;const exports={},context={module:{exports},exports,require};vm.runInNewContext(code,context);
+ const d=diverseFixture(),q={...d.regions[0].questions[4],explanation:'SECRET_EXPLANATION',referenceAnswer:'SECRET_ANSWER',rubric:['SECRET_RUBRIC'],acceptedAnswers:['SECRET_ACCEPTED']};
+ const output=context.module.exports.planetHintContext(d,d.regions[0],q,'从哪里开始？');assert.match(output.message,/从哪里开始/);assert.match(output.message,/不直接揭示答案/);assert.equal(output.sources[0].text,d.regions[0].lesson);assert.doesNotMatch(JSON.stringify(output),/SECRET_|answerIndex|answerIndices|referenceAnswer|acceptedAnswers|rubric/);
+});

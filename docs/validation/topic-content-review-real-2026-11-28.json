@@ -1,0 +1,64 @@
+{
+  "attemptedAt": "2026-11-28T09:07:21.830Z",
+  "context": "Normal existing PlatformModule identity; actual NativePlanetService and current root reviewPlanetContent source",
+  "attempts": [
+    {
+      "number": 1,
+      "hasRepairInput": false,
+      "startedAt": "2026-11-28T09:07:26.667Z",
+      "durationMs": 16991,
+      "outputKeys": [
+        "reviewedQuestionIds",
+        "reviewedRegionIds",
+        "reviewedNodeIds",
+        "issues",
+        "orderingChecks"
+      ]
+    },
+    {
+      "number": 2,
+      "hasRepairInput": true,
+      "startedAt": "2026-11-28T09:07:43.668Z",
+      "durationMs": 12353,
+      "outputKeys": [
+        "reviewedQuestionIds",
+        "reviewedRegionIds",
+        "reviewedNodeIds",
+        "issues",
+        "orderingChecks"
+      ]
+    }
+  ],
+  "contractValid": true,
+  "stage": "root-review",
+  "result": "actual-review-accepted",
+  "issues": [
+    {
+      "targetType": "question",
+      "targetId": "q2",
+      "code": "ANSWER_EXPLANATION_CONFLICT",
+      "reason": "题干表述为‘孤立系统的熵只会增加不会减少’，但熵增原理是孤立系统的熵不会减少，可能保持不变（如可逆过程），题干表述绝对化，与正确的原理内容存在冲突，答案判为正确不准确。"
+    },
+    {
+      "targetType": "question",
+      "targetId": "q6",
+      "code": "ANSWER_EXPLANATION_CONFLICT",
+      "reason": "排序题答案序列错误，根据时间先后，普朗克1923年引入熵概念到中国早于薛定谔1943年提出负熵，正确顺序应为克劳修斯提出热力学熵、玻尔兹曼提出统计熵、普朗克引入中国、薛定谔提出负熵，与给出的answerIndices[1,0,3,2]不符。"
+    },
+    {
+      "targetType": "question",
+      "targetId": "q18",
+      "code": "ORDER_NOT_UNIQUE",
+      "reason": "概念严谨性属于价值评价范畴，没有统一的共同衡量指标，热力学熵和信息熵分属不同学科领域，无法强排唯一的严谨性高低顺序，不能按唯一排序判分。"
+    },
+    {
+      "targetType": "question",
+      "targetId": "q18",
+      "code": "ORDER_BASIS_MISSING",
+      "reason": "未提供支持所有选项同尺度比较或明确先后关系的依据；请改为有依据的任务，不强行排序。"
+    }
+  ],
+  "detectedQ6": true,
+  "detectedQ18": true,
+  "elapsedMs": 29357
+}

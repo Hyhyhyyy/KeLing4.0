@@ -16,6 +16,7 @@ class PlanetViewModel(val token: String, private val api: PlanetApi = PlanetApi(
     val access = guestWorkspace?.modelAccess ?: ModelAccessSession()
     private var closed = false
     private var job: Job? = null
+    val tutor = PlanetTutorController(api, access, { mutable.value.current?.draft ?: mutable.value.generated?.draft }, viewModelScope)
     private var draftRequestId = UUID.randomUUID().toString()
     private val answerReceipts = mutableMapOf<String, String>()
     private val regenerationReceipts = mutableMapOf<String, String>()
@@ -61,6 +62,7 @@ class PlanetViewModel(val token: String, private val api: PlanetApi = PlanetApi(
     fun open(id: String) = action { val record = api.get(id); update { it.copy(current = record, generated = null, feedback = emptyMap()) } }
     fun overview() { if (!mutable.value.busy) update { it.copy(current = null, generated = null, feedback = emptyMap(), error = null, notice = null) } }
     fun discardPreview() { if (!mutable.value.busy) update { it.copy(generated = null) } }
+    fun similar(questionId: String) = regenerate("similar", questionId, "围绕这道题的知识点，搜索并生成两道同题型的新练习")
     fun regenerate(kind: String, questionId: String?, instruction: String) = action {
         val before = mutable.value
         val draft = before.current?.draft ?: before.generated?.draft ?: throw IllegalArgumentException("请先生成星球")
@@ -68,9 +70,10 @@ class PlanetViewModel(val token: String, private val api: PlanetApi = PlanetApi(
         val requestId = regenerationReceipts.getOrPut(key) { UUID.randomUUID().toString() }
         val result = api.regenerate(before.current, before.generated, kind, questionId, instruction, requestId)
         require(result.generated != null || result.planet != null) { "重新生成结果不完整，原内容已保留" }
+        val notice = when (kind) { "artwork" -> "星球形象已更新"; "similar" -> "已找到两道相似碎片"; else -> "探索题已更新" }
         update { old ->
-            if (result.planet != null) old.copy(current = result.planet, planets = old.planets.map { if (it.id == result.planet.id) result.planet else it }, feedback = old.feedback - questionId.orEmpty(), notice = if (kind == "artwork") "星球形象已更新" else "探索题已更新")
-            else old.copy(generated = result.generated, notice = if (kind == "artwork") "星球形象已更新" else "探索题已更新")
+            if (result.planet != null) old.copy(current = result.planet, planets = old.planets.map { if (it.id == result.planet.id) result.planet else it }, feedback = if (kind == "question") old.feedback - questionId.orEmpty() else old.feedback, notice = notice)
+            else old.copy(generated = result.generated, notice = notice)
         }
         regenerationReceipts.remove(key)
         if (result.generated != null) draftRequestId = UUID.randomUUID().toString()
@@ -93,6 +96,6 @@ class PlanetViewModel(val token: String, private val api: PlanetApi = PlanetApi(
         update { it.copy(notice = "已加入学习任务") }
     } }
     fun cancelGeneration() { job?.cancel(); update { it.copy(busy = false, loading = false) } }
-    fun shutdown() { closed = true; job?.cancel(); viewModelScope.cancel(); if (guestWorkspace == null) access.close() }
+    fun shutdown() { closed = true; job?.cancel(); tutor.close(); viewModelScope.cancel(); if (guestWorkspace == null) access.close() }
     override fun onCleared() { shutdown() }
 }

@@ -1,0 +1,52 @@
+{
+  "at": "2026-11-28T08:41:07.023Z",
+  "scope": "Actual 404 to same-origin home fallback; no model invocation",
+  "references": [
+    {
+      "sourceId": "official-old-search",
+      "pageUrl": "https://www.nailoong.com/",
+      "imageUrl": "https://www.nailoong.com/_ipx/q_85/img/main_view_image.png",
+      "alt": ""
+    },
+    {
+      "sourceId": "official-old-search",
+      "pageUrl": "https://www.nailoong.com/",
+      "imageUrl": "https://www.nailoong.com/_ipx/q_85/img/stars/star_image_nl.png",
+      "alt": ""
+    }
+  ],
+  "observations": [
+    {
+      "kind": "page",
+      "url": "https://www.nailoong.com/ipStar/NaiLong/",
+      "status": 404,
+      "error": "Unexpected visual reference HTTP status"
+    },
+    {
+      "kind": "page",
+      "url": "https://www.nailoong.com/",
+      "mime": "text/html",
+      "bytes": 63601,
+      "sha256": "5ad9fb04818854969d00177b524edb3d8956ba4f21446aa109a2a998e4d44548"
+    },
+    {
+      "kind": "image",
+      "url": "https://www.nailoong.com/_ipx/q_85/img/main_view_image.png",
+      "mime": "image/png",
+      "bytes": 227461,
+      "sha256": "3da12242bf1b129929f2c967f5106b225b9ab7eb34394b8746e1e6d010ac866d"
+    },
+    {
+      "kind": "image",
+      "url": "https://www.nailoong.com/_ipx/q_85/img/radius-background.png",
+      "error": "Decorative visual reference image"
+    },
+    {
+      "kind": "image",
+      "url": "https://www.nailoong.com/_ipx/q_85/img/stars/star_image_nl.png",
+      "mime": "image/png",
+      "bytes": 40661,
+      "sha256": "5d58ae4a3962123fc6c69d504e1a6c84dea212b6189d044618f0a8f57a9d7d7d"
+    }
+  ]
+}

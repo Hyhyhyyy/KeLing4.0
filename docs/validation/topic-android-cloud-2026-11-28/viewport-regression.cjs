@@ -1,0 +1,18 @@
+const {chromium}=require('playwright');
+const http=require('node:http'),fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
+const root=path.resolve('apps/web/public/graph-editor');
+const payload={protocol:1,type:'keling-graph:init',courseId:'viewport-fixture',sessionId:'viewport-fixture',readOnly:true,layoutSaved:false,savedNodeIds:[],nodes:Array.from({length:12},(_,i)=>({id:'n'+i,name:'知识点 '+(i+1),description:'仅用于视口回归的固定测试数据',parentIds:i?['n'+Math.floor((i-1)/3)]:[],positionX:.5,positionY:.5,masteryLevel:0,difficulty:1}))};
+const server=http.createServer((req,res)=>{if(req.url==='/'){res.setHeader('Content-Type','text/html');res.end('<iframe id="canvas" style="width:304px;height:0;border:0" src="/index.html"></iframe>');return;}const filename=path.join(root,path.basename(req.url));if(!fs.existsSync(filename)){res.writeHead(404).end();return;}res.setHeader('Content-Type',filename.endsWith('.js')?'application/javascript':filename.endsWith('.css')?'text/css':'text/html');res.end(fs.readFileSync(filename));});
+(async()=>{await new Promise(r=>server.listen(0,'127.0.0.1',r));const browser=await chromium.launch({channel:'chrome',headless:true});try{
+  const page=await browser.newPage({viewport:{width:720,height:900}});await page.goto('http://127.0.0.1:'+server.address().port+'/');const frame=page.frames()[1];await frame.waitForFunction(()=>Boolean(window.KelingGraphEditor));await frame.evaluate(p=>window.KelingGraphEditor.receive(p),payload);await frame.locator('.x6-node').first().waitFor({state:'attached'});
+  await page.locator('#canvas').evaluate(el=>el.style.height='380px');await frame.waitForFunction(()=>{const scale=parseInt(document.querySelector('#scale').textContent);return scale>10&&scale<100;});await frame.evaluate(()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r))));
+  const before=await frame.locator('#scale').innerText(),box=await frame.locator('#graph').boundingBox();const nodes=await Promise.all((await frame.locator('.x6-node').all()).map(n=>n.boundingBox()));
+  assert.ok(nodes.every(n=>n.x>=box.x-1&&n.y>=box.y-1&&n.x+n.width<=box.x+box.width+1&&n.y+n.height<=box.y+box.height+1),'all nodes must fit after zero-height frame becomes visible');
+  await frame.getByRole('button',{name:'放大图谱',exact:true}).click();const zoom=await frame.locator('#scale').innerText();const beforePan=await frame.locator('.x6-graph-svg-viewport').getAttribute('transform');
+  await page.mouse.move(box.x+12,box.y+12);await page.mouse.down();await page.mouse.move(box.x+62,box.y+32,{steps:8});await page.mouse.up();
+  const transform=await frame.locator('.x6-graph-svg-viewport').getAttribute('transform');assert.notEqual(transform,beforePan,'canvas must pan');
+  await page.locator('#canvas').evaluate(el=>el.style.width='390px');await frame.waitForFunction(()=>document.getElementById('graph').getBoundingClientRect().width>350);await frame.evaluate(()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r))));
+  assert.equal(await frame.locator('#scale').innerText(),zoom);assert.equal(await frame.locator('.x6-graph-svg-viewport').getAttribute('transform'),transform,'user zoom/position must survive resize');
+  await page.screenshot({path:'.cache/topic-research-20261128/android/viewport-regression.png'});
+  const result={fixture:true,hiddenInitialHeight:0,shownHeight:380,initialFit:before,all12NodesWithinViewport:true,userZoom:zoom,userPanVerified:true,resizePreservedUserTransform:true};fs.writeFileSync('.cache/topic-research-20261128/android/viewport-regression.json',JSON.stringify(result,null,2));console.log(JSON.stringify(result));
+}finally{await browser.close();server.close();}})().catch(e=>{console.error(e.message);process.exitCode=1;server.close();});

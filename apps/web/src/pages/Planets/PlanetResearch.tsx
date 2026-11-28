@@ -1,4 +1,4 @@
-import type { PlanetDraft } from '@keling/shared';
+import type { PlanetDraft, PlanetResearch as Research } from '@keling/shared';
 import { sourceUrl } from './practiceAnswers';
 
 export function PlanetResearch({ draft }: { draft: PlanetDraft }) {
@@ -13,8 +13,8 @@ export function PlanetResearch({ draft }: { draft: PlanetDraft }) {
   </section>;
 }
 
-export function QuestionSources({ draft, ids }: { draft: PlanetDraft; ids?: string[] }) {
-  const sources=draft.research?.sources.filter(s=>ids?.includes(s.id)&&sourceUrl(s.url))||[];
+export function QuestionSources({ draft, ids, research }: { draft: PlanetDraft; ids?: string[]; research?:Research }) {
+  const sources=(research??draft.research)?.sources.filter(s=>ids?.includes(s.id)&&sourceUrl(s.url))||[];
   if(!sources.length)return null;
   return <div className="planet-question-sources"><span>参考资料</span>{sources.map(s=><a href={sourceUrl(s.url)} target="_blank" rel="noopener noreferrer" key={s.id}>{s.title}</a>)}</div>;
 }

@@ -1,0 +1,41 @@
+{
+  "cause": "Official image plugin returned a public relative static-storage path, rejected by the absolute-URL validator",
+  "actualImageModelOutput": true,
+  "rawReturnShape": {
+    "images": "string[1]",
+    "urlCharacters": 158,
+    "relativePath": true
+  },
+  "normalization": "Only current app + fixed _static bucket + plugin safe key; keep existing HTTPS validation",
+  "publicReads": [
+    {
+      "origin": "https://ucn5aajxnx7f.feishuapp.com",
+      "curlExitCode": 0,
+      "statusLines": [
+        "200",
+        "image/jpeg",
+        "926862"
+      ],
+      "bytes": 926862,
+      "sha256": "67046743668552281f7b9511d6ff93d09c2a00567ba781f466a40346ea68951b",
+      "prefixHex": "ffd8ffe000104a464946000101000001"
+    },
+    {
+      "origin": "https://ucn5aajxnx7f.feishu.link",
+      "curlExitCode": 0,
+      "statusLines": [
+        "200",
+        "image/jpeg",
+        "926862"
+      ],
+      "bytes": 926862,
+      "sha256": "67046743668552281f7b9511d6ff93d09c2a00567ba781f466a40346ea68951b",
+      "prefixHex": "ffd8ffe000104a464946000101000001"
+    }
+  ],
+  "adapterTests": {
+    "passed": 3,
+    "failed": 0
+  },
+  "newModelCallsAfterDiagnostic": 0
+}

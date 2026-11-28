@@ -7,6 +7,7 @@ import './editor.css';
 declare global { interface Window { KelingGraph?:{postMessage:(message:string)=>void}; KelingGraphEditor:{receive:(message:unknown)=>void} } }
 const container=document.getElementById('graph')!, status=document.getElementById('status')!, errorBox=document.getElementById('error')!, editButton=document.getElementById('edit-selected') as HTMLButtonElement;
 let input:GraphInput|null=null, changing=false, selected='', cardScale=1, savedFingerprint='', savePending=false;
+let initialFitActive=false, initialFitFrame=0;
 const graph=new Graph({container,autoResize:true,background:{color:'#fbfbf2'},grid:false,
   panning:{enabled:true,eventTypes:['leftMouseDown','mouseWheelDown']},
   mousewheel:{enabled:true,modifiers:null,minScale:.1,maxScale:5,factor:1.12,zoomAtMousePosition:true},scaling:{min:.1,max:5},
@@ -48,6 +49,24 @@ function dirty(){return Boolean(input?.nodes.length)&&positionFingerprint(positi
 function updateStatus(message?:string){const unsaved=dirty();if(input?.readOnly){status.dataset.dirty='false';status.textContent='知识图谱预览';document.querySelectorAll<HTMLButtonElement>('[data-command=save],[data-command=autoLayout],#edit-selected').forEach(button=>{button.hidden=true;});return;}document.querySelectorAll<HTMLButtonElement>('[data-command=save],[data-command=autoLayout],#edit-selected').forEach(button=>{button.hidden=false;});status.dataset.dirty=String(unsaved);status.textContent=message||(savePending?'正在保存…':!input?.nodes.length?'暂无知识点':unsaved?'布局未保存':'布局已保存');document.querySelectorAll<HTMLButtonElement>('[data-command=save]').forEach(button=>button.disabled=savePending||!unsaved||input?.readOnly===true);document.querySelectorAll<HTMLButtonElement>('[data-command=autoLayout]').forEach(button=>button.disabled=input?.readOnly===true||!input?.nodes.length);}
 function fail(message:string){errorBox.hidden=false;errorBox.textContent=message;send('error',{message});}
 function fit(){if(graph.getNodes().length){graph.zoomToFit({padding:28,maxScale:1.15,minScale:.1});}else graph.zoomTo(1);}
+function stopInitialFit(){initialFitActive=false;cancelAnimationFrame(initialFitFrame);}
+function scheduleInitialFit(){
+  if(!initialFitActive)return;
+  cancelAnimationFrame(initialFitFrame);
+  initialFitFrame=requestAnimationFrame(()=>{
+    if(!initialFitActive||document.visibilityState==='hidden')return;
+    const {width,height}=container.getBoundingClientRect();
+    if(width<=56||height<=56)return;
+    // A precomposed Android WebView can receive its data before its viewport.
+    // Resize before fitting; X6's own observer only resizes and keeps the old transform.
+    graph.resize(Math.round(width),Math.round(height));fit();
+  });
+}
+new ResizeObserver(scheduleInitialFit).observe(container.parentElement!);
+document.addEventListener('visibilitychange',scheduleInitialFit);
+container.addEventListener('pointerdown',stopInitialFit,{passive:true});
+container.addEventListener('wheel',stopInitialFit,{passive:true});
+graph.on('render:done',scheduleInitialFit);
 function selectNode(id:string){selected=id;graph.getNodes().forEach(node=>node.attr('body/stroke',node.id===id?'#bc8e37':'#7aa894'));graph.getNodes().forEach(node=>node.attr('body/strokeWidth',(node.id===id?3:1.6)*cardScale));const node=input?.nodes.find(n=>n.id===id);document.getElementById('selection-label')!.textContent=node?.name||'选择知识点';editButton.disabled=!node||input?.readOnly===true;send('selected',{nodeId:id||null});}
 function applyPositions(next:GraphPosition[]){changing=true;const byId=new Map(next.map(p=>[p.id,p]));graph.getNodes().forEach(node=>{const p=byId.get(node.id);if(p){const size=node.size();node.position(p.positionX*WORLD_SIZE-size.width/2,p.positionY*WORLD_SIZE-size.height/2);}});changing=false;}
 function render(next:GraphInput,preserveLayout=false){
@@ -61,12 +80,12 @@ function render(next:GraphInput,preserveLayout=false){
   const edges=(next.edges||graphEdges(next.nodes)).map((edge,index)=>graph.createEdge({id:`edge-${index}`,source:{cell:edge.source,anchor:{name:'right'}},target:{cell:edge.target,anchor:{name:'left'}},router:{name:'manhattan',args:{padding:28*cardScale,startDirections:['right'],endDirections:['left']}},connector:{name:'rounded',args:{radius:12*cardScale}},labels:'label' in edge&&edge.label?[{attrs:{label:{text:edge.label,fontFamily:'华文中宋,serif',fontSize:14*cardScale,fill:'#355d55'},body:{fill:'#fffdf4',stroke:'#bdd1c4',rx:3,ry:3}}}]:[],attrs:{line:{stroke:'kind' in edge&&edge.kind==='related'?'#bd9b50':'#74a18c',strokeDasharray:'kind' in edge&&edge.kind==='related'?'7 5':undefined,strokeWidth:2.1*cardScale,targetMarker:{name:'path',d:`M 12 -6 L 0 0 L 12 6 L 9 0 Z`,fill:'#74a18c',stroke:'#4e806c',strokeWidth:1},strokeLinecap:'round'}},zIndex:1}));
   graph.resetCells([...cells,...edges]);changing=false;savedFingerprint=preserve?previousFingerprint:next.layoutSaved?positionFingerprint(positions()):'';
   document.getElementById('node-count')!.textContent=`${next.nodes.length} 个节点 · ${edges.length} 条关系`;
-  selectNode('');updateStatus();fit();
+  selectNode('');updateStatus();initialFitActive=true;scheduleInitialFit();
   requestAnimationFrame(()=>{container.querySelectorAll<SVGGElement>('.x6-node').forEach(el=>{el.setAttribute('tabindex','0');el.setAttribute('role','button');const id=el.getAttribute('data-cell-id');el.setAttribute('aria-label',next.nodes.find(n=>n.id===id)?.name||'知识点');el.onkeydown=e=>{if(e.key==='Enter'&&id){selectNode(id);send('editRequested',{nodeId:id});}};});});
   if(next.fontUrl){try{const url=new URL(next.fontUrl,location.href);if(url.origin===location.origin){const face=new FontFace('华文中宋',`url("${url.href}")`);void face.load().then(font=>document.fonts.add(font)).catch(()=>{});}}catch{/* Keep the bundled local font. */}}
   send('readyState',{positions:positions(),dirty:next.readOnly?false:dirty(),saved:next.readOnly?false:!dirty(),scale:graph.zoom()});
 }
-function command(value:string){if(!input)return;errorBox.hidden=true;switch(value){case'fit':fit();break;case'zoomIn':graph.zoom(.15);break;case'zoomOut':graph.zoom(-.15);break;case'autoLayout':if(!input.readOnly){applyPositions(automaticLayout(input.nodes).positions);fit();updateStatus();send('layoutChanged',{positions:positions(),reason:'auto',dirty:dirty()});}break;case'save':if(!input.readOnly&&dirty()&&!savePending){savePending=true;updateStatus();send('saveRequested',{positions:positions()});}break;}}
+function command(value:string){if(!input)return;errorBox.hidden=true;if(['fit','zoomIn','zoomOut','autoLayout'].includes(value))stopInitialFit();switch(value){case'fit':fit();break;case'zoomIn':graph.zoom(.15);break;case'zoomOut':graph.zoom(-.15);break;case'autoLayout':if(!input.readOnly){applyPositions(automaticLayout(input.nodes).positions);fit();updateStatus();send('layoutChanged',{positions:positions(),reason:'auto',dirty:dirty()});}break;case'save':if(!input.readOnly&&dirty()&&!savePending){savePending=true;updateStatus();send('saveRequested',{positions:positions()});}break;}}
 function receive(raw:unknown){let message:Record<string,unknown>;try{message=(typeof raw==='string'?JSON.parse(raw):raw) as Record<string,unknown>;if(!message||message.protocol!==PROTOCOL||typeof message.type!=='string')return;if(message.type==='keling-graph:init'){render(validateGraphInput(message),message.preserveLayout===true);return;}if(!input||message.sessionId!==input.sessionId||message.courseId!==input.courseId)return;
   if(message.type==='keling-graph:command'&&typeof message.command==='string')command(message.command);
   else if(message.type==='keling-graph:saved'){savePending=false;const snapshot=Array.isArray(message.positions)?message.positions as GraphPosition[]:positions();savedFingerprint=positionFingerprint(snapshot);updateStatus();send('saveState',{dirty:dirty()});}

@@ -1,0 +1,367 @@
+{
+  "attemptedAt": "2026-11-28T09:43:40.583Z",
+  "mock": false,
+  "context": "Normal existing PlatformModule app identity; current root appendSimilarQuestions/prepareSimilarQuestions/reviewPlanetContent source; no storage writes",
+  "inputFile": ".cache/topic-research-20261128/nailong-question-real.json",
+  "attempts": [
+    {
+      "number": 1,
+      "capability": "keling-learning-similar-questions",
+      "hasFormatRepair": false,
+      "durationMs": 13973,
+      "outputKeys": [
+        "questions",
+        "error"
+      ]
+    },
+    {
+      "number": 2,
+      "capability": "keling-planet-content-review",
+      "scopeQuestionId": "q_2838920423e04ed1a85d9ba102c0085e",
+      "hasFormatRepair": false,
+      "durationMs": 3374,
+      "outputKeys": [
+        "reviewedQuestionIds",
+        "reviewedRegionIds",
+        "reviewedNodeIds",
+        "issues",
+        "orderingChecks"
+      ]
+    },
+    {
+      "number": 3,
+      "capability": "keling-planet-content-review",
+      "scopeQuestionId": "q_a9f640c85b534a238ff6772f755fd6a1",
+      "hasFormatRepair": false,
+      "durationMs": 2497,
+      "outputKeys": [
+        "reviewedQuestionIds",
+        "reviewedRegionIds",
+        "reviewedNodeIds",
+        "issues",
+        "orderingChecks"
+      ]
+    }
+  ],
+  "searchCalls": 2,
+  "parentQuestionId": "q_9719a8dc68b44ed6b529dcc555eebdf1",
+  "parentQuestion": {
+    "id": "q_9719a8dc68b44ed6b529dcc555eebdf1",
+    "prompt": "下列关于奶龙IP的描述中，哪些属于原作官方设定的事实，哪些属于网络二创或玩梗的内容？请选出所有属于原作官方设定事实的选项。",
+    "options": [
+      "是拥有3900万+粉丝的原创萌宠卡通IP",
+      "官方定位为“国民萌宠ip”",
+      "核心形象是黄色的卡通龙",
+      "“奶蛙”是其官方衍生的核心形象之一",
+      "与“牢大”、贝利亚并称“抽象三巨头”",
+      "围绕IP产出了动画、周边等多种内容"
+    ],
+    "answerIndex": 0,
+    "explanation": "选项1、2、3、6均为奶龙原作IP的官方设定事实，可通过千龙网、新浪新闻等来源以及课文内容验证。选项4错误，“奶蛙”是网友借助AI二创衍生出的形象，并非官方设定；选项5错误，“抽象三巨头”的说法是网络社群对相关梗形象的戏称，属于玩梗内容，不属于官方原作设定。需要注意区分官方原作的确定内容与网友二次创作的衍生梗，不能将二创内容等同于原作设定。",
+    "kind": "multiple_choice",
+    "answerIndices": [
+      0,
+      1,
+      2,
+      5
+    ],
+    "sourceIds": [
+      "s1",
+      "s3",
+      "s5",
+      "s7",
+      "s8"
+    ]
+  },
+  "originalQuestionCount": 12,
+  "functionSha256": "f2ca4a954cb1b30254a19e35358c47ec0edc566507cd4486e74d2dc6b6aede58",
+  "stage": "fresh-search-generate-scope-review",
+  "research": {
+    "intent": "辨析网络流行语、社群用法与原作含义；区分可查事实、解释和争议，不把戏谑当学术定义。",
+    "queries": [
+      "奶龙学 网络流行语 梗 二创 含义 用法",
+      "奶龙学 原作 二创 语境 出处 争议 误区 相似练习的知识依据：下列关于奶龙IP的描述中，哪些属于原作官方设定的事实，哪些属于网络二创或玩梗的内容？请选出所有属于原作官方设定事实的选项。"
+    ],
+    "searchedAt": "2026-11-28T09:43:45.394Z",
+    "status": "grounded",
+    "sources": [
+      {
+        "title": "从“国民萌宠ip”到“抽象顶流”奶龙—奶蛙的赛博进化-千龙网·中国首都网",
+        "url": "https://ent.qianlong.com/2026/1113/8750750.shtml",
+        "snippet": "# 从“国民萌宠ip”到“抽象顶流”奶龙—奶蛙的赛博进化 相比于“奶蛙”可“奶”万物的现状，这个家伙更让人惊奇的点在于：它是从有3900万+粉丝的原创IP“奶龙”演化来的——这大概解释了为什么它的名字里也带个“奶”字。 据粉丝考证，“奶蛙”的诞生，本质上...",
+        "id": "s1"
+      },
+      {
+        "title": "Nailoong - IP Stars - Seventh Impression Official Website—Nailoong",
+        "url": "https://www.nailoong.com/en-us/ipStar/Nailong/",
+        "snippet": "## IP大明星 Nailoong is the first original 3D animated IP created by Seventh Impression. ## 品牌故事 Born in 2019, Nailoong was created by Chengen Xie as a gift for both kids and grown-ups.From a young age, Xie Cheng’en, creator of Nailoong, loved drawing and dreamed of making animated films. --- ## 有声读物 Nailoong's first animated series adapted from a comic...",
+        "id": "s2"
+      },
+      {
+        "title": "《捧腹大笑思想与奶龙学概论》第一版前言",
+        "url": "https://xn--psszg58c9c2281ajit.lol/files/history.pdf",
+        "snippet": "## 第五章 捧腹大笑思想理论体系 捧腹大笑对年轻人有什么魔力？关于这个问题，我们可以通过深入的思考，建立奶蛙捧腹大笑思想理论体系（逼真）。 --- ## 第六章 奶蛙的衍生语与衍生动作 奶蛙产生了许多奇妙的衍生语（绝大多数来源于王者荣耀中不知火舞语音的变速变调）和衍生动作。我们将会一一说明并提及有关的著名奶蛙二创...",
+        "id": "s3"
+      },
+      {
+        "title": "奶龙 - IP大明星 - 第七印象官方网站-奶龙Nailoong",
+        "url": "https://www.nailoong.com/ipStar/Nailong/",
+        "snippet": "# 奶龙 - IP大明星 ## IP大明星 奶龙是第七印象打造的首个原创3D动漫系列IP，拥有软萌讨喜的形象与乐观向上的性格，传递正能量、温暖人心。他用自己的方式，教会了我们如何以乐观的心态面对生活，如何用纯真的心去关爱他人。 --- ## 品牌故事 诞生于2019年的奶龙，是“...",
+        "id": "s4"
+      },
+      {
+        "title": "从“国民萌宠ip”到“抽象顶流”奶龙—奶蛙的赛博进化|小红书|抖音|粉丝|本质|狂欢_手机新浪网",
+        "url": "https://news.sina.cn/sx/2026-11-17/detail-iniyzswf7636444.d.html",
+        "snippet": "# 从“国民萌宠ip”到“抽象顶流”奶龙—奶蛙的赛博进化 相比于“奶蛙”可“奶”万物的现状,这个家伙更让人惊奇的点在于:它是从有3900万+粉丝的原创IP“奶龙”演化来的——这大概解释了为什么它的名字里也带个“奶”字。 据粉丝考证,“奶蛙”的诞生,本质上是...",
+        "id": "s5"
+      },
+      {
+        "title": "从“国民萌宠ip”到“抽象顶流”奶龙—奶蛙的赛博进化_即时新闻_大众网",
+        "url": "http://www.dzwww.com/xinwen/jishixinwen/202611/t20261113_18299164.htm",
+        "snippet": "# 从“国民萌宠ip”到“抽象顶流”奶龙—奶蛙的赛博进化 相比于“奶蛙”可“奶”万物的现状，这个家伙更让人惊奇的点在于：它是从有3900万+粉丝的原创IP“奶龙”演化来的——这大概解释了为什么它的名字里也带个“奶”字。 据粉丝考证，“奶蛙”的诞生，本质上...",
+        "id": "s6"
+      },
+      {
+        "title": "“风评被害”的奶龙，做错了什么?",
+        "url": "https://www.nfnews.com/content/0oXX4WNJo9.html",
+        "snippet": "## 奶龙为什么被暴打？ 在讨厌奶龙的人们看来，奶龙的形象既低智又尴尬，为了强化这样的标签，奶龙“吐舌头跳土耳其舞”的表情包动图也被制作出来，并开始在互联网迅速传播。 随后则是大量的二创视频，内容是奶龙和奥特曼、胖猫、贝利亚（《奥特曼》中的反派角色）等抽象角色一起“群魔乱舞”。",
+        "id": "s7"
+      },
+      {
+        "title": "奶龙[动画短片《小七和奶龙》中的主角]_百科",
+        "url": "https://m.baike.com/wiki/%E5%A5%B6%E9%BE%99/7270402341705957413",
+        "snippet": "## 形象设定 奶龙是第七印象文化传媒(深圳)有限公司旗下的原创IP品牌，为3D动画片《奶龙》(又名《小七和奶龙》)的主角。团队创作该IP的初衷是打造一个温暖治愈、能为观众带来欢乐的可爱伙伴，因此将其设定为一只3岁的流落地球会喷火的异星幼龙，遇到地球少年小七，两人成为好朋友并开启了搞笑冒险之旅，拥有变色、变大...",
+        "id": "s8"
+      },
+      {
+        "title": "2026第一猎奇梗“大笑奶龙”，让奶龙官方账号关闭了评论区_3DM专栏",
+        "url": "http://www.3dmgame.com/original/3745893.html",
+        "snippet": "# 2026第一猎奇梗“大笑奶龙”，让奶龙官方账号关闭了评论区 而就在最近，与“牢大”、贝利亚并称“抽象三巨头”的奶龙，也在AI的帮助下，迎来了自己的进化形态——大笑奶龙。 你可能会问我，奶龙之前火遍大江南北，在座的各位都知道奶龙长什么样子——这个鬼玩意和奶龙相似的...",
+        "id": "s9"
+      },
+      {
+        "title": "别被二创骗了，奶龙原作里根本就没有妈妈_新浪新闻",
+        "url": "https://www.sina.cn/news/detail/5344945771644033.html",
+        "snippet": "能以奶龙之身相见吗 26-09-19 19:37 奶龙没有官方的妈妈！ 原作动画里面根本不存在奶龙妈妈这个角色。 网上所有叫奶龙妈妈的，全部都是网友自己编的二创小故事，不是正版剧情。 所以答案：奶龙没有妈妈。",
+        "id": "s10"
+      }
+    ]
+  },
+  "instruction": "围绕原题知识点搜索两道相似多选练习，换用不同材料与情境，保留六个选项，不把粉丝说法当确定史实。",
+  "elapsedMs": 21147,
+  "addedQuestions": [
+    {
+      "id": "q_2838920423e04ed1a85d9ba102c0085e",
+      "prompt": "材料一：奶龙是第七印象打造的首个原创3D动漫系列IP，拥有软萌讨喜的形象与乐观向上的性格，传递正能量、温暖人心。他用自己的方式，教会了我们如何以乐观的心态面对生活，如何用纯真的心去关爱他人。诞生于2019年的奶龙，是创作者谢承恩送给孩子和大人的礼物。\n材料二：奶龙是第七印象文化传媒(深圳)有限公司旗下的原创IP品牌，为3D动画片《奶龙》(又名《小七和奶龙》)的主角。团队创作该IP的初衷是打造一个温暖治愈、能为观众带来欢乐的可爱伙伴，因此将其设定为一只3岁的流落地球会喷火的异星幼龙，遇到地球少年小七，两人成为好朋友并开启了搞笑冒险之旅，拥有变色、变大等能力。\n情境：校园动漫社正在整理国产原创IP的官方设定档案，需要从各类网络信息中筛选出奶龙IP的官方原作设定内容，避免将二创内容混入档案。\n问题：下列关于奶龙IP的描述中，哪些属于原作官方设定的事实？请选出所有符合的选项。",
+      "options": [
+        "是第七印象打造的首个原创3D动漫系列IP",
+        "设定为3岁的流落地球会喷火的异星幼龙",
+        "与地球少年小七是好朋友，共同开启搞笑冒险",
+        "“大笑奶龙”是官方推出的全新进化形态形象",
+        "拥有变色、变大等特殊能力",
+        "官方设定中奶龙有一位陪伴它成长的妈妈角色"
+      ],
+      "answerIndex": 0,
+      "explanation": "“是第七印象打造的首个原创3D动漫系列IP”这一说法被材料一支持，属于官方设定事实。“设定为3岁的流落地球会喷火的异星幼龙”这一说法被材料二支持，属于官方原作设定。“与地球少年小七是好朋友，共同开启搞笑冒险”这一说法被材料二支持，属于官方原作剧情设定。“‘大笑奶龙’是官方推出的全新进化形态形象”属于网络二创内容，并非官方设定，材料中未提及官方推出该形态。“拥有变色、变大等特殊能力”这一说法被材料二支持，属于官方原作的能力设定。“官方设定中奶龙有一位陪伴它成长的妈妈角色”属于网友二创内容，原作动画不存在该角色，不属于官方设定。",
+      "kind": "multiple_choice",
+      "answerIndices": [
+        0,
+        1,
+        2,
+        4
+      ],
+      "sourceIds": [
+        "s2",
+        "s4",
+        "s8",
+        "s9",
+        "s10"
+      ],
+      "similarTo": "q_9719a8dc68b44ed6b529dcc555eebdf1",
+      "practiceResearch": {
+        "status": "grounded",
+        "intent": "辨析网络流行语、社群用法与原作含义；区分可查事实、解释和争议，不把戏谑当学术定义。",
+        "sources": [
+          {
+            "id": "s1",
+            "title": "从“国民萌宠ip”到“抽象顶流”奶龙—奶蛙的赛博进化-千龙网·中国首都网",
+            "url": "https://ent.qianlong.com/2026/1113/8750750.shtml",
+            "snippet": "# 从“国民萌宠ip”到“抽象顶流”奶龙—奶蛙的赛博进化 相比于“奶蛙”可“奶”万物的现状，这个家伙更让人惊奇的点在于：它是从有3900万+粉丝的原创IP“奶龙”演化来的——这大概解释了为什么它的名字里也带个“奶”字。 据粉丝考证，“奶蛙”的诞生，本质上..."
+          },
+          {
+            "id": "s2",
+            "title": "Nailoong - IP Stars - Seventh Impression Official Website—Nailoong",
+            "url": "https://www.nailoong.com/en-us/ipStar/Nailong/",
+            "snippet": "## IP大明星 Nailoong is the first original 3D animated IP created by Seventh Impression. ## 品牌故事 Born in 2019, Nailoong was created by Chengen Xie as a gift for both kids and grown-ups.From a young age, Xie Cheng’en, creator of Nailoong, loved drawing and dreamed of making animated films. --- ## 有声读物 Nailoong's first animated series adapted from a comic..."
+          },
+          {
+            "id": "s3",
+            "title": "《捧腹大笑思想与奶龙学概论》第一版前言",
+            "url": "https://xn--psszg58c9c2281ajit.lol/files/history.pdf",
+            "snippet": "## 第五章 捧腹大笑思想理论体系 捧腹大笑对年轻人有什么魔力？关于这个问题，我们可以通过深入的思考，建立奶蛙捧腹大笑思想理论体系（逼真）。 --- ## 第六章 奶蛙的衍生语与衍生动作 奶蛙产生了许多奇妙的衍生语（绝大多数来源于王者荣耀中不知火舞语音的变速变调）和衍生动作。我们将会一一说明并提及有关的著名奶蛙二创..."
+          },
+          {
+            "id": "s4",
+            "title": "奶龙 - IP大明星 - 第七印象官方网站-奶龙Nailoong",
+            "url": "https://www.nailoong.com/ipStar/Nailong/",
+            "snippet": "# 奶龙 - IP大明星 ## IP大明星 奶龙是第七印象打造的首个原创3D动漫系列IP，拥有软萌讨喜的形象与乐观向上的性格，传递正能量、温暖人心。他用自己的方式，教会了我们如何以乐观的心态面对生活，如何用纯真的心去关爱他人。 --- ## 品牌故事 诞生于2019年的奶龙，是“..."
+          },
+          {
+            "id": "s5",
+            "title": "从“国民萌宠ip”到“抽象顶流”奶龙—奶蛙的赛博进化|小红书|抖音|粉丝|本质|狂欢_手机新浪网",
+            "url": "https://news.sina.cn/sx/2026-11-17/detail-iniyzswf7636444.d.html",
+            "snippet": "# 从“国民萌宠ip”到“抽象顶流”奶龙—奶蛙的赛博进化 相比于“奶蛙”可“奶”万物的现状,这个家伙更让人惊奇的点在于:它是从有3900万+粉丝的原创IP“奶龙”演化来的——这大概解释了为什么它的名字里也带个“奶”字。 据粉丝考证,“奶蛙”的诞生,本质上是..."
+          },
+          {
+            "id": "s6",
+            "title": "从“国民萌宠ip”到“抽象顶流”奶龙—奶蛙的赛博进化_即时新闻_大众网",
+            "url": "http://www.dzwww.com/xinwen/jishixinwen/202611/t20261113_18299164.htm",
+            "snippet": "# 从“国民萌宠ip”到“抽象顶流”奶龙—奶蛙的赛博进化 相比于“奶蛙”可“奶”万物的现状，这个家伙更让人惊奇的点在于：它是从有3900万+粉丝的原创IP“奶龙”演化来的——这大概解释了为什么它的名字里也带个“奶”字。 据粉丝考证，“奶蛙”的诞生，本质上..."
+          },
+          {
+            "id": "s7",
+            "title": "“风评被害”的奶龙，做错了什么?",
+            "url": "https://www.nfnews.com/content/0oXX4WNJo9.html",
+            "snippet": "## 奶龙为什么被暴打？ 在讨厌奶龙的人们看来，奶龙的形象既低智又尴尬，为了强化这样的标签，奶龙“吐舌头跳土耳其舞”的表情包动图也被制作出来，并开始在互联网迅速传播。 随后则是大量的二创视频，内容是奶龙和奥特曼、胖猫、贝利亚（《奥特曼》中的反派角色）等抽象角色一起“群魔乱舞”。"
+          },
+          {
+            "id": "s8",
+            "title": "奶龙[动画短片《小七和奶龙》中的主角]_百科",
+            "url": "https://m.baike.com/wiki/%E5%A5%B6%E9%BE%99/7270402341705957413",
+            "snippet": "## 形象设定 奶龙是第七印象文化传媒(深圳)有限公司旗下的原创IP品牌，为3D动画片《奶龙》(又名《小七和奶龙》)的主角。团队创作该IP的初衷是打造一个温暖治愈、能为观众带来欢乐的可爱伙伴，因此将其设定为一只3岁的流落地球会喷火的异星幼龙，遇到地球少年小七，两人成为好朋友并开启了搞笑冒险之旅，拥有变色、变大..."
+          },
+          {
+            "id": "s9",
+            "title": "2026第一猎奇梗“大笑奶龙”，让奶龙官方账号关闭了评论区_3DM专栏",
+            "url": "http://www.3dmgame.com/original/3745893.html",
+            "snippet": "# 2026第一猎奇梗“大笑奶龙”，让奶龙官方账号关闭了评论区 而就在最近，与“牢大”、贝利亚并称“抽象三巨头”的奶龙，也在AI的帮助下，迎来了自己的进化形态——大笑奶龙。 你可能会问我，奶龙之前火遍大江南北，在座的各位都知道奶龙长什么样子——这个鬼玩意和奶龙相似的..."
+          },
+          {
+            "id": "s10",
+            "title": "别被二创骗了，奶龙原作里根本就没有妈妈_新浪新闻",
+            "url": "https://www.sina.cn/news/detail/5344945771644033.html",
+            "snippet": "能以奶龙之身相见吗 26-09-19 19:37 奶龙没有官方的妈妈！ 原作动画里面根本不存在奶龙妈妈这个角色。 网上所有叫奶龙妈妈的，全部都是网友自己编的二创小故事，不是正版剧情。 所以答案：奶龙没有妈妈。"
+          }
+        ],
+        "searchedAt": "2026-11-28T09:43:45.394Z",
+        "queries": [
+          "奶龙学 网络流行语 梗 二创 含义 用法",
+          "奶龙学 原作 二创 语境 出处 争议 误区 相似练习的知识依据：下列关于奶龙IP的描述中，哪些属于原作官方设定的事实，哪些属于网络二创或玩梗的内容？请选出所有属于原作官方设定事实的选项。"
+        ]
+      }
+    },
+    {
+      "id": "q_a9f640c85b534a238ff6772f755fd6a1",
+      "prompt": "材料一：相比于“奶蛙”可“奶”万物的现状，这个家伙更让人惊奇的点在于：它是从有3900万+粉丝的原创IP“奶龙”演化来的——这大概解释了为什么它的名字里也带个“奶”字。据粉丝考证，“奶蛙”的诞生，本质上是网友基于奶龙形象进行的二次创作产物。\n材料二：而就在最近，与“牢大”、贝利亚并称“抽象三巨头”的奶龙，也在AI的帮助下，迎来了自己的进化形态——大笑奶龙。随后则是大量的二创视频，内容是奶龙和奥特曼、胖猫、贝利亚等抽象角色一起“群魔乱舞”。奶龙“吐舌头跳土耳其舞”的表情包动图也被制作出来，并开始在互联网迅速传播。\n情境：网络文化选修课的小组作业是梳理萌宠IP的二创发展脉络，小组同学需要区分奶龙IP的官方原作设定和网络二创玩梗内容，确保作业内容的准确性。\n问题：下列关于奶龙相关内容的描述中，哪些属于网络二创或玩梗的内容，而非原作官方设定？请选出所有符合的选项。",
+      "options": [
+        "“奶蛙”形象及其“奶”万物的相关衍生内容",
+        "奶龙是拥有3900万+粉丝的原创萌宠卡通IP",
+        "奶龙与“牢大”、贝利亚并称“抽象三巨头”的说法",
+        "奶龙“吐舌头跳土耳其舞”的表情包动图",
+        "奶龙是3D动画片《小七和奶龙》的主角",
+        "奶龙和奥特曼、胖猫等角色一起“群魔乱舞”的二创视频内容"
+      ],
+      "answerIndex": 0,
+      "explanation": "“‘奶蛙’形象及其‘奶’万物的相关衍生内容”属于网友基于奶龙的二次创作产物，并非官方设定。“奶龙是拥有3900万+粉丝的原创萌宠卡通IP”是对奶龙IP基础事实的描述，属于可查的IP基本情况，不属于二创玩梗内容。“奶龙与‘牢大’、贝利亚并称‘抽象三巨头’的说法”是网络玩梗的归类说法，并非官方设定内容。“奶龙‘吐舌头跳土耳其舞’的表情包动图”是网友制作的二创内容，不属于官方原作设定。“奶龙是3D动画片《小七和奶龙》的主角”属于官方原作的基础设定，不属于二创内容。“奶龙和奥特曼、胖猫等角色一起‘群魔乱舞’的二创视频内容”是网友制作的二创视频内容，属于网络二创范畴。",
+      "kind": "multiple_choice",
+      "answerIndices": [
+        0,
+        2,
+        3,
+        5
+      ],
+      "sourceIds": [
+        "s1",
+        "s5",
+        "s6",
+        "s7",
+        "s9"
+      ],
+      "similarTo": "q_9719a8dc68b44ed6b529dcc555eebdf1",
+      "practiceResearch": {
+        "status": "grounded",
+        "intent": "辨析网络流行语、社群用法与原作含义；区分可查事实、解释和争议，不把戏谑当学术定义。",
+        "sources": [
+          {
+            "id": "s1",
+            "title": "从“国民萌宠ip”到“抽象顶流”奶龙—奶蛙的赛博进化-千龙网·中国首都网",
+            "url": "https://ent.qianlong.com/2026/1113/8750750.shtml",
+            "snippet": "# 从“国民萌宠ip”到“抽象顶流”奶龙—奶蛙的赛博进化 相比于“奶蛙”可“奶”万物的现状，这个家伙更让人惊奇的点在于：它是从有3900万+粉丝的原创IP“奶龙”演化来的——这大概解释了为什么它的名字里也带个“奶”字。 据粉丝考证，“奶蛙”的诞生，本质上..."
+          },
+          {
+            "id": "s2",
+            "title": "Nailoong - IP Stars - Seventh Impression Official Website—Nailoong",
+            "url": "https://www.nailoong.com/en-us/ipStar/Nailong/",
+            "snippet": "## IP大明星 Nailoong is the first original 3D animated IP created by Seventh Impression. ## 品牌故事 Born in 2019, Nailoong was created by Chengen Xie as a gift for both kids and grown-ups.From a young age, Xie Cheng’en, creator of Nailoong, loved drawing and dreamed of making animated films. --- ## 有声读物 Nailoong's first animated series adapted from a comic..."
+          },
+          {
+            "id": "s3",
+            "title": "《捧腹大笑思想与奶龙学概论》第一版前言",
+            "url": "https://xn--psszg58c9c2281ajit.lol/files/history.pdf",
+            "snippet": "## 第五章 捧腹大笑思想理论体系 捧腹大笑对年轻人有什么魔力？关于这个问题，我们可以通过深入的思考，建立奶蛙捧腹大笑思想理论体系（逼真）。 --- ## 第六章 奶蛙的衍生语与衍生动作 奶蛙产生了许多奇妙的衍生语（绝大多数来源于王者荣耀中不知火舞语音的变速变调）和衍生动作。我们将会一一说明并提及有关的著名奶蛙二创..."
+          },
+          {
+            "id": "s4",
+            "title": "奶龙 - IP大明星 - 第七印象官方网站-奶龙Nailoong",
+            "url": "https://www.nailoong.com/ipStar/Nailong/",
+            "snippet": "# 奶龙 - IP大明星 ## IP大明星 奶龙是第七印象打造的首个原创3D动漫系列IP，拥有软萌讨喜的形象与乐观向上的性格，传递正能量、温暖人心。他用自己的方式，教会了我们如何以乐观的心态面对生活，如何用纯真的心去关爱他人。 --- ## 品牌故事 诞生于2019年的奶龙，是“..."
+          },
+          {
+            "id": "s5",
+            "title": "从“国民萌宠ip”到“抽象顶流”奶龙—奶蛙的赛博进化|小红书|抖音|粉丝|本质|狂欢_手机新浪网",
+            "url": "https://news.sina.cn/sx/2026-11-17/detail-iniyzswf7636444.d.html",
+            "snippet": "# 从“国民萌宠ip”到“抽象顶流”奶龙—奶蛙的赛博进化 相比于“奶蛙”可“奶”万物的现状,这个家伙更让人惊奇的点在于:它是从有3900万+粉丝的原创IP“奶龙”演化来的——这大概解释了为什么它的名字里也带个“奶”字。 据粉丝考证,“奶蛙”的诞生,本质上是..."
+          },
+          {
+            "id": "s6",
+            "title": "从“国民萌宠ip”到“抽象顶流”奶龙—奶蛙的赛博进化_即时新闻_大众网",
+            "url": "http://www.dzwww.com/xinwen/jishixinwen/202611/t20261113_18299164.htm",
+            "snippet": "# 从“国民萌宠ip”到“抽象顶流”奶龙—奶蛙的赛博进化 相比于“奶蛙”可“奶”万物的现状，这个家伙更让人惊奇的点在于：它是从有3900万+粉丝的原创IP“奶龙”演化来的——这大概解释了为什么它的名字里也带个“奶”字。 据粉丝考证，“奶蛙”的诞生，本质上..."
+          },
+          {
+            "id": "s7",
+            "title": "“风评被害”的奶龙，做错了什么?",
+            "url": "https://www.nfnews.com/content/0oXX4WNJo9.html",
+            "snippet": "## 奶龙为什么被暴打？ 在讨厌奶龙的人们看来，奶龙的形象既低智又尴尬，为了强化这样的标签，奶龙“吐舌头跳土耳其舞”的表情包动图也被制作出来，并开始在互联网迅速传播。 随后则是大量的二创视频，内容是奶龙和奥特曼、胖猫、贝利亚（《奥特曼》中的反派角色）等抽象角色一起“群魔乱舞”。"
+          },
+          {
+            "id": "s8",
+            "title": "奶龙[动画短片《小七和奶龙》中的主角]_百科",
+            "url": "https://m.baike.com/wiki/%E5%A5%B6%E9%BE%99/7270402341705957413",
+            "snippet": "## 形象设定 奶龙是第七印象文化传媒(深圳)有限公司旗下的原创IP品牌，为3D动画片《奶龙》(又名《小七和奶龙》)的主角。团队创作该IP的初衷是打造一个温暖治愈、能为观众带来欢乐的可爱伙伴，因此将其设定为一只3岁的流落地球会喷火的异星幼龙，遇到地球少年小七，两人成为好朋友并开启了搞笑冒险之旅，拥有变色、变大..."
+          },
+          {
+            "id": "s9",
+            "title": "2026第一猎奇梗“大笑奶龙”，让奶龙官方账号关闭了评论区_3DM专栏",
+            "url": "http://www.3dmgame.com/original/3745893.html",
+            "snippet": "# 2026第一猎奇梗“大笑奶龙”，让奶龙官方账号关闭了评论区 而就在最近，与“牢大”、贝利亚并称“抽象三巨头”的奶龙，也在AI的帮助下，迎来了自己的进化形态——大笑奶龙。 你可能会问我，奶龙之前火遍大江南北，在座的各位都知道奶龙长什么样子——这个鬼玩意和奶龙相似的..."
+          },
+          {
+            "id": "s10",
+            "title": "别被二创骗了，奶龙原作里根本就没有妈妈_新浪新闻",
+            "url": "https://www.sina.cn/news/detail/5344945771644033.html",
+            "snippet": "能以奶龙之身相见吗 26-09-19 19:37 奶龙没有官方的妈妈！ 原作动画里面根本不存在奶龙妈妈这个角色。 网上所有叫奶龙妈妈的，全部都是网友自己编的二创小故事，不是正版剧情。 所以答案：奶龙没有妈妈。"
+          }
+        ],
+        "searchedAt": "2026-11-28T09:43:45.394Z",
+        "queries": [
+          "奶龙学 网络流行语 梗 二创 含义 用法",
+          "奶龙学 原作 二创 语境 出处 争议 误区 相似练习的知识依据：下列关于奶龙IP的描述中，哪些属于原作官方设定的事实，哪些属于网络二创或玩梗的内容？请选出所有属于原作官方设定事实的选项。"
+        ]
+      }
+    }
+  ],
+  "newQuestionCount": 14,
+  "originalObjectUnchanged": true,
+  "originalQuestionsUnchanged": true,
+  "graphUnchanged": true,
+  "originalResearchUnchanged": true,
+  "localResearchUsed": true,
+  "result": "actual-similar-chain-accepted",
+  "limitations": [
+    "链路接受及审核输出合同通过，不等于每项事实获得认证。",
+    "人工检查发现第一题将百科描述概括为官方设定；source s10为平台个人昵称发布，仍被生成器用于断言原作不存在某角色，题面也没有提供这条依据。模型审核未报告此缺口。",
+    "本次为正常本地平台SDK实测，不是公网发布后双端点击验收；没有写入业务数据库。"
+  ],
+  "artifactType": "actual-local-similar-question-chain"
+}

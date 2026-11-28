@@ -4,6 +4,7 @@ import com.keling.app.network.*
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.timeout
+import io.ktor.client.plugins.expectSuccess
 import io.ktor.client.request.*
 import io.ktor.http.*
 import kotlinx.serialization.Serializable
@@ -35,6 +36,19 @@ class PlanetApi(private val token: String, private val client: HttpClient = Keli
     private fun url(path: String = "") = "$baseUrl/learning/v1/planets$path"
     private fun HttpRequestBuilder.auth() { if (!token.startsWith("guest-memory:")) bearerAuth(token) }
     suspend fun catalog(): PlanetCatalog = client.get(url("/catalog")) { auth() }.body()
+    suspend fun tutorCatalog(): PlanetCatalog = client.get("$baseUrl/trial/workspace/catalog").body()
+    suspend fun tutor(draft: PlanetDraft, region: PlanetRegion, question: PlanetQuestion, message: String, history: List<PlanetTutorTurn>, providerId: String, model: String, credentials: AccessCredentials? = null): TrialAnswer {
+        guest?.ensureOpen()
+        val payload = planetTutorPayload(draft, region, question, message, history, providerId, model, credentials)
+        val response = client.post("$baseUrl/trial/workspace/chat") {
+            auth(); expectSuccess = false; contentType(ContentType.Application.Json)
+            timeout { requestTimeoutMillis = 95_000 }; setBody(payload)
+        }
+        val result = awaitAiResult(client, response, TrialAnswer.serializer(), if (guest == null) token else null, baseUrl)
+        guest?.ensureOpen()
+        require(result.answer.isNotBlank()) { "星芽没有返回内容，请重试" }
+        return result
+    }
     suspend fun generate(input: GeneratePlanetInput): GeneratedPlanet {
         require(input.subject.trim().length in 1..80 && input.level.trim().length in 1..80 && input.goal.length <= 300) { "请缩短学科、基础或学习目标" }
         require(input.contextMode in listOf("auto", "general", "internet_culture") && input.questionCount in listOf(6, 12, 18)) { "请选择有效语境和题量" }
@@ -58,8 +72,9 @@ class PlanetApi(private val token: String, private val client: HttpClient = Keli
         return result
     }
     suspend fun regenerate(current: PlanetRecord?, generated: GeneratedPlanet?, kind: String, questionId: String?, instruction: String, requestId: String): PlanetRegenerationResult = withTimeout(600_000) {
-        require(kind in listOf("question", "artwork") && instruction.trim().isNotEmpty() && instruction.length <= 800) { "请填写修改要求（不超过800字）" }
+        require(kind in listOf("question", "artwork", "similar") && instruction.trim().isNotEmpty() && instruction.length <= 800) { "请填写修改要求（不超过800字）" }
         require(current != null || generated != null) { "请先生成星球" }
+        if (kind in listOf("question", "similar")) require(!questionId.isNullOrBlank() && (current?.draft ?: generated?.draft)?.regions?.any { region -> region.questions.any { it.id == questionId } } == true) { "请选择当前星球中的题目" }
         guest?.ensureOpen()
         val signed = generated ?: if (guest != null && current != null) guest!!.learningPlanets.signedPreview(current.id) else null
         val result = awaitJob(decodePlanetResponse(client.post(url(if (current != null && guest == null) "/${current.id}/regenerate" else "/regenerate-preview")) {

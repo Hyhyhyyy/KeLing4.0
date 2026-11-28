@@ -1,0 +1,23 @@
+{
+  "attemptedAt": "2026-11-28T08:31:55.697Z",
+  "context": "Normal PlatformModule app context; same existing application identity, no incoming user or substituted identity",
+  "operation": "keling-planet-content-review/textToJson",
+  "inputFile": ".cache/topic-research-20261128/entropy-real.json",
+  "capabilityAttempts": 1,
+  "inputCounts": {
+    "questions": 18,
+    "regions": 3,
+    "nodes": 12,
+    "sources": 10
+  },
+  "stage": "review",
+  "result": "sdk-failure",
+  "errorType": "PluginError",
+  "errorMessage": "「[object Object]」插件执行失败",
+  "modelInvoked": true,
+  "parserError": "Expected ',' or '}' after property value in JSON at position 1031 (line 22 column 64)",
+  "elapsedApproxSeconds": 21.9,
+  "rawAvailable": false,
+  "contractValidated": false,
+  "notes": "Official plugin output parser rejected the response before returning an object. No q6/q18 recognition claim is made. Original error object was not retained; no raw could be recovered retrospectively."
+}
