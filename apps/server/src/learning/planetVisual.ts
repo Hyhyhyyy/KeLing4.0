@@ -2,6 +2,7 @@ import type { PlanetDraft,PlanetResearch } from '@keling/shared';
 import { AIError } from '../ai/catalog';
 import { researchTopic } from './topicResearch';
 import { collectVisualReferences } from './visualReferences';
+import { planetStep } from './planetWork';
 
 export type VisualReference={sourceId:string;pageUrl:string;imageUrl:string;alt:string};
 export type PlanetVisualInput={subject:string;meaning:string;instruction:string;research:PlanetResearch;references:VisualReference[]};
@@ -30,11 +31,18 @@ export function composePlanetVisualPrompt(design:PlanetVisualDesign,instruction=
 }
 export async function preparePlanetVisual(draft:PlanetDraft,instruction:string,signal:AbortSignal){
  if(!designer)throw new AIError('NOT_CONFIGURED','形象设计服务尚未连接',503);
+ planetStep('visual_prepare','running','visual_search');
  const research=await researchTopic({subject:draft.subject,level:draft.level,goal:draft.meaningAnalysis?.overview.slice(0,140)||draft.goal,contextMode:'general',purpose:'artwork'},signal);
+ signal.throwIfAborted();
  if(research.status!=='grounded')throw new AIError('VISUAL_RESEARCH_UNAVAILABLE','未找到足够的形象资料，未生成通用替代图，请补充具体角色或主题',503);
  const input:PlanetVisualInput={subject:draft.subject,meaning:draft.meaningAnalysis?.overview||draft.goal,instruction,research,references:[]};
+ planetStep('visual_prepare','running','visual_design');
  const design=validatePlanetVisualDesign(await designer(input,signal),research);
+ signal.throwIfAborted();planetStep('visual_prepare','running','visual_reference');
  const selected=design.referenceSourceIds.map(id=>research.sources.find(s=>s.id===id)!);
  const references=await collectReferences(selected,signal);
+ signal.throwIfAborted();planetStep('visual_prepare','running','validating');
  return {prompt:composePlanetVisualPrompt(design,instruction),references,research,design};
 }
+export type PreparedPlanetVisual=Awaited<ReturnType<typeof preparePlanetVisual>>;
+export function planetVisualContext(draft:PlanetDraft){return JSON.stringify([draft.subject,draft.level,draft.goal,draft.meaningAnalysis?.overview||'']);}

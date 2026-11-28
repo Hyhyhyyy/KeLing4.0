@@ -251,3 +251,44 @@ test('hint requests include lesson and visible question but omit grading and ans
  const d=diverseFixture(),q={...d.regions[0].questions[4],explanation:'SECRET_EXPLANATION',referenceAnswer:'SECRET_ANSWER',rubric:['SECRET_RUBRIC'],acceptedAnswers:['SECRET_ACCEPTED']};
  const output=context.module.exports.planetHintContext(d,d.regions[0],q,'从哪里开始？');assert.match(output.message,/从哪里开始/);assert.match(output.message,/不直接揭示答案/);assert.equal(output.sources[0].text,d.regions[0].lesson);assert.doesNotMatch(JSON.stringify(output),/SECRET_|answerIndex|answerIndices|referenceAnswer|acceptedAnswers|rubric/);
 });
+
+const workProgress=(revision=0,kind='planet')=>({kind,revision,startedAt:'2026-11-28T12:00:00Z',updatedAt:'2026-11-28T12:00:02Z',steps:[{id:'research',state:'completed',activity:'searching'},{id:'compose',state:'running',activity:'drafting'},{id:'review',state:'pending'}]});
+
+test('progress contract rejects unknown stages, states and duplicate milestones without changing drafts',()=>{
+ const h=harness(),valid=workProgress();
+ assert.equal(h.parsePlanetWorkProgress(valid).revision,0);
+ for(const invalid of [{...valid,revision:-1},{...valid,startedAt:'invalid'},{...valid,steps:[]},{...valid,steps:[{id:'timer',state:'completed'}]},{...valid,steps:[{id:'compose',state:'guessed'}]},{...valid,steps:[{id:'compose',state:'running',activity:'secret provider message'}]},{...valid,steps:[valid.steps[0],valid.steps[0]]}])assert.equal(h.parsePlanetWorkProgress(invalid),undefined);
+ const sanitized=h.parsePlanetWorkProgress({...valid,secret:'not part of contract',steps:[{...valid.steps[0],message:'not part of contract'}]});
+ assert.equal(sanitized.secret,undefined);assert.equal(sanitized.steps[0].message,undefined);
+});
+
+test('progress callbacks follow only newer service revisions; polling and time do not advance stages',async()=>{
+ const h=harness();h.guest(false);const received=[];let polls=0;
+ h.context.setTimeout=(fn,ms)=>setTimeout(fn,ms===1500?1:ms);
+ h.setFetch(async url=>{
+  if(url.endsWith('/generate'))return response({jobId:'staged',status:'RUNNING',progress:workProgress(2)},202);
+  polls++;if(polls===1)return response({status:'RUNNING',progress:workProgress(1)});
+  if(polls===2)return response({status:'RUNNING',progress:workProgress(2)});
+  return response({status:'SUCCEEDED',...fixture(),progress:{...workProgress(3),steps:[{id:'research',state:'completed'},{id:'compose',state:'completed'},{id:'review',state:'completed'}]}});
+ });
+ await h.planetAPI.generate({subject:'天文学'},undefined,p=>received.push(p));
+ assert.deepEqual(received.map(p=>p.revision),[2,3]);assert.equal(received[0].steps.filter(s=>s.state==='completed').length,1);
+ const legacy=[];h.setFetch(async()=>response(fixture()));await h.planetAPI.generate({subject:'天文学'},undefined,p=>legacy.push(p));assert.equal(legacy.length,0);
+});
+
+test('regeneration forwards actual skipped artwork progress and shared course list refreshes after saved changes',async()=>{
+ const h=harness();h.account();const generated=fixture();let planet={id:generated.draft.id,courseId:'shared-course',draft:generated.draft,progress:h.emptyPlanetProgress(),createdAt:generated.draft.generatedBy.at,updatedAt:generated.draft.generatedBy.at};let listCalls=0,changes=0;const events=[];
+ h.context.setTimeout=(fn,ms)=>setTimeout(fn,ms===1500?1:ms);
+ const unsubscribe=h.subscribePlanetChanges(()=>changes++);
+ h.setFetch(async url=>{
+  if(url.endsWith('/regenerate'))return response({jobId:'redraw',status:'RUNNING',progress:workProgress(1,'artwork')},202);
+  if(url.includes('/generation-jobs/')){planet={...planet,draft:{...planet.draft,artwork:{status:'generated',url:'https://images.example.org/new-planet.png',prompt:'synthetic fixture only'}}};return response({status:'SUCCEEDED',planet,progress:{...workProgress(2,'artwork'),steps:[{id:'visual_prepare',state:'completed'},{id:'artwork',state:'completed'},{id:'finalize',state:'completed'}]}});}
+  listCalls++;return response({planets:[planet]});
+ });
+ await Promise.all([h.planetAPI.list(),h.planetAPI.list()]);assert.equal(listCalls,1);
+ const result=await h.planetAPI.regenerate(planet.id,'artwork','synthetic test only','redraw',undefined,undefined,p=>events.push(p));
+ assert.equal(events.length,2);assert.equal(changes,1);assert.equal(result.draft.artwork.url,'https://images.example.org/new-planet.png');
+ const listed=await h.planetAPI.list();assert.equal(listCalls,2);assert.equal(listed[0].draft.artwork.url,result.draft.artwork.url);
+ const skipped={...workProgress(3,'artwork'),steps:[{id:'artwork',state:'skipped',activity:'unavailable'},{id:'finalize',state:'completed'}]};assert.equal(h.parsePlanetWorkProgress(skipped).steps.filter(s=>s.state==='completed').length,1);
+ unsubscribe();
+});

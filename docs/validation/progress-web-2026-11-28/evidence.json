@@ -1,0 +1,16 @@
+{
+  "mode": "Synthetic transport fixture only; no external model calls",
+  "revisionDoesNotAdvanceOnElapsedTime": true,
+  "parallelStagesVisible": true,
+  "activeOrbit": true,
+  "osReducedMotion": true,
+  "mobileNoHorizontalOverflow": true,
+  "allFourOperations": true,
+  "redrawSameUrlInDetailCourseStarmapHome": true,
+  "unsentAnswerSurvivesSimilar": true,
+  "hintAvailableDuringSimilar": true,
+  "imageFailureRetainsIdentityAndRetry": true,
+  "modelRequests": 0,
+  "fixtureRequests": 4,
+  "pageErrors": []
+}

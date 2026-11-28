@@ -3,6 +3,8 @@ package com.keling.app.ui.screens.agent
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.keling.app.network.*
+import com.keling.app.planet.PlanetApi
+import com.keling.app.planet.PlanetRecord
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -11,8 +13,9 @@ import kotlinx.coroutines.launch
 
 data class WorkspaceState(val busy: Boolean = false, val error: String? = null, val notice: String? = null,
     val profile: WorkspaceProfile? = null, val notes: List<NoteData> = emptyList(), val tasks: List<TaskData> = emptyList(),
-    val courses: List<CourseData> = emptyList(), val checkin: CheckInResponse? = null, val savedRevision: Int = 0)
-class WorkspaceViewModel(private val token: String, private val api: WorkspaceApi = WorkspaceApi(), private val agent: AgentApi = AgentApi()) : ViewModel() {
+    val courses: List<CourseData> = emptyList(), val checkin: CheckInResponse? = null, val savedRevision: Int = 0,
+    val coursePlanets: Map<String, PlanetRecord> = emptyMap(), val artworkError: String? = null)
+class WorkspaceViewModel(private val token: String, private val api: WorkspaceApi = WorkspaceApi(), private val agent: AgentApi = AgentApi(), private val planets: PlanetApi = PlanetApi(token)) : ViewModel() {
     private val mutable = MutableStateFlow(WorkspaceState()); val state = mutable.asStateFlow()
     init { refresh() }
     private fun action(block: suspend () -> Unit) {
@@ -27,7 +30,18 @@ class WorkspaceViewModel(private val token: String, private val api: WorkspaceAp
     private suspend fun load() {
         val profile = api.profile(token).user; val notes = api.notes(token).notes.orEmpty()
         val courses = api.courses(token).courses.orEmpty(); val tasks = agent.tasks(token).tasks.orEmpty(); val checkin = api.checkinStatus(token)
-        mutable.update { it.copy(profile = profile, notes = notes, courses = courses, tasks = tasks, checkin = checkin) }
+        var artworkError: String? = null
+        val coursePlanets = if (courses.any { it.code == "AI_PLANET" }) {
+            try { planets.list().planets.associateBy { it.courseId } }
+            catch (e: CancellationException) { throw e }
+            catch (_: Exception) {
+                artworkError = "星球形象暂未同步，请刷新重试"
+                mutable.value.coursePlanets
+            }
+        } else emptyMap()
+        val courseIds = courses.map { it.id }.toSet()
+        mutable.update { it.copy(profile = profile, notes = notes, courses = courses, tasks = tasks, checkin = checkin,
+            coursePlanets = coursePlanets.filterKeys { id -> id in courseIds }, artworkError = artworkError) }
     }
     fun refresh() = action { load() }
     fun checkin() = action { api.checkin(token); load(); mutable.update { it.copy(notice = if (token.startsWith("guest-memory:")) "已签到" else "已签到") } }

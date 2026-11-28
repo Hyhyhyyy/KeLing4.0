@@ -1,0 +1,44 @@
+{
+  "date": "2026-11-28",
+  "change": "Verify same-page image candidates in batches of at most two; collect fulfilled candidates in their original source ranking.",
+  "file": "apps/server/src/learning/visualReferences.ts",
+  "preserved": {
+    "maximumPages": 2,
+    "maximumSelectedImages": 2,
+    "maximumCandidatesPerPage": 4,
+    "overallTimeoutMs": 20000,
+    "perConnectionTimeoutMs": 8000,
+    "pageByteLimit": 524288,
+    "imageByteLimit": 4194304,
+    "dnsAndRedirectChecks": true,
+    "pinnedPublicAddress": true,
+    "mimeAndMagicBytes": true,
+    "sameOrigin404Or410HomepageFallback": true,
+    "crossTaskCache": false
+  },
+  "tests": {
+    "command": "node --test apps/server/tests/visualReferences.test.cjs",
+    "passed": 9,
+    "failed": 0,
+    "newCoverage": [
+      "Both candidates start before either finishes; peak concurrency is two",
+      "Faster lower-ranked responses cannot displace higher-ranked valid images",
+      "Only two images and four candidates per page; no unused second source request",
+      "Cancellation aborts both pending checks without scheduling a third",
+      "Synthetic sequential/parallel delayed responses produce identical selected references"
+    ],
+    "isolatedTypeScript": "passed",
+    "diffCheck": "passed"
+  },
+  "syntheticTiming": {
+    "perImageDelayMs": 120,
+    "imageCount": 2,
+    "sequentialMs": 256.3,
+    "parallelMs": 124.1,
+    "outputIdentical": true,
+    "peakConcurrentImages": 2,
+    "modelCalls": 0,
+    "networkCalls": 0,
+    "interpretation": "Demonstrates overlap of independent waits in this controlled path, not a production whole-planet speedup estimate. Wall-clock values are diagnostics rather than a timing-sensitive pass criterion."
+  }
+}

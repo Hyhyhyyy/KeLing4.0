@@ -7,6 +7,13 @@ import com.keling.app.ui.components.StellarArt
 import com.keling.app.ui.components.StellarSprite
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.unit.dp
 import coil.compose.SubcomposeAsyncImage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -40,8 +47,14 @@ private object SubjectAtlasCache {
 
 @Composable fun GeneratedPlanetArt(draft: PlanetDraft, modifier: Modifier = Modifier, description: String? = draft.title) {
     val url = draft.artwork?.takeIf { it.status == "generated" }?.url?.let(::planetArtworkLink)
-    if (url == null) SubjectPlanetArt(draft.subject, draft.planetStyleIndex, modifier, description)
-    else SubcomposeAsyncImage(model = url, contentDescription = description, modifier = modifier, contentScale = ContentScale.Fit,
-        loading = { SubjectPlanetArt(draft.subject, draft.planetStyleIndex, Modifier.fillMaxSize(), description) },
-        error = { SubjectPlanetArt(draft.subject, draft.planetStyleIndex, Modifier.fillMaxSize(), description) })
+    if (draft.artwork?.status != "generated") SubjectPlanetArt(draft.subject, draft.planetStyleIndex, modifier, description)
+    else if (url == null) Box(modifier, contentAlignment = Alignment.Center) { Text("形象地址不可用") }
+    else {
+        var retry by remember(url) { mutableStateOf(0) }
+        key(url, retry) {
+            SubcomposeAsyncImage(model = url, contentDescription = description, modifier = modifier, contentScale = ContentScale.Fit,
+                loading = { Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { CircularProgressIndicator(Modifier.size(24.dp), strokeWidth = 2.dp) } },
+                error = { Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { TextButton(onClick = { retry++ }) { Text("重试图片") } } })
+        }
+    }
 }

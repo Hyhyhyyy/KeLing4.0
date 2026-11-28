@@ -10,7 +10,8 @@ import { useAppStore } from '../../store/useAppStore';
 import './Greenhouse.css';
 import { useCourseDialogFocus } from '../../components/useCourseDialogFocus';
 import { CoursePlanetPicker } from '../../components/CoursePlanet';
-import { SubjectPlanet } from '../../components/SubjectPlanet';
+import { useCoursePlanets } from '../../services/useCoursePlanets';
+import { CourseArtwork } from '../../components/CourseArtwork';
 import { coursePlanet } from '../../components/planetCatalog';
 
 const THEME_COLORS = [
@@ -20,6 +21,7 @@ const THEME_COLORS = [
 
 const Greenhouse: React.FC = () => {
   const navigate = useNavigate();
+  const coursePlanets = useCoursePlanets();
   const { courses, createCourse, deleteCourse, loadCourses } = useAppStore();
   useEffect(() => { void loadCourses(); const refresh = () => void loadCourses(); window.addEventListener('focus',refresh); return () => window.removeEventListener('focus',refresh); },[loadCourses]);
   const [showCreateDialog, setShowCreateDialog] = useState(false);
@@ -119,7 +121,7 @@ const Greenhouse: React.FC = () => {
               >
                 <div className="course-header" style={{ background: course.themeColor }}>
                   <span className="course-emoji">
-                    <SubjectPlanet subject={course.name} index={course.planetStyleIndex} size={120} />
+                    <CourseArtwork course={course} planet={coursePlanets.byCourse[course.id]} loading={coursePlanets.loading} size={120}/>
                   </span>
                   <button
                     className="delete-btn"
@@ -132,7 +134,7 @@ const Greenhouse: React.FC = () => {
 
                 <div className="course-body">
                   <h3>{course.name}</h3>
-                  <p className="course-appearance-name">{coursePlanet(course.planetStyleIndex).name}</p>
+                  <p className="course-appearance-name">{coursePlanets.byCourse[course.id]?.draft.artwork?.status==='generated'?'专属星球形象':coursePlanet(course.planetStyleIndex).name}</p>
                   {course.code && <span className="course-code">{course.code}</span>}
 
                   <div className="course-meta">

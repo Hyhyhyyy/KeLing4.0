@@ -8,7 +8,7 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import java.util.UUID
 
-data class PlanetUiState(val planets: List<PlanetRecord> = emptyList(), val providers: List<PlanetProvider> = emptyList(), val current: PlanetRecord? = null, val generated: GeneratedPlanet? = null, val busy: Boolean = false, val loading: Boolean = true, val error: String? = null, val notice: String? = null, val feedback: Map<String, PlanetFeedback> = emptyMap(), val catalogError: String? = null)
+data class PlanetUiState(val planets: List<PlanetRecord> = emptyList(), val providers: List<PlanetProvider> = emptyList(), val current: PlanetRecord? = null, val generated: GeneratedPlanet? = null, val busy: Boolean = false, val loading: Boolean = true, val error: String? = null, val notice: String? = null, val feedback: Map<String, PlanetFeedback> = emptyMap(), val catalogError: String? = null, val generationKind: String? = null, val generationProgress: PlanetWorkProgress? = null)
 class PlanetViewModel(val token: String, private val api: PlanetApi = PlanetApi(token)) : ViewModel() {
     var prologueSeen = false
     private val mutable = MutableStateFlow(PlanetUiState()); val state = mutable.asStateFlow()
@@ -16,24 +16,31 @@ class PlanetViewModel(val token: String, private val api: PlanetApi = PlanetApi(
     val access = guestWorkspace?.modelAccess ?: ModelAccessSession()
     private var closed = false
     private var job: Job? = null
+    private var actionVersion = 0L
     val tutor = PlanetTutorController(api, access, { mutable.value.current?.draft ?: mutable.value.generated?.draft }, viewModelScope)
     private var draftRequestId = UUID.randomUUID().toString()
     private val answerReceipts = mutableMapOf<String, String>()
     private val regenerationReceipts = mutableMapOf<String, String>()
     init { refresh() }
     private fun update(block: (PlanetUiState) -> PlanetUiState) { if (!closed) mutable.update(block) }
-    private fun action(block: suspend () -> Unit) {
+    private fun action(generationKind: String? = null, block: suspend () -> Unit) {
         if (closed || mutable.value.busy) return
-        update { it.copy(busy = true, error = null, notice = null) }
+        val version = ++actionVersion
+        update { it.copy(busy = true, error = null, notice = null, generationKind = generationKind, generationProgress = null) }
         job = viewModelScope.launch {
             try { block() } catch (_: TimeoutCancellationException) { update { it.copy(error = "生成等待超时，输入已保留，请稍后重试") } }
             catch (e: CancellationException) { throw e }
             catch (e: Exception) { update { it.copy(error = safeError(e)) } }
-            finally { update { it.copy(busy = false, loading = false) } }
+            finally { if (version == actionVersion) update { it.copy(busy = false, loading = false) } }
+        }
+    }
+    private fun progress(version: Long, next: PlanetWorkProgress) {
+        if (version == actionVersion) update { before ->
+            if (before.busy && before.generationKind == next.kind) before.copy(generationProgress = latestPlanetWorkProgress(before.generationProgress, next)) else before
         }
     }
     private fun safeError(e: Exception): String = when {
-        e is ApiException && e.code in setOf("INSUFFICIENT_RESEARCH", "RESEARCH_INSUFFICIENT", "RESEARCH_UNAVAILABLE", "TOPIC_AMBIGUOUS", "INSUFFICIENT_SOURCES", "TOPIC_RESEARCH_REQUIRED", "ARTWORK_FAILED", "INVALID_PLANET", "DRAFT_EXPIRED", "REGENERATION_LIMIT") -> e.message ?: "资料不足，请补充语境或缩小主题"
+        e is ApiException && e.code in setOf("INSUFFICIENT_RESEARCH", "RESEARCH_INSUFFICIENT", "RESEARCH_UNAVAILABLE", "TOPIC_AMBIGUOUS", "INSUFFICIENT_SOURCES", "TOPIC_RESEARCH_REQUIRED", "ARTWORK_FAILED", "INVALID_PLANET", "DRAFT_EXPIRED", "REGENERATION_LIMIT", "CONTENT_REVIEW_FAILED", "CONTENT_REVIEW_UNAVAILABLE") -> e.message ?: "资料不足，请补充语境或缩小主题"
         e is ApiException && e.statusCode == 503 -> "生成服务暂不可用，请稍后重试或检查模型配置"
         e is ApiException && e.statusCode in listOf(401, 403) -> "账号或模型权限未通过，请检查登录与模型配置"
         e is ApiException && e.statusCode == 422 -> "模型返回的星球不完整，请重新生成"
@@ -47,13 +54,14 @@ class PlanetViewModel(val token: String, private val api: PlanetApi = PlanetApi(
         try { val catalog = api.catalog(); update { it.copy(providers = catalog.providers, catalogError = null) } }
         catch (e: CancellationException) { throw e } catch (_: Exception) { update { it.copy(catalogError = "暂时无法读取模型目录，可配置自己的模型") } }
     }
-    fun generate(subject: String, level: String, goal: String, ownModel: Boolean, providerId: String, model: String, contextMode: String = "auto", questionCount: Int = 12, generateArtwork: Boolean = true) = action {
+    fun generate(subject: String, level: String, goal: String, ownModel: Boolean, providerId: String, model: String, contextMode: String = "auto", questionCount: Int = 12, generateArtwork: Boolean = true) = action("planet") {
+        val version = actionVersion
         val accessState = access.state.value
         if (ownModel) require(accessState.apiKey.isNotBlank() && accessState.model.isNotBlank()) { "请先配置模型" }
         val result = api.generate(GeneratePlanetInput(subject.trim(), level.trim().ifBlank { "入门" }, goal.trim(),
             if (ownModel) accessState.model else model.ifBlank { null },
             if (ownModel) accessState.providerId else providerId.ifBlank { null },
-            if (ownModel) AccessCredentials(accessState.providerId, accessState.apiKey, accessState.baseUrl.ifBlank { null }) else null, contextMode, questionCount, generateArtwork))
+            if (ownModel) AccessCredentials(accessState.providerId, accessState.apiKey, accessState.baseUrl.ifBlank { null }) else null, contextMode, questionCount, generateArtwork)) { progress(version, it) }
         draftRequestId = UUID.randomUUID().toString(); update { it.copy(generated = result, current = null) }
     }
     fun confirm() { val generated = mutable.value.generated ?: return; action {
@@ -63,12 +71,13 @@ class PlanetViewModel(val token: String, private val api: PlanetApi = PlanetApi(
     fun overview() { if (!mutable.value.busy) update { it.copy(current = null, generated = null, feedback = emptyMap(), error = null, notice = null) } }
     fun discardPreview() { if (!mutable.value.busy) update { it.copy(generated = null) } }
     fun similar(questionId: String) = regenerate("similar", questionId, "围绕这道题的知识点，搜索并生成两道同题型的新练习")
-    fun regenerate(kind: String, questionId: String?, instruction: String) = action {
+    fun regenerate(kind: String, questionId: String?, instruction: String) = action(kind) {
+        val version = actionVersion
         val before = mutable.value
         val draft = before.current?.draft ?: before.generated?.draft ?: throw IllegalArgumentException("请先生成星球")
         val key = "${draft.id}/$kind/$questionId/${instruction.trim()}"
         val requestId = regenerationReceipts.getOrPut(key) { UUID.randomUUID().toString() }
-        val result = api.regenerate(before.current, before.generated, kind, questionId, instruction, requestId)
+        val result = api.regenerate(before.current, before.generated, kind, questionId, instruction, requestId) { progress(version, it) }
         require(result.generated != null || result.planet != null) { "重新生成结果不完整，原内容已保留" }
         val notice = when (kind) { "artwork" -> "星球形象已更新"; "similar" -> "已找到两道相似碎片"; else -> "探索题已更新" }
         update { old ->
@@ -95,7 +104,7 @@ class PlanetViewModel(val token: String, private val api: PlanetApi = PlanetApi(
         WorkspaceApi().createTask(token, WorkspaceTaskInput("探索：${region.title}", region.description, current.courseId, region.estimatedMinutes))
         update { it.copy(notice = "已加入学习任务") }
     } }
-    fun cancelGeneration() { job?.cancel(); update { it.copy(busy = false, loading = false) } }
+    fun cancelGeneration() { actionVersion++; job?.cancel(); update { it.copy(busy = false, loading = false, generationKind = null, generationProgress = null) } }
     fun shutdown() { closed = true; job?.cancel(); tutor.close(); viewModelScope.cancel(); if (guestWorkspace == null) access.close() }
     override fun onCleared() { shutdown() }
 }

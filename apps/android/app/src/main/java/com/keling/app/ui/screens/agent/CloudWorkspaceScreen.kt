@@ -20,6 +20,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.keling.app.network.NoteData
 import com.keling.app.network.TaskData
 import com.keling.app.network.AssistantContextRef
+import com.keling.app.planet.GeneratedPlanetArt
 import com.keling.app.ui.components.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -153,6 +154,7 @@ fun CloudWorkspaceScreen(accountId: String, token: String, initialTab: String = 
                 }
                 if (tab == "greenhouse") {
                     item { StellarSceneCard("scene_garden", "课程", "") }
+                    state.artworkError?.let { message -> item { Text(message, color = MaterialTheme.colorScheme.error) } }
                     item { Card { Column(Modifier.fillMaxWidth().padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                         OutlinedTextField(value = courseName, onValueChange = { courseName = it.take(100) }, label = { Text("新课程名称") }, modifier = Modifier.fillMaxWidth(), enabled = !state.busy, singleLine = true)
                         OutlinedButton(onClick = { planetCourseId = null; planetDraft = newPlanet; planetPickerOpen = true }, enabled = !state.busy, modifier = Modifier.fillMaxWidth()) {
@@ -162,15 +164,19 @@ fun CloudWorkspaceScreen(accountId: String, token: String, initialTab: String = 
                         Button(onClick = { vm.createCourse(courseName, newPlanet) { courseName = "" } }, enabled = !state.busy && courseName.isNotBlank(), modifier = Modifier.fillMaxWidth()) { Text("创建知识星球") }
                     } } }
                     items(state.courses, key = { it.id }) { course -> Card { Column(Modifier.fillMaxWidth().padding(16.dp)) {
+                        val learningPlanet = state.coursePlanets[course.id]
                         Row(verticalAlignment = Alignment.CenterVertically) {
-                            CoursePlanetArt(course.planetStyleIndex, Modifier.size(84.dp))
+                            if (learningPlanet != null) GeneratedPlanetArt(learningPlanet.draft, Modifier.size(84.dp))
+                            else if (course.code == "AI_PLANET") Box(Modifier.size(84.dp), contentAlignment = Alignment.Center) { Text("形象待同步", style = MaterialTheme.typography.labelSmall) }
+                            else CoursePlanetArt(course.planetStyleIndex, Modifier.size(84.dp))
                             Column(Modifier.weight(1f).padding(start = 12.dp)) {
                                 Text(course.name, style = MaterialTheme.typography.titleMedium)
-                                Text(com.keling.app.data.PlanetStyles.name(course.planetStyleIndex), style = MaterialTheme.typography.labelMedium)
+                                if (learningPlanet == null && course.code != "AI_PLANET") Text(com.keling.app.data.PlanetStyles.name(course.planetStyleIndex), style = MaterialTheme.typography.labelMedium)
                                 Text("已学 ${course.totalStudyMinutes} 分钟", style = MaterialTheme.typography.bodySmall)
                             }
                         }
-                        OutlinedButton(onClick = { planetCourseId = course.id; planetDraft = course.planetStyleIndex; planetPickerOpen = true }, enabled = !state.busy, modifier = Modifier.fillMaxWidth()) { Text("更换星球形象") }
+                        if (learningPlanet != null) OutlinedButton(onClick = { onNavigate("planet:${learningPlanet.id}") }, enabled = !state.busy, modifier = Modifier.fillMaxWidth()) { Text("查看学习星球") }
+                        else if (course.code != "AI_PLANET") OutlinedButton(onClick = { planetCourseId = course.id; planetDraft = course.planetStyleIndex; planetPickerOpen = true }, enabled = !state.busy, modifier = Modifier.fillMaxWidth()) { Text("更换星球形象") }
                         OutlinedButton(onClick = { onNavigate("cloud_graph:${course.id}") }, enabled = !state.busy, modifier = Modifier.fillMaxWidth()) { Text("知识图谱") }
                         OutlinedButton(onClick = { onNavigate("course_materials:${course.id}") }, enabled = !state.busy, modifier = Modifier.fillMaxWidth()) { Text("资料问答") }
                         TextButton(onClick = { onAskAssistant(AssistantContextRef("course", course.id), "请根据这门课程当前可用的资料梳理核心概念，并用一个问题检查我的理解。") }, enabled = !state.busy, modifier = Modifier.fillMaxWidth()) { Text("问 AI") }

@@ -19,6 +19,52 @@ test('reference collection caps pages and verified images, preserves source attr
  });
  assert.equal(out.length,2);assert.deepEqual(out.map(x=>x.sourceId),['s1','s2']);assert.ok(out.every(x=>x.imageUrl.includes('/good')));assert.equal(calls.filter(x=>x[1]==='page').length,2);assert.ok(!calls.some(x=>x[0]===sources[2].url));
 });
+test('same-page image checks overlap in pairs and selection follows rank, not completion order',async()=>{
+ const source={id:'s1',url:'https://official.example/character',title:'Character'},pending=new Map(),started=[];
+ let active=0,peak=0,firstReady,secondReady;
+ const firstPair=new Promise(resolve=>{firstReady=resolve;}),secondPair=new Promise(resolve=>{secondReady=resolve;});
+ const work=collectVisualReferences([source,{id:'s2',url:'https://other.example/',title:'Unused'}],new AbortController().signal,async(url,kind)=>{
+  if(kind==='page'){assert.equal(url,source.url);return{url,contentType:'text/html',body:Buffer.from([1,2,3,4,5].map(i=>'<img src="/subject'+i+'.png" alt="rank '+i+'">').join(''))};}
+  const rank=Number(url.match(/subject(\d)/)[1]);started.push(rank);active++;peak=Math.max(peak,active);
+  const response=new Promise((resolve,reject)=>{pending.set(rank,{resolve,reject});});
+  if(started.length===2)firstReady();if(started.length===4)secondReady();
+  try{await response;return{url,contentType:'image/png',body:Buffer.from('controlled contract result')};}finally{active--;}
+ });
+ await firstPair;assert.equal(active,2);assert.deepEqual(started,[1,2]);
+ pending.get(2).reject(new Error('invalid MIME'));await new Promise(resolve=>setImmediate(resolve));
+ assert.deepEqual(started,[1,2],'Do not outrank an unresolved earlier candidate');
+ pending.get(1).resolve();await secondPair;assert.equal(active,2);
+ pending.get(4).resolve();await new Promise(resolve=>setImmediate(resolve));pending.get(3).resolve();
+ const refs=await work;
+ assert.equal(peak,2);assert.deepEqual(started,[1,2,3,4]);assert.deepEqual(refs.map(r=>r.alt),['rank 1','rank 3']);
+ assert.ok(refs.every(r=>r.sourceId==='s1'&&r.pageUrl===source.url));
+});
+test('two delayed independent candidates have the same output as sequential checks with overlapping wait',async t=>{
+ const {performance}=require('node:perf_hooks'),delay=120,source={id:'s1',url:'https://official.example/character',title:'Character'};
+ const candidates=[{url:'https://official.example/first.png',alt:'first'},{url:'https://official.example/second.png',alt:'second'}];
+ let active=0,peak=0;const image=async url=>{active++;peak=Math.max(peak,active);try{await new Promise(resolve=>setTimeout(resolve,delay));return{url,contentType:'image/png',body:Buffer.from('synthetic delay; no network or AI')};}finally{active--;}};
+ const serialStart=performance.now(),serial=[];
+ for(const c of candidates){const result=await image(c.url);serial.push({sourceId:source.id,pageUrl:source.url,imageUrl:result.url,alt:c.alt});}
+ const sequentialMs=performance.now()-serialStart;assert.equal(peak,1);peak=0;
+ const parallelStart=performance.now();
+ const parallel=await collectVisualReferences([source],new AbortController().signal,async(url,kind)=>kind==='page'?{url,contentType:'text/html',body:Buffer.from(candidates.map(c=>'<img src="'+c.url+'" alt="'+c.alt+'">').join(''))}:image(url));
+ const parallelMs=performance.now()-parallelStart;
+ assert.equal(peak,2);assert.deepEqual(parallel,serial);
+ // Wall-clock numbers are diagnostics, not a flaky timing assertion on a busy host.
+ t.diagnostic(JSON.stringify({synthetic:true,perImageDelayMs:delay,sequentialMs:+sequentialMs.toFixed(1),parallelMs:+parallelMs.toFixed(1),peakConcurrentImages:peak,outputIdentical:true,modelCalls:0}));
+});
+test('cancelling an in-flight image pair aborts both checks without scheduling more candidates',async()=>{
+ const controller=new AbortController(),started=[],aborted=[];let pairReady;
+ const ready=new Promise(resolve=>{pairReady=resolve;});
+ const work=collectVisualReferences([{id:'s1',url:'https://official.example/character',title:'Character'}],controller.signal,async(url,kind,signal)=>{
+  if(kind==='page')return{url,contentType:'text/html',body:Buffer.from('<img src="/first.png"><img src="/second.png"><img src="/third.png">')};
+  started.push(url);if(started.length===2)pairReady();
+  await new Promise((_,reject)=>{signal.addEventListener('abort',()=>{aborted.push(url);reject(signal.reason);},{once:true});});
+  throw new Error('aborted image cannot return');
+ });
+ await ready;controller.abort();await assert.rejects(work);
+ assert.equal(started.length,2);assert.deepEqual(aborted,started);
+});
 test('private URLs fail before a network request and an aborted collection is never success',async()=>{
  for(const u of ['https://127.0.0.1/x','https://[::1]/x','https://user:pass@example.com/x','http://example.com/x','https://a.internal/x'])await assert.rejects(()=>fetchPublicReference(u,'page',new AbortController().signal));
  const c=new AbortController();c.abort();await assert.rejects(()=>collectVisualReferences([],c.signal));

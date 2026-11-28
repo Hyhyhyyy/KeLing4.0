@@ -51,7 +51,7 @@ export function PlanetPractice(props:Props) {
       {kind!=='short_answer'&&!feedback.correct&&<button disabled={busy} onClick={clearFeedback}>再试一次 <NavigationArrow/></button>}
       {completed&&<button disabled={busy} onClick={onNext}>{questionIndex+1<region.questions.length?'下一道练习':regionIndex+1<planet.draft.regions.length?'探索下一个区域':'完成本次探索'} <NavigationArrow/></button>}
     </div>}
-    <PlanetSimilar busy={busy} limitReached={region.questions.length>28} setBusy={setBusy} setError={setError} onGenerate={async(instruction,requestId,signal)=>{onPlanet(await planetAPI.regenerate(planet.id,'similar',instruction,requestId,q.id,signal));}}/>
-    <PlanetRegenerate kind="question" busy={busy} setBusy={setBusy} setError={setError} onRegenerate={async(instruction,requestId,signal)=>{const updated=await planetAPI.regenerate(planet.id,'question',instruction,requestId,q.id,signal);onPlanet(updated);}}/>
+    <PlanetSimilar busy={busy} limitReached={region.questions.length>28} setBusy={setBusy} setError={setError} onGenerate={async(instruction,requestId,signal,onProgress)=>{onPlanet(await planetAPI.regenerate(planet.id,'similar',instruction,requestId,q.id,signal,onProgress));}}/>
+    <PlanetRegenerate kind="question" busy={busy} setBusy={setBusy} setError={setError} onRegenerate={async(instruction,requestId,signal,onProgress)=>{const updated=await planetAPI.regenerate(planet.id,'question',instruction,requestId,q.id,signal,onProgress);onPlanet(updated);}}/>
   </section>;
 }

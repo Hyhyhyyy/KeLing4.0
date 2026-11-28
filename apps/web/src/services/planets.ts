@@ -1,14 +1,19 @@
-import { answerPlanetQuestion, emptyPlanetProgress, validatePlanetDraft, completedPlanetRegionIds } from '@keling/shared';
-import type { PlanetDraft, PlanetRecord, PlanetFeedback, PlanetResponse } from '@keling/shared';
+import { answerPlanetQuestion, emptyPlanetProgress, validatePlanetDraft, completedPlanetRegionIds, parsePlanetWorkProgress } from '@keling/shared';
+import type { PlanetDraft, PlanetRecord, PlanetFeedback, PlanetResponse, PlanetWorkProgress } from '@keling/shared';
 import { hostingCredentials, hostingHeaders } from './appPath';
 import { getGuestSessionId, subscribeGuestSession } from './guestSession';
 import { getGuestWorkspace, handleGuestData } from './guestData';
 import type { ModelCredentials } from './modelAccess';
 
-export type { PlanetDraft, PlanetRecord, PlanetFeedback, PlanetResponse } from '@keling/shared';
+export type { PlanetDraft, PlanetRecord, PlanetFeedback, PlanetResponse, PlanetWorkProgress } from '@keling/shared';
 export interface PlanetProvider { id: string; name: string; chatModels: string[]; configured: boolean }
 export interface PlanetGeneration { draft: PlanetDraft; draftToken: string }
 export interface PlanetInput { subject: string; level?: string; goal?: string; contextMode?: 'auto'|'general'|'internet_culture'; questionCount?: 6|12|18; generateArtwork?:boolean; model?: string; providerId?: string; credentials?: ModelCredentials }
+export type PlanetProgressListener = (progress: PlanetWorkProgress) => void;
+const planetListeners = new Set<() => void>();
+let pendingList: { scope: string; promise: Promise<PlanetRecord[]> } | undefined;
+export function subscribePlanetChanges(listener: () => void) { planetListeners.add(listener); return () => { planetListeners.delete(listener); }; }
+function notifyPlanetChanges() { pendingList = undefined; for (const listener of planetListeners) listener(); }
 const base = (import.meta.env.VITE_API_BASE_URL || '/api').replace(/\/+$/, '') + '/learning/v1/planets';
 const guestPlanets = new Map<string, PlanetRecord>();
 const guestDraftTokens = new Map<string,string>();
@@ -16,7 +21,7 @@ const guestConfirmations = new Map<string, { fingerprint: string; planetId: stri
 const pendingConfirmations = new Map<string, {fingerprint:string; promise:Promise<PlanetRecord>}>();
 const guestAnswers = new Map<string, {fingerprint:string; result:{planet:PlanetRecord;feedback:PlanetFeedback}}>();
 let confirmationQueue: Promise<unknown> = Promise.resolve();
-subscribeGuestSession(() => { guestPlanets.clear(); guestDraftTokens.clear(); guestConfirmations.clear(); pendingConfirmations.clear(); guestAnswers.clear(); confirmationQueue=Promise.resolve(); });
+subscribeGuestSession(() => { guestPlanets.clear(); guestDraftTokens.clear(); guestConfirmations.clear(); pendingConfirmations.clear(); guestAnswers.clear(); confirmationQueue=Promise.resolve(); notifyPlanetChanges(); });
 const scope = () => getGuestSessionId() || `account:${localStorage.getItem('token') || ''}`;
 function assertScope(expected: string) { if (scope() !== expected) throw new Error('学习空间已切换，请重新打开星球。'); }
 const messages: Record<string, string> = { NOT_CONFIGURED: '尚未连接可用的大模型，请配置 API Key 和模型后重试。', INVALID_PLANET: '模型返回的星球不完整，请重新生成。', INSUFFICIENT_RESEARCH: '可靠资料不足，请补充具体语境或换一个更明确的主题。', RESEARCH_UNAVAILABLE: '联网检索暂时不可用，主题与目标已保留，请稍后重试。', TIMEOUT: '生成超时，主题与目标已保留，请重试。', PROVIDER_ERROR: '模型服务暂时不可用，请检查配置后重试。', RATE_LIMITED: '请求过于频繁，请稍后重试。', CANCELLED: '已停止等待。', UNAUTHORIZED: '登录已失效，请重新登录。', DRAFT_EXPIRED: '星球预览已过期，请重新生成。' };
@@ -34,7 +39,8 @@ async function request<T>(path: string, body?: unknown, signal?: AbortSignal, ex
   if (!data) throw new Error('星球响应无法读取，请重试。');
   return data as T;
 }
-type GenerationJob = {jobId:string;jobToken?:string;status:'RUNNING'|'SUCCEEDED'|'FAILED';draft?:PlanetDraft;draftToken?:string;planet?:PlanetRecord;code?:string};
+type GenerationJob = {jobId:string;jobToken?:string;status:'RUNNING'|'SUCCEEDED'|'FAILED';draft?:PlanetDraft;draftToken?:string;planet?:PlanetRecord;code?:string;progress?:unknown};
+function progressReporter(onProgress?:PlanetProgressListener) { let revision=-1; return (result:unknown) => { const value=result&&typeof result==='object'&&'progress' in result?parsePlanetWorkProgress(result.progress):undefined; if(value&&value.revision>revision){revision=value.revision;onProgress?.(value);} }; }
 async function waitForPoll(signal:AbortSignal) {
   if(signal.aborted)throw new Error('已停止等待。');
   await new Promise<void>((resolve,reject)=>{
@@ -43,25 +49,27 @@ async function waitForPoll(signal:AbortSignal) {
     signal.addEventListener('abort',cancel,{once:true});
   });
 }
-async function regeneration(path:string,body:unknown,signal?:AbortSignal):Promise<Partial<PlanetGeneration>&{planet?:PlanetRecord}>{
+async function regeneration(path:string,body:unknown,signal?:AbortSignal,onProgress?:PlanetProgressListener):Promise<Partial<PlanetGeneration>&{planet?:PlanetRecord}>{
  const identity=scope(),deadline=AbortSignal.timeout(600000),active=signal?AbortSignal.any([signal,deadline]):deadline;
  try{
-  let result=await request<GenerationJob|PlanetGeneration|{planet:PlanetRecord}>(path,body,active);
-  if('jobId' in result){const {jobId,jobToken}=result;while('status' in result&&result.status==='RUNNING'){await waitForPoll(active);assertScope(identity);result=await request<GenerationJob>('/generation-jobs/'+encodeURIComponent(jobId),undefined,active,jobToken?{'X-Planet-Job-Token':jobToken}:{});}if('status' in result&&result.status==='FAILED')throw new Error(messages[result.code||'']||'这次调整未完成，原内容已保留。');}
+  const report=progressReporter(onProgress);
+  let result=await request<GenerationJob|PlanetGeneration|{planet:PlanetRecord}>(path,body,active);report(result);
+  if('jobId' in result){const {jobId,jobToken}=result;while('status' in result&&result.status==='RUNNING'){await waitForPoll(active);assertScope(identity);result=await request<GenerationJob>('/generation-jobs/'+encodeURIComponent(jobId),undefined,active,jobToken?{'X-Planet-Job-Token':jobToken}:{});report(result);}if('status' in result&&result.status==='FAILED')throw new Error(messages[result.code||'']||'这次调整未完成，原内容已保留。');}
   assertScope(identity);return result;
  }catch(error){if(deadline.aborted&&!signal?.aborted)throw new Error(messages.TIMEOUT);throw error;}
 }
 export const planetAPI = {
   catalog: (signal?: AbortSignal) => request<{ providers: PlanetProvider[] }>('/catalog', undefined, signal),
-  async generate(input: PlanetInput, signal?: AbortSignal):Promise<PlanetGeneration> {
+  async generate(input: PlanetInput, signal?: AbortSignal, onProgress?:PlanetProgressListener):Promise<PlanetGeneration> {
     const identity=scope(),deadline=AbortSignal.timeout(600000),active=signal?AbortSignal.any([signal,deadline]):deadline;
     try {
-      let result=await request<PlanetGeneration|GenerationJob>('/generate',input,active);
+      const report=progressReporter(onProgress);
+      let result=await request<PlanetGeneration|GenerationJob>('/generate',input,active);report(result);
       if('jobId' in result){
         const {jobId,jobToken}=result;
         while('status' in result&&result.status==='RUNNING'){
           await waitForPoll(active);assertScope(identity);
-          result=await request<GenerationJob>('/generation-jobs/'+encodeURIComponent(jobId),undefined,active,jobToken?{'X-Planet-Job-Token':jobToken}:{});
+          result=await request<GenerationJob>('/generation-jobs/'+encodeURIComponent(jobId),undefined,active,jobToken?{'X-Planet-Job-Token':jobToken}:{});report(result);
         }
         if('status' in result&&result.status==='FAILED')throw new Error(messages[result.code||'']||'模型服务未完成生成，请重试。');
       }
@@ -70,27 +78,33 @@ export const planetAPI = {
       catch { throw new Error(messages.INVALID_PLANET); }
     }catch(error){if(deadline.aborted&&!signal?.aborted)throw new Error(messages.TIMEOUT);throw error;}
   },
-  async regeneratePreview(generation:PlanetGeneration,kind:'question'|'artwork'|'similar',instruction:string,clientRequestId:string,questionId?:string,signal?:AbortSignal):Promise<PlanetGeneration>{
-    const result=await regeneration('/regenerate-preview',{...generation,kind,instruction,clientRequestId,...(questionId?{questionId}:{})},signal);
+  async regeneratePreview(generation:PlanetGeneration,kind:'question'|'artwork'|'similar',instruction:string,clientRequestId:string,questionId?:string,signal?:AbortSignal,onProgress?:PlanetProgressListener):Promise<PlanetGeneration>{
+    const result=await regeneration('/regenerate-preview',{...generation,kind,instruction,clientRequestId,...(questionId?{questionId}:{})},signal,onProgress);
     const draft=validatePlanetDraft(result.draft);if(typeof result.draftToken!=='string'||!result.draftToken)throw new Error('调整结果无法校验，原内容已保留。');return {draft,draftToken:result.draftToken};
   },
-  async regenerate(id:string,kind:'question'|'artwork'|'similar',instruction:string,clientRequestId:string,questionId?:string,signal?:AbortSignal):Promise<PlanetRecord>{
+  async regenerate(id:string,kind:'question'|'artwork'|'similar',instruction:string,clientRequestId:string,questionId?:string,signal?:AbortSignal,onProgress?:PlanetProgressListener):Promise<PlanetRecord>{
     if(!getGuestSessionId()){
-      const result=await regeneration('/'+encodeURIComponent(id)+'/regenerate',{kind,instruction,clientRequestId,...(questionId?{questionId}:{})},signal);
-      if(!result.planet)throw new Error('调整结果无法读取，原内容已保留。');validatePlanetDraft(result.planet.draft);return result.planet;
+      const result=await regeneration('/'+encodeURIComponent(id)+'/regenerate',{kind,instruction,clientRequestId,...(questionId?{questionId}:{})},signal,onProgress);
+      if(!result.planet)throw new Error('调整结果无法读取，原内容已保留。');validatePlanetDraft(result.planet.draft);notifyPlanetChanges();return result.planet;
     }
     const identity=scope(),stored=await this.get(id),token=guestDraftTokens.get(id);if(!token)throw new Error('星球预览已过期，请重新生成。');
-    const result=await this.regeneratePreview({draft:stored.draft,draftToken:token},kind,instruction,clientRequestId,questionId,signal);assertScope(identity);
+    const result=await this.regeneratePreview({draft:stored.draft,draftToken:token},kind,instruction,clientRequestId,questionId,signal,onProgress);assertScope(identity);
     if(result.draft.id!==stored.draft.id||JSON.stringify(guestPlanets.get(id)?.draft)!==JSON.stringify(stored.draft))throw new Error('星球内容已变更，请刷新后重新调整。');
     const answers={...stored.progress.answers};if(kind==='question'&&questionId)delete answers[questionId];
     const updated:PlanetRecord={...stored,draft:result.draft,updatedAt:new Date().toISOString(),progress:{answers,completedRegionIds:completedPlanetRegionIds(result.draft,answers)}};
-    guestPlanets.set(id,updated);guestDraftTokens.set(id,result.draftToken);return structuredClone(updated);
+    guestPlanets.set(id,updated);guestDraftTokens.set(id,result.draftToken);notifyPlanetChanges();return structuredClone(updated);
   },
-  async list(): Promise<PlanetRecord[]> { if (getGuestSessionId()) { const w=getGuestWorkspace(); return structuredClone([...guestPlanets.values()].filter(p=>w.courses.some(c=>c.id===p.courseId&&!c.isArchived))); } return (await request<{planets:PlanetRecord[]}>('')).planets; },
+  async list(): Promise<PlanetRecord[]> {
+    const identity=scope();
+    if(pendingList?.scope===identity)return pendingList.promise;
+    const promise=(async()=>{if(getGuestSessionId()){const w=getGuestWorkspace();return structuredClone([...guestPlanets.values()].filter(p=>w.courses.some(c=>c.id===p.courseId&&!c.isArchived)));}return(await request<{planets:PlanetRecord[]}>('')).planets;})();
+    const entry={scope:identity,promise};pendingList=entry;
+    try{return await promise;}finally{if(pendingList===entry)pendingList=undefined;}
+  },
   async get(id: string): Promise<PlanetRecord> { if (getGuestSessionId()) { const p=guestPlanets.get(id);if(!p||!getGuestWorkspace().courses.some(c=>c.id===p.courseId&&!c.isArchived))throw new Error('这颗星球已不在当前学习空间。');return structuredClone(p); } return (await request<{planet:PlanetRecord}>('/'+encodeURIComponent(id))).planet; },
   async confirm(generation: PlanetGeneration, clientRequestId: string): Promise<PlanetRecord> {
     const draft=validatePlanetDraft(generation.draft);
-    if (!getGuestSessionId()) return (await request<{planet:PlanetRecord}>('/confirm',{...generation,clientRequestId})).planet;
+    if (!getGuestSessionId()) {const result=await request<{planet:PlanetRecord}>('/confirm',{...generation,clientRequestId});notifyPlanetChanges();return result.planet;}
     const fingerprint=JSON.stringify(generation), previous=guestConfirmations.get(clientRequestId), pending=pendingConfirmations.get(clientRequestId);
     if(previous){if(previous.fingerprint!==fingerprint)throw new Error('确认请求已用于另一颗星球。');return this.get(previous.planetId);}
     if(pending){if(pending.fingerprint!==fingerprint)throw new Error('确认请求已用于另一颗星球。');return pending.promise;}
@@ -112,7 +126,7 @@ export const planetAPI = {
       } catch(error){if(scope()===identity)Object.assign(w,snapshot);throw error;}
     });
     pendingConfirmations.set(clientRequestId,{fingerprint,promise:operation});confirmationQueue=operation;
-    try{return await operation;}finally{if(pendingConfirmations.get(clientRequestId)?.promise===operation)pendingConfirmations.delete(clientRequestId);}
+    try{const result=await operation;notifyPlanetChanges();return result;}finally{if(pendingConfirmations.get(clientRequestId)?.promise===operation)pendingConfirmations.delete(clientRequestId);}
   },
   async answer(id:string,questionId:string,value:number|PlanetResponse,clientRequestId:string):Promise<{planet:PlanetRecord;feedback:PlanetFeedback}>{
     const response=typeof value==='number'?{selectedIndex:value}:value;

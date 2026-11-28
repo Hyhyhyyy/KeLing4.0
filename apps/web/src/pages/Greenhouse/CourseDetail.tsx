@@ -14,7 +14,8 @@ import type { Course, KnowledgeNode } from '../../types';
 import AskAssistantButton from '../../components/AskAssistantButton';
 import { useCourseDialogFocus } from '../../components/useCourseDialogFocus';
 import { CoursePlanetPicker } from '../../components/CoursePlanet';
-import { SubjectPlanet } from '../../components/SubjectPlanet';
+import { useCoursePlanets } from '../../services/useCoursePlanets';
+import { CourseArtwork } from '../../components/CourseArtwork';
 import { PlanetCourseEntry } from '../../components/PlanetCourseEntry';
 import MaterialsPanel from '../Expedition/MaterialsPanel';
 import SchedulePanel from '../Expedition/SchedulePanel';
@@ -26,6 +27,7 @@ import './CourseDetail.css';
 const CourseDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const coursePlanets = useCoursePlanets();
   const { updateCourse, deleteCourse } = useAppStore();
 
   const [course, setCourse] = useState<Course | null>(null);
@@ -169,7 +171,7 @@ const CourseDetail: React.FC = () => {
             <NavigationArrow direction="left"/>
           </button>
           <div className="header-actions">
-            <button className="course-appearance-button" onClick={openEditor}><span>更换星球</span></button>
+            <button className="course-appearance-button" onClick={()=>coursePlanets.byCourse[course.id]?navigate("/planets/"+encodeURIComponent(coursePlanets.byCourse[course.id].id)):openEditor()}><span>{coursePlanets.byCourse[course.id]?"调整星球外观":"更换星球"}</span></button>
             <button className="action-btn" aria-label="编辑课程" onClick={openEditor}>
               <Edit3 size={18} />
             </button>
@@ -181,9 +183,9 @@ const CourseDetail: React.FC = () => {
 
         <div className="header-content">
           <div className="course-icon">
-            <SubjectPlanet subject={course.name} index={course.planetStyleIndex} size={176} />
+            <CourseArtwork course={course} planet={coursePlanets.byCourse[course.id]} loading={coursePlanets.loading} size={176}/>
           </div>
-          <p className="course-appearance-name">{coursePlanet(course.planetStyleIndex).name}</p>
+          <p className="course-appearance-name">{coursePlanets.byCourse[course.id]?.draft.artwork?.status==='generated'?'专属星球形象':coursePlanet(course.planetStyleIndex).name}</p>
           <ModuleTitle kind="courses">{course.name}</ModuleTitle>
           {course.code && <span className="course-code">{course.code}</span>}
         </div>
@@ -200,7 +202,7 @@ const CourseDetail: React.FC = () => {
 
       <StellarSceneBanner scene="courseDetail" title="课程资料" compact/>
 
-      <PlanetCourseEntry courseId={course.id} subject={course.name}/>
+      <PlanetCourseEntry courseId={course.id} subject={course.name} planets={coursePlanets}/>
       <div className="exp-page">
         <MaterialsPanel key={course.id+'materials'} courseId={course.id}/>
         <SchedulePanel key={course.id+'schedule'} courseId={course.id}/>
@@ -361,8 +363,8 @@ const CourseDetail: React.FC = () => {
             </div>
 
             <div className="dialog-content">
-              <CoursePlanetPicker value={editData.planetStyleIndex} disabled={isSaving}
-                onChange={planetStyleIndex => setEditData({ ...editData, planetStyleIndex })} />
+              {!coursePlanets.byCourse[course.id]&&<CoursePlanetPicker value={editData.planetStyleIndex} disabled={isSaving}
+                onChange={planetStyleIndex => setEditData({ ...editData, planetStyleIndex })} />}
               <div className="form-group">
                 <label htmlFor="edit-course-name">课程名称</label>
                 <input

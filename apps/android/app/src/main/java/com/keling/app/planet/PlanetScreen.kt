@@ -50,7 +50,8 @@ import com.keling.app.ui.screens.ai.ModelAccessPanel
             TextButton(onClick = { onNavigate("notes") }) { Text("日志") }
             TextButton(onClick = vm::refresh, enabled = !state.busy) { Text("刷新") }
         }
-        if (state.loading || state.busy) LinearProgressIndicator(Modifier.fillMaxWidth())
+        if ((state.loading || state.busy) && state.generationKind == null) LinearProgressIndicator(Modifier.fillMaxWidth())
+        if (state.generationKind != null && (state.busy || state.error != null)) PlanetWorkPanel(state.generationKind!!, state.generationProgress, state.busy, vm::cancelGeneration)
         LazyColumn(Modifier.weight(1f).padding(horizontal = 16.dp), state = planetListState, contentPadding = PaddingValues(vertical = 12.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
             state.error?.let { item { Text(it, color = MaterialTheme.colorScheme.error) } }
             state.notice?.let { item { Text(it, color = MaterialTheme.colorScheme.primary) } }
@@ -163,7 +164,6 @@ import com.keling.app.ui.screens.ai.ModelAccessPanel
                             }
                         }
                         StellarActionButton(if (state.busy) "请稍候…" else "生成我的学习星球", { vm.generate(subject, level, goal, ownModel, providerId, model, contextMode, questionCount, generateArtwork) }, Modifier.fillMaxWidth(), !state.busy && subject.isNotBlank())
-                        if (state.busy) TextButton(onClick = vm::cancelGeneration) { Text("停止等待") }
                         Text(if (guest) "游客星球退出即清空" else "确认后保存到账号", style = MaterialTheme.typography.bodySmall)
                     } } }
                     items(state.planets, key = { it.id }) { planet -> Card(onClick = { if (!state.busy) vm.open(planet.id) }) {

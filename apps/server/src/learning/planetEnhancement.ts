@@ -1,7 +1,8 @@
 import { PlanetDraft, PlanetQuestion, PlanetResearch } from '@keling/shared';
 import { AIError } from '../ai/catalog';
 import { researchTopic } from './topicResearch';
-import { preparePlanetVisual } from './planetVisual';
+import { preparePlanetVisual,PreparedPlanetVisual } from './planetVisual';
+import { planetStep,planetWorkStep } from './planetWork';
 export type EnhancedPlanetInput={subject:string;level:string;goal:string;contextMode:'auto'|'general'|'internet_culture';questionCount:6|12|18;research:PlanetResearch};
 export type QuestionGenerationInput=EnhancedPlanetInput&{lesson:string;question:PlanetQuestion;instruction:string};
 type QuestionGenerator=(input:QuestionGenerationInput,signal:AbortSignal)=>Promise<unknown>;
@@ -10,8 +11,9 @@ let questionGenerator:QuestionGenerator|undefined,similarQuestionsGenerator:Ques
 export function registerLearningQuestionGenerator(generator:QuestionGenerator|undefined){questionGenerator=generator;}
 export function registerLearningSimilarQuestionsGenerator(generator:QuestionGenerator|undefined){similarQuestionsGenerator=generator;}
 export function registerPlanetArtworkGenerator(generator:ArtworkGenerator|undefined){artworkGenerator=generator;}
+export function canGeneratePlanetArtwork(){return !!artworkGenerator;}
 export async function groundedInput(input:Omit<EnhancedPlanetInput,'research'>,signal:AbortSignal=new AbortController().signal):Promise<EnhancedPlanetInput>{
- const research=await researchTopic(input,signal);
+ const research=await planetWorkStep('research','searching',()=>researchTopic(input,signal));
  if(research.status!=='grounded')throw new AIError(research.status==='unavailable'?'RESEARCH_UNAVAILABLE':'RESEARCH_INSUFFICIENT',research.status==='unavailable'?'联网资料暂时不可用，未生成未经检索的内容，请稍后重试':'没有找到足够的可追溯资料，请补充这个词的语境、别称或具体用法',503);
  // Explicit allowlist: runtime callers may carry provider credentials alongside these fields.
  return {subject:input.subject,level:input.level,goal:input.goal,contextMode:input.contextMode,questionCount:input.questionCount,research};
@@ -37,6 +39,8 @@ export async function generateOneQuestion(draft:PlanetDraft,questionId:string,in
  // Review/regeneration uses the original lesson and its stable citations; only legacy drafts need a new search.
  const evidence=question.practiceResearch??draft.research;
  const input=evidence?.status==='grounded'?{...base,research:evidence}:await groundedInput(base,signal);
+ if(evidence?.status==='grounded')planetStep('research','completed','reusing_evidence');
+ planetStep('compose','running','drafting');
  return {question:await questionGenerator({...input,lesson:region.lesson,question,instruction},signal),research:input.research};
 }
 /** Fresh research for optional practice; source IDs remain local to the generated questions. */
@@ -49,9 +53,9 @@ export async function prepareSimilarQuestions(draft:PlanetDraft,questionId:strin
  const generator=similarQuestionsGenerator;
  return {research:input.research,question,regionId:region.id,generate:(feedback='')=>generator({...input,lesson:region.lesson,question,instruction:instruction+(feedback?'\n修复上一组练习：'+feedback.slice(0,10000):'')},signal)};
 }
-export async function generatePlanetArtwork(draft:PlanetDraft,signal:AbortSignal,instruction='',required=false){
+export async function generatePlanetArtwork(draft:PlanetDraft,signal:AbortSignal,instruction='',required=false,prepared?:()=>Promise<PreparedPlanetVisual>){
  let prompt='';
- if(!artworkGenerator){if(required)throw new AIError('NOT_CONFIGURED','星球绘图服务尚未连接',503);return {status:'fallback' as const,prompt};}
- try{const bounded=AbortSignal.any([signal,AbortSignal.timeout(120000)]),visual=await preparePlanetVisual(draft,instruction,bounded);prompt=visual.prompt;let timer:ReturnType<typeof setTimeout>|undefined;const url=await Promise.race([artworkGenerator(prompt,bounded,visual.references.map(r=>r.imageUrl)),new Promise<never>((_,reject)=>{timer=setTimeout(()=>reject(new Error('artwork timeout')),90000);})]).finally(()=>{if(timer)clearTimeout(timer);});signal.throwIfAborted();const u=new URL(url);if(u.protocol!=='https:'||u.username||u.password||!u.hostname.includes('.')||u.hostname.includes(':')||/^\d+(\.\d+)*$/.test(u.hostname)||/localhost|\.local$|\.internal$/.test(u.hostname))throw new Error('invalid artwork URL');return {status:'generated' as const,url,prompt,provider:visual.references.length?'miaoda-image/grounded-reference':'miaoda-image/grounded-text',generatedAt:new Date().toISOString()};}
- catch{signal.throwIfAborted();if(required)throw new AIError('ARTWORK_FAILED','形象检索或绘图未完成，已保留原形象，请重试',502);return {status:'fallback' as const,prompt};}
+ if(!artworkGenerator){if(required)throw new AIError('NOT_CONFIGURED','星球绘图服务尚未连接',503);planetStep('visual_prepare','skipped','unavailable');planetStep('artwork','skipped','unavailable');return {status:'fallback' as const,prompt};}
+ try{const bounded=AbortSignal.any([signal,AbortSignal.timeout(120000)]),visual=prepared?await prepared():await preparePlanetVisual(draft,instruction,bounded);bounded.throwIfAborted();planetStep('visual_prepare','completed');prompt=visual.prompt;planetStep('artwork','running','rendering');let timer:ReturnType<typeof setTimeout>|undefined;const url=await Promise.race([artworkGenerator(prompt,bounded,visual.references.map(r=>r.imageUrl)),new Promise<never>((_,reject)=>{timer=setTimeout(()=>reject(new Error('artwork timeout')),90000);})]).finally(()=>{if(timer)clearTimeout(timer);});signal.throwIfAborted();const u=new URL(url);if(u.protocol!=='https:'||u.username||u.password||!u.hostname.includes('.')||u.hostname.includes(':')||/^\d+(\.\d+)*$/.test(u.hostname)||/localhost|\.local$|\.internal$/.test(u.hostname))throw new Error('invalid artwork URL');planetStep('artwork','completed');return {status:'generated' as const,url,prompt,provider:visual.references.length?'miaoda-image/grounded-reference':'miaoda-image/grounded-text',generatedAt:new Date().toISOString()};}
+ catch{signal.throwIfAborted();if(required)throw new AIError('ARTWORK_FAILED','形象检索或绘图未完成，已保留原形象，请重试',502);planetStep('visual_prepare','skipped','unavailable');planetStep('artwork','skipped','unavailable');return {status:'fallback' as const,prompt};}
 }

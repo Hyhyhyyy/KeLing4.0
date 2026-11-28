@@ -73,7 +73,7 @@ test('scoped callbacks receive only the target question and lesson on both revie
  q.practiceResearch={...d.research,sources:[{...d.research.sources[0],snippet:'当前补题的局部摘录。'}]};
  const original=structuredClone(d),expected=review(d,q.id);let calls=0;
  const scopedReviewer=async(value,_signal,scope,repair)=>{
-  calls++;assert.equal(scope,q.id);assert.equal(value.regions.length,1);assert.equal(value.regions[0].id,region.id);assert.equal(value.regions[0].lesson,region.lesson);assert.deepEqual(value.regions[0].questions,[q]);assert.equal(value.knowledgeGraph,undefined);assert.deepEqual(value.research,q.practiceResearch);
+  calls++;assert.equal(scope,q.id);assert.equal(value.regions.length,1);assert.equal(value.regions[0].id,region.id);assert.equal(value.regions[0].lesson,region.lesson);const {practiceResearch,...expectedQuestion}=q;assert.deepEqual(value.regions[0].questions,[expectedQuestion]);assert.equal(value.knowledgeGraph,undefined);assert.deepEqual(value.research,q.practiceResearch);assert.equal(value.regions[0].questions[0].practiceResearch,undefined);
   assert.doesNotMatch(JSON.stringify(value),/unrelated-sibling|不应发送给这次审核/);
   value.regions[0].lesson='callback mutation';value.regions[0].questions[0].prompt='callback mutation';
   if(calls===1){assert.equal(repair,undefined);return {...expected,reviewedQuestionIds:[]};}
@@ -90,6 +90,16 @@ test('semantic issues require real targets and literal provenance when provided'
 test('reviewer cannot mutate the source draft and unsupported malformed proofs fail closed',async()=>{
  const d=draft(),original=structuredClone(d);registerPlanetContentReviewer(async value=>{value.subject='unexpected change';return review();});await reviewPlanetContent(d,signal());assert.deepEqual(d,original);
  const response=review();response.orderingChecks[1].unit='quality';registerPlanetContentReviewer(async()=>response);await assert.rejects(()=>reviewPlanetContent(d,signal()),e=>e.code==='CONTENT_REVIEW_INVALID');
+});
+
+test('review payload drops visual metadata while preserving complete evidence and grading content',async()=>{
+ const d=draft();d.artwork={url:'https://example.org/private-art.png',prompt:'large visual prompt'};const original=structuredClone(d);
+ registerPlanetContentReviewer(async value=>{
+  for(const key of ['id','artwork','generatedBy','reviewStatus','planetStyleIndex'])assert.equal(key in value,false);
+  for(const key of ['subject','level','goal','title','story','research','regions','knowledgeGraph'])assert.deepEqual(value[key],d[key]);
+  return review(value);
+ });
+ await reviewPlanetContent(d,signal());assert.deepEqual(d,original);
 });
 test('dependency failure and cancellation cannot silently pass review',async()=>{
  registerPlanetContentReviewer(async()=>{throw new Error('private provider detail');});await assert.rejects(()=>reviewPlanetContent(draft(),signal()),e=>{assert.equal(e.code,'CONTENT_REVIEW_UNAVAILABLE');assert.doesNotMatch(JSON.stringify(e),/private provider detail/);assert.deepEqual(diagnosticForJob(e),{stage:'content-review',reason:'provider_error',attempt:1,phase:'initial'});return true;});

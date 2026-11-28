@@ -523,7 +523,14 @@ fun MainAppContent(authViewModel: AuthViewModel, viewModel: AppViewModel, onRetr
                     assistantAccount?.let { session ->
                         com.keling.app.ui.screens.agent.CloudWorkspaceScreen(session.userId, session.token,
                             initialTab = when (currentScreen) { "cloud_workspace" -> "notes"; "account_profile" -> "profile"; "dashboard" -> "home"; else -> currentScreen },
-                            onNavigate = { if (it == "ai") { assistantLaunch = null; assistantOrigin = "home" }; viewModel.navigateTo(it) },
+                            onNavigate = { target ->
+                                if (target.startsWith("planet:")) {
+                                    planetVm?.open(target.substringAfter(':')); viewModel.navigateTo("planet")
+                                } else {
+                                    if (target == "ai") { assistantLaunch = null; assistantOrigin = "home" }
+                                    viewModel.navigateTo(target)
+                                }
+                            },
                             onAskAssistant = { ref, prompt ->
                                 assistantLaunch = com.keling.app.ui.screens.ai.AssistantContextLaunch(ref, prompt)
                                 assistantOrigin = when (ref.kind) { "course" -> "greenhouse"; "task" -> "tasks"; else -> "cloud_workspace" }

@@ -108,10 +108,23 @@ export async function collectVisualReferences(sources:readonly SourcePage[],sign
     // The standard same-origin home entry is fetched as a new real page, never guessed article paths.
     pageRequests++;page=await fetcher(new URL('/',original).href,'page',bounded);
    }
-   const candidates=extractImageCandidates(page.body.toString('utf8'),page.url);
-   for(const candidate of candidates.slice(0,4)){
-    if(results.length>=2||bounded.aborted)break;if(seen.has(candidate.url))continue;seen.add(candidate.url);
-    try{const image=await fetcher(candidate.url,'image',bounded);results.push({sourceId:source.id,pageUrl:page.url,imageUrl:image.url,alt:candidate.alt});}catch{/* Unavailable or unsafe images never become model inputs. */}
+   const candidates=extractImageCandidates(page.body.toString('utf8'),page.url).slice(0,4);
+   for(let next=0;next<candidates.length&&results.length<2&&!bounded.aborted;){
+    const batch:typeof candidates=[];
+    while(next<candidates.length&&batch.length<2){
+     const candidate=candidates[next++];if(seen.has(candidate.url))continue;
+     seen.add(candidate.url);batch.push(candidate);
+    }
+    // Independent image checks overlap, but settled results retain the source's original rank.
+    // Page fetching stays sequential so a 404/410 can still use the remaining homepage budget.
+    const checked=await Promise.allSettled(batch.map(async candidate=>{
+     bounded.throwIfAborted();const image=await fetcher(candidate.url,'image',bounded);
+     return {sourceId:source.id,pageUrl:page.url,imageUrl:image.url,alt:candidate.alt};
+    }));
+    for(const result of checked){
+     if(results.length>=2)break;
+     if(result.status==='fulfilled')results.push(result.value);
+    }
    }
   }catch{/* Missing public references keep the caller on an explicit no-reference path. */}
   if(results.length>=2)break;

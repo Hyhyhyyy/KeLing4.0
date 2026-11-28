@@ -12,6 +12,8 @@ const {registerLearningPlanetGenerator,generateNativePlanet}=require('../src/lea
 const {registerPlanetContentReviewer,planetContentReviewInstructions}=require('../src/learning/planetReview');
 const {registerTopicResearchProvider}=require('../src/learning/topicResearch');
 const {registerLearningQuestionGenerator,registerLearningSimilarQuestionsGenerator,registerPlanetArtworkGenerator}=require('../src/learning/planetEnhancement');
+const {registerPlanetVisualDesigner,registerPlanetVisualReferenceCollector}=require('../src/learning/planetVisual');
+const {PlanetWorkTracker,runWithPlanetWork}=require('../src/learning/planetWork');
 const mockSearch=async()=>({results:[1,2].map(i=>({title:'合成测试来源'+i,url:'https://example.org/source/'+i,summary:'这条合成来源只用于检验引用合同，不代表联网检索或真实知识。'}))});
 registerTopicResearchProvider(mockSearch);
 async function waitUntilReady(test){for(let i=0;i<100&&!test();i++)await new Promise(r=>setTimeout(r,5));assert.ok(test(),'native generator should have been invoked after research');}
@@ -30,7 +32,7 @@ function syntheticReview(draft,scope){
 const syntheticReviewer=async(draft,_signal,scope)=>syntheticReview(draft,scope);
 function syntheticCompletion(body,onGenerate){return async(...args)=>{const data=JSON.parse(args[2][1].content),reviewing=args[2][0].content===planetContentReviewInstructions;if(!reviewing)onGenerate?.(data,args);return {content:JSON.stringify(reviewing?syntheticReview(data.draft,data.scopeQuestionId):body),usage:{}};};}
 registerPlanetContentReviewer(syntheticReviewer);
-afterEach(()=>{registerPlanetContentReviewer(syntheticReviewer);registerLearningPlanetGenerator(undefined);registerLearningSimilarQuestionsGenerator(undefined);registerTopicResearchProvider(mockSearch);});
+afterEach(()=>{registerPlanetContentReviewer(syntheticReviewer);registerLearningPlanetGenerator(undefined);registerLearningSimilarQuestionsGenerator(undefined);registerTopicResearchProvider(mockSearch);registerPlanetArtworkGenerator(undefined);registerPlanetVisualDesigner(undefined);registerPlanetVisualReferenceCollector(undefined);});
 async function completeQuestion(db,owner,planet,q){const request={questionId:q.id,clientRequestId:randomUUID()};if(q.kind==='multiple_choice')request.selectedIndices=q.answerIndices;else if(q.kind==='ordering')request.orderedIndices=q.answerIndices;else if(q.kind==='fill_blank')request.text=q.acceptedAnswers[0];else if(q.kind==='short_answer')request.text='我对合成内容的解释';else request.selectedIndex=q.answerIndex;let out=await submitPlanetAnswer(db,owner,planet.id,request);if(q.kind==='short_answer')out=await submitPlanetAnswer(db,owner,planet.id,{...request,clientRequestId:randomUUID(),selfReview:true});return out;}
 async function generated(owner,body=content()){return generatePlanet({subject:'数学',level:'入门',goal:'分数'},owner,undefined,syntheticCompletion(body,(_data,args)=>assert.equal(args[5],8192)),env);}
 async function fixture(fn){const db=new PrismaClient(),owner=randomUUID(),other=randomUUID();try{for(const id of[owner,other])await db.user.create({data:{id,email:id+'@planet.test',passwordHash:'synthetic'}});await fn({db,owner,other});}finally{await db.user.deleteMany({where:{id:{in:[owner,other]}}});await db.$disconnect();}}
@@ -67,6 +69,47 @@ test('native generation returns immediately, persists terminal state and protect
  registerLearningPlanetGenerator(undefined);
  await db.agentRun.deleteMany({where:{id:{in:[job.jobId,guest.jobId]}}});
 }));
+
+const visualDesign=()=>({kind:'concept',identity:'合成测试星球',features:[{trait:'圆形',sourceIds:['s1']},{trait:'青色',sourceIds:['s2']}],silhouette:'完整球体',surface:'测试纹理',details:'测试边界',palette:['青色'],referenceSourceIds:['s1']});
+test('visual preparation overlaps review, but rendering waits for passing review and persisted milestones remain truthful',async()=>fixture(async({db,owner,other})=>{
+ let releaseReview,releaseDesign,releaseRender,background,renders=0;
+ registerLearningPlanetGenerator(async()=>content());
+ registerPlanetContentReviewer(async draft=>{await new Promise(resolve=>{releaseReview=resolve;});return syntheticReview(draft);});
+ registerPlanetVisualDesigner(async()=>{await new Promise(resolve=>{releaseDesign=resolve;});return visualDesign();});
+ registerPlanetVisualReferenceCollector(async()=>[]);
+ registerPlanetArtworkGenerator(async()=>{renders++;await new Promise(resolve=>{releaseRender=resolve;});return 'https://example.org/generated-planet.png';});
+ const job=await startPlanetGenerationJob(db,{subject:'合成并行测试',generateArtwork:true},owner,p=>{background=p;});
+ try{
+  await waitUntilReady(()=>releaseReview&&releaseDesign);assert.equal(renders,0);
+  let pending;for(let i=0;i<50;i++){pending=await getPlanetGenerationJob(db,job.jobId,owner);if(pending.progress?.steps.find(s=>s.id==='visual_prepare').activity==='visual_design')break;await new Promise(r=>setTimeout(r,5));}
+  assert.equal(pending.status,'RUNNING');assert.equal(pending.progress.steps.find(s=>s.id==='review').state,'running');assert.equal(pending.progress.steps.find(s=>s.id==='visual_prepare').state,'running');assert.equal(pending.progress.steps.find(s=>s.id==='artwork').state,'pending');
+  await assert.rejects(()=>getPlanetGenerationJob(db,job.jobId,other),e=>e.status===404);
+  releaseDesign();await new Promise(r=>setTimeout(r,10));assert.equal(renders,0);releaseReview();await waitUntilReady(()=>releaseRender);releaseRender();await background;
+  const nextClient=new PrismaClient();try{const done=await getPlanetGenerationJob(nextClient,job.jobId,owner);assert.equal(done.status,'SUCCEEDED');assert.ok(done.progress.steps.every(s=>s.state==='completed'));assert.equal(done.draft.artwork.url,'https://example.org/generated-planet.png');assert.ok(done.progress.revision>pending.progress.revision);}finally{await nextClient.$disconnect();}
+ }finally{releaseReview?.();releaseDesign?.();releaseRender?.();await background;await db.agentRun.deleteMany({where:{id:job.jobId}});}
+}));
+
+test('content repair reuses matching visual context and invalidates changed meanings before rendering',async()=>{
+ for(const changed of [false,true]){
+  let generations=0,reviews=0,designs=0,renders=0;const subjects=[];
+  registerLearningPlanetGenerator(async()=>{generations++;const body=content();if(changed&&generations===2)body.meaningAnalysis.overview='已修复的新语境。';return body;});
+  registerPlanetContentReviewer(async draft=>{reviews++;const result=syntheticReview(draft);return reviews===1?addSyntheticIssue(result,'q1'):result;});
+  registerPlanetVisualDesigner(async input=>{designs++;subjects.push(input.meaning);return {...visualDesign(),surface:input.meaning};});
+  registerPlanetVisualReferenceCollector(async()=>[]);
+  registerPlanetArtworkGenerator(async input=>{renders++;assert.ok(input.includes(changed?'已修复的新语境。':'这里是合成语境分析。'));return 'https://example.org/final-context.png';});
+  const out=await generateNativePlanet({subject:'合成语境',generateArtwork:true},undefined,new AbortController().signal);assert.ok(out.draftToken);assert.equal(generations,2);assert.equal(reviews,2);assert.equal(renders,1);assert.ok(designs<=(changed?2:1));assert.equal(subjects.at(-1),changed?'已修复的新语境。':'这里是合成语境分析。');
+ }
+});
+
+test('rejected content never renders an image and late preparation cannot mutate terminal progress',async()=>{
+ let releaseDesign,rendered=0;registerLearningPlanetGenerator(async()=>content());registerPlanetVisualReferenceCollector(async()=>[]);
+ registerPlanetVisualDesigner(async()=>{await new Promise(resolve=>{releaseDesign=resolve;});return visualDesign();});
+ registerPlanetContentReviewer(async draft=>{await waitUntilReady(()=>releaseDesign);return addSyntheticIssue(syntheticReview(draft),'q1');});
+ registerPlanetArtworkGenerator(async()=>{rendered++;return 'https://example.org/never.png';});
+ const tracker=new PlanetWorkTracker('planet',true,()=>{});
+ await assert.rejects(()=>runWithPlanetWork(tracker,()=>generateNativePlanet({subject:'失败闭环',generateArtwork:true},undefined,new AbortController().signal)),e=>e.code==='CONTENT_REVIEW_FAILED');
+ const failed=tracker.finish(false);releaseDesign();await new Promise(r=>setTimeout(r,10));assert.equal(rendered,0);assert.deepEqual(tracker.snapshot(),failed);assert.notEqual(failed.steps.at(-1).state,'completed');
+});
 
 test('native HTTP generation returns 202 and a guest token before model completion',async()=>fixture(async({db})=>{
  let finish;registerLearningPlanetGenerator(async()=>new Promise(resolve=>{finish=resolve;}));

@@ -22,13 +22,13 @@ import kotlinx.coroutines.withTimeout
 @Serializable data class PlanetEnvelope(val planet: PlanetRecord)
 @Serializable data class PlanetList(val planets: List<PlanetRecord> = emptyList())
 @Serializable private data class ConfirmPlanet(val draft: PlanetDraft, val draftToken: String, val clientRequestId: String)
-@Serializable private data class PlanetGenerationResponse(val draft: PlanetDraft? = null, val draftToken: String? = null, val jobId: String? = null, val jobToken: String? = null, val status: String? = null, val code: String? = null, val error: String? = null, val planet: PlanetRecord? = null, @kotlinx.serialization.Transient val rawDraft: JsonObject? = null)
+@Serializable private data class PlanetGenerationResponse(val draft: PlanetDraft? = null, val draftToken: String? = null, val jobId: String? = null, val jobToken: String? = null, val status: String? = null, val code: String? = null, val error: String? = null, val planet: PlanetRecord? = null, @kotlinx.serialization.Transient val rawDraft: JsonObject? = null, @kotlinx.serialization.Transient val progress: PlanetWorkProgress? = null)
 @Serializable private data class RegeneratePlanetInput(val kind: String, val instruction: String, val clientRequestId: String, val questionId: String? = null, val draft: PlanetDraft? = null, val draftToken: String? = null)
 data class PlanetRegenerationResult(val generated: GeneratedPlanet? = null, val planet: PlanetRecord? = null)
 @OptIn(ExperimentalSerializationApi::class)
 private val signedPlanetJson = Json { encodeDefaults = true; explicitNulls = false }
 private val planetResponseJson = Json { ignoreUnknownKeys = true }
-private fun decodePlanetResponse(raw: JsonObject): PlanetGenerationResponse = planetResponseJson.decodeFromJsonElement(PlanetGenerationResponse.serializer(), raw).copy(rawDraft = raw["draft"] as? JsonObject)
+private fun decodePlanetResponse(raw: JsonObject): PlanetGenerationResponse = planetResponseJson.decodeFromJsonElement(PlanetGenerationResponse.serializer(), raw).copy(rawDraft = raw["draft"] as? JsonObject, progress = parsePlanetWorkProgress(raw["progress"]))
 private fun signedPlanetBody(body: JsonElement, rawDraft: JsonObject?): JsonObject = if (rawDraft == null) body.jsonObject else JsonObject(body.jsonObject + ("draft" to rawDraft))
 
 class PlanetApi(private val token: String, private val client: HttpClient = KelingHttpClient.client, private val baseUrl: String = ApiConfig.actualBaseUrl) {
@@ -49,29 +49,31 @@ class PlanetApi(private val token: String, private val client: HttpClient = Keli
         require(result.answer.isNotBlank()) { "星芽没有返回内容，请重试" }
         return result
     }
-    suspend fun generate(input: GeneratePlanetInput): GeneratedPlanet {
+    suspend fun generate(input: GeneratePlanetInput, onProgress: (PlanetWorkProgress) -> Unit = {}): GeneratedPlanet {
         require(input.subject.trim().length in 1..80 && input.level.trim().length in 1..80 && input.goal.length <= 300) { "请缩短学科、基础或学习目标" }
         require(input.contextMode in listOf("auto", "general", "internet_culture") && input.questionCount in listOf(6, 12, 18)) { "请选择有效语境和题量" }
         guest?.ensureOpen()
         return withTimeout(600_000) {
-            val result = awaitJob(decodePlanetResponse(client.post(url("/generate")) { auth(); contentType(ContentType.Application.Json); timeout { requestTimeoutMillis = 120_000; socketTimeoutMillis = 120_000 }; setBody(input) }.body()))
+            val result = awaitJob(decodePlanetResponse(client.post(url("/generate")) { auth(); contentType(ContentType.Application.Json); timeout { requestTimeoutMillis = 120_000; socketTimeoutMillis = 120_000 }; setBody(input) }.body()), onProgress)
             guest?.ensureOpen()
             GeneratedPlanet(requireNotNull(result.draft), requireNotNull(result.draftToken), result.rawDraft)
         }
     }
-    private suspend fun awaitJob(initial: PlanetGenerationResponse): PlanetGenerationResponse {
+    private suspend fun awaitJob(initial: PlanetGenerationResponse, onProgress: (PlanetWorkProgress) -> Unit): PlanetGenerationResponse {
         var result = initial
+        result.progress?.let(onProgress)
         while (result.planet == null && (result.draft == null || result.draftToken == null)) {
             guest?.ensureOpen()
             if (result.status == "FAILED") throw ApiException(502, result.error ?: "生成失败", result.code)
             require(!initial.jobId.isNullOrBlank() && result.status in listOf("RUNNING", "PENDING")) { "生成服务返回的任务无效，请重试" }
             delay(1500)
             result = decodePlanetResponse(client.get(url("/generation-jobs/${initial.jobId}")) { auth(); initial.jobToken?.takeIf { it.isNotBlank() }?.let { header("X-Planet-Job-Token", it) } }.body())
+            result.progress?.let(onProgress)
         }
         guest?.ensureOpen()
         return result
     }
-    suspend fun regenerate(current: PlanetRecord?, generated: GeneratedPlanet?, kind: String, questionId: String?, instruction: String, requestId: String): PlanetRegenerationResult = withTimeout(600_000) {
+    suspend fun regenerate(current: PlanetRecord?, generated: GeneratedPlanet?, kind: String, questionId: String?, instruction: String, requestId: String, onProgress: (PlanetWorkProgress) -> Unit = {}): PlanetRegenerationResult = withTimeout(600_000) {
         require(kind in listOf("question", "artwork", "similar") && instruction.trim().isNotEmpty() && instruction.length <= 800) { "请填写修改要求（不超过800字）" }
         require(current != null || generated != null) { "请先生成星球" }
         if (kind in listOf("question", "similar")) require(!questionId.isNullOrBlank() && (current?.draft ?: generated?.draft)?.regions?.any { region -> region.questions.any { it.id == questionId } } == true) { "请选择当前星球中的题目" }
@@ -80,7 +82,7 @@ class PlanetApi(private val token: String, private val client: HttpClient = Keli
         val result = awaitJob(decodePlanetResponse(client.post(url(if (current != null && guest == null) "/${current.id}/regenerate" else "/regenerate-preview")) {
             auth(); contentType(ContentType.Application.Json); timeout { requestTimeoutMillis = 120_000; socketTimeoutMillis = 120_000 }
             setBody(signedPlanetBody(signedPlanetJson.encodeToJsonElement(RegeneratePlanetInput.serializer(), RegeneratePlanetInput(kind, instruction.trim(), requestId, questionId, signed?.draft, signed?.draftToken)), signed?.rawDraft))
-        }.body()))
+        }.body()), onProgress)
         val preview = result.draft?.let { GeneratedPlanet(it, requireNotNull(result.draftToken), result.rawDraft) }
         if (guest != null && current != null) PlanetRegenerationResult(planet = guest!!.learningPlanets.replaceDraft(current.id, requireNotNull(preview)))
         else PlanetRegenerationResult(preview, result.planet)
