@@ -26,3 +26,9 @@ test('500-node layout remains finite inside fixed logical bounds and round trips
 test('bridge validation keeps only diagram fields and rejects duplicate IDs',()=>{
  const p=api.validateGraphInput({...input([node('a')]),token:'private',nodes:[{...node('a'),apiKey:'private'}]});assert.equal(p.token,undefined);assert.equal(p.nodes[0].apiKey,undefined);assert.throws(()=>api.validateGraphInput(input([node('a'),node('a')])),/重复/);
 });
+test('read-only preview accepts labelled cross-branch edges without treating them as hierarchy',()=>{
+ const payload={...input([node('root'),node('left',['root']),node('right',['root'])]),readOnly:true,edges:[{source:'root',target:'left',kind:'hierarchy',label:'基础'},{source:'left',target:'right',kind:'related',label:'辨析'}]};
+ const p=api.validateGraphInput(payload);assert.equal(p.readOnly,true);assert.equal(p.edges[1].kind,'related');assert.equal(p.edges[1].label,'辨析');
+ assert.equal(api.graphEdges(p.nodes).length,2);
+ assert.throws(()=>api.validateGraphInput({...payload,edges:[{source:'root',target:'missing',kind:'related'}]}),/节点无效/);
+});

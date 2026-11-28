@@ -41,13 +41,14 @@ private fun sharedFontStream(context: android.content.Context) = context.resourc
 @SuppressLint("SetJavaScriptEnabled")
 @Composable fun SharedGraphCanvas(courseId: String, document: GraphDocument, refreshKey: Int, modifier: Modifier = Modifier,
     onSelect: (String) -> Unit, onEdit: (String) -> Unit = onSelect, onDirty: (Boolean) -> Unit, onError: (String) -> Unit,
-    onSave: suspend (List<GraphPosition>) -> List<GraphPosition>) {
+    onSave: suspend (List<GraphPosition>) -> List<GraphPosition>, readOnly: Boolean = false, onReady: () -> Unit = {}) {
     val session = remember(courseId) { UUID.randomUUID().toString() }
     val scope = rememberCoroutineScope()
     val currentDocument by rememberUpdatedState(document)
     val selected by rememberUpdatedState(onSelect); val dirty by rememberUpdatedState(onDirty)
     val edit by rememberUpdatedState(onEdit)
     val error by rememberUpdatedState(onError); val save by rememberUpdatedState(onSave)
+    val isReadOnly by rememberUpdatedState(readOnly); val readyCallback by rememberUpdatedState(onReady)
     var webView by remember(courseId) { mutableStateOf<WebView?>(null) }
     var ready by remember(courseId) { mutableStateOf(false) }
     var initialized by remember(courseId) { mutableStateOf(false) }
@@ -57,10 +58,11 @@ private fun sharedFontStream(context: android.content.Context) = context.resourc
         webView?.evaluateJavascript("window.KelingGraphEditor && window.KelingGraphEditor.receive(${JSONObject.quote(extra.toString())})", null)
     }
     val semanticKey = document.nodes.map { it.copy(positionX = 0.0, positionY = 0.0, updatedAt = "") }
-    LaunchedEffect(ready, semanticKey, refreshKey) {
+    LaunchedEffect(ready, semanticKey, document.edges, readOnly, refreshKey) {
         if (ready) { send("init", JSONObject().put("nodes", org.json.JSONArray(graphJson.encodeToString(document.nodes)))
             .put("layoutSaved", document.layoutSaved).put("savedNodeIds", org.json.JSONArray(document.savedNodeIds))
             .put("preserveLayout", initialized && previousRefresh == refreshKey)
+            .put("readOnly", readOnly).also { message -> document.edges?.let { message.put("edges", org.json.JSONArray(graphJson.encodeToString(it))) } }
             .put("fontUrl", "$GRAPH_ORIGIN/fonts/STZHONGS.TTF")); initialized = true; previousRefresh = refreshKey }
     }
     AndroidView(modifier = modifier, factory = { context -> WebView(context).apply {
@@ -95,12 +97,12 @@ private fun sharedFontStream(context: android.content.Context) = context.resourc
             val event = decodeGraphEvent(raw, courseId, session, currentDocument.nodes.map { it.id }.toSet()) ?: return@post
             when (event.type) {
                 "keling-graph:ready" -> ready = true
-                "keling-graph:readyState", "keling-graph:saveState" -> dirty(event.dirty)
+                "keling-graph:readyState", "keling-graph:saveState" -> { dirty(event.dirty); readyCallback() }
                 "keling-graph:selected" -> event.nodeId?.let(selected)
-                "keling-graph:editRequested" -> event.nodeId?.let(edit)
-                "keling-graph:layoutChanged" -> dirty(event.dirty)
+                "keling-graph:editRequested" -> if (!isReadOnly) event.nodeId?.let(edit)
+                "keling-graph:layoutChanged" -> if (!isReadOnly) dirty(event.dirty)
                 "keling-graph:error" -> error(event.message?.take(200) ?: "图谱未能加载")
-                "keling-graph:saveRequested" -> scope.launch {
+                "keling-graph:saveRequested" -> if (!isReadOnly) scope.launch {
                     try { val saved = save(event.positions); send("saved", JSONObject().put("positions", org.json.JSONArray(graphJson.encodeToString(saved)))) }
                     catch (e: kotlinx.coroutines.CancellationException) { throw e }
                     catch (_: Exception) { send("saveError", JSONObject().put("message", "保存失败，布局已保留，请重试")) }

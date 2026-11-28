@@ -6,7 +6,8 @@ import kotlinx.serialization.Serializable
 @Serializable data class GraphNode(val id: String, val courseId: String, val name: String, val description: String = "", val parentIds: List<String> = emptyList(), val childIds: List<String> = emptyList(), val difficulty: Int = 3, val masteryLevel: Float = 0f, val positionX: Double = .5, val positionY: Double = .5, val updatedAt: String = "") {
     fun editable() = KnowledgeNode(id, courseId, name, description, parentIds, childIds, difficulty, masteryLevel, positionX.toFloat(), positionY.toFloat())
 }
-@Serializable data class GraphDocument(val nodes: List<GraphNode> = emptyList(), val layoutSaved: Boolean = false, val savedNodeIds: List<String> = emptyList(), val layoutUpdatedAt: String? = null)
+@Serializable data class GraphEdge(val source: String, val target: String, val label: String, val kind: String)
+@Serializable data class GraphDocument(val nodes: List<GraphNode> = emptyList(), val layoutSaved: Boolean = false, val savedNodeIds: List<String> = emptyList(), val layoutUpdatedAt: String? = null, val edges: List<GraphEdge>? = null)
 @Serializable data class GraphPosition(val id: String, val positionX: Double, val positionY: Double)
 @Serializable data class GraphPositionWrite(val id: String, val positionX: Double, val positionY: Double, val expectedUpdatedAt: String)
 @Serializable data class GraphLayoutInput(val positions: List<GraphPositionWrite>)

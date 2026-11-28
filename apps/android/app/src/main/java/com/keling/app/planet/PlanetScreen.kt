@@ -22,16 +22,18 @@ import com.keling.app.ui.screens.ai.ModelAccessPanel
     var subject by remember(vm) { mutableStateOf("") }
     var level by remember(vm) { mutableStateOf("") }
     var goal by remember(vm) { mutableStateOf("") }
+    var contextMode by remember(vm) { mutableStateOf("auto") }
+    var questionCount by remember(vm) { mutableStateOf(12) }
+    var generateArtwork by remember(vm) { mutableStateOf(true) }
     var providerId by remember(vm) { mutableStateOf("") }
     var model by remember(vm) { mutableStateOf("") }
     var ownModel by remember(vm) { mutableStateOf(false) }
     var configure by remember(vm) { mutableStateOf(false) }
     var regionId by remember(vm) { mutableStateOf<String?>(null) }
     var reflection by remember(vm) { mutableStateOf("") }
-    val selected = remember(vm) { mutableStateMapOf<String, Int>() }
     LaunchedEffect(state.loading) { if (!state.loading && state.planets.isNotEmpty()) story = false }
     LaunchedEffect(state.providers) { if (state.providers.none { it.id == providerId }) { providerId = state.providers.firstOrNull()?.id.orEmpty(); model = state.providers.firstOrNull()?.chatModels?.firstOrNull().orEmpty() } }
-    LaunchedEffect(state.current?.id) { regionId = state.current?.draft?.regions?.firstOrNull()?.id; selected.clear(); reflection = "" }
+    LaunchedEffect(state.current?.id) { regionId = state.current?.draft?.regions?.firstOrNull()?.id; reflection = "" }
     BackHandler(enabled = state.current != null || state.generated != null) { if (!state.busy) vm.overview() }
     StellarTheme { Surface(Modifier.fillMaxSize()) { Column(Modifier.fillMaxSize()) {
         Row(Modifier.fillMaxWidth().padding(horizontal = 12.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -48,7 +50,8 @@ import com.keling.app.ui.screens.ai.ModelAccessPanel
             when {
                 state.current != null -> {
                     val planet = state.current!!
-                    item { PlanetHero(planet.draft) }
+                    item { PlanetHero(planet.draft, !state.busy) { vm.regenerate("artwork", null, it) } }
+                    item { PlanetGraphPreview(planet.draft) }
                     item { Text("探索记录 ${planet.progress.completedRegionIds.size} / ${planet.draft.regions.size}", style = MaterialTheme.typography.titleMedium) }
                     item { OutlinedButton(onClick = { onNavigate("cloud_graph:${planet.courseId}") }) { Text("展开知识图谱") } }
                     item { Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -65,23 +68,12 @@ import com.keling.app.ui.screens.ai.ModelAccessPanel
                             Text(region.description)
                             region.objectives.forEach { Text(it, style = MaterialTheme.typography.bodyMedium) }
                             Text(region.lesson, style = MaterialTheme.typography.bodyLarge)
+                            PlanetSources(planet.draft.research, region.sourceIds)
                         } } }
-                        items(region.questions, key = { it.id }) { question ->
+                        items(region.questions, key = { "${planet.id}:${it.id}" }) { question ->
                             val answer = planet.progress.answers[question.id]
                             val feedback = state.feedback[question.id]
-                            Card { Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                                Text(question.prompt, style = MaterialTheme.typography.titleMedium)
-                                question.options.forEachIndexed { index, option -> Row(Modifier.fillMaxWidth().clickable(enabled = !state.busy && unlocked) { selected[question.id] = index }, verticalAlignment = Alignment.CenterVertically) {
-                                    RadioButton(selected = (selected[question.id] ?: answer?.selectedIndex) == index, onClick = { selected[question.id] = index }, enabled = !state.busy && unlocked)
-                                    Text(option, Modifier.weight(1f).padding(vertical = 8.dp))
-                                } }
-                                Button(onClick = { (selected[question.id] ?: answer?.selectedIndex)?.let { vm.answer(question.id, it) } }, enabled = !state.busy && unlocked && (selected[question.id] ?: answer?.selectedIndex) != null) { Text(if (answer == null) "提交探索" else "重新尝试") }
-                                if (answer != null) {
-                                    Text(if (answer.correct) "与参考答案一致" else "还有一处值得再想想", color = MaterialTheme.colorScheme.primary)
-                                    Text(feedback?.explanation ?: question.explanation)
-                                    Text("参考选项：${question.options.getOrNull(feedback?.expectedIndex ?: question.answerIndex).orEmpty()}", style = MaterialTheme.typography.bodyMedium)
-                                }
-                            } }
+                            PlanetQuestionCard(question, answer, feedback, planet.draft.research, !state.busy && unlocked, { vm.regenerate("question", question.id, it) }) { vm.answer(question.id, it) }
                         }
                         item { Card { Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
                             StellarSectionTitle("航行日志", motif = 4)
@@ -96,11 +88,16 @@ import com.keling.app.ui.screens.ai.ModelAccessPanel
                 state.generated != null -> {
                     val draft = state.generated!!.draft
                     item { StellarHeading("星球已抵达", mascot = 2) }
-                    item { PlanetHero(draft) }
+                    item { PlanetHero(draft, !state.busy) { vm.regenerate("artwork", null, it) } }
+                    item { PlanetGraphPreview(draft) }
                     items(draft.regions, key = { it.id }) { region -> Card { Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                         Text(region.title, style = MaterialTheme.typography.titleLarge)
                         Text(region.description)
                         Text("${region.questions.size} 道探索题 · 约 ${region.estimatedMinutes} 分钟", style = MaterialTheme.typography.bodySmall)
+                        region.questions.forEach { question -> key(question.id) {
+                            Text("${planetQuestionLabel(question.kind)}：${question.prompt}", style = MaterialTheme.typography.bodyMedium)
+                            PlanetRegenerationControl("调整这道题", "例如：换成生活情境题，增加辨析深度", !state.busy) { vm.regenerate("question", question.id, it) }
+                        } }
                     } } }
                     item { StellarActionButton("确认星球，开始探索", vm::confirm, Modifier.fillMaxWidth(), !state.busy) }
                     item { TextButton(onClick = vm::discardPreview, enabled = !state.busy) { Text("调整目标，重新生成") } }
@@ -119,9 +116,12 @@ import com.keling.app.ui.screens.ai.ModelAccessPanel
                                 }
                             }
                         }
-                        OutlinedTextField(subject, { subject = it.take(80) }, label = { Text("想学习的学科") }, placeholder = { Text("例如：高等数学、英语、历史") }, singleLine = true, enabled = !state.busy, modifier = Modifier.fillMaxWidth())
+                        OutlinedTextField(subject, { subject = it.take(80) }, label = { Text("想探索的主题") }, placeholder = { Text("学科、概念或网络流行语") }, singleLine = true, enabled = !state.busy, modifier = Modifier.fillMaxWidth())
+                        StellarSelect("探索语境", contextMode, listOf("auto" to "综合辨析", "general" to "通识与原义", "internet_culture" to "网络文化与流行用法"), !state.busy) { contextMode = it }
                         OutlinedTextField(level, { level = it.take(80) }, label = { Text("当前基础（选填）") }, enabled = !state.busy, modifier = Modifier.fillMaxWidth())
                         OutlinedTextField(goal, { goal = it.take(300) }, label = { Text("这次想学会什么（选填）") }, enabled = !state.busy, modifier = Modifier.fillMaxWidth())
+                        StellarSelect("探索题量", questionCount.toString(), listOf("6" to "6 题 · 轻探索", "12" to "12 题 · 标准航程", "18" to "18 题 · 深入探索"), !state.busy) { questionCount = it.toInt() }
+                        Row(verticalAlignment = Alignment.CenterVertically) { Switch(generateArtwork, { generateArtwork = it }, enabled = !state.busy); Text("生成专属星球形象", Modifier.padding(start = 8.dp)) }
                         Row(verticalAlignment = Alignment.CenterVertically) { Switch(ownModel, { ownModel = it }, enabled = !state.busy); Text("使用自己的模型", Modifier.padding(start = 8.dp)) }
                         if (ownModel) {
                             Text(if (access.model.isBlank()) "尚未配置模型" else "${access.providerId} · ${access.model}")
@@ -134,13 +134,13 @@ import com.keling.app.ui.screens.ai.ModelAccessPanel
                                 if (models.isNotEmpty()) StellarSelect("模型", model, models.map { it to it }, !state.busy) { model = it }
                             }
                         }
-                        StellarActionButton(if (state.busy) "星芽正在绘制星球…" else "生成我的学习星球", { vm.generate(subject, level, goal, ownModel, providerId, model) }, Modifier.fillMaxWidth(), !state.busy && subject.isNotBlank())
+                        StellarActionButton(if (state.busy) "星芽正在检索与绘制…" else "生成我的学习星球", { vm.generate(subject, level, goal, ownModel, providerId, model, contextMode, questionCount, generateArtwork) }, Modifier.fillMaxWidth(), !state.busy && subject.isNotBlank())
                         if (state.busy) TextButton(onClick = vm::cancelGeneration) { Text("停止等待") }
                         Text(if (guest) "游客星球退出即清空" else "确认后保存到账号", style = MaterialTheme.typography.bodySmall)
                     } } }
                     items(state.planets, key = { it.id }) { planet -> Card(onClick = { if (!state.busy) vm.open(planet.id) }) {
                         Row(Modifier.fillMaxWidth().padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
-                            SubjectPlanetArt(planet.draft.subject, planet.draft.planetStyleIndex, Modifier.size(80.dp), null)
+                            GeneratedPlanetArt(planet.draft, Modifier.size(80.dp), null)
                             Column(Modifier.weight(1f).padding(start = 12.dp)) { Text(planet.draft.title, style = MaterialTheme.typography.titleLarge); Text("${planet.draft.subject} · ${planet.progress.completedRegionIds.size}/${planet.draft.regions.size} 区域") }
                             StellarArrow(Modifier.size(36.dp))
                         }
@@ -158,11 +158,15 @@ import com.keling.app.ui.screens.ai.ModelAccessPanel
     if (configure) ModelAccessPanel(sharedSession = vm.access, onClose = { configure = false })
 }
 
-@Composable private fun PlanetHero(draft: PlanetDraft) {
+@Composable private fun PlanetHero(draft: PlanetDraft, enabled: Boolean, onRedraw: (String) -> Unit) {
     Card { Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-        SubjectPlanetArt(draft.subject, draft.planetStyleIndex, Modifier.fillMaxWidth().height(150.dp))
+        GeneratedPlanetArt(draft, Modifier.fillMaxWidth().height(190.dp))
+        PlanetRegenerationControl("重绘星球形象", "例如：青绿色星环，加入象征主题的建筑", enabled, onRedraw)
         Text(draft.title, style = MaterialTheme.typography.headlineMedium)
         Text(draft.story)
+        PlanetMeaningCard(draft.meaningAnalysis)
+        draft.research?.intent?.takeIf { it.isNotBlank() }?.let { Text(it, style = MaterialTheme.typography.bodyMedium) }
+        PlanetSources(draft.research)
         Text("AI 生成内容，待核对", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.secondary)
     } }
 }

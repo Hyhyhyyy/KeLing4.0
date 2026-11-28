@@ -13,8 +13,11 @@
 | `server/modules/gateway/gateway.service.ts` | 校验路径，提供课灵网页，把 `/api/*` 交给课灵 Express 后端 |
 | `server/modules/gateway/download.controller.ts` | 仅为固定已发布 APK 签发短期下载链接，再重定向至文件存储 |
 | `server/modules/gateway/release.controller.ts` | 返回已经核验的 APK 版本、摘要与妙搭下载入口，避免运行时依赖 GitHub 网络 |
-| `server/modules/gateway/native-planet.service.ts` | 注册妙搭原生模型能力，生成结构化学习星球 |
-| `server/capabilities/keling-learning-planet.json` | 原生模型动作、参数和返回结构 |
+| `server/modules/gateway/native-planet.service.ts` | 注册原始联网检索、学习星球生成与单题再生能力 |
+| `server/modules/gateway/native-artwork.service.ts` | 注册主题星球图片生成，供初次生成与追加描述再生复用 |
+| `server/capabilities/keling-learning-planet.json` | 星球、六题型练习、多义分析与完整知识图谱的结构化输出 |
+| `server/capabilities/keling-learning-question.json` | 带追加要求的单题结构化输出 |
+| `server/capabilities/keling-planet-artwork.json` | 按主题描述生成1:1星球图片 |
 | `server/modules/gateway/artwork.controller.ts` | 为十幅固定图片签发短期资源链接，涵盖标题吉祥物、箭头、指南、学科星球、航程装扮与开篇驾驶舱 |
 | `server/modules/gateway/font.controller.ts` | 通过平台 SDK 下载并校验固定字体，以同源 WOFF2 响应提供缓存、ETag 与 CORS |
 | `server/modules/gateway/gateway.module.ts` | 注册上述服务与控制器 |
@@ -38,6 +41,7 @@
 | 组件 | 来源锁定版本 |
 | --- | --- |
 | `@lark-apaas/fullstack-nestjs-core` | 1.1.70 |
+| `@lark-apaas/nestjs-common` | 0.1.9（显式请求上下文运行依赖） |
 | `@lark-apaas/client-toolkit` | 1.2.76 |
 | `@lark-apaas/fullstack-presets` | 1.1.25 |
 | `@lark-apaas/coding-preset-vite-react` | 1.0.26 |
@@ -57,7 +61,7 @@
 3. 在模板工程中安装课灵部署产物所需的外部依赖，保留官方模板原有依赖，并提交该模板工程自己的锁文件。以下版本来自本次来源锁文件：
 
 ```bash
-npm install --save-exact @prisma/client@6.19.3 @prisma/adapter-pg@6.19.3 pg@8.23.1 bcryptjs@3.0.3 cors@2.8.6 dotenv@17.4.2 express@5.2.1 express-rate-limit@8.6.2 helmet@8.3.0 jsonwebtoken@9.0.3 unpdf@1.4.0 zod@4.6.7 @vercel/functions@3.10.4 uuid@11.0.5
+npm install --save-exact @lark-apaas/nestjs-common@0.1.9 @prisma/client@6.19.3 @prisma/adapter-pg@6.19.3 pg@8.23.1 bcryptjs@3.0.3 cors@2.8.6 dotenv@17.4.2 express@5.2.1 express-rate-limit@8.6.2 helmet@8.3.0 jsonwebtoken@9.0.3 unpdf@1.4.0 zod@4.6.7 @vercel/functions@3.10.4 uuid@11.0.5
 npm install --save-dev --save-exact prisma@6.19.3
 ```
 
@@ -83,7 +87,7 @@ node scripts/prepare-miaoda.cjs .cache/miaoda-build/vendor
 
 ## 公开美术与字体路由
 
-[public-resources.json](public-resources.json) 记录当前应用的五个固定资源、来源文件、存储位置、字节数和 SHA-256，不包含凭据或临时签名链接。图集、箭头与卷轴的响应重定向缓存 5 分钟，每次重新签发 1 小时有效的存储 URL。字体通过 `FileService.download` 下载，校验 WOFF2 文件头、大小及完整 SHA-256 后在内存缓存；浏览器响应使用 `font/woff2`、一天缓存和 ETag，支持条件 GET 与 HEAD。字体不依赖存储下载域名的 CORS 或默认 MIME。
+[public-resources.json](public-resources.json) 记录当前应用的十一个固定资源、来源文件、存储位置、字节数和 SHA-256，不包含凭据或临时签名链接。图集、箭头与卷轴的响应重定向缓存 5 分钟，每次重新签发 1 小时有效的存储 URL。字体通过 `FileService.download` 下载，校验 WOFF2 文件头、大小及完整 SHA-256 后在内存缓存；浏览器响应使用 `font/woff2`、一天缓存和 ETag，支持条件 GET 与 HEAD。字体不依赖存储下载域名的 CORS 或默认 MIME。
 
 这些存储路径仅属于记录中的应用。重建到新应用时，先上传主线对应资源，再替换控制器内的固定 bucket/path/摘要/大小，并更新来源记录；不能跨应用复用存储地址。字体使用授权记录见主线 `assets/fonts/manifest.json`。
 
@@ -98,7 +102,7 @@ KELING_FONT_SOURCE=/absolute/path/to/KeLing_ICT/assets/fonts/STZHONGS.woff2 \
 
 复制上述适配文件后，以下修改仍须核对并合入自己的模板：
 
-- `package.json` 增加 `actionPlugins: { "@official-plugins/ai-text-to-json": "1.0.26", "@official-plugins/ai-text-generate": "1.0.21" }`，保留官方构建脚本中的 `fullstack-cli action-plugin init`。将 `server/capabilities/keling-learning-planet.json` 、`keling-study-assistant.json`、`keling-study-plan.json` 与 `NativePlanetService`、`NativeAiService` 一同接入；仅复制服务类不能替代插件实例初始化。学习星球和计划使用 `textToJson` 的结构化输出；对话使用 `textGenerate` 的增量 `data.content`，收齐正常完成事件后返回。计划的来源、日期和预算还须通过课灵校验。Web 和 Android 共同调用课灵账号接口，长生成通过任务状态查询，避免平台请求超时。该公共服务标识为妙搭，不冒充华为模型；不提供向量嵌入。
+- 通过官方 `lark-cli apps +plugin-install --name <插件包名> --as user` 安装插件，保留 `package.json` 中 `actionPlugins: { "@official-plugins/ai-text-to-json": "1.0.26", "@official-plugins/ai-text-generate": "1.0.21", "@official-plugins/ai-search-summary": "1.0.14", "@official-plugins/ai-text-to-image": "1.0.21" }`，保留官方构建脚本中的 `fullstack-cli action-plugin init`。将 `server/capabilities/` 下五个实例 `keling-learning-planet.json`、`keling-learning-question.json`、`keling-planet-artwork.json`、`keling-study-assistant.json`、`keling-study-plan.json` 与 `NativePlanetService`、`NativeArtworkService`、`NativeAiService` 一同接入；仅复制服务类不能替代插件实例初始化。学习星球和计划使用 `textToJson` 的结构化输出；对话使用 `textGenerate` 的增量 `data.content`，收齐正常完成事件后返回。计划的来源、日期和预算还须通过课灵校验。Web 和 Android 共同调用课灵账号接口，长生成通过任务状态查询，避免平台请求超时。该公共服务标识为妙搭，不冒充华为模型；不提供向量嵌入。
 - `package.json` 的 `build:server` 先运行 `node scripts/build-keling.cjs`，再执行原 Nest 构建。来源值为 `node scripts/build-keling.cjs && NODE_ENV=production nest build`，适用于平台的 Bash 构建环境。
 - 核对来源模板的功能标记，尤其是 `supportBusinessUser: true`；完整标记记录在 `provenance.json`。不要因为只复制业务模块而丢失平台初始化配置。
 - 在官方 `scripts/build.sh` 调用 `scripts/prune-smart.js` **之后**添加 `node "$ROOT_DIR/scripts/copy-prisma.cjs"`。只运行 `build:prod` 不能证明平台最终裁剪产物完整；应验证实际平台构建路径。
@@ -106,6 +110,16 @@ KELING_FONT_SOURCE=/absolute/path/to/KeLing_ICT/assets/fonts/STZHONGS.woff2 \
 - 模板 ESLint 的忽略范围增加 `vendor/**`。生成代码在主仓库检查源文件，不能让它混入模板自有源码的检查。
 - 来源项目的 `gen:openapi` 为 `echo 'UNSUPPORTED, SKIP'`。本适配器保持既有课灵 HTTP 契约，网页使用课灵客户端，不使用模板生成的 API 客户端。若恢复生成器，需要单独验证这些通配路由的兼容性。
 - 来源工程对 Windows 的 `scripts/lint.js` 和提交钩子做过 npm 启动适配。这两份模板文件未收录；在 Windows 验证模板时仍须处理 `.cmd` 启动兼容性，不能跳过检查代替修复。平台 Bash 构建与本地 Windows 工具链需分别验证。
+
+## 主题检索与生成契约
+
+`NativePlanetService` 采用已安装官方 `ai-search-summary@1.0.14` 插件相同的 SDK 搜索调用：`PlatformHttpClientService.instance.post` 调用平台集成接口，`apiName` 为 `tool.web_search`，`userID` 来自当前 `RequestContextService`。保留平台既有应用和用户权限，不注入额外凭据，不在应用运行时调用 CLI。来源从原始 `results` 的标题、URL、摘要读取，不采信模型自行编写的网址。
+
+`researchTopic` 合并两组语境查询、过滤危险 URL、去重并赋予稳定 `s1…s10` 引用。`grounded` 只表示检索返回至少两个不同 URL，不代表事实已经交叉核查；模型须进一步辨析摘要的直接性、同源转载、争议与适用边界。检索不可用、来源不足或未返回合法结构时终止生成，不能伪装为联网成功。
+
+星球按用户选择生成 6、12 或 18 题，三块区域均分，覆盖单选、多选、判断、填空、排序、简答六型；简答采用逐项自核，不宣称机器批改。初始知识图谱包含 4–48 个节点，层级关系无环、跨分支关系单独标记；区域、题目及图谱节点均必须引用实际来源。单题再生只替换指定题目，图片再生只替换图片。图片生成失败保留可用的原图或预设图，不把预设图标为 AI 生成。
+
+原始检索权限、模型 16384 token 参数和图片 URL 的实际可用性，需要在目标应用用真实请求核验；本地合同测试不能替代云端验收。契约和定向测试记录见 [主题检索验证](../../docs/validation/topic-research-contract-2026-11-28.md)。
 
 ## 应用与环境配置
 

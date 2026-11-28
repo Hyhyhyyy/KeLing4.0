@@ -8,7 +8,8 @@ export interface GraphNode {
   masteryLevel: number; difficulty: number; positionX: number; positionY: number;
 }
 export interface GraphPosition { id: string; positionX: number; positionY: number }
-export interface GraphInput { nodes: GraphNode[]; layoutSaved: boolean; savedNodeIds: string[]; sessionId: string; courseId: string; readOnly?: boolean; fontUrl?: string }
+export interface GraphEdge { source:string;target:string;label?:string;kind?:'hierarchy'|'related' }
+export interface GraphInput { nodes: GraphNode[]; edges?:GraphEdge[]; layoutSaved: boolean; savedNodeIds: string[]; sessionId: string; courseId: string; readOnly?: boolean; fontUrl?: string }
 const bounded = (value: unknown, fallback: number, min: number, max: number) => typeof value === 'number' && Number.isFinite(value) ? Math.max(min, Math.min(max, value)) : fallback;
 const text = (value: unknown, max: number) => typeof value === 'string' ? value.slice(0, max) : '';
 export function validateGraphInput(value: unknown): GraphInput {
@@ -27,7 +28,9 @@ export function validateGraphInput(value: unknown): GraphInput {
       masteryLevel: bounded(node.masteryLevel, 0, 0, 1), difficulty: Math.round(bounded(node.difficulty, 1, 1, 5)),
       positionX: bounded(node.positionX, .5, 0, 1), positionY: bounded(node.positionY, .5, 0, 1) };
   });
-  return { courseId: input.courseId, sessionId: input.sessionId, nodes, layoutSaved: input.layoutSaved === true,
+  let edges:GraphEdge[]|undefined;
+  if(input.edges!==undefined){if(!Array.isArray(input.edges)||input.edges.length>1000)throw new Error('图谱关系数量无效');edges=input.edges.map(raw=>{if(!raw||typeof raw!=='object')throw new Error('图谱关系无效');const edge=raw as Record<string,unknown>;if(typeof edge.source!=='string'||typeof edge.target!=='string'||!seen.has(edge.source)||!seen.has(edge.target)||edge.source===edge.target||!['hierarchy','related'].includes(edge.kind as string))throw new Error('图谱关系节点无效');return {source:edge.source,target:edge.target,label:text(edge.label,100),kind:edge.kind as 'hierarchy'|'related'};});}
+  return { courseId: input.courseId, sessionId: input.sessionId, nodes, ...(edges?{edges}:{}), layoutSaved: input.layoutSaved === true,
     savedNodeIds: Array.isArray(input.savedNodeIds) ? input.savedNodeIds.filter((id): id is string => typeof id === 'string' && seen.has(id)) : [],
     readOnly: input.readOnly === true, fontUrl: typeof input.fontUrl === 'string' ? input.fontUrl : undefined };
 }

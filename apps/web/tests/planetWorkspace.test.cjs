@@ -86,3 +86,130 @@ test('common subject illustrations are selected semantically, with unknown subje
  for(const [subject,id] of [['高等数学','math'],['英语','english'],['中国历史','history'],['计算机科学','computer'],['经济学','economics'],['思想政治','politics'],['语文','chinese'],['物理学','physics'],['化学','chemistry'],['生物学','biology'],['地理学','geography'],['美术','arts']])assert.equal(pick(subject)?.id,id,subject);
  assert.equal(pick('自定义专题'),undefined);
 });
+
+test('generation preserves selected internet context and question volume in transport',async()=>{
+ const h=harness();h.guest(false);let body;
+ h.setFetch(async(_url,options)=>{body=JSON.parse(options.body);return response(fixture('奶龙学'));});
+ await h.planetAPI.generate({subject:'奶龙学',contextMode:'internet_culture',questionCount:18,goal:'理解网络二创的用法'});
+ assert.equal(body.contextMode,'internet_culture');assert.equal(body.questionCount,18);assert.equal(body.goal,'理解网络二创的用法');
+ assert.equal(h.getGuestWorkspace().courses.length,0);
+});
+
+test('research failures keep the topic editable and create no course',async()=>{
+ const h=harness();h.guest(false);
+ h.setFetch(async()=>response({code:'INSUFFICIENT_RESEARCH'},422));
+ await assert.rejects(()=>h.planetAPI.generate({subject:'无法核实的主题',contextMode:'internet_culture'}),/可靠资料不足/);
+ h.setFetch(async()=>response({code:'RESEARCH_UNAVAILABLE'},503));
+ await assert.rejects(()=>h.planetAPI.generate({subject:'奶龙学'}),/联网检索暂时不可用/);
+ assert.equal(h.getGuestWorkspace().courses.length,0);
+});
+
+function practiceHelpers(){
+ const path=require('node:path'),vm=require('node:vm'),esbuild=require('esbuild');
+ const code=esbuild.buildSync({entryPoints:[path.resolve(__dirname,'../src/pages/Planets/practiceAnswers.ts')],bundle:true,platform:'node',format:'cjs',write:false}).outputFiles[0].text;
+ const exports={},context={module:{exports},exports,require,process,URL};vm.runInNewContext(code,context);return context.module.exports;
+}
+
+test('practice response builder keeps six formats distinct and does not auto-confirm self review',()=>{
+ const {questionResponse,describeResponse}=practiceHelpers(),q={options:['甲','乙','丙']};
+ const call=(kind,selected,multiple,text,order,selfReview)=>questionResponse({...q,kind},selected,multiple,text,order,selfReview);
+ const plain=value=>JSON.parse(JSON.stringify(value));
+ assert.deepEqual(plain(call(undefined,1,[],'',[])),{selectedIndex:1});
+ assert.deepEqual(plain(call('true_false',0,[],'',[])),{selectedIndex:0});
+ assert.deepEqual(plain(call('multiple_choice',null,[2,0],'',[])),{selectedIndices:[0,2]});
+ assert.deepEqual(plain(call('fill_blank',null,[],'  网络文化  ',[])),{text:'网络文化'});
+ assert.deepEqual(plain(call('ordering',null,[],'',[2,0,1])),{orderedIndices:[2,0,1]});
+ assert.equal(call('ordering',null,[],'',[0,0,2]),null);
+ assert.equal(call('multiple_choice',null,[],'',[]),null);
+ assert.equal(call('short_answer',null,[],' ',[]),null);
+ assert.deepEqual(plain(call('short_answer',null,[],'我的解释',[])),{text:'我的解释'});
+ assert.deepEqual(plain(call('short_answer',null,[],'我的解释',[],true)),{text:'我的解释',selfReview:true});
+ assert.equal(describeResponse(q,{orderedIndices:[2,0,1]}),'1. 丙\n2. 甲\n3. 乙');
+});
+
+test('ordering controls preserve each item and research links reject executable or credential URLs',()=>{
+ const {moveOrder,sourceUrl}=practiceHelpers(),order=[0,1,2];
+ assert.equal(moveOrder(order,0,-1),order);assert.equal(moveOrder(order,2,1),order);
+ assert.deepEqual(Array.from(moveOrder(order,1,-1)),[1,0,2]);assert.deepEqual(order,[0,1,2]);
+ assert.equal(sourceUrl('https://example.org/source?id=3'),'https://example.org/source?id=3');
+ for(const value of ['javascript:alert(1)','data:text/html,test','https://user:password@example.org/','not-a-url'])assert.equal(sourceUrl(value),undefined);
+});
+
+test('legacy draft canonical bytes retain signed field order without new defaults',()=>{
+ const h=harness(),d=fixture().draft;
+ const canonical={id:d.id,subject:d.subject,level:d.level,goal:d.goal,title:d.title,story:d.story,planetStyleIndex:d.planetStyleIndex,regions:d.regions,reviewStatus:d.reviewStatus,generatedBy:d.generatedBy};
+ assert.equal(JSON.stringify(h.validatePlanetDraft(d)),JSON.stringify(canonical));
+ assert.equal(Object.hasOwn(h.validatePlanetDraft(d).regions[0].questions[0],'kind'),false);
+});
+
+function diverseFixture(){
+ const d=fixture().draft;
+ const base=(id,kind,more)=>({id,kind,prompt:id,options:[],answerIndex:0,explanation:'参考解析',...more});
+ d.regions[0].questions=[
+  base('multi','multiple_choice',{options:['甲','乙','丙'],answerIndices:[0,2]}),
+  base('bool','true_false',{options:['是','否'],answerIndex:1}),
+  base('blank','fill_blank',{acceptedAnswers:['ABC','甲 乙']}),
+  base('order','ordering',{options:['开始','结束','过程'],answerIndices:[0,2,1]}),
+  base('short','short_answer',{referenceAnswer:'原作设定与网络二创不能混为一谈。',rubric:['区分语境','给出依据']}),
+ ];
+ return d;
+}
+
+test('mixed practice uses sets, exact order and normalized exact text without false semantic grading',()=>{
+ const h=harness(),d=h.validatePlanetDraft(diverseFixture());let p=h.emptyPlanetProgress();
+ const submit=(id,value)=>{const r=h.answerPlanetQuestion(d,p,id,value);p=r.progress;return r.feedback;};
+ assert.equal(submit('multi',{selectedIndices:[2,0]}).correct,true);
+ assert.equal(submit('multi',{selectedIndices:[0,1,2]}).correct,false);
+ assert.throws(()=>submit('multi',{selectedIndices:[0,0]}),/重复/);
+ assert.equal(submit('bool',{selectedIndex:1}).correct,true);
+ assert.equal(submit('blank',{text:'  ＡＢＣ  '}).correct,true);
+ assert.equal(submit('blank',{text:'甲\n乙'}).correct,true);
+ assert.equal(submit('blank',{text:'甲乙'}).correct,false);
+ assert.equal(submit('order',{orderedIndices:[0,2,1]}).correct,true);
+ assert.equal(submit('order',{orderedIndices:[2,0,1]}).correct,false);
+ assert.throws(()=>submit('order',{orderedIndices:[0,1]}),/数量无效/);
+});
+
+test('short answer needs a previous matching answer and explicit review; changed text resets review',()=>{
+ const h=harness(),d=h.validatePlanetDraft(diverseFixture());d.regions[0].questions=d.regions[0].questions.filter(q=>q.id==='short');let p=h.emptyPlanetProgress();
+ assert.throws(()=>h.answerPlanetQuestion(d,p,'short',{text:'我的解释',selfReview:true}),/先提交/);
+ let r=h.answerPlanetQuestion(d,p,'short',{text:'我的解释'});p=r.progress;
+ assert.equal(r.feedback.correct,false);assert.equal(r.feedback.requiresSelfReview,true);assert.equal(p.completedRegionIds.length,0);
+ assert.throws(()=>h.answerPlanetQuestion(d,p,'short',{text:'另一个解释',selfReview:true}),/先提交/);
+ r=h.answerPlanetQuestion(d,p,'short',{text:'我的解释',selfReview:true});p=r.progress;
+ assert.equal(r.feedback.correct,false);assert.equal(p.answers.short.reviewed,true);assert.equal(p.completedRegionIds[0],'region-0');
+ r=h.answerPlanetQuestion(d,p,'short',{text:'修改后的解释'});
+ assert.equal(r.progress.answers.short.reviewed,false);assert.equal(r.progress.completedRegionIds.length,0);
+});
+
+test('citations and artwork validation reject unknown sources and unsafe image URLs',()=>{
+ const h=harness(),d=diverseFixture();
+ d.research={status:'grounded',intent:'网络文化语境',sources:[{id:'s1',title:'来源',url:'https://example.org/article',snippet:'原作和二创的区别'}],searchedAt:'2026-11-28T00:00:00Z',queries:['奶龙学']};
+ d.regions[0].questions[0].sourceIds=['s1'];
+ d.artwork={status:'generated',url:'https://images.example.org/planet.png',prompt:'星球插画'};
+ assert.equal(h.validatePlanetDraft(d).research.sources[0].id,'s1');
+ d.regions[0].questions[0].sourceIds=['unknown'];assert.throws(()=>h.validatePlanetDraft(d),/引用必须/);d.regions[0].questions[0].sourceIds=['s1'];
+ for(const url of ['http://images.example.org/p.png','https://127.0.0.1/p.png','https://localhost/p.png','https://[::1]/p.png','https://user:pass@example.org/p.png']){d.artwork.url=url;assert.throws(()=>h.validatePlanetDraft(d),/网址/);}
+ d.artwork={status:'fallback',prompt:'图像生成失败'};assert.equal(h.validatePlanetDraft(d).artwork.status,'fallback');
+});
+
+function graphFixture(){return {nodes:Array.from({length:7},(_,i)=>({id:'n'+i,title:'概念'+i,summary:'知识解释'+i,sourceIds:[]})),edges:[{source:'n0',target:'n1',label:'包含',kind:'hierarchy'},{source:'n0',target:'n2',label:'包含',kind:'hierarchy'},{source:'n2',target:'n3',label:'应用',kind:'hierarchy'},{source:'n1',target:'n3',label:'辨析',kind:'related'}]};}
+test('adaptive graph keeps arbitrary branches; hierarchy cycles and unknown nodes are rejected',async()=>{
+ const h=harness(),d=fixture();d.draft.knowledgeGraph=graphFixture();h.guest(false);
+ assert.equal(h.validatePlanetDraft(d.draft).knowledgeGraph.nodes.length,7);
+ await h.planetAPI.confirm(d,'graph-confirmation');assert.equal(h.getGuestWorkspace().nodes.length,7);
+ assert.equal(h.getGuestWorkspace().nodes.find(n=>n.name==='概念3').parentIds.length,1);
+ d.draft.knowledgeGraph.edges.push({source:'n3',target:'n0',label:'循环',kind:'hierarchy'});assert.throws(()=>h.validatePlanetDraft(d.draft),/不能循环/);
+ d.draft.knowledgeGraph.edges.pop();d.draft.knowledgeGraph.edges.push({source:'n3',target:'unknown',label:'无效',kind:'related'});assert.throws(()=>h.validatePlanetDraft(d.draft),/节点无效/);
+});
+
+test('guest question regeneration preserves other questions, clears replaced answer and relocks dependents',async()=>{
+ const h=harness();h.guest(false);const d=fixture();const p=await h.planetAPI.confirm(d,'regenerate-confirmation');
+ await h.planetAPI.answer(p.id,'question-0',0,'first-answer');await h.planetAPI.answer(p.id,'question-1',0,'second-answer');
+ h.setFetch(async(url,options)=>{assert.match(url,/regenerate-preview$/);const body=JSON.parse(options.body);assert.equal(body.kind,'question');assert.equal(body.questionId,'question-0');assert.equal(body.draftToken,d.draftToken);const next=structuredClone(body.draft);next.regions[0].questions[0].id='new-question';return response({draft:next,draftToken:'revised-token'});});
+ const changed=await h.planetAPI.regenerate(p.id,'question','用更贴近语境的题目','question-regenerate','question-0');
+ assert.equal(changed.progress.answers['question-0'],undefined);assert.equal(changed.progress.answers['question-1'].correct,true);assert.equal(changed.progress.completedRegionIds.length,0);
+ assert.equal(changed.draft.regions[1].questions[0].id,'question-1');
+ h.setFetch(async()=>response({code:'ARTWORK_FAILED'},502));await assert.rejects(()=>h.planetAPI.regenerate(p.id,'artwork','像素风','image-regenerate'),/原形象已保留/);
+ assert.equal((await h.planetAPI.get(p.id)).draft.regions[0].questions[0].id,'new-question');
+});

@@ -1,6 +1,10 @@
 import type { Request, Response } from 'express';
 export const app: (req: Request, res: Response, next: () => void) => void;
-export const registerLearningPlanetGenerator: (generator: (input: {subject:string;level:string;goal:string}, signal: AbortSignal) => Promise<unknown>) => void;
+export type NativePlanetInput = {subject:string;level:string;goal:string;contextMode:'auto'|'general'|'internet_culture';questionCount:6|12|18;research:{status:'grounded'|'insufficient'|'unavailable';intent:string;sources:{id:string;title:string;url:string;snippet:string;publishedAt?:string}[];searchedAt:string;queries:string[];summary?:string}};
+export const registerLearningPlanetGenerator: (generator: (input: NativePlanetInput, signal: AbortSignal) => Promise<unknown>) => void;
+export const registerLearningQuestionGenerator: (generator: (input:NativePlanetInput & {lesson:string;question:unknown;instruction:string}, signal:AbortSignal)=>Promise<unknown>)=>void;
+export const registerTopicResearchProvider: (provider:(query:string,signal:AbortSignal)=>Promise<unknown>)=>void;
+export const registerPlanetArtworkGenerator: (generator:(prompt:string,signal:AbortSignal)=>Promise<string>)=>void;
 export type NativeAiMessage = { role: 'system' | 'user' | 'assistant'; content: string };
 export type NativeAiRequest = { messages: NativeAiMessage[]; maxOutputTokens: number; signal: AbortSignal; purpose?: 'study-plan' };
 export type NativeAiResult = { content: string; usage?: { inputTokens?: number; outputTokens?: number } };

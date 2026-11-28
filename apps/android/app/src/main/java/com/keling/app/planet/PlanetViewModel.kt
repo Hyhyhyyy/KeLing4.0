@@ -18,6 +18,7 @@ class PlanetViewModel(val token: String, private val api: PlanetApi = PlanetApi(
     private var job: Job? = null
     private var draftRequestId = UUID.randomUUID().toString()
     private val answerReceipts = mutableMapOf<String, String>()
+    private val regenerationReceipts = mutableMapOf<String, String>()
     init { refresh() }
     private fun update(block: (PlanetUiState) -> PlanetUiState) { if (!closed) mutable.update(block) }
     private fun action(block: suspend () -> Unit) {
@@ -31,7 +32,8 @@ class PlanetViewModel(val token: String, private val api: PlanetApi = PlanetApi(
         }
     }
     private fun safeError(e: Exception): String = when {
-        e is ApiException && e.statusCode == 503 -> "生成服务尚未配置可用模型，请配置自己的模型后重试"
+        e is ApiException && e.code in setOf("INSUFFICIENT_RESEARCH", "RESEARCH_INSUFFICIENT", "RESEARCH_UNAVAILABLE", "TOPIC_AMBIGUOUS", "INSUFFICIENT_SOURCES", "TOPIC_RESEARCH_REQUIRED", "ARTWORK_FAILED", "INVALID_PLANET", "DRAFT_EXPIRED", "REGENERATION_LIMIT") -> e.message ?: "资料不足，请补充语境或缩小主题"
+        e is ApiException && e.statusCode == 503 -> "生成服务暂不可用，请稍后重试或检查模型配置"
         e is ApiException && e.statusCode in listOf(401, 403) -> "账号或模型权限未通过，请检查登录与模型配置"
         e is ApiException && e.statusCode == 422 -> "模型返回的星球不完整，请重新生成"
         e is ApiException && e.statusCode == 409 -> "资料或请求已变化，请刷新后重试"
@@ -44,13 +46,13 @@ class PlanetViewModel(val token: String, private val api: PlanetApi = PlanetApi(
         try { val catalog = api.catalog(); update { it.copy(providers = catalog.providers, catalogError = null) } }
         catch (e: CancellationException) { throw e } catch (_: Exception) { update { it.copy(catalogError = "暂时无法读取模型目录，可配置自己的模型") } }
     }
-    fun generate(subject: String, level: String, goal: String, ownModel: Boolean, providerId: String, model: String) = action {
+    fun generate(subject: String, level: String, goal: String, ownModel: Boolean, providerId: String, model: String, contextMode: String = "auto", questionCount: Int = 12, generateArtwork: Boolean = true) = action {
         val accessState = access.state.value
         if (ownModel) require(accessState.apiKey.isNotBlank() && accessState.model.isNotBlank()) { "请先配置模型" }
         val result = api.generate(GeneratePlanetInput(subject.trim(), level.trim().ifBlank { "入门" }, goal.trim(),
             if (ownModel) accessState.model else model.ifBlank { null },
             if (ownModel) accessState.providerId else providerId.ifBlank { null },
-            if (ownModel) AccessCredentials(accessState.providerId, accessState.apiKey, accessState.baseUrl.ifBlank { null }) else null))
+            if (ownModel) AccessCredentials(accessState.providerId, accessState.apiKey, accessState.baseUrl.ifBlank { null }) else null, contextMode, questionCount, generateArtwork))
         draftRequestId = UUID.randomUUID().toString(); update { it.copy(generated = result, current = null) }
     }
     fun confirm() { val generated = mutable.value.generated ?: return; action {
@@ -59,10 +61,25 @@ class PlanetViewModel(val token: String, private val api: PlanetApi = PlanetApi(
     fun open(id: String) = action { val record = api.get(id); update { it.copy(current = record, generated = null, feedback = emptyMap()) } }
     fun overview() { if (!mutable.value.busy) update { it.copy(current = null, generated = null, feedback = emptyMap(), error = null, notice = null) } }
     fun discardPreview() { if (!mutable.value.busy) update { it.copy(generated = null) } }
-    fun answer(questionId: String, selected: Int) { val current = mutable.value.current ?: return; action {
-        val key = "${current.id}/$questionId/$selected"
+    fun regenerate(kind: String, questionId: String?, instruction: String) = action {
+        val before = mutable.value
+        val draft = before.current?.draft ?: before.generated?.draft ?: throw IllegalArgumentException("请先生成星球")
+        val key = "${draft.id}/$kind/$questionId/${instruction.trim()}"
+        val requestId = regenerationReceipts.getOrPut(key) { UUID.randomUUID().toString() }
+        val result = api.regenerate(before.current, before.generated, kind, questionId, instruction, requestId)
+        require(result.generated != null || result.planet != null) { "重新生成结果不完整，原内容已保留" }
+        update { old ->
+            if (result.planet != null) old.copy(current = result.planet, planets = old.planets.map { if (it.id == result.planet.id) result.planet else it }, feedback = old.feedback - questionId.orEmpty(), notice = if (kind == "artwork") "星球形象已更新" else "探索题已更新")
+            else old.copy(generated = result.generated, notice = if (kind == "artwork") "星球形象已更新" else "探索题已更新")
+        }
+        regenerationReceipts.remove(key)
+        if (result.generated != null) draftRequestId = UUID.randomUUID().toString()
+    }
+    fun answer(questionId: String, selected: Int) = answer(questionId, PlanetResponse(selectedIndex = selected))
+    fun answer(questionId: String, response: PlanetResponse) { val current = mutable.value.current ?: return; action {
+        val key = "${current.id}/$questionId/$response"
         val requestId = answerReceipts.getOrPut(key) { UUID.randomUUID().toString() }
-        val result = api.answer(current.id, questionId, selected, requestId)
+        val result = api.answer(current.id, questionId, response, requestId)
         update { it.copy(current = result.planet, planets = it.planets.map { p -> if (p.id == current.id) result.planet else p }, feedback = it.feedback + (questionId to result.feedback)) }
         answerReceipts.remove(key)
     } }

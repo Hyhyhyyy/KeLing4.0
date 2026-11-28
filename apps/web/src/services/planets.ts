@@ -1,25 +1,26 @@
-import { answerPlanetQuestion, emptyPlanetProgress, validatePlanetDraft } from '@keling/shared';
-import type { PlanetDraft, PlanetRecord } from '@keling/shared';
+import { answerPlanetQuestion, emptyPlanetProgress, validatePlanetDraft, completedPlanetRegionIds } from '@keling/shared';
+import type { PlanetDraft, PlanetRecord, PlanetFeedback, PlanetResponse } from '@keling/shared';
 import { hostingCredentials, hostingHeaders } from './appPath';
 import { getGuestSessionId, subscribeGuestSession } from './guestSession';
 import { getGuestWorkspace, handleGuestData } from './guestData';
 import type { ModelCredentials } from './modelAccess';
 
-export type { PlanetDraft, PlanetRecord } from '@keling/shared';
+export type { PlanetDraft, PlanetRecord, PlanetFeedback, PlanetResponse } from '@keling/shared';
 export interface PlanetProvider { id: string; name: string; chatModels: string[]; configured: boolean }
 export interface PlanetGeneration { draft: PlanetDraft; draftToken: string }
-export interface PlanetInput { subject: string; level?: string; goal?: string; model?: string; providerId?: string; credentials?: ModelCredentials }
-export interface PlanetFeedback { correct: boolean; expectedIndex: number; explanation: string }
+export interface PlanetInput { subject: string; level?: string; goal?: string; contextMode?: 'auto'|'general'|'internet_culture'; questionCount?: 6|12|18; generateArtwork?:boolean; model?: string; providerId?: string; credentials?: ModelCredentials }
 const base = (import.meta.env.VITE_API_BASE_URL || '/api').replace(/\/+$/, '') + '/learning/v1/planets';
 const guestPlanets = new Map<string, PlanetRecord>();
+const guestDraftTokens = new Map<string,string>();
 const guestConfirmations = new Map<string, { fingerprint: string; planetId: string }>();
 const pendingConfirmations = new Map<string, {fingerprint:string; promise:Promise<PlanetRecord>}>();
 const guestAnswers = new Map<string, {fingerprint:string; result:{planet:PlanetRecord;feedback:PlanetFeedback}}>();
 let confirmationQueue: Promise<unknown> = Promise.resolve();
-subscribeGuestSession(() => { guestPlanets.clear(); guestConfirmations.clear(); pendingConfirmations.clear(); guestAnswers.clear(); confirmationQueue=Promise.resolve(); });
+subscribeGuestSession(() => { guestPlanets.clear(); guestDraftTokens.clear(); guestConfirmations.clear(); pendingConfirmations.clear(); guestAnswers.clear(); confirmationQueue=Promise.resolve(); });
 const scope = () => getGuestSessionId() || `account:${localStorage.getItem('token') || ''}`;
 function assertScope(expected: string) { if (scope() !== expected) throw new Error('学习空间已切换，请重新打开星球。'); }
-const messages: Record<string, string> = { NOT_CONFIGURED: '尚未连接可用的大模型，请配置 API Key 和模型后重试。', INVALID_PLANET: '模型返回的星球不完整，请重新生成。', TIMEOUT: '生成超时，学科与目标已保留，请重试。', PROVIDER_ERROR: '模型服务暂时不可用，请检查配置后重试。', RATE_LIMITED: '请求过于频繁，请稍后重试。', CANCELLED: '已停止等待。', UNAUTHORIZED: '登录已失效，请重新登录。', DRAFT_EXPIRED: '星球预览已过期，请重新生成。' };
+const messages: Record<string, string> = { NOT_CONFIGURED: '尚未连接可用的大模型，请配置 API Key 和模型后重试。', INVALID_PLANET: '模型返回的星球不完整，请重新生成。', INSUFFICIENT_RESEARCH: '可靠资料不足，请补充具体语境或换一个更明确的主题。', RESEARCH_UNAVAILABLE: '联网检索暂时不可用，主题与目标已保留，请稍后重试。', TIMEOUT: '生成超时，主题与目标已保留，请重试。', PROVIDER_ERROR: '模型服务暂时不可用，请检查配置后重试。', RATE_LIMITED: '请求过于频繁，请稍后重试。', CANCELLED: '已停止等待。', UNAUTHORIZED: '登录已失效，请重新登录。', DRAFT_EXPIRED: '星球预览已过期，请重新生成。' };
+Object.assign(messages,{RESEARCH_INSUFFICIENT:messages.INSUFFICIENT_RESEARCH,ARTWORK_FAILED:'定制形象暂未生成，原形象已保留，请重试。',INVALID_QUESTION:'新题目的答案或引用未通过校验，原题已保留，请调整要求后重试。',REVISION_CONFLICT:'星球已在另一处更新，请重新打开后再调整。',REGENERATION_LIMIT:'这颗星球的修改次数已达上限。'});
 export function planetError(error: unknown): string { return error instanceof Error ? error.message : '操作未完成，请重试。'; }
 async function request<T>(path: string, body?: unknown, signal?: AbortSignal, extraHeaders: Record<string,string> = {}): Promise<T> {
   const identity = scope(), guest = getGuestSessionId(), token = guest ? null : localStorage.getItem('token');
@@ -32,7 +33,7 @@ async function request<T>(path: string, body?: unknown, signal?: AbortSignal, ex
   if (!data) throw new Error('星球响应无法读取，请重试。');
   return data as T;
 }
-type GenerationJob = {jobId:string;jobToken?:string;status:'RUNNING'|'SUCCEEDED'|'FAILED';draft?:PlanetDraft;draftToken?:string;code?:string};
+type GenerationJob = {jobId:string;jobToken?:string;status:'RUNNING'|'SUCCEEDED'|'FAILED';draft?:PlanetDraft;draftToken?:string;planet?:PlanetRecord;code?:string};
 async function waitForPoll(signal:AbortSignal) {
   if(signal.aborted)throw new Error('已停止等待。');
   await new Promise<void>((resolve,reject)=>{
@@ -40,6 +41,14 @@ async function waitForPoll(signal:AbortSignal) {
     const timer=setTimeout(()=>{signal.removeEventListener('abort',cancel);resolve();},1500);
     signal.addEventListener('abort',cancel,{once:true});
   });
+}
+async function regeneration(path:string,body:unknown,signal?:AbortSignal):Promise<Partial<PlanetGeneration>&{planet?:PlanetRecord}>{
+ const identity=scope(),deadline=AbortSignal.timeout(600000),active=signal?AbortSignal.any([signal,deadline]):deadline;
+ try{
+  let result=await request<GenerationJob|PlanetGeneration|{planet:PlanetRecord}>(path,body,active);
+  if('jobId' in result){const {jobId,jobToken}=result;while('status' in result&&result.status==='RUNNING'){await waitForPoll(active);assertScope(identity);result=await request<GenerationJob>('/generation-jobs/'+encodeURIComponent(jobId),undefined,active,jobToken?{'X-Planet-Job-Token':jobToken}:{});}if('status' in result&&result.status==='FAILED')throw new Error(messages[result.code||'']||'这次调整未完成，原内容已保留。');}
+  assertScope(identity);return result;
+ }catch(error){if(deadline.aborted&&!signal?.aborted)throw new Error(messages.TIMEOUT);throw error;}
 }
 export const planetAPI = {
   catalog: (signal?: AbortSignal) => request<{ providers: PlanetProvider[] }>('/catalog', undefined, signal),
@@ -60,6 +69,22 @@ export const planetAPI = {
       catch { throw new Error(messages.INVALID_PLANET); }
     }catch(error){if(deadline.aborted&&!signal?.aborted)throw new Error(messages.TIMEOUT);throw error;}
   },
+  async regeneratePreview(generation:PlanetGeneration,kind:'question'|'artwork',instruction:string,clientRequestId:string,questionId?:string,signal?:AbortSignal):Promise<PlanetGeneration>{
+    const result=await regeneration('/regenerate-preview',{...generation,kind,instruction,clientRequestId,...(questionId?{questionId}:{})},signal);
+    const draft=validatePlanetDraft(result.draft);if(typeof result.draftToken!=='string'||!result.draftToken)throw new Error('调整结果无法校验，原内容已保留。');return {draft,draftToken:result.draftToken};
+  },
+  async regenerate(id:string,kind:'question'|'artwork',instruction:string,clientRequestId:string,questionId?:string,signal?:AbortSignal):Promise<PlanetRecord>{
+    if(!getGuestSessionId()){
+      const result=await regeneration('/'+encodeURIComponent(id)+'/regenerate',{kind,instruction,clientRequestId,...(questionId?{questionId}:{})},signal);
+      if(!result.planet)throw new Error('调整结果无法读取，原内容已保留。');validatePlanetDraft(result.planet.draft);return result.planet;
+    }
+    const identity=scope(),stored=await this.get(id),token=guestDraftTokens.get(id);if(!token)throw new Error('星球预览已过期，请重新生成。');
+    const result=await this.regeneratePreview({draft:stored.draft,draftToken:token},kind,instruction,clientRequestId,questionId,signal);assertScope(identity);
+    if(result.draft.id!==stored.draft.id||JSON.stringify(guestPlanets.get(id)?.draft)!==JSON.stringify(stored.draft))throw new Error('星球内容已变更，请刷新后重新调整。');
+    const answers={...stored.progress.answers};if(kind==='question'&&questionId)delete answers[questionId];
+    const updated:PlanetRecord={...stored,draft:result.draft,updatedAt:new Date().toISOString(),progress:{answers,completedRegionIds:completedPlanetRegionIds(result.draft,answers)}};
+    guestPlanets.set(id,updated);guestDraftTokens.set(id,result.draftToken);return structuredClone(updated);
+  },
   async list(): Promise<PlanetRecord[]> { if (getGuestSessionId()) { const w=getGuestWorkspace(); return structuredClone([...guestPlanets.values()].filter(p=>w.courses.some(c=>c.id===p.courseId&&!c.isArchived))); } return (await request<{planets:PlanetRecord[]}>('')).planets; },
   async get(id: string): Promise<PlanetRecord> { if (getGuestSessionId()) { const p=guestPlanets.get(id);if(!p||!getGuestWorkspace().courses.some(c=>c.id===p.courseId&&!c.isArchived))throw new Error('这颗星球已不在当前学习空间。');return structuredClone(p); } return (await request<{planet:PlanetRecord}>('/'+encodeURIComponent(id))).planet; },
   async confirm(generation: PlanetGeneration, clientRequestId: string): Promise<PlanetRecord> {
@@ -77,23 +102,27 @@ export const planetAPI = {
       try {
         const {course}=await handleGuestData('POST','/courses',{name:draft.subject,code:'AI_PLANET',teacher:'',planetStyleIndex:draft.planetStyleIndex}) as {course:{id:string}};assertScope(identity);
         const ids=new Map<string,string>();
-        for(const r of draft.regions){assertScope(identity);const result=await handleGuestData('POST',`/knowledge/${course.id}/nodes`,{name:r.title,description:r.lesson,parentIds:r.prerequisiteIds.map(id=>ids.get(id))}) as {node:{id:string}};ids.set(r.id,result.node.id);}
+        if(draft.knowledgeGraph){
+          for(const n of draft.knowledgeGraph.nodes){assertScope(identity);const result=await handleGuestData('POST',`/knowledge/${course.id}/nodes`,{name:n.title,description:n.summary,parentIds:[]}) as {node:{id:string}};ids.set(n.id,result.node.id);}
+          for(const n of draft.knowledgeGraph.nodes){const parents=draft.knowledgeGraph.edges.filter(e=>e.kind==='hierarchy'&&e.target===n.id).map(e=>ids.get(e.source)!);if(parents.length){assertScope(identity);await handleGuestData('PUT',`/knowledge/node/${ids.get(n.id)}`,{parentIds:parents});}}
+        }else for(const r of draft.regions){assertScope(identity);const result=await handleGuestData('POST',`/knowledge/${course.id}/nodes`,{name:r.title,description:r.lesson,parentIds:r.prerequisiteIds.map(id=>ids.get(id))}) as {node:{id:string}};ids.set(r.id,result.node.id);}
         assertScope(identity);await handleGuestData('POST','/tasks',{title:`探索：${draft.regions[0].title}`,description:draft.regions[0].description,courseId:course.id,type:'DEEP_EXPLORATION',estimatedMinutes:draft.regions[0].estimatedMinutes,rewards:{energy:0,crystals:0,exp:0}});assertScope(identity);
-        const now=new Date().toISOString(),p:PlanetRecord={id:draft.id,courseId:course.id,draft:structuredClone(draft),progress:emptyPlanetProgress(),createdAt:now,updatedAt:now};guestPlanets.set(p.id,p);guestConfirmations.set(clientRequestId,{fingerprint,planetId:p.id});return structuredClone(p);
+        const now=new Date().toISOString(),p:PlanetRecord={id:draft.id,courseId:course.id,draft:structuredClone(draft),progress:emptyPlanetProgress(),createdAt:now,updatedAt:now};guestPlanets.set(p.id,p);guestDraftTokens.set(p.id,generation.draftToken);guestConfirmations.set(clientRequestId,{fingerprint,planetId:p.id});return structuredClone(p);
       } catch(error){if(scope()===identity)Object.assign(w,snapshot);throw error;}
     });
     pendingConfirmations.set(clientRequestId,{fingerprint,promise:operation});confirmationQueue=operation;
     try{return await operation;}finally{if(pendingConfirmations.get(clientRequestId)?.promise===operation)pendingConfirmations.delete(clientRequestId);}
   },
-  async answer(id:string,questionId:string,selectedIndex:number,clientRequestId:string):Promise<{planet:PlanetRecord;feedback:PlanetFeedback}>{
-    if(!getGuestSessionId())return request('/'+encodeURIComponent(id)+'/answers',{questionId,selectedIndex,clientRequestId});
-    const identity=scope(),fingerprint=JSON.stringify([id,questionId,selectedIndex]);
+  async answer(id:string,questionId:string,value:number|PlanetResponse,clientRequestId:string):Promise<{planet:PlanetRecord;feedback:PlanetFeedback}>{
+    const response=typeof value==='number'?{selectedIndex:value}:value;
+    if(!getGuestSessionId())return request('/'+encodeURIComponent(id)+'/answers',{questionId,...response,clientRequestId});
+    const identity=scope(),fingerprint=JSON.stringify([id,questionId,response]);
     const stored=guestPlanets.get(id);
     if(!stored||!getGuestWorkspace().courses.some(c=>c.id===stored.courseId&&!c.isArchived))throw new Error('这颗星球已不在当前学习空间。');
     const p=structuredClone(stored);assertScope(identity);
     const previous=guestAnswers.get(clientRequestId);
     if(previous){if(previous.fingerprint!==fingerprint)throw new Error('提交请求已用于另一条回答。');return structuredClone(previous.result);}
-    const result=answerPlanetQuestion(p.draft,p.progress,questionId,selectedIndex);p.progress=result.progress;p.updatedAt=new Date().toISOString();guestPlanets.set(id,p);
-    const response={planet:structuredClone(p),feedback:result.feedback};guestAnswers.set(clientRequestId,{fingerprint,result:structuredClone(response)});return response;
+    const result=answerPlanetQuestion(p.draft,p.progress,questionId,response);p.progress=result.progress;p.updatedAt=new Date().toISOString();guestPlanets.set(id,p);
+    const output={planet:structuredClone(p),feedback:result.feedback};guestAnswers.set(clientRequestId,{fingerprint,result:structuredClone(output)});return output;
   },
 };

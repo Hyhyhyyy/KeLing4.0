@@ -5,6 +5,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import com.keling.app.ui.components.StellarArt
 import com.keling.app.ui.components.StellarSprite
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.foundation.layout.fillMaxSize
+import coil.compose.SubcomposeAsyncImage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.Serializable
@@ -33,4 +36,12 @@ private object SubjectAtlasCache {
     val item = atlas?.find(subject)
     if (item == null) StellarArt("planet_${(fallbackStyle.coerceIn(0, 9) + 1).toString().padStart(2, '0')}", description, modifier)
     else StellarSprite("subject_planets", item.row * atlas!!.columns + item.column, description, modifier, atlas!!.columns, atlas!!.rows)
+}
+
+@Composable fun GeneratedPlanetArt(draft: PlanetDraft, modifier: Modifier = Modifier, description: String? = draft.title) {
+    val url = draft.artwork?.takeIf { it.status == "generated" }?.url?.let(::planetArtworkLink)
+    if (url == null) SubjectPlanetArt(draft.subject, draft.planetStyleIndex, modifier, description)
+    else SubcomposeAsyncImage(model = url, contentDescription = description, modifier = modifier, contentScale = ContentScale.Fit,
+        loading = { SubjectPlanetArt(draft.subject, draft.planetStyleIndex, Modifier.fillMaxSize(), description) },
+        error = { SubjectPlanetArt(draft.subject, draft.planetStyleIndex, Modifier.fillMaxSize(), description) })
 }

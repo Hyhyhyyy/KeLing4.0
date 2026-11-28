@@ -1,0 +1,15 @@
+{
+  "id": "keling-planet-artwork",
+  "pluginKey": "@official-plugins/ai-text-to-image",
+  "pluginVersion": "1.0.21",
+  "name": "课灵主题星球形象",
+  "description": "依据已生成星球的主题、义项、学习区域与用户视觉偏好绘制定制形象",
+  "paramsSchema": {
+    "type": "object",
+    "properties": {"prompt": {"type": "string", "description": "星球形象构图提示词"}},
+    "required": ["prompt"]
+  },
+  "formValue": {"prompt": "{{input.prompt}}", "ratio": "1:1", "watermark": false},
+  "createdAt": 1795824000000,
+  "updatedAt": 1795824000000
+}

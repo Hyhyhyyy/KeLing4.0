@@ -1,0 +1,58 @@
+{
+  "date": "2026-11-28",
+  "versionName": "4.3.0-research-rc1",
+  "versionCode": 32,
+  "apk": {
+    "path": "apps/android/app/build/research-proof/keling-4.3.0-research-rc1.apk",
+    "bytes": 85166975,
+    "sha256": "08a67eb170045355fa53913425eb48145aab0ff4beaff59d2c926e81855adbf0",
+    "certificateSha256": "e7b4d86c7a02fb6bb1d21215c393b347d2d67652e5e45dfbe3a3d6c66b7c67a3",
+    "signatureVerified": true,
+    "minSdk": 26,
+    "targetSdk": 34,
+    "apiBaseUrl": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg/api",
+    "graphBundle": "assets/graph-editor/editor-S2WS4WEO.js",
+    "graphBundleBytes": 657613
+  },
+  "checks": {
+    "gradleTasks": ["testDebugUnitTest", "assembleDebug", "lintDebug"],
+    "buildExitCode": 0,
+    "unitTests": 128,
+    "testFailures": 0,
+    "testErrors": 0,
+    "newTopicTests": 10,
+    "lintErrors": 0,
+    "lintWarnings": 40,
+    "log": "apps/android/app/build/research-proof/build.log",
+    "lintReport": "apps/android/app/build/research-proof/lint-results-debug.xml"
+  },
+  "coverage": [
+    "Legacy single-choice records and API input remain supported",
+    "Single-choice, multiple-choice, true/false, normalized exact fill-in, ordering and written self-review",
+    "Written self-review requires a prior unchanged submitted answer and never reports objective correctness",
+    "Changing an upstream answer withdraws downstream completed-region markers",
+    "Response idempotency and mismatched request reuse",
+    "Generation context, quantity and structured response payloads",
+    "Signed raw draft JSON is passed through unchanged, including unknown optional metadata",
+    "Typed draft serialization retains required defaults and omits absent optional null fields",
+    "Guest per-question regeneration replaces only the changed question and preserves other answers",
+    "Regeneration failure retains the previous draft and responses",
+    "Seven-node graph preserves seven typed edges; guest course stores seven real nodes and six hierarchy edges",
+    "Source links reject script/file/credential URLs; generated images require public HTTPS URLs"
+  ],
+  "preview": {
+    "engine": "Shared X6 and Dagre WebView",
+    "usesDraftKnowledgeGraphDirectly": true,
+    "readOnly": true,
+    "visibleForGeneratedPreviewAndSavedPlanet": true,
+    "relatedEdgesAndLabelsRemainInPlanetDraft": true,
+    "courseEditorStoresNodesAndHierarchy": true,
+    "loadTimeoutIsShownAsErrorWithRetry": true
+  },
+  "boundaries": [
+    "No emulator or physical-device UI validation was performed for this release in this Android implementation step.",
+    "Mock-engine API tests validate client behavior, not real retrieval, model generation or image-generation success.",
+    "The APK is frozen but this record does not claim upload, publication or cloud readback.",
+    "The existing Android Debug signing certificate is retained; this is not a store-signed release or native HarmonyOS application."
+  ]
+}
