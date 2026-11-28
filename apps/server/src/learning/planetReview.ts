@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import type { PlanetDraft } from '@keling/shared';
 import { AIError } from '../ai/catalog';
+import { PlanetDiagnosticError } from './planetDiagnostics';
 
 const issueCodes = ['ANSWER_EXPLANATION_CONFLICT', 'ORDER_BASIS_MISSING', 'ORDER_NOT_UNIQUE', 'LESSON_SUPPORT_MISSING', 'SOURCE_SUPPORT_MISSING', 'UNCERTAINTY_DROPPED', 'UNIT_MISMATCH'] as const;
 const id = z.string().min(1).max(100);
@@ -33,9 +34,12 @@ code只能ANSWER_EXPLANATION_CONFLICT、ORDER_BASIS_MISSING、ORDER_NOT_UNIQUE�
 /** Deployment adapter registration; no HTTP request can install a reviewer. */
 export function registerPlanetContentReviewer(callback:PlanetContentReviewer|undefined){reviewer=callback;}
 type ValidationProblem={path:(string|number)[];code:string;reason?:string};
-class ReviewValidationError extends AIError {
+const diagnosticPathKeys=new Set(['reviewedQuestionIds','reviewedRegionIds','reviewedNodeIds','issues','orderingChecks','targetType','targetId','code','reason','evidence','kind','id','quote','questionId','basis','direction','unit','items','optionIndex','value']);
+const diagnosticProblemCodes=new Set(['invalid_type','too_big','too_small','invalid_format','not_multiple_of','unrecognized_keys','invalid_union','invalid_key','invalid_element','invalid_value','custom','reference_target_missing','non_verbatim_quote','coverage_mismatch','target_outside_scope','unsupported_shape','invalid_unit','option_coverage_mismatch','circular_order_evidence','value_absent_from_quote','substantive_issue_removed','unsupported_basis_removed']);
+function diagnosticProblems(problems:ValidationProblem[]){return problems.slice(0,24).map(problem=>({path:problem.path.filter(segment=>typeof segment==='number'?Number.isInteger(segment)&&segment>=0&&segment<180:diagnosticPathKeys.has(segment)),code:diagnosticProblemCodes.has(problem.code)?problem.code:'invalid_value'}));}
+class ReviewValidationError extends PlanetDiagnosticError {
   readonly validationFeedback:string;
-  constructor(problems:ValidationProblem[]){super('CONTENT_REVIEW_INVALID','内容审核结果不完整或依据无法核对，未保存星球',422);this.validationFeedback=JSON.stringify({instruction:'只修复审核输出的结构和逐字引用，返回完整对象并保留实质问题；不改课程内容，不删除问题以宣称通过。',problems:problems.slice(0,24)});}
+  constructor(problems:ValidationProblem[]){super('CONTENT_REVIEW_INVALID','内容审核结果不完整或依据无法核对，未保存星球',422,{stage:'content-review',reason:'invalid_result',problems:diagnosticProblems(problems)});this.validationFeedback=JSON.stringify({instruction:'只修复审核输出的结构和逐字引用，返回完整对象并保留实质问题；不改课程内容，不删除问题以宣称通过。',problems:problems.slice(0,24).map((problem,index)=>({...this.diagnostic.problems![index],...(problem.reason?{reason:problem.reason}:{})}))});}
 }
 function invalid(path:(string|number)[],code:string,reason?:string){return new ReviewValidationError([{path,code,...(reason?{reason}:{})}]);}
 function exactCoverage(actual:string[],expected:string[]){return actual.length===expected.length&&new Set(actual).size===actual.length&&actual.every(value=>expected.includes(value));}
@@ -136,12 +140,13 @@ export async function reviewPlanetContent(draft:PlanetDraft,signal:AbortSignal,s
     if(localResearch)reviewInput.research=localResearch;
     delete reviewInput.knowledgeGraph;
   }
-  const active=AbortSignal.any([signal,AbortSignal.timeout(60000)]);
+  const deadline=AbortSignal.timeout(120000),active=AbortSignal.any([signal,deadline]);
+  let attempt:1|2=1,awaitingProvider=false;
   let abortHandler:(()=>void)|undefined;
   try{
     if(active.aborted)throw new Error('aborted');
     const interrupted=new Promise<never>((_,reject)=>{abortHandler=()=>reject(new Error('aborted'));active.addEventListener('abort',abortHandler,{once:true});});
-    const invoke=async(formatRepair?:PlanetReviewFormatRepair)=>{if(active.aborted)throw new Error('aborted');const raw=await Promise.race([selectedReviewer(structuredClone(reviewInput),active,scopeQuestionId,formatRepair),interrupted]);if(active.aborted)throw new Error('aborted');return raw;};
+    const invoke=async(formatRepair?:PlanetReviewFormatRepair)=>{attempt=formatRepair?2:1;if(active.aborted)throw new Error('aborted');awaitingProvider=true;const raw=await Promise.race([selectedReviewer(structuredClone(reviewInput),active,scopeQuestionId,formatRepair),interrupted]);awaitingProvider=false;if(active.aborted)throw new Error('aborted');return raw;};
     const raw=await invoke();
     try{return validateReview(raw,draft,scopeQuestionId);}catch(error){
       if(!(error instanceof ReviewValidationError))throw error;
@@ -150,8 +155,10 @@ export async function reviewPlanetContent(draft:PlanetDraft,signal:AbortSignal,s
       const result=validateReview(repaired,draft,scopeQuestionId);preserveFindings(previous,result,draft,scopeQuestionId);return result;
     }
   }catch(error){
-    if(error instanceof ReviewValidationError)throw error;
-    if(signal.aborted)throw new AIError('CANCELLED','内容审核已停止',409);
-    throw new AIError('CONTENT_REVIEW_UNAVAILABLE','内容审核未能完成，原内容未保存，请稍后重试',503);
+    const phase=attempt===1?'initial':'format-repair';
+    if(error instanceof ReviewValidationError){error.diagnostic.attempt=attempt;error.diagnostic.phase=phase;throw error;}
+    if(signal.aborted)throw new PlanetDiagnosticError('CANCELLED','内容审核已停止',409,{stage:'content-review',reason:'cancelled',attempt,phase});
+    const timedOut=deadline.aborted||(error instanceof AIError&&error.code==='TIMEOUT');
+    throw new PlanetDiagnosticError('CONTENT_REVIEW_UNAVAILABLE','内容审核未能完成，原内容未保存，请稍后重试',503,{stage:'content-review',reason:timedOut?'timeout':awaitingProvider?'provider_error':'unexpected_error',attempt,phase});
   }finally{if(abortHandler)active.removeEventListener('abort',abortHandler);}
 }

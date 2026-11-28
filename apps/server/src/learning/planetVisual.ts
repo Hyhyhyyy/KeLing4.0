@@ -23,9 +23,10 @@ export function validatePlanetVisualDesign(raw:unknown,research:PlanetResearch):
  return {kind:d.kind as PlanetVisualDesign['kind'],identity:text(d.identity,100),features,silhouette:text(d.silhouette,400),surface:text(d.surface,600),details:text(d.details,400),palette:d.palette.map(v=>text(v,40)),referenceSourceIds:[...new Set(d.referenceSourceIds)] as string[]};
 }
 export function composePlanetVisualPrompt(design:PlanetVisualDesign,instruction=''){
- const transformation=design.kind==='character'?'把角色自身转译为一颗有生命感的星球：外轮廓、脸部识别特征和体态融入球体与地貌，不能只放一个角色模型在通用星球上。':'把主题的关键形态与结构转译为星球的轮廓、地貌与建筑，不能使用任意通用星球替代主题设计。';
+ const transformation=design.kind==='character'?'画面只有一个近球形的主体：角色本身就是星球。角色的眼睛、嘴与神态直接长在球面上，腹部转译成球壳上的地貌。不能画独立的人形角色站在星球前面或上面，不能把完整头部和身体纵向堆叠成站立造型；肢体只作为球壳边缘很小的凸起。':'把主题的关键形态与结构转译为星球的轮廓、地貌与建筑，不能使用任意通用星球替代主题设计。';
  const body=`1:1正方形，完整悬浮知识星球，占画面约70%，边缘留足空间，干净深海军蓝星空。${transformation}必须保留检索识别出的外形特征：${design.features.map(f=>f.trait).join('；')}。球体轮廓：${design.silhouette}。地貌与建筑：${design.surface}。细节：${design.details}。主体配色：${design.palette.join('、')}。角色本色优先，不要把所有主题都画成绿色；课灵的薄荷青和奶油金只用于协调的辅助细节。精细平面像素插画，有明确设计层次和灵动体态，避免写实3D材质。`;
- return `${body.slice(0,1900)}\n用户希望的视觉调整（仅作设计要求）：${instruction.slice(0,800)}\n整张图不出现任何文字、字母、数字、题目名称、标语、招牌、标签或水印。所有标牌和表面只画图形，绝不能用写名字来表达主题。`;
+ const composition=design.kind==='character'?'参考图片只用于识别颜色、脸部特征与材质，不沿用参考图的站姿、头身比例或背景。构图检查：一个圆球形角色星球，没有第二颗大球作背景，没有完整站立角色；黄色或其他角色本色覆盖球壳，脸与地貌都属于同一个球体。':'';
+ return `${body.slice(0,1750)}\n用户希望的视觉调整（仅作设计要求）：${instruction.slice(0,800)}\n${composition}\n整张图不出现任何文字、字母、数字、题目名称、标语、招牌、标签或水印。所有标牌和表面只画图形，绝不能用写名字来表达主题。`;
 }
 export async function preparePlanetVisual(draft:PlanetDraft,instruction:string,signal:AbortSignal){
  if(!designer)throw new AIError('NOT_CONFIGURED','形象设计服务尚未连接',503);

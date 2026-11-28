@@ -1,6 +1,7 @@
 const {test,afterEach}=require('node:test');
 const assert=require('node:assert/strict');
 const {registerPlanetContentReviewer,reviewPlanetContent}=require('../src/learning/planetReview');
+const {diagnosticForJob}=require('../src/learning/planetDiagnostics');
 
 // Synthetic review replies test the gate, not a model's ability to fact-check.
 const quote='1865年克劳修斯提出热力学熵，1877年玻尔兹曼提出统计熵，1923年普朗克来华讲学引入熵概念，1943年薛定谔提出负熵。';
@@ -91,8 +92,19 @@ test('reviewer cannot mutate the source draft and unsupported malformed proofs f
  const response=review();response.orderingChecks[1].unit='quality';registerPlanetContentReviewer(async()=>response);await assert.rejects(()=>reviewPlanetContent(d,signal()),e=>e.code==='CONTENT_REVIEW_INVALID');
 });
 test('dependency failure and cancellation cannot silently pass review',async()=>{
- registerPlanetContentReviewer(async()=>{throw new Error('private provider detail');});await assert.rejects(()=>reviewPlanetContent(draft(),signal()),e=>e.code==='CONTENT_REVIEW_UNAVAILABLE'&&!e.message.includes('private'));
- const controller=new AbortController();registerPlanetContentReviewer(async()=>new Promise(()=>{}));const pending=reviewPlanetContent(draft(),controller.signal);controller.abort();await assert.rejects(()=>pending,e=>e.code==='CANCELLED');
+ registerPlanetContentReviewer(async()=>{throw new Error('private provider detail');});await assert.rejects(()=>reviewPlanetContent(draft(),signal()),e=>{assert.equal(e.code,'CONTENT_REVIEW_UNAVAILABLE');assert.doesNotMatch(JSON.stringify(e),/private provider detail/);assert.deepEqual(diagnosticForJob(e),{stage:'content-review',reason:'provider_error',attempt:1,phase:'initial'});return true;});
+ const controller=new AbortController();registerPlanetContentReviewer(async()=>new Promise(()=>{}));const pending=reviewPlanetContent(draft(),controller.signal);controller.abort();await assert.rejects(()=>pending,e=>e.code==='CANCELLED'&&diagnosticForJob(e).reason==='cancelled');
+});
+
+test('diagnostics expose only allowlisted validation paths and codes, never model text or extra key names',async()=>{
+ const bad=review(draft(),'q7');bad['SECRET_EXTRA_KEY']='SECRET_VALUE';bad.issues=[{targetType:'question',targetId:'q7',code:'SOURCE_SUPPORT_MISSING',reason:'SECRET_REASON',evidence:[{kind:'source',id:'s1',quote:'SECRET_NONVERBATIM'}]}];let calls=0;
+ registerPlanetContentReviewer(async()=>{calls++;return bad;});
+ await assert.rejects(()=>reviewPlanetContent(draft(),signal(),'q7'),e=>{const diagnostic=diagnosticForJob(e);assert.equal(e.code,'CONTENT_REVIEW_INVALID');assert.equal(diagnostic.stage,'content-review');assert.equal(diagnostic.reason,'invalid_result');assert.equal(diagnostic.attempt,2);assert.equal(diagnostic.phase,'format-repair');assert.ok(diagnostic.problems.some(p=>p.code==='unrecognized_keys'));assert.ok(diagnostic.problems.some(p=>p.code==='non_verbatim_quote'&&p.path.join('.')==='issues.0.evidence.0.quote'));assert.doesNotMatch(JSON.stringify(diagnostic),/SECRET|quote.*SECRET|reason.*SECRET/);assert.ok(diagnostic.problems.every(p=>Object.keys(p).sort().join(',')==='code,path'));return true;});assert.equal(calls,2);
+});
+
+test('a format-repair adapter failure is diagnosed separately without exposing its exception',async()=>{
+ let calls=0;registerPlanetContentReviewer(async()=>{calls++;if(calls===1){const bad=review(draft(),'q7');bad.reviewedQuestionIds=[];return bad;}throw new Error('SECRET_KEY provider raw response');});
+ await assert.rejects(()=>reviewPlanetContent(draft(),signal(),'q7'),e=>{assert.equal(e.code,'CONTENT_REVIEW_UNAVAILABLE');assert.deepEqual(diagnosticForJob(e),{stage:'content-review',reason:'provider_error',attempt:2,phase:'format-repair'});assert.doesNotMatch(JSON.stringify(e),/SECRET_KEY|provider raw response/);return true;});assert.equal(calls,2);
 });
 test('explicit provider reviewer overrides the global registration without changing it',async()=>{
  let globalCalls=0,overrideCalls=0;registerPlanetContentReviewer(async()=>{globalCalls++;return review(draft(),'q7');});
@@ -128,9 +140,9 @@ test('a mistaken comparison value may be corrected only against literal source e
  const d=draft();d.regions[0].questions[0].answerIndices=[1,0,2,3];let calls=0;registerPlanetContentReviewer(async()=>{calls++;const result=review(d,'q6');if(calls===1)result.orderingChecks[0].items[0].value=1900;return result;});
  assert.deepEqual(await reviewPlanetContent(d,signal(),'q6'),{issues:[],feedback:''});assert.equal(calls,2);
 });
-test('format retry shares one 60-second deadline even when the second callback never settles',async t=>{
+test('format retry shares one 120-second deadline even when the second callback never settles',async t=>{
  const deadline=new AbortController();let deadlines=0,calls=0,firstSignal;
- t.mock.method(AbortSignal,'timeout',ms=>{assert.equal(ms,60000);deadlines++;return deadline.signal;});
+ t.mock.method(AbortSignal,'timeout',ms=>{assert.equal(ms,120000);deadlines++;return deadline.signal;});
  registerPlanetContentReviewer(async(_draft,active)=>{calls++;if(calls===1){firstSignal=active;const bad=review(draft(),'q7');bad.reviewedQuestionIds=[];return bad;}assert.equal(active,firstSignal);deadline.abort();return new Promise(()=>{});});
- await assert.rejects(()=>reviewPlanetContent(draft(),signal(),'q7'),e=>e.code==='CONTENT_REVIEW_UNAVAILABLE');assert.equal(calls,2);assert.equal(deadlines,1);assert.equal(firstSignal.aborted,true);
+ await assert.rejects(()=>reviewPlanetContent(draft(),signal(),'q7'),e=>{assert.equal(e.code,'CONTENT_REVIEW_UNAVAILABLE');assert.deepEqual(diagnosticForJob(e),{stage:'content-review',reason:'timeout',attempt:2,phase:'format-repair'});return true;});assert.equal(calls,2);assert.equal(deadlines,1);assert.equal(firstSignal.aborted,true);
 });
