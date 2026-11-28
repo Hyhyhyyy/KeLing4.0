@@ -14,6 +14,15 @@ test('unconfigured, failed, malformed, empty and insufficient searches remain di
  assert.equal((await researchTopic(input,undefined,async()=>({results:[]}))).status,'insufficient');
  assert.equal((await researchTopic(input,undefined,async()=>({results:[rows[0]]}))).status,'insufficient');
 });
+test('rank interleaving considers both query intents, deduplicates overlaps and fills from the available query',async()=>{
+ const make=(label,count)=>Array.from({length:count},(_,i)=>({...rows[0],title:label+i,url:`https://example.org/${label}/${i}`}));
+ let call=0;const mixed=await researchTopic(input,undefined,async()=>({results:make(call++===0?'meaning':'context',10)}));
+ assert.deepEqual(mixed.sources.map(s=>new URL(s.url).pathname),Array.from({length:5},(_,i)=>[`/meaning/${i}`,`/context/${i}`]).flat());
+ assert.deepEqual(mixed.sources.map(s=>s.id),Array.from({length:10},(_,i)=>'s'+(i+1)));
+ call=0;const overlap=await researchTopic(input,undefined,async()=>({results:call++===0?make('shared',8):[...make('shared',3),...make('context',8)]}));
+ assert.equal(overlap.sources.length,10);assert.equal(new Set(overlap.sources.map(s=>s.url)).size,10);assert.ok(overlap.sources.some(s=>s.url.includes('/context/')));
+ for(const missing of ['empty','failed']){call=0;const filled=await researchTopic(input,undefined,async()=>{if(call++===0){if(missing==='failed')throw new Error('test search failure');return {results:[]};}return {results:make('available',12)};});assert.equal(filled.status,'grounded');assert.equal(filled.sources.length,10);}
+});
 test('source URLs exclude executable schemes, credentials, localhost and literal IP addresses',()=>{
  for(const url of ['javascript:alert(1)','file:///etc/passwd','https://user:pass@example.com/a','http://127.0.0.1/a','http://2130706433/a','https://[::1]/','http://localhost','http://a.internal/','https://a.local/'])assert.equal(safeSourceUrl(url),undefined,url);
  assert.equal(safeSourceUrl('https://example.org/a#top'),'https://example.org/a');

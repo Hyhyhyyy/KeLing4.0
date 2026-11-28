@@ -45,12 +45,15 @@ export async function researchTopic(input:TopicResearchInput,signal:AbortSignal=
   Promise.resolve().then(()=>search(query,searchSignal)).then(resolve,reject).finally(()=>searchSignal.removeEventListener('abort',aborted));
  })));
  signal.throwIfAborted();
- const urls=new Set<string>(),sources:PlanetSource[]=[];let succeeded=0;
+ const urls=new Set<string>(),sources:PlanetSource[]=[],ranked:Omit<PlanetSource,'id'>[][]=[];let succeeded=0;
  for(const result of results){
   if(result.status!=='fulfilled')continue;
-  try{const rows=normalizeSearchResults(result.value);succeeded++;
-   for(const row of rows){if(urls.has(row.url)||sources.length>=10)continue;urls.add(row.url);sources.push({...row,id:`s${sources.length+1}`});}
+  try{const rows=normalizeSearchResults(result.value);succeeded++;ranked.push(rows);
   }catch{/* A malformed dependency response counts as failed, never as a successful search. */}
+ }
+ // Interleave ranks so a full first query cannot crowd out every result from the second intent.
+ for(let rank=0;sources.length<10&&ranked.some(rows=>rank<rows.length);rank++){
+  for(const rows of ranked){const row=rows[rank];if(!row||urls.has(row.url))continue;urls.add(row.url);sources.push({...row,id:`s${sources.length+1}`});if(sources.length===10)break;}
  }
  return {...base,status:sources.length>=2?'grounded':succeeded?'insufficient':'unavailable',sources};
 }
