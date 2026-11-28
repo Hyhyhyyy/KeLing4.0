@@ -1,0 +1,142 @@
+{
+  "date": "2026-11-28",
+  "version": "4.3.2-progress-rc1",
+  "sourceCommit": "25c2be2f9231bb75b9aa345dcc9e7d41c5be3f9b",
+  "mainMetadataCommit": "a06cc090e248d964a9f5c06dd043bcb23d4d50ea",
+  "release": {
+    "id": "7713232662001339416",
+    "status": "finished",
+    "templateCommit": "5bb1d57204ad64e17e4a14e9326839105d623b49",
+    "onlineUrl": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg",
+    "createdAt": "1795876964000",
+    "updatedAt": "1795877098000",
+    "errorLogs": [],
+    "templateWorkingTreeClean": true
+  },
+  "scope": [
+    "Persist actual generation work stages; clients animate while each active stage waits without invented percentages.",
+    "Overlap initial content review with independent visual preparation; draw only after review and discard stale preparation when semantic context changes.",
+    "Reduce duplicate or irrelevant review fields while preserving learning text, source evidence and scoring fields.",
+    "Verify at most two image candidates concurrently on the same source page, preserving candidate rank and all fetch safety limits.",
+    "Reuse the same stored artwork across the star map and learning planet views, refreshing after regeneration."
+  ],
+  "build": {
+    "officialScript": "scripts/build.sh (unmodified)",
+    "exitCode": 0,
+    "coreSeconds": 123.162,
+    "precommitExitCode": 0,
+    "tests": {
+      "server": 183,
+      "web": 99,
+      "android": 142,
+      "nativeArtworkAndVisualReferences": 23,
+      "templatePublicAssets": 9
+    },
+    "sourceManifestSha256": "16858b32b16daf7e0d8c9adb31d860909cda280c91a9349c85f5e7f5f52805c3",
+    "sourceManifestBytes": 60549,
+    "sourceHashCount": 212,
+    "sourceHashesVerifiedAgainstCurrentFiles": true,
+    "webGeneratedFiles": 78,
+    "mainBundle": "index-B3jtI2AL.js",
+    "planetsBundle": "Planets-C8Fqo-d0.js",
+    "graphBundle": "editor-5Z5EDZT7.js",
+    "adapterFileCount": 28,
+    "adapterCopiesMatchCommittedTemplate": true,
+    "webCompatibility": {
+      "isolatedBuild": true,
+      "mappedExistingWebpPaths": 59,
+      "existingPngFiles": 60,
+      "modifiedSourceCopyCount": 6,
+      "fixedStorageResources": 11,
+      "newBinaryFilesCommittedToTemplate": 0,
+      "detailLocation": "Committed template vendor/source-manifest.json webAssetCompatibility"
+    },
+    "windowsCompatibility": "Local-only absolute-entry file URL hook, Windows tar wrapper and Bash npm script shell. SDK and official scripts unchanged.",
+    "nonBlockingWarnings": [
+      {
+        "component": "Optional API route generator",
+        "code": "ECONNRESET",
+        "reason": "Existing configured npm registry connection reset; official script treats this as nonblocking."
+      },
+      {
+        "component": "Optional page route generator",
+        "code": "FETCH_ERROR",
+        "reason": "Existing configured npm registry timeout; official script treats this as nonblocking."
+      },
+      {
+        "component": "Dependency pruner",
+        "copiedTopLevelPackages": 485,
+        "reportedRequiredPackages": 486,
+        "reason": "camelcase exists under openapi-typescript-codegen rather than at the root; 31 declared runtime dependencies are present."
+      }
+    ],
+    "requiredBuildOutputs": "Server, client, Prisma and vendor output checks passed; final compiled version controller contains the product-facing update text and code34 metadata.",
+    "rawLog": ".cache/miaoda-progress-20261128-rc1/official-build.log",
+    "supersededBuildLog": ".cache/miaoda-progress-20261128-rc1/official-build-before-product-copy.log"
+  },
+  "android": {
+    "appId": "app_17h4dw5jwdg",
+    "route": "/download/android",
+    "versionName": "4.3.2-progress-rc1",
+    "versionCode": 34,
+    "fileName": "KeLing-ICT-4.3.2-progress-rc1-debug.apk",
+    "bytes": 85236835,
+    "sha256": "e93e055ce99289e308079a84057284a170f6c5db280fee19d1bfba2f3a607549",
+    "contentType": "application/vnd.android.package-archive",
+    "storageBucket": "bucket_aadk4xawzf4xg",
+    "storagePath": "/1883111334116376.apk",
+    "sourcePath": "apps/android/app/build/progress-proof/keling-4.3.2-progress-rc1.apk",
+    "certificateSha256": "e7b4d86c7a02fb6bb1d21215c393b347d2d67652e5e45dfbe3a3d6c66b7c67a3",
+    "signatureScheme": "v2",
+    "githubReleaseTag": "v4.3.2-progress-rc1",
+    "githubAssetUrl": "https://github.com/Hyhyhyyy/KeLing4.0/releases/download/v4.3.2-progress-rc1/keling-4.3.2-progress-rc1.apk"
+  },
+  "uploadHistory": [
+    {
+      "number": 1,
+      "session": 43393,
+      "status": "failed",
+      "exitCode": 4,
+      "type": "network",
+      "subtype": "transport",
+      "message": "upload failed",
+      "retryable": true,
+      "remoteObjectCheck": "Exact filename query succeeded with zero objects and has_more=false",
+      "limitation": "CLI does not identify timeout versus reset; neither quota nor authentication failure was reported."
+    },
+    {
+      "number": 2,
+      "session": 52913,
+      "status": "succeeded",
+      "method": "One normal retry of the same file under the existing authorized identity; no credential, permission or transport changes.",
+      "exitCode": 0,
+      "storagePath": "/1883111334116376.apk"
+    }
+  ],
+  "http": {
+    "evidence": "docs/validation/progress-http-2026-11-28.json",
+    "result": "passed",
+    "origins": [
+      "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg",
+      "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg"
+    ],
+    "generatedFilesVerified": 78,
+    "fixedResourcesPerOrigin": 11,
+    "completeApkDownloadsVerified": 2,
+    "entryScript": "/app/app_17h4dw5jwdg/assets/index-B3jtI2AL.js",
+    "jobProgressEndpoint": {
+      "status": 404,
+      "code": "NOT_FOUND",
+      "claim": "Unauthenticated nonexistent-job guard only; actual progress transitions require the separately authorized production UI run. No generation request was sent."
+    }
+  },
+  "claimsAndLimits": {
+    "deploymentVerificationModelCalls": 0,
+    "browserRun": "Recorded separately in the root progress release report; this deployment evidence does not certify generated educational content.",
+    "productionSpeedup": "No paired production baseline or general speedup percentage is claimed.",
+    "qualitySettings": "No reduction of model, artwork resolution, source checks, content-review constraints or bounded repair policy.",
+    "noCrossUserOrCrossTaskSearchCache": true,
+    "dataAndCredentials": "No application data migration, environment-variable mutation or identity change.",
+    "historicalFailures": "Earlier INVALID_PLANET and CONTENT_REVIEW_FAILED evidence remains in the prior topic validation reports."
+  }
+}

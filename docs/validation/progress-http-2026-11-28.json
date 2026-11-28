@@ -1,0 +1,1147 @@
+{
+  "checkedAt": "2026-11-28T14:47:04.161312+00:00",
+  "base": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg",
+  "browserValidation": {
+    "status": "not-run",
+    "reason": "This script checks HTTP artifacts only; browser interaction evidence is recorded separately."
+  },
+  "deploymentScope": {
+    "miaodaCanonicalAndLegacyDomains": true,
+    "vercelPreview": "excluded; user paused this deployment"
+  },
+  "health": {
+    "status": "ok",
+    "timestamp": "2026-11-28T14:46:02.010Z",
+    "version": "4.3.2-progress-rc1"
+  },
+  "ready": {
+    "status": "ready"
+  },
+  "jobProgressEndpoint": {
+    "status": 404,
+    "code": "NOT_FOUND",
+    "claim": "Unauthenticated nonexistent-job guard only; actual progress transitions require the separately authorized production UI run. No generation request was sent."
+  },
+  "generatedFiles": [
+    {
+      "path": "assets/Agent-BbH5jGaf.css",
+      "status": 200,
+      "bytes": 4922,
+      "sha256": "13e11cc83306bc91a172967f72db76f3ec3d9d881cf8a362b3c2bc44c1662bdd",
+      "contentType": "text/css; charset=UTF-8"
+    },
+    {
+      "path": "assets/Agent-BdsmVBUv.js",
+      "status": 200,
+      "bytes": 9075,
+      "sha256": "e0d6282bd75a1fee2d26d29e4f8367ae3afb44d84902b14754aca71cffe96d46",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/AskAssistantButton-DnKSV18s.js",
+      "status": 200,
+      "bytes": 569,
+      "sha256": "73c9c983ccb04285a865753662330d727a5d9e12474fd2db0a202a85cd28cd72",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/AssistantContextPanel-DTh6f1or.css",
+      "status": 200,
+      "bytes": 2930,
+      "sha256": "9c81fa2a03dc0ada7d625f141db35b24ff80a315b6727ab24f2b71343b6475ae",
+      "contentType": "text/css; charset=UTF-8"
+    },
+    {
+      "path": "assets/Auth-CaLatLCu.css",
+      "status": 200,
+      "bytes": 4991,
+      "sha256": "acb84dad7b5824eb86ba6738a6f172b6098655e0ab781620b51abac32540eeac",
+      "contentType": "text/css; charset=UTF-8"
+    },
+    {
+      "path": "assets/Auth-DDppwCyi.js",
+      "status": 200,
+      "bytes": 1028,
+      "sha256": "d6ee1e13122dc15a44ea2b85868240cc2e75f215e84512d69b375e28e7a04514",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/CourseArtwork-fZ8QzMP1.js",
+      "status": 200,
+      "bytes": 538,
+      "sha256": "c4cebb4f68cdc2de18897e81174e870deac542c04ac3983ab948e77da0100f98",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/CourseDetail-D6jpS4dy.js",
+      "status": 200,
+      "bytes": 12661,
+      "sha256": "b76cba826b124fe75f48b84d439059fd0126dc2e50f9bd69b013da04dab8a5ce",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/CourseDetail-Djp_DKXZ.css",
+      "status": 200,
+      "bytes": 8464,
+      "sha256": "1fe269996cedc560483e065f1a45ee382173a5d19b9b0108f42c40d92b083458",
+      "contentType": "text/css; charset=UTF-8"
+    },
+    {
+      "path": "assets/ExpeditionNotice-BqBBJlnW.js",
+      "status": 200,
+      "bytes": 1234,
+      "sha256": "61c9c8d962e8197f4a2817d5a44559075e6a55ffb860d58fe1a804992ed72b10",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/ExpeditionPages-BxUxJ-mg.js",
+      "status": 200,
+      "bytes": 23276,
+      "sha256": "62ba2d80699aef50e16ba226762bac87a960a67bc51aacc3939c7f077faba6b1",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/ExpeditionRun-Dq6jVtXD.js",
+      "status": 200,
+      "bytes": 17582,
+      "sha256": "02981532fab2923b2a9900e3a985e3cade6c13b7e05284e02e20c74918a47f80",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/Explore-CUH2Cqic.js",
+      "status": 200,
+      "bytes": 3818,
+      "sha256": "d08693e0ef1a25495aad35768526baf72f456bcf3ce184e7720e4fef5e258995",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/Explore-KOlcEPUZ.css",
+      "status": 200,
+      "bytes": 8446,
+      "sha256": "93d682a892e474efa752b7df9924bd82decf399d5aae992521c051d7f3fe885f",
+      "contentType": "text/css; charset=UTF-8"
+    },
+    {
+      "path": "assets/Greenhouse-89PF_d51.css",
+      "status": 200,
+      "bytes": 6396,
+      "sha256": "d967a32c2a3657f404fea2d9d28ba6293cfa1a3a39f325509c9f854d36e70bdf",
+      "contentType": "text/css; charset=UTF-8"
+    },
+    {
+      "path": "assets/Greenhouse-BVV4aLoY.js",
+      "status": 200,
+      "bytes": 7220,
+      "sha256": "9369afa74eee6ff4f59606fd6681adf1b1e0723230f8c9024a83229c1adf89b5",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/Guide-C9tPb4_0.js",
+      "status": 200,
+      "bytes": 16240,
+      "sha256": "25a2a8949ae527315e2e6fc93f429a179ef54a20a3e1f0646d012ae3c6a99dd1",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/Guide-DSuxSE9Z.css",
+      "status": 200,
+      "bytes": 6227,
+      "sha256": "59b14542d4a8f86f9183b6c86f4190d4b88930668649a261f6582bde6cc5d5f4",
+      "contentType": "text/css; charset=UTF-8"
+    },
+    {
+      "path": "assets/JourneyStudio-CMBDZ-Kh.js",
+      "status": 200,
+      "bytes": 7157,
+      "sha256": "abaaa5a9bc6ae591799da8f9926ad4408c074dc801168499119f0dbed6ee936e",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/KnowledgeGraph-BCnwYw2Z.css",
+      "status": 200,
+      "bytes": 4197,
+      "sha256": "f9a7a2c60ba56fe89da1ff5b029b4ad5413e1dee5f730e769ca248adea84d4cf",
+      "contentType": "text/css; charset=UTF-8"
+    },
+    {
+      "path": "assets/KnowledgeGraph-Dl9N0I6Z.js",
+      "status": 200,
+      "bytes": 9254,
+      "sha256": "a18da21802a0a8dd4652f9cd9486899f501c72ed979dd2d5c0d72099f51074a6",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/Login-BhxU1xWX.js",
+      "status": 200,
+      "bytes": 2644,
+      "sha256": "974250e80eeb2ce08d3ef0d6cfa47217705167a620efbbf405160cc7ee9d88e4",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/ModelAccessPanel-DFYV40ER.css",
+      "status": 200,
+      "bytes": 5449,
+      "sha256": "5db0338c3736c7e89d850fe55b3ea860fc98a0002c0ff9b8c6a5adf57279559c",
+      "contentType": "text/css; charset=UTF-8"
+    },
+    {
+      "path": "assets/ModelAccessPanel-VLHRlXA1.js",
+      "status": 200,
+      "bytes": 13009,
+      "sha256": "4e2f687c76e012fe81722072b21af1b98ebbca4d3da768a2bad3c002f99b5717",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/ModuleTitle-CEBzXTxw.js",
+      "status": 200,
+      "bytes": 2476,
+      "sha256": "7d5dc0f7c282addeccb5e41d43983ec2471e0df8b0b1d4e04155052f51f74550",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/ModuleTitle-Cil6LhSK.css",
+      "status": 200,
+      "bytes": 1601,
+      "sha256": "310de4bb3b23f7a8f5359f8036588363922367b3cdbd25add91e5eeb0e3caf0e",
+      "contentType": "text/css; charset=UTF-8"
+    },
+    {
+      "path": "assets/Planets-BE2LXt1F.css",
+      "status": 200,
+      "bytes": 17266,
+      "sha256": "51fc8b3f72da733bebd997cd762473d6c1183aba0fdc201a16d2093ccc3e8fa0",
+      "contentType": "text/css; charset=UTF-8"
+    },
+    {
+      "path": "assets/Planets-C8Fqo-d0.js",
+      "status": 200,
+      "bytes": 35092,
+      "sha256": "ff2bc82182900aad1f2b5011f65d692f12c5dda22556fbc28784092bf4e568a7",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/Register-Dit9SNjV.js",
+      "status": 200,
+      "bytes": 3450,
+      "sha256": "c1bbcd92786a87b01c1df927beaa26df4a1a5323922dec1c7291607be8d91603",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/SchedulePanel-DNg5--_D.js",
+      "status": 200,
+      "bytes": 16421,
+      "sha256": "2b8c52f0770a9e0c7bf5ad2269d38f132d04e5a597c3d28b8b5c361a8d91650e",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/SharedNotebook-CXwZXhR4.js",
+      "status": 200,
+      "bytes": 5888,
+      "sha256": "1dbdddddc1418cd5c5596008f2d1e825c4cc08cbda2611e6a6b539387c0a4f6f",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/SharedNotebook-DN5kK0OW.css",
+      "status": 200,
+      "bytes": 3445,
+      "sha256": "928e6aa8f3f913e68f6950bd4d197b35ea67d119c7a2f7dc89176b6fdff27f9e",
+      "contentType": "text/css; charset=UTF-8"
+    },
+    {
+      "path": "assets/StellarAssistant-B3yN_FWq.js",
+      "status": 200,
+      "bytes": 17328,
+      "sha256": "721ff90207f54fd50b570ddca7988b054010477493f7adaeda1a1363731f884f",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/StellarAssistant-Cb9lhkIW.css",
+      "status": 200,
+      "bytes": 7475,
+      "sha256": "d896228a74120fc35fdee6f051054c2b967449d75345b28350a5758fc5232cb9",
+      "contentType": "text/css; charset=UTF-8"
+    },
+    {
+      "path": "assets/StellarHome-CckphiUk.css",
+      "status": 200,
+      "bytes": 10092,
+      "sha256": "5f57c3bbf64db37d3187eda5e8bf96a2987796489cf85e50a723af9e1406006f",
+      "contentType": "text/css; charset=UTF-8"
+    },
+    {
+      "path": "assets/StellarHome-Dg29FsaT.js",
+      "status": 200,
+      "bytes": 8837,
+      "sha256": "c98efef9c9ecc5858fc8aa60e07f1c6edba2b3f82e3b32b1369430252e3923ee",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/StellarScene-DMdcK0w2.css",
+      "status": 200,
+      "bytes": 2700,
+      "sha256": "d5450777eca018a694b76f17f41d2678b3c5125d7a35b21a3999a22932d3cfad",
+      "contentType": "text/css; charset=UTF-8"
+    },
+    {
+      "path": "assets/StellarScene-Detl8VS6.js",
+      "status": 200,
+      "bytes": 3930,
+      "sha256": "607f40da34c38578d8cefa1d87844e26eabedfecb2dd6f376298c40a398c9a03",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/StellarSettings-CnCsyDD1.js",
+      "status": 200,
+      "bytes": 2429,
+      "sha256": "4b36ab451ead7e25f6ec42ee84cea0688436d94c867a768eb498758825855da2",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/StellarSettings-CnoziLUV.css",
+      "status": 200,
+      "bytes": 787,
+      "sha256": "7127333618326bcf8a2b2cec2342f7e2cbc272da9a54edd76f627f400fa1faf2",
+      "contentType": "text/css; charset=UTF-8"
+    },
+    {
+      "path": "assets/StudyReport-DyVXUnZ_.css",
+      "status": 200,
+      "bytes": 5299,
+      "sha256": "e2c04649a74fdc557498bfcfc3e6d21e2539d1a7503294d0a9874d4dfa0f37f0",
+      "contentType": "text/css; charset=UTF-8"
+    },
+    {
+      "path": "assets/StudyReport-LlLQVTTL.js",
+      "status": 200,
+      "bytes": 9288,
+      "sha256": "547e6de3964cd40739df0d0235237d4a6a2cf8a275c3c562ffd99b4477fb7b69",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/Tasks-C5Q7JB7Q.js",
+      "status": 200,
+      "bytes": 13303,
+      "sha256": "6d34051d1d2b4759889ac622772e4638fe4dc99fc4aad9b6879856040b180bd1",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/Tasks-DEmHPbg6.css",
+      "status": 200,
+      "bytes": 6380,
+      "sha256": "6a3b1cfe572603ce879a1f355c1a75750a0740e530de3aff7728c2faec6c5f33",
+      "contentType": "text/css; charset=UTF-8"
+    },
+    {
+      "path": "assets/VisualLibrary-BKRlweH-.css",
+      "status": 200,
+      "bytes": 2554,
+      "sha256": "2f1add17febd015ac9acb70705592e851fa7bddebd0ea7e52317f6c356e2c076",
+      "contentType": "text/css; charset=UTF-8"
+    },
+    {
+      "path": "assets/VisualLibrary-CzeiqbuR.js",
+      "status": 200,
+      "bytes": 3918,
+      "sha256": "85c7668ab2b451602dd4513ddd987a91eed2c3a12a186d6bc542945aab426ccd",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/assistant-mJoSZoYk.js",
+      "status": 200,
+      "bytes": 784,
+      "sha256": "9130d8ed282512fbc20a1dad5e4da542abbb21a3f11576fab5fa7e68dde0c034",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/assistantLaunch-DMc_TKGQ.js",
+      "status": 200,
+      "bytes": 481,
+      "sha256": "eb4f19ce2dd9d0b3512f045b8d70a388fd8392ee485c35fa1e6a3b7b3dd4b484",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/book-open-BnK0LJZU.js",
+      "status": 200,
+      "bytes": 461,
+      "sha256": "e4e0c98b827a425d229acc5b229397483342a40bbf597cfca987622861236873",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/clock-B0FoDqxZ.js",
+      "status": 200,
+      "bytes": 346,
+      "sha256": "68428d301ab44d868944762c4dd4ce164f59b4ff4a80381f3de97ba359e0d95c",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/createLucideIcon-BZ7CUCSL.js",
+      "status": 200,
+      "bytes": 2569,
+      "sha256": "ee83c7fae79dbc4a91366cdc6c371a1fcc37d7afea81ec6c79086e58c5cd584f",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/expeditionLabels-CHoC96mm.js",
+      "status": 200,
+      "bytes": 275,
+      "sha256": "ab4a49a6e81a23b051eb63982acfd638a0e01b0a1ca24f35cb433e82a99c9081",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/index-B3jtI2AL.js",
+      "status": 200,
+      "bytes": 436211,
+      "sha256": "4cd156a416df851f5bd3628c033c142c1041301ab94fc2bf9e2ab1e3d2c977af",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/index-BPnQTlgD.js",
+      "status": 200,
+      "bytes": 3987,
+      "sha256": "a529c6e39340f2908dac75884457619219fe5cc3aa4f0cc35e85c0392f90b2aa",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/index-C4hbwnEW.css",
+      "status": 200,
+      "bytes": 53417,
+      "sha256": "73b3f0c752e703c22244e9542d487f676f64dbeaf5f1f6f3bf53f4544a84dbbb",
+      "contentType": "text/css; charset=UTF-8"
+    },
+    {
+      "path": "assets/journey-CGYXveJ-.js",
+      "status": 200,
+      "bytes": 2081,
+      "sha256": "559f2ce54166c210509022ef57ef4cde21e145ba44f20391976b53a5cdc54043",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/map-pin-CvaArN4F.js",
+      "status": 200,
+      "bytes": 436,
+      "sha256": "85aa470e05a6f848b077052263da81c8a652d18c6d60f54035aaf44d6b55f959",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/planetCatalog-FUmZxliy.js",
+      "status": 200,
+      "bytes": 994,
+      "sha256": "7f8a2a18f5a94fc59414b93fb75b424c0fc8115edb0847c986641b3c377b9108",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/planets-CPRXs0kQ.js",
+      "status": 200,
+      "bytes": 24418,
+      "sha256": "1073f2f7cb3ef147a0e25b74359d0b1dab124524bcd24a583d4b8d1f6834c878",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/proxy-DCYtyA0H.js",
+      "status": 200,
+      "bytes": 124047,
+      "sha256": "e2ad8217117a3a4a81adce18ab8b3e3c5e6baafb54e2506598ac1e24b1cb2563",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/target-BrcVBRM5.js",
+      "status": 200,
+      "bytes": 403,
+      "sha256": "77580737753ee1c5f48aed1ca009939dae6f116f0d3c50d7fd6c0c6a715c75da",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/useCourseDialogFocus-ByMupUqi.js",
+      "status": 200,
+      "bytes": 1007,
+      "sha256": "84dfbfb5313521bd45dffc6e6d0c652de76e3adabaee07e0c64debdbb5fded78",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/useCoursePlanets-CvJBMHrH.css",
+      "status": 200,
+      "bytes": 2137,
+      "sha256": "25f8cafd7463194deb680e7c2b5df91a274ce3f02e0b862d59adc7554a5a564f",
+      "contentType": "text/css; charset=UTF-8"
+    },
+    {
+      "path": "assets/useCoursePlanets-k6fGz40k.js",
+      "status": 200,
+      "bytes": 5302,
+      "sha256": "84fa824cdb9f8cbe63cdd49c5ce3c54c46ce992bd505c281bd4917654ffa734b",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/user-DdBLu5ZO.js",
+      "status": 200,
+      "bytes": 373,
+      "sha256": "2a9f20940460ebb6b309703d5319d013dd13cc66e88e3d40b63064be8d4aa9a1",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/x-BEccBUEC.js",
+      "status": 200,
+      "bytes": 611,
+      "sha256": "df68633010aa0c55b0499f5a6041d4d52848123e52cd5328b916252618930da3",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "assets/zap-DxE7YBbL.js",
+      "status": 200,
+      "bytes": 444,
+      "sha256": "68b2079186eb3ef35b61dd1566f57609848c7b05cb1c3cc208befe82ecada205",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "graph-editor/editor-5Z5EDZT7.js",
+      "status": 200,
+      "bytes": 658188,
+      "sha256": "31fac6b7230d7aaa55b6de18f74fa5e1b3fdee8a31674def476519d35b23c26c",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "graph-editor/editor-TCEGDHY6.css",
+      "status": 200,
+      "bytes": 2756,
+      "sha256": "21a5704955b38c0d806fca26b45b92b319b779aaf3f1445a8c5f7b0a7f813fcf",
+      "contentType": "text/css; charset=UTF-8"
+    },
+    {
+      "path": "graph-editor/index.html",
+      "status": 200,
+      "bytes": 1598,
+      "sha256": "afad07758df4c469d48e0a0bdcdccd7f6decc453488dc2dd82c7d4c82705c6d6",
+      "contentType": "text/html; charset=UTF-8"
+    },
+    {
+      "path": "graph-editor/licenses.json",
+      "status": 200,
+      "bytes": 19058,
+      "sha256": "f8bd2bdeca1a91a826783473ddf853a3ad581404810403c544e13f4e7e822a6a",
+      "contentType": "application/json; charset=UTF-8"
+    },
+    {
+      "path": "graph-editor/manifest.json",
+      "status": 200,
+      "bytes": 619,
+      "sha256": "0e4fbc339dc2a71191aaaa0d2b8d76afe7a29db1c9d1c7def98085b6995c39e5",
+      "contentType": "application/json; charset=UTF-8"
+    },
+    {
+      "path": "index.html",
+      "status": 200,
+      "bytes": 2245,
+      "sha256": "372e02ad6cb3e87b825bc20a9bee4d435cac994316886c350a8dc637023ececf",
+      "contentType": "text/html; charset=UTF-8"
+    },
+    {
+      "path": "manifest.webmanifest",
+      "status": 200,
+      "bytes": 889,
+      "sha256": "6258c2f25a84390c47ddce324a37a6b84e1727e544ec6264b15551e02e1d1839",
+      "contentType": "application/manifest+json"
+    },
+    {
+      "path": "offline-shell.html",
+      "status": 200,
+      "bytes": 2245,
+      "sha256": "372e02ad6cb3e87b825bc20a9bee4d435cac994316886c350a8dc637023ececf",
+      "contentType": "text/html; charset=UTF-8"
+    },
+    {
+      "path": "registerSW.js",
+      "status": 200,
+      "bytes": 451,
+      "sha256": "92e1804e7fb67affca330e755c316905948596013861d7203c0f87db388465cb",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "sw.js",
+      "status": 200,
+      "bytes": 5748,
+      "sha256": "1af5025d5cb34a9048fa34ef7f06c484107783d04e9287338270d1028dabc346",
+      "contentType": "application/javascript; charset=UTF-8"
+    },
+    {
+      "path": "workbox-d45e0c38.js",
+      "status": 200,
+      "bytes": 22061,
+      "sha256": "ef15413b97f1c0db1f16342cbad4a9e61f0b160f372081d61f3a2270e3723557",
+      "contentType": "application/javascript; charset=UTF-8"
+    }
+  ],
+  "graphEditor": [
+    {
+      "file": "editor-5Z5EDZT7.js",
+      "bytes": 658188,
+      "sha256": "31fac6b7230d7aaa55b6de18f74fa5e1b3fdee8a31674def476519d35b23c26c"
+    },
+    {
+      "file": "editor-TCEGDHY6.css",
+      "bytes": 2756,
+      "sha256": "21a5704955b38c0d806fca26b45b92b319b779aaf3f1445a8c5f7b0a7f813fcf"
+    },
+    {
+      "file": "index.html",
+      "bytes": 1598,
+      "sha256": "afad07758df4c469d48e0a0bdcdccd7f6decc453488dc2dd82c7d4c82705c6d6"
+    },
+    {
+      "file": "licenses.json",
+      "bytes": 19058,
+      "sha256": "f8bd2bdeca1a91a826783473ddf853a3ad581404810403c544e13f4e7e822a6a"
+    },
+    {
+      "file": "manifest.json",
+      "bytes": 619,
+      "sha256": "0e4fbc339dc2a71191aaaa0d2b8d76afe7a29db1c9d1c7def98085b6995c39e5"
+    }
+  ],
+  "entryScript": "/app/app_17h4dw5jwdg/assets/index-B3jtI2AL.js",
+  "pwaDelivery": {
+    "offlineShellMatchesEntry": true,
+    "modernEntryDoesNotInjectLegacyRegistrar": true,
+    "indexIsNotPrecached": true,
+    "navigationNetworkOnlyWithOfflineShell": true,
+    "noCustomUpdateGuard": true
+  },
+  "entryCachePolicies": [
+    {
+      "url": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/index.html",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "text/html; charset=UTF-8",
+      "sha256": "372e02ad6cb3e87b825bc20a9bee4d435cac994316886c350a8dc637023ececf",
+      "recoveryOutsideWorkerScope": false
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/offline-shell.html",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "text/html; charset=UTF-8",
+      "sha256": "372e02ad6cb3e87b825bc20a9bee4d435cac994316886c350a8dc637023ececf",
+      "recoveryOutsideWorkerScope": false
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/sw.js",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "application/javascript; charset=UTF-8",
+      "sha256": "1af5025d5cb34a9048fa34ef7f06c484107783d04e9287338270d1028dabc346",
+      "recoveryOutsideWorkerScope": false
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/registerSW.js",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "application/javascript; charset=UTF-8",
+      "sha256": "92e1804e7fb67affca330e755c316905948596013861d7203c0f87db388465cb",
+      "recoveryOutsideWorkerScope": false
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/manifest.webmanifest",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "application/manifest+json",
+      "sha256": "6258c2f25a84390c47ddce324a37a6b84e1727e544ec6264b15551e02e1d1839",
+      "recoveryOutsideWorkerScope": false
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "text/html; charset=UTF-8",
+      "sha256": "372e02ad6cb3e87b825bc20a9bee4d435cac994316886c350a8dc637023ececf",
+      "recoveryOutsideWorkerScope": false
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/explore",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "text/html; charset=UTF-8",
+      "sha256": "372e02ad6cb3e87b825bc20a9bee4d435cac994316886c350a8dc637023ececf",
+      "recoveryOutsideWorkerScope": false
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/guide",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "text/html; charset=UTF-8",
+      "sha256": "372e02ad6cb3e87b825bc20a9bee4d435cac994316886c350a8dc637023ececf",
+      "recoveryOutsideWorkerScope": false
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg?release=20261128-progress-rc1",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "text/html; charset=UTF-8",
+      "sha256": "372e02ad6cb3e87b825bc20a9bee4d435cac994316886c350a8dc637023ececf",
+      "recoveryOutsideWorkerScope": true
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg/index.html",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "text/html; charset=UTF-8",
+      "sha256": "372e02ad6cb3e87b825bc20a9bee4d435cac994316886c350a8dc637023ececf",
+      "recoveryOutsideWorkerScope": false
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg/offline-shell.html",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "text/html; charset=UTF-8",
+      "sha256": "372e02ad6cb3e87b825bc20a9bee4d435cac994316886c350a8dc637023ececf",
+      "recoveryOutsideWorkerScope": false
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg/sw.js",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "application/javascript; charset=UTF-8",
+      "sha256": "1af5025d5cb34a9048fa34ef7f06c484107783d04e9287338270d1028dabc346",
+      "recoveryOutsideWorkerScope": false
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg/registerSW.js",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "application/javascript; charset=UTF-8",
+      "sha256": "92e1804e7fb67affca330e755c316905948596013861d7203c0f87db388465cb",
+      "recoveryOutsideWorkerScope": false
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg/manifest.webmanifest",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "application/manifest+json",
+      "sha256": "6258c2f25a84390c47ddce324a37a6b84e1727e544ec6264b15551e02e1d1839",
+      "recoveryOutsideWorkerScope": false
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg/",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "text/html; charset=UTF-8",
+      "sha256": "372e02ad6cb3e87b825bc20a9bee4d435cac994316886c350a8dc637023ececf",
+      "recoveryOutsideWorkerScope": false
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg/explore",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "text/html; charset=UTF-8",
+      "sha256": "372e02ad6cb3e87b825bc20a9bee4d435cac994316886c350a8dc637023ececf",
+      "recoveryOutsideWorkerScope": false
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg/guide",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "text/html; charset=UTF-8",
+      "sha256": "372e02ad6cb3e87b825bc20a9bee4d435cac994316886c350a8dc637023ececf",
+      "recoveryOutsideWorkerScope": false
+    },
+    {
+      "url": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg?release=20261128-progress-rc1",
+      "status": 200,
+      "cacheControl": "no-store, no-cache, must-revalidate",
+      "contentType": "text/html; charset=UTF-8",
+      "sha256": "372e02ad6cb3e87b825bc20a9bee4d435cac994316886c350a8dc637023ececf",
+      "recoveryOutsideWorkerScope": true
+    }
+  ],
+  "recoveryUrls": [
+    "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg?release=20261128-progress-rc1",
+    "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg?release=20261128-progress-rc1"
+  ],
+  "hostVersions": [
+    {
+      "base": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg",
+      "health": {
+        "status": "ok",
+        "timestamp": "2026-11-28T14:46:26.743Z",
+        "version": "4.3.2-progress-rc1"
+      },
+      "hashedAssetCacheControl": "public, max-age=3600"
+    },
+    {
+      "base": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg",
+      "health": {
+        "status": "ok",
+        "timestamp": "2026-11-28T14:46:28.460Z",
+        "version": "4.3.2-progress-rc1"
+      },
+      "hashedAssetCacheControl": "public, max-age=3600"
+    }
+  ],
+  "publicGuideRoute": {
+    "path": "/guide",
+    "status": 200,
+    "contentType": "text/html; charset=UTF-8",
+    "indexSha256": "372e02ad6cb3e87b825bc20a9bee4d435cac994316886c350a8dc637023ececf",
+    "requestedWithoutAuthentication": true
+  },
+  "reachableChunks": [
+    "assets/Agent-BdsmVBUv.js",
+    "assets/AskAssistantButton-DnKSV18s.js",
+    "assets/Auth-DDppwCyi.js",
+    "assets/CourseArtwork-fZ8QzMP1.js",
+    "assets/CourseDetail-D6jpS4dy.js",
+    "assets/ExpeditionNotice-BqBBJlnW.js",
+    "assets/ExpeditionPages-BxUxJ-mg.js",
+    "assets/ExpeditionRun-Dq6jVtXD.js",
+    "assets/Explore-CUH2Cqic.js",
+    "assets/Greenhouse-BVV4aLoY.js",
+    "assets/Guide-C9tPb4_0.js",
+    "assets/JourneyStudio-CMBDZ-Kh.js",
+    "assets/KnowledgeGraph-Dl9N0I6Z.js",
+    "assets/Login-BhxU1xWX.js",
+    "assets/ModelAccessPanel-VLHRlXA1.js",
+    "assets/ModuleTitle-CEBzXTxw.js",
+    "assets/Planets-C8Fqo-d0.js",
+    "assets/Register-Dit9SNjV.js",
+    "assets/SchedulePanel-DNg5--_D.js",
+    "assets/SharedNotebook-CXwZXhR4.js",
+    "assets/StellarAssistant-B3yN_FWq.js",
+    "assets/StellarHome-Dg29FsaT.js",
+    "assets/StellarScene-Detl8VS6.js",
+    "assets/StellarSettings-CnCsyDD1.js",
+    "assets/StudyReport-LlLQVTTL.js",
+    "assets/Tasks-C5Q7JB7Q.js",
+    "assets/VisualLibrary-CzeiqbuR.js",
+    "assets/assistant-mJoSZoYk.js",
+    "assets/assistantLaunch-DMc_TKGQ.js",
+    "assets/book-open-BnK0LJZU.js",
+    "assets/clock-B0FoDqxZ.js",
+    "assets/createLucideIcon-BZ7CUCSL.js",
+    "assets/expeditionLabels-CHoC96mm.js",
+    "assets/index-B3jtI2AL.js",
+    "assets/index-BPnQTlgD.js",
+    "assets/journey-CGYXveJ-.js",
+    "assets/map-pin-CvaArN4F.js",
+    "assets/planetCatalog-FUmZxliy.js",
+    "assets/planets-CPRXs0kQ.js",
+    "assets/proxy-DCYtyA0H.js",
+    "assets/target-BrcVBRM5.js",
+    "assets/useCourseDialogFocus-ByMupUqi.js",
+    "assets/useCoursePlanets-k6fGz40k.js",
+    "assets/user-DdBLu5ZO.js",
+    "assets/x-BEccBUEC.js",
+    "assets/zap-DxE7YBbL.js",
+    "graph-editor/editor-5Z5EDZT7.js",
+    "registerSW.js",
+    "sw.js"
+  ],
+  "requiredPublicResourceCodePresent": [
+    "title_mascots.webp",
+    "navigation_arrow.webp",
+    "guide_scroll.webp",
+    "/guide",
+    "title-mascot",
+    "module-title",
+    "STZHONGS.woff2",
+    "4.3.2-progress-rc1",
+    "journey_avatars",
+    "journey_frames",
+    "journey_furniture",
+    "story_cockpit",
+    "multiple_choice",
+    "short_answer",
+    "knowledgeGraph",
+    "similarTo",
+    "practiceResearch",
+    "相似碎片",
+    "visual_prepare",
+    "visual_reference"
+  ],
+  "fontCssHasAppBase": true,
+  "publicResources": [
+    {
+      "path": "stellar/title_mascots.webp",
+      "status": 200,
+      "bytes": 1137664,
+      "sha256": "cb7465ec80df7de393563fe1dc7933fd2867acda31cd8152eb609493b327fd78",
+      "contentType": "image/webp",
+      "signedStorageRedirect": true
+    },
+    {
+      "path": "stellar/navigation_arrow.webp",
+      "status": 200,
+      "bytes": 330320,
+      "sha256": "b722445a6f11afa60081ef6c92cb3a907acd288df5832e839212c65d398b6107",
+      "contentType": "image/webp",
+      "signedStorageRedirect": true
+    },
+    {
+      "path": "fonts/STZHONGS.woff2",
+      "status": 200,
+      "bytes": 6054636,
+      "sha256": "0451629e411c5b66319cd1558adb59eb9e0660fe07c5537ec7356254823a61c5",
+      "contentType": "font/woff2",
+      "signedStorageRedirect": false,
+      "cors": "*",
+      "cacheControl": "public, max-age=86400",
+      "etag": "\"0451629e411c5b66319cd1558adb59eb9e0660fe07c5537ec7356254823a61c5\"",
+      "conditionalGetStatus": 304,
+      "headStatus": 200,
+      "headContentLength": null
+    },
+    {
+      "path": "stellar/guide_scroll.webp",
+      "status": 200,
+      "bytes": 1021720,
+      "sha256": "ddb5f0afe6b4545cc062cd18abc0bce73b18fd2b9ec3094209e290bf56a0f695",
+      "contentType": "image/webp",
+      "signedStorageRedirect": true
+    },
+    {
+      "path": "stellar/subject_planets.webp",
+      "status": 200,
+      "bytes": 1998758,
+      "sha256": "ff467a16d12e48b6ccfd6e6314bc8ad85520ab8e12e3591baa158eb78cedac09",
+      "contentType": "image/webp",
+      "signedStorageRedirect": true
+    },
+    {
+      "path": "stellar/journey_avatars.webp",
+      "status": 200,
+      "bytes": 1496312,
+      "sha256": "821b7a19866a4e6bcaf78d30e4eb53a23d7f943890c955d188a7025ac750f6ae",
+      "contentType": "image/webp",
+      "signedStorageRedirect": true
+    },
+    {
+      "path": "stellar/journey_frames.webp",
+      "status": 200,
+      "bytes": 1340832,
+      "sha256": "f0ae2a4f2574c131a01515af50dcdde2b2d9f3e4cdae08d3096c5a806ab2943e",
+      "contentType": "image/webp",
+      "signedStorageRedirect": true
+    },
+    {
+      "path": "stellar/journey_titles.webp",
+      "status": 200,
+      "bytes": 1048684,
+      "sha256": "12edcd4d4b264ef854038f46893b41fa6bf07223ea4d6e7c831deed3e568e20b",
+      "contentType": "image/webp",
+      "signedStorageRedirect": true
+    },
+    {
+      "path": "stellar/journey_furniture.webp",
+      "status": 200,
+      "bytes": 1548228,
+      "sha256": "9f866b5797ddbda31f3181b453c8fd16745133f07bd4b80a52756d6ca76de4fc",
+      "contentType": "image/webp",
+      "signedStorageRedirect": true
+    },
+    {
+      "path": "stellar/story_cockpit.webp",
+      "status": 200,
+      "bytes": 1060676,
+      "sha256": "aaf6a997fe6ecbfee9e69f509c8e002ee2e5fbc0ceeb55b379bb070a89d8a375",
+      "contentType": "image/webp",
+      "signedStorageRedirect": true
+    },
+    {
+      "path": "stellar/story_cockpit_mobile.webp",
+      "status": 200,
+      "bytes": 981362,
+      "sha256": "e01dd858df3e83d7c7e5e455140f5464d83e25c525a35e0b684097d504c221f3",
+      "contentType": "image/webp",
+      "signedStorageRedirect": true
+    }
+  ],
+  "secondaryHostPublicResources": [
+    {
+      "base": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg",
+      "path": "stellar/title_mascots.webp",
+      "status": 200,
+      "bytes": 1137664,
+      "sha256": "cb7465ec80df7de393563fe1dc7933fd2867acda31cd8152eb609493b327fd78",
+      "contentType": "image/webp"
+    },
+    {
+      "base": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg",
+      "path": "stellar/navigation_arrow.webp",
+      "status": 200,
+      "bytes": 330320,
+      "sha256": "b722445a6f11afa60081ef6c92cb3a907acd288df5832e839212c65d398b6107",
+      "contentType": "image/webp"
+    },
+    {
+      "base": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg",
+      "path": "fonts/STZHONGS.woff2",
+      "status": 200,
+      "bytes": 6054636,
+      "sha256": "0451629e411c5b66319cd1558adb59eb9e0660fe07c5537ec7356254823a61c5",
+      "contentType": "font/woff2"
+    },
+    {
+      "base": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg",
+      "path": "stellar/guide_scroll.webp",
+      "status": 200,
+      "bytes": 1021720,
+      "sha256": "ddb5f0afe6b4545cc062cd18abc0bce73b18fd2b9ec3094209e290bf56a0f695",
+      "contentType": "image/webp"
+    },
+    {
+      "base": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg",
+      "path": "stellar/subject_planets.webp",
+      "status": 200,
+      "bytes": 1998758,
+      "sha256": "ff467a16d12e48b6ccfd6e6314bc8ad85520ab8e12e3591baa158eb78cedac09",
+      "contentType": "image/webp"
+    },
+    {
+      "base": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg",
+      "path": "stellar/journey_avatars.webp",
+      "status": 200,
+      "bytes": 1496312,
+      "sha256": "821b7a19866a4e6bcaf78d30e4eb53a23d7f943890c955d188a7025ac750f6ae",
+      "contentType": "image/webp"
+    },
+    {
+      "base": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg",
+      "path": "stellar/journey_frames.webp",
+      "status": 200,
+      "bytes": 1340832,
+      "sha256": "f0ae2a4f2574c131a01515af50dcdde2b2d9f3e4cdae08d3096c5a806ab2943e",
+      "contentType": "image/webp"
+    },
+    {
+      "base": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg",
+      "path": "stellar/journey_titles.webp",
+      "status": 200,
+      "bytes": 1048684,
+      "sha256": "12edcd4d4b264ef854038f46893b41fa6bf07223ea4d6e7c831deed3e568e20b",
+      "contentType": "image/webp"
+    },
+    {
+      "base": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg",
+      "path": "stellar/journey_furniture.webp",
+      "status": 200,
+      "bytes": 1548228,
+      "sha256": "9f866b5797ddbda31f3181b453c8fd16745133f07bd4b80a52756d6ca76de4fc",
+      "contentType": "image/webp"
+    },
+    {
+      "base": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg",
+      "path": "stellar/story_cockpit.webp",
+      "status": 200,
+      "bytes": 1060676,
+      "sha256": "aaf6a997fe6ecbfee9e69f509c8e002ee2e5fbc0ceeb55b379bb070a89d8a375",
+      "contentType": "image/webp"
+    },
+    {
+      "base": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg",
+      "path": "stellar/story_cockpit_mobile.webp",
+      "status": 200,
+      "bytes": 981362,
+      "sha256": "e01dd858df3e83d7c7e5e455140f5464d83e25c525a35e0b684097d504c221f3",
+      "contentType": "image/webp"
+    }
+  ],
+  "androidEntrypoints": [
+    {
+      "base": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg",
+      "versionChecks": [
+        {
+          "clientVersionCode": 33,
+          "latestVersionCode": 34,
+          "latestVersionName": "4.3.2-progress-rc1",
+          "needUpdate": true,
+          "forceUpdate": false,
+          "fileSize": 85236835,
+          "updateUrl": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/download/android"
+        },
+        {
+          "clientVersionCode": 34,
+          "latestVersionCode": 34,
+          "latestVersionName": "4.3.2-progress-rc1",
+          "needUpdate": false,
+          "forceUpdate": false,
+          "fileSize": 85236835,
+          "updateUrl": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/download/android"
+        }
+      ],
+      "directDownload": {
+        "status": 200,
+        "bytes": 85236835,
+        "sha256": "e93e055ce99289e308079a84057284a170f6c5db280fee19d1bfba2f3a607549",
+        "contentType": "application/vnd.android.package-archive",
+        "redirectCacheControl": "no-store"
+      },
+      "legacyApiDownload": {
+        "status": 302,
+        "location": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/download/android"
+      }
+    },
+    {
+      "base": "https://ucn5aajxnx7f.feishu.link/app/app_17h4dw5jwdg",
+      "versionChecks": [
+        {
+          "clientVersionCode": 33,
+          "latestVersionCode": 34,
+          "latestVersionName": "4.3.2-progress-rc1",
+          "needUpdate": true,
+          "forceUpdate": false,
+          "fileSize": 85236835,
+          "updateUrl": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/download/android"
+        },
+        {
+          "clientVersionCode": 34,
+          "latestVersionCode": 34,
+          "latestVersionName": "4.3.2-progress-rc1",
+          "needUpdate": false,
+          "forceUpdate": false,
+          "fileSize": 85236835,
+          "updateUrl": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/download/android"
+        }
+      ],
+      "directDownload": {
+        "status": 200,
+        "bytes": 85236835,
+        "sha256": "e93e055ce99289e308079a84057284a170f6c5db280fee19d1bfba2f3a607549",
+        "contentType": "application/vnd.android.package-archive",
+        "redirectCacheControl": "no-store"
+      },
+      "legacyApiDownload": {
+        "status": 302,
+        "location": "https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/download/android"
+      }
+    }
+  ],
+  "sampledImages": [
+    {
+      "path": "stellar/title_logo.png",
+      "status": 200,
+      "bytes": 872877,
+      "sha256": "4a4948386448fd115081bcb59f994a90394b1d5ab8a197c30728bb3e7d0c3fa0",
+      "contentType": "image/png"
+    },
+    {
+      "path": "stellar/expedition_voyage.png",
+      "status": 200,
+      "bytes": 2757065,
+      "sha256": "dc92cef2a5a1d000014a90be7dbcea3a30e4e076a4ad8a41ae181f04fcd5a30f",
+      "contentType": "image/png"
+    },
+    {
+      "path": "stellar/scene_login.png",
+      "status": 200,
+      "bytes": 2398382,
+      "sha256": "3705231ee4f475982fd69d87eb82465fb0a4591f3b6d7af2da564fbbd10bb990",
+      "contentType": "image/png"
+    }
+  ],
+  "resourceVerification": {
+    "canonicalImages": 70,
+    "existingPngs": 60,
+    "existingJpgs": 1,
+    "storedPublicResources": 11,
+    "newResourceFilesCommittedToTemplate": 0
+  },
+  "result": "passed",
+  "verificationCompletedAt": "2026-11-28T14:57:53.743208+00:00"
+}

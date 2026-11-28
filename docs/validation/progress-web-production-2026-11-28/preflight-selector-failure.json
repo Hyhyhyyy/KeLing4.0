@@ -1,0 +1,9 @@
+{
+  "at": "2026-11-28T14:48:40.295Z",
+  "phase": "input",
+  "message": "locator.selectOption: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByLabel('目前基础', { exact: true })\u001b[22m\n",
+  "generateRequests": 0,
+  "otherModelRequests": 0,
+  "confirmed": false,
+  "pageErrors": []
+}

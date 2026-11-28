@@ -1,0 +1,69 @@
+{
+  "at": "2026-11-28T15:00:01.943Z",
+  "mode": "Read-only production normal browser UI after Android single real artwork redraw; no Web generation or redraw requests.",
+  "version": "4.3.2-progress-rc1",
+  "planetId": "3c11a247-6ceb-4fb3-a19b-e87b2d373c80",
+  "courseId": "50b7e27d-a792-4737-85c1-5e749bc0bf8d",
+  "title": "奶龙梗与二创探索星球",
+  "artwork": {
+    "status": "generated",
+    "url": "https://ucn5aajxnx7f.feishuapp.com/spark/app/app_17h4dw5jwdg/runtime/api/v1/storage/object/bucket_aadk4xawzf4xg_static/plugin%2Ff53560756ad22aa64a266b9298bd723431e208d0d2a68406df25088b0ca7b01a",
+    "provider": "miaoda-image/grounded-reference",
+    "generatedAt": "2026-11-28T14:58:00.904Z",
+    "urlSha256": "983aa5a9aeca1b874c077d446a2664ef768d7d17dc930447ed577c7d56ef0628"
+  },
+  "fourEntrancesMatchSavedUrl": true,
+  "pages": [
+    {
+      "name": "planet-detail-desktop",
+      "url": "https://ucn5aajxnx7f.feishuapp.com/spark/app/app_17h4dw5jwdg/runtime/api/v1/storage/object/bucket_aadk4xawzf4xg_static/plugin%2Ff53560756ad22aa64a266b9298bd723431e208d0d2a68406df25088b0ca7b01a",
+      "width": 2048,
+      "height": 2048,
+      "loaded": true
+    },
+    {
+      "name": "planet-detail-mobile",
+      "url": "https://ucn5aajxnx7f.feishuapp.com/spark/app/app_17h4dw5jwdg/runtime/api/v1/storage/object/bucket_aadk4xawzf4xg_static/plugin%2Ff53560756ad22aa64a266b9298bd723431e208d0d2a68406df25088b0ca7b01a",
+      "width": 2048,
+      "height": 2048,
+      "loaded": true
+    },
+    {
+      "name": "course-detail",
+      "url": "https://ucn5aajxnx7f.feishuapp.com/spark/app/app_17h4dw5jwdg/runtime/api/v1/storage/object/bucket_aadk4xawzf4xg_static/plugin%2Ff53560756ad22aa64a266b9298bd723431e208d0d2a68406df25088b0ca7b01a",
+      "width": 2048,
+      "height": 2048,
+      "loaded": true
+    },
+    {
+      "name": "starmap-desktop",
+      "url": "https://ucn5aajxnx7f.feishuapp.com/spark/app/app_17h4dw5jwdg/runtime/api/v1/storage/object/bucket_aadk4xawzf4xg_static/plugin%2Ff53560756ad22aa64a266b9298bd723431e208d0d2a68406df25088b0ca7b01a",
+      "width": 2048,
+      "height": 2048,
+      "loaded": true
+    },
+    {
+      "name": "starmap-mobile",
+      "url": "https://ucn5aajxnx7f.feishuapp.com/spark/app/app_17h4dw5jwdg/runtime/api/v1/storage/object/bucket_aadk4xawzf4xg_static/plugin%2Ff53560756ad22aa64a266b9298bd723431e208d0d2a68406df25088b0ca7b01a",
+      "width": 2048,
+      "height": 2048,
+      "loaded": true
+    },
+    {
+      "name": "home-desktop",
+      "url": "https://ucn5aajxnx7f.feishuapp.com/spark/app/app_17h4dw5jwdg/runtime/api/v1/storage/object/bucket_aadk4xawzf4xg_static/plugin%2Ff53560756ad22aa64a266b9298bd723431e208d0d2a68406df25088b0ca7b01a",
+      "width": 2048,
+      "height": 2048,
+      "loaded": true
+    }
+  ],
+  "modelRequests": 0,
+  "pageErrors": [],
+  "beforeRedrawScreenshotsCaptured": false,
+  "androidCrossCheck": {
+    "sameGeneratedAtConfirmed": true,
+    "sameUrlSha256Confirmed": true,
+    "urlSha256": "983aa5a9aeca1b874c077d446a2664ef768d7d17dc930447ed577c7d56ef0628",
+    "method": "Android verification agent independently checked the same stored redraw result; no additional model or image call by Web."
+  }
+}

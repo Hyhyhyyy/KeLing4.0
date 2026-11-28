@@ -1,0 +1,38 @@
+{
+  "source": "25c2be2f9231bb75b9aa345dcc9e7d41c5be3f9b",
+  "ci": {
+    "id": 46152912154,
+    "status": "completed",
+    "conclusion": "success",
+    "url": "https://github.com/Hyhyhyyy/KeLing4.0/actions/runs/46152912154"
+  },
+  "release": {
+    "id": 461603524,
+    "tag": "v4.3.2-progress-rc1",
+    "draft": false,
+    "prerelease": true,
+    "url": "https://github.com/Hyhyhyyy/KeLing4.0/releases/tag/v4.3.2-progress-rc1",
+    "target": "25c2be2f9231bb75b9aa345dcc9e7d41c5be3f9b",
+    "assets": [
+      {
+        "name": "keling-4.3.2-progress-rc1.apk",
+        "size": 85236835,
+        "state": "uploaded",
+        "digest": "sha256:e93e055ce99289e308079a84057284a170f6c5db280fee19d1bfba2f3a607549",
+        "url": "https://github.com/Hyhyhyyy/KeLing4.0/releases/download/v4.3.2-progress-rc1/keling-4.3.2-progress-rc1.apk"
+      }
+    ]
+  },
+  "verification": {
+    "officialAssetDigestMatchesLocal": true,
+    "officialAssetBytesMatchLocal": true,
+    "independentFullDownload": false
+  },
+  "metadataCommit": "a06cc090e248d964a9f5c06dd043bcb23d4d50ea",
+  "metadataCi": {
+    "id": 46156208829,
+    "status": "completed",
+    "conclusion": "success",
+    "url": "https://github.com/Hyhyhyyy/KeLing4.0/actions/runs/46156208829"
+  }
+}

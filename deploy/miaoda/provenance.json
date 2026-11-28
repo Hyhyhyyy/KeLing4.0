@@ -1,6 +1,6 @@
 {
   "sourceProject": "keling-access-gateway",
-  "sourceCommit": "91c5aa98cc11711063090bc3ae1f49dd9dd0fbc2",
+  "sourceCommit": "5bb1d57204ad64e17e4a14e9326839105d623b49",
   "observedDate": "2026-11-28",
   "hashBasis": "sourceSha256/sourceBytes describe the actual template working-tree files based on sourceCommit; sourceWorkingTreeHasPendingChanges distinguishes an uncommitted snapshot from a committed release. sha256/bytes describe the corresponding copied adapter files.",
   "files": [
@@ -98,8 +98,8 @@
     {
       "path": "server/modules/gateway/download.controller.ts",
       "bytes": 1550,
-      "sha256": "974b5b34a2475d0098ad707fe31a4709557e4767a8f45c2e79405caff05d644d",
-      "sourceSha256": "974b5b34a2475d0098ad707fe31a4709557e4767a8f45c2e79405caff05d644d",
+      "sha256": "a0e490c7f193eaac265162524829106f100cbd209365fc0066ea1d7dbb3506d1",
+      "sourceSha256": "a0e490c7f193eaac265162524829106f100cbd209365fc0066ea1d7dbb3506d1",
       "sourceBytes": 1550
     },
     {
@@ -182,16 +182,16 @@
     {
       "path": "server/modules/gateway/public-assets.spec.cjs",
       "bytes": 10319,
-      "sha256": "dc8558d625174d967795e35c2ed0d032e683c6d21be3347d2b14b9e8b06da7f5",
-      "sourceSha256": "dc8558d625174d967795e35c2ed0d032e683c6d21be3347d2b14b9e8b06da7f5",
+      "sha256": "4d5413c0142b710d896baeae76907f43160cbd6f82b6a74b35aa91c345b7b865",
+      "sourceSha256": "4d5413c0142b710d896baeae76907f43160cbd6f82b6a74b35aa91c345b7b865",
       "sourceBytes": 10319
     },
     {
       "path": "server/modules/gateway/release.controller.ts",
-      "bytes": 1392,
-      "sha256": "55b3e32bf6e00390051f706b24bb9b165fdcbdb406e599fd6af441ff3ddda0e9",
-      "sourceSha256": "55b3e32bf6e00390051f706b24bb9b165fdcbdb406e599fd6af441ff3ddda0e9",
-      "sourceBytes": 1392
+      "bytes": 1434,
+      "sha256": "65e11a483bc9786bddfbbd6f56beb98eaf8747b89a6ade254e7edea9b601a587",
+      "sourceSha256": "65e11a483bc9786bddfbbd6f56beb98eaf8747b89a6ade254e7edea9b601a587",
+      "sourceBytes": 1434
     },
     {
       "path": "vendor/keling-server.d.cts",
@@ -366,5 +366,5 @@
   "publicResourcesFile": "public-resources.json",
   "publicResourcesSha256": "3bfb6add6298952b4f601861757838de6f0b059008806d1b4d672f2e65d253c9",
   "androidDownloadFile": "android-download.json",
-  "androidDownloadSha256": "be1e82bb221f9093f84043fb8036a10d8b3983131d53401b1b4e1838bfe0844d"
+  "androidDownloadSha256": "98331cd0217c8035d395c5f4cff3f8d36de16c90b523f854cbca2787b3db367b"
 }

@@ -1,6 +1,6 @@
 # 项目文档
 
-当前公开主题探索版：**4.3.1-research-rc2 / versionCode 33**。先读[本轮发布与验证](validation/topic-research-release-2026-11-28.md)、[主题星球使用与调用链](design/TOPIC_PLANETS.md)。故事与个人空间见[前一轮发布](validation/journey-release-2026-11-27.md)与[成就规则](defense/个人空间与成就规则.md)。[五分钟答辩材料](defense/README.md)本轮没有改图；此前模型样本不冒充当前版本的新调用。原账号与实体条件见[人工事项](validation/manual-followups-2026-11-28.md)。
+当前公开版：**4.3.2-progress-rc1 / versionCode 34**。先读[星图形象与真实生成阶段](validation/progress-release-2026-11-28.md)、[主题星球使用与调用链](design/TOPIC_PLANETS.md)。前轮联网主题能力及真实失败见[主题探索发布](validation/topic-research-release-2026-11-28.md)。故事与个人空间见[航程成长发布](validation/journey-release-2026-11-27.md)与[成就规则](defense/个人空间与成就规则.md)。[五分钟答辩材料](defense/README.md)本轮没有改图；此前模型样本不冒充当前版本的新调用。原账号与实体条件见[人工事项](validation/manual-followups-2026-11-28.md)。
 
 11 月 25 日已重新运行 Web、服务端测试和构建，并独立验证本机演示库。最终 Android、部署与分支记录见本轮交付；去冗余时没有运行测试的历史范围不再代表当前验收状态。
 

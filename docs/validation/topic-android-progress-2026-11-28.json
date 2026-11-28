@@ -1,0 +1,151 @@
+{
+  "versionName": "4.3.2-progress-rc1",
+  "versionCode": 34,
+  "apk": {
+    "path": "apps/android/app/build/progress-proof/keling-4.3.2-progress-rc1.apk",
+    "bytes": 85236835,
+    "sha256": "e93e055ce99289e308079a84057284a170f6c5db280fee19d1bfba2f3a607549",
+    "signatureVerified": true,
+    "certificateSha256": "e7b4d86c7a02fb6bb1d21215c393b347d2d67652e5e45dfbe3a3d6c66b7c67a3",
+    "minSdk": 26,
+    "targetSdk": 34
+  },
+  "checks": {
+    "unitTests": 142,
+    "failures": 0,
+    "errors": 0,
+    "lintErrors": 0,
+    "lintWarnings": 40
+  },
+  "assets": {
+    "font": "res/font/stzhongs.ttf",
+    "fontSha256": "e822a3f2859a6cc982f04c6ad1eabc18371ce26d6874b710188a30c35dced0f1",
+    "fontMatchesAuthorizedSource": true,
+    "graph": "assets/graph-editor/editor-5Z5EDZT7.js",
+    "graphSha256": "31fac6b7230d7aaa55b6de18f74fa5e1b3fdee8a31674def476519d35b23c26c",
+    "graphMatchesBuildSource": true,
+    "sharedVisualAssetsVerified": 72
+  },
+  "deviceVisualVerification": "Actual UI artwork redraw succeeded once; star map, course and detail display its new generated artwork; loading start and completion captured, intermediate stage screenshots not captured",
+  "device": {
+    "serial": "emulator-5584",
+    "launcherPid": 58596,
+    "installedVersionCode": 34,
+    "existingPlanetId": "3c11a247-6ceb-4fb3-a19b-e87b2d373c80",
+    "apiLevel": 34,
+    "shutdownConfirmed": true,
+    "adbDevices": [],
+    "launcherExited": true
+  },
+  "screenshots": [
+    {
+      "file": "docs\\validation\\topic-android-progress-2026-11-28\\same-image-star-map.png",
+      "sha256": "d81abe9a0f9fdd436339ea33148b9cd4c9018434964fb336cc09680edcc76ef0",
+      "dimensions": [
+        720,
+        1560
+      ]
+    },
+    {
+      "file": "docs\\validation\\topic-android-progress-2026-11-28\\same-image-course.png",
+      "sha256": "0d6382284e4a924de55ba06104f3afb872a7bf5832d2ba2e2297fb59d6f0a05c",
+      "dimensions": [
+        720,
+        1560
+      ]
+    },
+    {
+      "file": "docs\\validation\\topic-android-progress-2026-11-28\\same-image-detail.png",
+      "sha256": "60ea36934854f854c40c24fbf33bc45ff85baae4d1ddcfc9b7331746744eba6d",
+      "dimensions": [
+        720,
+        1560
+      ]
+    },
+    {
+      "file": "docs\\validation\\topic-android-progress-2026-11-28\\artwork-request-prepared-unsent.png",
+      "sha256": "73aff2bd4a06bb0a076270407d129ad349d6cea537e970b85aa0a80509713586",
+      "dimensions": [
+        720,
+        1560
+      ]
+    },
+    {
+      "file": "docs\\validation\\topic-android-progress-2026-11-28\\progress-01-start.png",
+      "sha256": "e8847bb6f0e0ba643e91ed00fdfade2094419469b7288a1a322615e933a54c7b",
+      "dimensions": [
+        720,
+        1560
+      ]
+    },
+    {
+      "file": "docs\\validation\\topic-android-progress-2026-11-28\\progress-observed-02.png",
+      "sha256": "cce9580093e69b269007908d2da47c43a2d21f371e7f2673990cf315101ed5c4",
+      "dimensions": [
+        720,
+        1560
+      ]
+    },
+    {
+      "file": "docs\\validation\\topic-android-progress-2026-11-28\\same-image-after-star-map.png",
+      "sha256": "ff967307fd831bce3a280acbf69ed0a2fe5464fee5678e82fea2f6f29c49c205",
+      "dimensions": [
+        720,
+        1560
+      ]
+    },
+    {
+      "file": "docs\\validation\\topic-android-progress-2026-11-28\\same-image-after-course.png",
+      "sha256": "9e34907657b85943640a56dd2fc6b0fd7ad9261a61ea38d216f9c5142870ed39",
+      "dimensions": [
+        720,
+        1560
+      ]
+    },
+    {
+      "file": "docs\\validation\\topic-android-progress-2026-11-28\\same-image-after-detail.png",
+      "sha256": "b3479bad86973dc54bb00e2b783fbe0b810ac8aa0c6ad30becbda1ab08f5c002",
+      "dimensions": [
+        720,
+        1560
+      ]
+    }
+  ],
+  "boundaries": [
+    "Progress protocol and state tests use mock responses; native actual start and completion were captured but intermediate stages were not captured",
+    "One actual native artwork operation, no automatic retry, no initial planet generation, similar request, tutor request or answer submission",
+    "Before and after all 14 questions, entire draft except artwork, graph, research and progress are identical",
+    "Observed timestamps only bound completion; exact service duration and underlying model subcall count were not measured",
+    "Physical-device compatibility and performance improvement not established"
+  ],
+  "nativeRealAiOperationRequests": 1,
+  "nativeAutomaticRetries": 0,
+  "realArtworkComparison": {
+    "planetId": "3c11a247-6ceb-4fb3-a19b-e87b2d373c80",
+    "nativeUiRequests": 1,
+    "automaticRetries": 0,
+    "beforeQuestionCount": 14,
+    "afterQuestionCount": 14,
+    "entireDraftExceptArtworkUnchanged": true,
+    "allQuestionsUnchanged": true,
+    "knowledgeGraphUnchanged": true,
+    "researchUnchanged": true,
+    "progressUnchanged": true,
+    "courseIdUnchanged": true,
+    "nonArtworkDraftSha256": "d76fd74b81133ccdfb68b57d19c4eab919b2032fc1966a7ccc522815cca489fe",
+    "progressSha256": "087ae2286dcf765218e377357097b70751d4764841e3ec5db2800b5f142dbaa5",
+    "artworkUrlChanged": true,
+    "artwork": {
+      "status": "generated",
+      "provider": "miaoda-image/grounded-reference",
+      "generatedAt": "2026-11-28T14:58:00.904Z",
+      "urlSha256": "983aa5a9aeca1b874c077d446a2664ef768d7d17dc930447ed577c7d56ef0628",
+      "file": "docs/validation/topic-android-progress-2026-11-28/native-artwork-result.jpg",
+      "contentType": "image/jpeg",
+      "bytes": 848651,
+      "sha256": "f53560756ad22aa64a266b9298bd723431e208d0d2a68406df25088b0ca7b01a"
+    },
+    "nativeProgressScreenshots": "Actual operation start / indeterminate server wait and operation completion captured; intermediate step states not captured",
+    "timing": "Observed start 2026-11-28T14:57:58.4292819Z; completion first observed 2026-11-28T14:59:22.754639Z. Observation bound only, not exact service duration."
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "date": "2026-11-28",
+  "mode": "Production browser UI; real unmodified request and service progress; no mocks",
+  "version": "4.3.2-progress-rc1",
+  "release": "7713232662001339416",
+  "template": "5bb1d57204ad64e17e4a14e9326839105d623b49",
+  "subject": "分数的意义与等值分数",
+  "input": {
+    "subject": "分数的意义与等值分数",
+    "level": "初学者",
+    "goal": "小学五年级：认识分数、等值分数与简单比较，用生活例子解释",
+    "contextMode": "auto",
+    "questionCount": 6,
+    "generateArtwork": true
+  },
+  "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+  "outcome": "FAILED",
+  "code": "CONTENT_REVIEW_FAILED",
+  "modelRequests": 1,
+  "otherModelRequests": 0,
+  "pollResponses": 55,
+  "elapsedClientMs": 158066,
+  "elapsedServerMs": 155327,
+  "stages": [
+    {
+      "id": "research",
+      "state": "completed",
+      "durationMs": 1394
+    },
+    {
+      "id": "compose",
+      "state": "completed",
+      "durationMs": 42984
+    },
+    {
+      "id": "review",
+      "state": "failed",
+      "durationMs": 110947
+    },
+    {
+      "id": "visual_prepare",
+      "state": "failed",
+      "durationMs": 110947
+    },
+    {
+      "id": "artwork",
+      "state": "pending",
+      "durationMs": null
+    },
+    {
+      "id": "finalize",
+      "state": "pending",
+      "durationMs": null
+    }
+  ],
+  "parallelReviewAndVisualPreparationObserved": true,
+  "completedCountAtFailure": 2,
+  "totalStageCount": 6,
+  "draftReturned": false,
+  "confirmed": false,
+  "imageGenerated": false,
+  "newAndOldCrossPageImageVerification": "NOT_RUN_INITIAL_FAILED",
+  "automaticRetry": false,
+  "pageErrors": [],
+  "timingLimit": "Client and server timestamps have about one minute clock offset. Durations use each clock separately. visual_prepare completion includes review/acceptance waiting; overlapping state durations do not prove equal time saved.",
+  "confirmRequests": 0,
+  "inputRetainedAfterFailure": true,
+  "loadingPanelRemovedAfterFailure": true,
+  "failedWorkAnimationStopped": true
+}

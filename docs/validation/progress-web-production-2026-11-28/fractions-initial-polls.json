@@ -1,0 +1,2637 @@
+[
+  {
+    "at": "2026-11-28T14:50:18.222Z",
+    "elapsedMs": 1338,
+    "httpStatus": 202,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 1,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:49:14.822Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "running",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z"
+        },
+        {
+          "id": "compose",
+          "state": "pending"
+        },
+        {
+          "id": "review",
+          "state": "pending"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "pending"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:50:22.254Z",
+    "elapsedMs": 5371,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 3,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:49:16.216Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "running",
+          "activity": "drafting",
+          "startedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "review",
+          "state": "pending"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "pending"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:50:26.272Z",
+    "elapsedMs": 9388,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 3,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:49:16.216Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "running",
+          "activity": "drafting",
+          "startedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "review",
+          "state": "pending"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "pending"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:50:30.319Z",
+    "elapsedMs": 13435,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 3,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:49:16.216Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "running",
+          "activity": "drafting",
+          "startedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "review",
+          "state": "pending"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "pending"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:50:34.719Z",
+    "elapsedMs": 17835,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 3,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:49:16.216Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "running",
+          "activity": "drafting",
+          "startedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "review",
+          "state": "pending"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "pending"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:50:38.103Z",
+    "elapsedMs": 21219,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 3,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:49:16.216Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "running",
+          "activity": "drafting",
+          "startedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "review",
+          "state": "pending"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "pending"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:50:40.200Z",
+    "elapsedMs": 23316,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 3,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:49:16.216Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "running",
+          "activity": "drafting",
+          "startedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "review",
+          "state": "pending"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "pending"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:50:43.572Z",
+    "elapsedMs": 26688,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 3,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:49:16.216Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "running",
+          "activity": "drafting",
+          "startedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "review",
+          "state": "pending"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "pending"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:50:45.785Z",
+    "elapsedMs": 28901,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 3,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:49:16.216Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "running",
+          "activity": "drafting",
+          "startedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "review",
+          "state": "pending"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "pending"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:50:48.002Z",
+    "elapsedMs": 31118,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 3,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:49:16.216Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "running",
+          "activity": "drafting",
+          "startedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "review",
+          "state": "pending"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "pending"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:51:00.167Z",
+    "elapsedMs": 43283,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 3,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:49:16.216Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "running",
+          "activity": "drafting",
+          "startedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "review",
+          "state": "pending"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "pending"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:51:03.872Z",
+    "elapsedMs": 46988,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 4,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:49:59.199Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "running",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "review",
+          "state": "pending"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "pending"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:51:06.256Z",
+    "elapsedMs": 49372,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 8,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:50:00.239Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "completed",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:16.216Z",
+          "finishedAt": "2026-11-28T14:49:59.200Z"
+        },
+        {
+          "id": "review",
+          "state": "running",
+          "activity": "reviewing",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "running",
+          "activity": "visual_design",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:51:08.495Z",
+    "elapsedMs": 51611,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 8,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:50:00.239Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "completed",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:16.216Z",
+          "finishedAt": "2026-11-28T14:49:59.200Z"
+        },
+        {
+          "id": "review",
+          "state": "running",
+          "activity": "reviewing",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "running",
+          "activity": "visual_design",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:51:10.625Z",
+    "elapsedMs": 53741,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 8,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:50:00.239Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "completed",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:16.216Z",
+          "finishedAt": "2026-11-28T14:49:59.200Z"
+        },
+        {
+          "id": "review",
+          "state": "running",
+          "activity": "reviewing",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "running",
+          "activity": "visual_design",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:51:12.756Z",
+    "elapsedMs": 55872,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 9,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:50:07.720Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "completed",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:16.216Z",
+          "finishedAt": "2026-11-28T14:49:59.200Z"
+        },
+        {
+          "id": "review",
+          "state": "running",
+          "activity": "reviewing",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "running",
+          "activity": "visual_reference",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:51:14.955Z",
+    "elapsedMs": 58071,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 9,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:50:07.720Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "completed",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:16.216Z",
+          "finishedAt": "2026-11-28T14:49:59.200Z"
+        },
+        {
+          "id": "review",
+          "state": "running",
+          "activity": "reviewing",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "running",
+          "activity": "visual_reference",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:51:17.085Z",
+    "elapsedMs": 60201,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 9,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:50:07.720Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "completed",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:16.216Z",
+          "finishedAt": "2026-11-28T14:49:59.200Z"
+        },
+        {
+          "id": "review",
+          "state": "running",
+          "activity": "reviewing",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "running",
+          "activity": "visual_reference",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:51:20.331Z",
+    "elapsedMs": 63447,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 9,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:50:07.720Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "completed",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:16.216Z",
+          "finishedAt": "2026-11-28T14:49:59.200Z"
+        },
+        {
+          "id": "review",
+          "state": "running",
+          "activity": "reviewing",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "running",
+          "activity": "visual_reference",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:51:23.492Z",
+    "elapsedMs": 66608,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 10,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:50:17.249Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "completed",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:16.216Z",
+          "finishedAt": "2026-11-28T14:49:59.200Z"
+        },
+        {
+          "id": "review",
+          "state": "running",
+          "activity": "reviewing",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "running",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:51:25.971Z",
+    "elapsedMs": 69087,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 10,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:50:17.249Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "completed",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:16.216Z",
+          "finishedAt": "2026-11-28T14:49:59.200Z"
+        },
+        {
+          "id": "review",
+          "state": "running",
+          "activity": "reviewing",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "running",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:51:29.005Z",
+    "elapsedMs": 72121,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 10,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:50:17.249Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "completed",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:16.216Z",
+          "finishedAt": "2026-11-28T14:49:59.200Z"
+        },
+        {
+          "id": "review",
+          "state": "running",
+          "activity": "reviewing",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "running",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:51:31.387Z",
+    "elapsedMs": 74503,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 10,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:50:17.249Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "completed",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:16.216Z",
+          "finishedAt": "2026-11-28T14:49:59.200Z"
+        },
+        {
+          "id": "review",
+          "state": "running",
+          "activity": "reviewing",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "running",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:51:34.001Z",
+    "elapsedMs": 77117,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 10,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:50:17.249Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "completed",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:16.216Z",
+          "finishedAt": "2026-11-28T14:49:59.200Z"
+        },
+        {
+          "id": "review",
+          "state": "running",
+          "activity": "reviewing",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "running",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:51:36.857Z",
+    "elapsedMs": 79973,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 10,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:50:17.249Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "completed",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:16.216Z",
+          "finishedAt": "2026-11-28T14:49:59.200Z"
+        },
+        {
+          "id": "review",
+          "state": "running",
+          "activity": "reviewing",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "running",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:51:39.241Z",
+    "elapsedMs": 82357,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 10,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:50:17.249Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "completed",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:16.216Z",
+          "finishedAt": "2026-11-28T14:49:59.200Z"
+        },
+        {
+          "id": "review",
+          "state": "running",
+          "activity": "reviewing",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "running",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:51:41.790Z",
+    "elapsedMs": 84906,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 10,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:50:17.249Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "completed",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:16.216Z",
+          "finishedAt": "2026-11-28T14:49:59.200Z"
+        },
+        {
+          "id": "review",
+          "state": "running",
+          "activity": "reviewing",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "running",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:51:44.259Z",
+    "elapsedMs": 87375,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 10,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:50:17.249Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "completed",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:16.216Z",
+          "finishedAt": "2026-11-28T14:49:59.200Z"
+        },
+        {
+          "id": "review",
+          "state": "running",
+          "activity": "reviewing",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "running",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:51:47.317Z",
+    "elapsedMs": 90433,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 10,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:50:17.249Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "completed",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:16.216Z",
+          "finishedAt": "2026-11-28T14:49:59.200Z"
+        },
+        {
+          "id": "review",
+          "state": "running",
+          "activity": "reviewing",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "running",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:51:49.627Z",
+    "elapsedMs": 92743,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 10,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:50:17.249Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "completed",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:16.216Z",
+          "finishedAt": "2026-11-28T14:49:59.200Z"
+        },
+        {
+          "id": "review",
+          "state": "running",
+          "activity": "reviewing",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "running",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:51:52.312Z",
+    "elapsedMs": 95428,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 10,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:50:17.249Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "completed",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:16.216Z",
+          "finishedAt": "2026-11-28T14:49:59.200Z"
+        },
+        {
+          "id": "review",
+          "state": "running",
+          "activity": "reviewing",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "running",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:51:54.463Z",
+    "elapsedMs": 97579,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 10,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:50:17.249Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "completed",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:16.216Z",
+          "finishedAt": "2026-11-28T14:49:59.200Z"
+        },
+        {
+          "id": "review",
+          "state": "running",
+          "activity": "reviewing",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "running",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:51:56.874Z",
+    "elapsedMs": 99990,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 10,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:50:17.249Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "completed",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:16.216Z",
+          "finishedAt": "2026-11-28T14:49:59.200Z"
+        },
+        {
+          "id": "review",
+          "state": "running",
+          "activity": "reviewing",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "running",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:51:59.062Z",
+    "elapsedMs": 102178,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 10,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:50:17.249Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "completed",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:16.216Z",
+          "finishedAt": "2026-11-28T14:49:59.200Z"
+        },
+        {
+          "id": "review",
+          "state": "running",
+          "activity": "reviewing",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "running",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:52:01.984Z",
+    "elapsedMs": 105100,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 10,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:50:17.249Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "completed",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:16.216Z",
+          "finishedAt": "2026-11-28T14:49:59.200Z"
+        },
+        {
+          "id": "review",
+          "state": "running",
+          "activity": "reviewing",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "running",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:52:05.824Z",
+    "elapsedMs": 108940,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 10,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:50:17.249Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "completed",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:16.216Z",
+          "finishedAt": "2026-11-28T14:49:59.200Z"
+        },
+        {
+          "id": "review",
+          "state": "running",
+          "activity": "reviewing",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "running",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:52:08.273Z",
+    "elapsedMs": 111389,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 10,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:50:17.249Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "completed",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:16.216Z",
+          "finishedAt": "2026-11-28T14:49:59.200Z"
+        },
+        {
+          "id": "review",
+          "state": "running",
+          "activity": "reviewing",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "running",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:52:10.725Z",
+    "elapsedMs": 113841,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 10,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:50:17.249Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "completed",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:16.216Z",
+          "finishedAt": "2026-11-28T14:49:59.200Z"
+        },
+        {
+          "id": "review",
+          "state": "running",
+          "activity": "reviewing",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "running",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:52:14.309Z",
+    "elapsedMs": 117425,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 11,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:51:08.000Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "completed",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:16.216Z",
+          "finishedAt": "2026-11-28T14:49:59.200Z"
+        },
+        {
+          "id": "review",
+          "state": "running",
+          "activity": "repairing",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "running",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:52:16.754Z",
+    "elapsedMs": 119870,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 11,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:51:08.000Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "completed",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:16.216Z",
+          "finishedAt": "2026-11-28T14:49:59.200Z"
+        },
+        {
+          "id": "review",
+          "state": "running",
+          "activity": "repairing",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "running",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:52:19.170Z",
+    "elapsedMs": 122286,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 11,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:51:08.000Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "completed",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:16.216Z",
+          "finishedAt": "2026-11-28T14:49:59.200Z"
+        },
+        {
+          "id": "review",
+          "state": "running",
+          "activity": "repairing",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "running",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:52:21.746Z",
+    "elapsedMs": 124862,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 11,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:51:08.000Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "completed",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:16.216Z",
+          "finishedAt": "2026-11-28T14:49:59.200Z"
+        },
+        {
+          "id": "review",
+          "state": "running",
+          "activity": "repairing",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "running",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:52:24.323Z",
+    "elapsedMs": 127439,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 11,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:51:08.000Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "completed",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:16.216Z",
+          "finishedAt": "2026-11-28T14:49:59.200Z"
+        },
+        {
+          "id": "review",
+          "state": "running",
+          "activity": "repairing",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "running",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:52:26.368Z",
+    "elapsedMs": 129484,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 11,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:51:08.000Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "completed",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:16.216Z",
+          "finishedAt": "2026-11-28T14:49:59.200Z"
+        },
+        {
+          "id": "review",
+          "state": "running",
+          "activity": "repairing",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "running",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:52:28.860Z",
+    "elapsedMs": 131976,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 11,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:51:08.000Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "completed",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:16.216Z",
+          "finishedAt": "2026-11-28T14:49:59.200Z"
+        },
+        {
+          "id": "review",
+          "state": "running",
+          "activity": "repairing",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "running",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:52:32.372Z",
+    "elapsedMs": 135488,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 11,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:51:08.000Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "completed",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:16.216Z",
+          "finishedAt": "2026-11-28T14:49:59.200Z"
+        },
+        {
+          "id": "review",
+          "state": "running",
+          "activity": "repairing",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "running",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:52:34.534Z",
+    "elapsedMs": 137650,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 11,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:51:08.000Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "completed",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:16.216Z",
+          "finishedAt": "2026-11-28T14:49:59.200Z"
+        },
+        {
+          "id": "review",
+          "state": "running",
+          "activity": "repairing",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "running",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:52:37.887Z",
+    "elapsedMs": 141003,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 11,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:51:08.000Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "completed",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:16.216Z",
+          "finishedAt": "2026-11-28T14:49:59.200Z"
+        },
+        {
+          "id": "review",
+          "state": "running",
+          "activity": "repairing",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "running",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:52:40.531Z",
+    "elapsedMs": 143647,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 11,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:51:08.000Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "completed",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:16.216Z",
+          "finishedAt": "2026-11-28T14:49:59.200Z"
+        },
+        {
+          "id": "review",
+          "state": "running",
+          "activity": "repairing",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "running",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:52:43.020Z",
+    "elapsedMs": 146136,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 11,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:51:08.000Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "completed",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:16.216Z",
+          "finishedAt": "2026-11-28T14:49:59.200Z"
+        },
+        {
+          "id": "review",
+          "state": "running",
+          "activity": "repairing",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "running",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:52:45.164Z",
+    "elapsedMs": 148280,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 11,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:51:08.000Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "completed",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:16.216Z",
+          "finishedAt": "2026-11-28T14:49:59.200Z"
+        },
+        {
+          "id": "review",
+          "state": "running",
+          "activity": "repairing",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "running",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:52:47.604Z",
+    "elapsedMs": 150720,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 11,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:51:08.000Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "completed",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:16.216Z",
+          "finishedAt": "2026-11-28T14:49:59.200Z"
+        },
+        {
+          "id": "review",
+          "state": "running",
+          "activity": "repairing",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "running",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:52:50.536Z",
+    "elapsedMs": 153652,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 12,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:51:46.386Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "completed",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:16.216Z",
+          "finishedAt": "2026-11-28T14:49:59.200Z"
+        },
+        {
+          "id": "review",
+          "state": "running",
+          "activity": "reviewing",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "running",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:52:52.867Z",
+    "elapsedMs": 155983,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "RUNNING",
+    "progress": {
+      "kind": "planet",
+      "revision": 12,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:51:46.386Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "completed",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:16.216Z",
+          "finishedAt": "2026-11-28T14:49:59.200Z"
+        },
+        {
+          "id": "review",
+          "state": "running",
+          "activity": "reviewing",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "running",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:59.201Z"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-11-28T14:52:54.950Z",
+    "elapsedMs": 158066,
+    "httpStatus": 200,
+    "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+    "status": "FAILED",
+    "code": "CONTENT_REVIEW_FAILED",
+    "progress": {
+      "kind": "planet",
+      "revision": 13,
+      "startedAt": "2026-11-28T14:49:14.821Z",
+      "updatedAt": "2026-11-28T14:51:50.148Z",
+      "steps": [
+        {
+          "id": "research",
+          "state": "completed",
+          "activity": "searching",
+          "startedAt": "2026-11-28T14:49:14.822Z",
+          "finishedAt": "2026-11-28T14:49:16.216Z"
+        },
+        {
+          "id": "compose",
+          "state": "completed",
+          "activity": "validating",
+          "startedAt": "2026-11-28T14:49:16.216Z",
+          "finishedAt": "2026-11-28T14:49:59.200Z"
+        },
+        {
+          "id": "review",
+          "state": "failed",
+          "activity": "unavailable",
+          "startedAt": "2026-11-28T14:49:59.201Z",
+          "finishedAt": "2026-11-28T14:51:50.148Z"
+        },
+        {
+          "id": "visual_prepare",
+          "state": "failed",
+          "activity": "unavailable",
+          "startedAt": "2026-11-28T14:49:59.201Z",
+          "finishedAt": "2026-11-28T14:51:50.148Z"
+        },
+        {
+          "id": "artwork",
+          "state": "pending"
+        },
+        {
+          "id": "finalize",
+          "state": "pending"
+        }
+      ]
+    }
+  }
+]

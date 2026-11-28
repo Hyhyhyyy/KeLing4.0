@@ -1,0 +1,20 @@
+{
+  "at": "2026-11-28T14:52:55.263Z",
+  "phase": "generation",
+  "message": "新内容的答案或依据未通过核对，原内容已保留，请调整要求后重试。",
+  "input": {
+    "subject": "分数的意义与等值分数",
+    "level": "初学者",
+    "goal": "小学五年级：认识分数、等值分数与简单比较，用生活例子解释",
+    "contextMode": "auto",
+    "questionCount": 6,
+    "generateArtwork": true
+  },
+  "jobId": "d3628834-9648-4e71-9825-3fb9e8f1f2dc",
+  "code": "CONTENT_REVIEW_FAILED",
+  "elapsedMs": 158380,
+  "generateRequests": 1,
+  "otherModelRequests": 0,
+  "confirmed": false,
+  "pageErrors": []
+}
