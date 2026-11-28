@@ -1,17 +1,17 @@
 {
   "appId": "app_17h4dw5jwdg",
   "route": "/download/android",
-  "versionName": "4.3.1-research-rc2",
-  "versionCode": 33,
-  "fileName": "KeLing-ICT-4.3.1-research-rc2-debug.apk",
-  "bytes": 85758314,
-  "sha256": "889ac6559f1398037a67013de1f80c15e0ec1f18412194119804672dbfc198c2",
+  "versionName": "4.3.2-progress-rc1",
+  "versionCode": 34,
+  "fileName": "KeLing-ICT-4.3.2-progress-rc1-debug.apk",
+  "bytes": 85236835,
+  "sha256": "e93e055ce99289e308079a84057284a170f6c5db280fee19d1bfba2f3a607549",
   "contentType": "application/vnd.android.package-archive",
   "storageBucket": "bucket_aadk4xawzf4xg",
-  "storagePath": "/1883094348066903.apk",
-  "sourcePath": "apps/android/app/build/research-proof/keling-4.3.1-research-rc2.apk",
+  "storagePath": "/1883111334116376.apk",
+  "sourcePath": "apps/android/app/build/progress-proof/keling-4.3.2-progress-rc1.apk",
   "certificateSha256": "e7b4d86c7a02fb6bb1d21215c393b347d2d67652e5e45dfbe3a3d6c66b7c67a3",
   "signatureScheme": "v2",
-  "githubReleaseTag": "v4.3.1-research-rc2",
-  "githubAssetUrl": "https://github.com/Hyhyhyyy/KeLing4.0/releases/download/v4.3.1-research-rc2/KeLing-ICT-4.3.1-research-rc2-debug.apk"
+  "githubReleaseTag": "v4.3.2-progress-rc1",
+  "githubAssetUrl": "https://github.com/Hyhyhyyy/KeLing4.0/releases/download/v4.3.2-progress-rc1/keling-4.3.2-progress-rc1.apk"
 }

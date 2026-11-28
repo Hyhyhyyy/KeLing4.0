@@ -3,12 +3,12 @@ import type { Response } from 'express';
 
 // Frozen only after the same APK is uploaded and its SHA-256 is verified on GitHub.
 export const currentAndroidRelease = {
-  versionCode: 33,
-  versionName: '4.3.1-research-rc2',
+  versionCode: 34,
+  versionName: '4.3.2-progress-rc1',
   updateUrl: 'https://ucn5aajxnx7f.feishuapp.com/app/app_17h4dw5jwdg/download/android',
-  updateLog: '联网材料驱动学习；逐题相似碎片与星芽提示；内容复核；角色参考图塑造星球；移动图谱适配。',
-  fileSize: 85758314,
-  sha256: '889ac6559f1398037a67013de1f80c15e0ec1f18412194119804672dbfc198c2',
+  updateLog: '星图与学习星球使用同一形象，重绘后同步；生成过程显示实际阶段与持续动画；优化等待过程，保留原有绘图质量与内容核对。',
+  fileSize: 85236835,
+  sha256: 'e93e055ce99289e308079a84057284a170f6c5db280fee19d1bfba2f3a607549',
 };
 
 @Controller('api/app')
